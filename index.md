@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: homepage
 title: Austin Transportation GitHub
 ---
 
@@ -8,11 +8,4 @@ title: Austin Transportation GitHub
 <p class="bg-info">This site will have important links to the department's cool open data projects.</p>
 
 
-***
 
-
-***
-
-
-
-<footer>Inspired by gov.uk/service-manual. Contains public sector information licensed under the Open Government Licence v2.0.</footer>
