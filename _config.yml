@@ -5,8 +5,8 @@ permalink:        pretty
 title:            'Austin Transportation GitHub'
 tagline:          'Open Data Projects at the Austin Transportation Department'
 description:      ''
-# url:              http://cityofaustin.github.io/transportation
-baseurl:          /transportation
+url:            http://cityofaustin.github.io/transportation
+baseurl:          ''
 
 author:
   name:           ''
@@ -16,7 +16,6 @@ paginate:         5
 
 gems:
   - jekyll-paginate
-  - jekyll-sitemap
 
 # Custom vars
 version:          0.0.0
