@@ -1,4 +1,9 @@
-.container-fluid {
-  padding: 0px;
-  margin: 0px;
+.jumbotron {
+    margin-bottom: 0px;
+    background-image: url(../images/skyline_1.jpg);
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    text-shadow: black 0.3em 0.3em 0.3em;
 }
