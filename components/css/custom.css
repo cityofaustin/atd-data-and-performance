@@ -11,3 +11,8 @@ body {
     color: black;
     text-shadow: 2px 2px white;
 }
+
+.map {
+    height: 300px;
+    background-color: black;
+}

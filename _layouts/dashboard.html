@@ -6,8 +6,10 @@
   <body>
 
   	{% include top-nav.html %}
-
+        
         <div class="container-fluid">
+        
+            <!-- Data Viz -->
             <div class="row">
                 <div class="col-md-3 chart pie" id=chart_1>
                     <h2>Pie Chart 1 <small><small><i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></small></small></h2>
@@ -28,8 +30,14 @@
             </div>
             
         </div>
+        
+        <!-- map -->
+        <div class="row">
+            <div class="col-md-12 map" id=map>
+            </div>
+        </div>
 
-	  <!-- TABLE TIME -->
+	  <!-- Table  -->
 		<h2 class="sub-header">Table View</h2>
           <div class="table-responsive">
             <table class="table table-striped table-hover" data-sort-name="address" data-sort-order="desc" id="caseTable">
