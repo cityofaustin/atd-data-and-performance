@@ -6,7 +6,7 @@ title:            'Austin Transportation GitHub'
 tagline:          'Open Data Projects at the Austin Transportation Department'
 description:      ''
 url:            http://cityofaustin.github.io/transportation
-baseurl:          ''
+baseurl:          '/transportation'
 
 author:
   name:           ''
