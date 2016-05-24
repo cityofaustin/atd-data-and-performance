@@ -9,7 +9,7 @@
     var width = 500;
     var height = 500;
     
-    d3.csv("./data/intersection_status_snapshot.csv", function(d) {
+    d3.csv("../components/data/intersection_status_snapshot.csv", function(d) {
         data = d;
     
         var int_count = data.length;
