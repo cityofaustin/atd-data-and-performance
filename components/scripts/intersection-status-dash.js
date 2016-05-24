@@ -6,8 +6,8 @@
         5: "COMM DISABLED"
     }
     
-    var width = 500;
-    var height = 500;
+    var width = 100%;
+    var height = 200;
     
     d3.csv("../components/data/intersection_status_snapshot.csv", function(d) {
         data = d;
