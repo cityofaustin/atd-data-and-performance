@@ -3,23 +3,65 @@
 
   {% include head.html %}
 
-    <body>
+  <body>
 
   	{% include top-nav.html %}
 
-    <div class="container-fluid">
-		
-		
-		
-    </div>
-	
-	<footer>Inspired by gov.uk/service-manual. Contains public sector information licensed under the Open Government Licence v2.0.</footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 chart pie" id=chart_1>
+                    <h2>Pie Chart 1 <small><small><i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></small></small></h2>
+                </div>
+                <div class="col-md-3 info" id=info1>
+                  <h2> Info 1 </h2>
+                </div>
+                <div class="col-md-3 info" id=info2>
+                  <h2> Info 2 </h2>
+                </div>
+                <div class="col-md-3 info" id=info3>
+                  <h2> Info 3 </h2>
+                </div>            
+            </div>
+            
+            <div style="float:right;" class="col-md-3" id="update_date">
+                <h4>TIMESTAMP DATETIME</h4>
+            </div>
+            
+        </div>
+
+	  <!-- TABLE TIME -->
+		<h2 class="sub-header">Table View</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover" data-sort-name="address" data-sort-order="desc" id="caseTable">
+              <thead>
+                <tr>
+                  <th>Case Number</th>
+				  <th>Address</th>
+				  <th>Property Type</th>
+					<th>Reported Violation</th>
+                  <th>Case Status</th>
+				  <th>Violations Found</th>
+				  <th>Assigned Officer</th>
+                  <th>Date Opened</th>
+				  <th>Last Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+			  <!-- data goes here programmatically  -->
+              </tbody>
+            </table>
+          </div>
+
+		<div class=tooltip></div>
+ 
+ 	<footer>Inspired by gov.uk/service-manual. Contains public sector information licensed under the Open Government Licence v2.0.</footer>
 
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="{{site.baseurl}}/components/scripts/bootstrap.js"></script>
+    <script src="{{site.baseurl}}/components/scripts/jquery.dataTables.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{site.baseurl}}/components/scripts/ie10-viewport-bug-workaround.js"></script>
   </body>
