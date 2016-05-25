@@ -2,6 +2,10 @@ body {
   padding-top: 50px; /* push content down to avoid nav conflict */
 }
 
+.navbar {
+    min-height: 25px;
+}
+
 .jumbotron {
     margin-bottom: 0px;
     background-image: url(../images/skyline_1.jpg);
