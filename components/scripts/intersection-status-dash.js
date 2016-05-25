@@ -25,10 +25,7 @@
         ]
         
          makePieChart(d3.values(comm_stat), "chart_1");
-         
-         populateInfoStat("info_1", int_stats[3]);
-         
-         populateInfoStat("info_2", int_stats[1]);
+
 
     });
     
