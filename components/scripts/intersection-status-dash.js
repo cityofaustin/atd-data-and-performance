@@ -1,16 +1,14 @@
-    var data;
+       
+    var width = 200;
+    var height = 200;
     
     var STATUS_TYPES = {
         0:"OK",
         3: "COMM FAIL",
         5: "COMM DISABLED"
     }
-    
-    var width = 200;
-    var height = 200;
-    
+
     d3.csv("../components/data/intersection_status_snapshot.csv", function(d) {
-        data = d;
     
         var int_count = data.length;
                 
@@ -19,13 +17,19 @@
             .rollup(function (v) { return v.length; })
             .map(data)
         
-        var comm_status = [
+        var comm_stat = [
             { "kind" : "without_comm", "value" : int_stats[5]},
             { "kind" : "with_comm", "value" : data.length - int_stats[5] }
+            { "kind" : "comm_fail", "value" : int_stats[3] }
+            { "kind" : "conflict_flash", "value" : int_stats[1] }
         ]
         
-         makePieChart(d3.values(comm_status), "chart_1");
+         makePieChart(d3.values(comm_stat), "chart_1");
          
+         populateInfoStat("info_1", int_stats[3]);
+         
+         populateInfoStat("info_2", int_stats[1]);
+
     });
     
     function makePieChart(dataset, divId) {
@@ -63,3 +67,9 @@
             }); // store the current angles
             
     } //end make pie chart
+    
+    function populateInfoStat(divId, datset) {
+        
+        d3.select("#" + divId).append("text").attr("class", "infoStat").text(datset);
+        
+    }
