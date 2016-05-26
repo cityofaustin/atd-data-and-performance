@@ -7,14 +7,18 @@
 
   	{% include top-nav.html %}
 
-	{% include jumbotron.html %}	
-		
-	<footer>Inspired by gov.uk/service-manual. Contains public sector information licensed under the Open Government Licence v2.0.</footer>
+    <div class="jumbotron">
+      <div class="container-fluid">
+        {{ content }}
+      </div>
+    </div>
+
+	{% include footer.html %}
 
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{{site.baseurl}}/components/scripts/jquery.min.js"></script>
     <script src="{{site.baseurl}}/components/scripts/bootstrap.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{site.baseurl}}/components/scripts/ie10-viewport-bug-workaround.js"></script>

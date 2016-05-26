@@ -1,5 +1,6 @@
 body {
-  padding-top: 50px; /* push content down to avoid nav conflict */
+  padding-top: 50px; /* push content down and up to avoid nav conflict */
+  padding-bottom: 50px;
 }
 
 .jumbotron {
@@ -14,4 +15,13 @@ body {
 
 .map {
     height: 300px;
+}
+
+.navbar {
+    background-color: #333333;
+}
+
+footer {
+    color: white;
+    background-color: #333333;
 }
