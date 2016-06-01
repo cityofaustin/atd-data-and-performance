@@ -1,3 +1,24 @@
 .map {
     height: 300px;
 }
+
+/* status styles */
+.ok {
+    fill: green;
+}
+
+.cab_flash {
+    fill: blue;
+}
+
+.conflict_flash {
+    fill: red;
+}
+
+.comm_fail {
+    fill: yellow;
+}
+
+.comm_disabled {
+    fill: orange;
+}

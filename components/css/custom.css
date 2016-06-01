@@ -13,10 +13,6 @@ body {
     text-shadow: 2px 2px white;
 }
 
-.map {
-    height: 300px;
-}
-
 .navbar {
     background-color: #333333;
 }
@@ -24,4 +20,9 @@ body {
 footer {
     color: white;
     background-color: #333333;
+    padding: 10px;
+}
+
+.homepage-link {
+    height: 300px;
 }

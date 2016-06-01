@@ -1,48 +1,63 @@
-       
+    //  v0.1
+    //
+    //  todo:
+    //  declare variables ;)
+    //  upgrade to d4!
+
+    var data;
+
     var width = 200;
+    
     var height = 200;
     
     var STATUS_TYPES = {
-        0:"OK",
-        3: "COMM FAIL",
-        5: "COMM DISABLED"
+        0: "ok",
+        1: "cab_flash",
+        2: "conflic_flash",
+        3: "comm_fail",
+        5: "comm_disabled"
     }
 
     d3.csv("../components/data/intersection_status_snapshot.csv", function(d) {
-    
-        var int_count = data.length;
-                
+        
+        data = d;
+
+        var pie_array = d3.values(int_stats);
+
         var int_stats = d3.nest()
             .key(function (d) { return d.intstatus; })
             .rollup(function (v) { return v.length; })
-            .map(data)
-        
-        var comm_stat = [
-            { "kind" : "without_comm", "value" : int_stats[5]},
-            { "kind" : "with_comm", "value" : data.length - int_stats[5] }
-            { "kind" : "comm_fail", "value" : int_stats[3] }
-            { "kind" : "conflict_flash", "value" : int_stats[1] }
-        ]
-        
-         makePieChart(d3.values(comm_stat), "chart_1");
+            .map(d)
 
+        var poll_stats = d3.nest()
+        //    .key(function (d) { return d.pollstatus; })
+        //    .rollup(function (v) { return v.length; })
+        
+        makePieChart(int_stats, "chart-1");
+
+        populateInfoStat("200", "info-1");
+
+        makeMap(data);
 
     });
-    
+
     function makePieChart(dataset, divId) {
         
+        var values = d3.values(dataset);  //  what's a better way to do this?
+
+        var keys = d3.keys(dataset);  //  the challenge is accessing the keys for assigning classes
+
         var radius = Math.min(width, height) / 2;
 
-        // format for pie chart
-        pie = d3.layout.pie()
+        var pie = d3.layout.pie()  //  not d4 compatible
             .sort(null)
             .value(function (d) {
-                return d.value;
+               return d;
             });
 
-        arc = d3.svg.arc()
+        var arc = d3.svg.arc()
             .outerRadius(radius)
-            .innerRadius(radius - 100);
+            .innerRadius(radius * .5);
 
         var svg = d3.select("#" + divId).append("svg")
             .attr("width", width)
@@ -50,14 +65,16 @@
             .append("g")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        path1 = svg.datum(dataset).selectAll("path")
+        var path1 = svg.datum(values).selectAll("path")
             .data(pie)
-            .enter().append("g").attr("class", "arc").attr("id", "pie")
+            .enter()
+            .append("g")
+            .attr("class", function(d, i) {
+                return STATUS_TYPES[keys[i]] + " arc";
+            })
+            .attr("id", "pie")
             .append("path")
             .attr("d", arc)
-            .attr("fill",  function(d){
-                if (d.data.kind == "with_comm") { return "#00127A"} else { return "#D10F88"}
-            })
             .attr("stroke", "white")
             .each(function (d) {
                 this._current = d;
@@ -65,8 +82,37 @@
             
     } //end make pie chart
     
-    function populateInfoStat(divId, datset) {
+    function populateInfoStat(dataset, divId) {
         
-        d3.select("#" + divId).append("text").attr("class", "infoStat").text(datset);
+        d3.select("#" + divId).append("text").attr("class", "infoStat").text(dataset);
         
     }
+
+    function makeMap(dataset){
+
+        var map = new L.Map("map", {center : [30.28, -97.735], zoom : 12, minZoom : 1, maxZoom : 20, scrollWheelZoom: false});      // make a map
+                
+        var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+            attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            subdomains : 'abcd',
+            minZoom : 0,
+            maxZoom : 20,
+            ext : 'png'
+        }).addTo(map);
+
+        signals = new L.Layer();
+        
+        for (var i = 0; i < dataset.length; i++){
+        
+            if (+dataset[i].intstatus > 0){
+        
+                var lat = data[i].latitude;
+        
+                var lon = data[i].longitude;
+        
+            }
+        }
+    }
+
+
+

@@ -17,16 +17,16 @@
         
             <!-- Data Viz -->
             <div class="row">
-                <div class="col-md-3 chart pie" id=chart_1>
+                <div class="col-md-3 chart pie" id=chart-1>
                     <h3>Pie Chart 1 <small><small><i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></small></small></h3>
                 </div>
-                <div class="col-md-3 info" id=info1>
+                <div class="col-md-3 info" id=info-1>
                   <h3> Info 1 </h3>
                 </div>
-                <div class="col-md-3 info" id=info2>
+                <div class="col-md-3 info" id=info-2>
                   <h3> Info 2 </h3>
                 </div>
-                <div class="col-md-3 info" id=info3>
+                <div class="col-md-3 info" id=info-3>
                   <h3> Info 3 </h3>
                 </div>            
             </div>
@@ -62,18 +62,18 @@
 
 		<div class=tooltip></div>
  
- 	<footer>Inspired by gov.uk/service-manual. Contains public sector information licensed under the Open Government Licence v2.0.</footer>
+  {% include footer.html %}
 
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{{site.baseurl}}/components/scripts/jquery.min.js"></script>
     <script src="{{site.baseurl}}/components/scripts/bootstrap.js"></script>
     <script src="{{site.baseurl}}/components/scripts/jquery.dataTables.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{site.baseurl}}/components/scripts/ie10-viewport-bug-workaround.js"></script>
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script>
+    <script src="{{site.baseurl}}/components/scripts/d3.min.js"></script>
+    <script src="{{site.baseurl}}/components/scripts/leaflet.js"></script>
     <script src="{{site.baseurl}}/components/scripts/intersection-status-map.js"></script>
     <script src="{{site.baseurl}}/components/scripts/intersection-status-dash.js"></script>
     
