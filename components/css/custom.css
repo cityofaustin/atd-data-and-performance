@@ -3,6 +3,10 @@ body {
   padding-bottom: 50px;
 }
 
+body > .container {
+    padding-top: 60px;
+}
+
 .jumbotron {
     margin-bottom: 0px;
     background-image: url(../images/skyline_2.jpg);
@@ -20,7 +24,6 @@ body {
 footer {
     color: white;
     background-color: #333333;
-    padding: 10px;
 }
 
 .homepage-link {
