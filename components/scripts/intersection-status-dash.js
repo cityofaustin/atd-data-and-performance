@@ -6,13 +6,19 @@
     //  upgrade to d4!
     //  scale charts based on div size?
     //  populate zeros for status types
+    //  ajax errorhandling
+    //
+    //
 
     // globals
-    var data, signals;
-    var cool;
-    var width = 200;    
-    var height = 200;
+    var data, signals, cool;
     
+    var width = 200;    
+    
+    var height = 200;
+
+    var data_url = "../components/data/intersection_status_snapshot.json";
+
     var STATUS_TYPES = {
         0: "ok",
         1: "cab_flash",
@@ -22,9 +28,11 @@
         11: "police_flash"
     }
 
-    d3.csv("../components/data/intersection_status_snapshot.csv", function(d) {
+    getData(data_url);
+
+    function main(data){
         
-        data = d;
+        d = data;
 
         var pie_array = d3.values(int_stats);
 
@@ -49,7 +57,7 @@
 
         makeMap(data);
 
-    });
+    };
 
     function makePieChart(dataset, divId) {
         
@@ -98,7 +106,7 @@
             .append("text")
             .attr("class", "infoStat")
             .text(dataset);
-        
+
     }
 
     function makeMap(dataset){
@@ -171,6 +179,21 @@
                 
             }
         }
+    }
+
+    function getData(url){
+
+        $.ajax({
+            'async' : false,
+            'global' : false,
+            'url' : url,
+            'dataType' : "json",
+            'success' : function (data) {
+                main(data);
+            }
+        
+        }); //end get data
+
     }
 
 
