@@ -18,19 +18,23 @@
             <!-- Data Viz -->
             <div class="row">
                 <div class="col-md-3 chart pie" id=chart-1>
-                    <h3>Pie Chart 1 <small><small><i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></small></small></h3>
+                  <h3> Comm Status <small><small><i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></small></small></h3>
                 </div>
                 <div class="col-md-3 info" id=info-1>
-                  <h3> Info 1 </h3>
+                  <h3> Unscheduled Flash </h3>
                 </div>
                 <div class="col-md-3 info" id=info-2>
-                  <h3> Info 2 </h3>
+                  <h3> Scheduled Flash </h3>
                 </div>
                 <div class="col-md-3 info" id=info-3>
-                  <h3> Info 3 </h3>
+                  <h3> Comm Fail </h3>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 info" id=info-4>
+                  <h3> Signal Outages By Month </h3>
                 </div>            
             </div>
-            
             <div style="float:right;" class="col-md-3" id="update_date">
                 <h5>Last Updated 25 May 2016 8:45AM</h5>
             </div>
@@ -62,8 +66,6 @@
 
 		<div class=tooltip></div>
  
-  {% include footer.html %}
-
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -74,7 +76,6 @@
     <script src="{{site.baseurl}}/components/scripts/ie10-viewport-bug-workaround.js"></script>
     <script src="{{site.baseurl}}/components/scripts/d3.min.js"></script>
     <script src="{{site.baseurl}}/components/scripts/leaflet.js"></script>
-    <script src="{{site.baseurl}}/components/scripts/intersection-status-map.js"></script>
     <script src="{{site.baseurl}}/components/scripts/intersection-status-dash.js"></script>
     
   </body>

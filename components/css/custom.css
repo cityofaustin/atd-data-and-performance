@@ -1,10 +1,37 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
-  padding-top: 50px; /* push content down and up to avoid nav conflict */
-  padding-bottom: 50px;
+    padding-top: 50px; /* push content down and up to avoid nav conflict */
+    padding-bottom: 50px;
 }
 
 body > .container {
     padding-top: 60px;
+}
+
+.footer {
+    color: white;
+    background-color: #333333;
+    bottom: 0px;
+    line-height: 20px;
+    position: absolute;
+    width: 1280px;
+}
+
+.infoStat {
+    font-size: 600%;
+    font-weight: bold;
+    text-align: center;
+    dominant-baseline: bottom;
+    fill: black;
+
+}
+
+.infoStat.warning {
+    fill: red;
 }
 
 .jumbotron {
@@ -13,16 +40,11 @@ body > .container {
     background-size: cover;
     background-repeat: no-repeat;
     height: 500px;
-    color: black;
+    color: black;e
     text-shadow: 2px 2px white;
 }
 
 .navbar {
-    background-color: #333333;
-}
-
-footer {
-    color: white;
     background-color: #333333;
 }
 

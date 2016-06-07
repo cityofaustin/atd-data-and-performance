@@ -1,21 +1,25 @@
     //  v0.1
     //
     //  todo:
+    //  the way you're doing applyStatusTypes is probably breaky
     //  declare variables ;)
     //  upgrade to d4!
+    //  scale charts based on div size?
+    //  populate zeros for status types
 
-    var data;
-
-    var width = 200;
-    
+    // globals
+    var data, signals;
+    var cool;
+    var width = 200;    
     var height = 200;
     
     var STATUS_TYPES = {
         0: "ok",
         1: "cab_flash",
-        2: "conflic_flash",
+        2: "conflict_flash",
         3: "comm_fail",
-        5: "comm_disabled"
+        5: "comm_disabled",
+        11: "police_flash"
     }
 
     d3.csv("../components/data/intersection_status_snapshot.csv", function(d) {
@@ -27,15 +31,21 @@
         var int_stats = d3.nest()
             .key(function (d) { return d.intstatus; })
             .rollup(function (v) { return v.length; })
-            .map(d)
+            .map(d);
+
+        applyStatusTypes(int_stats);
 
         var poll_stats = d3.nest()
-        //    .key(function (d) { return d.pollstatus; })
-        //    .rollup(function (v) { return v.length; })
+            .key(function (d) { return d.pollstatus; })
+            .rollup(function (v) { return v.length; })
         
         makePieChart(int_stats, "chart-1");
 
-        populateInfoStat("200", "info-1");
+        populateInfoStat(int_stats[2], "info-1");  // unscheduled flash
+
+        populateInfoStat(int_stats[1], "info-2");  // unscheduled flash
+
+        populateInfoStat(int_stats[3], "info-3");  // unscheduled flash
 
         makeMap(data);
 
@@ -100,19 +110,54 @@
             ext : 'png'
         }).addTo(map);
 
-        signals = new L.Layer();
+        populateMap(map, dataset);
+
+    }
+
+    function populateMap(map, dataset){
+
+        if (map.hasLayer(signals)) {
+            map.removeLayer(signals); 
+        }
+
+        signals = new L.featureGroup();
         
         for (var i = 0; i < dataset.length; i++){
-        
-            if (+dataset[i].intstatus > 0){
+            
+            var status = +dataset[i].intstatus;
+
+            if (status == 1){
         
                 var lat = data[i].latitude;
         
                 var lon = data[i].longitude;
-        
+
+                var address = data[i].intname;
+
+                var marker = L.marker([lat,lon])
+                    .bindPopup(
+                        address + "<br>"+ "<b>Status: </b>"+ STATUS_TYPES[status]
+                    )
+                    .addTo(signals);
+
+            }
+            
+        }
+
+        signals.addTo(map);
+
+        map.fitBounds(signals.getBounds());
+
+    }
+
+    function applyStatusTypes(statusObject){
+        for (statusType in STATUS_TYPES) {
+            if (!(statusType in statusObject)) {
+                statusObject[statusType] = 0;
             }
         }
     }
+
 
 
 
