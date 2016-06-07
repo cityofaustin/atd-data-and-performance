@@ -21,19 +21,6 @@ body > .container {
     width: 1280px;
 }
 
-.infoStat {
-    font-size: 600%;
-    font-weight: bold;
-    text-align: center;
-    dominant-baseline: bottom;
-    fill: black;
-
-}
-
-.infoStat.warning {
-    fill: red;
-}
-
 .jumbotron {
     margin-bottom: 0px;
     background-image: url(../images/skyline_2.jpg);

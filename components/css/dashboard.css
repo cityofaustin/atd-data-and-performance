@@ -1,3 +1,16 @@
+.infoStat {
+    font-size: 600%;
+    font-weight: bold;
+    text-align: center;
+    dominant-baseline: bottom;
+    fill: black;
+
+}
+
+.infoStat.warning {
+    fill: red;
+}
+
 .map {
     height: 300px;
 }
@@ -21,4 +34,17 @@
 
 .comm_disabled {
     fill: orange;
+}
+
+div.tooltip {   
+  position: absolute;           
+  text-align: center;                       
+  color: white;             
+  padding: 6px;             
+  font: 12px sans-serif;        
+  background: black;   
+  border-radius: 4px;           
+  border: 0px;      
+  
+  pointer-events: none;         
 }
