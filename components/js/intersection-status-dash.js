@@ -208,9 +208,10 @@
             .each(function (d) {
                 d3.select(this).append("td").html(d.assetnum);
                 d3.select(this).append("td").html(d.intname);
-                d3.select(this).append("td").html(d.intstatusprevious);
                 d3.select(this).append("td").html(d.intstatus);
+                d3.select(this).append("td").html(d.intstatusprevious);
                 d3.select(this).append("td").html(d.intstatusdatetime).attr("class", STATUS_TYPES[d.intstatusdatetime]);
+                d3.select(this).append("td").html(d.pollstatus);
                 d3.select(this).append("td").html(d.operationstate);
                 d3.select(this).append("td").html(d.planid);
         })
