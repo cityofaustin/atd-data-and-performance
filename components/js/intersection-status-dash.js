@@ -7,11 +7,11 @@
     //  scale charts based on div size?
     //  populate zeros for status types
     //  ajax errorhandling
-    //
+    //  click/zoomto on map
     //
 
     // globals
-    var data, signals, cool;
+    var signals, cool;
     
     var width = 200;    
     
@@ -28,24 +28,34 @@
         11: "police_flash"
     }
 
+    var STATUS_TYPES_READABLE = {
+        0: "OK",
+        1: "Cabinet Flash",
+        2: "Conflict Flash",
+        3: "Comm Fail",
+        5: "Comm Disabled",
+        11: "Police Flash"
+    }
+
     getData(data_url);
 
     function main(data){
         
-        d = data;
+        cool = data;
 
         var pie_array = d3.values(int_stats);
 
         var int_stats = d3.nest()
             .key(function (d) { return d.intstatus; })
             .rollup(function (v) { return v.length; })
-            .map(d);
+            .map(data);
 
         applyStatusTypes(int_stats);
 
         var poll_stats = d3.nest()
             .key(function (d) { return d.pollstatus; })
             .rollup(function (v) { return v.length; })
+            .map(data);
         
         makePieChart(int_stats, "chart-1");
 
@@ -144,31 +154,33 @@
 
         signals = new L.featureGroup();
         
-        for (var i = 0; i < 5; i++){
+        for (var i = 0; i < dataset.length; i++){
             
             var status = +dataset[i].intstatus;
 
-            //  if (status == 1){
-            if (dataset[i].latitude > 0) {
+            if (status > 0 && status < 4) {
 
-                var lat = dataset[i].latitude;
-        
-                var lon = dataset[i].longitude;
+                if(dataset[i].latitude > 0) {
 
-                var address = dataset[i].intname;
-                
-                var marker = L.marker([lat,lon])
-                    .bindPopup(
-                        address + "<br>"+ "<b>Status: </b>"+ STATUS_TYPES[status]
-                    )
-                    .addTo(signals);
+                    var lat = dataset[i].latitude;
+            
+                    var lon = dataset[i].longitude;
+
+                    var address = dataset[i].intname;
+                    
+                    var marker = L.marker([lat,lon])
+                        .bindPopup(
+                            address + "<br>"+ "<b>Status: </b>"+ STATUS_TYPES[status]
+                        )
+                        .addTo(signals);
+                }
             }
             
         }
 
         signals.addTo(map);
 
-        map.fitBounds(signals.getBounds());
+       // map.fitBounds(signals.getBounds());
 
     }
 
@@ -202,13 +214,24 @@
 
     function populateTable(data) {
 
-        var rows = d3.select("tbody").selectAll("tr").data(data).enter().append("tr").attr("class", "tableRow");
+        // only show not-OK records in the data table
+        data = data.filter(function(d) {return d.intstatus > 0})
+
+        var rows = d3.select("tbody")
+            .selectAll("tr")
+            .data(data)
+            .enter()
+            .append("tr")
+            .filter(function(d){
+                return d.intstatus > 0;
+            })
+            .attr("class", "tableRow");
 
         d3.select("tbody").selectAll("tr")
             .each(function (d) {
                 d3.select(this).append("td").html(d.assetnum);
                 d3.select(this).append("td").html(d.intname);
-                d3.select(this).append("td").html(d.intstatus);
+                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.intstatus] + " (" + d.intstatus + ")");
                 d3.select(this).append("td").html(d.intstatusprevious);
                 d3.select(this).append("td").html(d.intstatusdatetime).attr("class", STATUS_TYPES[d.intstatusdatetime]);
                 d3.select(this).append("td").html(d.pollstatus);
