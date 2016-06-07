@@ -94,13 +94,22 @@
     
     function populateInfoStat(dataset, divId) {
         
-        d3.select("#" + divId).append("text").attr("class", "infoStat").text(dataset);
+        d3.select("#" + divId)
+            .append("text")
+            .attr("class", "infoStat")
+            .text(dataset);
         
     }
 
     function makeMap(dataset){
 
-        var map = new L.Map("map", {center : [30.28, -97.735], zoom : 12, minZoom : 1, maxZoom : 20, scrollWheelZoom: false});      // make a map
+        var map = new L.Map("map", {
+            center : [30.28, -97.735],
+            zoom : 12,
+            minZoom : 1,
+            maxZoom : 20,
+            scrollWheelZoom: false
+        });      // make a map
                 
         var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
             attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -108,7 +117,8 @@
             minZoom : 0,
             maxZoom : 20,
             ext : 'png'
-        }).addTo(map);
+        })
+        .addTo(map);
 
         populateMap(map, dataset);
 
@@ -117,7 +127,9 @@
     function populateMap(map, dataset){
 
         if (map.hasLayer(signals)) {
+
             map.removeLayer(signals); 
+
         }
 
         signals = new L.featureGroup();
@@ -139,7 +151,6 @@
                         address + "<br>"+ "<b>Status: </b>"+ STATUS_TYPES[status]
                     )
                     .addTo(signals);
-
             }
             
         }
@@ -151,9 +162,13 @@
     }
 
     function applyStatusTypes(statusObject){
+
         for (statusType in STATUS_TYPES) {
+
             if (!(statusType in statusObject)) {
+
                 statusObject[statusType] = 0;
+                
             }
         }
     }
