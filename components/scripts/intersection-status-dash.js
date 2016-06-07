@@ -130,6 +130,8 @@
 
         populateMap(map, dataset);
 
+        populateTable(dataset);
+
     }
 
     function populateMap(map, dataset){
@@ -142,18 +144,19 @@
 
         signals = new L.featureGroup();
         
-        for (var i = 0; i < dataset.length; i++){
+        for (var i = 0; i < 5; i++){
             
             var status = +dataset[i].intstatus;
 
-            if (status == 1){
-        
-                var lat = data[i].latitude;
-        
-                var lon = data[i].longitude;
+            //  if (status == 1){
+            if (dataset[i].latitude > 0) {
 
-                var address = data[i].intname;
+                var lat = dataset[i].latitude;
+        
+                var lon = dataset[i].longitude;
 
+                var address = dataset[i].intname;
+                
                 var marker = L.marker([lat,lon])
                     .bindPopup(
                         address + "<br>"+ "<b>Status: </b>"+ STATUS_TYPES[status]
@@ -197,5 +200,29 @@
     }
 
 
+    function populateTable(data) {
 
+        var rows = d3.select("tbody").selectAll("tr").data(data).enter().append("tr").attr("class", "tableRow");
+
+        d3.select("tbody").selectAll("tr")
+            .each(function (d) {
+                d3.select(this).append("td").html(d.assetnum);
+                d3.select(this).append("td").html(d.intname);
+                d3.select(this).append("td").html(d.intstatusprevious);
+                d3.select(this).append("td").html(d.intstatus);
+                d3.select(this).append("td").html(d.intstatusdatetime).attr("class", STATUS_TYPES[d.intstatusdatetime]);
+                d3.select(this).append("td").html(d.operationstate);
+                d3.select(this).append("td").html(d.planid);
+        })
+
+        //activate sorting/search functionality
+        $(document).ready(function () {
+
+            $('#data_table').DataTable({
+                paging : false
+            });
+
+        });
+
+    } //end populateTable
 
