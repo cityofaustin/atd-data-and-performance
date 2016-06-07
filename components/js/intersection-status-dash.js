@@ -215,7 +215,7 @@
     function populateTable(data) {
 
         // only show not-OK records in the data table
-        data = data.filter(function(d) {return d.intstatus > 0})
+        data = data.filter(function(d) { return d.intstatus > 0 && d.intstatus < 5; })
 
         var rows = d3.select("tbody")
             .selectAll("tr")
