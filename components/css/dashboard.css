@@ -1,3 +1,10 @@
+a.anchor {
+    display: block;
+    position: relative;
+    top: -150px;
+    visibility: hidden;
+}
+
 .infoStat {
     font-size: 600%;
     font-weight: bold;
@@ -32,8 +39,8 @@
     fill: yellow;
 }
 
-.comm_disabled {
-    fill: orange;
+.comm_disabled, .no_comm {
+    fill: #333333;
 }
 
 div.tooltip {   

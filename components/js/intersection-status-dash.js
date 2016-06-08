@@ -1,13 +1,17 @@
     //  v0.1
     //
     //  todo:
+    //  fix comm status percentage and chart
+    //  animate status / chart
+    //  tooltips
+    //  nav tweaks and icons
     //  the way you're doing applyStatusTypes is probably breaky
     //  declare variables ;)
     //  upgrade to d4!
     //  scale charts based on div size?
     //  populate zeros for status types
     //  ajax errorhandling
-    //  click/zoomto on map
+    //  table anchors so you can go 'back' from feature click
     //
 
     // globals
@@ -17,9 +21,12 @@
     
     var height = 200;
 
+    var signal_markers = {};
+
     //  var data_url = "../components/data/intersection_status_snapshot.json";
     
     var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
+
 
     var STATUS_TYPES = {
         0: "ok",
@@ -28,7 +35,12 @@
         3: "comm_fail",
         5: "comm_disabled",
         11: "police_flash"
-    }
+    };
+
+    var COMM_TYPES = {
+        0: "no_comm",
+        1: "ok"
+    };
 
     var STATUS_TYPES_READABLE = {
         0: "OK",
@@ -37,12 +49,23 @@
         3: "Comm Fail",
         5: "Comm Disabled",
         11: "Police Flash"
-    }
+    };
 
     getData(data_url);
 
-    function main(data){
+    d3.selectAll(".feature_link").on("click", function(d){
+
+        var marker_id = d3.select(this).attr("data-intid");
         
+        map.setZoom(16).panTo(signal_markers[marker_id].getLatLng());
+
+        signal_markers[marker_id].openPopup();
+
+    })
+
+    // 
+    function main(data){
+
         cool = data;
 
         var pie_array = d3.values(int_stats);
@@ -59,13 +82,13 @@
             .rollup(function (v) { return v.length; })
             .map(data);
         
-        makePieChart(int_stats, "chart-1");
+        makePieChart(poll_stats, "chart-1");
 
         populateInfoStat(int_stats[2], "info-1");  // unscheduled flash
 
-        populateInfoStat(int_stats[1], "info-2");  // unscheduled flash
+        populateInfoStat(int_stats[1], "info-2");  // scheduled flash
 
-        populateInfoStat(int_stats[3], "info-3");  // unscheduled flash
+        populateInfoStat(int_stats[3], "info-3");  // comm fail
 
         makeMap(data);
 
@@ -100,7 +123,7 @@
             .enter()
             .append("g")
             .attr("class", function(d, i) {
-                return STATUS_TYPES[keys[i]] + " arc";
+                return COMM_TYPES[keys[i]] + " arc";
             })
             .attr("id", "pie")
             .append("path")
@@ -110,7 +133,7 @@
                 this._current = d;
             }); // store the current angles
             
-    } //end make pie chart
+    } //  end make pie chart
     
     function populateInfoStat(dataset, divId) {
         
@@ -123,7 +146,7 @@
 
     function makeMap(dataset){
 
-        var map = new L.Map("map", {
+        map = new L.Map("map", {
             center : [30.28, -97.735],
             zoom : 12,
             minZoom : 1,
@@ -160,7 +183,7 @@
             
             var status = +dataset[i].intstatus;
 
-            if (status > 0 && status < 4) {
+            if (status > 0 && status < 5) {
 
                 if(dataset[i].latitude > 0) {
 
@@ -169,12 +192,16 @@
                     var lon = dataset[i].longitude;
 
                     var address = dataset[i].intname;
+
+                    var intid = dataset[i].intid;
                     
                     var marker = L.marker([lat,lon])
                         .bindPopup(
                             address + "<br>"+ "<b>Status: </b>"+ STATUS_TYPES[status]
                         )
                         .addTo(signals);
+
+                    signal_markers[intid] = marker;
                 }
             }
             
@@ -182,7 +209,7 @@
 
         signals.addTo(map);
 
-       // map.fitBounds(signals.getBounds());
+        map.fitBounds(signals.getBounds());
 
     }
 
@@ -198,12 +225,12 @@
         }
     }
 
-    function getData(url){
-
+    function getData(myurl){
         $.ajax({
             'async' : false,
             'global' : false,
-            'url' : url,
+            'cache' : false,
+            'url' : myurl,
             'dataType' : "json",
             'success' : function (data) {
                 main(data);
@@ -232,7 +259,7 @@
         d3.select("tbody").selectAll("tr")
             .each(function (d) {
                 d3.select(this).append("td").html(d.assetnum);
-                d3.select(this).append("td").html(d.intname);
+                d3.select(this).append("td").html("<a href='#map'" + "class='feature_link' data-intid=" + d.intid + " name=_" + d.intid + ">" + d.intname + "</a>");
                 d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.intstatus] + " (" + d.intstatus + ")");
                 d3.select(this).append("td").html(d.intstatusprevious);
                 d3.select(this).append("td").html(d.intstatusdatetime).attr("class", STATUS_TYPES[d.intstatusdatetime]);
@@ -241,14 +268,12 @@
                 d3.select(this).append("td").html(d.planid);
         })
 
-        //activate sorting/search functionality
+        //  activate datatable sorting/search functionality
         $(document).ready(function () {
-
             $('#data_table').DataTable({
                 paging : false
             });
-
         });
 
-    } //end populateTable
+    } //  end populateTable
 
