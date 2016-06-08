@@ -17,7 +17,9 @@
     
     var height = 200;
 
-    var data_url = "../components/data/intersection_status_snapshot.json";
+    //  var data_url = "../components/data/intersection_status_snapshot.json";
+    
+    var data_url = "https://data.austintexas.gov/resource/utgi-umz5.json";
 
     var STATUS_TYPES = {
         0: "ok",
