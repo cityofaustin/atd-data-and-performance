@@ -3,6 +3,7 @@
     //  todo:
     //  fix comm status percentage and chart
     //  animate status / chart
+    //  home button, layer control on map
     //  tooltips
     //  nav tweaks and icons
     //  the way you're doing applyStatusTypes is probably breaky
@@ -17,9 +18,9 @@
     // globals
     var signals, cool;
     
-    var width = 200;    
+    var width = 100;    
     
-    var height = 200;
+    var height = 100;
 
     var signal_markers = {};
 

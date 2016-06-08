@@ -1,3 +1,11 @@
+body {
+  padding-bottom: 0px;
+}
+
+.tooltip{
+  height: 0px;
+}
+
 a.anchor {
     display: block;
     position: relative;
@@ -6,7 +14,7 @@ a.anchor {
 }
 
 .infoStat {
-    font-size: 600%;
+    font-size: 400%;
     font-weight: bold;
     text-align: center;
     dominant-baseline: bottom;
@@ -20,6 +28,13 @@ a.anchor {
 
 .map {
     height: 300px;
+}
+
+.divider {
+  min-height: 35px;
+  background-color: #333333;
+  color: white;
+  padding: 5px;
 }
 
 /* status styles */
