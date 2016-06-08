@@ -24,6 +24,8 @@
 
     var signal_markers = {};
 
+    var formatPct = d3.format("%");
+
     //  var data_url = "../components/data/intersection_status_snapshot.json";
     
     var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
@@ -83,6 +85,8 @@
             .rollup(function (v) { return v.length; })
             .map(data);
         
+        cool = poll_stats;
+
         makePieChart(poll_stats, "chart-1");
 
         populateInfoStat(int_stats[2], "info-1");  // unscheduled flash
@@ -134,6 +138,16 @@
                 this._current = d;
             }); // store the current angles
             
+        svg.append("g").append("text")
+            .style("text-anchor", "middle")
+            .attr("class", "info")
+            .html(function (d) {
+                var not_polled = dataset[0];
+                var is_polled = dataset[1];
+                return formatPct(is_polled/(not_polled + is_polled));
+                //  return 0; //dummy value for initial transition
+            });
+
     } //  end make pie chart
     
     function populateInfoStat(dataset, divId) {

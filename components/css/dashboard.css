@@ -6,11 +6,9 @@ body {
   height: 0px;
 }
 
-a.anchor {
-    display: block;
-    position: relative;
-    top: -150px;
-    visibility: hidden;
+.anchor {
+  padding-top: 40px;
+
 }
 
 .infoStat {
@@ -20,6 +18,11 @@ a.anchor {
     dominant-baseline: bottom;
     fill: black;
 
+}
+
+.info {
+  font-size: 140%;
+  font-weight: bold;
 }
 
 .infoStat.warning {
