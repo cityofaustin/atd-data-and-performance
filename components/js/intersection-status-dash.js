@@ -141,21 +141,76 @@
         svg.append("g").append("text")
             .style("text-anchor", "middle")
             .attr("class", "info")
-            .html(function (d) {
-                var not_polled = dataset[0];
-                var is_polled = dataset[1];
-                return formatPct(is_polled/(not_polled + is_polled));
-                //  return 0; //dummy value for initial transition
-            });
+            .text(formatPct(0));
+
+        updatePieChart(dataset, divId);
 
     } //  end make pie chart
     
     function populateInfoStat(dataset, divId) {
-        
-        d3.select("#" + divId)
+    
+         d3.select("#" + divId)
             .append("text")
             .attr("class", "infoStat")
-            .text(dataset);
+            .text('0');
+
+        updateInfoStat(dataset, divId);
+
+    }
+
+    function updateInfoStat(dataset, divId) {
+
+        if (dataset) {
+            d3.select("#" + divId)
+                .select("text")
+                .transition()
+                .duration(1000)
+                .ease("quad")
+                .tween("text", function () {
+                    
+                    var i = d3.interpolate(this.textContent, dataset);
+                    
+                    return function (t) {
+                    
+                        this.textContent = Math.round(i(t));
+                    
+                    }
+                
+                });
+        }
+    }
+
+    function updatePieChart(dataset, divId){
+
+        d3.select("#divId")
+            .select(".info")
+            .transition()
+            .duration(750)
+            .ease("quad")
+            .tween("text", function (d) {
+                
+                var start = parseFloat(this.textContent); //parse out the % symbol - good job, javascript!
+              
+                if (isNaN(start)) {
+                    start = 0;
+                }
+
+                console.log(start);
+
+                var not_polled = dataset[0];
+                
+                var is_polled = dataset[1];
+                
+                var has_comm = (is_polled/(not_polled + is_polled)) * 100;
+              
+                var i = d3.interpolate(start, has_comm)
+                    
+                    return function (t) {
+
+                    this.textContent = formatPct(Math.round(i(t)) / 100);
+                }
+
+            })
 
     }
 
