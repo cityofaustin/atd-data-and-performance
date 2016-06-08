@@ -19,7 +19,7 @@
 
     //  var data_url = "../components/data/intersection_status_snapshot.json";
     
-    var data_url = "https://data.austintexas.gov/resource/utgi-umz5.json";
+    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
 
     var STATUS_TYPES = {
         0: "ok",
