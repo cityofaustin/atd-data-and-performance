@@ -1,3 +1,8 @@
+.homepage-button {
+    background-color: #333333;
+    color: white;
+}
+
 html {
     position: relative;
     min-height: 100%;
