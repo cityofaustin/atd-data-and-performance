@@ -61,9 +61,9 @@
     });
 
     var comm_failMarker = new L.ExtraMarkers.icon({
-        icon: 'fa-phone',
-        markerColor: 'yellow',
-        shape: 'circle',
+        icon: 'fa-exclamation-triangle',
+        markerColor: 'blue',
+        shape: 'square',
         prefix: 'fa'
     });
 
