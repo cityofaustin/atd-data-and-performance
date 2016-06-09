@@ -1,3 +1,7 @@
+.navbar {
+  
+}
+
 body {
   padding-bottom: 0px;
 }
@@ -33,7 +37,7 @@ body {
     height: 300px;
 }
 
-.divider {
+.dash-footer {
   min-height: 35px;
   background-color: #333333;
   color: white;

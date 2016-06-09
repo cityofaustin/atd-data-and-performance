@@ -1,8 +1,7 @@
     //  v0.1
     //
     //  todo:
-    //  fix comm status percentage and chart
-    //  animate status / chart
+    //  animate chart pct - WTF?
     //  home button, layer control on map
     //  tooltips
     //  nav tweaks and icons

@@ -5,7 +5,7 @@
 
   <body>
 
-  	{% include top-nav.html %}
+  	{% include dash-top-nav.html %}
         
         <div class="container-fluid">
             <div class="row">
@@ -57,12 +57,8 @@
           <div class=tooltip></div>
 
           </div>
-              <div class="row">
-              <div class="col-md-12 divider">
-                <a href="http://cityofaustin.gov"><img class="img-responsive" src="{{site.baseurl}}/components/images/austin_stamp.png"></a>
-                <p> Austin Transportation Department</p>
-              </div>
-            </div>
+
+                {% include dash-footer.html %}
 
         </div>
 

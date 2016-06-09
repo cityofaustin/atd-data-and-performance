@@ -3,15 +3,6 @@ html {
     min-height: 100%;
 }
 
-body {
-    padding-top: 50px; /* push content down and up to avoid nav conflict */
-    padding-bottom: 50px;
-}
-
-body > .container {
-    padding-top: 60px;
-}
-
 .footer {
     color: white;
     background-color: #333333;
