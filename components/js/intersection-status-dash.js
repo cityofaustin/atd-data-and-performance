@@ -215,6 +215,8 @@
 
     function makeMap(dataset){
 
+        L.Icon.Default.imagePath = '../components/images/';
+
         map = new L.Map("map", {
             center : [30.28, -97.735],
             zoom : 12,
