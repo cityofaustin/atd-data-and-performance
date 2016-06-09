@@ -59,7 +59,7 @@
 
         var marker_id = d3.select(this).attr("data-intid");
         
-        map.setZoom(16).panTo(signal_markers[marker_id].getLatLng());
+        map.setZoom(15).panTo(signal_markers[marker_id].getLatLng());
 
         signal_markers[marker_id].openPopup();
 
@@ -222,15 +222,25 @@
             maxZoom : 20,
             scrollWheelZoom: false
         });      // make a map
-                
+        
+        var Thunderforest_Transport = L.tileLayer('http://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            maxZoom: 19
+        }).addTo(map);
+
         var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
             attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             subdomains : 'abcd',
-            minZoom : 0,
             maxZoom : 20,
             ext : 'png'
         })
-        .addTo(map);
+
+        var baseLayers = {
+            "B&W": Stamen_TonerLite,
+            "Color": Thunderforest_Transport
+        };
+
+        L.control.layers(baseLayers, null, {position: 'bottomleft'}).addTo(map);
 
         populateMap(map, dataset);
 
