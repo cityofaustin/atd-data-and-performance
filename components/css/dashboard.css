@@ -1,6 +1,16 @@
+.navbar {
+  /* background-image: url(../images/collage_sat_navbar.png); */
+  border: none;
+}
+
 img.navbar-brand {
+  background-color: #333333;
   padding: 0px;
   padding-right: 10px;
+}
+
+a.navbar-brand {
+  /* background-color: #333333; */
 }
 
 body {
