@@ -25,10 +25,11 @@
 
     var formatPct = d3.format("%");
 
-    var data_url = "../components/data/intersection_status_snapshot.json";
+    //  static data
+    //  var data_url = "../components/data/intersection_status_snapshot.json";
     
    //  live data!
-   // var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
+   var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
 
     var STATUS_TYPES = {
         0: "ok",
