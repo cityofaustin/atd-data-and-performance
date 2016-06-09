@@ -1,18 +1,29 @@
-.navbar {
-  
+img.navbar-brand {
+  padding: 0px;
+  padding-right: 10px;
 }
 
 body {
   padding-bottom: 0px;
 }
 
-.tooltip{
-  height: 0px;
+.dash-footer {
+  min-height: 35px;
+  background-color: #333333;
+  color: white;
+  padding: 5px;
 }
 
-.anchor {
-  padding-top: 40px;
-
+div.tooltip {   
+  position: absolute;           
+  text-align: center;                       
+  color: white;             
+  padding: 6px;             
+  font: 12px sans-serif;        
+  background: black;   
+  border-radius: 4px;           
+  border: 0px;      
+  pointer-events: none;         
 }
 
 .infoStat {
@@ -37,11 +48,8 @@ body {
     height: 300px;
 }
 
-.dash-footer {
-  min-height: 35px;
-  background-color: #333333;
-  color: white;
-  padding: 5px;
+.tooltip{
+  height: 0px;
 }
 
 /* status styles */
@@ -63,17 +71,4 @@ body {
 
 .comm_disabled, .no_comm {
     fill: #333333;
-}
-
-div.tooltip {   
-  position: absolute;           
-  text-align: center;                       
-  color: white;             
-  padding: 6px;             
-  font: 12px sans-serif;        
-  background: black;   
-  border-radius: 4px;           
-  border: 0px;      
-  
-  pointer-events: none;         
 }
