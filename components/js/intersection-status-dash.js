@@ -246,6 +246,16 @@
 
         populateTable(dataset);
 
+          // Creates a red marker with the coffee icon
+          var redMarker = L.ExtraMarkers.icon({
+            icon: 'fa-coffee',
+            markerColor: 'red',
+            shape: 'square',
+            prefix: 'fa'
+          });
+
+            L.marker([30.261928, -97.730274], {icon: redMarker,}).addTo(map);
+
     }
 
     function populateMap(map, dataset){
