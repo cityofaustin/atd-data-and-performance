@@ -14,12 +14,12 @@ html {
 
 .jumbotron {
     margin-bottom: 0px;
-    background-image: url(../images/skyline_2.jpg);
+    background-image: url(../images/collage_sat_1600.png);
     background-size: cover;
     background-repeat: no-repeat;
-    height: 500px;
-    color: black;e
+    color: #333333;
     text-shadow: 2px 2px white;
+    min-height: 300px;
 }
 
 .navbar {

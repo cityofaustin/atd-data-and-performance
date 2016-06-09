@@ -4,25 +4,32 @@
   {% include head.html %}
 
   <body>
-
-  	{% include top-nav.html %}
+          <div class="container-fluid">
+          <row>
+          <div class="col-md-12">
+                      {{ content }}
+          </div>
+          </row>
+          </div>
 
     <div class="jumbotron">
       <div class="container-fluid">
-        {{ content }}
       </div>
     </div>
 
+
     <div class="container-fluid">
-      <div class="col-md-4 homepage-link">
-        <h2>Dashboards</h2>
-      </div>
-      <div class="col-md-4 homepage-link">
-        <h2>Open Data</h2>
-      </div>
-      <div class="col-md-4 homepage-link">
-        <h2>Contact</h2>
-      </div>
+    <row>
+        <div class="col-md-4 homepage-link">
+          <h2>Dashboards</h2>
+        </div>
+        <div class="col-md-4 homepage-link">
+          <h2>Open Data</h2>
+        </div>
+        <div class="col-md-4 homepage-link">
+          <h2>Contact</h2>
+        </div>
+      </row>
     </div>
 
 	{% include footer.html %}
