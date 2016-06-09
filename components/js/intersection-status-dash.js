@@ -25,10 +25,10 @@
 
     var formatPct = d3.format("%");
 
-    //  var data_url = "../components/data/intersection_status_snapshot.json";
+    var data_url = "../components/data/intersection_status_snapshot.json";
     
-    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
-
+   //  live data!
+   // var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
 
     var STATUS_TYPES = {
         0: "ok",
@@ -53,6 +53,33 @@
         11: "Police Flash"
     };
 
+    var conflict_flashMarker = new L.ExtraMarkers.icon({
+        icon: 'fa-exclamation-triangle',
+        markerColor: 'red',
+        shape: 'circle',
+        prefix: 'fa'
+    });
+
+    var comm_failMarker = new L.ExtraMarkers.icon({
+        icon: 'fa-phone',
+        markerColor: 'yellow',
+        shape: 'circle',
+        prefix: 'fa'
+    });
+
+    var cab_flashMarker = new L.ExtraMarkers.icon({
+        icon: 'fa-exclamation-triangle',
+        markerColor: 'yellow',
+        shape: 'circle',
+        prefix: 'fa'
+    });
+
+    var MARKER_ICONS = {
+        1 : cab_flashMarker,
+        2 : conflict_flashMarker,
+        3 : comm_failMarker
+    }
+    
     getData(data_url);
 
     d3.selectAll(".feature_link").on("click", function(d){
@@ -140,9 +167,17 @@
         svg.append("g").append("text")
             .style("text-anchor", "middle")
             .attr("class", "info")
-            .text(formatPct(0));
+            .text(function(){
+                var not_polled = dataset[0];
+                
+                var is_polled = dataset[1];
+                
+                return formatPct((is_polled/(not_polled + is_polled)));
 
-        updatePieChart(dataset, divId);
+            });
+            
+
+        //  updatePieChart(dataset, divId);
 
     } //  end make pie chart
     
@@ -248,16 +283,6 @@
 
         populateTable(dataset);
 
-          // Creates a red marker with the coffee icon
-          var redMarker = L.ExtraMarkers.icon({
-            icon: 'fa-coffee',
-            markerColor: 'red',
-            shape: 'square',
-            prefix: 'fa'
-          });
-
-            L.marker([30.261928, -97.730274], {icon: redMarker,}).addTo(map);
-
     }
 
     function populateMap(map, dataset){
@@ -285,10 +310,16 @@
                     var address = dataset[i].intname;
 
                     var intid = dataset[i].intid;
+
+                    var status_time = dataset[i].intstatusdatetime;
                     
-                    var marker = L.marker([lat,lon])
+                    var marker = L.marker([lat,lon], {
+                            icon: MARKER_ICONS[status]  
+                        })
                         .bindPopup(
-                            address + "<br>"+ "<b>Status: </b>"+ STATUS_TYPES[status]
+                            "<b>" + address + "</b><br>" +
+                            "<b>Status: </b>" + STATUS_TYPES_READABLE[status] + 
+                            "<br><b>Updated:</b> " + status_time
                         )
                         .addTo(signals);
 
