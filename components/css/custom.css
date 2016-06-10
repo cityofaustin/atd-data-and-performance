@@ -1,3 +1,10 @@
+.dash-footer {
+  min-height: 35px;
+  background-color: #333333;
+  color: white;
+  padding: 5px;
+}
+
 .homepage-button {
     background-color: #333333;
     color: white;
@@ -6,15 +13,6 @@
 html {
     position: relative;
     min-height: 100%;
-}
-
-.footer {
-    color: white;
-    background-color: #333333;
-    bottom: 0px;
-    line-height: 20px;
-    position: absolute;
-    width: 1280px;
 }
 
 .jumbotron {

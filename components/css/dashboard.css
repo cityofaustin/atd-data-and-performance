@@ -17,13 +17,6 @@ body {
   padding-bottom: 0px;
 }
 
-.dash-footer {
-  min-height: 35px;
-  background-color: #333333;
-  color: white;
-  padding: 5px;
-}
-
 div.tooltip {   
   position: absolute;           
   text-align: center;                       
