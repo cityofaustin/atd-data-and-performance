@@ -1,6 +1,7 @@
     //  v0.1
     //
     //  todo:
+    //  scale object / nix global scale vars
     //  animate chart pct - WTF?
     //  home button, layer control on map
     //  tooltips
@@ -133,11 +134,11 @@
 
         var values = [no_comm_pct, ok_pct];
 
-        y = d3.scale.ordinal()
+         y = d3.scale.ordinal()
             .rangeRoundBands([0, height], .1)
             .domain(values);
         
-        var x = d3.scale.linear()
+         x = d3.scale.linear()
             .range([0, width-10])
             .domain([0 , 1]);
 
@@ -149,6 +150,7 @@
         svg.selectAll(".bar")
             .data(values)
             .enter()
+            .append("g")
             .append("rect")
             .attr("class", function(d, i){
                 return "bar " + COMM_TYPES[keys[i]];
@@ -158,9 +160,9 @@
             })
             .attr("x", 0)
             .attr("height", y.rangeBand())
-            .attr("width", function(d) {
-                return x(d);
-            })
+            .attr("width", 0);
+
+        updateBarChart(divId);
 
         svg.selectAll(".label")
             .data(values)
@@ -179,7 +181,19 @@
  
     }
 
+    function updateBarChart(divId) {
+        
+        d3.select("#" + divId).selectAll("rect")
+            
+            .transition()
+            .duration(1000)
+            .ease("quad")
+            .attr("width", function(d) {
+                console.log(d);
+                return x(d);
+            })
 
+    }
 
     function populateInfoStat(dataset, divId) {
     
