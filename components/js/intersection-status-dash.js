@@ -17,10 +17,6 @@
     // globals
     var signals, cool;
     
-    var width = 100;    
-    
-    var height = 100;
-
     var signal_markers = {};
 
     var formatPct = d3.format("%");
@@ -98,8 +94,6 @@
 
         cool = data;
 
-        var pie_array = d3.values(int_stats);
-
         var int_stats = d3.nest()
             .key(function (d) { return d.intstatus; })
             .rollup(function (v) { return v.length; })
@@ -114,7 +108,7 @@
         
         cool = poll_stats;
 
-        makePieChart(poll_stats, "chart-1");
+        makeBarChart(poll_stats, "chart-1");
 
         populateInfoStat(int_stats[2], "info-1");  // unscheduled flash
 
@@ -125,63 +119,68 @@
         makeMap(data);
 
     };
-
-    function makePieChart(dataset, divId) {
+    
+    function makeBarChart(dataset, divId){
         
-        var values = d3.values(dataset);  //  what's a better way to do this?
+        var width = $("#" + divId).width();
+        
+        var height = 100;
 
-        var keys = d3.keys(dataset);  //  the challenge is accessing the keys for assigning classes
+        var keys = d3.keys(dataset);
 
-        var radius = Math.min(width, height) / 2;
+        var no_comm_pct = dataset[0] / (dataset[0] + dataset[1]);
+        var ok_pct = dataset[1] / (dataset[0] + dataset[1]);
 
-        var pie = d3.layout.pie()  //  not d4 compatible
-            .sort(null)
-            .value(function (d) {
-               return d;
-            });
+        var values = [no_comm_pct, ok_pct];
 
-        var arc = d3.svg.arc()
-            .outerRadius(radius)
-            .innerRadius(radius * .5);
+        y = d3.scale.ordinal()
+            .rangeRoundBands([0, height], .1)
+            .domain(values);
+        
+        var x = d3.scale.linear()
+            .range([0, width-10])
+            .domain([0 , 1]);
 
         var svg = d3.select("#" + divId).append("svg")
-            .attr("width", width)
             .attr("height", height)
-            .append("g")
-            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+            .attr("width", width)
+            .append("g");
 
-        var path1 = svg.datum(values).selectAll("path")
-            .data(pie)
+        svg.selectAll(".bar")
+            .data(values)
             .enter()
-            .append("g")
-            .attr("class", function(d, i) {
-                return COMM_TYPES[keys[i]] + " arc";
+            .append("rect")
+            .attr("class", function(d, i){
+                return "bar " + COMM_TYPES[keys[i]];
             })
-            .attr("id", "pie")
-            .append("path")
-            .attr("d", arc)
-            .attr("stroke", "white")
-            .each(function (d) {
-                this._current = d;
-            }); // store the current angles
-            
-        svg.append("g").append("text")
-            .style("text-anchor", "middle")
-            .attr("class", "info")
-            .text(function(){
-                var not_polled = dataset[0];
-                
-                var is_polled = dataset[1];
-                
-                return formatPct((is_polled/(not_polled + is_polled)));
+            .attr("y", function(d) {
+                return y(d);
+            })
+            .attr("x", 0)
+            .attr("height", y.rangeBand())
+            .attr("width", function(d) {
+                return x(d);
+            })
 
-            });
-            
+        svg.selectAll(".label")
+            .data(values)
+            .enter()
+            .append("text")
+            .attr("x", function(d) {
+                return x(d) + 5;
+            })
+            .attr("y", function(d){
+                return y(d) + (y.rangeBand()/2);
+            })
+            .text(function(d) {
+                return formatPct(d);
+            })
+            .attr("color", "red")
+ 
+    }
 
-        //  updatePieChart(dataset, divId);
 
-    } //  end make pie chart
-    
+
     function populateInfoStat(dataset, divId) {
     
          d3.select("#" + divId)
@@ -213,40 +212,6 @@
                 
                 });
         }
-    }
-
-    function updatePieChart(dataset, divId){
-
-        d3.select("#divId")
-            .select(".info")
-            .transition()
-            .duration(750)
-            .ease("quad")
-            .tween("text", function (d) {
-                
-                var start = parseFloat(this.textContent); //parse out the % symbol - good job, javascript!
-              
-                if (isNaN(start)) {
-                    start = 0;
-                }
-
-                console.log(start);
-
-                var not_polled = dataset[0];
-                
-                var is_polled = dataset[1];
-                
-                var has_comm = (is_polled/(not_polled + is_polled)) * 100;
-              
-                var i = d3.interpolate(start, has_comm)
-                    
-                    return function (t) {
-
-                    this.textContent = formatPct(Math.round(i(t)) / 100);
-                }
-
-            })
-
     }
 
     function makeMap(dataset){
