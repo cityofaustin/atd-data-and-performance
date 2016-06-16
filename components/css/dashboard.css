@@ -35,12 +35,12 @@ div.tooltip {
     text-align: center;
     dominant-baseline: bottom;
     fill: black;
-
 }
 
 .info {
   font-size: 140%;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .infoStat.warning {
@@ -53,6 +53,11 @@ div.tooltip {
 
 .tooltip{
   height: 0px;
+}
+
+.filtering{
+  color: #990000;
+  text-shadow: 1px 1px #000000;
 }
 
 /* status styles */

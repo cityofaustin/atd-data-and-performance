@@ -1,22 +1,21 @@
     //  v0.1
     //
     //  todo:
+    //  disable filtering on stats that equal zero
+    //  table row count does not update (because you're not adding rows with the native api)
     //  scale object / nix global scale vars
-    //  animate chart pct - WTF?
-    //  home button, layer control on map
+    //  animations choppy::wait to populat map until chart update
     //  tooltips
-    //  nav tweaks and icons
+    //  nav tweaks
     //  the way you're doing applyStatusTypes is probably breaky
     //  declare variables ;)
     //  upgrade to d4!
-    //  scale charts based on div size?
-    //  populate zeros for status types
     //  ajax errorhandling
     //  table anchors so you can go 'back' from feature click
     //
 
     // globals
-    var signals, cool;
+    var int_stats, table;
     
     var signal_markers = {};
 
@@ -24,9 +23,17 @@
 
     //  static data
     //  var data_url = "../components/data/intersection_status_snapshot.json";
-    
-   //  live data!
-   var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
+
+    //  live data!
+    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
+
+    var filters = [];
+
+    var default_filters = [1, 2, 3];
+
+    var signal_layers ={};
+
+    var master_layer = new L.featureGroup();
 
     var STATUS_TYPES = {
         0: "ok",
@@ -50,6 +57,8 @@
         5: "Comm Disabled",
         11: "Police Flash"
     };
+
+    var STATUS_TYPE_CODES = [0,1,2,3,5,11];  //  :(
 
     var conflict_flashMarker = new L.ExtraMarkers.icon({
         icon: 'fa-exclamation-triangle',
@@ -77,9 +86,17 @@
         2 : conflict_flashMarker,
         3 : comm_failMarker
     }
+
+    //  calculate diff b/t arrays (http://stackoverflow.com/questions/1187518/javascript-array-difference);
+    Array.prototype.diff = function(a) {
+        return this.filter(function(i) {return a.indexOf(i) < 0;});
+    };
+
     
     getData(data_url);
 
+
+    //  zoom to feature from table click
     d3.selectAll(".feature_link").on("click", function(d){
 
         var marker_id = d3.select(this).attr("data-intid");
@@ -90,25 +107,63 @@
 
     })
 
-    // 
-    function main(data){
+    //  fitering
+    d3.selectAll(".info").on("click", function(d){
+        
+        var current_class = d3.select(this).attr("class");
 
-        cool = data;
+        var status = d3.select(this).attr("data-status");
 
-        var int_stats = d3.nest()
+        if (current_class.indexOf("filtering") >= 0) { 
+                        
+            d3.select(this).classed("filtering", false);  //  disable filter class
+
+            var index = filters.indexOf(+status);
+
+            filters.splice(index, 1);  //  remove status from filter array
+
+            if (filters.length > 0) {  //  if other filters still exist
+
+                updateMap(filters);
+
+                updateTable(filters);
+
+            } else {  //  if layer was the only filtered layer, reset map to add all layers back
+
+                updateMap(default_filters);
+
+                updateTable(default_filters);
+
+            }
+
+        } else {
+
+            d3.select(this).classed("filtering", true);  //  enable filter class
+
+            filters.push(+status);  //  update filter array
+
+            updateMap(filters);
+
+            updateTable(filters);
+
+        }
+
+    });
+
+    function main(dataset){
+
+        int_stats = d3.nest()
             .key(function (d) { return d.intstatus; })
             .rollup(function (v) { return v.length; })
-            .map(data);
+            .map(dataset);
 
         applyStatusTypes(int_stats);
 
         var poll_stats = d3.nest()
             .key(function (d) { return d.pollstatus; })
             .rollup(function (v) { return v.length; })
-            .map(data);
+            .map(dataset);
         
-        cool = poll_stats;
-
         makeBarChart(poll_stats, "chart-1");
 
         populateInfoStat(int_stats[2], "info-1");  // unscheduled flash
@@ -117,7 +172,7 @@
 
         populateInfoStat(int_stats[3], "info-3");  // comm fail
 
-        makeMap(data);
+        makeMap(dataset);
 
     };
     
@@ -130,6 +185,7 @@
         var keys = d3.keys(dataset);
 
         var no_comm_pct = dataset[0] / (dataset[0] + dataset[1]);
+       
         var ok_pct = dataset[1] / (dataset[0] + dataset[1]);
 
         var values = [no_comm_pct, ok_pct];
@@ -189,7 +245,6 @@
             .duration(1000)
             .ease("quad")
             .attr("width", function(d) {
-                console.log(d);
                 return x(d);
             })
 
@@ -209,6 +264,7 @@
     function updateInfoStat(dataset, divId) {
 
         if (dataset) {
+
             d3.select("#" + divId)
                 .select("text")
                 .transition()
@@ -228,13 +284,13 @@
         }
     }
 
-    function makeMap(dataset){
+    function makeMap(dataset) {
 
         L.Icon.Default.imagePath = '../components/images/';
 
         map = new L.Map("map", {
             center : [30.28, -97.735],
-            zoom : 12,
+            zoom : 10,
             minZoom : 1,
             maxZoom : 20,
             scrollWheelZoom: false
@@ -265,57 +321,65 @@
 
     }
 
-    function populateMap(map, dataset){
+    function populateMap(map, dataset) {
 
-        if (map.hasLayer(signals)) {
+        for (var i in STATUS_TYPES) {
 
-            map.removeLayer(signals); 
+            signal_layers[STATUS_TYPES[i]] = new L.featureGroup();
 
         }
-
-        signals = new L.featureGroup();
         
-        for (var i = 0; i < dataset.length; i++){
+        for (var i = 0; i < dataset.length; i++) {   
             
-            var status = +dataset[i].intstatus;
+            if(dataset[i].latitude > 0) {
 
-            if (status > 0 && status < 5) {
+                var status = +dataset[i].intstatus;
 
-                if(dataset[i].latitude > 0) {
+                var lat = dataset[i].latitude;
+        
+                var lon = dataset[i].longitude;
 
-                    var lat = dataset[i].latitude;
-            
-                    var lon = dataset[i].longitude;
+                var address = dataset[i].intname;
 
-                    var address = dataset[i].intname;
+                var intid = dataset[i].intid;
 
-                    var intid = dataset[i].intid;
+                var status_time = dataset[i].intstatusdatetime;
 
-                    var status_time = dataset[i].intstatusdatetime;
+                var assetnum = dataset[i].assetnum;
+                
+                var marker = L.marker([lat,lon], {
+                        icon: MARKER_ICONS[status]  
+                    })
+                    .bindPopup(
+                        "<b>" + assetnum + ": " + address + "</b><br>" +
+                        "<b>Status: </b>" + STATUS_TYPES_READABLE[status] + 
+                        "<br><b>Updated:</b> " + status_time
+                    )
+
+                if(status) {
                     
-                    var marker = L.marker([lat,lon], {
-                            icon: MARKER_ICONS[status]  
-                        })
-                        .bindPopup(
-                            "<b>" + address + "</b><br>" +
-                            "<b>Status: </b>" + STATUS_TYPES_READABLE[status] + 
-                            "<br><b>Updated:</b> " + status_time
-                        )
-                        .addTo(signals);
-
-                    signal_markers[intid] = marker;
+                    marker.addTo(signal_layers[STATUS_TYPES[status]]);
+                
                 }
+
+                signal_markers[intid] = marker;
             }
-            
+
         }
 
-        signals.addTo(map);
+        for (var i = 0; i < default_filters.length; i++) {
 
-        map.fitBounds(signals.getBounds());
+            signal_layers[STATUS_TYPES[default_filters[i]]].addTo(master_layer);
+
+        }
+
+        master_layer.addTo(map);
+
+        map.fitBounds(master_layer.getBounds(), {padding: [10, 10] });
 
     }
 
-    function applyStatusTypes(statusObject){
+    function applyStatusTypes(statusObject) {
 
         for (statusType in STATUS_TYPES) {
 
@@ -327,7 +391,7 @@
         }
     }
 
-    function getData(myurl){
+    function getData(myurl) {
         $.ajax({
             'async' : false,
             'global' : false,
@@ -343,14 +407,14 @@
     }
 
 
-    function populateTable(data) {
+    function populateTable(dataset) {
 
         // only show not-OK records in the data table
-        data = data.filter(function(d) { return d.intstatus > 0 && d.intstatus < 5; })
+        dataset = dataset.filter(function(d) { return d.intstatus > 0 && d.intstatus < 5; })
 
         var rows = d3.select("tbody")
             .selectAll("tr")
-            .data(data)
+            .data(dataset)
             .enter()
             .append("tr")
             .filter(function(d){
@@ -360,22 +424,98 @@
 
         d3.select("tbody").selectAll("tr")
             .each(function (d) {
+                
                 d3.select(this).append("td").html(d.assetnum);
+                
                 d3.select(this).append("td").html("<a href='#map'" + "class='feature_link' data-intid=" + d.intid + " name=_" + d.intid + ">" + d.intname + "</a>");
+                
                 d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.intstatus] + " (" + d.intstatus + ")");
+                
                 d3.select(this).append("td").html(d.intstatusprevious);
+                
                 d3.select(this).append("td").html(d.intstatusdatetime).attr("class", STATUS_TYPES[d.intstatusdatetime]);
+                
                 d3.select(this).append("td").html(d.pollstatus);
+                
                 d3.select(this).append("td").html(d.operationstate);
+                
                 d3.select(this).append("td").html(d.planid);
-        })
+        
+            });
 
         //  activate datatable sorting/search functionality
         $(document).ready(function () {
-            $('#data_table').DataTable({
+            table = $('#data_table').DataTable( {
                 paging : false
             });
         });
 
     } //  end populateTable
+
+    function updateMap(filter_arr) {
+
+        var remove_from_map = STATUS_TYPE_CODES.diff(filter_arr); 
+
+        for (var i = 0; i < filter_arr.length; i++) {
+        
+            if (master_layer.hasLayer(signal_layers[STATUS_TYPES[filter_arr[i]]])) {
+
+                continue;
+        
+            } else {
+
+                master_layer.addLayer(signal_layers[STATUS_TYPES[filter_arr[i]]]);
+
+            }
+        
+        }
+
+        for (var i = 0; i < remove_from_map.length; i++) {
+
+            if (master_layer.hasLayer(signal_layers[STATUS_TYPES[remove_from_map[i]]])) {
+                
+                master_layer.removeLayer(signal_layers[STATUS_TYPES[remove_from_map[i]]]);
+            }
+        
+        }
+
+        map.fitBounds(master_layer.getBounds(), {padding: [10, 10] });
+
+    }
+
+    function updateTable(filter_arr) {
+
+        table.fnClearTable();
+
+        d3.select("tbody").selectAll("tr").selectAll("td").remove();
+
+        d3.select("tbody").selectAll("tr")
+            .filter(function (d) {
+                
+                return filter_arr.indexOf(+d.intstatus) > -1;
+            })         
+            .each(function (d) {
+            
+                d3.select(this).append("td").html(d.assetnum);
+                
+                d3.select(this).append("td").html("<a href='#map'" + "class='feature_link' data-intid=" + d.intid + " name=_" + d.intid + ">" + d.intname + "</a>");
+                
+                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.intstatus] + " (" + d.intstatus + ")");
+                
+                d3.select(this).append("td").html(d.intstatusprevious);
+                
+                d3.select(this).append("td").html(d.intstatusdatetime).attr("class", STATUS_TYPES[d.intstatusdatetime]);
+                
+                d3.select(this).append("td").html(d.pollstatus);
+                
+                d3.select(this).append("td").html(d.operationstate);
+                
+                d3.select(this).append("td").html(d.planid);
+
+            });
+
+    }
+
+
+
 
