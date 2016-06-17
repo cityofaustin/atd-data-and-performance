@@ -56,8 +56,7 @@ div.tooltip {
 }
 
 .filtering{
-  color: #990000;
-  text-shadow: 1px 1px #000000;
+  background-color: #F1F1F1;
 }
 
 /* status styles */

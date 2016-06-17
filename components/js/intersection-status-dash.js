@@ -101,7 +101,7 @@
 
         var marker_id = d3.select(this).attr("data-intid");
         
-        map.setZoom(15).panTo(signal_markers[marker_id].getLatLng());
+        map.setZoom(14).panTo(signal_markers[marker_id].getLatLng());
 
         signal_markers[marker_id].openPopup();
 
@@ -485,8 +485,6 @@
 
     function updateTable(filter_arr) {
 
-        table.fnClearTable();
-
         d3.select("tbody").selectAll("tr").selectAll("td").remove();
 
         d3.select("tbody").selectAll("tr")
@@ -515,7 +513,3 @@
             });
 
     }
-
-
-
-
