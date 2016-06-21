@@ -1,6 +1,7 @@
     //  v0.1
     //
     //  todo:
+    //  is it ok to have object keys as numbers?
     //  disable filtering on stats that equal zero
     //  table row count does not update (because you're not adding rows with the native api)
     //  scale object / nix global scale vars
@@ -22,10 +23,10 @@
     var formatPct = d3.format("%");
 
     //  static data
-    //  var data_url = "../components/data/intersection_status_snapshot.json";
+      var data_url = "../components/data/intersection_status_snapshot.json";
 
     //  live data!
-    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
+    //  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
 
     var filters = [];
 
