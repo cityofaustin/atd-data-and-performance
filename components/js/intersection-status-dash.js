@@ -110,6 +110,8 @@
 
     //  fitering
     d3.selectAll(".info").on("click", function(d){
+
+        var divId = d3.select(this).attr("id");
         
         var current_class = d3.select(this).attr("class");
 
@@ -514,3 +516,8 @@
             });
 
     }
+
+    function styleFilterButtons() {
+
+    }
+
