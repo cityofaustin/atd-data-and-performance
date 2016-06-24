@@ -17,6 +17,10 @@ body {
   padding-bottom: 0px;
 }
 
+.action-disabled {
+  color: #9D9D9D;
+}
+
 div.tooltip {   
   position: absolute;           
   text-align: center;                       

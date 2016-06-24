@@ -1,6 +1,7 @@
     //  v0.1
     //
     //  todo:
+    //  auto-zoom broken after filter
     //  is it ok to have object keys as numbers?
     //  disable filtering on stats that equal zero
     //  table row count does not update (because you're not adding rows with the native api)
@@ -23,7 +24,7 @@
     var formatPct = d3.format("%");
 
     //  static data
-      var data_url = "../components/data/intersection_status_snapshot.json";
+    var data_url = "../components/data/intersection_status_snapshot.json";
 
     //  live data!
     //  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
@@ -101,8 +102,8 @@
     d3.selectAll(".feature_link").on("click", function(d){
 
         var marker_id = d3.select(this).attr("data-intid");
-        
-        map.setZoom(14).panTo(signal_markers[marker_id].getLatLng());
+
+        map.setView(signal_markers[marker_id].getLatLng(), 14);
 
         signal_markers[marker_id].openPopup();
 
@@ -117,7 +118,7 @@
 
         var status = d3.select(this).attr("data-status");
 
-        if (current_class.indexOf("filtering") >= 0) { 
+        if (current_class.indexOf("filtering") >= 0) {  //  if filtering
                         
             d3.select(this).classed("filtering", false);  //  disable filter class
 
@@ -131,11 +132,15 @@
 
                 updateTable(filters);
 
+                styleFilterButtons(filters);
+
             } else {  //  if layer was the only filtered layer, reset map to add all layers back
 
                 updateMap(default_filters);
 
                 updateTable(default_filters);
+
+                styleFilterButtons(default_filters);
 
             }
 
@@ -148,6 +153,8 @@
             updateMap(filters);
 
             updateTable(filters);
+
+            styleFilterButtons(filters);
 
         }
 
@@ -169,9 +176,9 @@
         
         makeBarChart(poll_stats, "chart-1");
 
-        populateInfoStat(int_stats[2], "info-1");  // unscheduled flash
+        populateInfoStat(int_stats[2], "info-2");  // conflict flash
 
-        populateInfoStat(int_stats[1], "info-2");  // scheduled flash
+        populateInfoStat(int_stats[1], "info-1");  // coordinated flash
 
         populateInfoStat(int_stats[3], "info-3");  // comm fail
 
@@ -517,7 +524,21 @@
 
     }
 
-    function styleFilterButtons() {
+    function styleFilterButtons(filter_arr) {
+
+        var filters_to_disable = STATUS_TYPE_CODES.diff(filter_arr) 
+
+        for (var i = 0; i < filters_to_disable.length; i++)  {
+
+
+            d3.select("#info-" + filters_to_disable[i]).classed("action-disabled", true);
+        }
+
+        for (var i = 0; i < filter_arr.length; i++)  {
+
+            d3.select("#info-" + filter_arr[i]).classed("action-disabled", false);
+
+        }
 
     }
 
