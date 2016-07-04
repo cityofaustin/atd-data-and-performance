@@ -33,18 +33,15 @@ div.tooltip {
   pointer-events: none;         
 }
 
-.infoStat {
-    font-size: 400%;
-    font-weight: bold;
-    text-align: center;
-    dominant-baseline: bottom;
-    fill: black;
-}
-
 .info {
-  font-size: 140%;
+  font-size: 500%;
   font-weight: bold;
   cursor: pointer;
+  text-align: center;
+  dominant-baseline: bottom;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
 }
 
 .infoStat.warning {

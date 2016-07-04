@@ -1,15 +1,12 @@
     //  v0.1
     //
     //  todo:
-    //  auto-zoom broken after filter
-    //  is it ok to have object keys as numbers?
-    //  disable filtering on stats that equal zero
+    //  add data refresh date
+    //  is it ok to have object keys as numb    ers?
+    // rescale chart on screen resize
     //  table row count does not update (because you're not adding rows with the native api)
-    //  scale object / nix global scale vars
     //  animations choppy::wait to populat map until chart update
     //  tooltips
-    //  nav tweaks
-    //  the way you're doing applyStatusTypes is probably breaky
     //  declare variables ;)
     //  upgrade to d4!
     //  ajax errorhandling
@@ -21,19 +18,19 @@
     
     var signal_markers = {};
 
+    var signal_layers = {};
+
     var formatPct = d3.format("%");
 
     //  static data
     var data_url = "../components/data/intersection_status_snapshot.json";
 
     //  live data!
-    //  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
+      var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
 
     var filters = [];
 
     var default_filters = [1, 2, 3];
-
-    var signal_layers ={};
 
     var master_layer = new L.featureGroup();
 
@@ -91,7 +88,9 @@
 
     //  calculate diff b/t arrays (http://stackoverflow.com/questions/1187518/javascript-array-difference);
     Array.prototype.diff = function(a) {
+
         return this.filter(function(i) {return a.indexOf(i) < 0;});
+
     };
 
     
@@ -111,9 +110,17 @@
 
     //  fitering
     d3.selectAll(".info").on("click", function(d){
+        
+        var current_value = +d3.select(this).select("text").html();
+        
+        if (current_value == 0) {
+
+            return;
+
+        }
 
         var divId = d3.select(this).attr("id");
-        
+
         var current_class = d3.select(this).attr("class");
 
         var status = d3.select(this).attr("data-status");
@@ -157,6 +164,19 @@
             styleFilterButtons(filters);
 
         }
+
+            //  zoom to feature from table click
+        d3.selectAll(".feature_link").on("click", function(d){
+
+            console.log("PIZZA");
+
+            var marker_id = d3.select(this).attr("data-intid");
+
+            map.setView(signal_markers[marker_id].getLatLng(), 14);
+
+            signal_markers[marker_id].openPopup();
+
+         })
 
     });
 
@@ -250,7 +270,6 @@
     function updateBarChart(divId) {
         
         d3.select("#" + divId).selectAll("rect")
-            
             .transition()
             .duration(1000)
             .ease("quad")
@@ -264,7 +283,6 @@
     
          d3.select("#" + divId)
             .append("text")
-            .attr("class", "infoStat")
             .text('0');
 
         updateInfoStat(dataset, divId);
@@ -274,6 +292,8 @@
     function updateInfoStat(dataset, divId) {
 
         if (dataset) {
+
+            console.log(dataset);
 
             d3.select("#" + divId)
                 .select("text")
@@ -291,6 +311,12 @@
                     }
                 
                 });
+
+        } else {  //  if info value is 0
+
+            d3.select("#" + divId)
+                .style("cursor", "default");
+
         }
     }
 
