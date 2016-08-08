@@ -1,6 +1,6 @@
 ---
 layout: signal-retiming-dash
-title: Signal Re-Timing Program
+title: Signal Re-Timing
 ---
 
 
