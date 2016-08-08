@@ -22,24 +22,30 @@ body {
 
 .jumbotron {
     margin-bottom: 0px;
-    background-image: url(../images/banner_1_gaussian_auto.png);
+    background-image: url(../images/banner_placeholder_tight.png);
     background-size: cover;
     background-repeat: no-repeat;
     color: #333333;
     text-shadow: 2px 2px white;
-    min-height: 300px;
+    min-height: 150px;
 }
 
 .navbar {
+    background-image: url(../images/banner_navbar.png);
+    background-size: cover;
     background-color: #333333;
     padding: 5px;
     border: none;
 }
 
-img.navbar-brand {
-  background-color: #333333;
-  padding: 0px;
-  padding-right: 10px;
+.navbar-header {
+  background: #fff;
+  opacity: 0.9;
+}
+
+.navbar-header h1 {
+  margin: 10px;
+  font-weight: bold;
 }
 
 .homepage-link {
