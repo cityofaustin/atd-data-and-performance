@@ -1,5 +1,5 @@
 ---
-layout: intersection-dashboard
+layout: signal-retiming-dash
 title: Intersection Status Dashboard
 ---
 

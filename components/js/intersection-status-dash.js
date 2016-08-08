@@ -12,7 +12,8 @@
     //  ajax errorhandling
     //  table anchors so you can go 'back' from feature click
     //
-
+    //  var metadataUrl_cases = "https://data.austintexas.gov/api/views/5zpr-dehc/rows.json"  
+    //
     // globals
     var int_stats, table;
     
@@ -21,6 +22,8 @@
     var signal_layers = {};
 
     var formatPct = d3.format("%");
+    
+    var formatDateTime = d3.time.format("%e %b %Y %H:%M%p");
 
     //  static data
     var data_url = "../components/data/intersection_status_snapshot.json";
@@ -568,3 +571,9 @@
 
     }
 
+
+    function postUpdateDate(data){
+        var update_date = new Date(data.meta.view.rowsUpdatedAt * 1000);
+        var update_date = formatDateTime(update_date);
+        $('#update_date').text("Data updated " + update_date);
+    }
