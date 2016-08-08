@@ -1,6 +1,6 @@
 ---
 layout: intersection-dashboard
-title: Intersection Status Dashboard
+title: Intersection Status
 ---
 
 
