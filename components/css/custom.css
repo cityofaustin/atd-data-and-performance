@@ -34,16 +34,15 @@ body {
     background-image: url(../images/banner_navbar.png);
     background-size: cover;
     background-color: #333333;
-    padding: 5px;
+    padding: 0px;
     border: none;
 }
 
 .navbar-header {
   background: #fff;
-  opacity: 0.9;
 }
 
-.navbar-header h1 {
+.navbar-header h2 {
   margin: 10px;
   font-weight: bold;
 }
