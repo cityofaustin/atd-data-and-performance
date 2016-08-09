@@ -17,7 +17,7 @@ html {
 .homepage-button {
     background-color: #333333;
     color: white;
-    height: 200px;
+    height: 150px;
     margin: 10px;
     text-align: center;
 }
@@ -38,14 +38,13 @@ html {
     background-repeat: no-repeat;
     color: #333333;
     min-height: 150px;
-    position: relative;
+    
 }
 
 .jumbotron-header {
     background: #fff;
     margin-top: 0px;
-    display: inline-block;
-    position: absolute;
+    
     bottom: 0;
     padding: 10px;
 }

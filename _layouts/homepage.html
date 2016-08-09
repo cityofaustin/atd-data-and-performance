@@ -11,39 +11,76 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container">
       <row>
-          <div class="col-md-12">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
             <h3>Dashboards</h3>
-          </div>
             <a href='{{site.baseurl}}/intersection-status/'>
-              <div class="col-md-2 homepage-button">
+              <div class="col-sm-5 homepage-button">
                 <h4>Intersection Status</h4>
                 <br>
                 <i  class="fa button-icon fa-pie-chart"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
               </div>
             </a>
-             <a href='{{site.baseurl}}/signal-retiming/'>
-              <div class="col-md-2 homepage-button">
-                <h4>Signal Retiming Program</h4>
-                <br>
-                <i  class="fa button-icon fa-clock-o"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
-              </div>
-            </a>
-      </row>
-      <row>
-        <div class="col-md-12">
+              <a href='{{site.baseurl}}/signal-retiming/'>
+                <div class="col-sm-5 homepage-button">
+                  <h4>Signal Retiming Program</h4>
+                  <br>
+                  <i  class="fa button-icon fa-clock-o"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
+                </div>
+              </a>
+          </div>
+          <div class="col-sm-2"></div>
+    </row>
+    
+    <row>
+      <div class="col-sm-12"></div>
+    </row>
+    
+    <row>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <h3>Maps + Resources</h3>
+          <a href='{{site.baseurl}}/markings-calc/'>
+            <div class="col-sm-5 homepage-button">
+              <h4>Marking Calculator</h4>
+              <br>
+              <i  class="fa button-icon fa-calculator"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
+            </div>
+          </a>
+          <a href=''>
+            <div class="col-sm-5 homepage-button">
+              <h4>Cool Map</h4>
+              <br>
+              <i  class="fa button-icon fa-map"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
+            </div>
+          </a>
+      </div>
+      <div class="col-sm-2"></div>
+    </row>
+
+    <row>
+      <div class="col-sm-12"></div>
+    </row>
+  
+    <row>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
           <h3>Open Data</h3>
-        </div>
-        <a href='https://data.austintexas.gov/browse?tags=transportation' target="_blank">
-          <div class="col-md-2 homepage-button">
+          <a href='https://data.austintexas.gov/browse?tags=transportation' target="_blank">
+          <div class="col-sm-5 homepage-button">
             <h4>Data.AustinTexas.Gov<AustinTexas class="Gov"></AustinTexas></h4>
             <br>
             <i  class="fa button-icon fa-database"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
           </div>
         </a>
+      </div>
+      <div class="col-sm-2"></div>
       </row>
-    </div>
+
+
+  </div>
 
   {% include footer.html %}
 
