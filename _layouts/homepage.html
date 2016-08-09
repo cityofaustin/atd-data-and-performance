@@ -6,15 +6,15 @@
   <body>
 
     <div class="jumbotron">
-      <div class="container-fluid">
-      </div>
+        <div class="navbar-header">
+            <h2> {{page.title}} </h2>
+        </div>
     </div>
-
 
     <div class="container-fluid">
       <row>
           <div class="col-md-12">
-            <h2>Dashboards</h2>
+            <h3>Dashboards</h3>
           </div>
             <a href='{{site.baseurl}}/intersection-status/'>
               <div class="col-md-2 homepage-button">
@@ -33,17 +33,22 @@
       </row>
       <row>
         <div class="col-md-12">
-          <h2>Open Data</h2>
+          <h3>Open Data</h3>
         </div>
         <a href='https://data.austintexas.gov/browse?tags=transportation' target="_blank">
           <div class="col-md-2 homepage-button">
-            <h4>Data.<AustinTexas class="Gov"></AustinTexas></h4>
+            <h4>Data.AustinTexas.Gov<AustinTexas class="Gov"></AustinTexas></h4>
             <br>
             <i  class="fa button-icon fa-database"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
           </div>
         </a>
       </row>
     </div>
+
+  {% include footer.html %}
+
+
+
 
 <!-- Bootstrap core JavaScript
     ================================================== -->

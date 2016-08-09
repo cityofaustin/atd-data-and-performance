@@ -1,10 +1,10 @@
+body {
+  padding-bottom: 60px;
+}
+
 html {
     position: relative;
     min-height: 100%;
-}
-
-body {
-  padding-bottom: 0px;
 }
 
 .dash-footer {
@@ -37,8 +37,21 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     color: #333333;
-    text-shadow: 2px 2px white;
     min-height: 150px;
+    position: relative;
+}
+
+.jumbotron-header {
+    background: #fff;
+    margin-top: 0px;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+}
+
+.jumbotron-header h2 {
+  font-weight: bold;
 }
 
 .navbar {
@@ -56,4 +69,16 @@ body {
 .navbar-header h2 {
   margin: 10px;
   font-weight: bold;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+}
+
+.footer-container {
+  margin: 0px; 
 }
