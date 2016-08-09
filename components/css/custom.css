@@ -24,7 +24,6 @@ html {
 
 .homepage-button:hover {
   background-color: #7D9852;
-
 }
 
 .button-icon {
@@ -44,13 +43,8 @@ html {
 .jumbotron-header {
     background: #fff;
     margin-top: 0px;
-    
     bottom: 0;
     padding: 10px;
-}
-
-.jumbotron-header h2 {
-  font-weight: bold;
 }
 
 .navbar {
