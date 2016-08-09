@@ -32,19 +32,11 @@ html {
 
 .jumbotron {
     margin-bottom: 0px;
-    background-image: url(../images/NEW_BANNDER_ADJUSTED_NARROW_FUNBLUR.png);
+    background-image: url(../images/NEW_BANNDER_DARK.png);
     background-size: cover;
     background-repeat: no-repeat;
-    color: #333333;
-    min-height: 150px;
-    
-}
-
-.jumbotron-header {
-    background: #fff;
-    margin-top: 0px;
-    bottom: 0;
-    padding: 10px;
+    color: #fff;
+    min-height: 150px;    
 }
 
 .navbar {
