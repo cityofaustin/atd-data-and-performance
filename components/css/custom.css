@@ -7,7 +7,6 @@ body {
   padding-bottom: 0px;
 }
 
-
 .dash-footer {
   min-height: 35px;
   background-color: #333333;
@@ -18,11 +17,23 @@ body {
 .homepage-button {
     background-color: #333333;
     color: white;
+    height: 200px;
+    margin: 10px;
+    text-align: center;
+}
+
+.homepage-button:hover {
+  background-color: #7D9852;
+
+}
+
+.button-icon {
+  font-size: 5em;
 }
 
 .jumbotron {
     margin-bottom: 0px;
-    background-image: url(../images/banner_placeholder_tight.png);
+    background-image: url(../images/NEW_BANNDER_ADJUSTED_NARROW_FUNBLUR.png);
     background-size: cover;
     background-repeat: no-repeat;
     color: #333333;
@@ -31,7 +42,7 @@ body {
 }
 
 .navbar {
-    background-image: url(../images/banner_navbar.png);
+    background-image: url(../images/NEW_BANNDER_ADJUSTED_NARROW_FUNBLUR.png);
     background-size: cover;
     background-color: #333333;
     padding: 0px;
@@ -45,8 +56,4 @@ body {
 .navbar-header h2 {
   margin: 10px;
   font-weight: bold;
-}
-
-.homepage-link {
-    height: 300px;
 }

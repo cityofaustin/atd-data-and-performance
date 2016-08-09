@@ -12,20 +12,36 @@
 
 
     <div class="container-fluid">
-    <row>
-        <div class="col-md-4 homepage-link">
-          <h2>Dashboards</h2>
-          <ul>
-            <li><a href='{{site.baseurl}}/intersection-status/'>Intersection Status</a></li>
-            <li><a href='{{site.baseurl}}/signal-retiming/'>Signal Retiming Program</a></li>
-          </ul>
-        </div>
-        <div class="col-md-4 homepage-link">
+      <row>
+          <div class="col-md-12">
+            <h2>Dashboards</h2>
+          </div>
+            <a href='{{site.baseurl}}/intersection-status/'>
+              <div class="col-md-2 homepage-button">
+                <h4>Intersection Status</h4>
+                <br>
+                <i  class="fa button-icon fa-pie-chart"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
+              </div>
+            </a>
+             <a href='{{site.baseurl}}/signal-retiming/'>
+              <div class="col-md-2 homepage-button">
+                <h4>Signal Retiming Program</h4>
+                <br>
+                <i  class="fa button-icon fa-clock-o"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
+              </div>
+            </a>
+      </row>
+      <row>
+        <div class="col-md-12">
           <h2>Open Data</h2>
         </div>
-        <div class="col-md-4 homepage-link">
-          <h2>Contact</h2>
-        </div>
+        <a href='https://data.austintexas.gov/browse?tags=transportation' target="_blank">
+          <div class="col-md-2 homepage-button">
+            <h4>Data.<AustinTexas class="Gov"></AustinTexas></h4>
+            <br>
+            <i  class="fa button-icon fa-database"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
+          </div>
+        </a>
       </row>
     </div>
 
