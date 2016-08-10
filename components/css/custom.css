@@ -31,7 +31,6 @@ html {
 }
 
 .jumbotron {
-    margin-bottom: 0px;
     background-image: url(../images/NEW_BANNDER_DARK.png);
     background-size: cover;
     background-repeat: no-repeat;
@@ -43,7 +42,6 @@ html {
     background-image: url(../images/NEW_BANNDER_DARK.png);
     background-size: cover;
     background-color: #333333;
-    padding: 0px;
     border: none;
 }
 
@@ -66,6 +64,3 @@ html {
     background-size: cover;
 }
 
-.footer-container {
-  margin: 0px; 
-}
