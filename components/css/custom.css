@@ -38,6 +38,11 @@ html {
     min-height: 150px;    
 }
 
+.jumbotron h2 {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
 .navbar {
     background-image: url(../images/NEW_BANNDER_DARK.png);
     background-size: cover;
