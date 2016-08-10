@@ -50,14 +50,22 @@ html {
     border: none;
 }
 
+
 .navbar-header {
   background: #fff;
 }
 
 .navbar-header h2 {
-  margin: 10px;
   font-weight: bold;
 }
+
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:focus,
+.nav-pills>li.active>a:hover {
+    color: #333;
+    background-color: #fff;
+}
+
 
 .footer {
     position: absolute;
