@@ -9,15 +9,23 @@
         
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3 info" id=info-2 data-status=2>
-                  <h4> Info 1 <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></h4>
+              <div class="col-md-2"></div>
+              <div class="col-md-10">
+                <select>
+                  <option>FY2016</option>
+                  <option>FY2015</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-4 info" id=info-2 data-status=2>
+                  <h4> Signals Re-Timed <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></h4>
                 </div>
-                <div class="col-md-3 info" id=info-1 data-status=1>
-                  <h4> Info 2 <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></h4>
+                <div class="col-md-4 info" id=info-1 data-status=1>
+                  <h4> Avg Travel Time Reduction <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></h4>
                 </div>
-                <div class="col-md-3 info" id=info-3 data-status=3>
-                  <h4> Info 3 <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></h4>
-                </div>
+                <div class="col-md-2"></div>
 
             </div>
             <!-- map -->
@@ -70,8 +78,6 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{site.baseurl}}/components/js/ie10-viewport-bug-workaround.js"></script>
     <script src="{{site.baseurl}}/components/js/d3.min.js"></script>
-    <script src="{{site.baseurl}}/components/js/leaflet.js"></script>
-    <script src="{{site.baseurl}}/components/js/leaflet.extra-markers.min.js"></script>
     <script src="{{site.baseurl}}/components/js/signal-retiming-dash.js"></script>
     
   </body>
