@@ -40,16 +40,15 @@ html {
 
 .jumbotron h2 {
   font-size: 2.5em;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .navbar {
-    background-image: url(../images/NEW_BANNDER_DARK.png);
+    background-image: url(../images/NEW_BANNDER_DARK_REDUCED.png);
     background-size: cover;
     background-color: #333333;
     border: none;
 }
-
 
 .navbar-header {
   background: #fff;
@@ -63,7 +62,14 @@ html {
 .nav-pills>li.active>a:focus,
 .nav-pills>li.active>a:hover {
     color: #333;
-    background-color: #fff;
+    background-color: white;
+}
+
+
+.nav-pills > li > a {
+  height: 50px;
+  border-radius: 0px;
+  background-color: white;
 }
 
 
@@ -73,7 +79,6 @@ html {
     width: 100%;
     height: 50px;
     color: #fff;
-    background-image: url(../images/NEW_BANNDER_DARK.png);
-    background-size: cover;
+    background-color: #333;
 }
 
