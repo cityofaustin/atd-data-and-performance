@@ -33,7 +33,7 @@ d3.json(data_url, function(dataset) {
 
     john = dataset;
     
-    var retime_current = dataset.length;
+    var retime_current = 85;  //  actually should calculate from data
 
     var reduce_total = 0;
 
@@ -54,7 +54,10 @@ d3.select("#year-selector").on("change", function(d){
     
     populateStat("info-1", 300);
 
+
 })
+
+makeCircles("info-1");
 
 function getSelectedYear(){
 
@@ -143,27 +146,85 @@ function createPieChart(divId, dataset) {
     }); // store the current angles
 }
 
+
 function makeCircles(divId) {
-    var r = 10;
-    var h = 300;
-    var w = 300;
+
+    var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
+
+    var retime_current = 85;
+
+    // layout params
+    var h = 200;  //  fixed height chart
+
+    var block_length = 15;  //  fixed block dimensions
+
+    var padFactor = .05;
+
+    var rows = h / ( (block_length * padFactor) + block_length );    
     
-    var circles = d3.range( w / (r * 2) );
+    var rows = Math.floor(rows);  //  round # of rows down to avoid truncating
+
+    var cols = Math.ceil( goal / rows );  //  round # of cols up to avoid truncating
+    
+    var w = cols * ( (block_length * padFactor) + block_length );
+
+    //  create chart data
+    rects = [];
+
+    for (var i = 0; i < rows; i++) {
+
+        for (var q = 0; q < cols; q++){
+
+            //  if (rects.length == goal) {
+//                  break;
+    //          }
+
+            var x = (block_length * q) + ( q * block_length * padFactor );
+        
+            var y = (block_length * i) + ( i * block_length * padFactor );
+
+            if (rects.length + retime_current < goal) {
+
+                var block_class = "not-highlighted";    
+            
+            } else {
+             
+                var block_class = "highlighted";
+            
+            }
+        
+            rects.push({ 
+                "x" : x, 
+                "y" : y,
+                "class" : block_class
+            })
+        
+        }
+    
+    }
+
+    rects = rects.reverse();
 
     var svg2 = d3.select("#" + divId)
         .append("svg")
         .attr("height", h)
         .attr("width", w);
 
-    svg2.select("circle")
-        .data(circles)
+    svg2.selectAll("rect")
+        .data(rects)
         .enter()
         .append("rect")
-        .attr("height", r)
-        .attr("width", w)
-        .attr("x", 50)
-        .attr("y", 50)
-        .attr("fill", "black")
+        .attr("height", block_length)
+        .attr("width", block_length)
+        .attr("x", function(d) {
+            return d.x;
+        })
+        .attr("y", function(d){
+            return d.y;
+        })
+        .attr("class", function(d){
+            return d.class;
+        });
 
 }
 

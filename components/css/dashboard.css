@@ -61,3 +61,11 @@ div.tooltip {
 .comm_disabled, .no_comm {
     fill: #333333;
 }
+
+rect.highlighted {
+  fill: green;
+}
+
+rect.not-highlighted {
+  fill: #bfbfbf;
+}
