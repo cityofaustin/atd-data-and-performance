@@ -113,7 +113,9 @@ function createPieChart(divId, dataset) {
             .sort(null)
             .value(function (d) {
                return d;
-            });
+            })
+            .startAngle(-1.55)
+            .endAngle(1.55);
 
     var arc = d3.svg.arc()
         .outerRadius(radius)
@@ -138,8 +140,33 @@ function createPieChart(divId, dataset) {
         .attr("stroke", "white")
         .each(function (d) {
             this._current = d;
-}); // store the current angles
+    }); // store the current angles
 }
+
+function makeCircles(divId) {
+    var r = 10;
+    var h = 300;
+    var w = 300;
+    
+    var circles = d3.range( w / (r * 2) );
+
+    var svg2 = d3.select("#" + divId)
+        .append("svg")
+        .attr("height", h)
+        .attr("width", w);
+
+    svg2.select("circle")
+        .data(circles)
+        .enter()
+        .append("rect")
+        .attr("height", r)
+        .attr("width", w)
+        .attr("x", 50)
+        .attr("y", 50)
+        .attr("fill", "black")
+
+}
+
 
 
 
