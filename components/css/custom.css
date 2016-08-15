@@ -7,12 +7,6 @@ html {
     min-height: 100%;
 }
 
-.dash-footer {
-  min-height: 35px;
-  background-color: #333333;
-  color: white;
-  padding: 5px;
-}
 
 .fa-home {
   font-size: 2em;
@@ -85,4 +79,3 @@ html {
     color: #fff;
     background-color: #333;
 }
-
