@@ -1,0 +1,100 @@
+[ {
+  "south_west_limit" : "JACKSON",
+  "retime_fiscal_year" : "2015",
+  "tt_reduction" : "0.04",
+  "system_id" : "20",
+  "status_date" : "2015-08-20T00:00:00",
+  "system_name" : "5TH - WEST",
+  "north_east_limit" : "RED RIVER",
+  "signal_count" : "8",
+  "status" : "COMPLETED"
+}
+, {
+  "south_west_limit" : "MLK",
+  "retime_fiscal_year" : "2015",
+  "tt_reduction" : "0.03",
+  "system_id" : "27",
+  "status_date" : "2015-08-20T00:00:00",
+  "system_name" : "7TH - EAST",
+  "north_east_limit" : "IH35",
+  "signal_count" : "59",
+  "status" : "COMPLETED"
+}
+, {
+  "south_west_limit" : "OLTORF",
+  "retime_fiscal_year" : "2015",
+  "tt_reduction" : "0.07",
+  "system_id" : "33",
+  "status_date" : "2015-08-20T00:00:00",
+  "system_name" : "GUADALUPE",
+  "north_east_limit" : "RUNDBERG",
+  "signal_count" : "40",
+  "status" : "COMPLETED"
+}
+, {
+  "south_west_limit" : "MONTOPOLIS",
+  "retime_fiscal_year" : "2015",
+  "tt_reduction" : "0.08",
+  "system_id" : "54",
+  "status_date" : "2015-08-20T00:00:00",
+  "system_name" : "STASSNEY",
+  "north_east_limit" : "BURNETT",
+  "signal_count" : "20",
+  "status" : "COMPLETED"
+}
+, {
+  "south_west_limit" : "MONTOPOLIS",
+  "retime_fiscal_year" : "2015",
+  "tt_reduction" : "0.01",
+  "system_id" : "77",
+  "status_date" : "2015-08-20T00:00:00",
+  "system_name" : "MANOR",
+  "north_east_limit" : "BURNETT",
+  "signal_count" : "20",
+  "status" : "COMPLETED"
+}
+, {
+  "south_west_limit" : "JACKSON",
+  "retime_fiscal_year" : "2016",
+  "tt_reduction" : "0.05",
+  "system_id" : "6",
+  "status_date" : "2016-08-20T00:00:00",
+  "system_name" : "38TH",
+  "north_east_limit" : "RED RIVER",
+  "signal_count" : "12",
+  "status" : "COMPLETED"
+}
+, {
+  "south_west_limit" : "MLK",
+  "retime_fiscal_year" : "2016",
+  "tt_reduction" : "0.09",
+  "system_id" : "13",
+  "status_date" : "2016-08-20T00:00:00",
+  "system_name" : "183 - NORTH",
+  "north_east_limit" : "IH35",
+  "signal_count" : "16",
+  "status" : "COMPLETED"
+}
+, {
+  "south_west_limit" : "OLTORF",
+  "retime_fiscal_year" : "2016",
+  "tt_reduction" : "0.02",
+  "system_id" : "55",
+  "status_date" : "2016-08-20T00:00:00",
+  "system_name" : "LAMAR",
+  "north_east_limit" : "RUNDBERG",
+  "signal_count" : "22",
+  "status" : "COMPLETED"
+}
+, {
+  "south_west_limit" : "MONTOPOLIS",
+  "retime_fiscal_year" : "2016",
+  "tt_reduction" : "0.05",
+  "system_id" : "78",
+  "status_date" : "2016-08-20T00:00:00",
+  "system_name" : "AIRPORT",
+  "north_east_limit" : "BURNETT",
+  "signal_count" : "20",
+  "status" : "COMPLETED"
+}
+ ]
