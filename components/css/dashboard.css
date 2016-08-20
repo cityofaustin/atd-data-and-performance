@@ -62,11 +62,18 @@ div.tooltip {
     fill: #333333;
 }
 
-rect {
+.planned {
   fill: #bfbfbf;
 }
 
-.pieText {
-  font-size: 42px;
+.done {
+  fill: green;
 }
 
+.goal-unmet {
+  color: #AD0000;
+}
+
+.goal-met {
+  color: green;
+}

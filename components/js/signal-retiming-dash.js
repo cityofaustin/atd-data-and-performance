@@ -23,6 +23,12 @@ var retime_previous;
 
 var retime_current = 0;
 
+var tt_reduction_current = 0;
+
+var tt_reduction_previous = 0;
+
+var pie_path, pie;
+
 var retime_goal = +ANNUAL_GOALS[selected_year]["retime_goal"];
 
 var reduction_goal = +ANNUAL_GOALS[selected_year]["avg_reduction_goal"];
@@ -31,7 +37,11 @@ var data_url = "../components/data/dummy_retiming_data.json";
 
 var source_data;
 
-var formatPct = d3.format("1.0%");
+var formatPct = d3.format(".1%");
+
+var t = d3.transition()
+    .ease(d3.easeLinear)
+    .duration(750);
 
 d3.json(data_url, function(dataset) {
 
@@ -43,7 +53,7 @@ d3.json(data_url, function(dataset) {
 
         createProgressChart("info-1", filtered_data);
 
-        createPieChart("info-2", filtered_data);
+        populateTTstat("info-2", filtered_data);
 
         populateTable(filtered_data);
 
@@ -59,11 +69,9 @@ d3.select("#year-selector").on("change", function(d){
 
         updateRetimeCount("info-1", filtered_data);
 
-        updateProgressChart("info-1", filtered_data);
+       //   updateProgressChart("info-1", filtered_data);
 
-        //  createProgressChart("info-1", filtered_data);
-
-        //  createPieChart("info-2", filtered_data);
+        updateTTstat("info-2", filtered_data);
 
     });
 
@@ -93,6 +101,23 @@ function filterData(dataset, updateCharts) {
         
     }  
 
+    tt_reduction_previous = tt_reduction_current;
+
+    tt_reduction_current = 0;
+
+    for (var i = 0; i < filtered_data.length; i++) {
+
+        if (filtered_data[i]["status"] == "COMPLETED") {
+        
+            tt_reduction_current = tt_reduction_current + +filtered_data[i]["tt_reduction"];
+            
+        }
+        
+    }
+
+    tt_reduction_current = tt_reduction_current / filtered_data.length; 
+
+
     updateCharts(filtered_data);
 
 }
@@ -100,10 +125,6 @@ function filterData(dataset, updateCharts) {
 function populateRetimeCount(divId, dataset) {
     
     var goal = ANNUAL_GOALS[selected_year]["retime_goal"]; 
-
-    var t = d3.transition()
-        .ease(d3.easeLinear)
-        .duration(retime_current * delay_val);
 
     d3.select("#" + divId)
         .select("h2")
@@ -124,42 +145,106 @@ function populateRetimeCount(divId, dataset) {
 }
 
 
-function createPieChart(divId, dataset) {
+function populateTTstat(divId, dataset) {
 
-    values = [.55, .45];  //  init data for 50/50 gaugei 
+    var goal = ANNUAL_GOALS[selected_year]["avg_reduction_goal"]; 
+    
+    d3.select("#" + divId)
+        .append("text")
+        .text(formatPct(tt_reduction_previous))
+        .transition(t)
+        .attr("class", function(){
+            if (tt_reduction_current >= +goal) {
+                return "goal-met";
+            } else {
+                return "goal-unmet"
+            }
+        })
+        .tween("text", function () {
+            
+            var that = d3.select(this);
 
-    keys = ["done","planned"];  //  the challenge is accessing the keys for assigning classes
+            var i = d3.interpolate(0, tt_reduction_current);
+            
+            return function (t) {
+            
+                that.text( formatPct(i(t)) );
+            
+            }
 
-    var width = 400;
+        });
+
+}
+
+function updateTTstat(divId, dataset) {
+
+    var goal = ANNUAL_GOALS[selected_year]["avg_reduction_goal"]; 
+    
+    d3.select("#" + divId)
+        .select("text")
+        .transition(t)
+        .attr("class", function(){
+            if (tt_reduction_current >= +goal) {
+                return "goal-met";
+            } else {
+                return "goal-unmet"
+            }
+        })
+        .tween("text", function () {
+            
+            var that = d3.select(this);
+
+            var i = d3.interpolate(tt_reduction_previous, tt_reduction_current);
+            
+            return function (t) {
+            
+                that.text( formatPct(i(t)) );
+            
+            }
+
+        });
+        
+}
+
+function createProgressChart(divId, dataset) {
+
+    var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
+
+    var values = [goal, goal-retime_current];  //  init data for 50/50 gaugei 
+
+    var keys = ["planned","done"];  
+
+    var width = 200;
 
     var height = 200;
 
-    var radius = 150;
+    var radius = 100;
 
-     var pie = d3.pie()  //  not d4 compatible
-            .sort(null)
-            .value(function (d) {
-               return d;
-            })
-            .startAngle(-1.6)
-            .endAngle(1.6);
+    pie = d3.pie()
+        .value(function (d) {
+            return d;
+        })
+        .sortValues(function(a, b){
+            return a;
+        });
 
     var arc = d3.arc()
         .outerRadius(radius)
-        .innerRadius(radius * .5);
+        .innerRadius(radius * .6);
 
-    var svg = d3.select("#" + divId).append("svg")
+    var svg = d3.select("#" + divId)
+        .select("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height + ")");
+        .attr("transform", "translate(" + width / 2 + "," + height/2 +  ")");
 
-    var path1 = svg.datum(values).selectAll("path")
+    pie_path = svg.datum(values).selectAll("path")
         .data(pie)
         .enter()
         .append("g")
         .attr("class", function(d, i) {
-            return "arc";
+            return "arc " + keys[i];
         })
         .attr("fill", "green")
         .attr("id", "pie")
@@ -174,107 +259,15 @@ function createPieChart(divId, dataset) {
         .style("text-anchor", "middle")
         .attr("class", "pieText")
         .html(function (d) {
-            return formatPct(.05);
+            //  return formatPct(retime_current / goal);
+            return
         });
-
-}
-
-function createProgressChart(divId, dataset) {
-
-    var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
-
-    var t = d3.transition()
-        .ease(d3.easeLinear)
-        .duration(retime_current * delay_val);
-
-    // layout params
-    var w = progChartWidth;  //  fixed height chart
-
-    var block_length = w * .06;  //  fixed block dimensions
-
-    var padFactor = .1;
-
-    var cols = w / ( (block_length * padFactor) + block_length );    
-    
-    var cols = Math.floor(cols);  //  round # of rows down to avoid truncating
-
-    var rows = Math.ceil( goal / cols );  //  round # of cols up to avoid truncating
-    
-    var h = rows * ( (block_length * padFactor) + block_length );
-
-    //  create chart data
-    rect_data = [];
-
-    for (var i = 0; i < rows; i++) {
-
-        for (var q = 0; q < cols; q++){
-
-            var x = (block_length * q) + ( q * block_length * padFactor );
-        
-            var y = (block_length * i) + ( i * block_length * padFactor );
-
-            if (rect_data.length + retime_current < goal) {
-
-                var block_class = "not-highlighted";    
-            
-            } else {
-             
-                var block_class = "highlighted";
-            
-            }
-        
-            rect_data.push({ 
-                "x" : x, 
-                "y" : y,
-                "class" : block_class
-            })
-        
-        }
-    
-    }
-
-    rect_data = rect_data.reverse();
-
-    var svg2 = d3.select("#" + divId)
-        .select("svg")
-        .attr("height", h)
-        .attr("width", w);
-
-    var rects = svg2.append("g").selectAll("rect")
-        .data(rect_data)
-        .enter()
-        .append("rect")
-        .attr("height", block_length)
-        .attr("width", block_length)
-        .attr("x", function(d) {
-            return d.x;
-        })
-        .attr("y", function(d){
-            return d.y;
-        })
-        .attr("class", function(d){
-                    return d.class;
-        });
-
-    d3.selectAll(".highlighted")
-        .transition()
-        .delay(function(d, i) { return i * delay_val; })
-        .on("start", function repeat() {
-            d3.active(this)
-                .style("fill", "green");
-    });
         
 }
 
 function updateRetimeCount(divId, dataset) {
 
-    console.log(retime_current);
-
     var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
-
-    var t = d3.transition()
-        .ease(d3.easeLinear)
-        .duration(retime_current * delay_val);
 
     d3.select("#" + divId)
         .select("h2")
@@ -297,98 +290,22 @@ function updateRetimeCount(divId, dataset) {
 
 function updateProgressChart(divId, dataset){
 
-
     var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
 
-    var t = d3.transition()
-        .ease(d3.easeLinear)
-        .duration(retime_current * delay_val);
+    var values = [goal, goal-retime_current];  //  init data for 50/50 gaugei 
 
-    var w = progChartWidth;  //  fixed height chart
+    var keys = ["planned","done"]; 
 
-    var block_length = w * .06;  //  fixed block dimensions
-
-    var padFactor = .1;
-
-    var cols = w / ( (block_length * padFactor) + block_length );    
-    
-    var cols = Math.floor(cols);  //  round # of rows down to avoid truncating
-
-    var rows = Math.ceil( goal / cols );  //  round # of cols up to avoid truncating
-    
-    var h = rows * ( (block_length * padFactor) + block_length );
-
-    //  create chart data
-    rect_data = [];
-
-    for (var i = 0; i < rows; i++) {
-
-        for (var q = 0; q < cols; q++){
-
-            var x = (block_length * q) + ( q * block_length * padFactor );
-        
-            var y = (block_length * i) + ( i * block_length * padFactor );
-
-            if (rect_data.length + retime_current < goal) {
-
-                var block_class = "not-highlighted";    
-            
-            } else {
-             
-                var block_class = "highlighted";
-            
-            }
-        
-            rect_data.push({ 
-                "x" : x, 
-                "y" : y,
-                "class" : block_class
-            })
-        
-        }
-    
-    }
-
-    rect_data = rect_data.reverse();
-
-    d3.select("#" + divId)
-        .select("svg")
-        .select("g").remove();
-            
-
-    d3.select("#" + divId)
-        .select("svg")
-        .transition(t)
-        .attr("height", h)
-        .attr("width", w)
-
-    var rects = d3.select("#" + divId)
-        .select("svg")
-        .append("g").selectAll("rect")
-        .data(rect_data)
-        .enter()
-        .append("rect")
-        .attr("height", block_length)
-        .attr("width", block_length)
-        .attr("x", function(d) {
-            return d.x;
+    pie.value(function (d) {
+            return d;
         })
-        .attr("y", function(d){
-            return d.y;
-        })
-        .attr("class", function(d){
-                    return d.class;
-        });
+        .sortValues(function(a, b){
+            return a;
+        }); 
 
-
-    d3.selectAll(".highlighted")
-        .transition()
-        .delay(function(d, i) { return i * delay_val; })
-        .on("start", function repeat() {
-            d3.active(this)
-                .style("fill", "green");
-    });
-
+    // pie_path = pie_path.data(pie); // compute the new angles
+    
+    pie_path.transition(t).attrTween("d", arcTween); // redraw the arc
 
 }
 
@@ -431,9 +348,20 @@ function populateTable(dataset) {
 
 
 
+function arcTween(newAngle) {
+
+    return function(d) {
+
+        var interpolate = d3.interpolate(d.endAngle, newAngle);
+
+        return function(t) {
+
+            d.endAngle = interpolate(t);
 
 
 
-
-
+            return arc(d);
+        };
+    };
+}   
 
