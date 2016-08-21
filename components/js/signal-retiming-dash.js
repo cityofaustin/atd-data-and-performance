@@ -113,15 +113,12 @@ function populateTTstat(divId, transition) {
 
     var goal = ANNUAL_GOALS[selected_year]["avg_reduction_goal"]; 
 
-    var tt_reduction_previous = 
-        GROUPED_DATA["$" + previous_selection]["$COMPLETED"]["tt_reduction"];
-
     var tt_reduction = 
         GROUPED_DATA["$" + selected_year]["$COMPLETED"]["tt_reduction"];
     
     d3.select("#" + divId)
         .append("text")
-        .text(formatPct(tt_reduction_previous))
+        .text(formatPct(0))
         .transition(transition)
         .attr("class", function(){
             if (tt_reduction >= +goal) {
