@@ -100,12 +100,23 @@
 , {
   "south_west_limit" : "FAKE ST",
   "retime_fiscal_year" : "2016",
-  "tt_reduction" : "0.05",
+  "tt_reduction" : "",
   "system_id" : "78",
   "status_date" : "2016-08-20T00:00:00",
   "system_name" : "LAVACA",
   "north_east_limit" : "MLK",
   "signal_count" : "20",
   "status" : "IN_PROGRESS"
+}
+, {
+  "south_west_limit" : "SLAUGHTER",
+  "retime_fiscal_year" : "2016",
+  "tt_reduction" : "",
+  "system_id" : "78",
+  "status_date" : "2016-08-20T00:00:00",
+  "system_name" : "SOUTH 1ST",
+  "north_east_limit" : "BARTON SPRINGS RD",
+  "signal_count" : "16",
+  "status" : "PLANNED"
 }
  ]
