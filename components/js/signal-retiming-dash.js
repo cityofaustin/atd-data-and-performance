@@ -116,30 +116,6 @@ function groupData(dataset, updateCharts) {
 
 function populateRetimeCount(divId, transition) {
 
-    var retime_previous = 
-        GROUPED_DATA["$" + previous_selection]["$COMPLETED"]["signals_retimed"];
-
-    var signals_retimed = 
-        GROUPED_DATA["$" + selected_year]["$COMPLETED"]["signals_retimed"];
-
-    var goal = ANNUAL_GOALS[selected_year]["retime_goal"]; 
-
-    d3.select("#" + divId)
-        .select("h2")
-        .text("0")
-        .transition(transition)
-        .tween("text", function () {
-            
-            var that = d3.select(this);
-
-            var i = d3.interpolate(retime_previous, signals_retimed);
-            
-            return function (t) {
-            
-                that.text( Math.round(i(t)) + " / " + goal);
-            
-            }    
-    });
 }
 
 
@@ -218,11 +194,6 @@ function updateTTstat(divId, transition) {
 
 function createProgressChart(divId) {  //  see https://bl.ocks.org/mbostock/5100636
 
-    var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
-
-    var signals_retimed = 
-        GROUPED_DATA["$" + selected_year]["$COMPLETED"]["signals_retimed"];
-
     var pct_complete = 0;  //  0 for init transition
 
     var keys = ["planned","done"];  
@@ -260,11 +231,13 @@ function createProgressChart(divId) {  //  see https://bl.ocks.org/mbostock/5100
 
     svg.append("g")
         .append("text")
-       //   .attr("y", height / 10)
-        .style("text-anchor", "middle")
+        .attr("id", "pieText")
         .attr("class", "pieText")
+        .attr("y", height / 2)
+        .attr("x", width / 2)
+        .style("text-anchor", "middle")
         .html(function (d) {
-            return formatPctInt(signals_retimed / goal);
+            return formatPctInt(0);
         });
     
     updateProgressChart("info-1", t1);
@@ -272,29 +245,6 @@ function createProgressChart(divId) {  //  see https://bl.ocks.org/mbostock/5100
 
 function updateRetimeCount(divId, transition) {
 
-    var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
-
-    var retime_previous = 
-        GROUPED_DATA["$" + previous_selection]["$COMPLETED"]["signals_retimed"];
-
-    var signals_retimed = 
-        GROUPED_DATA["$" + selected_year]["$COMPLETED"]["signals_retimed"];
-
-    d3.select("#" + divId)
-        .select("h2")
-        .transition(transition)
-        .tween("text", function () {
-            
-            var that = d3.select(this);
-
-            var i = d3.interpolate(retime_previous, signals_retimed);
-            
-            return function (t) {
-            
-                that.text( Math.round(i(t)) + " / " + goal );
-            
-            }    
-    });
 
 }
 
@@ -312,7 +262,25 @@ function updateProgressChart(divId, transition){
         .transition(transition)
         .attrTween("d", arcTween(pct_complete * tau));
 
+    d3.select("#" + "pieText")
+        .transition(transition)
+        .tween("text", function () {
+            
+            var that = d3.select(this);
+
+            var pct_complete_previous = ( parseFloat(that.text().replace('%','')) ) / 100; // convert existing % string to float
+
+            var i = d3.interpolate(pct_complete_previous, pct_complete);
+            
+            return function (t) {
+            
+                that.text( formatPctInt(i(t))  );
+            
+            }    
+    });
+
 }
+
 
 
 function populateTable(dataset) {
