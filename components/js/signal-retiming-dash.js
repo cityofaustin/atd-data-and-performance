@@ -54,7 +54,7 @@ d3.json(data_url, function(dataset) {
 
     SOURCE_DATA = dataset;
 
-    groupData(dataset, function(filtered_data){
+    groupData(dataset, function(){
 
         populateRetimeCount("info-1", t1);
 
@@ -280,7 +280,6 @@ function updateProgressChart(divId, transition){
     });
 
 }
-
 
 
 function populateTable(dataset) {
