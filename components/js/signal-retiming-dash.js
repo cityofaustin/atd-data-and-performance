@@ -23,9 +23,9 @@ var ANNUAL_GOALS = {
 
 };
 
-var SOURCE_DATA;
+var SOURCE_DATA;  //  populates table
 
-var GROUPED_DATA;
+var GROUPED_DATA;  //  powers the data viz
 
 var tau = 2 * Math.PI,
     arc;
@@ -33,10 +33,6 @@ var tau = 2 * Math.PI,
 var selected_year = "2016";  //  init year selection
 
 var previous_selection = "2015";
-
-var retime_goal = +ANNUAL_GOALS[selected_year]["retime_goal"];
-
-var reduction_goal = +ANNUAL_GOALS[selected_year]["avg_reduction_goal"];
 
 var data_url = "../components/data/dummy_retiming_data.json";
 
@@ -183,8 +179,6 @@ function createProgressChart(divId) {  //  see https://bl.ocks.org/mbostock/5100
 
     var pct_complete = 0;  //  0 for init transition
 
-    var keys = ["planned","done"];  
-
     var width = 200;
 
     var height = 200;
@@ -237,13 +231,13 @@ function updateProgressChart(divId, transition){
     var signals_retimed = 
         GROUPED_DATA["$" + selected_year]["$COMPLETED"]["signals_retimed"];
 
-    var pct_complete = signals_retimed / goal;  //  init data for 50/50 pie 
+    var pct_complete = signals_retimed / goal;
     
-    d3.select("#progress-pie")
+    d3.select("#progress-pie")  //  update progress arc
         .transition(transition)
         .attrTween("d", arcTween(pct_complete * tau));
 
-    d3.select("#" + "pieText")
+    d3.select("#" + "pieText")  //  update chat text
         .transition(transition)
         .tween("text", function () {
             
