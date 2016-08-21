@@ -56,8 +56,6 @@ d3.json(data_url, function(dataset) {
 
     groupData(dataset, function(){
 
-        populateRetimeCount("info-1", t1);
-
         createProgressChart("info-1");
 
         populateTTstat("info-2", t1);
@@ -70,7 +68,6 @@ d3.json(data_url, function(dataset) {
 
 d3.select("#year-selector").on("change", function(d){
 
-
     t2 = d3.transition()
         .ease(d3.easeQuad)
         .duration(1000);
@@ -78,8 +75,6 @@ d3.select("#year-selector").on("change", function(d){
     previous_selection = selected_year;
 
     selected_year = d3.select(this).property("value");
-
-    updateRetimeCount("info-1", t2);
 
     updateProgressChart("info-1", t2);
 
@@ -113,11 +108,6 @@ function groupData(dataset, updateCharts) {
      updateCharts();
 
 }
-
-function populateRetimeCount(divId, transition) {
-
-}
-
 
 function populateTTstat(divId, transition) {
 
@@ -242,12 +232,6 @@ function createProgressChart(divId) {  //  see https://bl.ocks.org/mbostock/5100
     
     updateProgressChart("info-1", t1);
 }
-
-function updateRetimeCount(divId, transition) {
-
-
-}
-
 
 function updateProgressChart(divId, transition){
 
