@@ -77,3 +77,7 @@ div.tooltip {
 .goal-met {
   color: green;
 }
+
+.pieText {
+  font-size: 50%;
+}
