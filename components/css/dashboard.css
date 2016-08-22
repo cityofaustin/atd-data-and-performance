@@ -17,12 +17,15 @@ div.tooltip {
 .info {
   font-size: 500%;
   font-weight: bold;
-  cursor: pointer;
   text-align: center;
   dominant-baseline: bottom;
   -webkit-user-select: none; /* Chrome/Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+ */
+}
+
+.div-filter {
+  cursor: pointer;
 }
 
 .infoStat.warning {
