@@ -83,4 +83,10 @@ div.tooltip {
 
 .pieText {
   font-size: 50%;
+  text-anchor: middle;
+}
+
+.pieTextSmall {
+  font-size: 20%;
+  text-anchor: middle;
 }

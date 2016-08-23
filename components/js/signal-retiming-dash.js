@@ -76,6 +76,8 @@ d3.select("#year-selector").on("change", function(d){
 
     updateTTstat("info-2", t2);
 
+    updateTable(SOURCE_DATA);
+
 })
 
 function groupData(dataset, updateCharts) {
@@ -210,16 +212,24 @@ function createProgressChart(divId) {  //  see https://bl.ocks.org/mbostock/5100
         .attr("id", "progress-pie")
         .attr("d", arc);
 
-    svg.append("g")
-        .append("text")
-        .attr("id", "pieText")
+    var pieTextContainer = svg.append("g");
+
+    pieTextContainer.append("text")
+        .attr("id", "pieTextLarge")
         .attr("class", "pieText")
         .attr("y", height / 2)
         .attr("x", width / 2)
-        .style("text-anchor", "middle")
         .html(function (d) {
             return formatPctInt(0);
         });
+
+    pieTextContainer.append("text")
+        .attr("id", "pieTextSmall")
+        .attr("y", height / 1.6)
+        .attr("x", width / 2 )
+        .attr("class", "pieTextSmall")
+        .html("0 of " + 0);
+
     
     updateProgressChart("info-1", t1);
 }
@@ -237,7 +247,7 @@ function updateProgressChart(divId, transition){
         .transition(transition)
         .attrTween("d", arcTween(pct_complete * tau));
 
-    d3.select("#" + "pieText")  //  update chat text
+    d3.select("#" + "pieTextLarge")  //  update chat text
         .transition(transition)
         .tween("text", function () {
             
@@ -250,6 +260,31 @@ function updateProgressChart(divId, transition){
             return function (t) {
             
                 that.text( formatPctInt(i(t))  );
+            
+            }    
+    });
+
+    d3.select("#" + "pieTextSmall")  //  update chat text
+        
+        .transition(transition)
+        
+        .tween("text", function () {
+            
+            var that = d3.select(this);
+
+            var previous_text = ( that.text().split(' of ') ); 
+
+            var signals_retimed_previous = previous_text[0];
+
+            var previous_goal = previous_text[1];
+
+            var i = d3.interpolate(signals_retimed_previous, signals_retimed);
+
+            var q = d3.interpolate(previous_goal, goal);
+            
+            return function (t) {
+            
+                that.text( Math.round(i(t)) + " of " + Math.round(q(t))  );  //  interpolating two parts of a string? YEP!
             
             }    
     });
@@ -299,6 +334,45 @@ function populateTable(dataset) {
 
     } //  end populateTable
 
+
+function updateTable(dataset){
+
+    d3.select("tbody").selectAll("tr").selectAll("td").remove();
+
+    var filtered_data = dataset.filter(function (d) {
+
+            return d.retime_fiscal_year == selected_year;
+
+        });
+
+        var rows = d3.select("tbody")
+            .selectAll("tr")
+            .data(filtered_data)
+            .enter()
+            .append("tr")
+            .attr("class", "tableRow");
+
+        d3.select("tbody").selectAll("tr")
+
+            .each(function (d) {
+                
+                d3.select(this).append("td").html(d.system_id);
+                                
+                d3.select(this).append("td").html(d.system_name);
+                
+                d3.select(this).append("td").html(d.signal_count);
+
+                d3.select(this).append("td").html(d.status);
+                
+                d3.select(this).append("td").html(d.status_date);
+                
+                d3.select(this).append("td").html(d.tt_reduction);
+
+            });
+
+
+
+}
 
 function arcTween(newAngle) { 
 

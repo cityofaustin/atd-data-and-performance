@@ -559,7 +559,11 @@
 
 
     function postUpdateDate(data){
+
         var update_date = new Date(data.meta.view.rowsUpdatedAt * 1000);
+        
         var update_date = formatDateTime(update_date);
+        
         $('#update_date').text("Data updated " + update_date);
+        
     }
