@@ -36,8 +36,15 @@ div.tooltip {
     height: 300px;
 }
 
-.tooltip{
-  height: 0px;
+div.tooltip {   
+  position: absolute;           
+  text-align: center;                       
+  color: white;             
+  padding: 6px;             
+  font: 12px sans-serif;        
+  background: black;   
+  border-radius: 4px;           
+  border: 0px; 
 }
 
 .filtering{
