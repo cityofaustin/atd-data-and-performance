@@ -2,8 +2,8 @@
     //
     //  todo:
     //  add data refresh date
-    //  is it ok to have object keys as numb    ers?
-    // rescale chart on screen resize
+    //  is it ok to have object keys as numb    ers? (NOPE)
+    //  rescale chart on screen resize
     //  table row count does not update (because you're not adding rows with the native api)
     //  animations choppy::wait to populat map until chart update
     //  tooltips
@@ -19,6 +19,8 @@
     
     var signal_markers = {};
 
+    var map_expanded = false;
+
     var signal_layers = {};
 
     var formatPct = d3.format("%");
@@ -32,6 +34,10 @@
     var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
 
     var filters = [];
+
+    var default_map_size = 300;
+
+    var expanded_map_size = 600;
 
     var default_filters = [1, 2, 3];
 
@@ -181,6 +187,31 @@
 
     });
 
+    d3.select("#map-expander").on("click", function(){
+        
+        var map_size = expanded_map_size;
+
+        if (map_expanded) {
+
+            map_expanded = false;
+        
+            map_size = default_map_size;
+        
+        } else {
+
+            map_expanded = true;
+
+        }
+
+        d3.select("#map")
+            .transition()
+            .duration(500)
+            .style("height", map_size + "px");
+
+        setTimeout(function(){ map.invalidateSize()}, 600);
+
+    })
+
     function main(dataset){
 
         int_stats = d3.nest()
@@ -293,8 +324,6 @@
     function updateInfoStat(dataset, divId) {
 
         if (dataset) {
-
-            console.log(dataset);
 
             d3.select("#" + divId)
                 .select("text")
