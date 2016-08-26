@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  {% include head.html %}
+
+  <body>
+
+  	{% include dash-top-nav.html %}
+        
+        <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 style='font-family: sans-serif;'>Apr 2016: South Lamar Northbound</h4>
+                <select id='selected_day'>Day
+                  <option value=0>Mon</option>
+                  <option value=1>Tue</option>
+                  <option value=2>Wed</option>
+                  <option value=3>Thu</option>
+                  <option value=4>Fri</option>
+                  <option value=5>Sat</option>
+                  <option value=6>Sun</option>
+                </select>
+                <select id='selected_time'>Period
+                  <option value='am_off'>AM Off</option>
+                  <option value='am_peak'>AM Peak</option>
+                  <option value='mid-day'>Mid Day</option>
+                  <option value='pm-peak'>PM Peak</option>
+                  <option value='pm-off'>PM Off</option>
+                </select>
+              </div>
+            </div>
+            <div class="row"
+                <div class="col-md-12" id="content-wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+
+        {% include footer.html %}
+
+
+<!--             <div style="float:right;" class="col-md-3" id="update_date">
+                <h5>Last Updated 25 May 2016 8:45AM</h5>
+            </div> -->
+            
+
+ 
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{site.baseurl}}/components/js/jquery.min.js"></script>
+    <script src="{{site.baseurl}}/components/js/bootstrap.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{site.baseurl}}/components/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="{{site.baseurl}}/components/js/bt_chart_v0.1.js"></script>
+
+  </body>
+</html>
+
+
+
+
+ 
