@@ -8,11 +8,13 @@ var days = d3.range(5);
 
 var day_names = ['mon', 'tues', 'weds', 'thurs', 'fri', 'sat', 'sun'];
 
+var color_scale = d3.interpolate({colors: ["red", "blue"]}, {colors: ["white", "black"]});
+
 var source_file = "../components/data/lamar_all_may_2016.csv";
 
 var selected_day = 0;
 
-var selected_time = 'am_off';
+var selected_time = 'am_peak';
 
 var options = {
   'selected_day' : selected_day,
@@ -24,7 +26,7 @@ var t = d3.transition()
   .duration(1000);
 
 var margin = {top: 40, right: 10, bottom: 90, left: 100},
-  width = 800 - margin.left - margin.right,
+  width = 1200 - margin.left - margin.right,
   height = 350 - margin.top - margin.bottom;
 
 var x = d3.scaleLinear().range([0, width]);
@@ -36,7 +38,7 @@ var area = d3.area()
     .x(function(d, i) { return x(i); })
     .y0(height)
     .y1(function(d) {
-          return height - y(+d.travel_time);
+          return height - y(+d.avg_travel_time_per_mile);
     });
 
 var svg = d3.select("#content-wrapper")
@@ -48,15 +50,23 @@ var svg = d3.select("#content-wrapper")
 
 d3.csv(source_file, function(data) {
 
+  for (var i = 0; i < data.length; i++) {
+
+    var attpm = data[i].travel_time / data[i].segment_length;
+
+    data[i]['avg_travel_time_per_mile'] = attpm;
+
+  }
+
   maxTT = d3.max(data, function(d){
 
-    return +d.travel_time;
+    return +d.avg_travel_time_per_mile;
   
   });
 
   minTT = d3.min(data, function(d){
 
-    return +d.travel_time;
+    return +d.avg_travel_time_per_mile;
 
   })
 
@@ -81,7 +91,7 @@ d3.csv(source_file, function(data) {
 
   john = data;
 
-  var filtered_data = data["$" + options['selected_day']]["$" + options['selected_time']];
+  var filtered_data = data["$" + 0]["$" + options['selected_time']];
 
   x.domain([0, filtered_data.length]);    
 
@@ -89,12 +99,24 @@ d3.csv(source_file, function(data) {
 
   yAx.domain([minTT, maxTT]);
 
-  svg.append("path")
-    .datum(filtered_data)
-    .attr("class", "area")
-    .attr("id", "area")
-    .attr("d", area)
-    .attr("fill", "steelBlue");
+  for (var i  = 0; i < days.length; i++) {
+
+      filtered_data = data["$" + i]["$" + options['selected_time']];
+
+    svg.append("path")
+      .datum(filtered_data)
+      .attr("class", "area")
+      .attr("id", "area")
+      .attr("d", area)
+      .attr("opacity", .2)
+      .attr("fill", function(d, i){
+
+          return d3.interpolateRgb("blue", "red")(d[0].day / 7);
+      });
+
+  }
+
+  
 
   svg.append('g')
         .attr("class", "axis-left")
