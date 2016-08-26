@@ -1,3 +1,5 @@
+//  data field names are whack
+// travel times should be divided by segment
 
 var days = d3.range(5);
 
@@ -48,6 +50,12 @@ d3.csv(source_file, function(data) {
   
   });
 
+  minTT = d3.min(data, function(d){
+
+    return +d.travel_time;
+
+  })
+
   data = d3.nest()
             .key(function (d) {
                 return d.day;
@@ -62,7 +70,7 @@ d3.csv(source_file, function(data) {
 
   x.domain([0, filtered_data.length]);    
 
-  y.domain([0, maxTT]);
+  y.domain([minTT, maxTT]);
 
   svg.append("path")
     .datum(filtered_data)
