@@ -8,7 +8,7 @@ var days = d3.range(5);
 
 var day_names = ['mon', 'tues', 'weds', 'thurs', 'fri', 'sat', 'sun'];
 
-var source_file = "../components/data/south_lamar_apr_2016.csv";
+var source_file = "../components/data/lamar_all_may_2016.csv";
 
 var selected_day = 0;
 
@@ -29,6 +29,7 @@ var margin = {top: 40, right: 10, bottom: 90, left: 100},
 
 var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleLinear().range([0, height]);
+var yAx = d3.scaleLinear().range([height, 0]);
 
 var area = d3.area()
     .curve(d3.curveCatmullRom.alpha(.1))
@@ -86,6 +87,8 @@ d3.csv(source_file, function(data) {
 
   y.domain([minTT, maxTT]);
 
+  yAx.domain([minTT, maxTT]);
+
   svg.append("path")
     .datum(filtered_data)
     .attr("class", "area")
@@ -95,7 +98,7 @@ d3.csv(source_file, function(data) {
 
   svg.append('g')
         .attr("class", "axis-left")
-        .call(d3.axisLeft(y).tickSize(4)
+        .call(d3.axisLeft(yAx).tickSize(4)
             .tickFormat(function(d){
                 return d + "s";
             })
@@ -106,9 +109,9 @@ d3.csv(source_file, function(data) {
         .attr("transform", "translate(" + 0 + "," + height + ")")
         .call(
           d3.axisBottom(x)
-            .ticks(segments.length)
+            .ticks(segments.length/2)
             .tickFormat(function(d, i){
-              return segments[i];
+              return segments[i].replace("$", " to " ).replace("_"," ");
             })
             .tickSizeOuter(0)
         )
