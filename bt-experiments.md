@@ -1,5 +1,5 @@
 ---
-layout: blank
+layout: bluetooth
 title: BT Experiments
 ---
 
