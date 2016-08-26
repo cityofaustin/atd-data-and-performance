@@ -1,5 +1,8 @@
 //  data field names are whack
-// travel times should be divided by segment
+// travel times should be divided by segment  
+var john;
+
+var segments = [];
 
 var days = d3.range(5);
 
@@ -9,7 +12,7 @@ var source_file = "../components/data/south_lamar_apr_2016.csv";
 
 var selected_day = 0;
 
-var selected_time = 'am_peak';
+var selected_time = 'am_off';
 
 var options = {
   'selected_day' : selected_day,
@@ -20,7 +23,7 @@ var t = d3.transition()
   .ease(d3.easeQuad)
   .duration(1000);
 
-var margin = {top: 0, right: 0, bottom: 0, left: 10},
+var margin = {top: 40, right: 10, bottom: 90, left: 100},
   width = 800 - margin.left - margin.right,
   height = 350 - margin.top - margin.bottom;
 
@@ -56,6 +59,16 @@ d3.csv(source_file, function(data) {
 
   })
 
+  for (var i = 0; i < data.length; i++) {
+
+    if (segments.indexOf(data[i].segment) < 0) {
+      
+      segments.push(data[i].segment);
+
+    }
+
+  }
+
   data = d3.nest()
             .key(function (d) {
                 return d.day;
@@ -65,6 +78,7 @@ d3.csv(source_file, function(data) {
             })
             .map(data); 
 
+  john = data;
 
   var filtered_data = data["$" + options['selected_day']]["$" + options['selected_time']];
 
@@ -78,6 +92,36 @@ d3.csv(source_file, function(data) {
     .attr("id", "area")
     .attr("d", area)
     .attr("fill", "steelBlue");
+
+  svg.append('g')
+        .attr("class", "axis-left")
+        .call(d3.axisLeft(y).tickSize(4)
+            .tickFormat(function(d){
+                return d + "s";
+            })
+        );
+
+    svg.append("g")
+        .attr("class", "axis-bottom")
+        .attr("transform", "translate(" + 0 + "," + height + ")")
+        .call(
+          d3.axisBottom(x)
+            .ticks(segments.length)
+            .tickFormat(function(d, i){
+              return segments[i];
+            })
+            .tickSizeOuter(0)
+        )
+        .selectAll("text")
+        .style("text-anchor", "end")
+          .attr("dx", "-.8em")
+          .attr("dy", ".15em")
+          .attr("transform", function (d) {
+            return "rotate(-35)"
+          });
+
+
+
 
   d3.selectAll("select").on("change", function(d){
 
