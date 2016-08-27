@@ -24,7 +24,7 @@ var t = d3.transition()
   .duration(1000);
 
 var margin = {top: 40, right: 10, bottom: 110, left: 100},
-  width = 700 - margin.left - margin.right,
+  width = 800 - margin.left - margin.right,
   height = 400 - margin.top - margin.bottom;
 
 var x = d3.scaleLinear().range([0, width]);
@@ -44,8 +44,15 @@ var svg = d3.select("#content-wrapper")
   .append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+  
+svg.append("rect")
+    .attr('class', 'background')
+    .attr("height", height)
+    .attr("width", width)
+    .attr("fill", "#1a1a1a")
+    .attr("opacity", 0);
 
 d3.csv(source_file, function(data) {
 
@@ -111,16 +118,19 @@ d3.csv(source_file, function(data) {
     })
     .attr("class", "area")
     .attr("d", area)
-    .attr("opacity", .4)
+    .attr("opacity", .65)
     .attr("fill", function(d, i){
-      return colors[i];
+      // return d3.interpolateRdYlBu(i/7);
+      return d3.interpolateSpectral(i/7);
     })
     .attr("visibility", "visible");
 
   //  create axes
   svg.append('g')
     .attr("class", "axis-left")
-    .call(d3.axisLeft(yAx).tickSize(4)
+    .call(d3.axisLeft(yAx)
+        .tickSize(4)
+        .ticks(6)
         .tickFormat(function(d){
             return d + "s";
         })
@@ -131,9 +141,9 @@ d3.csv(source_file, function(data) {
       .attr("transform", "translate(" + 0 + "," + height + ")")
       .call(
         d3.axisBottom(x)
-          .ticks(segments.length/2)
+          .ticks(segments.length)
           .tickFormat(function(d, i){
-            return segments[i].replace("$", " to " ).replace("_"," ");
+            return segments[i]
           })
           .tickSizeOuter(0)
       )
