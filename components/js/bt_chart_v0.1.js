@@ -4,8 +4,6 @@ var john;
 
 var segments = [];
 
-var days = d3.range(5);
-
 var day_names = ['mon', 'tues', 'weds', 'thurs', 'fri', 'sat', 'sun'];
 
 var colors = d3.schemeDark2;
@@ -26,7 +24,7 @@ var t = d3.transition()
   .duration(1000);
 
 var margin = {top: 40, right: 10, bottom: 110, left: 100},
-  width = 900 - margin.left - margin.right,
+  width = 700 - margin.left - margin.right,
   height = 400 - margin.top - margin.bottom;
 
 var x = d3.scaleLinear().range([0, width]);
@@ -100,48 +98,97 @@ d3.csv(source_file, function(data) {
 
   yAx.domain([minTT, maxTT]);
 
-    svg.selectAll("path")
-      .data(filtered_data)
-      .enter()
-      .append("path")
-      .datum(function(d){
-        return d['$' + selected_time];
-      })
-      .attr("class", "area")
-      .attr("id", "area")
-      .attr("d", area)
-      .attr("opacity", .4)
-      .attr("fill", function(d, i){
-        return colors[i];
-      });
+  //  create chart
+  svg.selectAll("path")
+    .data(filtered_data)
+    .enter()
+    .append("path")
+    .datum(function(d){
+      return d['$' + selected_time];
+    })
+    .attr("id", function(d, i) {
+      return day_names[i];
+    })
+    .attr("class", "area")
+    .attr("d", area)
+    .attr("opacity", .4)
+    .attr("fill", function(d, i){
+      return colors[i];
+    })
+    .attr("visibility", "visible");
 
+  //  create axes
   svg.append('g')
-        .attr("class", "axis-left")
-        .call(d3.axisLeft(yAx).tickSize(4)
-            .tickFormat(function(d){
-                return d + "s";
-            })
-        );
+    .attr("class", "axis-left")
+    .call(d3.axisLeft(yAx).tickSize(4)
+        .tickFormat(function(d){
+            return d + "s";
+        })
+    );
 
-    svg.append("g")
-        .attr("class", "axis-bottom")
-        .attr("transform", "translate(" + 0 + "," + height + ")")
-        .call(
-          d3.axisBottom(x)
-            .ticks(segments.length/2)
-            .tickFormat(function(d, i){
-              return segments[i].replace("$", " to " ).replace("_"," ");
-            })
-            .tickSizeOuter(0)
-        )
-        .selectAll("text")
-        .style("text-anchor", "end")
-          .attr("dx", "-.8em")
-          .attr("dy", ".15em")
-          .attr("transform", function (d) {
-            return "rotate(-35)"
-          });
+  svg.append("g")
+      .attr("class", "axis-bottom")
+      .attr("transform", "translate(" + 0 + "," + height + ")")
+      .call(
+        d3.axisBottom(x)
+          .ticks(segments.length/2)
+          .tickFormat(function(d, i){
+            return segments[i].replace("$", " to " ).replace("_"," ");
+          })
+          .tickSizeOuter(0)
+      )
+      .selectAll("text")
+      .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", function (d) {
+          return "rotate(-35)"
+        });
 
+  //  create radio buttons
+  d3.select("form")
+    .selectAll("input")
+    .data(filtered_data)
+    .enter()
+    .append('label')
+      .attr('for',function(d,i){ return 'a'+i; })
+      .text(function(d, i) { return day_names[i] + ' ' ; })
+      .style("margin", "0px 5px")
+      .style("cursor", "pointer")
+    .append("input")
+      .attr("checked", true)
+      .attr("type", "checkbox")
+      .attr("class", "checkbox")
+      .attr("id", function(d,i) { return 'a'+i; })
+      .attr("name", function(d, i){
+        return day_names[i];
+      })
+      .attr("value", function(d, i) {
+        return i;
+      })
+      .style("cursor", "pointer")
+      .style("display", "inline-block");
+  
+  d3.selectAll(".checkbox").on("change", function(d){
+    
+    var day = d3.select(this).node().value;
+
+    var visibility = d3.select("#" + day_names[day]).attr("visibility");
+
+    if (visibility == "visible") {
+
+      visibility = "hidden";
+
+    } else {
+
+      visibility = "visible"
+
+    }
+
+    d3.select("#" + day_names[day]).attr("visibility", visibility);    
+
+  });
+    
   d3.selectAll("select").on("change", function(d){
 
     var selector = d3.select(this).attr("id");
