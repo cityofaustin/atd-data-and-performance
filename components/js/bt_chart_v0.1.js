@@ -1,4 +1,3 @@
-//  you gota make those arrays equal in length!
 
 var john;
 
@@ -6,13 +5,17 @@ var segments = [];
 
 var day_names = ['mon', 'tues', 'weds', 'thurs', 'fri', 'sat', 'sun'];
 
+var periods = ['am_off','am_peak','mid_day', 'pm_peak', 'pm_off'];
+
+var period_switch = 0;
+
 var colors = d3.schemeDark2;
 
 var source_file = "../components/data/lamar_all_may_2016.csv";
 
 var selected_day = 0;
 
-var selected_time = 'am_peak';
+var selected_time = 'am_off';
 
 var options = {
   'selected_day' : selected_day,
@@ -96,6 +99,26 @@ d3.csv(source_file, function(data) {
             .map(data); 
 
   john = data;
+
+  //  check for equal object lengths. e.g if a segment is missing data for a specific day/time, we need to raise a flag
+  for (var day in data.keys()){
+
+    for (var period in data['$' + day]) {
+
+        if (data['$' + day].hasOwnProperty(period)) {
+
+          if (data['$' + day][period].length != segments.length) {
+            
+            alert(
+              "It appears the data your loading has insuffcient samples for desired timeframe!"
+              );
+          }
+
+        }
+
+    }
+
+  }
 
   filtered_data = data.values();
 
@@ -219,6 +242,44 @@ d3.csv(source_file, function(data) {
 
   })
 
+  //  cycle through time periods until manually changed
+  var cylclist = d3.interval(function() {
+
+    if (period_switch == periods.length) {
+    
+      period_switch = 0;
+    
+    } else {
+
+      period_switch++;
+
+    }
+
+    d3.select('#' + periods[period_switch])
+      .property('selected', true);
+
+
+    updateData(data, function(new_data){
+
+
+      
+      d3.selectAll(".area")
+        .data(filtered_data)
+        .datum(function(d){
+          return d['$' + [periods[period_switch]]];
+        })
+        .transition(t)
+        .attr("d", area);
+
+    });
+
+  }, 1500);
+
+  d3.select("body").on("click", function(){
+
+      cylclist.stop();  //  stop the auto transitioner on any click
+
+  })
 
   function updateData(dataset, updateCharts) {
 
