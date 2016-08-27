@@ -25,9 +25,9 @@ var t = d3.transition()
   .ease(d3.easeQuad)
   .duration(1000);
 
-var margin = {top: 40, right: 10, bottom: 90, left: 100},
-  width = 800 - margin.left - margin.right,
-  height = 350 - margin.top - margin.bottom;
+var margin = {top: 40, right: 10, bottom: 110, left: 100},
+  width = 900 - margin.left - margin.right,
+  height = 400 - margin.top - margin.bottom;
 
 var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleLinear().range([0, height]);
