@@ -1,5 +1,5 @@
-//  data field names are whack
-// travel times should be divided by segment  
+//  you gota make those arrays equal in length!
+
 var john;
 
 var segments = [];
@@ -8,7 +8,7 @@ var days = d3.range(5);
 
 var day_names = ['mon', 'tues', 'weds', 'thurs', 'fri', 'sat', 'sun'];
 
-var color_scale = d3.interpolate({colors: ["red", "blue"]}, {colors: ["white", "black"]});
+var colors = d3.schemeDark2;
 
 var source_file = "../components/data/lamar_all_may_2016.csv";
 
@@ -26,7 +26,7 @@ var t = d3.transition()
   .duration(1000);
 
 var margin = {top: 40, right: 10, bottom: 90, left: 100},
-  width = 1200 - margin.left - margin.right,
+  width = 800 - margin.left - margin.right,
   height = 350 - margin.top - margin.bottom;
 
 var x = d3.scaleLinear().range([0, width]);
@@ -35,7 +35,8 @@ var yAx = d3.scaleLinear().range([height, 0]);
 
 var area = d3.area()
     .curve(d3.curveCatmullRom.alpha(.1))
-    .x(function(d, i) { return x(i); })
+    .x(function(d, i) { 
+      return x(i); })
     .y0(height)
     .y1(function(d) {
           return height - y(+d.avg_travel_time_per_mile);
@@ -91,32 +92,28 @@ d3.csv(source_file, function(data) {
 
   john = data;
 
-  var filtered_data = data["$" + 0]["$" + options['selected_time']];
+  filtered_data = data.values();
 
-  x.domain([0, filtered_data.length]);    
+  x.domain([0, filtered_data[0].values()[0].length]);
 
   y.domain([minTT, maxTT]);
 
   yAx.domain([minTT, maxTT]);
 
-  for (var i  = 0; i < days.length; i++) {
-
-      filtered_data = data["$" + i]["$" + options['selected_time']];
-
-    svg.append("path")
-      .datum(filtered_data)
+    svg.selectAll("path")
+      .data(filtered_data)
+      .enter()
+      .append("path")
+      .datum(function(d){
+        return d['$' + selected_time];
+      })
       .attr("class", "area")
       .attr("id", "area")
       .attr("d", area)
-      .attr("opacity", .2)
+      .attr("opacity", .4)
       .attr("fill", function(d, i){
-
-          return d3.interpolateRgb("blue", "red")(d[0].day / 7);
+        return colors[i];
       });
-
-  }
-
-  
 
   svg.append('g')
         .attr("class", "axis-left")
@@ -145,9 +142,6 @@ d3.csv(source_file, function(data) {
             return "rotate(-35)"
           });
 
-
-
-
   d3.selectAll("select").on("change", function(d){
 
     var selector = d3.select(this).attr("id");
@@ -156,8 +150,11 @@ d3.csv(source_file, function(data) {
 
     updateData(data, function(new_data){
       
-      d3.select("#area")
-        .datum(new_data)
+      d3.selectAll(".area")
+        .data(filtered_data)
+        .datum(function(d){
+          return d['$' + options['selected_time']];
+        })
         .transition(t)
         .attr("d", area);
 
