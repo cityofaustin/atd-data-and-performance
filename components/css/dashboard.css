@@ -32,9 +32,6 @@ div.tooltip {
     fill: red;
 }
 
-.map {
-    height: 300px;
-}
 
 div.tooltip {   
   position: absolute;           
@@ -104,13 +101,15 @@ div.tooltip {
     font-weight: bold;
 }
 
+html,body {
+  height: 100%;
+}
 
 
-
-
-
-
-
+.map {
+    height: 300px;
+    min-height: 100%;
+}
 
 
 
