@@ -1,6 +1,8 @@
     //  v0.1
     //
     //  todo:
+
+    //  call back for adding new control to map
     //  add data refresh date
     //  is it ok to have object keys as numb    ers? (NOPE)
     //  rescale chart on screen resize
@@ -16,6 +18,8 @@
     //
     // globals
     var int_stats, table;
+
+    var map;
     
     var signal_markers = {};
 
@@ -226,13 +230,13 @@
             .rollup(function (v) { return v.length; })
             .map(dataset);
         
-        makeBarChart(poll_stats, "chart-1");
+        //  makeBarChart(poll_stats, "chart-1");
 
-        populateInfoStat(int_stats[2], "info-2");  // conflict flash
+        populateInfoStat(int_stats[2], "home");  // conflict flash
 
-        populateInfoStat(int_stats[1], "info-1");  // coordinated flash
+        //  populateInfoStat(int_stats[1], "info-1");  // coordinated flash
 
-        populateInfoStat(int_stats[3], "info-3");  // comm fail
+        //  populateInfoStat(int_stats[3], "info-3");  // comm fail
 
         makeMap(dataset);
 
@@ -369,13 +373,17 @@
             ext : 'png'
         }).addTo(map);
 
-        populateMap(map, dataset);
+        populateMap(map, dataset, function(){
+          
+            //  var sidebar = L.control.sidebar('sidebar').addTo(map);
+
+        });
 
         populateTable(dataset);
 
     }
 
-    function populateMap(map, dataset) {
+    function populateMap(map, dataset, createSideBar) {
 
         for (var i in STATUS_TYPES) {
 
@@ -429,7 +437,7 @@
 
         master_layer.addTo(map);
 
-        map.fitBounds(master_layer.getBounds(), {padding: [10, 10] });
+        createSideBar();
 
     }
 
@@ -596,3 +604,5 @@
         $('#update_date').text("Data updated " + update_date);
         
     }
+
+

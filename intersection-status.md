@@ -1,5 +1,5 @@
 ---
-layout: intersection-dashboard
+layout: intersection-status
 title: Intersection Status
 ---
 
