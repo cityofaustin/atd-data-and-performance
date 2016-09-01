@@ -45,7 +45,7 @@ html {
     background-color: #333333;
     border: none;
     margin-bottom: 0px;
-    z-index: 1000;
+    z-index: 1100;
 }
 
 .navbar-brand {
@@ -88,6 +88,11 @@ html {
     height: 50px;
     color: #fff;
     background-color: #333;
-    z-index: 900;
 }
+
+.dropdown {
+    z-index: 1200;
+}
+
+
 
