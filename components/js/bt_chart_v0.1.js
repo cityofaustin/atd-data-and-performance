@@ -9,7 +9,7 @@ var periods = ['am_off','am_peak','mid_day', 'pm_peak', 'pm_off'];
 
 var period_switch = 0;
 
-var colors = d3.schemeDark2;
+var colors = d3.schemeSet1;
 
 var source_file = "../components/data/lamar_all_may_2016.csv";
 
@@ -145,6 +145,7 @@ d3.csv(source_file, function(data) {
     .attr("fill", function(d, i){
       // return d3.interpolateRdYlBu(i/7);
       return d3.interpolateSpectral(i/7);
+      //return colors[i];
     })
     .attr("visibility", "visible");
 

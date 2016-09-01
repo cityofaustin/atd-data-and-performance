@@ -1,9 +1,39 @@
-<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-    <div class="container-fluid">
-        <ul class="nav nav-pills">
-          <li role="presentation" class="active"><a href="{{site.baseurl}}/"><i  class="fa fa-home"></i></a></li>
-          <li role="presentation"><a href="{{site.baseurl}}/intersection-status/">Intersection Status [BETA]</a></li>
-          <li role="presentation"><a href="{{site.baseurl}}/signal-retiming/">Signal Re-Timing Progam [BETA]</a></li>
-        </ul>
+
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header navbar-right">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">{{ page.title }} <span class="sr-only">(current)</span></a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">  
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Austin Transportation Data and Analytics Portal <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ site.baseurl }}/signals-on-flash">Signals on Flash</a></li>
+            <li><a href="{{ site.baseurl }}/signal-retiming">Signal Retiming</a></li>
+            <li><a href="{{ site.baseurl }}/intersection-status">Intersectinon Status</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{{ site.baseurl }}/bt-experiments">Bluetooth Experiments</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Signal Map</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{{ site.baseurl }}/">Home</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
