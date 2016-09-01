@@ -44,6 +44,8 @@ html {
     background-size: cover;
     background-color: #333333;
     border: none;
+    margin-bottom: 0px;
+    z-index: 1000;
 }
 
 .navbar-brand {
@@ -86,5 +88,6 @@ html {
     height: 50px;
     color: #fff;
     background-color: #333;
+    z-index: 900;
 }
 

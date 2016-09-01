@@ -77,10 +77,16 @@
     <script src="{{site.baseurl}}/components/js/jquery.dataTables.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{site.baseurl}}/components/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="{{site.baseurl}}/components/js/d3.min.js"></script>
-    <script src="{{site.baseurl}}/components/js/leaflet.js"></script>
-    <script src="{{site.baseurl}}/components/js/leaflet.extra-markers.min.js"></script>
-    <script src="{{site.baseurl}}/components/js/intersection-status-dash.js"></script>
+  
+    {% if page.custom_js %}
     
+      {% for js_file in page.custom_js %}
+    
+        <script src='{{ site.baseurl }}/components/js/{{ js_file }}.js' type="text/javascript"></script>
+    
+      {% endfor %}
+    
+    {% endif %}
+
   </body>
 </html>

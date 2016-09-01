@@ -1,0 +1,13 @@
+
+html, body, #wrapper {
+  height: 100%;
+}
+
+.map {
+    height: 300px;
+    min-height: 100%;
+}
+
+
+
+

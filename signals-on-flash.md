@@ -1,16 +1,16 @@
 ---
-layout: intersection-status
-title: Intersection Status
+layout: signals-on-flash
+title: Signals on Flash
 custom_js:
 - d3.min
 - leaflet
 - leaflet.extra-markers.min
-- intersection-status-dash
+- signals-on-flash
 custom_css:
 - leaflet
 - leaflet.extra-markers.min
-- jquery.dataTables.min
 - dashboard
+- signals-on-flash
 ---
 
 

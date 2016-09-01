@@ -33,6 +33,11 @@ div.tooltip {
 }
 
 
+.map {
+    height: 300px;
+}
+
+
 div.tooltip {   
   position: absolute;           
   text-align: center;                       
@@ -101,22 +106,20 @@ div.tooltip {
     font-weight: bold;
 }
 
-html,body {
-  height: 100%;
+#wrapper {
+  position: relative;
 }
 
-
-.map {
-    height: 300px;
-    min-height: 100%;
+#over_map {
+  position: absolute;
+  width: 100%;
+  top: 10px;
+  z-index: 1000;
+  background-color: white;
+  opacity: .9;
+  text-align: center;
 }
 
-
-
-
-
-
-
-
-
-
+.leaflet-left{
+  margin-top: 60px;
+}

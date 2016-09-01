@@ -4,25 +4,16 @@
   {% include head.html %}
 
   <body>
-
+    
   	{% include dash-top-nav.html %}
-        
-            <!-- map -->
-                <div class="map" id=map>
+    
 
-            
-
+    <div id="wrapper">
+      <div class="map" id=map></div>
+      <div id="over_map">
+          <h3> There are no signals on flash as of Sep 1, 2016 at 9:00AM. </h4>
       </div>
-	  <!-- Table  -->
-
-
-        <div class=tooltip></div>
-
-        </div>
-
-
-        
-          {% include footer.html %}
+    </div>
 
  
 <!-- Bootstrap core JavaScript
@@ -33,11 +24,16 @@
     <script src="{{site.baseurl}}/components/js/jquery.dataTables.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{site.baseurl}}/components/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="{{site.baseurl}}/components/js/d3.min.js"></script>
-    <script src="{{site.baseurl}}/components/js/leaflet.js"></script>
-    <script src="{{site.baseurl}}/components/js/leaflet.extra-markers.min.js"></script>
-    <script src="{{site.baseurl}}/components/js/leaflet-sidebar.js"></script>
-    <script src="{{site.baseurl}}/components/js/signals-on-flash.js"></script>
+
+    {% if page.custom_js %}
+    
+      {% for js_file in page.custom_js %}
+    
+        <script src='{{ site.baseurl }}/components/js/{{ js_file }}.js' type="text/javascript"></script>
+    
+      {% endfor %}
+    
+    {% endif %}
     
   </body>
 </html>
