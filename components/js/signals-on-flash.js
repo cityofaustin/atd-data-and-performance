@@ -1,22 +1,14 @@
-    //  v0.1
+    //  v0.2fpopup
     //
     //  todo:
-
-    //  call back for adding new control to map
     //  add data refresh date
-    //  is it ok to have object keys as numb    ers? (NOPE)
-    //  rescale chart on screen resize
-    //  table row count does not update (because you're not adding rows with the native api)
-    //  animations choppy::wait to populat map until chart update
     //  tooltips
     //  declare variables ;)
     //  upgrade to d4!
     //  ajax errorhandling
-    //  table anchors so you can go 'back' from feature click
-    //
+
+
     //  var metadataUrl_cases = "https://data.austintexas.gov/api/views/5zpr-dehc/rows.json"  
-    //
-    // globals
 
     var int_stats, table, john;
 
@@ -28,7 +20,7 @@
 
     var formatPct = d3.format("%");
     
-    var formatDateTime = d3.time.format("%e %b %Y %H:%M%p");
+    var formatDateTime = d3.time.format("%I:%M%p on %x");
 
     //  static data
     var data_url = "../components/data/intersection_status_snapshot_conflict.json";
@@ -53,49 +45,56 @@
 
     function main(dataset){
 
-        populateInfoStat(dataset, "info-1");  // conflict flash
+        populateInfoStat(dataset, "info");  // conflict flash
 
         makeMap(dataset);
 
     };
 
     function populateInfoStat(dataset, divId) {
-    
-         d3.select("#" + divId)
-            .append("text")
-            .text('0');
+        
+        if (dataset.length == 0) {
+        
+            d3.select("#" + divId)
+                .text('There are no signals on flash as of Sep 1, 2016 at 9:00AM.');
 
-        updateInfoStat(dataset, divId);
+        } else {
+
+            d3.select("#" + divId)
+                .text('There are 0 signals on flash as of Sep 1, 2016 at 9:00AM.');
+
+            updateInfoStat(dataset, divId);
+
+        }
 
     }
 
     function updateInfoStat(dataset, divId) {
 
-        if (dataset) {
+        var last_update = formatDateTime( new Date() );
 
-            d3.select("#" + divId)
-                .select("text")
-                .transition()
-                .duration(1000)
-                .ease("quad")
-                .tween("text", function () {
-                    
-                    var i = d3.interpolate(this.textContent, dataset);
-                    
-                    return function (t) {
-                    
-                        this.textContent = Math.round(i(t));
-                    
-                    }
+        d3.select("#" + divId)
+            .transition()
+            .duration(500)
+            .style("color", "#a5272b")
+            .ease("quad")
+            .tween("text", function () {
                 
-                });
+                var i = d3.interpolate(
+                    parseFloat(
+                        this.textContent.substr(10,3)
+                    ),
+                    dataset.length
+                );
+                
+                return function (t) {
+                
+                    this.textContent = "There are " + Math.round(i(t)) + " signals on flash as of "  + last_update;
+                
+                }
+            
+            });
 
-        } else {  //  if info value is 0
-
-            d3.select("#" + divId)
-                .style("cursor", "default");
-
-        }
     }
 
     function makeMap(dataset) {
@@ -145,7 +144,7 @@
 
                 var intid = dataset[i].intid;
 
-                var status_time = dataset[i].intstatusdatetime;
+                var status_time = formatDateTime( new Date(dataset[i].intstatusdatetime) );
 
                 var assetnum = dataset[i].assetnum;
                 
@@ -169,7 +168,7 @@
         
         signals_on_flash_layer.addTo(map);
 
-        map.fitBounds(signals_on_flash_layer.getBounds(), {padding: [10, 10] });
+        map.fitBounds(signals_on_flash_layer.getBounds(), {paddingTopLeft: [0, 100] });
 
     }
 
