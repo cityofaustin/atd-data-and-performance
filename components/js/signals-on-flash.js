@@ -23,10 +23,10 @@
     var formatDateTime = d3.time.format("%I:%M%p on %x");
 
     //  static data
-    var data_url = "../components/data/intersection_status_snapshot_conflict.json";
+    //  var data_url = "../components/data/intersection_status_snapshot_conflict.json";
 
     //  live data!
-    //  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=2";
+    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=2";
 
     var default_map_size = 300;
 
@@ -54,9 +54,12 @@
     function populateInfoStat(dataset, divId) {
         
         if (dataset.length == 0) {
+
+            var last_update = formatDateTime( new Date() );
         
             d3.select("#" + divId)
-                .text('There are no signals on flash as of Sep 1, 2016 at 9:00AM.');
+                .text('There are no signals on flash as of ' + last_update)
+                .style("color", "green");
 
         } else {
 
@@ -128,47 +131,50 @@
 
         dataset = dataset.filter(function(d){ return +d.intstatus == 2});
 
-        var signals_on_flash_layer = new L.featureGroup();
-        
-        for (var i = 0; i < dataset.length; i++) {   
+        if (dataset.length > 0) {
+
+            var signals_on_flash_layer = new L.featureGroup();
             
-            if(dataset[i].latitude > 0) {
-
-                var status = +dataset[i].intstatus;
-
-                var lat = dataset[i].latitude;
-        
-                var lon = dataset[i].longitude;
-
-                var address = dataset[i].intname;
-
-                var intid = dataset[i].intid;
-
-                var status_time = formatDateTime( new Date(dataset[i].intstatusdatetime) );
-
-                var assetnum = dataset[i].assetnum;
+            for (var i = 0; i < dataset.length; i++) {   
                 
-                var marker = L.marker([lat,lon], {
-                        icon:  conflict_flash_marker
-                    })
-                    .bindPopup(
-                        "<b>" + assetnum + ": " + address + "</b><br>" +
-                        "<b>Status: FLASHING </b>" + 
-                        "<br><b>Updated:</b> " + status_time
-                    )
+                if(dataset[i].latitude > 0) {
 
-                if(status) {
+                    var status = +dataset[i].intstatus;
+
+                    var lat = dataset[i].latitude;
+            
+                    var lon = dataset[i].longitude;
+
+                    var address = dataset[i].intname;
+
+                    var intid = dataset[i].intid;
+
+                    var status_time = formatDateTime( new Date(dataset[i].intstatusdatetime) );
+
+                    var assetnum = dataset[i].assetnum;
                     
-                    marker.addTo(signals_on_flash_layer);
-                
+                    var marker = L.marker([lat,lon], {
+                            icon:  conflict_flash_marker
+                        })
+                        .bindPopup(
+                            "<b>" + assetnum + ": " + address + "</b><br>" +
+                            "<b>Status: FLASHING </b>" + 
+                            "<br><b>Updated:</b> " + status_time
+                        )
+
+                    if(status) {
+                        
+                        marker.addTo(signals_on_flash_layer);
+                    
+                    }
                 }
+
             }
+            
+            signals_on_flash_layer.addTo(map);
 
+            map.fitBounds(signals_on_flash_layer.getBounds(), {paddingTopLeft: [0, 100] });
         }
-        
-        signals_on_flash_layer.addTo(map);
-
-        map.fitBounds(signals_on_flash_layer.getBounds(), {paddingTopLeft: [0, 100] });
 
     }
 

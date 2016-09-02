@@ -124,8 +124,8 @@ div.tooltip {
   width: 100%;
   top: 10px;
   z-index: 1000;
-  background-color: white;
-  opacity: .9;
+  background-color: #fff;
+  opacity: .85;
   text-align: center;
 }
 
