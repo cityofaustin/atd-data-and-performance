@@ -1,6 +1,7 @@
 ---
 layout: intersection-status
-title: Intersection Status
+title: Intersection Status - City of Austin Transportation Deparment
+short-name: Intersection Status
 custom_js:
 - d3.min
 - leaflet

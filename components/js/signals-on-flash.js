@@ -72,8 +72,6 @@
 
     function updateInfoStat(dataset, divId) {
 
-        console.log("PIZZA");
-
         var last_update = formatDateTime( new Date() );
 
         d3.select("#" + divId)
@@ -214,5 +212,4 @@
         $('#update_date').text("Data updated " + update_date);
         
     }
-
 

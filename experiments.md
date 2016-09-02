@@ -1,6 +1,7 @@
 ---
 layout: bluetooth
-title: BT Experiments
+title: Experiments - City of Austin Transportation Department
+short-name: Experiments
 custom_js:
 - d3.v4.min
 - d3-scale-chromatic.v1.min
