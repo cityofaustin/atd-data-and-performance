@@ -1,7 +1,7 @@
 ---
 layout: signals-on-flash
 title: Signals on Flash - City of Austin Transportation Department
-short-name: Signals on Flash
+short-name: Signals on Flash [BETA]
 custom_js:
 - d3.v4.min
 - leaflet
