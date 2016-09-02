@@ -101,6 +101,13 @@ html {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
+.dropdown {
+    z-index: 1200;
+}
+
+.dropdown-toggle {
+    font-size: 2em;
+}
 
 .footer {
     position: absolute;
@@ -111,7 +118,21 @@ html {
     background-color: #333;
 }
 
-.dropdown {
-    z-index: 1200;
+.footer-img {
+    padding: 0px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
 }
+
+.footer-container {
+    position: absolute;
+    bottom: 0;
+}
+
+.footer-heading {
+    margin: 2px;
+}
+
+
 

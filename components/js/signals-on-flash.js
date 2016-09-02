@@ -51,6 +51,11 @@
     
     getData(data_url);
 
+    //  init tooltips
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
     //  zoom to feature from table click
     d3.selectAll(".feature_link").on("click", function(d){
 

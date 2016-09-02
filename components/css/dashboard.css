@@ -110,3 +110,19 @@ button.map-expander{
   border-radius: 4px;
 }
 
+.tooltips{
+  cursor: pointer;
+}
+
+.tooltip {
+  z-index: 5000;
+}
+
+
+
+
+
+
+
+
+
