@@ -1,13 +1,7 @@
     //  v0.2fpopup
     //
     //  todo:
-    //  add data refresh date
-    //  tooltips
-    //  declare variables ;)
-    //  upgrade to d4!
-    //  ajax errorhandling
-
-
+    //  add data refresh date should be real!
     //  var metadataUrl_cases = "https://data.austintexas.gov/api/views/5zpr-dehc/rows.json"  
 
     var int_stats, table, john;
@@ -22,11 +16,13 @@
     
     var formatDateTime = d3.time.format("%I:%M%p on %x");
 
+    var conflict_status = "2"  //  2 is conflict, 3 is no comm, 1 is coordinated, etc....this is what drives the dashboard
+
     //  static data
     //  var data_url = "../components/data/intersection_status_snapshot_conflict.json";
 
     //  live data!
-    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=2";
+    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=" + conflict_status;
 
     var default_map_size = 300;
 
@@ -43,11 +39,13 @@
     
     getData(data_url);
 
-    function main(dataset){
+    function main(data){
 
-        populateInfoStat(dataset, "info");  // conflict flash
+        john = data;
 
-        makeMap(dataset);
+        populateInfoStat(data, "info");  // conflict flash
+
+        makeMap(data);
 
     };
 
@@ -55,8 +53,8 @@
         
         if (dataset.length == 0) {
 
-            var last_update = formatDateTime( new Date() );
-        
+            var last_update = formatDateTime( new Date() ); 
+
             d3.select("#" + divId)
                 .text('There are no signals on flash as of ' + last_update)
                 .style("color", "green");
@@ -64,7 +62,7 @@
         } else {
 
             d3.select("#" + divId)
-                .text('There are 0 signals on flash as of Sep 1, 2016 at 9:00AM.');
+                .text('There are 0 signals on flash as of ' + last_update);
 
             updateInfoStat(dataset, divId);
 
@@ -73,6 +71,8 @@
     }
 
     function updateInfoStat(dataset, divId) {
+
+        console.log("PIZZA");
 
         var last_update = formatDateTime( new Date() );
 
@@ -129,7 +129,7 @@
 
     function populateMap(map, dataset, createSideBar) {
 
-        dataset = dataset.filter(function(d){ return +d.intstatus == 2});
+        dataset = dataset.filter(function(d){ return +d.intstatus == conflict_status});
 
         if (dataset.length > 0) {
 
@@ -173,7 +173,7 @@
             
             signals_on_flash_layer.addTo(map);
 
-            map.fitBounds(signals_on_flash_layer.getBounds(), {paddingTopLeft: [0, 100] });
+            map.fitBounds(signals_on_flash_layer.getBounds(), {paddingTopLeft: [80, 80] });
         }
 
     }
