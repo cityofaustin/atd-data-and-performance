@@ -171,7 +171,11 @@
         var last_update = formatDateTime( new Date() );
 
         d3.select("#" + divId)
-            .append('h5').text("Updated " + last_update);
+            .append('h5')
+            .html("Updated " + last_update + 
+                " | <a href='https://data.austintexas.gov/dataset/5zpr-dehc' target='_blank'>Download Data <i  class='fa fa-download'></i> </a>" );
+
+
 
     }
 
