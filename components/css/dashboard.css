@@ -63,25 +63,6 @@ div.tooltip {
 }
 
 /* status styles */
-.ok {
-    fill: green;
-}
-
-.cab_flash {
-    fill: blue;
-}
-
-.conflict_flash {
-    fill: red;
-}
-
-.comm_fail {
-    fill: yellow;
-}
-
-.comm_disabled, .no_comm {
-    fill: #333333;
-}
 
 .planned {
   fill: #bfbfbf;
@@ -115,20 +96,17 @@ div.tooltip {
     font-weight: bold;
 }
 
-#wrapper {
-  position: relative;
-}
-
-#over_map {
+.over_map {
   position: absolute;
-  width: 100%;
-  top: 10px;
-  z-index: 1000;
-  background-color: #fff;
-  opacity: .85;
-  text-align: center;
+  bottom: 10px;
+  z-index: 1200;
 }
 
-.leaflet-left{
-  margin-top: 60px;
+button.map-expander{
+  color: #333;
+  background-color: white;
+  border: none;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  border-radius: 4px;
 }
+

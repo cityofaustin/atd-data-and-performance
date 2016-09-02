@@ -4,16 +4,54 @@
   {% include head.html %}
 
   <body>
-    
-  	{% include dash-top-nav.html %}
-    
 
-    <div id="wrapper">
-      <div class="map" id=map></div>
-      <div id="over_map">
-          <h3 id="info" class="info-text"> </h3>
+    {% include dash-top-nav.html %}
+        
+        <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-4" ></div>
+              <div class="col-md-4 info" id=info-1>
+                <h4> Signals on Flash <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></h4>
+              </div>
+              <div class="col-md-4" ></div>
+            </div>
+            <!-- map -->
+            <div class="row">
+              <div class="col-md-12 map" id=map>
+                <div class="over_map" id="map-expander">
+                  <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
+                </div>
+              </div>
+              
+            </div>
+          </div>
       </div>
-    </div>
+      <!-- Table  -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="table-responsive">
+            <a name="datatable"></a>
+            <table class="table table-striped table-hover" data-sort-name="address" data-sort-order="desc" id="data_table">
+              <thead>
+                <tr>
+                    <th>Asset #</th>
+                    <th>Intersection Name</th>
+                    <th>Current Status</th>
+                    <th>Status Date-Time</th>
+                </tr>
+              </thead>
+              <tbody>
+              <!-- data goes here programmatically  -->
+              </tbody>
+            </table>
+      
+          </div>
+        </div>
+           <div class=tooltip></div>
+
+        </div>
+        
+          {% include footer.html %}
 
  
 <!-- Bootstrap core JavaScript
@@ -24,7 +62,7 @@
     <script src="{{site.baseurl}}/components/js/jquery.dataTables.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{site.baseurl}}/components/js/ie10-viewport-bug-workaround.js"></script>
-
+  
     {% if page.custom_js %}
     
       {% for js_file in page.custom_js %}
@@ -34,6 +72,6 @@
       {% endfor %}
     
     {% endif %}
-    
+
   </body>
 </html>

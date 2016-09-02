@@ -1,28 +1,40 @@
-    //  v0.2fpopup
+    //  v0.2
     //
     //  todo:
     //  add data refresh date should be real!
     //  var metadataUrl_cases = "https://data.austintexas.gov/api/views/5zpr-dehc/rows.json"  
 
-    var int_stats, table, john;
+    var table, john;
 
     var map;
-    
+
     var signal_markers = {};
 
     var map_expanded = false;
 
     var formatPct = d3.format("%");
     
-    var formatDateTime = d3.time.format("%I:%M%p on %x");
+    var formatDateTime = d3.timeFormat("%c");
+
+    var t1 = d3.transition()
+        .ease(d3.easeQuad)
+        .duration(500);
+
+    var t2 = d3.transition()
+        .ease(d3.easeQuad)
+        .duration(500);
 
     var conflict_status = "2"  //  2 is conflict, 3 is no comm, 1 is coordinated, etc....this is what drives the dashboard
 
     //  static data
-    //  var data_url = "../components/data/intersection_status_snapshot_conflict.json";
+        // lots of signals
+        var data_url = "../components/data/intersection_status_snapshot_conflict.json";
+    
+        //  one signal
+        //  var data_url = "../components/data/intersection_status_snapshot_conflict_one.json";
 
     //  live data!
-    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=" + conflict_status;
+    //  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=" + conflict_status;
 
     var default_map_size = 300;
 
@@ -39,32 +51,85 @@
     
     getData(data_url);
 
+    //  zoom to feature from table click
+    d3.selectAll(".feature_link").on("click", function(d){
+
+        var marker_id = d3.select(this).attr("data-intid");
+
+        map.setView(signal_markers[marker_id].getLatLng(), 14);
+
+        signal_markers[marker_id].openPopup();
+
+    });
+
+    d3.select("#map-expander").on("click", function(){
+
+        d3.select(this)
+            .select("button")
+                .html(function(){
+
+                    if (map_expanded) {
+
+                        return "<i  class='fa fa-expand'</i>";
+
+                    } else {
+                        
+                        return "<i  class='fa fa-compress'</i>"
+
+                    }
+                });
+        
+        var map_size = expanded_map_size;
+
+        if (map_expanded) {
+
+            map_expanded = false;
+        
+            map_size = default_map_size;
+        
+        } else {
+
+            map_expanded = true;
+
+        }
+
+        d3.select("#map")
+            .transition(t2)
+            .style("height", map_size + "px");
+
+        setTimeout(function(){ map.invalidateSize()}, 600);
+
+    });
+
     function main(data){
 
         john = data;
 
-        populateInfoStat(data, "info");  // conflict flash
+        populateInfoStat(data, "info-1");  // conflict flash
+
+        postUpdateDate("info-1");
 
         makeMap(data);
+
+        populateTable(data);
 
     };
 
     function populateInfoStat(dataset, divId) {
+
+        d3.select("#" + divId)
+            .append("text")
+            .text('0');
         
-        if (dataset.length == 0) {
+        if (dataset.length > 0) {
 
-            var last_update = formatDateTime( new Date() ); 
-
-            d3.select("#" + divId)
-                .text('There are no signals on flash as of ' + last_update)
-                .style("color", "green");
+            updateInfoStat(dataset, divId);
 
         } else {
 
             d3.select("#" + divId)
-                .text('There are 0 signals on flash as of ' + last_update);
-
-            updateInfoStat(dataset, divId);
+                .select("text")
+                    .classed("goal-met", true);
 
         }
 
@@ -72,29 +137,36 @@
 
     function updateInfoStat(dataset, divId) {
 
+        var signals_on_flash = dataset.length;
+
+        d3.select("#" + divId)
+                .select("text")
+                .classed("goal-unmet", true)
+                .transition(t1)
+                .tween("text", function () {
+                    
+                    var that = d3.select(this); 
+
+                    var i = d3.interpolate(0, signals_on_flash);
+                    
+                    return function (t) {
+                    
+                        that.text( Math.round(i(t)) );
+                    
+                    }
+                
+                });
+
+    }
+
+    function postUpdateDate(divId){
+
+        //  var update_date = new Date(data.meta.view.rowsUpdatedAt * 1000);
+
         var last_update = formatDateTime( new Date() );
 
         d3.select("#" + divId)
-            .transition()
-            .duration(500)
-            .style("color", "#a5272b")
-            .ease("quad")
-            .tween("text", function () {
-                
-                var i = d3.interpolate(
-                    parseFloat(
-                        this.textContent.substr(10,3)
-                    ),
-                    dataset.length
-                );
-                
-                return function (t) {
-                
-                    this.textContent = "There are " + Math.round(i(t)) + " signals on flash as of "  + last_update;
-                
-                }
-            
-            });
+            .append('h5').text("Updated " + last_update);
 
     }
 
@@ -159,19 +231,25 @@
                             "<b>Status: FLASHING </b>" + 
                             "<br><b>Updated:</b> " + status_time
                         )
-
-                    if(status) {
                         
                         marker.addTo(signals_on_flash_layer);
-                    
-                    }
+
+                        signal_markers[intid] = marker;
+
                 }
 
             }
             
             signals_on_flash_layer.addTo(map);
 
-            map.fitBounds(signals_on_flash_layer.getBounds(), {paddingTopLeft: [80, 80] });
+            map.fitBounds(
+                signals_on_flash_layer.getBounds(),
+                    {
+                        paddingTopLeft: [80, 80],
+                        maxZoom: 15
+
+                    }
+                );
         }
 
     }
@@ -203,13 +281,38 @@
 
     }
 
-    function postUpdateDate(data){
+    function populateTable(dataset) {
 
-        var update_date = new Date(data.meta.view.rowsUpdatedAt * 1000);
+        var rows = d3.select("tbody")
+            .selectAll("tr")
+            .data(dataset)
+            .enter()
+            .append("tr")
+            .filter(function(d){
+                return d.intstatus > 0;
+            })
+            .attr("class", "tableRow");
+
+        d3.select("tbody").selectAll("tr")
+            .each(function (d) {
+                
+                d3.select(this).append("td").html(d.assetnum);
+                
+                d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-intid=" + d.intid + " name=_" + d.intid + ">" + d.intname + "</a>");
+                
+                d3.select(this).append("td").html("Conflict / Flashing");
+                
+                d3.select(this).append("td").html( formatDateTime( new Date(d.intstatusdatetime) ) );
         
-        var update_date = formatDateTime(update_date);
-        
-        $('#update_date').text("Data updated " + update_date);
-        
-    }
+            });
+
+        //  activate datatable sorting/search functionality
+        $(document).ready(function () {
+            table = $('#data_table').DataTable( {
+                paging : false
+            });
+        });
+
+    } //  end populateTable
+
 
