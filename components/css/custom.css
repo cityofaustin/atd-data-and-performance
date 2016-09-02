@@ -8,15 +8,35 @@ html {
 }
 
 .homepage-button {
-    background-color: #333333;
     color: white;
     height: 150px;
     margin: 10px;
     text-align: center;
 }
 
+.homepage-button > h4{
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+.homepage-button-row-1 {
+    background-color: #404040;
+}
+
+.homepage-button-row-2 {
+    background-color: #73264d;
+}
+
+.homepage-button-row-3 {
+    background-color: #326D89;
+}
+
 .homepage-button:hover {
   background-color: #7D9852;
+}
+
+.homepage-button-text {
+
 }
 
 .button-icon {
