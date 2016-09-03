@@ -27,6 +27,8 @@ var SOURCE_DATA;  //  populates table
 
 var GROUPED_DATA;  //  powers the data viz
 
+var map;
+
 var tau = 2 * Math.PI,
     arc;
 
@@ -60,9 +62,11 @@ d3.json(data_url, function(dataset) {
 
     });
 
+    makeMap(SOURCE_DATA);
+
 });
 
-d3.select("#year-selector").on("change", function(d){
+d3.selectAll(".year-selector").on("change", function(d){
 
     t2 = d3.transition()
         .ease(d3.easeQuad)
@@ -70,7 +74,7 @@ d3.select("#year-selector").on("change", function(d){
     
     previous_selection = selected_year;
 
-    selected_year = d3.select(this).property("value");
+    selected_year = d3.select(this).node().value;
 
     updateProgressChart("info-1", t2);
 
@@ -371,6 +375,86 @@ function updateTable(dataset){
             });
 
 
+
+}
+
+function makeMap(dataset) {
+
+    L.Icon.Default.imagePath = '../components/images/';
+
+    map = new L.Map("map", {
+        center : [30.28, -97.735],
+        zoom : 10,
+        minZoom : 1,
+        maxZoom : 20,
+        scrollWheelZoom: false
+    });      // make a map
+
+    var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+        attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        subdomains : 'abcd',
+        maxZoom : 20,
+        ext : 'png'
+    }).addTo(map);
+
+    //    populateMap(map, dataset, function(){
+
+
+
+}
+
+function populateMap(map, dataset) {
+
+    if (dataset.length > 0) {
+
+        var signals_on_flash_layer = new L.featureGroup();
+        
+        for (var i = 0; i < dataset.length; i++) {   
+            
+            if(dataset[i].latitude > 0) {
+
+                var status = +dataset[i].intstatus;
+
+                var lat = dataset[i].latitude;
+        
+                var lon = dataset[i].longitude;
+
+                var address = dataset[i].intname;
+
+                var intid = dataset[i].intid;
+
+                var status_time = formatDateTime( new Date(dataset[i].intstatusdatetime) );
+
+                var assetnum = dataset[i].assetnum;
+                
+                var marker = L.marker([lat,lon], {
+                        icon:  conflict_flash_marker
+                    })
+                    .bindPopup(
+                        "<b>" + assetnum + ": " + address + "</b><br>" +
+                        "<b>Status: FLASHING </b>" + 
+                        "<br><b>Updated:</b> " + status_time
+                    )
+                    
+                    marker.addTo(signals_on_flash_layer);
+
+                    signal_markers[intid] = marker;
+
+            }
+
+        }
+        
+        signals_on_flash_layer.addTo(map);
+
+        map.fitBounds(
+            signals_on_flash_layer.getBounds(),
+                {
+                    paddingTopLeft: [80, 80],
+                    maxZoom: 15
+
+                }
+            );
+    }
 
 }
 

@@ -8,54 +8,64 @@
   	{% include dash-top-nav.html %}
         
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-2">
-                  <h4>
-                    Fiscal Year
-                    <select id="year-selector">
-                      <option value=2016 >2016</option>
-                      <option value=2015 >2015</option>
-                    </select>
-                  </h4>
-                </div>
-                <div class="col-sm-4 info" id=info-1 data-status=2>
-                  <h4> Signals Re-Timed <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="left" title="This is some tooltip text. "></i></h4>
-                  <svg></svg>
-                </div>
-                <div class="col-sm-4 info" id=info-2 data-status=1>
-                  <h4> Avg Travel Time Reduction <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></h4>
-                </div>
-                <div class="col-sm-2"></div>
-
+          <div class="row">
+            <div class="col-sm-12 year-selctor">
+              <h4>
+                <form action="" id="year-selector">Fiscal Year
+                  <input class="year-selector" type="radio" name="year" value="2017" disabled> 2017 
+                  <input class="year-selector" type="radio" name="year" value="2016" checked> 2016 
+                  <input class="year-selector" type="radio" name="year" value="2015"> 2015 
+                  <input class="year-selector" type="radio" name="year" value="2014" disabled> 2014
+                </form>
+              </h4>
             </div>
-           
+          </div>
+          <div class="row">
+            <div class="col-sm-4 info" id=info-1 data-status=2>
+              <h4> Signals Re-Timed <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="left" title="This is some tooltip text. "></i></h4>
+              <svg></svg>
+            </div>
+            <div class="col-sm-4 info" id=info-2 data-status=1>
+              <h4> Avg Travel Time Reduction <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></h4>
+            </div>
+            <div class="col-sm-4 info" id=info-3 data-status=1>
+              <h4> Avg Stops Reduced <i  class="fa fa-info-circle"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i></h4>
+            </div>
+          </div>           
+          <!-- map -->
+          <div class="row">
+            <div class="col-md-12 map" id=map>
+              <div class="over_map" id="map-expander">
+                <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
+              </div>
+            </div>
+          </div>
+        </div>
 
 
 	  <!-- Table  -->
-          <div class="table-responsive">
-            <a name="datatable"></a>
-            <table class="table table-striped table-hover" data-sort-name="address" data-sort-order="desc" id="data_table">
-              <thead>
-                <tr>
-                    <th>System ID</th>
-                    <th>System Name</th>
-                    <th>Number of Signals</th>
-                    <th>Status</th>
-                    <th>Status Date</th>
-                    <th>Travel Time Reduction</th>
-                </tr>
-              </thead>
-              <tbody>
-			  <!-- data goes here programmatically  -->
-              </tbody>
-            </table>
-      
-          <div class=tooltip></div>
-
-          </div>
-
+    <div class="container-fluid">
+        <div class="row">
+          <div class="table-responsive col-md-12">
+              <a name="datatable"></a>
+              <table class="table table-striped table-hover" data-sort-name="address" data-sort-order="desc" id="data_table">
+                <thead>
+                  <tr>
+                      <th>System ID</th>
+                      <th>System Name</th>
+                      <th>Number of Signals</th>
+                      <th>Status</th>
+                      <th>Status Date</th>
+                      <th>Travel Time Reduction</th>
+                  </tr>
+                </thead>
+                <tbody>
+          <!-- data goes here programmatically  -->
+                </tbody>
+              </table>
+            </div>
         </div>
-
+    </div>
           {% include footer.html %}
 
  
