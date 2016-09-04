@@ -2,6 +2,7 @@
   "south_west_limit" : "JACKSON",
   "retime_fiscal_year" : "2015",
   "tt_reduction" : "0.04",
+  "stop_reduction": "2",
   "system_id" : "20",
   "status_date" : "2015-08-20T00:00:00",
   "system_name" : "5TH - WEST",
@@ -13,6 +14,7 @@
   "south_west_limit" : "MLK",
   "retime_fiscal_year" : "2015",
   "tt_reduction" : "0.03",
+  "stop_reduction": "3",
   "system_id" : "27",
   "status_date" : "2015-08-20T00:00:00",
   "system_name" : "7TH - EAST",
@@ -29,6 +31,7 @@
   "system_name" : "GUADALUPE",
   "north_east_limit" : "RUNDBERG",
   "signal_count" : "40",
+  "stop_reduction": "3",
   "status" : "COMPLETED"
 }
 , {
@@ -40,6 +43,7 @@
   "system_name" : "STASSNEY",
   "north_east_limit" : "BURNETT",
   "signal_count" : "20",
+  "stop_reduction": "3",
   "status" : "COMPLETED"
 }
 , {
@@ -51,6 +55,7 @@
   "system_name" : "MANOR",
   "north_east_limit" : "BURNETT",
   "signal_count" : "20",
+  "stop_reduction": "3",
   "status" : "COMPLETED"
 }
 , {
@@ -62,6 +67,7 @@
   "system_name" : "38TH",
   "north_east_limit" : "RED RIVER",
   "signal_count" : "12",
+  "stop_reduction": "3",
   "status" : "COMPLETED"
 }
 , {
@@ -73,6 +79,7 @@
   "system_name" : "183 - NORTH",
   "north_east_limit" : "IH35",
   "signal_count" : "16",
+  "stop_reduction": "3",
   "status" : "COMPLETED"
 }
 , {
@@ -84,6 +91,7 @@
   "system_name" : "LAMAR",
   "north_east_limit" : "RUNDBERG",
   "signal_count" : "22",
+  "stop_reduction": "3",
   "status" : "COMPLETED"
 }
 , {
@@ -95,6 +103,7 @@
   "system_name" : "AIRPORT",
   "north_east_limit" : "BURNETT",
   "signal_count" : "20",
+  "stop_reduction": "3",
   "status" : "COMPLETED"
 }
 , {
@@ -106,6 +115,7 @@
   "system_name" : "LAVACA",
   "north_east_limit" : "MLK",
   "signal_count" : "20",
+  "stop_reduction": "3",
   "status" : "IN_PROGRESS"
 }
 , {
@@ -117,6 +127,7 @@
   "system_name" : "SOUTH 1ST",
   "north_east_limit" : "BARTON SPRINGS RD",
   "signal_count" : "16",
+  "stop_reduction": "3",
   "status" : "PLANNED"
 }
  ]
