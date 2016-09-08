@@ -2,18 +2,6 @@
   color: #9D9D9D;
 }
 
-div.tooltip {   
-  position: absolute;           
-  text-align: center;                       
-  color: white;             
-  padding: 6px;             
-  font: 12px sans-serif;        
-  background: black;   
-  border-radius: 4px;           
-  border: 0px;      
-  pointer-events: none;         
-}
-
 .info {
   font-size: 500%;
   font-weight: bold;
@@ -44,18 +32,6 @@ div.tooltip {
 
 .map {
     height: 300px;
-}
-
-
-div.tooltip {   
-  position: absolute;           
-  text-align: center;                       
-  color: white;             
-  padding: 6px;             
-  font: 12px sans-serif;        
-  background: black;   
-  border-radius: 4px;           
-  border: 0px; 
 }
 
 .filtering{
@@ -116,6 +92,8 @@ button.map-expander{
 
 .tooltip {
   z-index: 5000;
+  border-radius: 0px;
+  background-color: #333;
 }
 
 

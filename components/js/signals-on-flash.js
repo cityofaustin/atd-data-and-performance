@@ -16,6 +16,10 @@
     
     var formatDateTime = d3.timeFormat("%c");
 
+    var formatDate = d3.timeFormat("%x");
+    
+    var formatTime = d3.timeFormat("%I:%m %p");
+
     var t1 = d3.transition()
         .ease(d3.easeQuad)
         .duration(500);
@@ -26,15 +30,17 @@
 
     var conflict_status = "2"  //  2 is conflict, 3 is no comm, 1 is coordinated, etc....this is what drives the dashboard
 
+    var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?%24select=timestamp&%24where=event=%27signal_status_update%27&%24order=timestamp%20DESC&%24limit=1'
+
     //  static data
         // lots of signals
-        var data_url = "../components/data/intersection_status_snapshot_conflict.json";
+        //  var data_url = "../components/data/intersection_status_snapshot_conflict.json";
     
         //  one signal
         //  var data_url = "../components/data/intersection_status_snapshot_conflict_one.json";
 
     //  live data!
-    //  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=" + conflict_status;
+    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=" + conflict_status;
 
     var default_map_size = 300;
 
@@ -49,7 +55,7 @@
         prefix: 'fa'
     });
     
-    getData(data_url);
+    getSignalData(data_url);
 
     //  init tooltips
     $(document).ready(function(){
@@ -108,11 +114,11 @@
 
     function main(data){
 
-        john = data;
+        populateInfoStat(data, "info-1", function(){
 
-        populateInfoStat(data, "info-1");  // conflict flash
+            getLogData(logfile_url);  //  callback to post update time ensures its positioned properly
 
-        postUpdateDate("info-1");
+        });  // conflict flash
 
         makeMap(data);
 
@@ -120,7 +126,7 @@
 
     };
 
-    function populateInfoStat(dataset, divId) {
+    function populateInfoStat(dataset, divId, postUpdate) {
 
         d3.select("#" + divId)
             .append("text")
@@ -138,7 +144,10 @@
 
         }
 
+        postUpdate();
+
     }
+
 
     function updateInfoStat(dataset, divId) {
 
@@ -164,18 +173,20 @@
 
     }
 
-    function postUpdateDate(divId){
+    function postUpdateDate(log_data, divId){
 
-        //  var update_date = new Date(data.meta.view.rowsUpdatedAt * 1000);
+        var update_date_time = new Date(log_data[0].timestamp * 1000);
 
-        var last_update = formatDateTime( new Date() );
+        console.log(update_date_time);
+
+        update_date = readableDate( update_date_time );
+
+        var update_time = formatTime( update_date_time );
 
         d3.select("#" + divId)
             .append('h5')
-            .html("Updated " + last_update + 
+            .html("Updated " + update_date + " at " + update_time.replace('0', '') +
                 " | <a href='https://data.austintexas.gov/dataset/5zpr-dehc' target='_blank'> Data <i  class='fa fa-download'></i> </a>" );
-
-
 
     }
 
@@ -275,7 +286,7 @@
         }
     }
 
-    function getData(myurl) {
+    function getSignalData(myurl) {
         $.ajax({
             'async' : false,
             'global' : false,
@@ -289,6 +300,23 @@
         }); //end get data
 
     }
+
+    function getLogData(myurl) {
+        $.ajax({
+            'async' : false,
+            'global' : false,
+            'cache' : false,
+            'url' : myurl,
+            'dataType' : "json",
+            'success' : function (data) {
+                postUpdateDate(data, "info-1");
+            }
+        
+        }); //end get data
+
+    }
+
+
 
     function populateTable(dataset) {
 
@@ -324,4 +352,23 @@
 
     } //  end populateTable
 
+    function readableDate(date) {
+        
+        console.log(date);
+
+        var update_date = formatDate(date);
+        
+        var today = formatDate( new Date() );
+
+        if (update_date == today) {
+        
+            return "today";
+        
+        } else {
+        
+            return update_date;
+        
+        }
+
+    }
 
