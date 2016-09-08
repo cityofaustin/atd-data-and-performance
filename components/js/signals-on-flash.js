@@ -185,7 +185,7 @@
 
         d3.select("#" + divId)
             .append('h5')
-            .html("Updated " + update_date + " at " + update_time.replace('0', '') +
+            .html("Updated " + update_date + " at " + update_time +
                 " | <a href='https://data.austintexas.gov/dataset/5zpr-dehc' target='_blank'> Data <i  class='fa fa-download'></i> </a>" );
 
     }

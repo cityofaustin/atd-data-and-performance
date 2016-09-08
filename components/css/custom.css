@@ -113,7 +113,7 @@ html {
     position: absolute;
     bottom: 0;
     width: 100%;
-    min-height: 50px;
+    min-height: 100px;
     color: #fff;
     background-color: #333;
 }
@@ -134,5 +134,11 @@ html {
     margin: 2px;
 }
 
+.footer-padding {
+    margin: 10px;
+}
 
-
+.footer-links > a {
+    color: #fff;
+    margin-right: 10px;
+}
