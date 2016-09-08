@@ -18,7 +18,7 @@
 
     var formatDate = d3.timeFormat("%x");
     
-    var formatTime = d3.timeFormat("%I:%m %p");
+    var formatTime = d3.timeFormat("%I:%M %p");
 
     var t1 = d3.transition()
         .ease(d3.easeQuad)
