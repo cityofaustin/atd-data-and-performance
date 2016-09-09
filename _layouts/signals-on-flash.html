@@ -4,26 +4,28 @@
   {% include head.html %}
 
   <body>
+    
 
     {% include dash-top-nav.html %}
-        
-        <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-4" ></div>
-              <div class="col-md-4 info" id=info-1>
-                <h4> Traffic Signals Flashing <i  class="fa fa-info-circle tooltips" data-toggle="tooltip" data-placement="right" title="Traffic signals enter flash mode when something is preventing the signal from operating normally. This is typically the result of a power surge, power outage, or a traffic accident. "></i></h4>
-              </div>
-              <div class="col-md-4" ></div>
+    
+    <div class='wrapper'>
+
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4" ></div>
+            <div class="col-md-4 info" id=info-1>
+              <h4> Traffic Signals Flashing <i  class="fa fa-info-circle tooltips" data-toggle="tooltip" data-placement="right" title="Traffic signals enter flash mode when something is preventing the signal from operating normally. This is typically the result of a power surge, power outage, or a traffic accident. "></i></h4>
             </div>
-            <!-- map -->
-            <div class="row">
-              <div class="col-md-12 map" id=map>
-                <div class="over_map" id="map-expander">
-                  <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
-                </div>
+            <div class="col-md-4" ></div>
+          </div>
+          <!-- map -->
+          <div class="row">
+            <div class="col-md-12 map" id=map>
+              <div class="over_map" id="map-expander">
+                <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
               </div>
-              
             </div>
+            
           </div>
       </div>
       <!-- Table  -->
@@ -47,12 +49,12 @@
       
           </div>
         </div>
-           <div class=tooltip></div>
 
         </div>
-        
-          {% include footer.html %}
 
+        <div class="push"></div>
+
+          {% include footer.html %}
  
 <!-- Bootstrap core JavaScript
     ================================================== -->

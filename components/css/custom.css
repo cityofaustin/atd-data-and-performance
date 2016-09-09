@@ -8,6 +8,20 @@ html {
     padding-bottom: 0px;
 }
 
+@media (min-width:1300px) {
+    .push {
+        height: 300px;
+    }
+}
+
+@media (min-width:1300px) {
+    .push {
+        height: 300px;
+    }
+}
+
+
+
 .homepage-button {
     color: white;
     height: 150px;
