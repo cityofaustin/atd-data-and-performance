@@ -1,3 +1,6 @@
+
+Cookies.remove('disclaimer');
+
 $(document).ready(function() {
     if (Cookies.get('disclaimer') == undefined) {
         console.log("NO COOKIE");
