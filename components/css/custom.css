@@ -10,13 +10,7 @@ html {
 
 @media (min-width:1300px) {
     .push {
-        height: 300px;
-    }
-}
-
-@media (min-width:1300px) {
-    .push {
-        height: 300px;
+        height: 210px;
     }
 }
 
