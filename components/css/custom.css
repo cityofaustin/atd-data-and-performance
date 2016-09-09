@@ -5,6 +5,7 @@ body {
 html {
     position: relative;
     min-height: 100%;
+    padding-bottom: 0px;
 }
 
 .homepage-button {
@@ -110,8 +111,8 @@ html {
 }
 
 .footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     margin-top: 50px;
     color: #fff;
     text-align: center;
