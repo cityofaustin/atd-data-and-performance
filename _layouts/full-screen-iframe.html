@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  {% include head.html %}
+
+  <body>
+
+  	{% include dash-top-nav.html %}
+        
+        <div class="container-fluid fullscreen">
+            <div class="row">
+                <div class="col-md-12">
+                  <iframe src="{{ page.iframe-url }}" style="border: 0; width: 100%; height: 400px">
+                    
+                  </iframe>
+                </div>
+            </div>
+        </div>
+
+        {% include footer.html %}
+
+
+<!--             <div style="float:right;" class="col-md-3" id="update_date">
+                <h5>Last Updated 25 May 2016 8:45AM</h5>
+            </div> -->
+            
+
+ 
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{site.baseurl}}/components/js/jquery.min.js"></script>
+    <script src="{{site.baseurl}}/components/js/bootstrap.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{site.baseurl}}/components/js/ie10-viewport-bug-workaround.js"></script>
+  
+  </body>
+</html>
+
+
+
+
+ 
