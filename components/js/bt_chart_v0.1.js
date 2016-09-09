@@ -40,7 +40,7 @@ var area = d3.area()
       return x(i); })
     .y0(height)
     .y1(function(d) {
-          return height - y(+d.avg_travel_time_per_mile);
+          return height - y(+d.avg_speed);
     });
 
 var svg = d3.select("#content-wrapper")
@@ -69,13 +69,13 @@ d3.csv(source_file, function(data) {
 
   maxTT = d3.max(data, function(d){
 
-    return +d.avg_travel_time_per_mile;
+    return +d.avg_speed;
   
   });
 
   minTT = d3.min(data, function(d){
 
-    return +d.avg_travel_time_per_mile;
+    return +d.avg_speed;
 
   })
 
@@ -156,7 +156,7 @@ d3.csv(source_file, function(data) {
         .tickSize(4)
         .ticks(6)
         .tickFormat(function(d){
-            return d + "s";
+            return d + " mph";
         })
     );
 
