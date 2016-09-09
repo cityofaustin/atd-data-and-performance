@@ -177,8 +177,6 @@
 
         var update_date_time = new Date(log_data[0].timestamp * 1000);
 
-        console.log(update_date_time);
-
         update_date = readableDate( update_date_time );
 
         var update_time = formatTime( update_date_time );
@@ -353,8 +351,6 @@
     } //  end populateTable
 
     function readableDate(date) {
-        
-        console.log(date);
 
         var update_date = formatDate(date);
         

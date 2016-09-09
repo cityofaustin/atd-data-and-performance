@@ -8,6 +8,10 @@
 
     {% include dash-top-nav.html %}
     
+    <!-- disclaimer modal -->
+    {% include disclaimer.html %}
+    <!-- end disclaimer modal -->
+
     <div class='wrapper'>
 
       <div class="container-fluid">
@@ -64,7 +68,8 @@
     <script src="{{site.baseurl}}/components/js/jquery.dataTables.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{site.baseurl}}/components/js/ie10-viewport-bug-workaround.js"></script>
-  
+    <script src="{{site.baseurl}}/components/js/js-cookie.js"></script>
+    
     {% if page.custom_js %}
     
       {% for js_file in page.custom_js %}

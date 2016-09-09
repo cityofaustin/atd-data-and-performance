@@ -14,8 +14,6 @@ html {
     }
 }
 
-
-
 .homepage-button {
     color: white;
     height: 150px;
@@ -148,8 +146,33 @@ html {
     margin: 0px;
 }
 
+#disclaimer { 
+    position: fixed;
+    opacity: 0;
+    width: 100%;
+    margin-top: 5px;
+    background-color: #990000;
+    z-index: 10000;
 
+    text-align: center;
+    color: #fff;
 
+    -webkit-box-shadow: 8px 8px 6px -6px #999;
+    -moz-box-shadow: 8px 8px 6px -6px #999;
+    box-shadow: 8px 8px 6px -6px #999;
+}
+
+#close-modal {
+    background-color: #fff;
+    border-color: #fff;
+    color: #333;
+}
+
+#close-modal:hover {
+    color: #fff;
+    background-color: #333;
+    border-color: #333;
+}
 
 
 
