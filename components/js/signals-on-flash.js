@@ -60,6 +60,14 @@
     //  init tooltips
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
+
+        if (is_touch_device()) {
+            
+            d3.select('.map')
+                .style("margin-right", "10px")
+                .style("margin-left", "10px");
+        }
+
     });
 
     //  zoom to feature from table click
@@ -368,3 +376,8 @@
 
     }
 
+function is_touch_device() {
+        return (('ontouchstart' in window)
+      || (navigator.MaxTouchPoints > 0)
+      || (navigator.msMaxTouchPoints > 0));
+}

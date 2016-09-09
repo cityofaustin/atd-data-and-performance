@@ -3,13 +3,10 @@ Cookies.remove('disclaimer');
 
 $(document).ready(function() {
     if (Cookies.get('disclaimer') == undefined) {
-        console.log("NO COOKIE");
     
         Cookies.set('disclaimer', 'disclaimer', { expires: 14});
         showModal('disclaimer');
     
-    } else {
-        console.log("FOUND COOKIE!");
     }
 
 });
