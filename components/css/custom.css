@@ -1,5 +1,5 @@
 body {
-  padding-bottom: 60px;
+  padding-bottom: 0px;
 }
 
 html {
@@ -110,35 +110,33 @@ html {
 }
 
 .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    min-height: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 50px;
     color: #fff;
+    text-align: center;
     background-color: #333;
+    text-align: left;
+    box-sizing: border-box;
+    display: block;
 }
 
 .footer-img {
-    padding: 0px;
-    width: 40px;
-    height: 40px;
-    text-align: right;
-}
-
-.footer-container {
-    position: absolute;
-    bottom: 0;
-}
-
-.footer-heading {
-    margin: 2px;
-}
-
-.footer-padding {
-    margin: 10px;
+    vertical-align: middle;
+    height: 60px;
+    margin-top: 10px;
+    margin-botton: 10px;
 }
 
 .footer-links > a {
     color: #fff;
     margin-right: 10px;
+
 }
+
+
+
+
+
+
+
