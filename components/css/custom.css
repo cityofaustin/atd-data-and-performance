@@ -161,14 +161,20 @@ html {
 }
 
 .disclaimer-wrapper {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .disclaimer-wrapper > div > p {
-    text-align: justify;
+    text-align: left;
 }
 
+@media (max-height: 600px) {
+    .disclaimer-wrapper {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
 
 #close-modal {
     background-color: #fff;
