@@ -1,10 +1,12 @@
+//  requires d3js.js
+//  reuires js-cookie.js
 
 Cookies.remove('disclaimer');
 
 $(document).ready(function() {
     if (Cookies.get('disclaimer') == undefined) {
     
-        Cookies.set('disclaimer', 'disclaimer', { expires: 14});
+        Cookies.set('disclaimer', 'disclaimer', { expires: 30});
         showModal('disclaimer');
     
     }

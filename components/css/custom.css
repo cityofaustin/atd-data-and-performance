@@ -151,16 +151,24 @@ html {
     opacity: 0;
     width: 100%;
     margin-top: 5px;
-    background-color: #990000;
+    background-color: #800000;
     z-index: 10000;
-
     text-align: center;
     color: #fff;
-
     -webkit-box-shadow: 8px 8px 6px -6px #999;
     -moz-box-shadow: 8px 8px 6px -6px #999;
     box-shadow: 8px 8px 6px -6px #999;
 }
+
+.disclaimer-wrapper {
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.disclaimer-wrapper > div > p {
+    text-align: justify;
+}
+
 
 #close-modal {
     background-color: #fff;

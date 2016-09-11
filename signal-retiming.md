@@ -8,7 +8,8 @@ custom_js:
 - jquery.dataTables.min
 - leaflet
 - leaflet.extra-markers.min
-- signal-retiming-dash
+- signal-retiming
+- disclaimer-modal
 custom_css:
 - leaflet
 - jquery.dataTables.min

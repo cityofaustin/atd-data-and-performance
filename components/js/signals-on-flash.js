@@ -34,13 +34,13 @@
 
     //  static data
         // lots of signals
-        var data_url = "../components/data/intersection_status_snapshot_conflict.json";
+        //  var data_url = "../components/data/intersection_status_snapshot_conflict.json";
     
         //  one signal
         //  var data_url = "../components/data/intersection_status_snapshot_conflict_one.json";
 
     //  live data!
-    //  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=" + conflict_status;
+    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=" + conflict_status;
 
     var default_map_size = 300;
 

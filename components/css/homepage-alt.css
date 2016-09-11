@@ -1,0 +1,50 @@
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+.jumbotron {
+    background-image: url(../images/NEW_BANNDER_DARK.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    min-height: 150px; 
+    margin-bottom: 0px;   
+}
+
+.title-div {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.jumbotron-two {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #1F4109;
+    color: #fff;
+    min-height: 150px; 
+    margin-bottom: 0px; 
+}
+
+.sub-jumbo {
+    color: #fff;
+    min-height: 75px;
+    background-color: #1F4109;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+    padding-top: 10px;
+    box-shadow: 0 8px 6px -6px #999;
+}
+
+.pre-jumbo {
+    color: #fff;
+    min-height: 20px;
+    background-color: #1F4109;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.homepage-button {
+      box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+}
