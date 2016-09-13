@@ -164,6 +164,13 @@ html {
     background-color: #800000;
 }
 
+.disclaimer-img {
+    height: 60px;
+    vertical-align: middle;
+    margin-top: 10px;
+    margin-botton: 10px;
+}
+
 .modal-wrapper {
     margin-left: 10%;
     margin-right: 10%;
