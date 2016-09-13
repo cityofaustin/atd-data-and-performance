@@ -146,12 +146,11 @@ html {
     margin: 0px;
 }
 
-#disclaimer { 
+.custom-modal { 
     position: fixed;
     opacity: 0;
     width: 100%;
     margin-top: 5px;
-    background-color: #800000;
     z-index: 10000;
     text-align: center;
     color: #fff;
@@ -160,17 +159,22 @@ html {
     box-shadow: 8px 8px 6px -6px #999;
 }
 
-.disclaimer-wrapper {
+
+.disclaimer {
+    background-color: #800000;
+}
+
+.modal-wrapper {
     margin-left: 10%;
     margin-right: 10%;
 }
 
-.disclaimer-wrapper > div > p {
+.modal-wrapper > div > p {
     text-align: justify;
 }
 
 @media (max-height: 600px) {
-    .disclaimer-wrapper {
+    .modal-wrapper {
         font-size: 9px;
         margin-left: 0;
         margin-right: 0;

@@ -86,19 +86,25 @@ button.map-expander{
   border-radius: 4px;
 }
 
-.tooltips{
+.tooltips {
   cursor: pointer;
 }
 
-.tooltip {
-  z-index: 5000;
-  border-radius: 0px;
-  background-color: #333;
+.popover-content {
+  font-family: 'News Cycle', sans-serif;
+  color: #fff;
 }
 
+.popover {
+  background-color: #333;
+  border-radius: 0;
+}
 
-
-
+.popover-title {
+  border-radius: 0;
+  background-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
+}
 
 
 

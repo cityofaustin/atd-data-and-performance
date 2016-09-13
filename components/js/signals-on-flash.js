@@ -54,12 +54,21 @@
         shape: 'circle',
         prefix: 'fa'
     });
+
+
+    var disclaimer_text = 
+        "Traffic signals enter flash mode when something is preventing the signal from operating normally. This is typically the result of a power surge, power outage, or a vehicle crash. <br> <br> \
+        This dashboard reports flashing traffic signals in Austin, Texas, based on data collected through IP communication with traffic signals. Most of the traffic signals in Austin are communication-enabled, however some are not, and can not be reported on this dashboard. It also occasionally happens that the event that disables a traffic signal will also disable network communication to the signal, in which case the signal outage will not be reported here. <br><br> \
+        The dashboard is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of traffic signals.";
     
     getSignalData(data_url);
 
     //  init tooltips
     $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
+
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();
+        });
 
         if (is_touch_device()) {
             
