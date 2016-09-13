@@ -14,7 +14,7 @@
 
     var formatPct = d3.format("%");
     
-    var formatDateTime = d3.timeFormat("%c");
+    var formatDateTime = d3.timeFormat("%a %b %e %H:%M %p");
 
     var formatDate = d3.timeFormat("%x");
     
@@ -253,8 +253,8 @@
                             icon:  conflict_flash_marker
                         })
                         .bindPopup(
-                            "<b>" + assetnum + ": " + address + "</b><br>" +
-                            "<b>Status: FLASHING </b>" + 
+                            "<b>" + assetnum + ":</b> " + address + " <br>" +
+                            "<b>Status:</b> Conflict / Flashing" + 
                             "<br><b>Updated:</b> " + status_time
                         )
                         
@@ -272,7 +272,7 @@
                 signals_on_flash_layer.getBounds(),
                     {
                         paddingTopLeft: [80, 80],
-                        maxZoom: 15
+                        maxZoom: 14
 
                     }
                 );
