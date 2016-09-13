@@ -157,6 +157,9 @@ html {
     -webkit-box-shadow: 8px 8px 6px -6px #999;
     -moz-box-shadow: 8px 8px 6px -6px #999;
     box-shadow: 8px 8px 6px -6px #999;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    overflow-y: auto;
 }
 
 
@@ -183,8 +186,9 @@ html {
 @media (max-height: 600px) {
     .modal-wrapper {
         font-size: 9px;
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-bottom: 80px;
     }
 }
 
