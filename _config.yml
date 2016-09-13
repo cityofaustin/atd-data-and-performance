@@ -12,10 +12,7 @@ author:
   name:           ''
   url:            ''
 
-paginate:         5
-
 gems:
-  - jekyll-paginate
 
 # Custom vars
 version:          0.0.0
