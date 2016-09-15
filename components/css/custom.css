@@ -146,50 +146,36 @@ html {
     margin: 0px;
 }
 
-.custom-modal { 
-    position: fixed;
-    opacity: 0;
-    width: 100%;
-    margin-top: 5px;
-    z-index: 10000;
-    text-align: center;
+.disclaimer {
+    background-color: #800000;
     color: #fff;
+    margin-top: 10px;
     -webkit-box-shadow: 8px 8px 6px -6px #999;
     -moz-box-shadow: 8px 8px 6px -6px #999;
     box-shadow: 8px 8px 6px -6px #999;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    overflow-y: auto;
-}
-
-
-.disclaimer {
-    background-color: #800000;
 }
 
 .disclaimer-img {
     height: 60px;
-    vertical-align: middle;
     margin-top: 10px;
     margin-botton: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
 }
 
-.modal-wrapper {
-    margin-left: 10%;
-    margin-right: 10%;
+.modal-title {
+    text-align: center;
 }
 
-.modal-wrapper > div > p {
+.modal-text {
+    padding-left: 15%;
+    padding-right: 15%;
     text-align: justify;
 }
 
-@media (max-height: 600px) {
-    .modal-wrapper {
-        font-size: 9px;
-        margin-left: 0px;
-        margin-right: 0px;
-        padding-bottom: 80px;
-    }
+.modal-wrapper > h3 {
+    text-align: center;
 }
 
 #close-modal {
@@ -203,6 +189,14 @@ html {
     background-color: #333;
     border-color: #333;
 }
+
+.modal-button {
+    text-align: center;
+    margin: 10px;
+}
+
+
+
 
 
 
