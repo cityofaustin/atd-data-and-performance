@@ -28,19 +28,11 @@
         .ease(d3.easeQuad)
         .duration(500);
 
-    var conflict_status = "2"  //  2 is conflict, 3 is no comm, 1 is coordinated, etc....this is what drives the dashboard
+    var conflict_status = "3"  //  2 == conflict
 
     var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?%24select=timestamp&%24where=event=%27signal_status_update%27&%24order=timestamp%20DESC&%24limit=1'
 
-    //  static data
-        // lots of signals
-        //  var data_url = "../components/data/intersection_status_snapshot_conflict.json";
-    
-        //  one signal
-        //  var data_url = "../components/data/intersection_status_snapshot_conflict_one.json";
-
-    //  live data!
-    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intstatus=" + conflict_status;
+    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intersection_status=" + conflict_status;
 
     var default_map_size = 300;
 
@@ -86,7 +78,8 @@
     //  zoom to feature from table click
     d3.selectAll(".feature_link").on("click", function(d){
 
-        var marker_id = d3.select(this).attr("data-intid");
+        var marker_id = d3.select(this).attr("data-feature-id");
+
 
         map.setView(signal_markers[marker_id].getLatLng(), 14);
 
@@ -134,6 +127,8 @@
     });
 
     function main(data){
+
+        john = data;
 
         populateInfoStat(data, "info-1", function(){
 
@@ -238,7 +233,7 @@
 
     function populateMap(map, dataset, createSideBar) {
 
-        dataset = dataset.filter(function(d){ return +d.intstatus == conflict_status});
+        dataset = dataset.filter(function(d){ return +d.intersection_status == conflict_status});
 
         if (dataset.length > 0) {
 
@@ -248,32 +243,32 @@
                 
                 if(dataset[i].latitude > 0) {
 
-                    var status = +dataset[i].intstatus;
+                    var status = +dataset[i].intersection_status;
 
                     var lat = dataset[i].latitude;
             
                     var lon = dataset[i].longitude;
 
-                    var address = dataset[i].intname;
+                    var address = dataset[i].intersection_name;
 
-                    var intid = dataset[i].intid;
+                    var database_id = dataset[i].database_id;
 
-                    var status_time = formatDateTime( new Date(dataset[i].intstatusdatetime) );
+                    var status_time = formatDateTime( new Date(dataset[i].status_datetime) );
 
-                    var assetnum = dataset[i].assetnum;
+                    var atd_intersection_id = dataset[i].atd_intersection_id;
                     
                     var marker = L.marker([lat,lon], {
                             icon:  conflict_flash_marker
                         })
                         .bindPopup(
-                            "<b>" + assetnum + ":</b> " + address + " <br>" +
+                            "<b>" + atd_intersection_id + ":</b> " + address + " <br>" +
                             "<b>Status:</b> Conflict / Flashing" + 
                             "<br><b>Updated:</b> " + status_time
                         )
                         
                         marker.addTo(signals_on_flash_layer);
 
-                        signal_markers[intid] = marker;
+                        signal_markers[atd_intersection_id] = marker;
 
                 }
 
@@ -305,12 +300,12 @@
         }
     }
 
-    function getSignalData(myurl) {
+    function getSignalData(url) {
         $.ajax({
             'async' : false,
             'global' : false,
             'cache' : false,
-            'url' : myurl,
+            'url' : url,
             'dataType' : "json",
             'success' : function (data) {
                 main(data);
@@ -320,12 +315,12 @@
 
     }
 
-    function getLogData(myurl) {
+    function getLogData(url) {
         $.ajax({
             'async' : false,
             'global' : false,
             'cache' : false,
-            'url' : myurl,
+            'url' : url,
             'dataType' : "json",
             'success' : function (data) {
                 postUpdateDate(data, "info-1");
@@ -345,20 +340,20 @@
             .enter()
             .append("tr")
             .filter(function(d){
-                return d.intstatus > 0;
+                return d.intersection_status > 0;
             })
             .attr("class", "tableRow");
 
         d3.select("tbody").selectAll("tr")
             .each(function (d) {
                 
-                d3.select(this).append("td").html(d.assetnum);
+                d3.select(this).append("td").html(d.atd_intersection_id);
                 
-                d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-intid=" + d.intid + " name=_" + d.intid + ">" + d.intname + "</a>");
+                d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.atd_intersection_id + " name=_" + d.intersection_name + ">" + d.intersection_name + "</a>");
                 
                 d3.select(this).append("td").html("Conflict / Flashing");
                 
-                d3.select(this).append("td").html( formatDateTime( new Date(d.intstatusdatetime) ) );
+                d3.select(this).append("td").html( formatDateTime( new Date(d.status_datetime) ) );
         
             });
 
