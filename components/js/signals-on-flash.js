@@ -28,11 +28,20 @@
         .ease(d3.easeQuad)
         .duration(500);
 
-    var conflict_status = "3"  //  2 == conflict
+    var STATUS_TYPES_READABLE = {
+        0: "OK",
+        1: "Cabinet Flash",
+        2: "Conflict / Flashing",
+        3: "Comm Fail",
+        5: "Comm Disabled",
+        11: "Police Flash"
+    }
+
+    var status = "3"  //  2 == conflict
 
     var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?%24select=timestamp&%24where=event=%27signal_status_update%27&%24order=timestamp%20DESC&%24limit=1'
 
-    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intersection_status=" + conflict_status;
+    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intersection_status=" + status;
 
     var default_map_size = 300;
 
@@ -233,7 +242,7 @@
 
     function populateMap(map, dataset, createSideBar) {
 
-        dataset = dataset.filter(function(d){ return +d.intersection_status == conflict_status});
+        dataset = dataset.filter(function(d){ return +d.intersection_status == status});
 
         if (dataset.length > 0) {
 
@@ -262,7 +271,7 @@
                         })
                         .bindPopup(
                             "<b>" + atd_intersection_id + ":</b> " + address + " <br>" +
-                            "<b>Status:</b> Conflict / Flashing" + 
+                            "<b>Status: </b>" + STATUS_TYPES_READABLE[status] + 
                             "<br><b>Updated:</b> " + status_time
                         )
                         
@@ -351,7 +360,7 @@
                 
                 d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.atd_intersection_id + " name=_" + d.intersection_name + ">" + d.intersection_name + "</a>");
                 
-                d3.select(this).append("td").html("Conflict / Flashing");
+                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.intersection_status]);
                 
                 d3.select(this).append("td").html( formatDateTime( new Date(d.status_datetime) ) );
         
