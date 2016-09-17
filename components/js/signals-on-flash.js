@@ -137,7 +137,15 @@
 
         makeMap(data);
 
-        populateTable(data);
+        if (data.length > 0) {
+
+            populateTable(data);    
+
+        } else {
+
+            d3.select('.table').remove();
+
+        }
 
     };
 
