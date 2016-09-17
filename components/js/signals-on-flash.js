@@ -30,10 +30,10 @@
 
     var STATUS_TYPES_READABLE = {
         0: "OK",
-        1: "Cabinet Flash",
+        1: "Programmed Flash",
         2: "Conflict / Flashing",
-        3: "Comm Fail",
-        5: "Comm Disabled",
+        3: "No Communication",
+        5: "Communication Disabled",
         11: "Police Flash"
     }
 
@@ -241,8 +241,6 @@
     }
 
     function populateMap(map, dataset, createSideBar) {
-
-        dataset = dataset.filter(function(d){ return +d.intersection_status == status});
 
         if (dataset.length > 0) {
 
