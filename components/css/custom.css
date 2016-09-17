@@ -14,6 +14,10 @@ html {
     }
 }
 
+p {
+    text-align: justify;
+}
+
 .homepage-button {
     color: white;
     height: 150px;
@@ -144,55 +148,6 @@ html {
 .fullscreen {
     padding: 0px;
     margin: 0px;
-}
-
-.disclaimer {
-    background-color: #800000;
-    color: #fff;
-    margin-top: 10px;
-    -webkit-box-shadow: 8px 8px 6px -6px #999;
-    -moz-box-shadow: 8px 8px 6px -6px #999;
-    box-shadow: 8px 8px 6px -6px #999;
-}
-
-.disclaimer-img {
-    height: 60px;
-    margin-top: 10px;
-    margin-botton: 10px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto
-}
-
-.modal-title {
-    text-align: center;
-}
-
-.modal-text {
-    padding-left: 15%;
-    padding-right: 15%;
-    text-align: justify;
-}
-
-.modal-wrapper > h3 {
-    text-align: center;
-}
-
-#close-modal {
-    background-color: #fff;
-    border-color: #fff;
-    color: #333;
-}
-
-#close-modal:hover {
-    color: #fff;
-    background-color: #333;
-    border-color: #333;
-}
-
-.modal-button {
-    text-align: center;
-    margin: 10px;
 }
 
 

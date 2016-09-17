@@ -37,7 +37,7 @@
         11: "Police Flash"
     }
 
-    var status = "3"  //  2 == conflict
+    var status = "2"  //  2 == conflict
 
     var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?%24select=timestamp&%24where=event=%27signal_status_update%27&%24order=timestamp%20DESC&%24limit=1'
 
@@ -56,16 +56,6 @@
         prefix: 'fa'
     });
 
-
-    var disclaimer_text = 
-        "<h4><i>What am I looking at?</i></h4>  \
-        \
-        This dashboard reports flashing traffic signals in Austin, Texas. Approximately 90% of the City’s signals communicate with our Advanced Trasnportation Management System.  When these signals go on flash, they will be reported on this dashboard.  Although we are extending communications to all signals, approximately 10% are not currently reported on this dashboard.  It also occasionally happens that the event that disables a traffic signal also disables network communication to the signal, in which case the signal outage will not be reported here.<br><br> \
-        <h4><i>Why do traffic signals flash?</i></h4>\
-        Traffic signals enter flash mode when something is preventing the signal from operating normally. This is typically the result of a power surge, power outage, or damage to signal equipent.<br> <br> \
-        <h4><i>Disclaimer</i></h4>\
-        This dashboard is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of traffic signals.";
-    
     getSignalData(data_url);
 
     //  init tooltips

@@ -8,7 +8,6 @@ custom_js:
 - leaflet
 - leaflet.extra-markers.min
 - signals-on-flash
-- disclaimer-modal
 custom_css:
 - leaflet
 - leaflet.extra-markers.min
