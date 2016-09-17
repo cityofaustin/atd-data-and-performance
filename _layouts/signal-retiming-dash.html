@@ -6,10 +6,6 @@
   <body>
 
   	{% include dash-top-nav.html %}
-
-    <!-- disclaimer modal -->
-    {% include disclaimer.html %}
-    <!-- end disclaimer modal -->
         
         <div class="container-fluid">
           <div class="row">
@@ -71,7 +67,10 @@
             </div>
         </div>
     </div>
-          {% include footer.html %}
+
+    {% include disclaimer.html %}
+    
+    {% include footer.html %}
 
  
 <!-- Bootstrap core JavaScript

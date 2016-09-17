@@ -9,7 +9,6 @@ custom_js:
 - leaflet
 - leaflet.extra-markers.min
 - signal-retiming
-- disclaimer-modal
 custom_css:
 - leaflet
 - jquery.dataTables.min
