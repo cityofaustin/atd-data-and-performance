@@ -1,8 +1,4 @@
 ---
 layout: homepage
-title: Austin Traffic Signal Data Portal
+title: Austin Transportation Data and Analytics Portal
 ---
-
-# Austin Transportation Data and Analytics Portal
-
-
