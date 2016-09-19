@@ -3,7 +3,6 @@
 //  show / zoomto on map
 //  resize markers with zoom
 
-var disclaimer_text = "This dashboard is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of traffic signals.";
 
 var ANNUAL_GOALS = {
     
@@ -32,6 +31,14 @@ var ANNUAL_GOALS = {
     }    
 
 };
+
+
+
+var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json'
+
+var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json'
+
+
 
 var SOURCE_DATA_SYSTEMS;  //  populates table
 
