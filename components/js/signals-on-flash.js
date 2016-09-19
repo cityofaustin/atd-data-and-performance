@@ -256,8 +256,6 @@
 
                     var address = dataset[i].intersection_name;
 
-                    var database_id = dataset[i].database_id;
-
                     var status_time = formatDateTime( new Date(dataset[i].status_datetime) );
 
                     var atd_intersection_id = dataset[i].atd_intersection_id;
