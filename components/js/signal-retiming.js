@@ -8,26 +8,26 @@ var ANNUAL_GOALS = {
     
     "2018" : {
         retime_goal: 0,
-        tt_reduction: 0,
-        stop_reduction: 0,
+        travel_time_reduction: 0,
+        stops_reduction: 0,
     },
     
     "2017" : {
         retime_goal: 0,
-        tt_reduction: 0,
-        stop_reduction: 0,
+        travel_time_reduction: 0,
+        stops_reduction: 0,
     },
 
     "2016" : {
         retime_goal: 200,
-        tt_reduction: .05,
-        stop_reduction: 3,
+        travel_time_reduction: .05,
+        stops_reduction: 3,
     },
 
     "2015" : {
         retime_goal: 150,
-        tt_reduction: .05,
-        stop_reduction: 6,  
+        travel_time_reduction: .05,
+        stops_reduction: 6,  
     }    
 
 };
@@ -38,7 +38,7 @@ var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json'
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json'
 
-
+var STATUS_SELECTED = 'IN_PROGRESS'
 
 var SOURCE_DATA_SYSTEMS;  //  populates table
 
@@ -64,8 +64,8 @@ var formatInt = d3.format(".2r");
 var format_types = {
 
     "retiming_progress" : formatPctInt,
-    "tt_reduction" : formatPct,
-    "stop_reduction" : formatInt
+    "travel_time_reduction" : formatPct,
+    "stops_reduction" : formatInt
     
 }
 
@@ -87,7 +87,7 @@ var systems_layers = {};
 
 var master_layer = new L.featureGroup();
 
-d3.json(data_url_systems, function(dataset) {
+d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
     SOURCE_DATA_SYSTEMS = dataset;
 
@@ -95,9 +95,9 @@ d3.json(data_url_systems, function(dataset) {
 
         createProgressChart("info-1", "retiming_progress");
 
-        popupulateInfoStat("info-2", "tt_reduction", t1);
+        populateInfoStat("info-2", "travel_time_reduction", t1);
 
-        popupulateInfoStat("info-3", "stop_reduction", t1);
+        populateInfoStat("info-3", "stops_reduction", t1);
 
         populateTable(SOURCE_DATA_SYSTEMS);
 
@@ -125,9 +125,9 @@ d3.selectAll(".year-selector").on("change", function(d){
 
     updateProgressChart("info-1", t2);
 
-    updateInfoStat("info-2", "tt_reduction", t2);
+    updateInfoStat("info-2", "travel_time_reduction", t2);
 
-    updateInfoStat("info-3", "stop_reduction", t2);
+    updateInfoStat("info-3", "stops_reduction", t2);
 
     updateTable(SOURCE_DATA_SYSTEMS);
 
@@ -178,22 +178,24 @@ function groupData(dataset, updateCharts) {
     GROUPED_DATA_SYSTEMS = 
         d3.nest()
             .key(function (d) {
-                return d.retime_fiscal_year;
+                return d.scheduled_fy;
             })
             .key(function (q){
-                return q.status;
+                return q.retime_status;
             })
             .rollup(function (v) {
                 return {
-                    systems : v.length,
-                    signals_retimed : d3.sum(v, function(d) { 
-                        return d.signal_count;
+                    travel_time_reduction : d3.mean(v, function(d) {
+                        // return d.travel_time_reduction;
+                        return .09;
                     }),
-                    tt_reduction : d3.mean(v, function(d) {
-                        return d.tt_reduction;
+                    stops_reduction : d3.mean(v, function(d) {
+                        //  return d.stops_reduction;
+                        return 3;
                     }),
-                    stop_reduction : d3.mean(v, function(d) {
-                        return d.stop_reduction;
+
+                    signals_retimed : d3.sum(v, function(d) {
+                        return 10; 
                     })
                 };
             })
@@ -203,19 +205,21 @@ function groupData(dataset, updateCharts) {
 
 }
 
-function popupulateInfoStat(divId, metric, transition) {
+function populateInfoStat(divId, metric, transition) {
 
     var goal = ANNUAL_GOALS[selected_year][metric]; 
 
-    var tt_reduction = 
-        GROUPED_DATA_SYSTEMS["$" + selected_year]["$COMPLETED"][metric];
+    var metric_value = 
+        GROUPED_DATA_SYSTEMS["$" + selected_year]["$" + STATUS_SELECTED][metric];
     
+    console.log(metric_value);
+
     d3.select("#" + divId)
         .append("text")
         .text(format_types[metric](0))
         .transition(transition)
         .attr("class", function(){
-            if (tt_reduction >= +goal) {
+            if (metric_value >= +goal) {
                 return "goal-met";
             } else {
                 return "goal-unmet"
@@ -225,7 +229,7 @@ function popupulateInfoStat(divId, metric, transition) {
             
             var that = d3.select(this);
 
-            var i = d3.interpolate(0, tt_reduction);
+            var i = d3.interpolate(0, metric_value);
             
             return function (t) {
             
@@ -241,17 +245,18 @@ function updateInfoStat(divId, metric, transition) {
 
     var goal = ANNUAL_GOALS[selected_year][metric]; 
 
-    var tt_reduction_previous = 
-        GROUPED_DATA_SYSTEMS["$" + previous_selection]["$COMPLETED"][metric];
+    var metric_value_previous = 
+        GROUPED_DATA_SYSTEMS["$" + previous_selection]["$" + STATUS_SELECTED][metric];
 
-    var tt_reduction = 
-        GROUPED_DATA_SYSTEMS["$" + selected_year]["$COMPLETED"][metric];
-    
+    var metric_value = 
+        GROUPED_DATA_SYSTEMS["$" + selected_year]["$" + STATUS_SELECTED][metric];
+
     d3.select("#" + divId)
         .select("text")
         .transition(transition)
         .attr("class", function(){
-            if (tt_reduction >= +goal) {
+
+            if (metric_value >= +goal) {
                 return "goal-met";
             } else {
                 return "goal-unmet"
@@ -261,7 +266,7 @@ function updateInfoStat(divId, metric, transition) {
             
             var that = d3.select(this);
 
-            var i = d3.interpolate(tt_reduction_previous, tt_reduction);
+            var i = d3.interpolate(metric_value_previous, metric_value);
             
             return function (t) {
             
@@ -335,7 +340,7 @@ function updateProgressChart(divId, transition){
     var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
 
     var signals_retimed = 
-        GROUPED_DATA_SYSTEMS["$" + selected_year]["$COMPLETED"]["signals_retimed"];
+        GROUPED_DATA_SYSTEMS["$" + selected_year]["$" + STATUS_SELECTED]["signals_retimed"];
 
     var pct_complete = signals_retimed / goal;
     
@@ -392,7 +397,7 @@ function populateTable(dataset) {
 
         var filtered_data = dataset.filter(function (d) {
 
-            return d.retime_fiscal_year == selected_year;
+            return d.scheduled_fy == selected_year;
 
         });
 
@@ -413,13 +418,13 @@ function populateTable(dataset) {
                                 
                 d3.select(this).append("td").html(d.system_name);
                 
-                d3.select(this).append("td").html(d.signal_count);
+                d3.select(this).append("td").html(d.signals_retimed);
 
-                d3.select(this).append("td").html(d.status);
+                d3.select(this).append("td").html(d.retime_status);
                 
                 d3.select(this).append("td").html(d.status_date);
                 
-                d3.select(this).append("td").html(d.tt_reduction);
+                d3.select(this).append("td").html(d.travel_time_reduction);
 
             });
 
@@ -439,7 +444,7 @@ function updateTable(dataset){
 
     var filtered_data = dataset.filter(function (d) {
 
-            return d.retime_fiscal_year == selected_year;
+            return d.scheduled_fy == selected_year;
 
         });
 
@@ -466,7 +471,7 @@ function updateTable(dataset){
                 
                 d3.select(this).append("td").html(d.status_date);
                 
-                d3.select(this).append("td").html(d.tt_reduction);
+                d3.select(this).append("td").html(d.travel_time_reduction);
 
             });
 
