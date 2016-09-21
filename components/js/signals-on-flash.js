@@ -41,7 +41,7 @@
 
     var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?%24select=timestamp&%24where=event=%27signal_status_update%27&%24order=timestamp%20DESC&%24limit=1'
 
-    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?intersection_status=" + status;
+    var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?signal_status=" + status;
 
     var default_map_size = 300;
 
@@ -248,7 +248,7 @@
                 
                 if(dataset[i].latitude > 0) {
 
-                    var status = +dataset[i].intersection_status;
+                    var status = +dataset[i].signal_status;
 
                     var lat = dataset[i].latitude;
             
@@ -343,7 +343,7 @@
             .enter()
             .append("tr")
             .filter(function(d){
-                return d.intersection_status > 0;
+                return d.signal_status > 0;
             })
             .attr("class", "tableRow");
 
@@ -354,7 +354,7 @@
                 
                 d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.atd_signal_id + " name=_" + d.intersection_name + ">" + d.intersection_name + "</a>");
                 
-                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.intersection_status]);
+                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.signal_status]);
                 
                 d3.select(this).append("td").html( formatDateTime( new Date(d.status_datetime) ) );
         
