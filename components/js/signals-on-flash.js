@@ -39,7 +39,14 @@
 
     var status = "2"  //  2 == conflict
 
-    var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?%24select=timestamp&%24where=event=%27signal_status_update%27&%24order=timestamp%20DESC&%24limit=1'
+    /*
+        URL logic to query logfile:
+        - event is signal_status_update
+        - and response message is NULL (ie no upload errors)
+        - return first result of sorted by desc timestamp
+    */
+    
+    var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27%20AND%20response_message%20IS%20NULL&$order=timestamp+DESC&$limit=1'
 
     var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?signal_status=" + status;
 
