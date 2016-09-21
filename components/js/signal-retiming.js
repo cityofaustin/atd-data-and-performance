@@ -539,7 +539,7 @@ function populateMap(map, dataset) {
 
             var intersection_name = dataset[i].street_segments_full_street_nam + " / " + dataset[i].street_segments_1_full_street_n;
 
-            var atd_intersection_id = dataset[i].atd_intersection_id;
+            var atd_signal_id = dataset[i].atd_signal_id;
             
             var marker = L.circle([lat,lon], 100, {
                     color: d3.interpolateSpectral(color_index),

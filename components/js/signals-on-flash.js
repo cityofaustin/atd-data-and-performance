@@ -258,20 +258,20 @@
 
                     var status_time = formatDateTime( new Date(dataset[i].status_datetime) );
 
-                    var atd_intersection_id = dataset[i].atd_intersection_id;
+                    var atd_signal_id = dataset[i].atd_signal_id;
                     
                     var marker = L.marker([lat,lon], {
                             icon:  conflict_flash_marker
                         })
                         .bindPopup(
-                            "<b>" + atd_intersection_id + ":</b> " + address + " <br>" +
+                            "<b>" + atd_signal_id + ":</b> " + address + " <br>" +
                             "<b>Status: </b>" + STATUS_TYPES_READABLE[status] + 
                             "<br><b>Updated:</b> " + status_time
                         )
                         
                         marker.addTo(signals_on_flash_layer);
 
-                        signal_markers[atd_intersection_id] = marker;
+                        signal_markers[atd_signal_id] = marker;
 
                 }
 
@@ -350,9 +350,9 @@
         d3.select("tbody").selectAll("tr")
             .each(function (d) {
                 
-                d3.select(this).append("td").html(d.atd_intersection_id);
+                d3.select(this).append("td").html(d.atd_signal_id);
                 
-                d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.atd_intersection_id + " name=_" + d.intersection_name + ">" + d.intersection_name + "</a>");
+                d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.atd_signal_id + " name=_" + d.intersection_name + ">" + d.intersection_name + "</a>");
                 
                 d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.intersection_status]);
                 
