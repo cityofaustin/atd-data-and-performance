@@ -522,8 +522,6 @@ function updateTable(dataset){
             .each(function (d) {
                 
                 d3.select(this).append("td").html("<input type='checkbox' name='map_show' value='true' checked>");
-
-                d3.select(this).append("td").html(d.system_id);
                                 
                 d3.select(this).append("td").html(d.system_name);
                 
