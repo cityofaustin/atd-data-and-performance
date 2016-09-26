@@ -87,6 +87,9 @@ var systems_layers = {};
 
 var master_layer = new L.featureGroup();
 
+
+
+
 d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
     SOURCE_DATA_SYSTEMS = dataset;
@@ -105,6 +108,9 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
 });
 
+
+
+
 d3.json(data_url_intersections, function(dataset) {
     
     GROUPED_DATA_INTERSECTIONS = dataset;
@@ -113,25 +119,6 @@ d3.json(data_url_intersections, function(dataset) {
 
 });
 
-d3.selectAll(".year-selector").on("change", function(d){
-
-    t2 = d3.transition()
-        .ease(d3.easeQuad)
-        .duration(1000);
-    
-    previous_selection = selected_year;
-
-    selected_year = d3.select(this).node().value;
-
-    updateProgressChart("info-1", t2);
-
-    updateInfoStat("info-2", "travel_time_reduction", t2);
-
-    updateInfoStat("info-3", "stops_reduction", t2);
-
-    updateTable(SOURCE_DATA_SYSTEMS);
-
-});
 
 
 d3.select("#map-expander").on("click", function(){
@@ -173,6 +160,8 @@ d3.select("#map-expander").on("click", function(){
 
 });
 
+
+
 function groupData(dataset, updateCharts) {
 
     GROUPED_DATA_SYSTEMS = 
@@ -203,7 +192,76 @@ function groupData(dataset, updateCharts) {
 
      updateCharts();
 
+     createYearSelectors("selectors", function(){
+
+        d3.select("#selectors").selectAll(".btn").on("click", function(d){
+
+            d3.select("#selectors").selectAll(".btn").classed("active", false)
+
+            d3.select(this).classed("active", true);
+
+            t2 = d3.transition()
+                .ease(d3.easeQuad)
+                .duration(1000);
+            
+            previous_selection = selected_year;
+
+            selected_year = d3.select(this).node().value;
+
+            console.log(selected_year);
+
+            updateProgressChart("info-1", t2);
+
+            updateInfoStat("info-2", "travel_time_reduction", t2);
+
+            updateInfoStat("info-3", "stops_reduction", t2);
+
+            updateTable(SOURCE_DATA_SYSTEMS);
+
+        });
+
+     });
+
 }
+
+
+
+function createYearSelectors(divId, createListeners) {
+
+    //  data = GROUPED_DATA_SYSTEMS.keys();
+
+    data = ['2017', '2016', '2015'];
+
+    d3.select("#" + divId)
+        .selectAll("button")
+        .data(data)
+        .enter()
+        .append("button")
+        .attr("type", "button")
+        .attr("class", function(d, i) {
+
+            if (i == 0) {
+        
+                return "btn btn-default active";
+        
+            }  else {
+                
+                return "btn btn-default";
+
+            }
+
+        })
+        .text(function(d) {
+            return d;
+        })
+        .attr("value", function(d) {
+            return +d;
+        });
+
+    createListeners();
+}
+
+
 
 function populateInfoStat(divId, metric, transition) {
 
@@ -211,8 +269,6 @@ function populateInfoStat(divId, metric, transition) {
 
     var metric_value = 
         GROUPED_DATA_SYSTEMS["$" + selected_year]["$" + STATUS_SELECTED][metric];
-    
-    console.log(metric_value);
 
     d3.select("#" + divId)
         .append("text")
@@ -240,6 +296,8 @@ function populateInfoStat(divId, metric, transition) {
         });
 
 }
+
+
 
 function updateInfoStat(divId, metric, transition) {
 
@@ -277,6 +335,8 @@ function updateInfoStat(divId, metric, transition) {
         });
 
 }
+
+
 
 function createProgressChart(divId, metric) {  //  see https://bl.ocks.org/mbostock/5100636
 
@@ -334,6 +394,8 @@ function createProgressChart(divId, metric) {  //  see https://bl.ocks.org/mbost
     
     updateProgressChart("info-1", t1);
 }
+
+
 
 function updateProgressChart(divId, transition){
 
@@ -393,6 +455,7 @@ function updateProgressChart(divId, transition){
 }
 
 
+
 function populateTable(dataset) {
 
         var filtered_data = dataset.filter(function (d) {
@@ -413,8 +476,6 @@ function populateTable(dataset) {
             .each(function (d) {
 
                 d3.select(this).append("td").html("<input type='checkbox' name='map_show' value='true' checked>");
-                
-                d3.select(this).append("td").html(d.system_id);
                                 
                 d3.select(this).append("td").html(d.system_name);
                 
@@ -436,6 +497,7 @@ function populateTable(dataset) {
         });
 
     } //  end populateTable
+
 
 
 function updateTable(dataset){
@@ -479,6 +541,8 @@ function updateTable(dataset){
 
 }
 
+
+
 function makeMap(dataset) {
 
     L.Icon.Default.imagePath = '../components/images/';
@@ -501,6 +565,8 @@ function makeMap(dataset) {
     populateMap(map, dataset);
 
 }
+
+
 
 function populateMap(map, dataset) {
 
@@ -570,6 +636,8 @@ function populateMap(map, dataset) {
         
 
 }
+
+
 
 function arcTween(newAngle) { 
 

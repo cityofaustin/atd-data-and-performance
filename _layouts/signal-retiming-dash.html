@@ -9,16 +9,15 @@
         
         <div class="container-fluid">
           <div class="row">
-            <div class="col-sm-12 year-selctor">
-              <h4>
-                <form action="" id="year-selector">Fiscal Year
-                  <input class="year-selector" type="radio" name="year" value="2017" disabled> 2017 
-                  <input class="year-selector" type="radio" name="year" value="2016" checked> 2016 
-                  <input class="year-selector" type="radio" name="year" value="2015"> 2015 
-                  <input class="year-selector" type="radio" name="year" value="2014" disabled> 2014
-                </form>
-              </h4>
+
+            <div class="col-sm-12">
+              <h4> Fiscal Year </h4>              
+              
+              <div id="selectors" class="btn-group" role="group" aria-label="...">
+              </div>
+
             </div>
+
           </div>
           <div class="row">
             <div class="col-sm-4 info" id=info-1 data-status=2>
@@ -49,7 +48,6 @@
       <thead>
         <tr>
             <th>Show on Map</th>
-            <th>System ID</th>
             <th>System Name</th>
             <th>Number of Signals</th>
             <th>Status</th>
