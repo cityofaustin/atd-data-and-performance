@@ -32,13 +32,15 @@ var ANNUAL_GOALS = {
 
 };
 
+var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json';
 
+var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json';
 
-var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json'
+var LOGFILE_URL = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27corridor_retiming_update%27%20AND%20response_message%20IS%20NULL%20&$order=timestamp+DESC&$limit=1';
 
-var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json'
+var data_url_intersections = "../components/data/sync_systems_2016.json";
 
-var STATUS_SELECTED = 'IN_PROGRESS'
+var STATUS_SELECTED = 'IN_PROGRESS';
 
 var SOURCE_DATA_SYSTEMS;  //  populates table
 
@@ -51,23 +53,27 @@ var selected_year = "2016";  //  init year selection
 
 var previous_selection = "2015";
 
-var data_url_systems = "../components/data/dummy_retiming_data.json";
-
-var data_url_intersections = "../components/data/sync_systems_2016.json";
-
 var formatPct = d3.format(".1%");
 
 var formatPctInt = d3.format("1.0%");
 
 var formatInt = d3.format(".2r");
 
-var format_types = {
+var formatDate = d3.timeFormat("%x");
 
+var formatTime = d3.timeFormat("%I:%M %p");
+
+var format_types = {
     "retiming_progress" : formatPctInt,
     "travel_time_reduction" : formatPct,
     "stops_reduction" : formatInt
-    
-}
+};
+
+var STATUS_TYPES_READABLE = {
+    'PLANNED': 'Planned',
+    'IN_PROGRESS': 'In Progress',
+    'COMPLETED': 'Completed'
+};
 
 var t1 = d3.transition()
     .ease(d3.easeQuad)
@@ -87,9 +93,6 @@ var systems_layers = {};
 
 var master_layer = new L.featureGroup();
 
-
-
-
 d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
     SOURCE_DATA_SYSTEMS = dataset;
@@ -108,6 +111,8 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
 });
 
+
+getLogData(LOGFILE_URL);
 
 
 
@@ -242,11 +247,11 @@ function createYearSelectors(divId, createListeners) {
 
             if (i == 0) {
         
-                return "btn btn-default active";
+                return "btn btn-lg active";
         
             }  else {
                 
-                return "btn btn-default";
+                return "btn btn-lg";
 
             }
 
@@ -395,6 +400,36 @@ function createProgressChart(divId, metric) {  //  see https://bl.ocks.org/mbost
     updateProgressChart("info-1", t1);
 }
 
+function postUpdateDate(log_data, divId){
+
+    var update_date_time = new Date(log_data[0].timestamp * 1000);
+
+    update_date = readableDate( update_date_time );
+
+    var update_time = formatTime( update_date_time );
+
+    d3.select("#" + divId)
+        .append('h5')
+        .html("Updated " + update_date + " at " + update_time +
+            " | <a href='https://data.austintexas.gov/browse?q=traffic+signals' target='_blank'> Data <i  class='fa fa-download'></i> </a>" );
+
+}
+
+
+function getLogData(url) {
+    $.ajax({
+        'async' : false,
+        'global' : false,
+        'cache' : false,
+        'url' : url,
+        'dataType' : "json",
+        'success' : function (data) {
+            postUpdateDate(data, "update-info");
+        }
+    
+    }); //end get data
+
+}
 
 
 function updateProgressChart(divId, transition){
@@ -481,7 +516,7 @@ function populateTable(dataset) {
                 
                 d3.select(this).append("td").html(d.signals_retimed);
 
-                d3.select(this).append("td").html(d.retime_status);
+                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
                 
                 d3.select(this).append("td").html(d.status_date);
                 
@@ -635,6 +670,23 @@ function populateMap(map, dataset) {
 
 }
 
+function readableDate(date) {
+
+    var update_date = formatDate(date);
+    
+    var today = formatDate( new Date() );
+
+    if (update_date == today) {
+    
+        return "today";
+    
+    } else {
+    
+        return update_date;
+    
+    }
+
+}
 
 
 function arcTween(newAngle) { 
