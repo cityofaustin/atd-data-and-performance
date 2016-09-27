@@ -189,7 +189,7 @@ function groupData(dataset, updateCharts) {
                     }),
 
                     signals_retimed : d3.sum(v, function(d) {
-                        return 10; 
+                        return d.signals_retimed; 
                     })
                 };
             })
