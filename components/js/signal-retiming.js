@@ -40,7 +40,7 @@ var LOGFILE_URL = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=
 
 var data_url_intersections = "../components/data/sync_systems_2016.json";
 
-var STATUS_SELECTED = 'IN_PROGRESS';
+var STATUS_SELECTED = 'COMPLETED';
 
 var SOURCE_DATA_SYSTEMS;  //  populates table
 
