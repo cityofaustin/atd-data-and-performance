@@ -518,9 +518,9 @@ function populateTable(dataset) {
                                 
                 d3.select(this).append("td").html(d.system_name);
                 
-                d3.select(this).append("td").html(d.signal_count);
+                d3.select(this).append("td").html(d.signals_retimed);
 
-                d3.select(this).append("td").html(d.retime_status);
+                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
                 
                 d3.select(this).append("td").html(d.status_date);
                 
@@ -565,9 +565,9 @@ function updateTable(dataset){
                                 
                 d3.select(this).append("td").html(d.system_name);
                 
-                d3.select(this).append("td").html(d.signal_count);
+                d3.select(this).append("td").html(d.signals_retimed);
 
-                d3.select(this).append("td").html(d.retime_status);
+                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
                 
                 d3.select(this).append("td").html(d.status_date);
                 
@@ -670,7 +670,7 @@ function populateMap(map, dataset) {
                     } 
 
                 }
-a        }
+       }
 
         master_layer.addTo(map);
         
