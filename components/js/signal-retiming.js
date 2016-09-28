@@ -44,7 +44,7 @@ var STATUS_SELECTED = 'COMPLETED';
 
 var SOURCE_DATA_SYSTEMS;  //  populates table
 
-var GROUPED_DATA_SYSTEMS;  //  powers the data viz
+var GROUPED_RETIMING_DATA;  //  powers the data viz
 
 var tau = 2 * Math.PI,
     arc;
@@ -171,7 +171,7 @@ d3.select("#map-expander").on("click", function(){
 
 function groupData(dataset, updateCharts) {
 
-    GROUPED_DATA_SYSTEMS = 
+    GROUPED_RETIMING_DATA = 
         d3.nest()
             .key(function (d) {
                 return d.scheduled_fy;
@@ -184,6 +184,7 @@ function groupData(dataset, updateCharts) {
                     travel_time_change : d3.sum(v, function(d) {
                         return +d.travel_time_change;
                     }),
+
                     stops_change : d3.sum(v, function(d) {
                         return d.stops_change;
                     }),
@@ -191,15 +192,29 @@ function groupData(dataset, updateCharts) {
                     signals_retimed : d3.sum(v, function(d) {
                         return d.signals_retimed; 
                     }),
+
                     travel_time_before : d3.sum(v, function(d) {
                         return d.travel_time_before; 
                     }),
+
                     stops_before : d3.sum(v, function(d) {
                         return d.stops_before; 
-                    }),                    
+                    })
                 };
             })
             .map(dataset); 
+
+        for (var i in GROUPED_RETIMING_DATA){
+
+            for (var q in GROUPED_RETIMING_DATA[i]) {
+                
+                GROUPED_RETIMING_DATA[i][q]['travel_time_reduction'] = -1 * (+GROUPED_RETIMING_DATA[i][q]['travel_time_change'] / GROUPED_RETIMING_DATA[i][q]['travel_time_before']);
+
+                GROUPED_RETIMING_DATA[i][q]['stops_reduction'] = -1 * (+GROUPED_RETIMING_DATA[i][q]['stops_change'] / GROUPED_RETIMING_DATA[i][q]['stops_before']);
+
+            }
+            
+        }
 
      updateCharts();
 
@@ -219,8 +234,6 @@ function groupData(dataset, updateCharts) {
 
             selected_year = d3.select(this).node().value;
 
-            console.log(selected_year);
-
             updateProgressChart("info-1", t2);
 
             updateInfoStat("info-2", "travel_time_reduction", t2);
@@ -239,7 +252,7 @@ function groupData(dataset, updateCharts) {
 
 function createYearSelectors(divId, createListeners) {
 
-    data = GROUPED_DATA_SYSTEMS.keys();
+    data = GROUPED_RETIMING_DATA.keys();
 
     //  data = ['2017', '2016', '2015'];
 
@@ -279,7 +292,7 @@ function populateInfoStat(divId, metric, transition) {
     var goal = ANNUAL_GOALS[selected_year][metric]; 
 
     var metric_value = 
-        GROUPED_DATA_SYSTEMS["$" + selected_year]["$" + STATUS_SELECTED][metric];
+        GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
 
     d3.select("#" + divId)
         .append("text")
@@ -315,10 +328,10 @@ function updateInfoStat(divId, metric, transition) {
     var goal = ANNUAL_GOALS[selected_year][metric]; 
 
     var metric_value_previous = 
-        GROUPED_DATA_SYSTEMS["$" + previous_selection]["$" + STATUS_SELECTED][metric];
+        GROUPED_RETIMING_DATA["$" + previous_selection]["$" + STATUS_SELECTED][metric];
 
     var metric_value = 
-        GROUPED_DATA_SYSTEMS["$" + selected_year]["$" + STATUS_SELECTED][metric];
+        GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
 
     d3.select("#" + divId)
         .select("text")
@@ -443,7 +456,7 @@ function updateProgressChart(divId, transition){
     var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
 
     var signals_retimed = 
-        GROUPED_DATA_SYSTEMS["$" + selected_year]["$" + STATUS_SELECTED]["signals_retimed"];
+        GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]["signals_retimed"];
 
     var pct_complete = signals_retimed / goal;
     
@@ -589,8 +602,6 @@ function updateTable(dataset){
 
 
 function formatTravelTime(seconds) {
-
-    console.log(seconds);
     
     formatted_seconds = formatSeconds(new Date(2012, 0, 1, 0, 0,  Math.abs(seconds)));
 
