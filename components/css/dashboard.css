@@ -45,7 +45,7 @@
 }
 
 .done {
-  fill: green;
+  fill: #009304;
 }
 
 .goal-unmet {
@@ -122,7 +122,7 @@ button.map-expander{
 
 
 .dataTables_wrapper {
-  padding: 0px 10px 0px 15px;
+  padding: 0px 10px 0px 15  px;
 }
 
 
