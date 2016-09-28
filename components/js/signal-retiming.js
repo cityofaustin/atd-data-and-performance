@@ -63,6 +63,8 @@ var formatDate = d3.timeFormat("%x");
 
 var formatTime = d3.timeFormat("%I:%M %p");
 
+var formatSeconds = d3.timeFormat("%H:%M:%S");
+
 var format_types = {
     "retiming_progress" : formatPctInt,
     "travel_time_reduction" : formatPct,
@@ -180,7 +182,7 @@ function groupData(dataset, updateCharts) {
             .rollup(function (v) {
                 return {
                     travel_time_change : d3.sum(v, function(d) {
-                        return d.travel_time_change;
+                        return +d.travel_time_change;
                     }),
                     stops_change : d3.sum(v, function(d) {
                         return d.stops_change;
@@ -514,6 +516,8 @@ function populateTable(dataset) {
 
             .each(function (d) {
 
+                var travel_time_change = formatTravelTime(+d.travel_time_change)
+
                 d3.select(this).append("td").html("<input type='checkbox' name='map_show' value='true' checked>");
                                 
                 d3.select(this).append("td").html(d.system_name);
@@ -522,11 +526,11 @@ function populateTable(dataset) {
 
                 d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
                 
-                d3.select(this).append("td").html(d.status_date);
+                d3.select(this).append("td").html(formatDate(new Date(d.status_date)));
                 
-                d3.select(this).append("td").html(d.travel_time_change);
+                d3.select(this).append("td").html(travel_time_change);
 
-                d3.select(this).append("td").html(d.stops_change);
+                d3.select(this).append("td").html(Math.round(+d.stops_change));
             });
 
         //  activate datatable sorting/search functionality
@@ -560,6 +564,8 @@ function updateTable(dataset){
         d3.select("tbody").selectAll("tr")
 
             .each(function (d) {
+
+                var travel_time_change = formatTravelTime(+d.travel_time_change)
                 
                 d3.select(this).append("td").html("<input type='checkbox' name='map_show' value='true' checked>");
                                 
@@ -569,16 +575,35 @@ function updateTable(dataset){
 
                 d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
                 
-                d3.select(this).append("td").html(d.status_date);
+                d3.select(this).append("td").html(formatDate(new Date(d.status_date)));
                 
-                d3.select(this).append("td").html(d.travel_time_change);
+                d3.select(this).append("td").html(travel_time_change);
 
-                d3.select(this).append("td").html(d.stops_change);
+                d3.select(this).append("td").html(Math.round(+d.stops_change));
 
             });
 
 
 
+}
+
+
+function formatTravelTime(seconds) {
+
+    console.log(seconds);
+    
+    formatted_seconds = formatSeconds(new Date(2012, 0, 1, 0, 0,  Math.abs(seconds)));
+
+    if (seconds < 0) {
+
+        return "-" + formatted_seconds;
+    
+    } else {
+
+        return "+" + formatted_seconds;    
+
+    }
+    
 }
 
 
