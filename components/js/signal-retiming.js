@@ -1,5 +1,5 @@
-//  hardcoding > must nest system intersections at outset to get length of system ids array
-//  callback function to get index of system id after its appended. right now its an async issue
+//  stats: creative way to calculate and access info stats based on calculation of before and change fields
+//  map: callback function to get index of system id after its appended. right now its an async issue
 //  show / zoomto on map
 //  resize markers with zoom
 
@@ -179,18 +179,22 @@ function groupData(dataset, updateCharts) {
             })
             .rollup(function (v) {
                 return {
-                    travel_time_reduction : d3.mean(v, function(d) {
-                        // return d.travel_time_reduction;
-                        return .09;
+                    travel_time_change : d3.sum(v, function(d) {
+                        return d.travel_time_change;
                     }),
-                    stops_reduction : d3.mean(v, function(d) {
-                        //  return d.stops_reduction;
-                        return 3;
+                    stops_change : d3.sum(v, function(d) {
+                        return d.stops_change;
                     }),
 
                     signals_retimed : d3.sum(v, function(d) {
                         return d.signals_retimed; 
-                    })
+                    }),
+                    travel_time_before : d3.sum(v, function(d) {
+                        return d.travel_time_before; 
+                    }),
+                    stops_before : d3.sum(v, function(d) {
+                        return d.stops_before; 
+                    }),                    
                 };
             })
             .map(dataset); 
@@ -233,9 +237,9 @@ function groupData(dataset, updateCharts) {
 
 function createYearSelectors(divId, createListeners) {
 
-    //  data = GROUPED_DATA_SYSTEMS.keys();
+    data = GROUPED_DATA_SYSTEMS.keys();
 
-    data = ['2017', '2016', '2015'];
+    //  data = ['2017', '2016', '2015'];
 
     d3.select("#" + divId)
         .selectAll("button")
@@ -514,14 +518,15 @@ function populateTable(dataset) {
                                 
                 d3.select(this).append("td").html(d.system_name);
                 
-                d3.select(this).append("td").html(d.signals_retimed);
+                d3.select(this).append("td").html(d.signal_count);
 
-                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
+                d3.select(this).append("td").html(d.retime_status);
                 
                 d3.select(this).append("td").html(d.status_date);
                 
-                d3.select(this).append("td").html(d.travel_time_reduction);
+                d3.select(this).append("td").html(d.travel_time_change);
 
+                d3.select(this).append("td").html(d.stops_change);
             });
 
         //  activate datatable sorting/search functionality
@@ -562,11 +567,13 @@ function updateTable(dataset){
                 
                 d3.select(this).append("td").html(d.signal_count);
 
-                d3.select(this).append("td").html(d.status);
+                d3.select(this).append("td").html(d.retime_status);
                 
                 d3.select(this).append("td").html(d.status_date);
                 
-                d3.select(this).append("td").html(d.travel_time_reduction);
+                d3.select(this).append("td").html(d.travel_time_change);
+
+                d3.select(this).append("td").html(d.stops_change);
 
             });
 
@@ -663,7 +670,7 @@ function populateMap(map, dataset) {
                     } 
 
                 }
-        }
+a        }
 
         master_layer.addTo(map);
         
