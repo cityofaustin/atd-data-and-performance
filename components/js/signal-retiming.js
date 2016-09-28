@@ -1,4 +1,4 @@
-//  stats: creative way to calculate and access info stats based on calculation of before and change fields
+//  control flow: draw map after charts; move zoom listener to after map
 //  map: callback function to get index of system id after its appended. right now its an async issue
 //  show / zoomto on map
 //  resize markers with zoom
@@ -57,18 +57,16 @@ var formatPct = d3.format(".1%");
 
 var formatPctInt = d3.format("1.0%");
 
-var formatInt = d3.format(".2r");
-
 var formatDate = d3.timeFormat("%x");
 
 var formatTime = d3.timeFormat("%I:%M %p");
 
 var formatSeconds = d3.timeFormat("%H:%M:%S");
 
-var format_types = {
+var FORMAT_TYPES = {
     "retiming_progress" : formatPctInt,
     "travel_time_reduction" : formatPct,
-    "stops_reduction" : formatInt
+    "stops_reduction" : Math.round
 };
 
 var STATUS_TYPES_READABLE = {
@@ -76,6 +74,12 @@ var STATUS_TYPES_READABLE = {
     'IN_PROGRESS': 'In Progress',
     'COMPLETED': 'Completed'
 };
+
+var SCALE_THRESHOLDS = {
+    '$12': 200,
+    '$13': 150,
+    '#15': 100
+}
 
 var t1 = d3.transition()
     .ease(d3.easeQuad)
@@ -117,7 +121,6 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 getLogData(LOGFILE_URL);
 
 
-
 d3.json(data_url_intersections, function(dataset) {
     
     GROUPED_DATA_INTERSECTIONS = dataset;
@@ -126,6 +129,12 @@ d3.json(data_url_intersections, function(dataset) {
 
 });
 
+
+map.on('zoomend', function() {
+
+    updateMarkers();
+
+});
 
 
 d3.select("#map-expander").on("click", function(){
@@ -296,7 +305,7 @@ function populateInfoStat(divId, metric, transition) {
 
     d3.select("#" + divId)
         .append("text")
-        .text(format_types[metric](0))
+        .text(FORMAT_TYPES[metric](0))
         .transition(transition)
         .attr("class", function(){
             if (metric_value >= +goal) {
@@ -313,7 +322,7 @@ function populateInfoStat(divId, metric, transition) {
             
             return function (t) {
             
-                that.text( format_types[metric](i(t)) );
+                that.text( FORMAT_TYPES[metric](i(t)) );
             
             }
 
@@ -352,7 +361,7 @@ function updateInfoStat(divId, metric, transition) {
             
             return function (t) {
             
-                that.text( format_types[metric](i(t)) );
+                that.text( FORMAT_TYPES[metric](i(t)) );
             
             }
 
@@ -646,6 +655,10 @@ function makeMap(dataset) {
 
 function populateMap(map, dataset) {
 
+    var zoom = map.getZoom();
+
+    var marker_size = 
+
     system_ids = [];
 
     for (var i = 0; i < dataset.length; i++) {   
@@ -667,7 +680,10 @@ function populateMap(map, dataset) {
 
             }
 
-            var color_index = system_ids.indexOf(system_id) / 6;
+            
+            var color_index = system_ids.indexOf(system_id) / 17;
+            //var color_index = system_ids.indexOf(system_id) / GROUPED_RETIMING_DATA[selected_year][STATUS_SELECTED];
+
 
             var pizza = system_ids.indexOf(system_id);
 
@@ -683,10 +699,11 @@ function populateMap(map, dataset) {
 
             var atd_signal_id = dataset[i].atd_signal_id;
             
-            var marker = L.circle([lat,lon], 100, {
-                    color: d3.interpolateSpectral(color_index),
+            var marker = L.circle([lat,lon], 150, {
+                    color: '#43484E',
+                    weight: 1,
                     fillColor: d3.interpolateSpectral(color_index),
-                    fillOpacity: .5
+                    fillOpacity: .7
                 })
                 .bindPopup(
                     "<b>" + intersection_name + "</b><br>" +
@@ -699,7 +716,7 @@ function populateMap(map, dataset) {
                 if (add_to_master) {
 
                     //  temporary limit of 7 systems to map
-                    if (system_ids.indexOf(system_id) < 7){
+                    if (system_ids.indexOf(system_id) < 30){
 
                         systems_layers[system_layer].addTo(master_layer);
 
