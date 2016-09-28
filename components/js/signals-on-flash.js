@@ -40,7 +40,7 @@
         11: "Police Flash"
     }
 
-    var status = "2"  //  2 == conflict
+    var status = "1"  //  2 == conflict
 
     /*
         URL logic to query logfile:
