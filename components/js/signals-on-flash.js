@@ -269,6 +269,8 @@
                     var status_time = formatDateTime( new Date(dataset[i].status_datetime) );
 
                     var atd_signal_id = dataset[i].atd_signal_id;
+
+                    var duration = formatDuration(dataset[i].status_datetime);
                     
                     var marker = L.marker([lat,lon], {
                             icon:  conflict_flash_marker
@@ -276,7 +278,8 @@
                         .bindPopup(
                             "<b>" + atd_signal_id + ":</b> " + address + " <br>" +
                             "<b>Status: </b>" + STATUS_TYPES_READABLE[status] + 
-                            "<br><b>Updated:</b> " + status_time
+                            "<br><b>Updated:</b> " + status_time +
+                            "<br><b>Duration:</b> " + duration
                         )
                         
                         marker.addTo(signals_on_flash_layer);
