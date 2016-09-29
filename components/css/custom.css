@@ -59,7 +59,7 @@ p {
     background-size: cover;
     background-repeat: no-repeat;
     color: #fff;
-    min-height: 150px;    
+    min-height: 200px;    
 }
 
 .jumbotron h2 {
@@ -68,15 +68,17 @@ p {
 }
 
 .navbar {
-    -webkit-box-shadow: 0 8px 6px -6px #999;
+/*  -webkit-box-shadow: 0 8px 6px -6px #999;
     -moz-box-shadow: 0 8px 6px -6px #999;
     box-shadow: 0 8px 6px -6px #999;
+*/
     background-image: url(../images/NEW_BANNDER_DARK_REDUCED.png);
     background-size: cover;
     background-color: #43484E;
     border: none;
     margin-bottom: 0px;
     z-index: 1100;
+    
 }
 
 .navbar-brand {
@@ -114,6 +116,16 @@ p {
 
 .dropdown {
     z-index: 1200;
+
+}
+
+.nav {
+    padding-top: 40px;
+}
+
+.navbar h2 {
+    color: white;
+    font-size: 2.5em;
 }
 
 .dropdown-toggle {
@@ -162,8 +174,8 @@ p {
 
 .coa-header {
     font-family: sans-serif;
-    color: white;
-    background-color: #43484E;
+    color: #43484E;
+    background-color: #fff;
     text-align: center;
     margin: 0px;
     padding: 0px;
@@ -171,8 +183,6 @@ p {
 
 .coa-header h6 {
     font-family: sans-serif;
-    color: #f2f2f2;
-    background-color: #43484E;
     text-align: center;
     margin-top: 7px;
     margin-bottom: 7px;
