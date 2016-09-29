@@ -38,8 +38,6 @@ var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.
 
 var LOGFILE_URL = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27corridor_retiming_update%27%20AND%20response_message%20IS%20NULL%20&$order=timestamp+DESC&$limit=1';
 
-var data_url_intersections = "../components/data/sync_systems_2016.json";
-
 var STATUS_SELECTED = 'COMPLETED';
 
 var SOURCE_DATA_SYSTEMS;  //  populates table
@@ -121,7 +119,7 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 getLogData(LOGFILE_URL);
 
 
-d3.json(data_url_intersections, function(dataset) {
+d3.json(SYSTEM_INTERSECTIONS_URL, function(dataset) {
     
     GROUPED_DATA_INTERSECTIONS = dataset;
 
@@ -691,9 +689,9 @@ function populateMap(map, dataset) {
 
             var system_name = dataset[i].system_name;
 
-            var lat = dataset[i].location_1.latitude;
+            var lat = dataset[i].latitude;
     
-            var lon = dataset[i].location_1.longitude;
+            var lon = dataset[i].longitude;
 
             var intersection_name = dataset[i].street_segments_full_street_nam + " / " + dataset[i].street_segments_1_full_street_n;
 
