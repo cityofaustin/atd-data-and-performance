@@ -55,14 +55,16 @@ p {
 }
 
 .jumbotron {
-    background-image: url(../images/NEW_BANNDER_DARK.png);
+    background-image: url(../images/jtron_1600.png);
     background-size: cover;
     background-repeat: no-repeat;
     color: #fff;
+    background-color: #333;
     min-height: 200px;    
 }
 
 .jumbotron h2 {
+  text-shadow: 0px 0px 2px rgba(0,0,0,1);  
   font-size: 2.5em;
   font-weight: normal;
 }
@@ -72,45 +74,46 @@ p {
     -moz-box-shadow: 0 8px 6px -6px #999;
     box-shadow: 0 8px 6px -6px #999;
 */
-    background-image: url(../images/NEW_BANNDER_DARK_REDUCED.png);
+    background-image: url(../images/jtron_1600.png);
     background-size: cover;
     background-color: #43484E;
     border: none;
     margin-bottom: 0px;
     z-index: 1100;
-    
+}
+
+.opi {
+   background-color: rgba(0, 0, 0, .2);   
 }
 
 .navbar-brand {
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(255, 255, 255,.1);
   color: #d9d9d9;
 
 }
 
 .navbar-default .navbar-nav > li > a {
-  background-color: rgba(0,0,0,.5);
-  color: #d9d9d9
-
+  background-color: rgba(255, 255, 255,.2);
+  color: #fff;
 }
 
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover {
     color: #fff;
-    background-color: rgba(0,0,0,.7);
+    background-color: rgba(0,0,0,.4);
 }
 
 .navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
     color: #fff;
-    background-color: rgba(0,0,0,.7);
+    background-color: rgba(0,0,0,.4);
 }
 
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:hover {
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold;
-    color: #2276B9;
     background-color: rgba(255, 255, 255, 0.8);
 }
 
@@ -119,17 +122,24 @@ p {
 
 }
 
+.dropdown-menu {;
+    background-color: rgba(255, 255, 255,.9);
+
+}
+
 .nav {
     padding-top: 40px;
 }
 
 .navbar h2 {
+    padding-top: 40px;
+    text-shadow: 0px 0px 2px rgba(0,0,0,1);
     color: white;
     font-size: 2.5em;
 }
 
 .dropdown-toggle {
-    font-size: 2em;
+    font-size: 1em;
 }
 
 .footer-text > h3 {
