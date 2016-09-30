@@ -75,9 +75,14 @@ var STATUS_TYPES_READABLE = {
     'COMPLETED': 'Completed'
 };
 
+
+var t1_duration = 1200;
+
 var t1 = d3.transition()
     .ease(d3.easeQuad)
-    .duration(1200);
+    .duration(t1_duration);
+
+var t2_duration = 1000;
 
 var t2;
 
@@ -225,7 +230,7 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
                 .transition(t2)
                 .style("height", map_size + "px");
 
-            setTimeout(function(){ map.invalidateSize()}, 600);
+            setTimeout(function(){ map.invalidateSize()}, t2_duration);
 
         });
 
@@ -295,7 +300,7 @@ function groupData(dataset, updateCharts) {
 
             t2 = d3.transition()
                 .ease(d3.easeQuad)
-                .duration(1000);
+                .duration(t2_duration);
             
             previous_selection = selected_year;
 
