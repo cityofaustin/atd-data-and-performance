@@ -188,7 +188,7 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
             }
 
-            SYSTEMS_LAYERS['$' + system_id].setStyle(HIGHLIGHT_STYLE);
+            SYSTEMS_LAYERS['$' + system_id].setStyle(HIGHLIGHT_STYLE).bringToFront();
 
             map.fitBounds(SYSTEMS_LAYERS['$' + system_id].getBounds());
 
