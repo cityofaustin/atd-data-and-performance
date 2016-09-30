@@ -75,12 +75,6 @@ var STATUS_TYPES_READABLE = {
     'COMPLETED': 'Completed'
 };
 
-var SCALE_THRESHOLDS = {
-    '$12': 200,
-    '$13': 150,
-    '#15': 100
-}
-
 var t1 = d3.transition()
     .ease(d3.easeQuad)
     .duration(1200);
@@ -88,6 +82,49 @@ var t1 = d3.transition()
 var t2;
 
 var map;
+
+var color_index =.9;
+
+var HIGHLIGHT_STYLE = {
+    color: '#fff',
+    weight: 1,
+    fillColor: d3.interpolateSpectral(.1),
+    fillOpacity: .9
+}
+
+
+var DEFAULT_STYLE = {
+    color: '#fff',
+    weight: 1,
+    fillColor: d3.interpolateSpectral(color_index),
+    fillOpacity: .8
+}
+
+
+var SCALE_THRESHOLDS = {
+    '$1': 500,
+    '$2': 500,
+    '$3': 500,
+    '$4': 500,
+    '$5': 500,
+    '$6': 500,
+    '$7': 500,
+    '$8': 500,
+    '$9': 500,
+    '$10': 500,
+    '$11': 400,
+    '$12': 250,
+    '$13': 150,
+    '$14': 100,
+    '$15': 50,
+    '$16': 40,
+    '$17': 25,
+    '$18': 10,
+    '$19': 10,
+    '$20': 10,
+};
+
+var SIGNAL_MARKERS = [];
 
 var map_expanded = false;
 
@@ -127,15 +164,26 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
         map.on('zoomend', function() {
 
-            //  updateMarkers();
+            setMarkerSizes();
 
         });
 
 
-        //  zoom to feature from table click
+        //  zoom to and highlight feature from table click
         d3.selectAll(".feature_link").on("click", function(d){
 
             var system_id = d3.select(this).attr("data-feature-id");
+
+            for (system_layer in SYSTEMS_LAYERS) {
+
+                var color_index = .8;
+
+                SYSTEMS_LAYERS[system_layer]
+                    .setStyle(DEFAULT_STYLE);
+
+            }
+
+            SYSTEMS_LAYERS['$' + system_id].setStyle(HIGHLIGHT_STYLE);
 
             map.fitBounds(SYSTEMS_LAYERS['$' + system_id].getBounds());
 
@@ -703,6 +751,8 @@ function makeMap(url, next) {
 
 function populateMap(map, url) {
 
+    var zoom = map.getZoom();
+
     d3.json(url, function(dataset) {
 
         GROUPED_DATA_INTERSECTIONS = dataset;
@@ -728,13 +778,9 @@ function populateMap(map, url) {
             if ( !(system_layer in SYSTEMS_LAYERS) ) {
 
                 SYSTEMS_LAYERS[system_layer] = new L.featureGroup();
-
             }
 
             var system_id = dataset[i].system_id;
-
-            var color_index = .8;
-            // var color_index = SYSTEM_IDS.indexOf(system_id) / 17;
 
             var system_name = dataset[i].system_name;
 
@@ -746,18 +792,24 @@ function populateMap(map, url) {
 
             var atd_signal_id = dataset[i].atd_signal_id;
             
-            var marker = L.circle([lat,lon], 400, {
-                    color: '#43484E',
-                    weight: 1,
-                    fillColor: d3.interpolateSpectral(color_index),
-                    fillOpacity: .7
-                })
+            var marker = L.circle([lat,lon], SCALE_THRESHOLDS['$' + zoom])
                 .bindPopup(
                     "<b>" + intersection_name + "</b><br>" +
                     "System: " + system_name + " (" + system_id + ")"
-                )
+                );
                 
             marker.addTo(SYSTEMS_LAYERS[system_layer]);
+
+            SIGNAL_MARKERS.push(marker);
+
+       }
+
+       for (system_layer in SYSTEMS_LAYERS) {
+
+            var color_index = .8;
+
+            SYSTEMS_LAYERS[system_layer]
+                .setStyle(DEFAULT_STYLE);
 
        }
 
@@ -770,7 +822,9 @@ function populateMap(map, url) {
 
 function updateVisibleLayers() {
 
-    var zoom = map.getZoom();
+    var color_index = .8;
+
+
 
     map.removeLayer(visible_layers);
     
@@ -788,9 +842,26 @@ function updateVisibleLayers() {
 
     }
 
+    setTimeout(function(){
+        map.fitBounds(visible_layers.getBounds());
+    }, 500);
+    
     visible_layers.addTo(map);
 
-    map.fitBounds(visible_layers.getBounds());
+    setMarkerSizes();
+    
+}
+
+
+function setMarkerSizes() {
+
+    var zoom = map.getZoom();
+
+    for (var i = 0; i < SIGNAL_MARKERS.length; i++){
+
+        SIGNAL_MARKERS[i].setRadius(SCALE_THRESHOLDS["$"+ zoom]);
+
+    }
 
 }
 
