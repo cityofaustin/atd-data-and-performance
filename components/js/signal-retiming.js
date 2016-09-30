@@ -131,6 +131,17 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
         });
 
+
+        //  zoom to feature from table click
+        d3.selectAll(".feature_link").on("click", function(d){
+
+            var system_id = d3.select(this).attr("data-feature-id");
+
+            map.fitBounds(SYSTEMS_LAYERS['$' + system_id].getBounds());
+
+        });
+
+
         d3.select("#map-expander").on("click", function(){
 
             d3.select(this)
@@ -561,9 +572,9 @@ function populateTable(dataset, next) {
 
             var travel_time_change = formatTravelTime(+d.travel_time_change)
 
-            d3.select(this).append("td").html("<input type='checkbox' name='map_show' value='true' checked>");
-                            
-            d3.select(this).append("td").html(d.system_name);
+            d3.select(this).append("td").html("Show on Map <input type='checkbox' name='map_show' value='true' checked>");
+
+            d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.system_id + " name=_" + d.system_name + ">" + d.system_name + "</a>");                            
             
             d3.select(this).append("td").html(d.signals_retimed);
 
@@ -610,21 +621,39 @@ function updateTable(dataset){
 
         .each(function (d) {
 
-            var travel_time_change = formatTravelTime(+d.travel_time_change)
+            d3.select(this).append("td").html("Show on Map <input type='checkbox' name='map_show' value='true' checked>");
 
-            d3.select(this).append("td").html("<input type='checkbox' name='map_show' value='true' checked>");
-                            
-            d3.select(this).append("td").html(d.system_name);
+            d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.system_id + " name=_" + d.system_name + ">" + d.system_name + "</a>");                            
             
             d3.select(this).append("td").html(d.signals_retimed);
 
             d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
             
             d3.select(this).append("td").html(formatDate(new Date(d.status_date)));
-            
+
+            //  handle some potentially null values
+            if ( d.travel_time_change == null) {
+
+                var travel_time_change = 0;
+
+            } else {
+
+                var travel_time_change = formatTravelTime(+d.travel_time_change);
+            }
+
+            if ( d.stops_change == null) {
+
+                var stops_change = 0;
+
+            } else {
+
+                var stops_change = +d.stops_change;
+            }
+
             d3.select(this).append("td").html(travel_time_change);
 
-            d3.select(this).append("td").html(Math.round(+d.stops_change));
+            d3.select(this).append("td").html(Math.round(stops_change));
+
         });
 
 }
@@ -717,7 +746,7 @@ function populateMap(map, url) {
 
             var atd_signal_id = dataset[i].atd_signal_id;
             
-            var marker = L.circle([lat,lon], 150, {
+            var marker = L.circle([lat,lon], 400, {
                     color: '#43484E',
                     weight: 1,
                     fillColor: d3.interpolateSpectral(color_index),
@@ -754,11 +783,14 @@ function updateVisibleLayers() {
         if ( SYSTEM_IDS['$' + selected_year].indexOf(current_id) >= 0 ) {
 
             SYSTEMS_LAYERS[system_id].addTo(visible_layers);
+
         }
 
     }
 
     visible_layers.addTo(map);
+
+    map.fitBounds(visible_layers.getBounds());
 
 }
 
