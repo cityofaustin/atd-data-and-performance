@@ -7,15 +7,15 @@
 var ANNUAL_GOALS = {
     
     "2018" : {
-        retime_goal: 0,
-        travel_time_reduction: 0,
+        retime_goal: 250,
+        travel_time_reduction: .05,
         stops_reduction: 0,
     },
     
     "2017" : {
-        retime_goal: 0,
-        travel_time_reduction: 0,
-        stops_reduction: 0,
+        retime_goal: 225,
+        travel_time_reduction: .05,
+        stops_reduction: 3,
     },
 
     "2016" : {
@@ -250,6 +250,8 @@ function groupData(dataset, updateCharts) {
 
             updateTable(SOURCE_DATA_SYSTEMS);
 
+            updateVisibleLayers(map);
+
         });
 
      });
@@ -259,7 +261,7 @@ function groupData(dataset, updateCharts) {
 
 function createYearSelectors(divId, createListeners) {
 
-    data = GROUPED_RETIMING_DATA.keys();
+    data = GROUPED_RETIMING_DATA.keys().sort();
 
     //  data = ['2017', '2016', '2015'];
 
@@ -271,7 +273,7 @@ function createYearSelectors(divId, createListeners) {
         .attr("type", "button")
         .attr("class", function(d, i) {
 
-            if (i == 0) {
+            if (data[i] == selected_year) {
         
                 return "btn btn-lg active";
         
@@ -333,11 +335,25 @@ function updateInfoStat(divId, metric, transition) {
 
     var goal = ANNUAL_GOALS[selected_year][metric]; 
 
-    var metric_value_previous = 
-        GROUPED_RETIMING_DATA["$" + previous_selection]["$" + STATUS_SELECTED][metric];
+    if (GROUPED_RETIMING_DATA["$" + previous_selection]["$" + STATUS_SELECTED]) {
 
-    var metric_value = 
-        GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
+        var metric_value_previous = GROUPED_RETIMING_DATA["$" + previous_selection]["$" + STATUS_SELECTED][metric];
+
+    } 
+    
+    if (GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]) {
+
+            var metric_value = GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
+
+    }
+
+    if (!(metric_value_previous) ) {
+        var metric_value_previous = 0;
+    }
+
+    if (!(metric_value) ) {
+        var metric_value = 0;
+    }
 
     d3.select("#" + divId)
         .select("text")
@@ -462,8 +478,15 @@ function updateProgressChart(divId, transition){
 
     var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
 
-    var signals_retimed = 
-        GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]["signals_retimed"];
+    if ( GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]) {
+
+        var signals_retimed = GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]["signals_retimed"];
+
+    }
+
+    if (!(signals_retimed) ) {
+        var signals_retimed = 0;
+    }
 
     var pct_complete = signals_retimed / goal;
     
@@ -568,46 +591,44 @@ function populateTable(dataset, next) {
 
 function updateTable(dataset){
 
-    d3.select("tbody").selectAll("tr").selectAll("td").remove();
+    d3.select("tbody").selectAll("tr").remove();
 
     var filtered_data = dataset.filter(function (d) {
 
             return d.scheduled_fy == selected_year;
 
+    });
+
+    var rows = d3.select("tbody")
+        .selectAll("tr")
+        .data(filtered_data)
+        .enter()
+        .append("tr")
+        .attr("class", "tableRow");
+
+    d3.select("tbody").selectAll("tr")
+
+        .each(function (d) {
+
+            var travel_time_change = formatTravelTime(+d.travel_time_change)
+
+            d3.select(this).append("td").html("<input type='checkbox' name='map_show' value='true' checked>");
+                            
+            d3.select(this).append("td").html(d.system_name);
+            
+            d3.select(this).append("td").html(d.signals_retimed);
+
+            d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
+            
+            d3.select(this).append("td").html(formatDate(new Date(d.status_date)));
+            
+            d3.select(this).append("td").html(travel_time_change);
+
+            d3.select(this).append("td").html(Math.round(+d.stops_change));
         });
 
-        var rows = d3.select("tbody")
-            .selectAll("tr")
-            .data(filtered_data)
-            .enter()
-            .append("tr")
-            .attr("class", "tableRow");
-
-        d3.select("tbody").selectAll("tr")
-
-            .each(function (d) {
-
-                var travel_time_change = formatTravelTime(+d.travel_time_change)
-                
-                d3.select(this).append("td").html("<input type='checkbox' name='map_show' value='true' checked>");
-                                
-                d3.select(this).append("td").html(d.system_name);
-                
-                d3.select(this).append("td").html(d.signals_retimed);
-
-                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
-                
-                d3.select(this).append("td").html(formatDate(new Date(d.status_date)));
-                
-                d3.select(this).append("td").html(travel_time_change);
-
-                d3.select(this).append("td").html(Math.round(+d.stops_change));
-
-            });
-
-
-
 }
+
 
 
 function formatTravelTime(seconds) {
@@ -631,7 +652,7 @@ function makeMap(url, next) {
 
         L.Icon.Default.imagePath = '../components/images/';
 
-        var map = new L.Map("map", {
+        map = new L.Map("map", {
             center : [30.28, -97.735],
             zoom : 12,
             minZoom : 1,
@@ -711,14 +732,14 @@ function populateMap(map, url) {
 
        }
 
-       updateVisibleLayers(map);
+       updateVisibleLayers();
 
     });
         
 }
 
 
-function updateVisibleLayers(map) {
+function updateVisibleLayers() {
 
     var zoom = map.getZoom();
 
@@ -730,10 +751,9 @@ function updateVisibleLayers(map) {
 
         var current_id = +system_id.replace('$','');
 
-        if ( SYSTEM_IDS['$' + selected_year].indexOf(current_id) ) {
+        if ( SYSTEM_IDS['$' + selected_year].indexOf(current_id) >= 0 ) {
 
             SYSTEMS_LAYERS[system_id].addTo(visible_layers);
-
         }
 
     }
@@ -776,4 +796,3 @@ function arcTween(newAngle) {
   };
 
 }
-
