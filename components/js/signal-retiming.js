@@ -44,6 +44,8 @@ var SOURCE_DATA_SYSTEMS;  //  populates table
 
 var GROUPED_RETIMING_DATA;  //  powers the data viz
 
+var SYSTEM_IDS = {};
+
 var tau = 2 * Math.PI,
     arc;
 
@@ -81,7 +83,7 @@ var SCALE_THRESHOLDS = {
 
 var t1 = d3.transition()
     .ease(d3.easeQuad)
-    .duration(500);
+    .duration(1200);
 
 var t2;
 
@@ -93,15 +95,16 @@ var default_map_size = 300;
 
 var expanded_map_size = 600;
 
-var systems_layers = {};
+var SYSTEMS_LAYERS = {};
 
-var master_layer = new L.featureGroup();
+var visible_layers = new L.featureGroup();
 
+//  fetch retiming data
 d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
     SOURCE_DATA_SYSTEMS = dataset;
 
-    groupData(dataset, function(){
+    groupData(dataset, function() {
 
         createProgressChart("info-1", "retiming_progress");
 
@@ -109,68 +112,66 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
         populateInfoStat("info-3", "stops_reduction", t1);
 
-        populateTable(SOURCE_DATA_SYSTEMS);
+        populateTable(SOURCE_DATA_SYSTEMS, function(){
+
+            getLogData(LOGFILE_URL);
+
+        });
 
     });
 
-});
 
+    makeMap(SYSTEM_INTERSECTIONS_URL, function(map, dataset) {
 
-getLogData(LOGFILE_URL);
+        populateMap(map, dataset);
 
+        map.on('zoomend', function() {
 
-d3.json(SYSTEM_INTERSECTIONS_URL, function(dataset) {
-    
-    GROUPED_DATA_INTERSECTIONS = dataset;
+            //  updateMarkers();
 
-    makeMap(dataset);
+        });
 
-});
+        d3.select("#map-expander").on("click", function(){
 
+            d3.select(this)
+                .select("button")
+                    .html(function(){
 
-map.on('zoomend', function() {
+                        if (map_expanded) {
 
-    updateMarkers();
+                            return "<i  class='fa fa-expand'</i>";
 
-});
+                        } else {
+                            
+                            return "<i  class='fa fa-compress'</i>"
 
+                        }
+                    });
+            
+            var map_size = expanded_map_size;
 
-d3.select("#map-expander").on("click", function(){
+            if (map_expanded) {
 
-    d3.select(this)
-        .select("button")
-            .html(function(){
+                map_expanded = false;
+            
+                map_size = default_map_size;
+            
+            } else {
 
-                if (map_expanded) {
+                map_expanded = true;
 
-                    return "<i  class='fa fa-expand'</i>";
+            }
 
-                } else {
-                    
-                    return "<i  class='fa fa-compress'</i>"
+            d3.select("#map")
+                .transition(t2)
+                .style("height", map_size + "px");
 
-                }
-            });
-    
-    var map_size = expanded_map_size;
+            setTimeout(function(){ map.invalidateSize()}, 600);
 
-    if (map_expanded) {
+        });
 
-        map_expanded = false;
-    
-        map_size = default_map_size;
-    
-    } else {
+    });
 
-        map_expanded = true;
-
-    }
-
-    d3.select("#map")
-        .transition(t2)
-        .style("height", map_size + "px");
-
-    setTimeout(function(){ map.invalidateSize()}, 600);
 
 });
 
@@ -256,7 +257,6 @@ function groupData(dataset, updateCharts) {
 }
 
 
-
 function createYearSelectors(divId, createListeners) {
 
     data = GROUPED_RETIMING_DATA.keys();
@@ -325,7 +325,6 @@ function populateInfoStat(divId, metric, transition) {
             }
 
         });
-
 }
 
 
@@ -424,6 +423,7 @@ function createProgressChart(divId, metric) {  //  see https://bl.ocks.org/mbost
 
     
     updateProgressChart("info-1", t1);
+
 }
 
 function postUpdateDate(log_data, divId){
@@ -517,50 +517,52 @@ function updateProgressChart(divId, transition){
 
 
 
-function populateTable(dataset) {
+function populateTable(dataset, next) {
 
-        var filtered_data = dataset.filter(function (d) {
+    var filtered_data = dataset.filter(function (d) {
 
-            return d.scheduled_fy == selected_year;
+        return d.scheduled_fy == selected_year;
 
+    });
+
+    var rows = d3.select("tbody")
+        .selectAll("tr")
+        .data(filtered_data)
+        .enter()
+        .append("tr")
+        .attr("class", "tableRow");
+
+    d3.select("tbody").selectAll("tr")
+
+        .each(function (d) {
+
+            var travel_time_change = formatTravelTime(+d.travel_time_change)
+
+            d3.select(this).append("td").html("<input type='checkbox' name='map_show' value='true' checked>");
+                            
+            d3.select(this).append("td").html(d.system_name);
+            
+            d3.select(this).append("td").html(d.signals_retimed);
+
+            d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
+            
+            d3.select(this).append("td").html(formatDate(new Date(d.status_date)));
+            
+            d3.select(this).append("td").html(travel_time_change);
+
+            d3.select(this).append("td").html(Math.round(+d.stops_change));
         });
 
-        var rows = d3.select("tbody")
-            .selectAll("tr")
-            .data(filtered_data)
-            .enter()
-            .append("tr")
-            .attr("class", "tableRow");
-
-        d3.select("tbody").selectAll("tr")
-
-            .each(function (d) {
-
-                var travel_time_change = formatTravelTime(+d.travel_time_change)
-
-                d3.select(this).append("td").html("<input type='checkbox' name='map_show' value='true' checked>");
-                                
-                d3.select(this).append("td").html(d.system_name);
-                
-                d3.select(this).append("td").html(d.signals_retimed);
-
-                d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
-                
-                d3.select(this).append("td").html(formatDate(new Date(d.status_date)));
-                
-                d3.select(this).append("td").html(travel_time_change);
-
-                d3.select(this).append("td").html(Math.round(+d.stops_change));
-            });
-
-        //  activate datatable sorting/search functionality
-        $(document).ready(function () {
-            table = $('#data_table').DataTable( {
-                paging : false
-            });
+    //  activate datatable sorting/search functionality
+    $(document).ready(function () {
+        table = $('#data_table').DataTable( {
+            paging : false
         });
+    });
 
-    } //  end populateTable
+    next();
+
+} //  end populateTable
 
 
 
@@ -625,67 +627,64 @@ function formatTravelTime(seconds) {
 }
 
 
+function makeMap(url, next) {
 
-function makeMap(dataset) {
+        L.Icon.Default.imagePath = '../components/images/';
 
-    L.Icon.Default.imagePath = '../components/images/';
+        var map = new L.Map("map", {
+            center : [30.28, -97.735],
+            zoom : 12,
+            minZoom : 1,
+            maxZoom : 20,
+            scrollWheelZoom: false
+        });      // make a map
 
-    map = new L.Map("map", {
-        center : [30.28, -97.735],
-        zoom : 12,
-        minZoom : 1,
-        maxZoom : 20,
-        scrollWheelZoom: false
-    });      // make a map
+        var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+            attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            subdomains : 'abcd',
+            maxZoom : 20,
+            ext : 'png'
+        }).addTo(map);
 
-    var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-        attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        subdomains : 'abcd',
-        maxZoom : 20,
-        ext : 'png'
-    }).addTo(map);
-
-    populateMap(map, dataset);
+        next(map, SYSTEM_INTERSECTIONS_URL);
 
 }
 
 
+function populateMap(map, url) {
 
-function populateMap(map, dataset) {
+    d3.json(url, function(dataset) {
 
-    var zoom = map.getZoom();
+        GROUPED_DATA_INTERSECTIONS = dataset;
 
-    var marker_size = 
+        for (var i = 0; i < SOURCE_DATA_SYSTEMS.length; i++) { 
+            
+            var fy =  '$' + SOURCE_DATA_SYSTEMS[i].scheduled_fy;
 
-    system_ids = [];
+            if ( !(SYSTEM_IDS[fy]) ) {
 
-    for (var i = 0; i < dataset.length; i++) {   
-
-            var add_to_master = false;
-
-            var system_layer = "$" + dataset[i].system_id;
-
-            if ( !(system_layer in systems_layers) ) {
-
-                systems_layers[system_layer] = new L.featureGroup();
-
-                system_ids.push(dataset[i].system_id);
-
-                add_to_master = true;
-
-                //  console.log(dataset[i].street_segments_full_street_nam + " / " + dataset[i].street_segments_1_full_street_n);
-                //  console.log(system_ids);
+                SYSTEM_IDS[fy] = [];
 
             }
 
-            
-            var color_index = system_ids.indexOf(system_id) / 17;
-            //var color_index = system_ids.indexOf(system_id) / GROUPED_RETIMING_DATA[selected_year][STATUS_SELECTED];
+            SYSTEM_IDS[fy].push(+SOURCE_DATA_SYSTEMS[i].system_id); 
 
+        }
 
-            var pizza = system_ids.indexOf(system_id);
+        for (var i = 0; i < dataset.length; i++) {   
+
+            var system_layer = "$" + dataset[i].system_id;
+
+            if ( !(system_layer in SYSTEMS_LAYERS) ) {
+
+                SYSTEMS_LAYERS[system_layer] = new L.featureGroup();
+
+            }
 
             var system_id = dataset[i].system_id;
+
+            var color_index = .8;
+            // var color_index = SYSTEM_IDS.indexOf(system_id) / 17;
 
             var system_name = dataset[i].system_name;
 
@@ -693,7 +692,7 @@ function populateMap(map, dataset) {
     
             var lon = dataset[i].longitude;
 
-            var intersection_name = dataset[i].street_segments_full_street_nam + " / " + dataset[i].street_segments_1_full_street_n;
+            var intersection_name = dataset[i].intersection_name;
 
             var atd_signal_id = dataset[i].atd_signal_id;
             
@@ -705,26 +704,41 @@ function populateMap(map, dataset) {
                 })
                 .bindPopup(
                     "<b>" + intersection_name + "</b><br>" +
-                    "System: " + system_name + " (" + system_id + ")" +
-                    "<br>" + pizza
+                    "System: " + system_name + " (" + system_id + ")"
                 )
                 
-                marker.addTo(systems_layers[system_layer]);
+            marker.addTo(SYSTEMS_LAYERS[system_layer]);
 
-                if (add_to_master) {
-
-                    //  temporary limit of 7 systems to map
-                    if (system_ids.indexOf(system_id) < 30){
-
-                        systems_layers[system_layer].addTo(master_layer);
-
-                    } 
-
-                }
        }
 
-        master_layer.addTo(map);
+       updateVisibleLayers(map);
+
+    });
         
+}
+
+
+function updateVisibleLayers(map) {
+
+    var zoom = map.getZoom();
+
+    map.removeLayer(visible_layers);
+    
+    visible_layers = new L.featureGroup();
+
+    for (system_id in SYSTEMS_LAYERS) {
+
+        var current_id = +system_id.replace('$','');
+
+        if ( SYSTEM_IDS['$' + selected_year].indexOf(current_id) ) {
+
+            SYSTEMS_LAYERS[system_id].addTo(visible_layers);
+
+        }
+
+    }
+
+    visible_layers.addTo(map);
 
 }
 
