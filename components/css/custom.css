@@ -14,10 +14,6 @@ html {
     }
 }
 
-p {
-    text-align: justify;
-}
-
 .homepage-button {
     color: white;
     height: 150px;
@@ -76,6 +72,7 @@ p {
 */
     background-image: url(../images/jtron_1600.png);
     background-size: cover;
+    color: #fff;
     background-color: #43484E;
     border: none;
     margin-bottom: 0px;
@@ -132,7 +129,6 @@ p {
 }
 
 .navbar h2 {
-    padding-top: 40px;
     text-shadow: 0px 0px 2px rgba(0,0,0,1);
     color: white;
     font-size: 2.5em;
