@@ -625,8 +625,6 @@ function populateTable(dataset, next) {
 
             var travel_time_change = formatTravelTime(+d.travel_time_change)
 
-            d3.select(this).append("td").html("Show on Map <input type='checkbox' name='map_show' value='true' checked>");
-
             d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.system_id + " name=_" + d.system_name + ">" + d.system_name + "</a>");                            
             
             d3.select(this).append("td").html(d.signals_retimed);
