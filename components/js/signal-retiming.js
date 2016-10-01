@@ -93,7 +93,7 @@ var color_index =.9;
 var HIGHLIGHT_STYLE = {
     color: '#fff',
     weight: 1,
-    fillColor: d3.interpolateSpectral(.1),
+    fillColor: '#d95f02',
     fillOpacity: .9
 }
 
@@ -101,7 +101,7 @@ var HIGHLIGHT_STYLE = {
 var DEFAULT_STYLE = {
     color: '#fff',
     weight: 1,
-    fillColor: d3.interpolateSpectral(color_index),
+    fillColor: '#7570b3',
     fillOpacity: .8
 }
 
@@ -179,16 +179,7 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
             var system_id = d3.select(this).attr("data-feature-id");
 
-            for (system_layer in SYSTEMS_LAYERS) {
-
-                var color_index = .8;
-
-                SYSTEMS_LAYERS[system_layer]
-                    .setStyle(DEFAULT_STYLE);
-
-            }
-
-            SYSTEMS_LAYERS['$' + system_id].setStyle(HIGHLIGHT_STYLE).bringToFront();
+            highlightLayer(SYSTEMS_LAYERS['$' + system_id]);
 
             map.fitBounds(SYSTEMS_LAYERS['$' + system_id].getBounds());
 
@@ -672,8 +663,6 @@ function updateTable(dataset){
 
         .each(function (d) {
 
-            d3.select(this).append("td").html("Show on Map <input type='checkbox' name='map_show' value='true' checked>");
-
             d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.system_id + " name=_" + d.system_name + ">" + d.system_name + "</a>");                            
             
             d3.select(this).append("td").html(d.signals_retimed);
@@ -780,7 +769,8 @@ function populateMap(map, url) {
 
             if ( !(system_layer in SYSTEMS_LAYERS) ) {
 
-                SYSTEMS_LAYERS[system_layer] = new L.featureGroup();
+                SYSTEMS_LAYERS[system_layer] = new L.featureGroup()
+
             }
 
             var system_id = dataset[i].system_id;
@@ -809,8 +799,6 @@ function populateMap(map, url) {
 
        for (system_layer in SYSTEMS_LAYERS) {
 
-            var color_index = .8;
-
             SYSTEMS_LAYERS[system_layer]
                 .setStyle(DEFAULT_STYLE);
 
@@ -822,6 +810,7 @@ function populateMap(map, url) {
         
 }
 
+var pizza;
 
 function updateVisibleLayers() {
 
@@ -845,6 +834,13 @@ function updateVisibleLayers() {
 
     }
 
+    visible_layers.eachLayer(function(layer) {
+        layer.on('click', function(){
+            highlightLayer(this);
+        });
+    });
+
+
     setTimeout(function(){
         map.fitBounds(visible_layers.getBounds());
     }, 500);
@@ -867,6 +863,20 @@ function setMarkerSizes() {
     }
 
 }
+
+function highlightLayer(layer){
+
+    for (system_layer in SYSTEMS_LAYERS) {
+
+        SYSTEMS_LAYERS[system_layer].setStyle(DEFAULT_STYLE);
+
+    }
+
+    layer.setStyle(HIGHLIGHT_STYLE).bringToFront();
+
+}
+
+
 
 function readableDate(date) {
 
