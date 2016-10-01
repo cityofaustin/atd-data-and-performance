@@ -617,12 +617,23 @@ function populateTable(dataset, next) {
             d3.select(this).append("td").html(Math.round(+d.stops_change));
         });
 
-    //  activate datatable sorting/search functionality
+    //  activate datatable, tooltips, and touch detect
     $(document).ready(function () {
+        
         table = $('#data_table').DataTable( {
             paging : false
         });
+
+        $('[data-toggle="popover"]').popover();
+
+        if (is_touch_device()) {
+            
+            d3.select('.map')
+                .style("margin-right", "10px")
+                .style("margin-left", "10px");
+        }
     });
+
 
     next();
 
@@ -918,3 +929,12 @@ function arcTween(newAngle) {
   };
 
 }
+
+
+
+function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-screen-javascript
+        return (('ontouchstart' in window)
+      || (navigator.MaxTouchPoints > 0)
+      || (navigator.msMaxTouchPoints > 0));
+}
+

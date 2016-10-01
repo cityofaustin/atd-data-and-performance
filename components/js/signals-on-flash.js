@@ -68,7 +68,7 @@
 
     getSignalData(data_url);
 
-    //  init tooltips
+    //  init tooltips and touch detect
     $(document).ready(function(){
 
         $(document).ready(function(){
