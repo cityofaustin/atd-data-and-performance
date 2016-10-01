@@ -694,13 +694,18 @@ function updateTable(dataset){
 
 function createTableListeners() {
 
-    d3.selectAll(".tableRow").on("mouseover", function(d) {
+    //  zoom to and highlight feature from table click
+    d3.selectAll(".tableRow")
+        .style("cursor", "pointer")
+        .on("click", function(d){
 
-        var system_id = d3.select(this).attr("id");
+            var system_id = d3.select(this).attr("id");
 
-        highlightLayer(SYSTEMS_LAYERS[system_id]);
+            highlightLayer(SYSTEMS_LAYERS[system_id]);
 
-    })
+            map.fitBounds(SYSTEMS_LAYERS[system_id].getBounds());
+
+    });
 
 }
 
@@ -811,17 +816,6 @@ function populateMap(map, url) {
 var pizza;
 
 function updateVisibleLayers() {
-
-    //  zoom to and highlight feature from table click
-    d3.selectAll(".feature_link").on("click", function(d){
-
-        var system_id = d3.select(this).attr("data-feature-id");
-
-        highlightLayer(SYSTEMS_LAYERS['$' + system_id]);
-
-        map.fitBounds(SYSTEMS_LAYERS['$' + system_id].getBounds());
-
-    });
 
     map.removeLayer(visible_layers);
     
