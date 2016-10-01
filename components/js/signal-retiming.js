@@ -1,9 +1,3 @@
-//  control flow: draw map after charts; move zoom listener to after map
-//  map: callback function to get index of system id after its appended. right now its an async issue
-//  show / zoomto on map
-//  resize markers with zoom
-
-
 var ANNUAL_GOALS = {
     
     "2018" : {
@@ -703,8 +697,6 @@ function createTableListeners() {
     d3.selectAll(".tableRow").on("mouseover", function(d) {
 
         var system_id = d3.select(this).attr("id");
-
-
 
         highlightLayer(SYSTEMS_LAYERS[system_id]);
 
