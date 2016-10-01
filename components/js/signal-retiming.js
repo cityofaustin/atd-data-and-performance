@@ -158,6 +158,8 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
             getLogData(LOGFILE_URL);
 
+            createTableListeners();
+
         });
 
     });
@@ -602,6 +604,10 @@ function populateTable(dataset, next) {
 
         .each(function (d) {
 
+            d3.select(this).attr("id", function(d) {
+                return "$" + d.system_id;
+            });
+
             var travel_time_change = formatTravelTime(+d.travel_time_change)
 
             d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.system_id + " name=_" + d.system_name + ">" + d.system_name + "</a>");                            
@@ -651,6 +657,10 @@ function updateTable(dataset){
 
         .each(function (d) {
 
+            d3.select(this).attr("id", function(d) {
+                return "$" + d.system_id;
+            });
+
             d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.system_id + " name=_" + d.system_name + ">" + d.system_name + "</a>");                            
             
             d3.select(this).append("td").html(d.signals_retimed);
@@ -684,8 +694,23 @@ function updateTable(dataset){
 
         });
 
+    createTableListeners();
+
 }
 
+function createTableListeners() {
+
+    d3.selectAll(".tableRow").on("mouseover", function(d) {
+
+        var system_id = d3.select(this).attr("id");
+
+
+
+        highlightLayer(SYSTEMS_LAYERS[system_id]);
+
+    })
+
+}
 
 
 function formatTravelTime(seconds) {
