@@ -14,6 +14,31 @@ html {
     }
 }
 
+
+@media (min-width:992px) {
+    .jumbotron {
+        background-image: url(../images/jtron_1100.png);
+    }
+}
+
+@media (min-width:1200px) {
+    .jumbotron {
+        background-image: url(../images/jtron_1200.png);
+    }
+}
+ 
+@media (min-width:1300px) {
+    .jumbotron {
+        background-image: url(../images/jtron_1300.png);
+    }
+}
+
+@media (min-width:1400px) {
+    .jumbotron {
+        background-image: url(../images/jtron_1400.png);
+    }
+}
+
 .homepage-button {
     color: white;
     height: 150px;
@@ -51,7 +76,7 @@ html {
 }
 
 .jumbotron {
-    background-image: url(../images/jtron_1600.png);
+    background-image: url(../images/jtron_900.png);
     background-size: cover;
     background-repeat: no-repeat;
     color: #fff;
