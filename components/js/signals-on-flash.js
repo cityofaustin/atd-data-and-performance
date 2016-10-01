@@ -378,7 +378,8 @@
         //  activate datatable sorting/search functionality
         $(document).ready(function () {
             table = $('#data_table').DataTable( {
-                paging : false
+                paging : false,
+                scrollX: true
             });
         });
 
