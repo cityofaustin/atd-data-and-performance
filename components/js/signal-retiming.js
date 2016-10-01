@@ -174,18 +174,6 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
         });
 
 
-        //  zoom to and highlight feature from table click
-        d3.selectAll(".feature_link").on("click", function(d){
-
-            var system_id = d3.select(this).attr("data-feature-id");
-
-            highlightLayer(SYSTEMS_LAYERS['$' + system_id]);
-
-            map.fitBounds(SYSTEMS_LAYERS['$' + system_id].getBounds());
-
-        });
-
-
         d3.select("#map-expander").on("click", function(){
 
             d3.select(this)
@@ -797,13 +785,6 @@ function populateMap(map, url) {
 
        }
 
-       for (system_layer in SYSTEMS_LAYERS) {
-
-            SYSTEMS_LAYERS[system_layer]
-                .setStyle(DEFAULT_STYLE);
-
-       }
-
        updateVisibleLayers();
 
     });
@@ -814,9 +795,16 @@ var pizza;
 
 function updateVisibleLayers() {
 
-    var color_index = .8;
+    //  zoom to and highlight feature from table click
+    d3.selectAll(".feature_link").on("click", function(d){
 
+        var system_id = d3.select(this).attr("data-feature-id");
 
+        highlightLayer(SYSTEMS_LAYERS['$' + system_id]);
+
+        map.fitBounds(SYSTEMS_LAYERS['$' + system_id].getBounds());
+
+    });
 
     map.removeLayer(visible_layers);
     
@@ -831,6 +819,13 @@ function updateVisibleLayers() {
             SYSTEMS_LAYERS[system_id].addTo(visible_layers);
 
         }
+
+    }
+
+    for (system_layer in SYSTEMS_LAYERS) {
+
+        SYSTEMS_LAYERS[system_layer]
+            .setStyle(DEFAULT_STYLE);
 
     }
 
