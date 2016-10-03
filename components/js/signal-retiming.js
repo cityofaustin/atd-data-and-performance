@@ -236,9 +236,11 @@ function groupData(dataset, updateCharts) {
                         return d.stops_change;
                     }),
 
+
                     signals_retimed : d3.sum(v, function(d) {
-                        return d.signals_retimed; 
+                        return d.number_of_signals; 
                     }),
+
 
                     travel_time_before : d3.sum(v, function(d) {
                         return d.travel_time_before; 
@@ -608,7 +610,7 @@ function populateTable(dataset, next) {
 
             d3.select(this).append("td").html("<a href='javascript:;'" + " name='" + d.system_name + "' >" + d.system_name + "</a>");                            
             
-            d3.select(this).append("td").html(d.signals_retimed);
+            d3.select(this).append("td").html(d.number_of_signals);
 
             d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
             
@@ -671,7 +673,7 @@ function updateTable(dataset){
 
             d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.system_id + " name=_" + d.system_name + ">" + d.system_name + "</a>");                            
             
-            d3.select(this).append("td").html(d.signals_retimed);
+            d3.select(this).append("td").html(d.number_of_signals);
 
             d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.retime_status]);
             
