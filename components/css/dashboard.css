@@ -130,6 +130,10 @@ button.map-expander{
 }
 
 
+.tableRow {
+  cursor: pointer;
+}
+
 
 
 

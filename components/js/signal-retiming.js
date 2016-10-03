@@ -598,13 +598,15 @@ function populateTable(dataset, next) {
 
         .each(function (d) {
 
-            d3.select(this).attr("id", function(d) {
+            d3.select(this)
+                .attr("id", function(d) {
                 return "$" + d.system_id;
-            });
+                })
+                .attr("class", "feature-link");
 
             var travel_time_change = formatTravelTime(+d.travel_time_change)
 
-            d3.select(this).append("td").html("<a href='javascript:;'" + "class='feature_link' data-feature-id=" + d.system_id + " name=_" + d.system_name + ">" + d.system_name + "</a>");                            
+            d3.select(this).append("td").html("<a href='javascript:;'" + " name='" + d.system_name + "' >" + d.system_name + "</a>");                            
             
             d3.select(this).append("td").html(d.signals_retimed);
 
@@ -707,9 +709,7 @@ function updateTable(dataset){
 function createTableListeners() {
 
     //  zoom to and highlight feature from table click
-    d3.selectAll(".tableRow")
-        .style("cursor", "pointer")
-        .on("click", function(d){
+    d3.selectAll(".tableRow").on("click", function(d){
 
             var system_id = d3.select(this).attr("id");
 
