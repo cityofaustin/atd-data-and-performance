@@ -604,7 +604,7 @@ function populateTable(dataset, next) {
                 .attr("id", function(d) {
                 return "$" + d.system_id;
                 })
-                .attr("class", "feature-link");
+                .attr("class", "tableRow");
 
             var travel_time_change = formatTravelTime(+d.travel_time_change)
 
