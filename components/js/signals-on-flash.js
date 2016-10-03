@@ -21,7 +21,7 @@
     var formatTime = d3.timeFormat("%I:%M %p");
 
     //  var formatSeconds = d3.timeFormat("%H:%M:%S");
-    var formatSeconds = d3.timeFormat("%Hhr %Mm %Ss");
+    var formatSeconds = d3.timeFormat("%Hhr %Mm");
 
     var t1 = d3.transition()
         .ease(d3.easeQuad)
