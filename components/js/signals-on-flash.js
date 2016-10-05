@@ -14,14 +14,14 @@ var map_expanded = false;
 
 var formatPct = d3.format("%");
 
-var formatDateTime = d3.timeFormat("%a - %b %e - %I:%M%p");
+var formatDateTime = d3.timeFormat("%e %b %I:%M%p");
 
 var formatDate = d3.timeFormat("%x");
 
 var formatTime = d3.timeFormat("%I:%M %p");
 
 //  var formatSeconds = d3.timeFormat("%H:%M:%S");
-var formatSeconds = d3.timeFormat("%Hhr %Mm™");
+var formatSeconds = d3.timeFormat("%Hhr %Mm");
 
 var t1 = d3.transition()
     .ease(d3.easeQuad)

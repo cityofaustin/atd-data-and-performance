@@ -55,7 +55,7 @@ var formatDate = d3.timeFormat("%x");
 
 var formatTime = d3.timeFormat("%I:%M %p");
 
-var formatSeconds = d3.timeFormat("%H:%M:%S");
+var formatSeconds = d3.timeFormat("%Mm %Ss");
 
 var FORMAT_TYPES = {
     "retiming_progress" : formatPctInt,
