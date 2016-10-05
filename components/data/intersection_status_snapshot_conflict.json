@@ -1,10 +1,89 @@
-[{"assetnum":"475","database_id":"10","intersection_name":"Lamar Blvd-Rundberg","intersection_status":"2","status_datetime":"2016-06-07T09:00:11.000","latitude":"30.36311849","location":{"type":"Point","coordinates":[-97.696971,30.363118]},"longitude":"-97.6969715","operationstate":"0","planid":"1","pollstatus":"1","processeddatetime":"2016-06-07T11:58:02.000","recordid":"10_20160607115802","streetn1":"Lamar Blvd","streetn2":"Rundberg"}
-,{"assetnum":"460","database_id":"100","intersection_name":"Burnet Rd-Longhorn","intersection_status":"2","status_datetime":"2016-06-07T09:00:11.000","latitude":"30.38004928","location":{"type":"Point","coordinates":[-97.724947,30.380049]},"longitude":"-97.7249475","operationstate":"0","planid":"1","pollstatus":"1","processeddatetime":"2016-06-07T11:58:02.000","recordid":"100_20160607115802","streetn1":"Burnet Rd","streetn2":"Longhorn"}
-,{"assetnum":"461","database_id":"101","intersection_name":"Burnet Rd-Rutland","intersection_status":"2","status_datetime":"2016-06-07T09:00:11.000","latitude":"30.383448","location":{"type":"Point","coordinates":[-97.724059,30.383448]},"longitude":"-97.724059","operationstate":"0","planid":"1","pollstatus":"1","processeddatetime":"2016-06-07T11:58:02.000","recordid":"101_20160607115802","streetn1":"Burnet Rd","streetn2":"Rutland"}
-,{"assetnum":"462","database_id":"102","intersection_name":"Burnet Rd-Braker","intersection_status":"2","status_datetime":"2016-06-07T11:00:11.000","latitude":"30.391157","location":{"type":"Point","coordinates":[-97.721803,30.391157]},"longitude":"-97.721803","operationstate":"0","planid":"4","pollstatus":"1","processeddatetime":"2016-06-07T11:58:02.000","recordid":"102_20160607115802","streetn1":"Burnet Rd","streetn2":"Braker"}
-,{"assetnum":"464","database_id":"103","intersection_name":"Burnet Rd-Kramer","intersection_status":"2","status_datetime":"2016-06-07T09:00:11.000","latitude":"30.395233","location":{"type":"Point","coordinates":[-97.720408,30.395233]},"longitude":"-97.720408","operationstate":"0","planid":"1","pollstatus":"1","processeddatetime":"2016-06-07T11:58:02.000","recordid":"103_20160607115802","streetn1":"Burnet Rd","streetn2":"Kramer"}
-,{"assetnum":"756","database_id":"104","intersection_name":"Burnet Rd-Waterford Centre","intersection_status":"2","status_datetime":"2016-06-07T09:00:11.000","latitude":"30.377351","location":{"type":"Point","coordinates":[-97.725461,30.377351]},"longitude":"-97.725461","operationstate":"0","planid":"1","pollstatus":"1","processeddatetime":"2016-06-07T11:58:02.000","recordid":"104_20160607115802","streetn1":"Burnet Rd","streetn2":"Waterford Centre"}
-,{"assetnum":"493","database_id":"105","intersection_name":"Burnet Rd-Loop 1","intersection_status":"2","status_datetime":"2016-06-07T10:00:11.000","latitude":"30.40854065","location":{"type":"Point","coordinates":[-97.716071,30.408541]},"longitude":"-97.71607052","operationstate":"0","planid":"1","pollstatus":"1","processeddatetime":"2016-06-07T11:58:02.000","recordid":"105_20160607115802","streetn1":"Burnet Rd","streetn2":"Loop 1"}
-,{"assetnum":"347","database_id":"106","intersection_name":"Gracy Farms-Loop 1","intersection_status":"2","status_datetime":"2016-06-07T06:00:11.000","latitude":"30.40738","location":{"type":"Point","coordinates":[-97.714287,30.40738]},"longitude":"-97.714287","operationstate":"0","planid":"1","pollstatus":"1","processeddatetime":"2016-06-07T11:58:02.000","recordid":"106_20160607115802","streetn1":"Gracy Farms","streetn2":"Loop 1"}
-,{"assetnum":"770","database_id":"107","intersection_name":"Waters Park-Loop 1","intersection_status":"2","status_datetime":"2016-06-07T11:43:26.000","latitude":"30.41114122","location":{"type":"Point","coordinates":[-97.709913,30.411141]},"longitude":"-97.70991312","operationstate":"0","planid":"20","pollstatus":"1","processeddatetime":"2016-06-07T11:58:02.000","recordid":"107_20160607115802","streetn1":"Waters Park","streetn2":"Loop 1"}
-]
+[ {
+  "kits_id" : "290",
+  "intersection_name" : "N US 183 HWY SVRD NB / POND SPRINGS RD",
+  "latitude" : "30.4351349",
+  "signal_status_previous" : "0",
+  "operation_state" : "0",
+  "status_datetime" : "2016-10-05T08:56:38",
+  "cross_street" : "POND SPRINGS",
+  "atd_signal_id" : "723",
+  "record_id" : "723_1475676003",
+  "poll_status" : "1",
+  "processed_datetime" : "2016-10-05T09:00:03",
+  "location" : {
+    "latitude" : "30.4351349",
+    "needs_recoding" : false,
+    "longitude" : "-97.7703857"
+  },
+  "plan_id" : "12",
+  "primary_street" : "183 HWY",
+  "signal_status" : "2",
+  "longitude" : "-97.7703857"
+}
+, {
+  "kits_id" : "640",
+  "intersection_name" : "W 15TH ST / LAVACA ST",
+  "latitude" : "30.2776051",
+  "signal_status_previous" : "0",
+  "operation_state" : "0",
+  "status_datetime" : "2016-10-05T10:22:23",
+  "cross_street" : "LAVACA",
+  "atd_signal_id" : "221",
+  "record_id" : "221_1475681103",
+  "poll_status" : "1",
+  "processed_datetime" : "2016-10-05T10:25:03",
+  "location" : {
+    "latitude" : "30.2776051",
+    "needs_recoding" : false,
+    "longitude" : "-97.7419281"
+  },
+  "plan_id" : "1",
+  "primary_street" : "15TH",
+  "signal_status" : "3",
+  "longitude" : "-97.7419281"
+}
+, {
+  "kits_id" : "552",
+  "intersection_name" : "E 15TH ST / BRAZOS ST",
+  "latitude" : "30.2765484",
+  "signal_status_previous" : "0",
+  "operation_state" : "0",
+  "status_datetime" : "2016-10-05T10:22:23",
+  "cross_street" : "BRAZOS",
+  "atd_signal_id" : "259",
+  "record_id" : "259_1475681103",
+  "poll_status" : "1",
+  "processed_datetime" : "2016-10-05T10:25:03",
+  "location" : {
+    "latitude" : "30.2765484",
+    "needs_recoding" : false,
+    "longitude" : "-97.7381973"
+  },
+  "plan_id" : "1",
+  "primary_street" : "15TH",
+  "signal_status" : "2",
+  "longitude" : "-97.7381973"
+}
+, {
+  "kits_id" : "142",
+  "intersection_name" : "W 15TH ST / CONGRESS AVE",
+  "latitude" : "30.2769184",
+  "signal_status_previous" : "0",
+  "operation_state" : "0",
+  "status_datetime" : "2016-10-05T10:22:23",
+  "cross_street" : "CONGRESS",
+  "atd_signal_id" : "222",
+  "record_id" : "222_1475681103",
+  "poll_status" : "1",
+  "processed_datetime" : "2016-10-05T10:25:03",
+  "location" : {
+    "latitude" : "30.2769184",
+    "needs_recoding" : false,
+    "longitude" : "-97.7394943"
+  },
+  "plan_id" : "1",
+  "primary_street" : "15TH",
+  "signal_status" : "2",
+  "longitude" : "-97.7394943"
+}
+ ]

@@ -51,7 +51,8 @@ var status = "3"  //  2 == conflict
 
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27%20AND%20response_message%20IS%20NULL&$order=timestamp+DESC&$limit=1'
 
-var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?signal_status=" + status;
+//  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?signal_status=" + status;
+var data_url = '../components/data/intersection_status_snapshot_conflict.json';
 
 var default_map_size = 300;
 
