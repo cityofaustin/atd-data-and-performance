@@ -538,16 +538,20 @@ function updateProgressChart(divId, transition){
     d3.select("#" + "pieTextLarge")  //  update chat text
         .transition(transition)
         .tween("text", function () {
-            
-            var that = d3.select(this);
 
-            var pct_complete_previous = ( parseFloat(that.text().replace('%','')) ) / 100; // convert existing % string to float
+            var that = this;
+
+            var pct_complete_previous = parseFloat(this.textContent) / 100;
+
+            if (isNaN(pct_complete_previous)){
+                pct_complete_previous = 0;
+            }           
 
             var i = d3.interpolate(pct_complete_previous, pct_complete);
             
             return function (t) {
-            
-                that.text( formatPctInt(i(t))  );
+                
+                that.textContent = formatPctInt( i(t) );
             
             }    
     });
@@ -566,10 +570,17 @@ function updateProgressChart(divId, transition){
 
             var previous_goal = previous_text[1];
 
+            if (isNaN(previous_goal)){
+                previous_goal = 0;
+            } 
+
             var i = d3.interpolate(signals_retimed_previous, signals_retimed);
 
             var q = d3.interpolate(previous_goal, goal);
             
+            console.log(previous_goal);
+            console.log(goal);
+
             return function (t) {
             
                 that.text( Math.round(i(t)) + " of " + Math.round(q(t))  );  //  interpolating two parts of a string? YEP!
