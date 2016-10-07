@@ -40,6 +40,10 @@ var SOURCE_DATA_SYSTEMS;  //  populates table
 
 var GROUPED_RETIMING_DATA;  //  powers the data viz
 
+var GROUPED_DATA_INTERSECTIONS;
+
+var UNIQUE_SIGNALS_RETIMED = {};
+
 var SYSTEM_IDS = {};
 
 var tau = 2 * Math.PI,
@@ -142,77 +146,82 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
     SOURCE_DATA_SYSTEMS = dataset;
 
-    groupData(dataset, function() {
+    d3.json(SYSTEM_INTERSECTIONS_URL, function(dataset_2) {
 
-        createProgressChart("info-1", "retiming_progress");
+        GROUPED_DATA_INTERSECTIONS = dataset_2;
 
-        populateInfoStat("info-2", "travel_time_reduction", t1);
+        groupData(SOURCE_DATA_SYSTEMS, function() {
 
-        populateInfoStat("info-3", "stops_reduction", t1);
+            createProgressChart("info-1", "retiming_progress");
 
-        populateTable(SOURCE_DATA_SYSTEMS, function(){
+            populateInfoStat("info-2", "travel_time_reduction", t1);
 
-            getLogData(LOGFILE_URL);
+            populateInfoStat("info-3", "stops_reduction", t1);
 
-            createTableListeners();
+            populateTable(SOURCE_DATA_SYSTEMS, function(){
+
+                getLogData(LOGFILE_URL);
+
+                createTableListeners();
+
+            });
+
+        });
+
+
+        makeMap(GROUPED_DATA_INTERSECTIONS, function(map, dataset) {
+
+            populateMap(map, dataset);
+
+            map.on('zoomend', function() {
+
+                setMarkerSizes();
+
+            });
+
+
+            d3.select("#map-expander").on("click", function(){
+
+                d3.select(this)
+                    .select("button")
+                        .html(function(){
+
+                            if (map_expanded) {
+
+                                return "<i  class='fa fa-expand'</i>";
+
+                            } else {
+                                
+                                return "<i  class='fa fa-compress'</i>"
+
+                            }
+                        });
+                
+                var map_size = expanded_map_size;
+
+                if (map_expanded) {
+
+                    map_expanded = false;
+                
+                    map_size = default_map_size;
+                
+                } else {
+
+                    map_expanded = true;
+
+                }
+
+                d3.select("#map")
+                    .transition(t2)
+                    .style("height", map_size + "px");
+
+                setTimeout(function(){ map.invalidateSize()}, t2_duration);
+
+            });
 
         });
 
     });
-
-
-    makeMap(SYSTEM_INTERSECTIONS_URL, function(map, dataset) {
-
-        populateMap(map, dataset);
-
-        map.on('zoomend', function() {
-
-            setMarkerSizes();
-
-        });
-
-
-        d3.select("#map-expander").on("click", function(){
-
-            d3.select(this)
-                .select("button")
-                    .html(function(){
-
-                        if (map_expanded) {
-
-                            return "<i  class='fa fa-expand'</i>";
-
-                        } else {
-                            
-                            return "<i  class='fa fa-compress'</i>"
-
-                        }
-                    });
-            
-            var map_size = expanded_map_size;
-
-            if (map_expanded) {
-
-                map_expanded = false;
-            
-                map_size = default_map_size;
-            
-            } else {
-
-                map_expanded = true;
-
-            }
-
-            d3.select("#map")
-                .transition(t2)
-                .style("height", map_size + "px");
-
-            setTimeout(function(){ map.invalidateSize()}, t2_duration);
-
-        });
-
-    });
-
 
 });
 
@@ -253,21 +262,61 @@ function groupData(dataset, updateCharts) {
             })
             .map(dataset); 
 
-        for (var i in GROUPED_RETIMING_DATA){
+    //  calculate travel time and stops reduction
+    for (var i in GROUPED_RETIMING_DATA){
 
-            for (var q in GROUPED_RETIMING_DATA[i]) {
-                
-                GROUPED_RETIMING_DATA[i][q]['travel_time_reduction'] = -1 * (+GROUPED_RETIMING_DATA[i][q]['travel_time_change'] / GROUPED_RETIMING_DATA[i][q]['travel_time_before']);
+        for (var q in GROUPED_RETIMING_DATA[i]) {
+            
+            GROUPED_RETIMING_DATA[i][q]['travel_time_reduction'] = -1 * (+GROUPED_RETIMING_DATA[i][q]['travel_time_change'] / GROUPED_RETIMING_DATA[i][q]['travel_time_before']);
 
-                GROUPED_RETIMING_DATA[i][q]['stops_reduction'] = -1 * (+GROUPED_RETIMING_DATA[i][q]['stops_change'] / GROUPED_RETIMING_DATA[i][q]['stops_before']);
+            GROUPED_RETIMING_DATA[i][q]['stops_reduction'] = -1 * (+GROUPED_RETIMING_DATA[i][q]['stops_change'] / GROUPED_RETIMING_DATA[i][q]['stops_before']);
+
+        }
+        
+    }
+
+    //  calculate unique signals re-timed
+    signals_retimed = {};
+
+    for (var i = 0; i < GROUPED_DATA_INTERSECTIONS.length; i++) {
+
+        for (var q = 0; q < SOURCE_DATA_SYSTEMS.length; q++) {
+
+            var signal_id = parseInt(+GROUPED_DATA_INTERSECTIONS[i].atd_signal_id);
+
+            var system_id_source = +GROUPED_DATA_INTERSECTIONS[i].system_id;
+
+            var system_id_system = +SOURCE_DATA_SYSTEMS[q].system_id;
+
+            if (system_id_source == system_id_system) {
+
+                if (SOURCE_DATA_SYSTEMS[q].retime_status == 'COMPLETED') {
+
+                    var fy = "$" + SOURCE_DATA_SYSTEMS[q].scheduled_fy;
+
+                    if (!(fy in UNIQUE_SIGNALS_RETIMED)) {
+
+                        UNIQUE_SIGNALS_RETIMED[fy] = [];
+
+                    }
+
+                    if (!(signal_id in UNIQUE_SIGNALS_RETIMED[fy])) {
+
+                        UNIQUE_SIGNALS_RETIMED[fy].push(signal_id);
+
+                    }
+
+                }
 
             }
-            
+
         }
 
-     updateCharts();
+    }
 
-     createYearSelectors("selectors", function(){
+    updateCharts();
+
+    createYearSelectors("selectors", function(){
 
         d3.select("#selectors").selectAll(".btn").on("click", function(d){
 
@@ -295,7 +344,7 @@ function groupData(dataset, updateCharts) {
 
         });
 
-     });
+    });
 
 }
 
@@ -521,12 +570,14 @@ function updateProgressChart(divId, transition){
 
     if ( GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]) {
 
-        var signals_retimed = GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]["signals_retimed"];
+        var signals_retimed = UNIQUE_SIGNALS_RETIMED["$" + selected_year].length;
 
     }
 
     if (!(signals_retimed) ) {
+
         var signals_retimed = 0;
+
     }
 
     var pct_complete = signals_retimed / goal;
@@ -577,9 +628,6 @@ function updateProgressChart(divId, transition){
             var i = d3.interpolate(signals_retimed_previous, signals_retimed);
 
             var q = d3.interpolate(previous_goal, goal);
-            
-            console.log(previous_goal);
-            console.log(goal);
 
             return function (t) {
             
@@ -755,7 +803,7 @@ function formatTravelTime(seconds) {
 }
 
 
-function makeMap(url, next) {
+function makeMap(dataset, next) {
 
         L.Icon.Default.imagePath = '../components/images/';
 
@@ -774,70 +822,64 @@ function makeMap(url, next) {
             ext : 'png'
         }).addTo(map);
 
-        next(map, SYSTEM_INTERSECTIONS_URL);
+        next(map, dataset);
 
 }
 
 
-function populateMap(map, url) {
+function populateMap(map, dataset) {
 
     var zoom = map.getZoom();
 
-    d3.json(url, function(dataset) {
+    for (var i = 0; i < SOURCE_DATA_SYSTEMS.length; i++) { 
+        
+        var fy =  '$' + SOURCE_DATA_SYSTEMS[i].scheduled_fy;
 
-        GROUPED_DATA_INTERSECTIONS = dataset;
+        if ( !(SYSTEM_IDS[fy]) ) {
 
-        for (var i = 0; i < SOURCE_DATA_SYSTEMS.length; i++) { 
-            
-            var fy =  '$' + SOURCE_DATA_SYSTEMS[i].scheduled_fy;
-
-            if ( !(SYSTEM_IDS[fy]) ) {
-
-                SYSTEM_IDS[fy] = [];
-
-            }
-
-            SYSTEM_IDS[fy].push(+SOURCE_DATA_SYSTEMS[i].system_id); 
+            SYSTEM_IDS[fy] = [];
 
         }
 
-        for (var i = 0; i < dataset.length; i++) {   
+        SYSTEM_IDS[fy].push(+SOURCE_DATA_SYSTEMS[i].system_id); 
 
-            var system_layer = "$" + dataset[i].system_id;
+    }
 
-            if ( !(system_layer in SYSTEMS_LAYERS) ) {
+    for (var i = 0; i < dataset.length; i++) {   
 
-                SYSTEMS_LAYERS[system_layer] = new L.featureGroup()
+        var system_layer = "$" + dataset[i].system_id;
 
-            }
+        if ( !(system_layer in SYSTEMS_LAYERS) ) {
 
-            var system_id = dataset[i].system_id;
+            SYSTEMS_LAYERS[system_layer] = new L.featureGroup()
 
-            var system_name = dataset[i].system_name;
+        }
 
-            var lat = dataset[i].latitude;
-    
-            var lon = dataset[i].longitude;
+        var system_id = dataset[i].system_id;
 
-            var intersection_name = dataset[i].intersection_name;
+        var system_name = dataset[i].system_name;
 
-            var atd_signal_id = dataset[i].atd_signal_id;
+        var lat = dataset[i].latitude;
+
+        var lon = dataset[i].longitude;
+
+        var intersection_name = dataset[i].intersection_name;
+
+        var atd_signal_id = dataset[i].atd_signal_id;
+        
+        var marker = L.circle([lat,lon], SCALE_THRESHOLDS['$' + zoom])
+            .bindPopup(
+                "<b>" + intersection_name + "</b><br>" +
+                "System: " + system_name + " (" + system_id + ")"
+            );
             
-            var marker = L.circle([lat,lon], SCALE_THRESHOLDS['$' + zoom])
-                .bindPopup(
-                    "<b>" + intersection_name + "</b><br>" +
-                    "System: " + system_name + " (" + system_id + ")"
-                );
-                
-            marker.addTo(SYSTEMS_LAYERS[system_layer]);
+        marker.addTo(SYSTEMS_LAYERS[system_layer]);
 
-            SIGNAL_MARKERS.push(marker);
+        SIGNAL_MARKERS.push(marker);
 
-       }
+   }
 
-       updateVisibleLayers();
-
-    });
+   updateVisibleLayers();
         
 }
 
