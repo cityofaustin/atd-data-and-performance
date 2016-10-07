@@ -1,3 +1,4 @@
+
 ---
 layout: signal-retiming-dash
 title: Signal Re-Timing - City of Austin Transportation Department
@@ -10,10 +11,10 @@ custom_js:
 - leaflet
 - leaflet.extra-markers.min
 - signal-retiming
+- google-analytics
 custom_css:
 - leaflet
 - jquery.dataTables.min
 - leaflet.extra-markers.min
-- google-analytics
 - dashboard
 ---
