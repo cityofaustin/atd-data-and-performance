@@ -14,5 +14,6 @@ custom_css:
 - leaflet
 - jquery.dataTables.min
 - leaflet.extra-markers.min
+- google-analytics
 - dashboard
 ---
