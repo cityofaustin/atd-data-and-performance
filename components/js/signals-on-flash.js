@@ -318,6 +318,8 @@ function createTableListeners() {
 
         signal_markers[signal_id].openPopup();
 
+        location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
+
     });
 
 }
