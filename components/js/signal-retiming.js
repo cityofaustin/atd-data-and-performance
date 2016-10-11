@@ -870,7 +870,7 @@ function populateMap(map, dataset) {
         var marker = L.circle([lat,lon], SCALE_THRESHOLDS['$' + zoom])
             .bindPopup(
                 "<b>" + intersection_name + "</b><br>" +
-                "System: " + system_name + " (" + system_id + ")"
+                "Corridor: " + system_name
             );
             
         marker.addTo(SYSTEMS_LAYERS[system_layer]);
