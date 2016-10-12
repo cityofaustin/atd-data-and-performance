@@ -276,8 +276,6 @@ function groupData(dataset, updateCharts) {
     }
 
     //  calculate unique signals re-timed
-    signals_retimed = {};
-
     for (var i = 0; i < GROUPED_DATA_INTERSECTIONS.length; i++) {
 
         for (var q = 0; q < SOURCE_DATA_SYSTEMS.length; q++) {
@@ -300,7 +298,7 @@ function groupData(dataset, updateCharts) {
 
                     }
 
-                    if (!(signal_id in UNIQUE_SIGNALS_RETIMED[fy])) {
+                    if (UNIQUE_SIGNALS_RETIMED[fy].indexOf(signal_id ) < 0) {
 
                         UNIQUE_SIGNALS_RETIMED[fy].push(signal_id);
 
