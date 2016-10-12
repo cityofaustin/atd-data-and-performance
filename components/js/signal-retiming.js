@@ -296,7 +296,7 @@ function groupData(dataset, updateCharts) {
 
                         UNIQUE_SIGNALS_RETIMED[fy] = [];
 
-                    }
+                    }   
 
                     if (UNIQUE_SIGNALS_RETIMED[fy].indexOf(signal_id ) < 0) {
 
@@ -867,7 +867,7 @@ function populateMap(map, dataset) {
         
         var marker = L.circle([lat,lon], SCALE_THRESHOLDS['$' + zoom])
             .bindPopup(
-                "<b>" + intersection_name + "</b><br>" +
+                "<b>" + atd_signal_id + ": " + intersection_name + "</b><br>" +
                 "Corridor: " + system_name
             );
             
