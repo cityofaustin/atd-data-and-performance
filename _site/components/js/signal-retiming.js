@@ -26,9 +26,9 @@ var ANNUAL_GOALS = {
 
 };
 
-//var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json';
+var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json';
 
-var SYSTEM_RETIMING_URL = '../components/data/fake_retiming_data.json';
+//  var SYSTEM_RETIMING_URL = '../components/data/fake_retiming_data.json';
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json';
 
@@ -276,8 +276,6 @@ function groupData(dataset, updateCharts) {
     }
 
     //  calculate unique signals re-timed
-    signals_retimed = {};
-
     for (var i = 0; i < GROUPED_DATA_INTERSECTIONS.length; i++) {
 
         for (var q = 0; q < SOURCE_DATA_SYSTEMS.length; q++) {
@@ -298,9 +296,9 @@ function groupData(dataset, updateCharts) {
 
                         UNIQUE_SIGNALS_RETIMED[fy] = [];
 
-                    }
+                    }   
 
-                    if (!(signal_id in UNIQUE_SIGNALS_RETIMED[fy])) {
+                    if (UNIQUE_SIGNALS_RETIMED[fy].indexOf(signal_id ) < 0) {
 
                         UNIQUE_SIGNALS_RETIMED[fy].push(signal_id);
 
@@ -869,7 +867,7 @@ function populateMap(map, dataset) {
         
         var marker = L.circle([lat,lon], SCALE_THRESHOLDS['$' + zoom])
             .bindPopup(
-                "<b>" + intersection_name + "</b><br>" +
+                "<b>" + atd_signal_id + ": " + intersection_name + "</b><br>" +
                 "Corridor: " + system_name
             );
             
