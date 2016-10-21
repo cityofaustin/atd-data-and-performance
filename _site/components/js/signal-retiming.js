@@ -682,9 +682,10 @@ function populateTable(dataset, next) {
     $(document).ready(function () {
         
         table = $('#data_table').DataTable( {
-            paging : false,
+            paging: false,
             scrollX: true,
-            bFilter: false
+            bFilter: false,
+            bInfo: false
         });
 
         $('[data-toggle="popover"]').popover();
@@ -778,7 +779,7 @@ function createTableListeners() {
 
             map.fitBounds(SYSTEMS_LAYERS[system_id].getBounds());
 
-            location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
+            //  location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
             
     });
 

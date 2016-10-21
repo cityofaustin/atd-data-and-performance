@@ -45,6 +45,10 @@ html {
   font-size: 5em;
 }
 
+.button-icon-small {
+  font-size: 3em;
+}
+
 .jumbotron {
     background-image: url(../images/jtron_900.png);
     background-size: cover;

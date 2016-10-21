@@ -59,7 +59,17 @@ var conflict_flash_marker = new L.ExtraMarkers.icon({
     prefix: 'fa'
 });
 
+var cabinet_flash_marker = new L.ExtraMarkers.icon({
+    icon: 'fa-clock-o',
+    markerColor: 'orange',
+    shape: 'circle',
+    prefix: 'fa'
+});
 
+var marker_icons = {
+    '$1': cabinet_flash_marker,
+    '$2': conflict_flash_marker
+}
 
 getSignalData(data_url);
 
@@ -80,7 +90,8 @@ $(document).ready(function(){
     table = $('#data_table').DataTable( {
             paging : false,
             scrollX: true,
-            bFilter: false
+            bFilter: false,
+            bInfo : false
         });
 
 });
@@ -268,10 +279,12 @@ function populateMap(map, dataset, createSideBar) {
 
                 var duration = formatDuration(dataset[i].status_datetime);
                 
+                console.log(status);
                 var marker = L.marker([lat,lon], {
-                        icon:  conflict_flash_marker
-                    })
-                    .bindPopup(
+                        icon:  marker_icons['$' + status]
+                    });
+                
+                marker.bindPopup(
                         "<b>Signal #" + atd_signal_id + ":</b> " + address + " <br>" +
                         "<b>Status: </b>" + STATUS_TYPES_READABLE[status] + 
                         "<br><b>Updated:</b> " + status_time +
@@ -311,7 +324,7 @@ function createTableListeners() {
 
         signal_markers[signal_id].openPopup();
 
-        location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
+        //  location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
 
     });
 
