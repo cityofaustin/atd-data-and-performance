@@ -43,8 +43,8 @@ var STATUS_TYPES_READABLE = {
 
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27%20AND%20response_message%20IS%20NULL&$order=timestamp+DESC&$limit=1'
 
-var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?$where=%20signal_status=1%20OR%20signal_status=2"
-//  var data_url = '../components/data/intersection_status_snapshot_conflict.json';
+//  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?$where=%20signal_status=1%20OR%20signal_status=2"
+var data_url = '../components/data/intersection_status_snapshot_conflict.json';
 
 var default_map_size = 300;
 

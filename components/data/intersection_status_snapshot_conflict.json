@@ -1,24 +1,24 @@
 [ {
-  "kits_id" : "290",
-  "intersection_name" : "N US 183 HWY SVRD NB / POND SPRINGS RD",
-  "latitude" : "30.4351349",
-  "signal_status_previous" : "0",
+  "kits_id" : "625",
+  "intersection_name" : "W MARTIN LUTHER KING JR BLVD / NUECES ST",
+  "latitude" : "30.282238",
+  "signal_status_previous" : "3",
   "operation_state" : "0",
-  "status_datetime" : "2016-10-05T08:56:38",
-  "cross_street" : "POND SPRINGS",
-  "atd_signal_id" : "723",
-  "record_id" : "723_1475676003",
+  "status_datetime" : "2016-10-06T10:55:04",
+  "cross_street" : "NUECES",
+  "atd_signal_id" : "21",
+  "record_id" : "21_1475769603",
   "poll_status" : "1",
-  "processed_datetime" : "2016-10-05T09:00:03",
+  "processed_datetime" : "2016-10-06T11:00:03",
   "location" : {
-    "latitude" : "30.4351349",
+    "latitude" : "30.282238",
     "needs_recoding" : false,
-    "longitude" : "-97.7703857"
+    "longitude" : "-97.7437439"
   },
-  "plan_id" : "12",
-  "primary_street" : "183 HWY",
-  "signal_status" : "2",
-  "longitude" : "-97.7703857"
+  "plan_id" : "1",
+  "primary_street" : "MARTIN LUTHER KING JR",
+  "signal_status" : "1",
+  "longitude" : "-97.7437439"
 }
 , {
   "kits_id" : "640",
@@ -39,7 +39,7 @@
   },
   "plan_id" : "1",
   "primary_street" : "15TH",
-  "signal_status" : "3",
+  "signal_status" : "2",
   "longitude" : "-97.7419281"
 }
 , {
