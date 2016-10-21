@@ -683,7 +683,8 @@ function populateTable(dataset, next) {
         
         table = $('#data_table').DataTable( {
             paging : false,
-            scrollX: true
+            scrollX: true,
+            bFilter: false
         });
 
         $('[data-toggle="popover"]').popover();

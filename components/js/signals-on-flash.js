@@ -79,7 +79,8 @@ $(document).ready(function(){
 
     table = $('#data_table').DataTable( {
             paging : false,
-            scrollX: true
+            scrollX: true,
+            bFilter: false
         });
 
 });

@@ -1,9 +1,3 @@
-//  v0.2
-//
-//  todo:
-//  add data refresh date should be real!
-//  var metadataUrl_cases = "https://data.austintexas.gov/api/views/5zpr-dehc/rows.json"  
-
 var table, john;
 
 var map;
@@ -33,14 +27,12 @@ var t2 = d3.transition()
 
 var STATUS_TYPES_READABLE = {
     0: "OK",
-    1: "Programmed Flash",
-    2: "Conflict / Flashing",
+    1: "Scheduled Flash",
+    2: "Unscheduled Flash",
     3: "No Communication",
     5: "Communication Disabled",
     11: "Police Flash"
 }
-
-var status = "3"  //  2 == conflict
 
 /*
     URL logic to query logfile:
@@ -51,8 +43,8 @@ var status = "3"  //  2 == conflict
 
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27%20AND%20response_message%20IS%20NULL&$order=timestamp+DESC&$limit=1'
 
-//  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?signal_status=" + status;
-var data_url = '../components/data/intersection_status_snapshot_conflict.json';
+var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?$where=%20signal_status=1%20OR%20signal_status=2"
+//  var data_url = '../components/data/intersection_status_snapshot_conflict.json';
 
 var default_map_size = 300;
 
@@ -87,7 +79,8 @@ $(document).ready(function(){
 
     table = $('#data_table').DataTable( {
             paging : false,
-            scrollX: true
+            scrollX: true,
+            bFilter: false
         });
 
 });
