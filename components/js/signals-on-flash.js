@@ -381,9 +381,9 @@ function populateTable(dataset) {
                 })
                 .attr("class", "tableRow");
             
-            d3.select(this).append("td").html(d.atd_signal_id);
-            
             d3.select(this).append("td").html("<a href='#info-1'>" + d.intersection_name + "</a>");
+
+            d3.select(this).append("td").html(d.atd_signal_id);
             
             d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.signal_status]);
             
