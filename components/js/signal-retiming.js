@@ -415,6 +415,15 @@ function populateInfoStat(divId, metric, transition) {
             }
 
         });
+        
+    d3.select("#" + divId)
+        .selectAll(".goal-text").remove();
+
+    d3.select("#" + divId)
+        .append("h5")
+        .attr("class", "goal-text")
+        .text("FY" + selected_year + " Goal: " + FORMAT_TYPES[metric](goal));
+
 }
 
 
@@ -467,6 +476,14 @@ function updateInfoStat(divId, metric, transition) {
             }
 
         });
+
+    d3.select("#" + divId)
+        .selectAll(".goal-text").remove();
+
+    d3.select("#" + divId)
+        .append("h5")
+        .attr("class", "goal-text")
+        .text("FY" + selected_year + " Goal: " + FORMAT_TYPES[metric](goal));
 
 }
 
