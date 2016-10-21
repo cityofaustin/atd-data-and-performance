@@ -868,7 +868,7 @@ function populateMap(map, dataset) {
         
         var marker = L.circle([lat,lon], SCALE_THRESHOLDS['$' + zoom])
             .bindPopup(
-                "<b>" + atd_signal_id + ": " + intersection_name + "</b><br>" +
+                "<b>" + intersection_name + "</b><br>" +
                 "Corridor: " + system_name
             );
             

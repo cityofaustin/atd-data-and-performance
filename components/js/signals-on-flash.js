@@ -272,7 +272,7 @@ function populateMap(map, dataset, createSideBar) {
                         icon:  conflict_flash_marker
                     })
                     .bindPopup(
-                        "<b>" + atd_signal_id + ":</b> " + address + " <br>" +
+                        "<b>Signal #" + atd_signal_id + ":</b> " + address + " <br>" +
                         "<b>Status: </b>" + STATUS_TYPES_READABLE[status] + 
                         "<br><b>Updated:</b> " + status_time +
                         "<br><b>Duration:</b> " + duration
