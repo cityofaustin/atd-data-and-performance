@@ -8,14 +8,14 @@ var map_expanded = false;
 
 var formatPct = d3.format("%");
 
-var formatDateTime = d3.timeFormat("%e %b %I:%M%p");
+var formatDateTime = d3.timeFormat("%e %b %-I:%M%p");
 
 var formatDate = d3.timeFormat("%x");
 
 var formatTime = d3.timeFormat("%I:%M %p");
 
 //  var formatSeconds = d3.timeFormat("%H:%M:%S");
-var formatSeconds = d3.timeFormat("%Hhr %Mm");
+var formatSeconds = d3.timeFormat("%-Hhr %Mm");
 
 var t1 = d3.transition()
     .ease(d3.easeQuad)
@@ -381,9 +381,9 @@ function populateTable(dataset) {
                 })
                 .attr("class", "tableRow");
             
-            d3.select(this).append("td").html(d.atd_signal_id);
-            
             d3.select(this).append("td").html("<a href='#info-1'>" + d.intersection_name + "</a>");
+
+            d3.select(this).append("td").html(d.atd_signal_id);
             
             d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.signal_status]);
             

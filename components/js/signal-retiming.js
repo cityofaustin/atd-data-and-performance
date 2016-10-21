@@ -59,7 +59,7 @@ var formatPctInt = d3.format("1.0%");
 
 var formatDate = d3.timeFormat("%x");
 
-var formatTime = d3.timeFormat("%I:%M %p");
+var formatTime = d3.timeFormat("%-I:%M %p");
 
 var formatSeconds = d3.timeFormat("%Mm %Ss");
 
