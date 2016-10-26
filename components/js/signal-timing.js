@@ -759,8 +759,6 @@ function updateTable(dataset){
             
             d3.select(this).append("td").html(formatDate(new Date(d.status_date)));
 
-            d3.select(this).append("td").html( "<i  class='fa fa-comment' data-trigger='hover' data-toggle='popover' data-placement='auto' data-content='The number of vehicle stops reduced, across all corridors, as a result of signal re-timing'></i>");
-
             //  handle some potentially null values
             if ( d.travel_time_change == null) {
 
@@ -783,6 +781,8 @@ function updateTable(dataset){
             d3.select(this).append("td").html(travel_time_change);
 
             d3.select(this).append("td").html(Math.round(stops_change));
+
+            d3.select(this).append("td").html( "<i  class='fa fa-comment' data-trigger='hover' data-toggle='popover' data-placement='auto' data-content='The number of vehicle stops reduced, across all corridors, as a result of signal re-timing'></i>");
 
         });
 
