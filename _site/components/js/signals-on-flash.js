@@ -43,7 +43,7 @@ var STATUS_TYPES_READABLE = {
 
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27%20AND%20response_message%20IS%20NULL&$order=timestamp+DESC&$limit=1'
 
-//  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?$where=%20signal_status=1%20OR%20signal_status=2"
+//  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?$where=%20operation_state=1%20OR%20operation_state=2"
 var data_url = '../components/data/intersection_status_snapshot_conflict.json';
 
 var default_map_size = 300;
@@ -265,7 +265,7 @@ function populateMap(map, dataset, createSideBar) {
             
             if(dataset[i].latitude > 0) {
 
-                var status = +dataset[i].signal_status;
+                var status = +dataset[i].operation_state;
 
                 var lat = dataset[i].latitude;
         
@@ -382,7 +382,7 @@ function populateTable(dataset) {
         .enter()
         .append("tr")
         .filter(function(d){
-            return d.signal_status > 0;
+            return d.operation_state > 0;
         })
         
 
@@ -398,7 +398,7 @@ function populateTable(dataset) {
 
             d3.select(this).append("td").html(d.atd_signal_id);
             
-            d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.signal_status]);
+            d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.operation_state]);
             
             d3.select(this).append("td").html( formatDateTime( new Date(d.status_datetime) ) );
 
