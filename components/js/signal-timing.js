@@ -715,6 +715,7 @@ function populateTable(dataset, next) {
         table = $('#data_table').DataTable( {
             paging: false,
             scrollX: true,
+            scrollY: false,
             bFilter: false,
             bInfo: false
         });
