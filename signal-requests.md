@@ -1,8 +1,8 @@
 ---
-layout: signal-pipeline
-title: Signal Pipeline - City of Austin Transportation Department
+layout: signal-requests
+title: Traffic and Pedestrian Signal Requests - City of Austin Transportation Department
 description: Austin Transportation Department operations dashboard depicting information related to the installation of traffic and pedestrian signals in Austin, TX.
-short-name: Signal Pipeline
+short-name: Traffic and Pedestrian Signal Requests
 custom_js:
 - google-analytics
 - d3.v4.min

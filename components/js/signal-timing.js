@@ -693,8 +693,19 @@ function populateTable(dataset, next) {
             d3.select(this).append("td").html(travel_time_change);
 
             d3.select(this).append("td").html(Math.round(+d.stops_change));
+            
+            if (d.engineer_note) {
 
-            d3.select(this).append("td").html( "<i  class='fa fa-comment' data-trigger='hover' data-toggle='popover' data-placement='left' data-content='Here are some interesting details about what we did here'></i>");
+                var engineer_note = d.engineer_note;
+
+                console.log(engineer_note);
+            
+                d3.select(this).append("td").html( "<i  class='fa fa-comment' data-trigger='hover' data-toggle='popover' data-placement='left' data-content='" + engineer_note + "' ></i>");
+            
+            } else {
+
+                d3.select(this).append("td").html( "");
+            }
 
         });
 
@@ -782,11 +793,22 @@ function updateTable(dataset){
 
             d3.select(this).append("td").html(Math.round(stops_change));
 
-            d3.select(this).append("td").html( "<i  class='fa fa-comment' data-trigger='hover' data-toggle='popover' data-placement='auto' data-content='The number of vehicle stops reduced, across all corridors, as a result of signal re-timing'></i>");
+            if (d.engineer_note) {
+
+                var engineer_note = d.engineer_note;
+            
+                d3.select(this).append("td").html( "<i  class='fa fa-comment' data-trigger='hover' data-toggle='popover' data-placement='left' data-content=" + engineer_note + "></i>");
+            
+            } else {
+
+                d3.select(this).append("td").html( "");
+            }
 
         });
 
     createTableListeners();
+
+    $('[data-toggle="popover"]').popover();
 
 }
 
