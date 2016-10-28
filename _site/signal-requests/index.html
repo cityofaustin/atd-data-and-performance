@@ -125,14 +125,37 @@
 
     <div class='wrapper'>
       <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <h2><i  class="fa fa-gears"></i> Signal Pipeline </h2>
+            </div>
+          </div>
 
           <div class="row">
-
-            <div class="col-md-3 about">
-              <h2>Signal Pipeline</h2>
+          
+            <div class="col-md-2">
+              <h4> Signal Type</h4>
+              <div id="selectors" class="btn-group" role="group" aria-label="...">
+                <button class="btn btn-lg active" type="button" value="Traffic">Traffic</button>
+                <button class="btn btn-lg active" type="button" value="Pedestrian">Pedestrian</button>
+              </div>
+            </div>
+            
+            <div class="col-md-3">
+              <h4> Funding Round </h4>                            
+              <div id="selectors" class="btn-group" role="group" aria-label="...">
+                <button class="btn btn-lg active" type="button" value="Traffic">2015</button>
+                <button class="btn btn-lg active" type="button" value="Pedestrian">2016</button>
+                <button class="btn btn-lg active" type="button" value="Pedestrian">2017</button>
+              </div>
             </div>
 
-            <div class="col-md-9 info" id="info-6"></div>
+            <div class="col-md-6">
+              <h4> Search By Street Name</h4>
+              <input style='width: 100%;'>
+            </div>
+
+            <div class="col-md-1"></div>
 
           </div>
 
@@ -151,19 +174,19 @@
             </div>
 
             <div class="col-md-3">
-              <h3> Signals Funded </h3>
+              <h3> Signals Built </h3>
             </div>
 
           </div>
 
           <!-- map -->
           <div class="row">
-            <div class="col-md-12 map" id=map name="map">
+            <div class="col-md-12 map" id=map>
+              <a name="map"></a>
               <div class="over_map" id="map-expander">
                 <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
               </div>
             </div>
-            
           </div>
       </div>
       
@@ -190,21 +213,21 @@
 
         <div class="row">
           <div class="col-md-12">
-            <h2>About Flashing Signals</h2>
+            <h2>About the Signal Requests Program</h2>
           </div>
         </div>
 
         <div class="row">
 
           <div class="col-md-6">
-            <h3>How do you know when a signal is flashing?</h3>
+            <h3>Selection criteria</h3>
             <p>
               Approximately 90% of the City’s signals communicate with our Advanced Trasnportation Management System.  When these signals go on flash, they will be reported on this dashboard.  Although we are extending communications to all signals, approximately 10% are not currently reported on this dashboard.  It also occasionally happens that the event that disables a traffic signal also disables network communication to the signal, in which case the signal outage will not be reported here.
             </p>
           </div>
 
           <div class="col-md-6">
-              <h3>How can I report an issue with a traffic signal?</h3>
+              <h3>Submit a request</h3>
             <p>
               To report an issue or request a new traffic signal, call 3-1-1. You can also <a href='https://austin-csrprodcwi.motorolasolutions.com/ServiceRequest.mvc/SRIntakeStep2/TRASIGNE?guid=59340171d27247fa93fe951cdaf37dcc'>submit a traffic signal service request online.</a>
             </p>
