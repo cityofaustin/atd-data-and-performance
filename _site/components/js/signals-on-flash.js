@@ -280,7 +280,6 @@ function populateMap(map, dataset, createSideBar) {
 
                 var duration = formatDuration(dataset[i].status_datetime);
                 
-                console.log(status);
                 var marker = L.marker([lat,lon], {
                         icon:  marker_icons['$' + status]
                     });
@@ -408,6 +407,18 @@ function populateTable(dataset) {
         });
 
     createTableListeners();
+
+
+    default_map_size = document.getElementById('data-row').clientHeight;
+    
+    console.log(document.getElementById('data-row').clientHeight);
+    
+    d3.select("#map")
+        .transition(t2)
+        .style("height", default_map_size + "px");
+
+    setTimeout(function(){ map.invalidateSize()}, 600);
+
 
 } //  end populateTable
 
