@@ -4,36 +4,42 @@
   {% include head.html %}
 
   <body>
+    
+    {% include coa-header.html %}
+    
+    {% include data-tracker-nav.html %}
 
-  	{% include dash-top-nav.html %}
-        
+    <div class='wrapper'>
+      <div class="container-fluid">
         <div class="container-fluid fullscreen">
           <script type="text/javascript">app_id="5815f29f7f7252cc2ca91c4f";distribution_key="dist_2";</script>
           <script type="text/javascript" src="https://loader.knack.com/5815f29f7f7252cc2ca91c4f/dist_2/knack.js"></script>
           <div id="knack-dist_2">Loading...</div>
         </div>
-
-        {% include footer.html %}
-
-
-<!--             <div style="float:right;" class="col-md-3" id="update_date">
-                <h5>Last Updated 25 May 2016 8:45AM</h5>
-            </div> -->
-            
-
+      </div> 
+    </div>
+      
+    {% include footer.html %}
  
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{site.baseurl}}/components/js/jquery.min.js"></script>
     <script src="{{site.baseurl}}/components/js/bootstrap.js"></script>
+    <script src="{{site.baseurl}}/components/js/jquery.dataTables.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{site.baseurl}}/components/js/ie10-viewport-bug-workaround.js"></script>
-  
+    <script src="{{site.baseurl}}/components/js/js-cookie.js"></script>
+    
+    {% if page.custom_js %}
+    
+      {% for js_file in page.custom_js %}
+    
+        <script src='{{ site.baseurl }}/components/js/{{ js_file }}.js' type="text/javascript"></script>
+    
+      {% endfor %}
+    
+    {% endif %}
+
   </body>
 </html>
-
-
-
-
- 

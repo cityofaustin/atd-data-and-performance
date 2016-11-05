@@ -9,11 +9,11 @@
     <meta name="author" content="City of Austin Transportation Department">
     <link rel="icon" href="/components/images/favicon.ico">
     
-    <meta name="title" content="Traffic Signal Map - City of Austin Transportation Department">
+    <meta name="title" content="Arterial Management Data Tracker">
     <meta name="description" content="">
 
 
-    <title>Traffic Signal Map - City of Austin Transportation Department</title>
+    <title>Arterial Management Data Tracker</title>
 
     <!-- Bootstrap core CSS with min removed by hailey -->
     <link href="/components/css/bootstrap.css" rel="stylesheet"> 
@@ -35,73 +35,52 @@
 
 
   <body>
-
-  	<nav class="navbar navbar-default">
+    
+    <div class="container-fluid coa-header">    
+    <row>
+        <div class="col-sm-12">
+            <h6>An official website of the City of Austin</h6>
+        </div>
+    </row>
+</div>
+    
+    <nav class="navbar navbar-default">
   <div class="container-fluid opi">
     <row>
       <div class="col-sm-6">
-        <h2> Traffic Signal Map</h2>
+        <h2> Data Tracker</h2>
         <p>City of Austin Transportation Department</p>
       </div>
       <div class="col-sm-6"></div>
     </row>
+
     <row>
       <div class="col-sm-12 nav">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header navbar-right">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
-          <ul class="nav navbar-nav nav-tabs navbar-right">  
+          <ul class="nav navbar-nav nav-tabs navbar-right">
 
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signal Operations<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/signals-on-flash">Signals on Flash</a></li>
-                <li><a href="/signal-timing">Signal Timing</a></li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Maps<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="http://austin.maps.arcgis.com/apps/webappviewer/index.html?id=b4d546f2b83244a79a092b1844064714">Signal Map <i class="fa fa-external-link"></i></a></li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Open Data<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="https://data.austintexas.gov/browse?tags=transportation&sortBy=last_modified&utf8=%E2%9C%93">Open Transportation Data <i class="fa fa-external-link"></i></a></li>
-                <li><a href="http://github.com/cityofaustin/transportation">Austin Transportation GitHub <i class="fa fa-external-link"></i></a></li>
-              </ul>
-            </li>
-
-            <li role="presentation"><a href="/">Home</a></li>
+            <li role="presentation"><a href="/"><i  class="fa fa-home"></i></a></li>
 
           </ul>
         </div><!-- /.navbar-collapse -->
-
       </div>
-  </row>
+    </row>
 
 </nav>
 
-        
+
+    <div class='wrapper'>
+      <div class="container-fluid">
         <div class="container-fluid fullscreen">
           <script type="text/javascript">app_id="5815f29f7f7252cc2ca91c4f";distribution_key="dist_2";</script>
           <script type="text/javascript" src="https://loader.knack.com/5815f29f7f7252cc2ca91c4f/dist_2/knack.js"></script>
           <div id="knack-dist_2">Loading...</div>
         </div>
-
-        
+      </div> 
+    </div>
+      
+    
 <footer class="footer">
     <div class="container" >
         <div class = "row">
@@ -148,26 +127,26 @@
         </div>
     </div>
 </footer>
-
-
-<!--             <div style="float:right;" class="col-md-3" id="update_date">
-                <h5>Last Updated 25 May 2016 8:45AM</h5>
-            </div> -->
-            
-
  
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/components/js/jquery.min.js"></script>
     <script src="/components/js/bootstrap.js"></script>
+    <script src="/components/js/jquery.dataTables.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/components/js/ie10-viewport-bug-workaround.js"></script>
-  
+    <script src="/components/js/js-cookie.js"></script>
+    
+    
+    
+      
+    
+        <script src='/components/js/d3.v4.min.js' type="text/javascript"></script>
+    
+      
+    
+    
+
   </body>
 </html>
-
-
-
-
- 

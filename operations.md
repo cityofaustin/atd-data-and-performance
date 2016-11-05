@@ -8,7 +8,7 @@ custom_js:
 - d3.v4.min
 - leaflet
 - leaflet.extra-markers.min
-- signal-pipeline
+- operations-overview
 custom_css:
 - leaflet
 - leaflet.extra-markers.min
