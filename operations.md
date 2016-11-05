@@ -1,8 +1,8 @@
 ---
-layout: signal-requests
+layout: operations
 title: Traffic and Pedestrian Signal Requests - City of Austin Transportation Department
-description: Austin Transportation Department operations dashboard depicting information related to the intake and evlalutation of traffic and pedestrian signal requests in Austin, TX.
-short-name: Traffic and Pedestrian Signal Requests
+description: Austin Transportation Department operations dashboard depicting information related to the installation of traffic and pedestrian signals in Austin, TX.
+short-name: Operations Overview
 custom_js:
 - google-analytics
 - d3.v4.min
