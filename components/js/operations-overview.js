@@ -1,5 +1,3 @@
-
-
 var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json';
 
 //  var SYSTEM_RETIMING_URL = '../components/data/fake_retiming_data.json';
@@ -42,7 +40,6 @@ var FORMAT_TYPES = {
     "travel_time_reduction" : formatPct,
     "stops_reduction" : Math.round
 };
-
 
 var t1_duration = 1200;
 
@@ -311,7 +308,7 @@ function getLogData(url) {
 
 function updateProgressChart(divId, transition){
 
-    var goal = ANNUAL_GOALS[selected_year]["retime_goal"];
+    var goal = 200;
 
     if ( GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]) {
 

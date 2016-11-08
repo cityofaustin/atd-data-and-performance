@@ -15,7 +15,7 @@ var ANNUAL_GOALS = {
     "2016" : {
         retime_goal: 200,
         travel_time_reduction: .05,
-        stops_reduction: 3,
+        stops_reduction: .10,  //   ??
     },
 
     "2015" : {
@@ -26,9 +26,10 @@ var ANNUAL_GOALS = {
 
 };
 
-var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json';
 
-//  var SYSTEM_RETIMING_URL = '../components/data/fake_retiming_data.json';
+// var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json';
+
+var SYSTEM_RETIMING_URL = '../components/data/fake_retiming_data_2.json';
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json';
 
@@ -66,7 +67,7 @@ var formatSeconds = d3.timeFormat("%Mm %Ss");
 var FORMAT_TYPES = {
     "retiming_progress" : formatPctInt,
     "travel_time_reduction" : formatPct,
-    "stops_reduction" : Math.round
+    "stops_reduction" : formatPct
 };
 
 var STATUS_TYPES_READABLE = {
@@ -240,11 +241,15 @@ function groupData(dataset, updateCharts) {
             .rollup(function (v) {
                 return {
                     travel_time_change : d3.sum(v, function(d) {
-                        return +d.travel_time_change;
+                        return d.weighted_avg_tt_total;
+                    }) / d3.sum(v, function(d) {
+                        return d.total_vol;
                     }),
 
                     stops_change : d3.sum(v, function(d) {
-                        return d.stops_change;
+                        return d.weighted_avg_stops_total;
+                    }) / d3.sum(v, function(d) {
+                        return d.total_vol;
                     }),
 
                     signals_retimed : d3.sum(v, function(d) {
@@ -267,9 +272,9 @@ function groupData(dataset, updateCharts) {
 
         for (var q in GROUPED_RETIMING_DATA[i]) {
             
-            GROUPED_RETIMING_DATA[i][q]['travel_time_reduction'] = -1 * (+GROUPED_RETIMING_DATA[i][q]['travel_time_change'] / GROUPED_RETIMING_DATA[i][q]['travel_time_before']);
+            GROUPED_RETIMING_DATA[i][q]['travel_time_reduction'] = +GROUPED_RETIMING_DATA[i][q]['travel_time_change'];
 
-            GROUPED_RETIMING_DATA[i][q]['stops_reduction'] = -1 * (+GROUPED_RETIMING_DATA[i][q]['stops_change'] / GROUPED_RETIMING_DATA[i][q]['stops_before']);
+            GROUPED_RETIMING_DATA[i][q]['stops_reduction'] = +GROUPED_RETIMING_DATA[i][q]['stops_change'];
 
         }
         
@@ -680,7 +685,22 @@ function populateTable(dataset, next) {
                 })
                 .attr("class", "tableRow");
 
-            var travel_time_change = formatTravelTime(+d.travel_time_change)
+            //  var travel_time_change = formatTravelTime(+d.travel_time_change)
+            var travel_time_change = FORMAT_TYPES["travel_time_reduction"](-1 * +d.vol_weighted_avg_tt_pct_change);
+            
+            var stops_change = FORMAT_TYPES["stops_reduction"](-1 * +d.vol_weight_avg_stops_pct_change);
+
+            console.log(travel_time_change);
+
+            if ( +d.vol_weighted_avg_tt_pct_change < 0) {
+
+                travel_time_change = "+" + travel_time_change;
+            }
+
+
+            if (+d.vol_weight_avg_stops_pct_change < 0) {
+                stops_change = "+" + stops_change;
+            }
 
             d3.select(this).append("td").html("<a href='#info-3'>" + d.system_name + "</a>");                            
             
@@ -692,13 +712,11 @@ function populateTable(dataset, next) {
             
             d3.select(this).append("td").html(travel_time_change);
 
-            d3.select(this).append("td").html(Math.round(+d.stops_change));
+            d3.select(this).append("td").html(stops_change);
             
             if (d.engineer_note) {
 
                 var engineer_note = d.engineer_note;
-
-                console.log(engineer_note);
             
                 d3.select(this).append("td").html( "<i  class='fa fa-comment' data-trigger='hover' data-toggle='popover' data-placement='left' data-content='" + engineer_note + "' ></i>");
             
@@ -772,27 +790,39 @@ function updateTable(dataset){
             d3.select(this).append("td").html(formatDate(new Date(d.status_date)));
 
             //  handle some potentially null values
-            if ( d.travel_time_change == null) {
+            if ( d.vol_weighted_avg_tt_pct_change == null) {
 
                 var travel_time_change = 0;
 
             } else {
 
-                var travel_time_change = formatTravelTime(+d.travel_time_change);
-            }
+                var travel_time_change = FORMAT_TYPES["travel_time_reduction"](-1 * +d.vol_weighted_avg_tt_pct_change);
 
-            if ( d.stops_change == null) {
+                if ( +d.vol_weighted_avg_tt_pct_change < 0) {
+
+                    travel_time_change = "+" + travel_time_change;
+                }
+             }
+
+            if (d.vol_weight_avg_stops_pct_change == null) {
 
                 var stops_change = 0;
 
             } else {
 
-                var stops_change = +d.stops_change;
+                var stops_change = FORMAT_TYPES["stops_reduction"](-1 * +d.vol_weight_avg_stops_pct_change);
+
+               if (+d.vol_weight_avg_stops_pct_change < 0) {
+                    
+                    stops_change = "+" + stops_change;
+
+                }
+
             }
 
             d3.select(this).append("td").html(travel_time_change);
 
-            d3.select(this).append("td").html(Math.round(stops_change));
+            d3.select(this).append("td").html(stops_change);
 
             if (d.engineer_note) {
 
