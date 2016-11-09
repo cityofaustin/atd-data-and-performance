@@ -152,13 +152,6 @@ function main(data){
 
         populateTable(data);    
 
-    } else {
-
-        d3.select('.table').remove();
-
-        d3.select('#map').classed("col-md-6", false).classed("colo-md-12", true);
-
-
     }
 
 };
@@ -412,7 +405,7 @@ function populateTable(dataset) {
     createTableListeners();
 
 
-    default_map_size = document.getElementById('data-row').clientHeight;
+    default_map_size = document.getElementById('data-row').clientHeight + 25;
     
     d3.select("#map")
         .transition(t2)
