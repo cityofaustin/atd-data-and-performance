@@ -1,4 +1,4 @@
-var table, john;
+var table;
 
 var map;
 
@@ -43,8 +43,8 @@ var STATUS_TYPES_READABLE = {
 
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27%20AND%20response_message%20IS%20NULL&$order=timestamp+DESC&$limit=1'
 
-//  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?$where=%20operation_state=1%20OR%20operation_state=2"
-var data_url = '../components/data/intersection_status_snapshot_conflict.json';
+var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?"
+//  var data_url = '../components/data/intersection_status_snapshot_conflict.json';
 
 var default_map_size = 300;
 
@@ -155,6 +155,9 @@ function main(data){
     } else {
 
         d3.select('.table').remove();
+
+        d3.select('#map').classed("col-md-6", false).classed("colo-md-12", true);
+
 
     }
 
@@ -272,13 +275,13 @@ function populateMap(map, dataset, createSideBar) {
         
                 var lon = dataset[i].longitude;
 
-                var address = dataset[i].intersection_name;
+                var address = dataset[i].location_name;
 
-                var status_time = formatDateTime( new Date(dataset[i].status_datetime) );
+                var status_time = formatDateTime( new Date(dataset[i].operation_state_datetime) );
 
                 var atd_signal_id = dataset[i].atd_signal_id;
 
-                var duration = formatDuration(dataset[i].status_datetime);
+                var duration = formatDuration(dataset[i].operation_state_datetime);
                 
                 var marker = L.marker([lat,lon], {
                         icon:  marker_icons['$' + status]
@@ -394,15 +397,15 @@ function populateTable(dataset) {
                 })
                 .attr("class", "tableRow");
             
-            d3.select(this).append("td").html("<a href='#info-1'>" + d.intersection_name + "</a>");
+            d3.select(this).append("td").html("<a href='#info-1'>" + d.location_name + "</a>");
 
             d3.select(this).append("td").html(d.atd_signal_id);
             
             d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.operation_state]);
             
-            d3.select(this).append("td").html( formatDateTime( new Date(d.status_datetime) ) );
+            d3.select(this).append("td").html( formatDateTime( new Date(d.operation_state_datetime) ) );
 
-            d3.select(this).append("td").html( formatDuration(d.status_datetime) );
+            d3.select(this).append("td").html( formatDuration(d.operation_state_datetime) );
     
         });
 
@@ -410,8 +413,6 @@ function populateTable(dataset) {
 
 
     default_map_size = document.getElementById('data-row').clientHeight;
-    
-    console.log(document.getElementById('data-row').clientHeight);
     
     d3.select("#map")
         .transition(t2)
