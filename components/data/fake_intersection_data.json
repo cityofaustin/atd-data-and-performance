@@ -1,2759 +1,613 @@
 [ {
-  "atd_signal_id" : "356.000000",
-  "intersection_name" : "E 6TH ST / COMAL ST",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.2630692",
-  "isolated" : "True",
-  "id" : "216",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7265396"
-}
-, {
-  "atd_signal_id" : "357.000000",
-  "intersection_name" : "CHICON ST / E 6TH ST",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.261694",
-  "isolated" : "True",
-  "id" : "217",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7225113"
-}
-, {
-  "atd_signal_id" : "112.000000",
-  "intersection_name" : "W 38TH ST / BULL CREEK RD",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.309185",
-  "isolated" : "True",
-  "id" : "215",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7506638"
-}
-, {
-  "atd_signal_id" : "29.000000",
-  "intersection_name" : "DENSON DR / GUADALUPE ST",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3288956",
-  "isolated" : "True",
-  "id" : "218",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7204285"
-}
-, {
-  "atd_signal_id" : "936.000000",
-  "intersection_name" : "E 51ST ST / BRUNING AVE",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.314209",
-  "isolated" : "True",
-  "id" : "219",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7199249"
-}
-, {
-  "atd_signal_id" : "706.000000",
-  "intersection_name" : "W US 290 HWY / W WILLIAM CANNON DR",
-  "system_id" : "72",
-  "system_status" : "ACTIVE",
-  "system_name" : "79",
-  "latitude" : "30.2340565",
-  "isolated" : "False",
-  "id" : "407",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.86483"
-}
-, {
-  "atd_signal_id" : "40.000000",
-  "intersection_name" : "GUADALUPE ST / W 24TH ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.2877197",
-  "isolated" : "False",
-  "id" : "344",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7415466"
-}
-, {
-  "atd_signal_id" : "158.000000",
-  "intersection_name" : "AIRPORT BLVD / GOODWIN AVE",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2681007",
-  "isolated" : "False",
-  "id" : "288",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6962738"
-}
-, {
-  "atd_signal_id" : "38.000000",
-  "intersection_name" : "GUADALUPE ST / W 22ND ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.2849979",
-  "isolated" : "False",
-  "id" : "346",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7418137"
-}
-, {
-  "atd_signal_id" : "37.000000",
-  "intersection_name" : "GUADALUPE ST / W 21ST ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.2837963",
-  "isolated" : "False",
-  "id" : "347",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7419052"
-}
-, {
-  "atd_signal_id" : "44.000000",
-  "intersection_name" : "GUADALUPE ST / W 29TH ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.2954292",
-  "isolated" : "False",
-  "id" : "340",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7428131"
-}
-, {
-  "atd_signal_id" : "43.000000",
-  "intersection_name" : "GUADALUPE ST / W 27TH ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.2919846",
-  "isolated" : "False",
-  "id" : "341",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7411499"
-}
-, {
-  "atd_signal_id" : "42.000000",
-  "intersection_name" : "GUADALUPE ST / W 26TH ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.2904701",
-  "isolated" : "False",
-  "id" : "342",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7412796"
-}
-, {
-  "atd_signal_id" : "41.000000",
-  "intersection_name" : "W DEAN KEETON ST / GUADALUPE ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.289814",
-  "isolated" : "False",
-  "id" : "343",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7413559"
-}
-, {
-  "atd_signal_id" : "559.000000",
-  "intersection_name" : "AIRPORT BLVD / WILSHIRE BLVD",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2978573",
-  "isolated" : "False",
-  "id" : "281",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7088776"
-}
-, {
-  "atd_signal_id" : "167.000000",
-  "intersection_name" : "AIRPORT BLVD / N IH 35 SVRD NB",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3013058",
-  "isolated" : "False",
-  "id" : "280",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7145767"
-}
-, {
-  "atd_signal_id" : "166.000000",
-  "intersection_name" : "AIRPORT BLVD / E 38TH HALF ST",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2891846",
-  "isolated" : "False",
-  "id" : "283",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7072449"
-}
-, {
-  "atd_signal_id" : "979.000000",
-  "intersection_name" : "AIRPORT BLVD / ZACH SCOTT ST",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2941189",
-  "isolated" : "False",
-  "id" : "282",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7078781"
-}
-, {
-  "atd_signal_id" : "164.000000",
-  "intersection_name" : "AIRPORT BLVD / E MARTIN LUTHER KING JR BLVD",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2825718",
-  "isolated" : "False",
-  "id" : "285",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.703949"
-}
-, {
-  "atd_signal_id" : "165.000000",
-  "intersection_name" : "AIRPORT BLVD / MANOR RD",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.286293",
-  "isolated" : "False",
-  "id" : "284",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7063599"
-}
-, {
-  "atd_signal_id" : "589.000000",
-  "intersection_name" : "W WELLS BRANCH PKWY / SUMMIT DR",
-  "system_id" : "73",
-  "system_status" : "ACTIVE",
-  "system_name" : "80",
-  "latitude" : "30.4414845",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "409",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6920853"
-}
-, {
-  "atd_signal_id" : "163.000000",
-  "intersection_name" : "AIRPORT BLVD / E 12TH ST",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2768612",
-  "isolated" : "False",
-  "id" : "286",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7003326"
-}
-, {
-  "atd_signal_id" : "71.000000",
-  "intersection_name" : "RED RIVER ST / CLYDE LITTLEFIELD DR",
-  "system_id" : "53",
-  "system_status" : "ACTIVE",
-  "system_name" : "58",
-  "latitude" : "30.2832279",
-  "isolated" : "False",
-  "id" : "369",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7279663"
-}
-, {
-  "atd_signal_id" : "351.000000",
-  "intersection_name" : "E 7TH ST / COMAL ST",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.2639542",
-  "isolated" : "False",
-  "id" : "263",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7261353"
-}
-, {
-  "atd_signal_id" : "350.000000",
-  "intersection_name" : "E 7TH ST / ATTAYAC ST",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.2650185",
-  "isolated" : "False",
-  "id" : "262",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7290802"
-}
-, {
-  "atd_signal_id" : "345.000000",
-  "intersection_name" : "E 7TH ST / N IH 35 SVRD NB",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.266571",
-  "isolated" : "False",
-  "id" : "261",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7338562"
-}
-, {
-  "atd_signal_id" : "335.000000",
-  "intersection_name" : "E 7TH ST / N IH 35 SVRD SB",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.2668209",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "260",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7346649"
-}
-, {
-  "atd_signal_id" : "355.000000",
-  "intersection_name" : "E 7TH ST / N PLEASANT VALLEY RD",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.2601261",
-  "isolated" : "False",
-  "id" : "267",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7094955"
-}
-, {
-  "atd_signal_id" : "354.000000",
-  "intersection_name" : "E 7TH ST / PEDERNALES ST",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.2609138",
-  "isolated" : "False",
-  "id" : "266",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7137146"
-}
-, {
-  "atd_signal_id" : "353.000000",
-  "intersection_name" : "E 7TH ST / PROSPECT AVE",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.2614746",
-  "isolated" : "False",
-  "id" : "265",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7174606"
-}
-, {
-  "atd_signal_id" : "352.000000",
-  "intersection_name" : "E 7TH ST / CHICON ST",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.2625771",
-  "isolated" : "False",
-  "id" : "264",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7221146"
-}
-, {
-  "atd_signal_id" : "368.000000",
-  "intersection_name" : "E 7TH ST / SHADY LN",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.2533531",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "269",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6975708"
-}
-, {
-  "atd_signal_id" : "367.000000",
-  "intersection_name" : "E 7TH ST / SPRINGDALE RD",
-  "system_id" : "11",
-  "system_status" : "ACTIVE",
-  "system_name" : "11",
-  "latitude" : "30.2560368",
-  "isolated" : "False",
-  "id" : "268",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7016754"
-}
-, {
-  "atd_signal_id" : "995.000000",
-  "intersection_name" : "W WILLIAM CANNON DR / S MOPAC EXPY SVRD NB",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.2196655",
-  "isolated" : "False",
-  "id" : "423",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8362503"
-}
-, {
-  "atd_signal_id" : "946.000000",
-  "intersection_name" : "W WILLIAM CANNON DR / S MOPAC EXPY SVRD SB",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.220665",
-  "isolated" : "False",
-  "id" : "422",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8369675"
-}
-, {
-  "atd_signal_id" : "418.000000",
-  "intersection_name" : "WEST GATE BLVD / W WILLIAM CANNON DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.207201",
-  "isolated" : "False",
-  "id" : "425",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8153915"
-}
-, {
-  "atd_signal_id" : "419.000000",
-  "intersection_name" : "BRODIE LN / W WILLIAM CANNON DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.2137775",
-  "isolated" : "False",
-  "id" : "424",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8303833"
-}
-, {
-  "atd_signal_id" : "797.000000",
-  "intersection_name" : "W WELLS BRANCH PKWY / N IH 35 SVRD SB",
-  "system_id" : "73",
-  "system_status" : "ACTIVE",
-  "system_name" : "80",
-  "latitude" : "30.4402599",
-  "isolated" : "False",
-  "id" : "414",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6693268"
-}
-, {
-  "atd_signal_id" : "796.000000",
-  "intersection_name" : "W WELLS BRANCH PKWY / N IH 35 SVRD NB",
-  "system_id" : "73",
-  "system_status" : "ACTIVE",
-  "system_name" : "80",
-  "latitude" : "30.440731",
-  "isolated" : "False",
-  "id" : "415",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6677628"
-}
-, {
-  "atd_signal_id" : "798.000000",
-  "intersection_name" : "FM 1825 RD / W WELLS BRANCH PKWY",
-  "system_id" : "73",
-  "system_status" : "ACTIVE",
-  "system_name" : "80",
-  "latitude" : "30.4411678",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "416",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6661758"
-}
-, {
-  "atd_signal_id" : "706.000000",
-  "intersection_name" : "W US 290 HWY / W WILLIAM CANNON DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.2340565",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "417",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.86483"
-}
-, {
-  "atd_signal_id" : "522.000000",
-  "intersection_name" : "W WELLS BRANCH PKWY / SURRENDER AVE",
-  "system_id" : "73",
-  "system_status" : "ACTIVE",
-  "system_name" : "80",
-  "latitude" : "30.4359627",
-  "isolated" : "False",
-  "id" : "410",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6829147"
-}
-, {
-  "atd_signal_id" : "437.000000",
-  "intersection_name" : "THERMAL DR / W WELLS BRANCH PKWY",
-  "system_id" : "73",
-  "system_status" : "ACTIVE",
-  "system_name" : "80",
-  "latitude" : "30.4349728",
-  "isolated" : "False",
-  "id" : "411",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6771927"
-}
-, {
-  "atd_signal_id" : "438.000000",
-  "intersection_name" : "W WELLS BRANCH PKWY / WELLS PORT DR",
-  "system_id" : "73",
-  "system_status" : "ACTIVE",
-  "system_name" : "80",
-  "latitude" : "30.4359074",
-  "isolated" : "False",
-  "id" : "412",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6749344"
-}
-, {
-  "atd_signal_id" : "133.000000",
-  "intersection_name" : "W RIVERSIDE DR / BARTON SPRINGS RD",
-  "system_id" : "16",
-  "system_status" : "ACTIVE",
-  "system_name" : "17",
-  "latitude" : "30.2586384",
-  "isolated" : "False",
-  "id" : "299",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7484283"
-}
-, {
-  "atd_signal_id" : "234.000000",
-  "intersection_name" : "BARTON SPRINGS RD / DAWSON RD",
-  "system_id" : "16",
-  "system_status" : "ACTIVE",
-  "system_name" : "17",
-  "latitude" : "30.2603436",
-  "isolated" : "False",
-  "id" : "296",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7557068"
-}
-, {
-  "atd_signal_id" : "28.000000",
-  "intersection_name" : "E MARTIN LUTHER KING JR BLVD / RED RIVER ST",
-  "system_id" : "53",
-  "system_status" : "ACTIVE",
-  "system_name" : "58",
-  "latitude" : "30.2789745",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "370",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.732193"
-}
-, {
-  "atd_signal_id" : "129.000000",
-  "intersection_name" : "BARTON SPRINGS RD / KINNEY AVE",
-  "system_id" : "16",
-  "system_status" : "ACTIVE",
-  "system_name" : "17",
-  "latitude" : "30.261982",
-  "isolated" : "False",
-  "id" : "294",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.761467"
-}
-, {
-  "atd_signal_id" : "121.000000",
-  "intersection_name" : "S LAMAR BLVD NB / BARTON SPRINGS RD",
-  "system_id" : "16",
-  "system_status" : "ACTIVE",
-  "system_name" : "17",
-  "latitude" : "30.2608624",
-  "isolated" : "False",
-  "id" : "295",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.758522"
-}
-, {
-  "atd_signal_id" : "174.000000",
-  "intersection_name" : "AIRPORT BLVD / LEVANDER LOOP",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2537231",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "292",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.692543"
-}
-, {
-  "atd_signal_id" : "433.000000",
-  "intersection_name" : "W WILLIAM CANNON DR / BECKETT RD",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.2249718",
-  "isolated" : "False",
-  "id" : "419",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8549728"
-}
-, {
-  "atd_signal_id" : "159.000000",
-  "intersection_name" : "AIRPORT BLVD / BOLM RD",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2600937",
-  "isolated" : "False",
-  "id" : "290",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6938629"
-}
-, {
-  "atd_signal_id" : "157.000000",
-  "intersection_name" : "AIRPORT BLVD / SHADY LN",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2593136",
-  "isolated" : "False",
-  "id" : "291",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6936188"
-}
-, {
-  "atd_signal_id" : "260.000000",
-  "intersection_name" : "DESSAU RD / E BRAKER LN",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.3772907",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "319",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6586609"
-}
-, {
-  "atd_signal_id" : "516.000000",
-  "intersection_name" : "E BRAKER LN / TOM ADAMS DR",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3737679",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "318",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.669014"
-}
-, {
-  "atd_signal_id" : "469.000000",
-  "intersection_name" : "W BRAKER LN / N LAMAR BLVD",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3819351",
-  "isolated" : "False",
-  "id" : "313",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6863708"
-}
-, {
-  "atd_signal_id" : "514.000000",
-  "intersection_name" : "W BRAKER LN / PARKFIELD DR",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3861217",
-  "isolated" : "False",
-  "id" : "312",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6957474"
-}
-, {
-  "atd_signal_id" : "456.000000",
-  "intersection_name" : "W BRAKER LN / METRIC BLVD",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3923416",
-  "isolated" : "False",
-  "id" : "311",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7082825"
-}
-, {
-  "atd_signal_id" : "459.000000",
-  "intersection_name" : "W BRAKER LN / KRAMER LN",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3908577",
-  "isolated" : "False",
-  "id" : "310",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7140121"
-}
-, {
-  "atd_signal_id" : "816.000000",
-  "intersection_name" : "E BRAKER LN / BLUFF BEND DR",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3754253",
-  "isolated" : "False",
-  "id" : "317",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6725311"
-}
-, {
-  "atd_signal_id" : "467.000000",
-  "intersection_name" : "E BRAKER LN / N IH 35 SVRD NB",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3769493",
-  "isolated" : "False",
-  "id" : "316",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6755829"
-}
-, {
-  "atd_signal_id" : "468.000000",
-  "intersection_name" : "E BRAKER LN / N IH 35 SVRD SB",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3771248",
-  "isolated" : "False",
-  "id" : "315",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6764832"
-}
-, {
-  "atd_signal_id" : "515.000000",
-  "intersection_name" : "W BRAKER LN / HORNSBY ST",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3802395",
-  "isolated" : "False",
-  "id" : "314",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6834335"
-}
-, {
-  "atd_signal_id" : "9.000000",
-  "intersection_name" : "AIRPORT BLVD / N LAMAR BLVD",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3376293",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "270",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7188721"
-}
-, {
-  "atd_signal_id" : "14.000000",
-  "intersection_name" : "AIRPORT BLVD / GUADALUPE ST",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3339596",
-  "isolated" : "False",
-  "id" : "271",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7169266"
-}
-, {
-  "atd_signal_id" : "603.000000",
-  "intersection_name" : "LAKE CREEK PKWY / N US 183 HWY SVRD NB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4614143",
-  "isolated" : "False",
-  "id" : "391",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7935562"
-}
-, {
-  "atd_signal_id" : "17.000000",
-  "intersection_name" : "AIRPORT BLVD / DENSON DR",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3270321",
-  "isolated" : "False",
-  "id" : "273",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7160797"
-}
-, {
-  "atd_signal_id" : "173.000000",
-  "intersection_name" : "AIRPORT BLVD / E KOENIG LN SVRD WB",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3209457",
-  "isolated" : "False",
-  "id" : "274",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7129517"
-}
-, {
-  "atd_signal_id" : "172.000000",
-  "intersection_name" : "AIRPORT BLVD / E KOENIG LN SVRD EB",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.31991",
-  "isolated" : "False",
-  "id" : "275",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7125473"
-}
-, {
-  "atd_signal_id" : "171.000000",
-  "intersection_name" : "AIRPORT BLVD / E 53RD HALF ST",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3150253",
-  "isolated" : "False",
-  "id" : "276",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7146301"
-}
-, {
-  "atd_signal_id" : "170.000000",
-  "intersection_name" : "AIRPORT BLVD / E 51ST ST",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3120689",
-  "isolated" : "False",
-  "id" : "277",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7153397"
-}
-, {
-  "atd_signal_id" : "169.000000",
-  "intersection_name" : "AIRPORT BLVD / E 45TH ST",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3036251",
-  "isolated" : "False",
-  "id" : "278",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7159805"
-}
-, {
-  "atd_signal_id" : "168.000000",
-  "intersection_name" : "AIRPORT BLVD / N IH 35 SVRD SB",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3026237",
-  "isolated" : "False",
-  "id" : "279",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7157364"
-}
-, {
-  "atd_signal_id" : "690.000000",
-  "intersection_name" : "LAKELINE MALL DR / N US 183 HWY SVRD SB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4728546",
-  "isolated" : "False",
-  "id" : "399",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7991867"
-}
-, {
-  "atd_signal_id" : "898.000000",
-  "intersection_name" : "N FM 620 RD NB / N US 183 HWY SVRD NB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4683056",
-  "isolated" : "False",
-  "id" : "398",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7963333"
-}
-, {
-  "atd_signal_id" : "145.000000",
-  "intersection_name" : "W OLTORF ST / S 1ST ST",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.2421112",
-  "isolated" : "False",
-  "id" : "379",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7596207"
-}
-, {
-  "atd_signal_id" : "156.000000",
-  "intersection_name" : "S 1ST ST / CUMBERLAND RD",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.238203",
-  "isolated" : "False",
-  "id" : "378",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7621002"
-}
-, {
-  "atd_signal_id" : "452.000000",
-  "intersection_name" : "W WILLIAM CANNON DR / COOPER LN",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1985073",
-  "isolated" : "False",
-  "id" : "429",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7911224"
-}
-, {
-  "atd_signal_id" : "397.000000",
-  "intersection_name" : "W WILLIAM CANNON DR / EMERALD FOREST DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1992588",
-  "isolated" : "False",
-  "id" : "428",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7936096"
-}
-, {
-  "atd_signal_id" : "70.000000",
-  "intersection_name" : "E DEAN KEETON ST / RED RIVER ST",
-  "system_id" : "53",
-  "system_status" : "ACTIVE",
-  "system_name" : "58",
-  "latitude" : "30.2871666",
-  "isolated" : "False",
-  "id" : "368",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7267456"
-}
-, {
-  "atd_signal_id" : "534.000000",
-  "intersection_name" : "BURLESON RD / MONTOPOLIS DR",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.2055626",
-  "isolated" : "False",
-  "id" : "442",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7165909"
-}
-, {
-  "atd_signal_id" : "68.000000",
-  "intersection_name" : "RED RIVER ST / E 38TH HALF ST",
-  "system_id" : "53",
-  "system_status" : "ACTIVE",
-  "system_name" : "58",
-  "latitude" : "30.2965431",
-  "isolated" : "False",
-  "id" : "366",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7231445"
-}
-, {
-  "atd_signal_id" : "67.000000",
-  "intersection_name" : "RED RIVER ST / E 32ND ST",
-  "system_id" : "53",
-  "system_status" : "ACTIVE",
-  "system_name" : "58",
-  "latitude" : "30.2910519",
-  "isolated" : "False",
-  "id" : "367",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.72715"
-}
-, {
-  "atd_signal_id" : "341.000000",
-  "intersection_name" : "E 11TH ST / N IH 35 SVRD NB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2703285",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "364",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7324753"
-}
-, {
-  "atd_signal_id" : "63.000000",
-  "intersection_name" : "RED RIVER ST / E 41ST ST",
-  "system_id" : "53",
-  "system_status" : "ACTIVE",
-  "system_name" : "58",
-  "latitude" : "30.2996826",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "365",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7223892"
-}
-, {
-  "atd_signal_id" : "340.000000",
-  "intersection_name" : "E 12TH ST / N IH 35 SVRD NB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2718697",
-  "isolated" : "False",
-  "id" : "362",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7318878"
-}
-, {
-  "atd_signal_id" : "331.000000",
-  "intersection_name" : "N IH 35 SVRD SB / E 11TH ST",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2705593",
-  "isolated" : "False",
-  "id" : "363",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7332916"
-}
-, {
-  "atd_signal_id" : "339.000000",
-  "intersection_name" : "E 15TH ST / N IH 35 SVRD NB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2746105",
-  "isolated" : "False",
-  "id" : "360",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7309799"
-}
-, {
-  "atd_signal_id" : "330.000000",
-  "intersection_name" : "E 12TH ST / N IH 35 SVRD SB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2718334",
-  "isolated" : "False",
-  "id" : "361",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7327881"
-}
-, {
-  "atd_signal_id" : "466.000000",
-  "intersection_name" : "W BRAKER LN / DOMAIN DR (Pickle Research Campus Driveway)",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3923473",
-  "isolated" : "False",
-  "id" : "308",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7256241"
-}
-, {
-  "atd_signal_id" : "462.000000",
-  "intersection_name" : "W BRAKER LN / BURNET RD",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3911648",
-  "isolated" : "False",
-  "id" : "309",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7218094"
-}
-, {
-  "atd_signal_id" : "709.000000",
-  "intersection_name" : "W SH 71 / W US 290 HWY EB",
-  "system_id" : "72",
-  "system_status" : "ACTIVE",
-  "system_name" : "79",
-  "latitude" : "30.2333431",
-  "isolated" : "False",
-  "id" : "406",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8747025"
-}
-, {
-  "atd_signal_id" : "583.000000",
-  "intersection_name" : "E BEN WHITE BLVD SVRD WB / BURLESON RD",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.2153988",
-  "isolated" : "False",
-  "id" : "440",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.733429"
-}
-, {
-  "atd_signal_id" : "134.000000",
-  "intersection_name" : "S 1ST ST / BARTON SPRINGS RD",
-  "system_id" : "16",
-  "system_status" : "ACTIVE",
-  "system_name" : "17",
-  "latitude" : "30.2583828",
-  "isolated" : "False",
-  "id" : "298",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7500687"
-}
-, {
-  "atd_signal_id" : "434.000000",
-  "intersection_name" : "W WILLIAM CANNON DR / BRUSH COUNTRY RD",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.2233868",
-  "isolated" : "False",
-  "id" : "420",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8416977"
-}
-, {
-  "atd_signal_id" : "132.000000",
-  "intersection_name" : "S CONGRESS AVE / BARTON SPRINGS RD",
-  "system_id" : "16",
-  "system_status" : "ACTIVE",
-  "system_name" : "17",
-  "latitude" : "30.2591114",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "300",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7461395"
-}
-, {
-  "atd_signal_id" : "661.000000",
-  "intersection_name" : "W BRAKER LN / JOLLYVILLE RD",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.4006977",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "301",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7488632"
-}
-, {
-  "atd_signal_id" : "808.000000",
-  "intersection_name" : "W BRAKER LN / RESEARCH BLVD SVRD SB",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.4005356",
-  "isolated" : "False",
-  "id" : "302",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7462845"
-}
-, {
-  "atd_signal_id" : "809.000000",
-  "intersection_name" : "W BRAKER LN / RESEARCH BLVD SVRD NB",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.4003582",
-  "isolated" : "False",
-  "id" : "303",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7454987"
-}
-, {
-  "atd_signal_id" : "523.000000",
-  "intersection_name" : "W BRAKER LN / SETON CENTER PKWY",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.4002647",
-  "isolated" : "False",
-  "id" : "304",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7425232"
-}
-, {
-  "atd_signal_id" : "759.000000",
-  "intersection_name" : "W BRAKER LN / STONELAKE BLVD",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3989582",
-  "isolated" : "False",
-  "id" : "305",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7392883"
-}
-, {
-  "atd_signal_id" : "526.000000",
-  "intersection_name" : "W BRAKER LN / N MOPAC EXPY SVRD SB",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.396101",
-  "isolated" : "False",
-  "id" : "306",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7333984"
-}
-, {
-  "atd_signal_id" : "525.000000",
-  "intersection_name" : "W BRAKER LN / N MOPAC EXPY SVRD NB",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3954906",
-  "isolated" : "False",
-  "id" : "307",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7321243"
-}
-, {
-  "atd_signal_id" : "146.000000",
-  "intersection_name" : "S 1ST ST / W LIVE OAK ST",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.2444649",
-  "isolated" : "False",
-  "id" : "380",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7576752"
-}
-, {
-  "atd_signal_id" : "144.000000",
-  "intersection_name" : "S 1ST ST / W MARY ST",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.2465649",
-  "isolated" : "False",
-  "id" : "381",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.75634"
-}
-, {
-  "atd_signal_id" : "199.000000",
-  "intersection_name" : "S 1ST ST / W ANNIE ST",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.247448",
-  "isolated" : "False",
-  "id" : "382",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7558212"
-}
-, {
-  "atd_signal_id" : "134.000000",
-  "intersection_name" : "S 1ST ST / BARTON SPRINGS RD",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.2583828",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "383",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7500687"
-}
-, {
-  "atd_signal_id" : "198.000000",
-  "intersection_name" : "S PLEASANT VALLEY RD / E WILLIAM CANNON DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1796741",
-  "isolated" : "True",
-  "id" : "241",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7469025"
-}
-, {
-  "atd_signal_id" : "738.000000",
-  "intersection_name" : "E STASSNEY LN / PALO BLANCO LN",
-  "system_id" : "65",
-  "system_status" : "ACTIVE",
-  "system_name" : "72",
-  "latitude" : "30.1936913",
-  "isolated" : "False",
-  "id" : "385",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7497253"
-}
-, {
-  "atd_signal_id" : "344.000000",
-  "intersection_name" : "S PLEASANT VALLEY RD / E STASSNEY LN",
-  "system_id" : "65",
-  "system_status" : "ACTIVE",
-  "system_name" : "72",
-  "latitude" : "30.193985",
-  "isolated" : "False",
-  "id" : "386",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7446823"
-}
-, {
-  "atd_signal_id" : "233.000000",
-  "intersection_name" : "BARTON SPRINGS RD / BOULDIN AVE",
-  "system_id" : "16",
-  "system_status" : "ACTIVE",
-  "system_name" : "17",
-  "latitude" : "30.2595844",
-  "isolated" : "False",
-  "id" : "297",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.753479"
-}
-, {
-  "atd_signal_id" : "465.000000",
-  "intersection_name" : "E STASSNEY LN / TERI RD",
-  "system_id" : "65",
-  "system_status" : "ACTIVE",
-  "system_name" : "72",
-  "latitude" : "30.1912918",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "388",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7311554"
-}
-, {
-  "atd_signal_id" : "601.000000",
-  "intersection_name" : "ANDERSON MILL RD / N US 183 HWY SVRD NB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4488926",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "389",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7900314"
-}
-, {
-  "atd_signal_id" : "499.000000",
-  "intersection_name" : "BURLESON RD / SMITH SCHOOL RD",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.2012062",
-  "isolated" : "False",
-  "id" : "443",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.709137"
-}
-, {
-  "atd_signal_id" : "556.000000",
-  "intersection_name" : "BURLESON RD / MC KINNEY FALLS PKWY",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.1919994",
-  "isolated" : "False",
-  "id" : "444",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6983871"
-}
-, {
-  "atd_signal_id" : "107.000000",
-  "intersection_name" : "W 35TH ST / JACKSON AVE",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.3087349",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "249",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7558899"
-}
-, {
-  "atd_signal_id" : "544.000000",
-  "intersection_name" : "S 1ST ST / W BEN WHITE BLVD SVRD EB",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.2261848",
-  "isolated" : "False",
-  "id" : "373",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7696686"
-}
-, {
-  "atd_signal_id" : "421.000000",
-  "intersection_name" : "ESCARPMENT BLVD / W WILLIAM CANNON DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.2299938",
-  "isolated" : "False",
-  "id" : "418",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8645477"
-}
-, {
-  "atd_signal_id" : "705.000000",
-  "intersection_name" : "MC KINNEY FALLS PKWY / DEE GABRIEL COLLINS RD",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1724491",
-  "isolated" : "True",
-  "id" : "245",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7220612"
-}
-, {
-  "atd_signal_id" : "727.000000",
-  "intersection_name" : "S 1ST ST / RADAM LN",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.224268",
-  "isolated" : "False",
-  "id" : "372",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7708817"
-}
-, {
-  "atd_signal_id" : "925.000000",
-  "intersection_name" : "SALT SPRINGS DR / THAXTON RD",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1584244",
-  "isolated" : "True",
-  "id" : "244",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7459106"
-}
-, {
-  "atd_signal_id" : "996.000000",
-  "intersection_name" : "S 1ST ST / SOUTH CENTER ST",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.22942948",
-  "isolated" : "False",
-  "id" : "375",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7676616"
-}
-, {
-  "atd_signal_id" : "860.000000",
-  "intersection_name" : "S US 183 HWY SB / METROPOLIS DR",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.2099247",
-  "isolated" : "True",
-  "id" : "247",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6832809"
-}
-, {
-  "atd_signal_id" : "543.000000",
-  "intersection_name" : "S 1ST ST / W BEN WHITE BLVD SVRD WB",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.226881",
-  "isolated" : "False",
-  "id" : "374",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7692413"
-}
-, {
-  "atd_signal_id" : "497.000000",
-  "intersection_name" : "S US 183 HWY SB / BURLESON RD",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.1828804",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "445",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6876297"
-}
-, {
-  "atd_signal_id" : "561.000000",
-  "intersection_name" : "S US 183 HWY SB / MC KINNEY FALLS PKWY",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.1982975",
-  "isolated" : "True",
-  "id" : "246",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6841202"
-}
-, {
-  "atd_signal_id" : "333.000000",
-  "intersection_name" : "S 1ST ST / POWELL CIR",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.2352734",
-  "isolated" : "False",
-  "id" : "377",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7639542"
-}
-, {
-  "atd_signal_id" : "581.000000",
-  "intersection_name" : "BURLESON RD / E BEN WHITE BLVD SVRD WB",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.2156048",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "438",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7348709"
-}
-, {
-  "atd_signal_id" : "582.000000",
-  "intersection_name" : "E BEN WHITE BLVD SVRD EB / TODD LN",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.2149239",
-  "isolated" : "False",
-  "id" : "439",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7352905"
-}
-, {
-  "atd_signal_id" : "413.000000",
-  "intersection_name" : "E WILLIAM CANNON DR / S IH 35 SVRD NB",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1902447",
-  "isolated" : "False",
-  "id" : "436",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7701111"
-}
-, {
-  "atd_signal_id" : "745.000000",
-  "intersection_name" : "E STASSNEY LN / DOVE SPRINGS DR",
-  "system_id" : "65",
-  "system_status" : "ACTIVE",
-  "system_name" : "72",
-  "latitude" : "30.1939392",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "384",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7567978"
-}
-, {
-  "atd_signal_id" : "235.000000",
-  "intersection_name" : "S 1ST ST / LIGHTSEY RD",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.2324104",
-  "isolated" : "False",
-  "id" : "376",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7657318"
-}
-, {
-  "atd_signal_id" : "411.000000",
-  "intersection_name" : "S CONGRESS AVE / W WILLIAM CANNON DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1930141",
-  "isolated" : "False",
-  "id" : "432",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7788773"
-}
-, {
-  "atd_signal_id" : "377.000000",
-  "intersection_name" : "E WILLIAM CANNON DR / CIRCLE S RD",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1927223",
-  "isolated" : "False",
-  "id" : "433",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7775955"
-}
-, {
-  "atd_signal_id" : "404.000000",
-  "intersection_name" : "W WILLIAM CANNON DR / S 1ST ST",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1970978",
-  "isolated" : "False",
-  "id" : "430",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7878189"
-}
-, {
-  "atd_signal_id" : "417.000000",
-  "intersection_name" : "E WILLIAM CANNON DR / STONLEIGH PL",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1864319",
-  "isolated" : "True",
-  "id" : "240",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7588806"
-}
-, {
-  "atd_signal_id" : "46.000000",
-  "intersection_name" : "GUADALUPE ST / W 30TH ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.2965031",
-  "isolated" : "False",
-  "id" : "339",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7421036"
-}
-, {
-  "atd_signal_id" : "47.000000",
-  "intersection_name" : "GUADALUPE ST / W 34TH ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.3003407",
-  "isolated" : "False",
-  "id" : "338",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7396469"
-}
-, {
-  "atd_signal_id" : "50.000000",
-  "intersection_name" : "GUADALUPE ST / W 45TH ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.3108425",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "335",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7329788"
-}
-, {
-  "atd_signal_id" : "70.000000",
-  "intersection_name" : "E DEAN KEETON ST / RED RIVER ST",
-  "system_id" : "28",
-  "system_status" : "ACTIVE",
-  "system_name" : "30",
-  "latitude" : "30.2871666",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "334",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7267456"
-}
-, {
-  "atd_signal_id" : "48.000000",
-  "intersection_name" : "W 38TH ST / GUADALUPE ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.302742",
-  "isolated" : "False",
-  "id" : "337",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7381439"
-}
-, {
-  "atd_signal_id" : "49.000000",
-  "intersection_name" : "GUADALUPE ST / W 41ST ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.3063908",
-  "isolated" : "False",
-  "id" : "336",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7357941"
-}
-, {
-  "atd_signal_id" : "55.000000",
-  "intersection_name" : "E DEAN KEETON ST / SPEEDWAY",
-  "system_id" : "28",
-  "system_status" : "ACTIVE",
-  "system_name" : "30",
-  "latitude" : "30.2894573",
-  "isolated" : "False",
-  "id" : "331",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7368088"
-}
-, {
-  "atd_signal_id" : "53.000000",
-  "intersection_name" : "W DEAN KEETON ST / WICHITA ST",
-  "system_id" : "28",
-  "system_status" : "ACTIVE",
-  "system_name" : "30",
-  "latitude" : "30.2895603",
-  "isolated" : "False",
-  "id" : "330",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7379913"
-}
-, {
-  "atd_signal_id" : "65.000000",
-  "intersection_name" : "E DEAN KEETON ST / MEDICAL ARTS ST",
-  "system_id" : "28",
-  "system_status" : "ACTIVE",
-  "system_name" : "30",
-  "latitude" : "30.2883301",
-  "isolated" : "False",
-  "id" : "333",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7291336"
-}
-, {
-  "atd_signal_id" : "54.000000",
-  "intersection_name" : "E DEAN KEETON ST / SAN JACINTO BLVD",
-  "system_id" : "28",
-  "system_status" : "ACTIVE",
-  "system_name" : "30",
-  "latitude" : "30.2893162",
-  "isolated" : "False",
-  "id" : "332",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7346115"
-}
-, {
-  "atd_signal_id" : "59.000000",
-  "intersection_name" : "E 38TH ST / DUVAL ST",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.298708",
-  "isolated" : "False",
-  "id" : "258",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7297745"
-}
-, {
-  "atd_signal_id" : "68.000000",
-  "intersection_name" : "RED RIVER ST / E 38TH HALF ST",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.2965431",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "259",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7231445"
-}
-, {
-  "atd_signal_id" : "113.000000",
-  "intersection_name" : "W 38TH ST / SHOAL CREEK BLVD",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.3070889",
-  "isolated" : "False",
-  "id" : "252",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7475052"
-}
-, {
-  "atd_signal_id" : "114.000000",
-  "intersection_name" : "W 38TH ST / MEDICAL PKWY",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.3057194",
-  "isolated" : "False",
-  "id" : "253",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7441483"
-}
-, {
-  "atd_signal_id" : "111.000000",
-  "intersection_name" : "W 35TH ST / JEFFERSON ST",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.3078003",
-  "isolated" : "False",
-  "id" : "250",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7516022"
-}
-, {
-  "atd_signal_id" : "109.000000",
-  "intersection_name" : "W 35TH ST / KERBEY LN",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.3071957",
-  "isolated" : "False",
-  "id" : "251",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7507782"
-}
-, {
-  "atd_signal_id" : "48.000000",
-  "intersection_name" : "W 38TH ST / GUADALUPE ST",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.302742",
-  "isolated" : "False",
-  "id" : "256",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7381439"
-}
-, {
-  "atd_signal_id" : "58.000000",
-  "intersection_name" : "W 38TH ST / SPEEDWAY",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.3005295",
-  "isolated" : "False",
-  "id" : "257",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.733551"
-}
-, {
-  "atd_signal_id" : "103.000000",
-  "intersection_name" : "W 38TH ST / N LAMAR BLVD",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.3051968",
-  "isolated" : "False",
-  "id" : "254",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7430496"
-}
-, {
-  "atd_signal_id" : "327.000000",
-  "intersection_name" : "W 38TH ST / WEST AVE",
-  "system_id" : "6",
-  "system_status" : "ACTIVE",
-  "system_name" : "6",
-  "latitude" : "30.3044243",
-  "isolated" : "False",
-  "id" : "255",
-  "system_status_date" : "2016-08-18T00:00:00",
-  "longitude" : "-97.7414322"
-}
-, {
-  "atd_signal_id" : "160.000000",
-  "intersection_name" : "AIRPORT BLVD / SPRINGDALE RD",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2656097",
-  "isolated" : "False",
-  "id" : "289",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6955109"
-}
-, {
-  "atd_signal_id" : "39.000000",
-  "intersection_name" : "GUADALUPE ST / WEST MALL UT (UT CROSSWALK)",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.2858925",
-  "isolated" : "False",
-  "id" : "345",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7417374"
-}
-, {
-  "atd_signal_id" : "402.000000",
-  "intersection_name" : "S 1ST ST / W ST ELMO RD",
-  "system_id" : "61",
-  "system_status" : "ACTIVE",
-  "system_name" : "68",
-  "latitude" : "30.2210426",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "371",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7728806"
-}
-, {
-  "atd_signal_id" : "713.000000",
-  "intersection_name" : "W US 290 HWY / CONVICT HILL RD",
-  "system_id" : "72",
-  "system_status" : "ACTIVE",
-  "system_name" : "79",
-  "latitude" : "30.2307835",
-  "isolated" : "False",
-  "id" : "405",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8792953"
-}
-, {
-  "atd_signal_id" : "599.000000",
-  "intersection_name" : "BURLESON RD / EMMA BROWNING AVE",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.1731625",
-  "isolated" : "True",
-  "id" : "248",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6705399"
-}
-, {
-  "atd_signal_id" : "779.000000",
-  "intersection_name" : "MC KINNEY FALLS PKWY / E WILLIAM CANNON DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1632175",
-  "isolated" : "True",
-  "id" : "243",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7258301"
-}
-, {
-  "atd_signal_id" : "703.000000",
-  "intersection_name" : "W US 290 HWY / FM 1826 RD",
-  "system_id" : "72",
-  "system_status" : "ACTIVE",
-  "system_name" : "79",
-  "latitude" : "30.2291946",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "403",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8883057"
-}
-, {
-  "atd_signal_id" : "672.000000",
-  "intersection_name" : "LAKELINE BLVD / N US 183 HWY SVRD NB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4800491",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "402",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8019562"
-}
-, {
-  "atd_signal_id" : "161.000000",
-  "intersection_name" : "SPRINGDALE RD / OAK SPRINGS DR",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2735615",
-  "isolated" : "True",
-  "id" : "221",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6904221"
-}
-, {
-  "atd_signal_id" : "671.000000",
-  "intersection_name" : "S LAKELINE BLVD / N US 183 HWY SVRD SB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4794254",
-  "isolated" : "False",
-  "id" : "401",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.803299"
-}
-, {
-  "atd_signal_id" : "691.000000",
-  "intersection_name" : "LAKELINE MALL DR / N US 183 HWY SVRD NB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4732018",
-  "isolated" : "False",
-  "id" : "400",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7982635"
-}
-, {
-  "atd_signal_id" : "839.000000",
-  "intersection_name" : "E WILLIAM CANNON DR / SALT SPRINGS DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1690102",
-  "isolated" : "True",
-  "id" : "242",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7383728"
-}
-, {
-  "atd_signal_id" : "903.000000",
-  "intersection_name" : "W 51ST ST / GUADALUPE ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.3176708",
-  "isolated" : "True",
-  "id" : "229",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7284317"
-}
-, {
-  "atd_signal_id" : "15.000000",
-  "intersection_name" : "GUADALUPE ST / W NORTH LOOP BLVD",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.319952",
-  "isolated" : "True",
-  "id" : "228",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7269592"
-}
-, {
-  "atd_signal_id" : "57.000000",
-  "intersection_name" : "E 32ND ST / DUVAL ST",
-  "system_id" : "28",
-  "system_status" : "ACTIVE",
-  "system_name" : "30",
-  "latitude" : "30.2945347",
-  "isolated" : "True",
-  "id" : "227",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7324677"
-}
-, {
-  "atd_signal_id" : "56.000000",
-  "intersection_name" : "DUVAL ST / SAN JACINTO BLVD",
-  "system_id" : "28",
-  "system_status" : "ACTIVE",
-  "system_name" : "30",
-  "latitude" : "30.2909546",
-  "isolated" : "True",
-  "id" : "226",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7347336"
-}
-, {
-  "atd_signal_id" : "512.000000",
-  "intersection_name" : "BRETTONWOODS LN / RUTHERFORD LN",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.3415089",
-  "isolated" : "True",
-  "id" : "225",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6919937"
-}
-, {
-  "atd_signal_id" : "755.000000",
-  "intersection_name" : "CROSS PARK DR / EXCHANGE DR",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.3299866",
-  "isolated" : "True",
-  "id" : "224",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6672821"
-}
-, {
-  "atd_signal_id" : "859.000000",
-  "intersection_name" : "CROSS PARK DR / WALL ST",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.3381119",
-  "isolated" : "True",
-  "id" : "223",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6764679"
-}
-, {
-  "atd_signal_id" : "459.000000",
-  "intersection_name" : "W BRAKER LN / KRAMER LN",
-  "system_id" : "19",
-  "system_status" : "ACTIVE",
-  "system_name" : "20",
-  "latitude" : "30.3908577",
-  "isolated" : "True",
-  "id" : "222",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7140121"
-}
-, {
-  "atd_signal_id" : "521.000000",
-  "intersection_name" : "E STASSNEY LN / NUCKOLS CROSSING RD",
-  "system_id" : "65",
-  "system_status" : "ACTIVE",
-  "system_name" : "72",
-  "latitude" : "30.1932106",
-  "isolated" : "False",
-  "id" : "387",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.738884"
-}
-, {
-  "atd_signal_id" : "568.000000",
-  "intersection_name" : "SPRINGDALE RD / E 12TH ST",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2789841",
-  "isolated" : "True",
-  "id" : "220",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6870193"
-}
-, {
-  "atd_signal_id" : "708.000000",
-  "intersection_name" : "N US 183 HWY SVRD NB / PECAN PARK BLVD",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4655991",
-  "isolated" : "False",
-  "id" : "393",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7952499"
-}
-, {
-  "atd_signal_id" : "604.000000",
-  "intersection_name" : "LAKE CREEK PKWY / N US 183 HWY SVRD SB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4611416",
-  "isolated" : "False",
-  "id" : "392",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7945862"
-}
-, {
-  "atd_signal_id" : "23.000000",
-  "intersection_name" : "GUADALUPE ST / W MARTIN LUTHER KING JR BLVD",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.2817326",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "348",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7419281"
-}
-, {
-  "atd_signal_id" : "16.000000",
-  "intersection_name" : "AIRPORT BLVD / W HIGHLAND MALL BLVD",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.3288574",
-  "isolated" : "False",
-  "id" : "272",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7158356"
-}
-, {
-  "atd_signal_id" : "970.000000",
-  "intersection_name" : "N IH 35 SVRD SB / N IH 35 SVRD SB AT 41ST TRN",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2987709",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "349",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7174683"
-}
-, {
-  "atd_signal_id" : "602.000000",
-  "intersection_name" : "ANDERSON MILL RD / N US 183 HWY SVRD SB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4486465",
-  "isolated" : "False",
-  "id" : "390",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.790947"
-}
-, {
-  "atd_signal_id" : "162.000000",
-  "intersection_name" : "AIRPORT BLVD / OAK SPRINGS DR",
-  "system_id" : "14",
-  "system_status" : "ACTIVE",
-  "system_name" : "14",
-  "latitude" : "30.2735558",
-  "isolated" : "False",
-  "id" : "287",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6979065"
-}
-, {
-  "atd_signal_id" : "899.000000",
-  "intersection_name" : "N FM 620 RD NB / N US 183 HWY SVRD SB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4680157",
-  "isolated" : "False",
-  "id" : "397",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7973709"
-}
-, {
-  "atd_signal_id" : "1004.000000",
-  "intersection_name" : "W US 290 HWY EB / W 290 WB AT JOE TANNER TRN",
-  "system_id" : "72",
-  "system_status" : "ACTIVE",
-  "system_name" : "79",
-  "latitude" : "30.2350979",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "408",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8586273"
-}
-, {
-  "atd_signal_id" : "400.000000",
-  "intersection_name" : "W WILLIAM CANNON DR / WOODHUE DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.2003918",
-  "isolated" : "False",
-  "id" : "427",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7987671"
-}
-, {
-  "atd_signal_id" : "897.000000",
-  "intersection_name" : "N FM 620 RD SB / N US 183 HWY SVRD SB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4688225",
-  "isolated" : "False",
-  "id" : "395",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7976913"
-}
-, {
-  "atd_signal_id" : "707.000000",
-  "intersection_name" : "N US 183 HWY SVRD SB / PECAN PARK BLVD",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4653149",
-  "isolated" : "False",
-  "id" : "394",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7962723"
-}
-, {
-  "atd_signal_id" : "896.000000",
-  "intersection_name" : "N FM 620 RD SB / N US 183 HWY SVRD NB",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4691181",
-  "isolated" : "False",
-  "id" : "396",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7966461"
-}
-, {
-  "atd_signal_id" : "565.000000",
-  "intersection_name" : "BLUE MEADOW DR / BLUFF SPRINGS RD",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1836624",
-  "isolated" : "True",
-  "id" : "238",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.76896670000001"
-}
-, {
-  "atd_signal_id" : "956.000000",
-  "intersection_name" : "TRANQUILO TRL / BLUFF SPRINGS RD",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.18076178",
-  "isolated" : "True",
-  "id" : "239",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.76967856"
-}
-, {
-  "atd_signal_id" : "557.000000",
-  "intersection_name" : "W SH 71 / COVERED BRIDGE DR",
-  "system_id" : "72",
-  "system_status" : "ACTIVE",
-  "system_name" : "79",
-  "latitude" : "30.2499123",
-  "isolated" : "True",
-  "id" : "234",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8943024"
-}
-, {
-  "atd_signal_id" : "359.000000",
-  "intersection_name" : "GRAND AVENUE PKWY / CENTRAL COMMERCE DR",
-  "system_id" : "73",
-  "system_status" : "ACTIVE",
-  "system_name" : "80",
-  "latitude" : "30.4559536",
-  "isolated" : "True",
-  "id" : "235",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6599274"
-}
-, {
-  "atd_signal_id" : "821.000000",
-  "intersection_name" : "W WELLS BRANCH PKWY / S HEATHERWILDE BLVD",
-  "system_id" : "73",
-  "system_status" : "ACTIVE",
-  "system_name" : "80",
-  "latitude" : "30.4326477",
-  "isolated" : "True",
-  "id" : "236",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6529694"
-}
-, {
-  "atd_signal_id" : "554.000000",
-  "intersection_name" : "BRUSH COUNTRY RD / CONVICT HILL RD",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
   "latitude" : "30.2169132",
-  "isolated" : "True",
-  "id" : "237",
-  "system_status_date" : "2016-08-22T00:00:00",
+  "operation_state" : "1",
+  "cross_st" : "CONVICT HILL RD",
+  "atd_signal_id" : "554",
+  "record_id" : "554_1479029709",
+  "location_name" : "BRUSH COUNTRY RD / CONVICT HILL RD ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2169132",
+    "needs_recoding" : false,
+    "longitude" : "-97.8459091"
+  },
+  "plan_id" : "25",
+  "primary_street" : "BRUSH COUNTRY RD",
   "longitude" : "-97.8459091"
 }
 , {
-  "atd_signal_id" : "45.000000",
-  "intersection_name" : "RIO GRANDE ST / W 29TH ST",
-  "system_id" : "34",
-  "system_status" : "ACTIVE",
-  "system_name" : "36",
-  "latitude" : "30.2959213",
-  "isolated" : "True",
-  "id" : "230",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7439194"
+  "latitude" : "30.3276367",
+  "operation_state" : "1",
+  "cross_st" : "HANCOCK DR",
+  "atd_signal_id" : "577",
+  "record_id" : "577_1479029709",
+  "location_name" : "BULL CREEK RD / HANCOCK DR ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3276367",
+    "needs_recoding" : false,
+    "longitude" : "-97.7491455"
+  },
+  "plan_id" : "25",
+  "primary_street" : "BULL CREEK RD",
+  "longitude" : "-97.7491455"
 }
 , {
-  "atd_signal_id" : "194.000000",
-  "intersection_name" : "MANCHACA RD / W WILLIAM CANNON DR",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.2029133",
-  "isolated" : "False",
-  "id" : "426",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.8069077"
+  "latitude" : "30.3288956",
+  "operation_state" : "1",
+  "cross_st" : "GUADALUPE ST",
+  "atd_signal_id" : "29",
+  "record_id" : "29_1479029709",
+  "location_name" : "DENSON DR / GUADALUPE ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3288956",
+    "needs_recoding" : false,
+    "longitude" : "-97.7204285"
+  },
+  "plan_id" : "25",
+  "primary_street" : "DENSON DR",
+  "longitude" : "-97.7204285"
 }
 , {
-  "atd_signal_id" : "531.000000",
-  "intersection_name" : "W SH 71 / FLETCHER LN",
-  "system_id" : "72",
-  "system_status" : "ACTIVE",
-  "system_name" : "79",
-  "latitude" : "30.2470665",
-  "isolated" : "True",
-  "id" : "233",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.888443"
+  "latitude" : "30.2566471",
+  "operation_state" : "1",
+  "cross_st" : "ROBERT T MARTINEZ JR ST",
+  "atd_signal_id" : "360",
+  "record_id" : "360_1479029709",
+  "location_name" : "E 2ND ST / ROBERT T MARTINEZ JR ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2566471",
+    "needs_recoding" : false,
+    "longitude" : "-97.7202759"
+  },
+  "plan_id" : "25",
+  "primary_street" : "E 2ND ST",
+  "longitude" : "-97.7202759"
 }
 , {
-  "atd_signal_id" : "772.000000",
-  "intersection_name" : "MANOR RD / N IH 35 SVRD NB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2829857",
-  "isolated" : "False",
-  "id" : "356",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7269211"
-}
-, {
-  "atd_signal_id" : "130.000000",
-  "intersection_name" : "BARTON SPRINGS RD / ROBERT E LEE RD",
-  "system_id" : "16",
-  "system_status" : "ACTIVE",
-  "system_name" : "17",
-  "latitude" : "30.2647686",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "293",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7649841"
-}
-, {
-  "atd_signal_id" : "734.000000",
-  "intersection_name" : "DESSAU RD / DUNGAN LN",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.3522682",
-  "isolated" : "False",
-  "id" : "322",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.675087"
-}
-, {
-  "atd_signal_id" : "960.000000",
-  "intersection_name" : "CAMERON RD / E RUNDBERG LN",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.3507729",
-  "isolated" : "False",
-  "id" : "323",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.675972"
-}
-, {
-  "atd_signal_id" : "527.000000",
-  "intersection_name" : "E BRAKER LN / DESSAU RD",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.3724384",
-  "isolated" : "False",
-  "id" : "320",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6657333"
-}
-, {
-  "atd_signal_id" : "598.000000",
-  "intersection_name" : "DESSAU RD / WANDERING WAY",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.369976",
-  "isolated" : "False",
-  "id" : "321",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6674728"
-}
-, {
-  "atd_signal_id" : "920.000000",
-  "intersection_name" : "CAMERON RD / RUTHERFORD LN",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.337326",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "326",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6832428"
-}
-, {
-  "atd_signal_id" : "41.000000",
-  "intersection_name" : "W DEAN KEETON ST / GUADALUPE ST",
-  "system_id" : "28",
-  "system_status" : "ACTIVE",
-  "system_name" : "30",
-  "latitude" : "30.289814",
-  "limit" : "SOUTH/WEST",
-  "isolated" : "False",
-  "id" : "327",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7413559"
-}
-, {
-  "atd_signal_id" : "926.000000",
-  "intersection_name" : "CAMERON RD / FERGUSON LN",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.3458042",
-  "isolated" : "False",
-  "id" : "324",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6774902"
-}
-, {
-  "atd_signal_id" : "952.000000",
-  "intersection_name" : "CAMERON RD / CROSS PARK DR",
-  "system_id" : "22",
-  "system_status" : "ACTIVE",
-  "system_name" : "24",
-  "latitude" : "30.3439808",
-  "isolated" : "False",
-  "id" : "325",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.6783371"
-}
-, {
-  "atd_signal_id" : "66.000000",
-  "intersection_name" : "W DEAN KEETON ST / WHITIS AVE",
-  "system_id" : "28",
-  "system_status" : "ACTIVE",
-  "system_name" : "30",
-  "latitude" : "30.2897549",
-  "isolated" : "False",
-  "id" : "328",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7402496"
-}
-, {
-  "atd_signal_id" : "62.000000",
-  "intersection_name" : "W DEAN KEETON ST / UNIVERSITY AVE",
-  "system_id" : "28",
-  "system_status" : "ACTIVE",
-  "system_name" : "30",
-  "latitude" : "30.2896271",
-  "isolated" : "False",
-  "id" : "329",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7390747"
-}
-, {
-  "atd_signal_id" : "867.000000",
-  "intersection_name" : "LAKE CREEK PKWY / HYMEADOW DR",
-  "system_id" : "69",
-  "system_status" : "ACTIVE",
-  "system_name" : "76",
-  "latitude" : "30.4638519",
-  "isolated" : "True",
-  "id" : "231",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7892227"
-}
-, {
-  "atd_signal_id" : "414.000000",
-  "intersection_name" : "E WILLIAM CANNON DR / BLUFF SPRINGS RD",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1891956",
-  "limit" : "NORTH/EAST",
-  "isolated" : "False",
-  "id" : "437",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7678909"
-}
-, {
-  "atd_signal_id" : "584.000000",
-  "intersection_name" : "BURLESON RD / E BEN WHITE BLVD SVRD EB",
-  "system_id" : "78",
-  "system_status" : "ACTIVE",
-  "system_name" : "22",
-  "latitude" : "30.2146645",
-  "isolated" : "False",
-  "id" : "441",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7335815"
-}
-, {
-  "atd_signal_id" : "412.000000",
-  "intersection_name" : "E WILLIAM CANNON DR / S IH 35 SVRD SB",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1906624",
-  "isolated" : "False",
-  "id" : "435",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7708969"
-}
-, {
-  "atd_signal_id" : "35.000000",
-  "intersection_name" : "E MARTIN LUTHER KING JR BLVD / N IH 35 SVRD SB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2785587",
-  "isolated" : "False",
-  "id" : "357",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.730484"
-}
-, {
-  "atd_signal_id" : "453.000000",
-  "intersection_name" : "W WELLS BRANCH PKWY / OWEN TECH BLVD",
-  "system_id" : "73",
-  "system_status" : "ACTIVE",
-  "system_name" : "80",
-  "latitude" : "30.43887911",
-  "isolated" : "False",
-  "id" : "413",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.67208725"
-}
-, {
-  "atd_signal_id" : "773.000000",
-  "intersection_name" : "MANOR RD / N IH 35 SVRD SB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2830906",
-  "isolated" : "False",
-  "id" : "355",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.727478"
-}
-, {
-  "atd_signal_id" : "982.000000",
-  "intersection_name" : "N IH 35 SVRD NB / E 32ND ST",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2890625",
-  "isolated" : "False",
-  "id" : "354",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.723053"
-}
-, {
-  "atd_signal_id" : "983.000000",
-  "intersection_name" : "N IH 35 SVRD SB / E 32ND ST",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.289299",
-  "isolated" : "False",
-  "id" : "353",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7234573"
-}
-, {
-  "atd_signal_id" : "72.000000",
-  "intersection_name" : "E 38TH HALF ST / N IH 35 SVRD NB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2947578",
-  "isolated" : "False",
-  "id" : "352",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7193832"
-}
-, {
-  "atd_signal_id" : "64.000000",
-  "intersection_name" : "E 38TH HALF ST / N IH 35 SVRD SB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
   "latitude" : "30.294981",
-  "isolated" : "False",
-  "id" : "351",
-  "system_status_date" : "2016-08-22T00:00:00",
+  "operation_state" : "1",
+  "cross_st" : "N IH 35 SVRD SB",
+  "atd_signal_id" : "64",
+  "record_id" : "64_1479029709",
+  "location_name" : "E 38TH HALF ST / N IH 35 SVRD SB ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.294981",
+    "needs_recoding" : false,
+    "longitude" : "-97.7197723"
+  },
+  "plan_id" : "25",
+  "primary_street" : "E 38TH HALF ST",
   "longitude" : "-97.7197723"
 }
 , {
-  "atd_signal_id" : "971.000000",
-  "intersection_name" : "N IH 35 SVRD NB / N IH 35 SVRD SB AT 41ST TRN",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2985783",
-  "isolated" : "False",
-  "id" : "350",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7170486"
+  "latitude" : "30.3048534",
+  "operation_state" : "1",
+  "cross_st" : "RED RIVER ST",
+  "atd_signal_id" : "69",
+  "record_id" : "69_1479029709",
+  "location_name" : "E 45TH ST / RED RIVER ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3048534",
+    "needs_recoding" : false,
+    "longitude" : "-97.7196121"
+  },
+  "plan_id" : "25",
+  "primary_street" : "E 45TH ST",
+  "longitude" : "-97.7196121"
 }
 , {
-  "atd_signal_id" : "405.000000",
-  "intersection_name" : "W WILLIAM CANNON DR / BILL HUGHES RD",
-  "system_id" : "75",
-  "system_status" : "ACTIVE",
-  "system_name" : "82",
-  "latitude" : "30.1956387",
-  "isolated" : "False",
-  "id" : "431",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.78508"
+  "latitude" : "30.314209",
+  "operation_state" : "1",
+  "cross_st" : "BRUNING AVE",
+  "atd_signal_id" : "936",
+  "record_id" : "936_1479029709",
+  "location_name" : "E 51ST ST / BRUNING AVE ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.314209",
+    "needs_recoding" : false,
+    "longitude" : "-97.7199249"
+  },
+  "plan_id" : "25",
+  "primary_street" : "E 51ST ST",
+  "longitude" : "-97.7199249"
 }
 , {
-  "atd_signal_id" : "227.000000",
-  "intersection_name" : "E 15TH ST / N IH 35 SVRD SB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2747765",
-  "isolated" : "False",
-  "id" : "359",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7317581"
+  "latitude" : "30.2905979",
+  "operation_state" : "1",
+  "cross_st" : "EXPOSITION BLVD",
+  "atd_signal_id" : "751",
+  "record_id" : "751_1479029709",
+  "location_name" : "ENFIELD RD / EXPOSITION BLVD ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2905979",
+    "needs_recoding" : false,
+    "longitude" : "-97.7720566"
+  },
+  "plan_id" : "25",
+  "primary_street" : "ENFIELD RD",
+  "longitude" : "-97.7720566"
 }
 , {
-  "atd_signal_id" : "36.000000",
-  "intersection_name" : "E MARTIN LUTHER KING JR BLVD / N IH 35 SVRD NB",
-  "system_id" : "37",
-  "system_status" : "ACTIVE",
-  "system_name" : "39",
-  "latitude" : "30.2785091",
-  "isolated" : "False",
-  "id" : "358",
-  "system_status_date" : "2016-08-22T00:00:00",
-  "longitude" : "-97.7290802"
+  "latitude" : "30.3519115",
+  "operation_state" : "1",
+  "cross_st" : "N MOPAC EXPY SVRD SB",
+  "atd_signal_id" : "447",
+  "record_id" : "447_1479029709",
+  "location_name" : "FAR WEST BLVD / N MOPAC EXPY SVRD SB ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3519115",
+    "needs_recoding" : false,
+    "longitude" : "-97.7496185"
+  },
+  "plan_id" : "25",
+  "primary_street" : "FAR WEST BLVD",
+  "longitude" : "-97.7496185"
+}
+, {
+  "latitude" : "30.3330383",
+  "operation_state" : "1",
+  "cross_st" : "BALCONES DR",
+  "atd_signal_id" : "578",
+  "record_id" : "578_1479029709",
+  "location_name" : "HANCOCK DR / BALCONES DR ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3330383",
+    "needs_recoding" : false,
+    "longitude" : "-97.7603607"
+  },
+  "plan_id" : "25",
+  "primary_street" : "HANCOCK DR",
+  "longitude" : "-97.7603607"
+}
+, {
+  "latitude" : "30.4414482",
+  "operation_state" : "1",
+  "cross_st" : "POND SPRINGS RD",
+  "atd_signal_id" : "998",
+  "record_id" : "998_1479029709",
+  "location_name" : "HUNTERS CHASE DR / POND SPRINGS RD ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.4414482",
+    "needs_recoding" : false,
+    "longitude" : "-97.7734146"
+  },
+  "plan_id" : "25",
+  "primary_street" : "HUNTERS CHASE DR",
+  "longitude" : "-97.7734146"
+}
+, {
+  "latitude" : "30.3227043",
+  "operation_state" : "1",
+  "cross_st" : "E US 290 HWY SVRD WB",
+  "atd_signal_id" : "590",
+  "record_id" : "590_1479029709",
+  "location_name" : "N IH 35 SVRD NB / E US 290 HWY SVRD WB ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3227043",
+    "needs_recoding" : false,
+    "longitude" : "-97.7060852"
+  },
+  "plan_id" : "25",
+  "primary_street" : "N IH 35 SVRD NB",
+  "longitude" : "-97.7060852"
+}
+, {
+  "latitude" : "30.3224621",
+  "operation_state" : "1",
+  "cross_st" : "E KOENIG LN SVRD WB",
+  "atd_signal_id" : "591",
+  "record_id" : "591_1479029709",
+  "location_name" : "N IH 35 SVRD SB / E KOENIG LN SVRD WB ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3224621",
+    "needs_recoding" : false,
+    "longitude" : "-97.7074203"
+  },
+  "plan_id" : "25",
+  "primary_street" : "N IH 35 SVRD SB",
+  "longitude" : "-97.7074203"
+}
+, {
+  "latitude" : "30.3212357",
+  "operation_state" : "1",
+  "cross_st" : "W 45TH ST",
+  "atd_signal_id" : "580",
+  "record_id" : "580_1479029709",
+  "location_name" : "N MOPAC EXPY NB / W 45TH ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3212357",
+    "needs_recoding" : false,
+    "longitude" : "-97.7548218"
+  },
+  "plan_id" : "25",
+  "primary_street" : "N MOPAC EXPY NB",
+  "longitude" : "-97.7548218"
+}
+, {
+  "latitude" : "30.2959213",
+  "operation_state" : "1",
+  "cross_st" : "W 29TH ST",
+  "atd_signal_id" : "45",
+  "record_id" : "45_1479029709",
+  "location_name" : "RIO GRANDE ST / W 29TH ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2959213",
+    "needs_recoding" : false,
+    "longitude" : "-97.7439194"
+  },
+  "plan_id" : "25",
+  "primary_street" : "RIO GRANDE ST",
+  "longitude" : "-97.7439194"
+}
+, {
+  "latitude" : "30.2460938",
+  "operation_state" : "1",
+  "cross_st" : "W ANNIE ST",
+  "atd_signal_id" : "175",
+  "record_id" : "175_1479029709",
+  "location_name" : "S CONGRESS AVE / W ANNIE ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2460938",
+    "needs_recoding" : false,
+    "longitude" : "-97.7509689"
+  },
+  "plan_id" : "25",
+  "primary_street" : "S CONGRESS AVE",
+  "longitude" : "-97.7509689"
+}
+, {
+  "latitude" : "30.2489243",
+  "operation_state" : "1",
+  "cross_st" : "W ELIZABETH ST",
+  "atd_signal_id" : "228",
+  "record_id" : "228_1479029709",
+  "location_name" : "S CONGRESS AVE / W ELIZABETH ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2489243",
+    "needs_recoding" : false,
+    "longitude" : "-97.749939"
+  },
+  "plan_id" : "25",
+  "primary_street" : "S CONGRESS AVE",
+  "longitude" : "-97.749939"
+}
+, {
+  "latitude" : "30.2499905",
+  "operation_state" : "1",
+  "cross_st" : "W GIBSON ST",
+  "atd_signal_id" : "934",
+  "record_id" : "934_1479029709",
+  "location_name" : "S CONGRESS AVE / W GIBSON ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2499905",
+    "needs_recoding" : false,
+    "longitude" : "-97.7495117"
+  },
+  "plan_id" : "25",
+  "primary_street" : "S CONGRESS AVE",
+  "longitude" : "-97.7495117"
+}
+, {
+  "latitude" : "30.2511158",
+  "operation_state" : "1",
+  "cross_st" : "W JAMES ST",
+  "atd_signal_id" : "933",
+  "record_id" : "933_1479029709",
+  "location_name" : "S CONGRESS AVE / W JAMES ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2511158",
+    "needs_recoding" : false,
+    "longitude" : "-97.7491074"
+  },
+  "plan_id" : "25",
+  "primary_street" : "S CONGRESS AVE",
+  "longitude" : "-97.7491074"
+}
+, {
+  "latitude" : "30.2418518",
+  "operation_state" : "1",
+  "cross_st" : "W LIVE OAK ST",
+  "atd_signal_id" : "142",
+  "record_id" : "142_1479029709",
+  "location_name" : "S CONGRESS AVE / W LIVE OAK ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2418518",
+    "needs_recoding" : false,
+    "longitude" : "-97.7525253"
+  },
+  "plan_id" : "25",
+  "primary_street" : "S CONGRESS AVE",
+  "longitude" : "-97.7525253"
+}
+, {
+  "latitude" : "30.2451458",
+  "operation_state" : "1",
+  "cross_st" : "W MARY ST",
+  "atd_signal_id" : "141",
+  "record_id" : "141_1479029709",
+  "location_name" : "S CONGRESS AVE / W MARY ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:58",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2451458",
+    "needs_recoding" : false,
+    "longitude" : "-97.7513046"
+  },
+  "plan_id" : "25",
+  "primary_street" : "S CONGRESS AVE",
+  "longitude" : "-97.7513046"
+}
+, {
+  "latitude" : "30.2470245",
+  "operation_state" : "1",
+  "cross_st" : "W MILTON ST",
+  "atd_signal_id" : "943",
+  "record_id" : "943_1479029709",
+  "location_name" : "S CONGRESS AVE / W MILTON ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2470245",
+    "needs_recoding" : false,
+    "longitude" : "-97.7506256"
+  },
+  "plan_id" : "25",
+  "primary_street" : "S CONGRESS AVE",
+  "longitude" : "-97.7506256"
+}
+, {
+  "latitude" : "30.2479458",
+  "operation_state" : "1",
+  "cross_st" : "W MONROE ST",
+  "atd_signal_id" : "140",
+  "record_id" : "140_1479029709",
+  "location_name" : "S CONGRESS AVE / W MONROE ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2479458",
+    "needs_recoding" : false,
+    "longitude" : "-97.750267"
+  },
+  "plan_id" : "25",
+  "primary_street" : "S CONGRESS AVE",
+  "longitude" : "-97.750267"
+}
+, {
+  "latitude" : "30.2005672",
+  "operation_state" : "1",
+  "cross_st" : "W SLAUGHTER LN",
+  "atd_signal_id" : "787",
+  "record_id" : "787_1479029709",
+  "location_name" : "S MOPAC EXPY NB / W SLAUGHTER LN ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2005672",
+    "needs_recoding" : false,
+    "longitude" : "-97.8654556"
+  },
+  "plan_id" : "25",
+  "primary_street" : "S MOPAC EXPY NB",
+  "longitude" : "-97.8654556"
+}
+, {
+  "latitude" : "30.2622852",
+  "operation_state" : "1",
+  "cross_st" : "BARTON SKWY",
+  "atd_signal_id" : "818",
+  "record_id" : "818_1479029709",
+  "location_name" : "S MOPAC EXPY SVRD NB / BARTON SKWY ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2622852",
+    "needs_recoding" : false,
+    "longitude" : "-97.7892303"
+  },
+  "plan_id" : "25",
+  "primary_street" : "S MOPAC EXPY SVRD NB",
+  "longitude" : "-97.7892303"
+}
+, {
+  "latitude" : "30.3612633",
+  "operation_state" : "1",
+  "cross_st" : "N MOPAC EXPY SVRD SB",
+  "atd_signal_id" : "98",
+  "record_id" : "98_1479029709",
+  "location_name" : "SPICEWOOD SPRINGS RD / N MOPAC EXPY SVRD SB ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3612633",
+    "needs_recoding" : false,
+    "longitude" : "-97.7452316"
+  },
+  "plan_id" : "25",
+  "primary_street" : "SPICEWOOD SPRINGS RD",
+  "longitude" : "-97.7452316"
+}
+, {
+  "latitude" : "30.2879353",
+  "operation_state" : "1",
+  "cross_st" : "RIO GRANDE ST",
+  "atd_signal_id" : "31",
+  "record_id" : "31_1479029709",
+  "location_name" : "W 24TH ST / RIO GRANDE ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2879353",
+    "needs_recoding" : false,
+    "longitude" : "-97.7446823"
+  },
+  "plan_id" : "25",
+  "primary_street" : "W 24TH ST",
+  "longitude" : "-97.7446823"
+}
+, {
+  "latitude" : "30.2881622",
+  "operation_state" : "1",
+  "cross_st" : "SAN GABRIEL ST",
+  "atd_signal_id" : "30",
+  "record_id" : "30_1479029709",
+  "location_name" : "W 24TH ST / SAN GABRIEL ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2881622",
+    "needs_recoding" : false,
+    "longitude" : "-97.7478333"
+  },
+  "plan_id" : "25",
+  "primary_street" : "W 24TH ST",
+  "longitude" : "-97.7478333"
+}
+, {
+  "latitude" : "30.3087349",
+  "operation_state" : "1",
+  "cross_st" : "JACKSON AVE",
+  "atd_signal_id" : "107",
+  "record_id" : "107_1479029709",
+  "location_name" : "W 35TH ST / JACKSON AVE ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3087349",
+    "needs_recoding" : false,
+    "longitude" : "-97.7558899"
+  },
+  "plan_id" : "25",
+  "primary_street" : "W 35TH ST",
+  "longitude" : "-97.7558899"
+}
+, {
+  "latitude" : "30.3176708",
+  "operation_state" : "1",
+  "cross_st" : "GUADALUPE ST",
+  "atd_signal_id" : "903",
+  "record_id" : "903_1479029709",
+  "location_name" : "W 51ST ST / GUADALUPE ST ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3176708",
+    "needs_recoding" : false,
+    "longitude" : "-97.7284317"
+  },
+  "plan_id" : "25",
+  "primary_street" : "W 51ST ST",
+  "longitude" : "-97.7284317"
+}
+, {
+  "latitude" : "30.3470039",
+  "operation_state" : "1",
+  "cross_st" : "N LAMAR BLVD SVRD NB",
+  "atd_signal_id" : "640",
+  "record_id" : "640_1479029709",
+  "location_name" : "W ANDERSON LN SVRD EB / N LAMAR BLVD SVRD NB ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3470039",
+    "needs_recoding" : false,
+    "longitude" : "-97.7124252"
+  },
+  "plan_id" : "25",
+  "primary_street" : "W ANDERSON LN SVRD EB",
+  "longitude" : "-97.7124252"
+}
+, {
+  "latitude" : "30.3477535",
+  "operation_state" : "1",
+  "cross_st" : "N LAMAR BLVD SVRD NB",
+  "atd_signal_id" : "638",
+  "record_id" : "638_1479029709",
+  "location_name" : "W ANDERSON LN SVRD WB / N LAMAR BLVD SVRD NB ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.3477535",
+    "needs_recoding" : false,
+    "longitude" : "-97.7119446"
+  },
+  "plan_id" : "25",
+  "primary_street" : "W ANDERSON LN SVRD WB",
+  "longitude" : "-97.7119446"
+}
+, {
+  "latitude" : "30.2281132",
+  "operation_state" : "1",
+  "cross_st" : "BANISTER LN",
+  "atd_signal_id" : "545",
+  "record_id" : "545_1479029709",
+  "location_name" : "W BEN WHITE BLVD SVRD WB / BANISTER LN ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2281132",
+    "needs_recoding" : false,
+    "longitude" : "-97.7791214"
+  },
+  "plan_id" : "25",
+  "primary_street" : "W BEN WHITE BLVD SVRD WB",
+  "longitude" : "-97.7791214"
+}
+, {
+  "latitude" : "30.2106857",
+  "operation_state" : "1",
+  "cross_st" : "EMERALD FOREST DR",
+  "atd_signal_id" : "401",
+  "record_id" : "401_1479029709",
+  "location_name" : "W STASSNEY LN / EMERALD FOREST DR ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2106857",
+    "needs_recoding" : false,
+    "longitude" : "-97.7870865"
+  },
+  "plan_id" : "25",
+  "primary_street" : "W STASSNEY LN",
+  "longitude" : "-97.7870865"
 }
  ]

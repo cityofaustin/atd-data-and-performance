@@ -9,60 +9,15 @@
     
     {% include dash-top-nav.html %}
 
-    <div class='wrapper'>
       <div class="container-fluid">
-        <div id="data-row">
-          
           <div class="row">
+            
+            <div class="col-md-3"></div>
 
-            <div class="col-md-6">              
-              <div class = "row">
-                <div class="col-md-12 info" id="info-1">
-                  <h3> Traffic Signals Flashing </h3>
-                </div>
-              </div>
-
-              <div class="row">
-                <!-- Table  -->
-                <div class="col-md-12">              
-                  <a name="datatable"></a>
-                  <table class="table table-striped table-hover" data-sort-name="address" data-sort-order="desc" id="data_table">
-                    <thead>
-                      <tr>
-                          <th>Location</th>
-                          <th>Signal ID</th>
-                          <th>Status</th>
-                          <th>Status Date</th>
-                          <th>Duration</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <!-- data goes here programmatically  -->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
+            <div class="col-md-3 info" id="info-1">
+              <h3> Traffic Signals Flashing </h3>
             </div>
-
-                      <!-- map -->
-            <div class="col-md-6 map" id=map name="map">
-              <div class="over_map" id="map-expander">
-                <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
-              </div>
-            </div>
-
-          </div>
-        </div>
-    
-          <div class="row">
-            <div class="col-md-12">
-              <h2>About Flashing Signals</h2>
-            </div>
-          </div>
-
-          <div class="row">
-
+            
             <div class="col-md-4 about">
               <h3>What am I looking at?</h3>
               <p>
@@ -70,27 +25,66 @@
               </p>
             </div>
 
+            <div class="col-md-2"></div>
 
-            <div class="col-md-4">
-              <h3>How do you know when a signal is flashing?</h3>
+          </div>
+
+          <div class="row" id="data-row">
+            <!-- Table  -->
+            <div class="col-md-6">              
+              <a name="datatable"></a>
+              <table class="table table-striped table-hover" data-sort-name="address" data-sort-order="desc" id="data_table">
+                <thead>
+                  <tr>
+                      <th>Location</th>
+                      <th>Signal ID</th>
+                      <th>Status</th>
+                      <th>Status Date</th>
+                      <th>Duration</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <!-- data goes here programmatically  -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- map -->
+            <div class="col-md-6 map" id=map name="map">
+              <div class="over_map" id="map-expander">
+                <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
+              </div>
+            </div>
+
+          </div>
+    
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <h3>Advanced Transportation Management</h3>
               <p>
-                Approximately 90% of the City’s signals communicate with our Advanced Trasnportation Management System.  When these signals go on flash, they will be reported on this dashboard.  Although we are extending communications to all signals, approximately 10% are not currently reported on this dashboard.  It also occasionally happens that the event that disables a traffic signal also disables network communication to the signal, in which case the signal outage will not be reported here.
+                Approximately 90% of the City’s signals communicate with our Advanced Transportation Management System.  When these signals go on flash, they will be reported on this dashboard.  Although we are extending communications to all signals, approximately 10% are not currently reported on this dashboard.  It also occasionally happens that the event that disables a traffic signal also disables network communication to the signal, in which case the signal outage will not be reported here.
               </p>
             </div>
 
-            <div class="col-md-4">
-                <h3>How can I report an issue with a traffic signal?</h3>
+            <div class="col-md-6">
+                <h3>Report an Issue</h3>
               <p>
                 To report an issue or request a new traffic signal, call 3-1-1. You can also <a href='https://austin-csrprodcwi.motorolasolutions.com/ServiceRequest.mvc/SRIntakeStep2/TRASIGNE?guid=59340171d27247fa93fe951cdaf37dcc'>submit a traffic signal service request online.</a>
               </p>
+              <p>
+                This dashboard is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of traffic signals.
+              </p>
             </div>
+
+ 
+
           </div>
 
           <div class="row">
             <div class="col-md-12 disclaimer">
-              <p>
-                This dashboard is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of traffic signals.
-              </p>
+              
             </div>
           </div>     
         </div> 

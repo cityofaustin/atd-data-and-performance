@@ -42,13 +42,12 @@ var STATUS_TYPES_READABLE = {
 */
 
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27%20AND%20response_message%20IS%20NULL&$order=timestamp+DESC&$limit=1'
+  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
+//  var data_url = '../components/data/fake_intersection_data.json';
 
-var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json?"
-//  var data_url = '../components/data/intersection_status_snapshot_conflict.json';
+var default_map_size = 60;  //  vertial height units  
 
-var default_map_size = 300;
-
-var expanded_map_size = 600;
+var expanded_map_size = 100;  //  vertial height units  
 
 var master_layer = new L.featureGroup();
 
@@ -87,13 +86,10 @@ $(document).ready(function(){
             .style("margin-left", "10px");
     }
 
-    table = $('#data_table').DataTable( {
-            paging : false,
-            scrollX: true,
-            scrollY: false,
-            bFilter: false,
-            bInfo : false
-        });
+    table = $('#data_table').DataTable({
+        bFilter: false,
+        scrollY: '60vh'
+    });
 
 });
 
@@ -132,7 +128,7 @@ d3.select("#map-expander").on("click", function(){
 
     d3.select("#map")
         .transition(t2)
-        .style("height", map_size + "px");
+        .style("height", map_size + "vh");
 
     setTimeout(function(){ map.invalidateSize()}, 600);
 
@@ -380,7 +376,6 @@ function populateTable(dataset) {
         .filter(function(d){
             return d.operation_state > 0;
         })
-        
 
     d3.select("tbody").selectAll("tr")
         .each(function (d) {
@@ -390,7 +385,7 @@ function populateTable(dataset) {
                 })
                 .attr("class", "tableRow");
             
-            d3.select(this).append("td").html("<a href=''>" + d.location_name + "</a>");
+            d3.select(this).append("td").html("<a>" + d.location_name + "</a>");
 
             d3.select(this).append("td").html(d.atd_signal_id);
             
@@ -404,15 +399,28 @@ function populateTable(dataset) {
 
     createTableListeners();
 
+    if (dataset.length > 0) {
+        setTimeout(function(){ 
+            default_map_size = document.getElementById('data-row').clientHeight;
 
-    default_map_size = document.getElementById('data-row').clientHeight + 25;
-    
-    d3.select("#map")
-        .transition(t2)
-        .style("height", default_map_size + "px");
+            d3.select("#map")
+                .transition(t2)
+                .style("height", default_map_size + "px");
 
-    setTimeout(function(){ map.invalidateSize()}, 600);
+            setTimeout(function(){ map.invalidateSize()}, 400);
 
+
+        }, 200);
+
+    } else {
+        
+        d3.select("#map")
+                .transition(t2)
+                .style("height", '40vh');
+
+        setTimeout(function(){ map.invalidateSize()}, 400);
+
+    }
 
 } //  end populateTable
 
@@ -434,11 +442,14 @@ function readableDate(date) {
 
 }
 
+
+
 function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-screen-javascript
         return (('ontouchstart' in window)
       || (navigator.MaxTouchPoints > 0)
       || (navigator.msMaxTouchPoints > 0));
 }
+
 
 
 function formatDuration(datetime) {
