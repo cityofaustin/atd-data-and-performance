@@ -1,3 +1,5 @@
+var pizza;
+
 var table;
 
 var map;
@@ -42,14 +44,16 @@ var STATUS_TYPES_READABLE = {
 */
 
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27%20AND%20response_message%20IS%20NULL&$order=timestamp+DESC&$limit=1'
-  var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
+var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
 //  var data_url = '../components/data/fake_intersection_data.json';
 
-var default_map_size = 60;  //  vertial height units  
+var default_map_size = 40;  //  vertial height units  
 
-var expanded_map_size = 100;  //  vertial height units  
+var expanded_map_size = '100vh';  //  vertial height units  
 
 var master_layer = new L.featureGroup();
+
+var signals_on_flash_layer;
 
 var conflict_flash_marker = new L.ExtraMarkers.icon({
     icon: 'fa-exclamation-triangle',
@@ -86,17 +90,12 @@ $(document).ready(function(){
             .style("margin-left", "10px");
     }
 
-    table = $('#data_table').DataTable({
-        bFilter: false,
-        scrollY: '60vh'
-    });
-
 });
 
 
 
 d3.select("#map-expander").on("click", function(){
-
+    
     d3.select(this)
         .select("button")
             .html(function(){
@@ -112,29 +111,44 @@ d3.select("#map-expander").on("click", function(){
                 }
             });
     
-    var map_size = expanded_map_size;
+    var map_size;
 
     if (map_expanded) {
 
         map_expanded = false;
     
-        map_size = default_map_size;
-    
+        map_size = default_map_size + "px";
+
     } else {
 
         map_expanded = true;
+
+        map_size = expanded_map_size;
 
     }
 
     d3.select("#map")
         .transition(t2)
-        .style("height", map_size + "vh");
+        .style("height", map_size );
 
-    setTimeout(function(){ map.invalidateSize()}, 600);
+            setTimeout(function(){
+            map.invalidateSize();
+            map.fitBounds(
+            signals_on_flash_layer.getBounds(),
+                {
+                    paddingTopLeft: [80, 80],
+                    maxZoom: 14
+                }
+            );
+        }, 300);
 
 });
 
+
+
 function main(data){
+
+    pizza = data;
 
     populateInfoStat(data, "info-1", function(){
 
@@ -146,11 +160,21 @@ function main(data){
 
     if (data.length > 0) {
 
-        populateTable(data);    
+        populateTable(data);
+
+    } else {
+
+        table = $('#data_table').DataTable({
+            bFilter: false,
+            bPaginate: false,
+            scrollY: '10vh'
+        });
 
     }
 
 };
+
+
 
 function populateInfoStat(dataset, divId, postUpdate) {
 
@@ -252,7 +276,7 @@ function populateMap(map, dataset, createSideBar) {
 
     if (dataset.length > 0) {
 
-        var signals_on_flash_layer = new L.featureGroup();
+         signals_on_flash_layer = new L.featureGroup();
         
         for (var i = 0; i < dataset.length; i++) {   
             
@@ -293,34 +317,32 @@ function populateMap(map, dataset, createSideBar) {
         
         signals_on_flash_layer.addTo(map);
 
-        map.fitBounds(
-            signals_on_flash_layer.getBounds(),
-                {
-                    paddingTopLeft: [80, 80],
-                    maxZoom: 14
-
-                }
-            );
     }
 
 }
 
 function createTableListeners() {
 
+    var rows = $('#data_table').dataTable().fnGetNodes()
+
     //  zoom to and highlight feature from table click
-    d3.selectAll(".tableRow").on("click", function(d){
+    d3.selectAll(rows).selectAll(".tableRow").on("click", function(d){
 
-        var signal_id = d3.select(this).attr("id");
+            var signal_id = d3.select(this).attr("id");
 
-        map.setView(signal_markers[signal_id].getLatLng(), 14);
+            map.setView(signal_markers[signal_id].getLatLng(), 14);
 
-        signal_markers[signal_id].openPopup();
+            signal_markers[signal_id].openPopup();
 
-        //  location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
+            console.log("HEY");
 
-    });
+            //  location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
+
+        });
 
 }
+
+
 
 function applyStatusTypes(statusObject) {
 
@@ -368,61 +390,82 @@ function getLogData(url) {
 
 function populateTable(dataset) {
 
-    var rows = d3.select("tbody")
-        .selectAll("tr")
-        .data(dataset)
-        .enter()
-        .append("tr")
-        .filter(function(d){
-            return d.operation_state > 0;
-        })
+    table = $('#data_table').DataTable({
+        data: dataset,
+        "pageLength": 5,
+        "bLengthChange": false,
+         "oLanguage" :{ sSearch : 'Filter by Street Name' },
+        columns: [
+            { data: 'location_name', 
+                "render": function ( data, type, full, meta ) {
+                    return "<a class='tableRow' id='$" + full.atd_signal_id + "' >" + data + "</a>";
+                }
+            },
 
-    d3.select("tbody").selectAll("tr")
-        .each(function (d) {
-
-            d3.select(this).attr("id", function(d) {
-                    return "$" + d.atd_signal_id;
-                })
-                .attr("class", "tableRow");
+            {   data: 'atd_signal_id' },
             
-            d3.select(this).append("td").html("<a>" + d.location_name + "</a>");
+            { 
+                data: 'operation_state', 
+                "render": function ( data, type, full, meta ) {
+                    return STATUS_TYPES_READABLE[data];
+                }
+            },
 
-            d3.select(this).append("td").html(d.atd_signal_id);
-            
-            d3.select(this).append("td").html(STATUS_TYPES_READABLE[d.operation_state]);
-            
-            d3.select(this).append("td").html( formatDateTime( new Date(d.operation_state_datetime) ) );
+            { 
+                data: 'operation_state_datetime', 
+                "render": function ( data, type, full, meta ) {
+                    return formatDateTime( new Date(data) );
+                }
+            },
+            { 
+                data: 'operation_state_datetime', 
+                "render": function ( data, type, full, meta ) {
+                    return formatDuration( data );
+                }
+            }
+        ]
+    })
 
-            d3.select(this).append("td").html( formatDuration(d.operation_state_datetime) );
-    
-        });
+
+    adjustMapHeight(dataset);
 
     createTableListeners();
 
-    if (dataset.length > 0) {
-        setTimeout(function(){ 
-            default_map_size = document.getElementById('data-row').clientHeight;
-
-            d3.select("#map")
-                .transition(t2)
-                .style("height", default_map_size + "px");
-
-            setTimeout(function(){ map.invalidateSize()}, 400);
+}
 
 
-        }, 200);
+function adjustMapHeight(dataset) {
+   //  make map same height as table
+    setTimeout(function(){ 
 
-    } else {
-        
+        if (dataset.length < 4 ) {
+            
+            default_map_size = "40vh"
+
+        } else {
+
+            default_map_size = document.getElementById('data-row').clientHeight + "px";
+        }
+
+
         d3.select("#map")
-                .transition(t2)
-                .style("height", '40vh');
+            .transition(t2)
+            .style("height", default_map_size);
 
-        setTimeout(function(){ map.invalidateSize()}, 400);
+        setTimeout(function(){
+            map.invalidateSize();
+            map.fitBounds(
+            signals_on_flash_layer.getBounds(),
+                {
+                    paddingTopLeft: [80, 80],
+                    maxZoom: 14
+                }
+            );
+        }, 500);
 
-    }
-
-} //  end populateTable
+    }, 200);
+}
+    
 
 function readableDate(date) {
 

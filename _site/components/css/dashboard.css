@@ -32,7 +32,6 @@
 
 .map {
     height: 300px;
-    margin-top: 20px;
 }
 
 .filtering{
@@ -133,4 +132,8 @@ button.map-expander{
 .fa-comment {
 
   color: #3B99FC;
+}
+
+#data_table_filter {
+  float: left;
 }
