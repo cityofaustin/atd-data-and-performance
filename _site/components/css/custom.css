@@ -64,6 +64,17 @@ html {
   font-weight: normal;
 }
 
+@media (min-width: 768px) {
+
+    .nav {
+        position: absolute;
+        bottom: 0;
+        right: 15px;
+    }
+
+}
+
+
 @media (max-width: 992px) {
     .jumbotron {
         background-image: url(../images/jtron_1100.png);
@@ -74,6 +85,7 @@ html {
     .jumbotron {
         background-image: url(../images/jtron_1200.png);
     }
+
 }
  
 @media (min-width:1300px) {
@@ -84,6 +96,7 @@ html {
     .push {
         height: 210px;
     }
+
 }
 
 @media (min-width:1400px) {
