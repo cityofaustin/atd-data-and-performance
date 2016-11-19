@@ -353,7 +353,11 @@ function groupData(dataset, updateCharts) {
 
             updateInfoStat("info-3", "stops_reduction", t2);
 
-            populateTable(SOURCE_DATA_SYSTEMS);
+             populateTable(SOURCE_DATA_SYSTEMS, function(){
+
+                createTableListeners();
+
+            });
 
             updateVisibleLayers(map);
 
@@ -696,6 +700,7 @@ function populateTable(dataset, next) {
         })
         .DataTable({
             data: filtered_data,
+            rowId: 'system_id',
             'bPaginate' : false,
             'bLengthChange': false,
             'bInfo': false,
@@ -760,9 +765,11 @@ function populateTable(dataset, next) {
 function createTableListeners() {
 
     //  zoom to and highlight feature from table click
-    d3.selectAll(".tableRow").on("click", function(d){
+    d3.select("#data_table").selectAll("tr")
+            .classed("tableRow", true)
+            .on("click", function(d){
 
-            var system_id = d3.select(this).attr("id");
+            var system_id = '$' + d3.select(this).attr("id");
 
             highlightLayer(SYSTEMS_LAYERS[system_id]);
 
