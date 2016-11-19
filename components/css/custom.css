@@ -245,6 +245,8 @@ html {
     text-align: justify;
 }
 
-
+.popover {
+    z-index: 1300; /* A value higher than 1010 that solves the problem */
+}
 
 
