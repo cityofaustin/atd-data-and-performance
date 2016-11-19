@@ -166,6 +166,7 @@ function main(data){
 
         table = $('#data_table').DataTable({
             bFilter: false,
+            bInfo: false,
             bPaginate: false,
             scrollY: '10vh'
         });
