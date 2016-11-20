@@ -1,10 +1,9 @@
+var pizza;
 
 var map;
 
-//  var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27%20AND%20response_message%20IS%20NULL&$order=timestamp+DESC&$limit=1'
 
-//  var data_url = 'https://data.austintexas.gov/resource/d7s7-auiw.json';
-var data_url = '../components/data/fake_signal_data.json';
+var signals_id = 'p53x-x73x';
 
 var t2 = d3.transition()
                 .ease(d3.easeQuad)
@@ -18,7 +17,6 @@ var FORMAT_TYPES = {
 
 
 
-//  init tooltips and touch detect
 $(document).ready(function(){
 
     $('[data-toggle="popover"]').popover();
@@ -30,10 +28,9 @@ $(document).ready(function(){
             .style('margin-left', '10px');
     }
 
-    getRequestData(data_url);
+    getOpenData(signals_id);
 
 });
-
 
 
 function main(data){
@@ -61,7 +58,12 @@ function main(data){
 
 
 
-function getRequestData(url) {
+function getOpenData(resource_id) {
+
+    //  var url = 'https://data.austintexas.gov/resource/' + resource_id + '.json';
+    
+    var url = '../components/data/fake_signal_data.json';
+
     $.ajax({
         'async' : false,
         'global' : false,
@@ -69,29 +71,18 @@ function getRequestData(url) {
         'url' : url,
         'dataType' : 'json',
         'success' : function (data) {
+            pizza = data;
+            
             main(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
         }
-    
+
     }); //end get data
 
 }
 
-
-
-function getLogData(url) {
-    $.ajax({
-        'async' : false,
-        'global' : false,
-        'cache' : false,
-        'url' : url,
-        'dataType' : 'json',
-        'success' : function (data) {
-            postUpdateDate(data, 'info-1');
-        }
-    
-    }); //end get data
-
-}
 
 
 
