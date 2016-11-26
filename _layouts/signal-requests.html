@@ -11,52 +11,51 @@
 
     <div class='wrapper'>
       <div class="container-fluid">
-          
-            <div class="col-md-4 about">
-              <h3> Filter Signal Requests </h3>
-              <div id="selectors" class="btn-group" role="group" aria-label="...">
-                <button class="btn btn-lg active" type="button" value="Traffic" checked><i  class="fa fa-car"></i> Traffic</button>
-                <button class="btn btn-lg" type="button" value="Pedestrian"><i  class="fa fa-male"></i> Pedestrian</button>
-              </div>
-            </div>
+        <div class='row'>
             
-            <div class="col-md-4">
-              <h4> Funding Year </h4>                            
-              <div id="selectors" class="btn-group" role="group" aria-label="...">
-                <button class="btn btn-lg active" type="button" value="Traffic"><i class='fa fa-check-square'></i> 2015</button>
-                <button class="btn btn-lg" type="button" value="Pedestrian"><i class='fa fa-square-o'></i> 2016</button>
-                <button class="btn btn-lg" type="button" value="Pedestrian"><i class='fa fa-square-o'></i> 2017</button>
-              </div>
-            </div>
-
-            <div class="col-md-4 class='about' ">
-              <h3>What am I looking at?</h3>
-              <p>This dashboard will display the status of our traffic and pedestrian signal request program. Signals are evaluated on an annual basis and ranked for funding according to criteria set forth by our engineers. To request a signal, call 311.</p>
-            </div>
-
-          <div class="row">
-
-            <div class="col-md-3 info">
-              <h3> Evaluated <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of locations evaluated by Austin Transportatin staff for possible signalization."></i></h3>
-              <text>50</text>
-            </div>
+          <div class="col-md-2">
             
-            <div class="col-md-3 info">
-              <h3> Recommended <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of locations at which an engineer recommended signalization, based on evaluation."></i></h3>
-              <text>12</text>
-            </div>
-
-            <div class="col-md-3 info">
-              <h3> Funded <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of recommended signals which were funded for construction."></i></h3>
-              <text>8</text>
-            </div>
-
-            <div class="col-md-3 info">
-              <h3> Built <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of signals which have been built during the selected timeframe."></i></h3>
-              <text>6</text>
+            <div id="selectors" class="btn-group" role="group" aria-label="...">
+              <h4>Request Type</h4>
+              <button class="btn active" type="button" value="Traffic" checked><i  class="fa fa-car"></i> Traffic</button>
+              <button class="btn" type="button" value="Pedestrian"><i  class="fa fa-male"></i> Pedestrian</button>
             </div>
 
           </div>
+
+          <div class="col-md-3">                        
+            <div id="selectors" class="btn-group" role="group" aria-label="...">
+              <h4> Funding Year </h4>  
+              <button class="btn active" type="button" value="Traffic"><i class='fa fa-check-square'></i> 2015</button>
+              <button class="btn" type="button" value="Pedestrian"><i class='fa fa-square-o'></i> 2016</button>
+              <button class="btn" type="button" value="Pedestrian"><i class='fa fa-square-o'></i> 2017</button>
+            </div>
+          </div>
+
+        </div>
+        <div class='row'>
+
+          <div class="col-md-3 info">
+            <h3> Evaluated <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of locations evaluated by Austin Transportatin staff for possible signalization."></i></h3>
+            <text>50</text>
+          </div>
+          
+          <div class="col-md-3 info">
+            <h3> Recommended <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of locations at which an engineer recommended signalization, based on evaluation."></i></h3>
+            <text>12</text>
+          </div>
+
+          <div class="col-md-3 info">
+            <h3> Funded <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of recommended signals which were funded for construction."></i></h3>
+            <text>8</text>
+          </div>
+
+          <div class="col-md-3 info">
+            <h3> Built <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of signals which have been built during the selected timeframe."></i></h3>
+            <text>6</text>
+          </div>
+
+        </div>
 
           <!-- map -->
           <div class="row">
@@ -117,6 +116,11 @@
           </div>
         </div>
 
+          <div class="col-md-7 class='about' ">
+            <h3>What am I looking at?</h3>
+            <p>This dashboard will display the status of our traffic and pedestrian signal request program. Signals are evaluated on an annual basis and ranked for funding according to criteria set forth by our engineers. To request a signal, call 311.</p>
+          </div>
+          
         <div class="row">
           <div class="col-md-12 disclaimer">
             <p>
