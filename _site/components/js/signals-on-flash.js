@@ -170,7 +170,10 @@ function main(data){
             bFilter: false,
             bInfo: false,
             bPaginate: false,
-            scrollY: '10vh'
+            scrollY: '10vh',
+            language: {
+                "emptyTable" : "No Flashing Signals Reported"
+            }
         });
 
     }
