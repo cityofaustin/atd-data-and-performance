@@ -113,12 +113,14 @@ button.map-expander{
 
 }
 
-.btn-lg.active {
+.btn-lg.active, .btn.active {
 
   color: white;
   background-color: #3B99FC;
 
 }
+
+
 
 .tableRow {
   cursor: pointer;
