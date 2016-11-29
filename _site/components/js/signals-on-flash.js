@@ -47,7 +47,7 @@ var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=
 var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
 //  var data_url = '../components/data/fake_intersection_data.json';
 
-var default_map_size = 40;  //  vertial height units  
+var default_map_size = '40vh';
 
 var expanded_map_size = '100vh';  //  vertial height units  
 
@@ -117,7 +117,9 @@ d3.select("#map-expander").on("click", function(){
 
         map_expanded = false;
     
-        map_size = default_map_size + "px";
+        map_size = default_map_size;
+
+        console.log(map_size);
 
     } else {
 
