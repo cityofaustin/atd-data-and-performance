@@ -203,6 +203,8 @@ function getOpenData(resource_id, options) {
 
 function appendInfoText(data) {
 
+    d3.selectAll('.loading').remove();
+
     var selection = d3.selectAll('.info')
         .data(data)
         .append('text')
