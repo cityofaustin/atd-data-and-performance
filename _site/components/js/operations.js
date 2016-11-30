@@ -1,6 +1,8 @@
+var pizza;
+
 var t_options = {
     ease : d3.easeQuad,
-    duration : 10000
+    duration : 500
 };
 
 var formats = {
@@ -12,29 +14,25 @@ var assets = [
         'name' : 'signals',
         'init_val' : 0,
         'resource_id' : 'p53x-x73x',
-        'format' : 'round',
-        'data' : 1050 //  use empty str and populate later
+        'format' : 'round'
     },
     {
         'name' : 'phbs',
         'init_val' : 0,
         'resource_id' : 'p53x-x73x',
-        'format' : 'round',
-        'data' : 43
+        'format' : 'round'
     },
     {
         'name' : 'cameras',
         'init_val' : 0,
         'resource_id' : 'p53x-x73x',
-        'format' : 'round',
-        'data' : 228
+        'format' : 'round'
     },
     {
         'name' : 'sensors',
         'init_val' : 0,
         'resource_id' : 'p53x-x73x',
-        'format' : 'round',
-        'data' : 127
+        'format' : 'round'
     }
 ];
 
@@ -69,13 +67,15 @@ $(document).ready(function(){
 
 function main(){
 
-    //  getOpenData(signals_id);
-
     var map = makeMap('map', map_options);
+
+    getAllTheData(assets);
 
     var infos = appendInfoText(assets);
 
     transitionInfoStat(infos, t_options);
+
+    var table = populateTable(assets[0].data, 'data_table');
 
 }
 
@@ -103,26 +103,60 @@ function makeMap(divId, options) {
 
 
 
-function getOpenData(resource_id) {
+function getAllTheData(config_array) {
 
-    //  var url = 'https://data.austintexas.gov/resource/' + resource_id + '.json';
-    
-    var url = '../components/data/fake_signal_data.json';
+    for (var i = 0; i < config_array.length; i++) {
 
-    $.ajax({
+            config_array[i].data = getOpenData(config_array[i].resource_id);
+            
+    }
+
+    return;
+
+}
+
+
+function LogIt(one, two){
+    console.log(one);
+    console.log(two);
+}
+
+
+function getOpenData(resource_id, options) {
+
+    if (options != undefined) {
+        if (!('filter' in options)) {
+            
+            options.filter = '';
+            
+        }
+    } else {
+
+        options = {};
+        options.filter = ''
+
+    }
+
+    var url = 'https://data.austintexas.gov/resource/' + resource_id + '.json?$limit=2000' + options.filter;
+
+    console.log(url);
+
+    var data = $.ajax({
         'async' : false,
         'global' : false,
         'cache' : false,
         'url' : url,
         'dataType' : 'json',
         'success' : function (data) {
-            main(data);
+            return data;
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log(textStatus, errorThrown);
         }
 
     }); //end get data
+
+    return data.responseJSON;
 
 }
 
@@ -156,9 +190,7 @@ function populateTable(dataset, divId) {
 
             { data: 'location_name' },
             
-            { data: 'status' },
-
-            { data: 'updated' }
+            { data: 'signal_status' }
             
         ]
     })
@@ -176,7 +208,7 @@ function transitionInfoStat(selection, options) {
             
             var that = d3.select(this);
 
-            var new_value = that.data()[0].data;
+            var new_value = that.data()[0].data.length;
             
             var i = d3.interpolate(0, new_value);
             
