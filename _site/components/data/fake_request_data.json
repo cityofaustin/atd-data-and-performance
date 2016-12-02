@@ -1,0 +1,5058 @@
+[
+  {
+    "atd_location_id": 1034,
+    "location_name": "park bend dr /",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4098797, -97.7078629)"
+  },
+  {
+    "atd_location_id": 1404,
+    "location_name": "e howard ln / harris branch pkwy",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3780216, -97.6084729)"
+  },
+  {
+    "atd_location_id": 1343,
+    "location_name": "manchaca rd / monarch dr",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.1760006, -97.8225865)"
+  },
+  {
+    "atd_location_id": 344,
+    "location_name": "e 7th st / comal st",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2639542, -97.7261353)"
+  },
+  {
+    "atd_location_id": 904,
+    "location_name": "chicon st / manor rd",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2838135, -97.7221603)"
+  },
+  {
+    "atd_location_id": 216,
+    "location_name": "guadalupe st / w 15th st",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2779, -97.743)"
+  },
+  {
+    "atd_location_id": 1368,
+    "location_name": "davis ln / latta dr",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.203996, -97.8585342)"
+  },
+  {
+    "atd_location_id": 1516,
+    "location_name": "e anderson ln svrd eb / cameron rd",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.332219, -97.686614)"
+  },
+  {
+    "atd_location_id": 1517,
+    "location_name": "e anderson ln svrd wb / cameron rd",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.332819, -97.686158)"
+  },
+  {
+    "atd_location_id": 1091,
+    "location_name": "n lamar blvd / houston st",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.323225, -97.7280807)"
+  },
+  {
+    "atd_location_id": 1,
+    "location_name": "w guadalupe st / n lamar blvd",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3166466, -97.7322464)"
+  },
+  {
+    "atd_location_id": 2,
+    "location_name": "n lamar blvd / w 51st st",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3187695, -97.7308197)"
+  },
+  {
+    "atd_location_id": 3,
+    "location_name": "n lamar blvd / w north loop blvd",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3210888, -97.729393)"
+  },
+  {
+    "atd_location_id": 4,
+    "location_name": "w koenig ln / n lamar blvd",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.325943, -97.7263336)"
+  },
+  {
+    "atd_location_id": 5,
+    "location_name": "n lamar blvd / denson dr",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3303776, -97.7235413)"
+  },
+  {
+    "atd_location_id": 6,
+    "location_name": "n lamar blvd / brentwood st",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3339996, -97.7212448)"
+  },
+  {
+    "atd_location_id": 7,
+    "location_name": "n lamar blvd / justin ln",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3367023, -97.7195587)"
+  },
+  {
+    "atd_location_id": 8,
+    "location_name": "airport blvd / n lamar blvd",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3376293, -97.7188721)"
+  },
+  {
+    "atd_location_id": 9,
+    "location_name": "w koenig ln / guadalupe st",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3235016, -97.7238312)"
+  },
+  {
+    "atd_location_id": 10,
+    "location_name": "n lamar blvd / w st johns ave",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.339407, -97.7178421)"
+  },
+  {
+    "atd_location_id": 11,
+    "location_name": "w koenig ln / grover ave",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3298817, -97.7294846)"
+  },
+  {
+    "atd_location_id": 12,
+    "location_name": "w koenig ln / woodrow ave",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3308716, -97.7315903)"
+  },
+  {
+    "atd_location_id": 13,
+    "location_name": "airport blvd / guadalupe st",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3339596, -97.7169266)"
+  },
+  {
+    "atd_location_id": 583,
+    "location_name": "e st johns ave / n ih 35 svrd sb",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3329544, -97.7045288)"
+  },
+  {
+    "atd_location_id": 584,
+    "location_name": "e st johns ave / n ih 35 svrd nb",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3325787, -97.7037048)"
+  },
+  {
+    "atd_location_id": 585,
+    "location_name": "e rundberg ln / n ih 35 svrd sb",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.358427, -97.6885452)"
+  },
+  {
+    "atd_location_id": 586,
+    "location_name": "e rundberg ln / n ih 35 svrd nb",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3579063, -97.6874924)"
+  },
+  {
+    "atd_location_id": 587,
+    "location_name": "dessau rd / wandering way",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.369976, -97.6674728)"
+  },
+  {
+    "atd_location_id": 588,
+    "location_name": "burleson rd / emma browning ave",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.1731625, -97.6705399)"
+  },
+  {
+    "atd_location_id": 589,
+    "location_name": "metric blvd / bittern holw",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4031048, -97.7003403)"
+  },
+  {
+    "atd_location_id": 590,
+    "location_name": "anderson mill rd / n us 183 hwy svrd nb",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4488926, -97.7900314)"
+  },
+  {
+    "atd_location_id": 591,
+    "location_name": "anderson mill rd / n us 183 hwy svrd sb",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4486465, -97.790947)"
+  },
+  {
+    "atd_location_id": 592,
+    "location_name": "lake creek pkwy / n us 183 hwy svrd nb",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4614143, -97.7935562)"
+  },
+  {
+    "atd_location_id": 593,
+    "location_name": "lake creek pkwy / n us 183 hwy svrd sb",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4611416, -97.7945862)"
+  },
+  {
+    "atd_location_id": 594,
+    "location_name": "w william cannon dr /",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2224102, -97.8390427)"
+  },
+  {
+    "atd_location_id": 595,
+    "location_name": "s lakeline blvd / pecan park blvd",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4768543, -97.8072205)"
+  },
+  {
+    "atd_location_id": 596,
+    "location_name": "oak knoll dr / research blvd svrd nb",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4294701, -97.7590485)"
+  },
+  {
+    "atd_location_id": 597,
+    "location_name": "lakeline mall dr / pecan park blvd",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4719791, -97.8020782)"
+  },
+  {
+    "atd_location_id": 598,
+    "location_name": "duval rd / research blvd svrd nb",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4191017, -97.7464447)"
+  },
+  {
+    "atd_location_id": 717,
+    "location_name": "w 35th st / pecos st",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.31354, -97.76716)"
+  },
+  {
+    "atd_location_id": 941,
+    "location_name": "guadalupe st / w 13th st",
+    "request_status": "construction",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2760105, -97.7437057)"
+  },
+  {
+    "atd_location_id": 1088,
+    "location_name": "cameron rd / camino la costa",
+    "request_status": "construction",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.323827, -97.6935791)"
+  },
+  {
+    "atd_location_id": 1104,
+    "location_name": "fm 2222 rd / mount bonnell rd",
+    "request_status": "funded",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.341, -97.779)"
+  },
+  {
+    "atd_location_id": 222,
+    "location_name": "w 15th st / colorado st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.277298, -97.7408371)"
+  },
+  {
+    "atd_location_id": 223,
+    "location_name": "e 15th st / n ih 35 svrd sb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2747765, -97.7317581)"
+  },
+  {
+    "atd_location_id": 224,
+    "location_name": "s congress ave / w elizabeth st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2489243, -97.749939)"
+  },
+  {
+    "atd_location_id": 225,
+    "location_name": "w cesar chavez st / sandra muraida way",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2664337, -97.7555389)"
+  },
+  {
+    "atd_location_id": 226,
+    "location_name": "w cesar chavez st / b r reynolds dr",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.266964, -97.7570953)"
+  },
+  {
+    "atd_location_id": 227,
+    "location_name": "s congress ave / cumberland rd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.235508, -97.7563629)"
+  },
+  {
+    "atd_location_id": 228,
+    "location_name": "s congress ave / lightsey rd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2296505, -97.7602081)"
+  },
+  {
+    "atd_location_id": 229,
+    "location_name": "barton springs rd / bouldin ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2595844, -97.753479)"
+  },
+  {
+    "atd_location_id": 230,
+    "location_name": "barton springs rd / dawson rd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2603436, -97.7557068)"
+  },
+  {
+    "atd_location_id": 231,
+    "location_name": "s 1st st / lightsey rd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2324104, -97.7657318)"
+  },
+  {
+    "atd_location_id": 232,
+    "location_name": "windsor rd / hartford rd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2916527, -97.7588196)"
+  },
+  {
+    "atd_location_id": 233,
+    "location_name": "windsor rd / winsted ln",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2925949, -97.760994)"
+  },
+  {
+    "atd_location_id": 234,
+    "location_name": "w cesar chavez st / walter seaholm dr",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.266, -97.75353)"
+  },
+  {
+    "atd_location_id": 235,
+    "location_name": "s pleasant valley rd / elmont dr",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.238802, -97.7195511)"
+  },
+  {
+    "atd_location_id": 236,
+    "location_name": "w 12th st / shoal creek blvd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2764111, -97.7499084)"
+  },
+  {
+    "atd_location_id": 237,
+    "location_name": "w 12th st / west ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2760582, -97.7484283)"
+  },
+  {
+    "atd_location_id": 238,
+    "location_name": "w 12th st / rio grande st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2757645, -97.7473602)"
+  },
+  {
+    "atd_location_id": 239,
+    "location_name": "w 12th st / nueces st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.275465, -97.7462692)"
+  },
+  {
+    "atd_location_id": 240,
+    "location_name": "w 12th st / guadalupe st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2748528, -97.7441254)"
+  },
+  {
+    "atd_location_id": 241,
+    "location_name": "w 12th st / lavaca st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2745342, -97.7430344)"
+  },
+  {
+    "atd_location_id": 242,
+    "location_name": "e 12th st / san jacinto blvd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2732029, -97.7382431)"
+  },
+  {
+    "atd_location_id": 243,
+    "location_name": "e 12th st / red river st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2723198, -97.7350464)"
+  },
+  {
+    "atd_location_id": 244,
+    "location_name": "guadalupe st / w 11th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2737064, -97.7445831)"
+  },
+  {
+    "atd_location_id": 245,
+    "location_name": "lavaca st / w 11th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2734089, -97.7434616)"
+  },
+  {
+    "atd_location_id": 246,
+    "location_name": "w 11th st / colorado st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2732372, -97.7428436)"
+  },
+  {
+    "atd_location_id": 247,
+    "location_name": "congress ave / w 11th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2727489, -97.7411041)"
+  },
+  {
+    "atd_location_id": 248,
+    "location_name": "brazos st / e 11th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2723598, -97.7397385)"
+  },
+  {
+    "atd_location_id": 249,
+    "location_name": "san jacinto blvd / e 11th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2720604, -97.7386551)"
+  },
+  {
+    "atd_location_id": 250,
+    "location_name": "e 11th st / trinity st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2717628, -97.7375641)"
+  },
+  {
+    "atd_location_id": 251,
+    "location_name": "red river st / e 11th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2711697, -97.7354507)"
+  },
+  {
+    "atd_location_id": 252,
+    "location_name": "e 15th st / brazos st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2765484, -97.7381973)"
+  },
+  {
+    "atd_location_id": 253,
+    "location_name": "dessau rd / e braker ln",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3772907, -97.6586609)"
+  },
+  {
+    "atd_location_id": 254,
+    "location_name": "guadalupe st / w 10th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2727699, -97.7448883)"
+  },
+  {
+    "atd_location_id": 255,
+    "location_name": "lavaca st / w 10th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.27248, -97.7438049)"
+  },
+  {
+    "atd_location_id": 256,
+    "location_name": "colorado st / w 10th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2721729, -97.7427444)"
+  },
+  {
+    "atd_location_id": 257,
+    "location_name": "congress ave / w 10th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2718029, -97.7414398)"
+  },
+  {
+    "atd_location_id": 258,
+    "location_name": "brazos st / e 10th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2714291, -97.7400818)"
+  },
+  {
+    "atd_location_id": 259,
+    "location_name": "san jacinto blvd / e 10th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2711124, -97.7389984)"
+  },
+  {
+    "atd_location_id": 260,
+    "location_name": "e 10th st / trinity st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2708244, -97.7379227)"
+  },
+  {
+    "atd_location_id": 261,
+    "location_name": "red river st / e 10th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2702274, -97.7357712)"
+  },
+  {
+    "atd_location_id": 262,
+    "location_name": "lavaca st / w 13th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2757339, -97.7425919)"
+  },
+  {
+    "atd_location_id": 263,
+    "location_name": "e st johns ave / bennett ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.331131, -97.7003708)"
+  },
+  {
+    "atd_location_id": 264,
+    "location_name": "w slaughter ln / united kingdom dr",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1739616, -97.8093262)"
+  },
+  {
+    "atd_location_id": 265,
+    "location_name": "guadalupe st / w 9th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2718201, -97.7452316)"
+  },
+  {
+    "atd_location_id": 266,
+    "location_name": "lavaca st / w 9th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2715416, -97.7441483)"
+  },
+  {
+    "atd_location_id": 267,
+    "location_name": "colorado st / w 9th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.271244, -97.7430573)"
+  },
+  {
+    "atd_location_id": 268,
+    "location_name": "congress ave / w 9th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.270853, -97.7417526)"
+  },
+  {
+    "atd_location_id": 269,
+    "location_name": "brazos st / e 9th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2704716, -97.7404251)"
+  },
+  {
+    "atd_location_id": 270,
+    "location_name": "san jacinto blvd / e 9th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.270174, -97.7393341)"
+  },
+  {
+    "atd_location_id": 271,
+    "location_name": "w cesar chavez st / colorado st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2637615, -97.7458572)"
+  },
+  {
+    "atd_location_id": 272,
+    "location_name": "w 6th st / rio grande st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2699451, -97.749527)"
+  },
+  {
+    "atd_location_id": 273,
+    "location_name": "w cesar chavez st / san antonio st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2646561, -97.749115)"
+  },
+  {
+    "atd_location_id": 274,
+    "location_name": "guadalupe st / w 8th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2708721, -97.7455902)"
+  },
+  {
+    "atd_location_id": 275,
+    "location_name": "w 8th st / lavaca st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2705746, -97.7444916)"
+  },
+  {
+    "atd_location_id": 276,
+    "location_name": "w 8th st / colorado st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2702675, -97.7434158)"
+  },
+  {
+    "atd_location_id": 277,
+    "location_name": "w 8th st / congress ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2699051, -97.7421112)"
+  },
+  {
+    "atd_location_id": 278,
+    "location_name": "e 8th st / brazos st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2695313, -97.7407837)"
+  },
+  {
+    "atd_location_id": 279,
+    "location_name": "e 8th st / san jacinto blvd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2692356, -97.7396927)"
+  },
+  {
+    "atd_location_id": 280,
+    "location_name": "e 8th st / trinity st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2689266, -97.7386093)"
+  },
+  {
+    "atd_location_id": 281,
+    "location_name": "lavaca st / w 4th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2668762, -97.7458725)"
+  },
+  {
+    "atd_location_id": 282,
+    "location_name": "e 8th st / red river st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.268322, -97.7364883)"
+  },
+  {
+    "atd_location_id": 283,
+    "location_name": "w 7th st / guadalupe st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2699623, -97.7459335)"
+  },
+  {
+    "atd_location_id": 284,
+    "location_name": "w 7th st / lavaca st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2696552, -97.7448425)"
+  },
+  {
+    "atd_location_id": 285,
+    "location_name": "w 7th st / colorado st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2693481, -97.7437744)"
+  },
+  {
+    "atd_location_id": 286,
+    "location_name": "w 7th st / congress ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2689667, -97.7424698)"
+  },
+  {
+    "atd_location_id": 287,
+    "location_name": "e 7th st / brazos st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2686024, -97.7411118)"
+  },
+  {
+    "atd_location_id": 288,
+    "location_name": "e 7th st / san jacinto blvd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2682953, -97.740036)"
+  },
+  {
+    "atd_location_id": 289,
+    "location_name": "e 7th st / trinity st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2680073, -97.7389526)"
+  },
+  {
+    "atd_location_id": 290,
+    "location_name": "e 7th st / red river st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2674026, -97.7368164)"
+  },
+  {
+    "atd_location_id": 291,
+    "location_name": "w 6th st / west ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2702961, -97.7505875)"
+  },
+  {
+    "atd_location_id": 292,
+    "location_name": "w 6th st / nueces st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2696285, -97.7484207)"
+  },
+  {
+    "atd_location_id": 293,
+    "location_name": "w 6th st / guadalupe st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2690239, -97.7462616)"
+  },
+  {
+    "atd_location_id": 294,
+    "location_name": "w 6th st / lavaca st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2687168, -97.7452011)"
+  },
+  {
+    "atd_location_id": 295,
+    "location_name": "w 6th st / colorado st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2684174, -97.7441254)"
+  },
+  {
+    "atd_location_id": 296,
+    "location_name": "w 6th st / congress ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2680664, -97.7428131)"
+  },
+  {
+    "atd_location_id": 297,
+    "location_name": "e 6th st / brazos st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.267683, -97.7414551)"
+  },
+  {
+    "atd_location_id": 298,
+    "location_name": "e 6th st / san jacinto blvd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.267395, -97.7403717)"
+  },
+  {
+    "atd_location_id": 299,
+    "location_name": "e 6th st / trinity st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2670689, -97.7393341)"
+  },
+  {
+    "atd_location_id": 300,
+    "location_name": "e 6th st / neches st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2667828, -97.7382431)"
+  },
+  {
+    "atd_location_id": 301,
+    "location_name": "e 6th st / red river st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2664757, -97.7371902)"
+  },
+  {
+    "atd_location_id": 302,
+    "location_name": "w 5th st / west ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.26931, -97.7509537)"
+  },
+  {
+    "atd_location_id": 303,
+    "location_name": "w 5th st / nueces st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2686787, -97.7487793)"
+  },
+  {
+    "atd_location_id": 304,
+    "location_name": "n pleasant valley rd / webberville rd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2653866, -97.7090378)"
+  },
+  {
+    "atd_location_id": 305,
+    "location_name": "w 5th st / lavaca st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2677956, -97.7455444)"
+  },
+  {
+    "atd_location_id": 306,
+    "location_name": "w 5th st / colorado st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.267477, -97.7444687)"
+  },
+  {
+    "atd_location_id": 307,
+    "location_name": "w 5th st / congress ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2671185, -97.7431717)"
+  },
+  {
+    "atd_location_id": 308,
+    "location_name": "e 5th st / brazos st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2667561, -97.7418365)"
+  },
+  {
+    "atd_location_id": 309,
+    "location_name": "e 5th st / san jacinto blvd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2664375, -97.7407303)"
+  },
+  {
+    "atd_location_id": 310,
+    "location_name": "e 5th st / trinity st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2661324, -97.7396774)"
+  },
+  {
+    "atd_location_id": 311,
+    "location_name": "e 5th st / neches st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2658424, -97.7385864)"
+  },
+  {
+    "atd_location_id": 312,
+    "location_name": "e 5th st / red river st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2655354, -97.7374878)"
+  },
+  {
+    "atd_location_id": 313,
+    "location_name": "congress ave / w 4th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2662086, -97.7434998)"
+  },
+  {
+    "atd_location_id": 314,
+    "location_name": "w 5th st / guadalupe st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2680931, -97.7466354)"
+  },
+  {
+    "atd_location_id": 315,
+    "location_name": "pearce ln / ross rd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1694298, -97.6231079)"
+  },
+  {
+    "atd_location_id": 316,
+    "location_name": "west gate blvd / s lamar blvd svrd sb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2329502, -97.8007278)"
+  },
+  {
+    "atd_location_id": 317,
+    "location_name": "west gate blvd / s lamar blvd svrd nb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2319736, -97.8005447)"
+  },
+  {
+    "atd_location_id": 318,
+    "location_name": "guadalupe st / w 4th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2671833, -97.7469635)"
+  },
+  {
+    "atd_location_id": 319,
+    "location_name": "colorado st / w 2nd st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2646828, -97.7455139)"
+  },
+  {
+    "atd_location_id": 320,
+    "location_name": "w 38th st / west ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3044243, -97.7414322)"
+  },
+  {
+    "atd_location_id": 321,
+    "location_name": "congress ave / w 3rd st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2652397, -97.743866)"
+  },
+  {
+    "atd_location_id": 322,
+    "location_name": "w 6th st / blanco st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2727489, -97.7571259)"
+  },
+  {
+    "atd_location_id": 323,
+    "location_name": "e 12th st / n ih 35 svrd sb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2718334, -97.7327881)"
+  },
+  {
+    "atd_location_id": 324,
+    "location_name": "n ih 35 svrd sb / e 11th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2705593, -97.7332916)"
+  },
+  {
+    "atd_location_id": 325,
+    "location_name": "lavaca st / w 3rd st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2659302, -97.7462463)"
+  },
+  {
+    "atd_location_id": 326,
+    "location_name": "s 1st st / powell cir",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2352734, -97.7639542)"
+  },
+  {
+    "atd_location_id": 327,
+    "location_name": "e 8th st / n ih 35 svrd sb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.267725, -97.7342987)"
+  },
+  {
+    "atd_location_id": 328,
+    "location_name": "e 7th st / n ih 35 svrd sb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2668209, -97.7346649)"
+  },
+  {
+    "atd_location_id": 329,
+    "location_name": "e 6th st / n ih 35 svrd sb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2658806, -97.7350006)"
+  },
+  {
+    "atd_location_id": 330,
+    "location_name": "e riverside dr / faro dr",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2295113, -97.7126312)"
+  },
+  {
+    "atd_location_id": 331,
+    "location_name": "e howard ln / harris ridge blvd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4095459, -97.6486282)"
+  },
+  {
+    "atd_location_id": 332,
+    "location_name": "e 15th st / n ih 35 svrd nb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2746105, -97.7309799)"
+  },
+  {
+    "atd_location_id": 333,
+    "location_name": "e 12th st / n ih 35 svrd nb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2718697, -97.7318878)"
+  },
+  {
+    "atd_location_id": 334,
+    "location_name": "e 11th st / n ih 35 svrd nb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2703285, -97.7324753)"
+  },
+  {
+    "atd_location_id": 335,
+    "location_name": "e rundberg ln / north creek dr",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3600388, -97.6917953)"
+  },
+  {
+    "atd_location_id": 336,
+    "location_name": "escarpment blvd / convict hill rd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2257957, -97.86866)"
+  },
+  {
+    "atd_location_id": 337,
+    "location_name": "s pleasant valley rd / e stassney ln",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.193985, -97.7446823)"
+  },
+  {
+    "atd_location_id": 338,
+    "location_name": "e 7th st / n ih 35 svrd nb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.266571, -97.7338562)"
+  },
+  {
+    "atd_location_id": 339,
+    "location_name": "n ih 35 svrd nb / e 6th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2656364, -97.7341995)"
+  },
+  {
+    "atd_location_id": 340,
+    "location_name": "gracy farms ln / n mopac expy svrd nb",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4073753, -97.7142792)"
+  },
+  {
+    "atd_location_id": 341,
+    "location_name": "metric blvd / stonehollow dr",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4005661, -97.7029953)"
+  },
+  {
+    "atd_location_id": 342,
+    "location_name": "gracy farms ln / stonehollow dr",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4005775, -97.7077255)"
+  },
+  {
+    "atd_location_id": 343,
+    "location_name": "e 7th st / attayac st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2650185, -97.7290802)"
+  },
+  {
+    "atd_location_id": 345,
+    "location_name": "e 7th st / chicon st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2625771, -97.7221146)"
+  },
+  {
+    "atd_location_id": 346,
+    "location_name": "e 7th st / prospect ave",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2614746, -97.7174606)"
+  },
+  {
+    "atd_location_id": 347,
+    "location_name": "e 7th st / pedernales st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2609138, -97.7137146)"
+  },
+  {
+    "atd_location_id": 348,
+    "location_name": "e 7th st / n pleasant valley rd",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2601261, -97.7094955)"
+  },
+  {
+    "atd_location_id": 349,
+    "location_name": "e 6th st / comal st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2630692, -97.7265396)"
+  },
+  {
+    "atd_location_id": 350,
+    "location_name": "chicon st / e 6th st",
+    "request_status": "funded",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.261694, -97.7225113)"
+  },
+  {
+    "atd_location_id": 218,
+    "location_name": "w 15th st / congress ave",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2769184, -97.7394943)"
+  },
+  {
+    "atd_location_id": 219,
+    "location_name": "e 15th st / san jacinto blvd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2762318, -97.7371063)"
+  },
+  {
+    "atd_location_id": 220,
+    "location_name": "e 15th st / trinity st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2759418, -97.7360306)"
+  },
+  {
+    "atd_location_id": 221,
+    "location_name": "e 15th st / red river st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2756176, -97.734848)"
+  },
+  {
+    "atd_location_id": 351,
+    "location_name": "w howard ln / center line pass",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.421793, -97.6658249)"
+  },
+  {
+    "atd_location_id": 352,
+    "location_name": "grand avenue pkwy / central commerce dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4559536, -97.6599274)"
+  },
+  {
+    "atd_location_id": 353,
+    "location_name": "e 2nd st / robert t martinez jr st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2566471, -97.7202759)"
+  },
+  {
+    "atd_location_id": 354,
+    "location_name": "s congress ave / radam ln",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2213669, -97.7648239)"
+  },
+  {
+    "atd_location_id": 355,
+    "location_name": "e 2nd st / n pleasant valley rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.253912, -97.7123337)"
+  },
+  {
+    "atd_location_id": 356,
+    "location_name": "e cesar chavez st / comal st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2585182, -97.7286682)"
+  },
+  {
+    "atd_location_id": 357,
+    "location_name": "e cesar chavez st / chicon st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2571316, -97.7246094)"
+  },
+  {
+    "atd_location_id": 358,
+    "location_name": "e cesar chavez st / robert t martinez jr st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2557869, -97.7206802)"
+  },
+  {
+    "atd_location_id": 359,
+    "location_name": "e cesar chavez st / n pleasant valley rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2529888, -97.7127838)"
+  },
+  {
+    "atd_location_id": 360,
+    "location_name": "e 7th st / springdale rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2560368, -97.7016754)"
+  },
+  {
+    "atd_location_id": 361,
+    "location_name": "e 7th st / shady ln",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2533531, -97.6975708)"
+  },
+  {
+    "atd_location_id": 362,
+    "location_name": "e cesar chavez st / waller st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2598858, -97.732605)"
+  },
+  {
+    "atd_location_id": 363,
+    "location_name": "e 12th st / chicon st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2737865, -97.7199097)"
+  },
+  {
+    "atd_location_id": 364,
+    "location_name": "e 12th st / comal st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2731647, -97.7238464)"
+  },
+  {
+    "atd_location_id": 365,
+    "location_name": "springdale rd / e cesar chavez st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2519169, -97.7042694)"
+  },
+  {
+    "atd_location_id": 366,
+    "location_name": "brodie ln / capistrano trl",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1684589, -97.8601532)"
+  },
+  {
+    "atd_location_id": 367,
+    "location_name": "far west blvd / village center dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3543491, -97.7550812)"
+  },
+  {
+    "atd_location_id": 368,
+    "location_name": "brodie ln / accomac dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1615582, -97.8600769)"
+  },
+  {
+    "atd_location_id": 369,
+    "location_name": "e riverside dr / royal crest dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.241785, -97.7282867)"
+  },
+  {
+    "atd_location_id": 370,
+    "location_name": "e william cannon dr / circle s rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1927223, -97.7775955)"
+  },
+  {
+    "atd_location_id": 371,
+    "location_name": "mc neil dr / heinemann dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4423561, -97.7464294)"
+  },
+  {
+    "atd_location_id": 372,
+    "location_name": "e riverside dr / travis heights blvd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2498417, -97.7387695)"
+  },
+  {
+    "atd_location_id": 373,
+    "location_name": "e riverside dr / s ih 35 svrd sb",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2480335, -97.7357712)"
+  },
+  {
+    "atd_location_id": 374,
+    "location_name": "s ih 35 svrd sb / woodland ave",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2410469, -97.7373962)"
+  },
+  {
+    "atd_location_id": 375,
+    "location_name": "e oltorf st / s ih 35 svrd sb",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2338505, -97.7416534)"
+  },
+  {
+    "atd_location_id": 376,
+    "location_name": "brodie ln / frate barker rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.148468, -97.8549042)"
+  },
+  {
+    "atd_location_id": 377,
+    "location_name": "e riverside dr / s ih 35 svrd nb",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2478428, -97.7348862)"
+  },
+  {
+    "atd_location_id": 378,
+    "location_name": "s ih 35 svrd nb / woodland ave",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2406349, -97.7364731)"
+  },
+  {
+    "atd_location_id": 379,
+    "location_name": "e oltorf st / s ih 35 svrd nb",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2335949, -97.7404251)"
+  },
+  {
+    "atd_location_id": 380,
+    "location_name": "e riverside dr / s lakeshore blvd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2448444, -97.7303467)"
+  },
+  {
+    "atd_location_id": 381,
+    "location_name": "e riverside dr / parker ln",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2432289, -97.7293091)"
+  },
+  {
+    "atd_location_id": 382,
+    "location_name": "e riverside dr / burton dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2402401, -97.7270355)"
+  },
+  {
+    "atd_location_id": 383,
+    "location_name": "s pleasant valley rd / e riverside dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2336788, -97.7234879)"
+  },
+  {
+    "atd_location_id": 384,
+    "location_name": "s pleasant valley rd / e riverside dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2341137, -97.7228088)"
+  },
+  {
+    "atd_location_id": 385,
+    "location_name": "s pleasant valley rd / s lakeshore blvd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2425137, -97.7171478)"
+  },
+  {
+    "atd_location_id": 386,
+    "location_name": "e riverside dr / wickersham ln",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2323837, -97.7204056)"
+  },
+  {
+    "atd_location_id": 387,
+    "location_name": "lakeline mall dr / north lake creek pkwy",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.475256, -97.7939301)"
+  },
+  {
+    "atd_location_id": 388,
+    "location_name": "e riverside dr / willow creek dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2376804, -97.7256622)"
+  },
+  {
+    "atd_location_id": 389,
+    "location_name": "w william cannon dr / emerald forest dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1992588, -97.7936096)"
+  },
+  {
+    "atd_location_id": 390,
+    "location_name": "e william cannon dr /",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1913719, -97.7730408)"
+  },
+  {
+    "atd_location_id": 391,
+    "location_name": "s 1st st / flournoy dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2038345, -97.7838211)"
+  },
+  {
+    "atd_location_id": 392,
+    "location_name": "w william cannon dr / woodhue dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2003918, -97.7987671)"
+  },
+  {
+    "atd_location_id": 393,
+    "location_name": "w stassney ln / emerald forest dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2106857, -97.7870865)"
+  },
+  {
+    "atd_location_id": 394,
+    "location_name": "s 1st st / w st elmo rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2210426, -97.7728806)"
+  },
+  {
+    "atd_location_id": 395,
+    "location_name": "w stassney ln / s 1st st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2084713, -97.7815247)"
+  },
+  {
+    "atd_location_id": 396,
+    "location_name": "w william cannon dr / s 1st st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1970978, -97.7878189)"
+  },
+  {
+    "atd_location_id": 397,
+    "location_name": "w william cannon dr / bill hughes rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1956387, -97.78508)"
+  },
+  {
+    "atd_location_id": 398,
+    "location_name": "s congress ave / w st elmo rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2182045, -97.7668762)"
+  },
+  {
+    "atd_location_id": 399,
+    "location_name": "s congress ave / e st elmo rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2174797, -97.7673035)"
+  },
+  {
+    "atd_location_id": 400,
+    "location_name": "s congress ave / sheraton ave",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2151566, -97.7687759)"
+  },
+  {
+    "atd_location_id": 402,
+    "location_name": "s congress ave / eberhart ln",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1970272, -97.7771225)"
+  },
+  {
+    "atd_location_id": 403,
+    "location_name": "s congress ave / w william cannon dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1930141, -97.7788773)"
+  },
+  {
+    "atd_location_id": 404,
+    "location_name": "e william cannon dr / s ih 35 svrd sb",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1906624, -97.7708969)"
+  },
+  {
+    "atd_location_id": 405,
+    "location_name": "e william cannon dr / s ih 35 svrd nb",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1902447, -97.7701111)"
+  },
+  {
+    "atd_location_id": 406,
+    "location_name": "e william cannon dr / bluff springs rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1891956, -97.7678909)"
+  },
+  {
+    "atd_location_id": 407,
+    "location_name": "s congress ave / w ben white blvd svrd wb",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2234097, -97.7635956)"
+  },
+  {
+    "atd_location_id": 408,
+    "location_name": "s congress ave / e ben white blvd svrd eb",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2224789, -97.7641678)"
+  },
+  {
+    "atd_location_id": 409,
+    "location_name": "e william cannon dr / stonleigh pl",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1864319, -97.7588806)"
+  },
+  {
+    "atd_location_id": 410,
+    "location_name": "west gate blvd / w william cannon dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.207201, -97.8153915)"
+  },
+  {
+    "atd_location_id": 411,
+    "location_name": "brodie ln / w william cannon dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2137775, -97.8303833)"
+  },
+  {
+    "atd_location_id": 412,
+    "location_name": "brodie ln / gatling gun ln",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1526699, -97.8568878)"
+  },
+  {
+    "atd_location_id": 413,
+    "location_name": "escarpment blvd / w william cannon dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2299938, -97.8645477)"
+  },
+  {
+    "atd_location_id": 414,
+    "location_name": "brodie ln / harpers ferry ln",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2070122, -97.834938)"
+  },
+  {
+    "atd_location_id": 415,
+    "location_name": "brodie ln / ernest robles way",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2295017, -97.8203506)"
+  },
+  {
+    "atd_location_id": 416,
+    "location_name": "s capital of texas hwy sb / west gate blvd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2421951, -97.8011093)"
+  },
+  {
+    "atd_location_id": 417,
+    "location_name": "s 1st st / eberhart ln",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2005444, -97.785675)"
+  },
+  {
+    "atd_location_id": 418,
+    "location_name": "e stassney ln / s ih 35 svrd nb",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1981945, -97.7636566)"
+  },
+  {
+    "atd_location_id": 419,
+    "location_name": "e stassney ln / s ih 35 svrd sb",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1986885, -97.7644882)"
+  },
+  {
+    "atd_location_id": 420,
+    "location_name": "brodie ln / eskew dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2030926, -97.8373489)"
+  },
+  {
+    "atd_location_id": 421,
+    "location_name": "s 1st st / w dittmar rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1838989, -97.7926559)"
+  },
+  {
+    "atd_location_id": 422,
+    "location_name": "lake austin blvd / atlanta st",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2772179, -97.7704849)"
+  },
+  {
+    "atd_location_id": 423,
+    "location_name": "brodie ln / convict hill rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2113571, -97.8319168)"
+  },
+  {
+    "atd_location_id": 424,
+    "location_name": "brodie ln / w slaughter ln",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.1835499, -97.8497925)"
+  },
+  {
+    "atd_location_id": 425,
+    "location_name": "w william cannon dr / beckett rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2249718, -97.8549728)"
+  },
+  {
+    "atd_location_id": 426,
+    "location_name": "w william cannon dr / brush country rd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.2233868, -97.8416977)"
+  },
+  {
+    "atd_location_id": 427,
+    "location_name": "w howard ln / metric blvd",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4267941, -97.6766815)"
+  },
+  {
+    "atd_location_id": 428,
+    "location_name": "metric blvd / cedar bend dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4082737, -97.6969833)"
+  },
+  {
+    "atd_location_id": 429,
+    "location_name": "thermal dr / w wells branch pkwy",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4349728, -97.6771927)"
+  },
+  {
+    "atd_location_id": 430,
+    "location_name": "w wells branch pkwy / wells port dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.4359074, -97.6749344)"
+  },
+  {
+    "atd_location_id": 431,
+    "location_name": "fm 2222 rd / northland dr",
+    "request_status": "requested",
+    "request_type": "phb",
+    "request_year": 2016,
+    "location": "(30.3384666, -97.7589417)"
+  },
+  {
+    "atd_location_id": 461,
+    "location_name": "w st johns ave / guadalupe st",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3378239, -97.7144089)"
+  },
+  {
+    "atd_location_id": 462,
+    "location_name": "n lamar blvd / morrow st",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3439732, -97.7149658)"
+  },
+  {
+    "atd_location_id": 463,
+    "location_name": "w 2nd st / san antonio st",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2655945, -97.7487335)"
+  },
+  {
+    "atd_location_id": 464,
+    "location_name": "n lamar blvd / thurmond st",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3533516, -97.7056351)"
+  },
+  {
+    "atd_location_id": 465,
+    "location_name": "n lamar blvd / payton gin rd",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3576469, -97.7001114)"
+  },
+  {
+    "atd_location_id": 466,
+    "location_name": "n lamar blvd / w rundberg ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3631401, -97.6970215)"
+  },
+  {
+    "atd_location_id": 467,
+    "location_name": "n lamar blvd / rutland dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3648701, -97.6959991)"
+  },
+  {
+    "atd_location_id": 468,
+    "location_name": "n lamar blvd / kramer ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3795395, -97.6876831)"
+  },
+  {
+    "atd_location_id": 469,
+    "location_name": "e rundberg ln / north plz",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3559647, -97.6843338)"
+  },
+  {
+    "atd_location_id": 470,
+    "location_name": "payton gin rd / parkfield dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3622036, -97.7101135)"
+  },
+  {
+    "atd_location_id": 471,
+    "location_name": "w rundberg ln / parkfield dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3674049, -97.7062454)"
+  },
+  {
+    "atd_location_id": 472,
+    "location_name": "parkfield dr / rutland dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3692513, -97.7054977)"
+  },
+  {
+    "atd_location_id": 473,
+    "location_name": "metric blvd / rutland dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3806496, -97.71595)"
+  },
+  {
+    "atd_location_id": 474,
+    "location_name": "metric blvd / kramer ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3887444, -97.7104034)"
+  },
+  {
+    "atd_location_id": 475,
+    "location_name": "metric blvd / gracy farms ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3982811, -97.7044373)"
+  },
+  {
+    "atd_location_id": 476,
+    "location_name": "n lamar blvd / north bend dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3844948, -97.6849976)"
+  },
+  {
+    "atd_location_id": 477,
+    "location_name": "mearns meadow blvd / rutland dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3670025, -97.7006302)"
+  },
+  {
+    "atd_location_id": 478,
+    "location_name": "manor rd / anchor ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2875366, -97.7013016)"
+  },
+  {
+    "atd_location_id": 479,
+    "location_name": "manor rd / berkman dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2890873, -97.6985397)"
+  },
+  {
+    "atd_location_id": 480,
+    "location_name": "manor rd / rogge ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.304554, -97.6813126)"
+  },
+  {
+    "atd_location_id": 481,
+    "location_name": "manor rd / loyola ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3100624, -97.6671524)"
+  },
+  {
+    "atd_location_id": 482,
+    "location_name": "w rundberg ln / georgian dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3608303, -97.6934052)"
+  },
+  {
+    "atd_location_id": 483,
+    "location_name": "w rundberg ln / collinfield dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3653278, -97.7016525)"
+  },
+  {
+    "atd_location_id": 484,
+    "location_name": "duval rd / n mopac expy svrd sb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4090595, -97.716095)"
+  },
+  {
+    "atd_location_id": 485,
+    "location_name": "duval rd / n mopac expy svrd nb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4078178, -97.7158508)"
+  },
+  {
+    "atd_location_id": 486,
+    "location_name": "parkfield dr / kramer ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3827133, -97.6978989)"
+  },
+  {
+    "atd_location_id": 487,
+    "location_name": "s us 183 hwy sb / burleson rd",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.1828804, -97.6876297)"
+  },
+  {
+    "atd_location_id": 488,
+    "location_name": "bastrop hwy nb / vargas rd",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2398014, -97.6882172)"
+  },
+  {
+    "atd_location_id": 489,
+    "location_name": "burleson rd / smith school rd",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2012062, -97.709137)"
+  },
+  {
+    "atd_location_id": 490,
+    "location_name": "bastrop hwy nb / thompson ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2365303, -97.6862717)"
+  },
+  {
+    "atd_location_id": 491,
+    "location_name": "e ben white blvd wb / e riverside dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.21883, -97.69118)"
+  },
+  {
+    "atd_location_id": 492,
+    "location_name": "e ben white blvd svrd wb / woodward st",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2166042, -97.7440033)"
+  },
+  {
+    "atd_location_id": 493,
+    "location_name": "e ben white blvd svrd eb / woodward st",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2157249, -97.744072)"
+  },
+  {
+    "atd_location_id": 494,
+    "location_name": "s ih 35 svrd nb / e ben white blvd svrd wb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2168236, -97.750412)"
+  },
+  {
+    "atd_location_id": 495,
+    "location_name": "s ih 35 svrd nb / e ben white blvd svrd eb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.215517, -97.7512589)"
+  },
+  {
+    "atd_location_id": 496,
+    "location_name": "s ih 35 svrd sb / woodward st",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2234898, -97.7476883)"
+  },
+  {
+    "atd_location_id": 497,
+    "location_name": "s ih 35 svrd nb / woodward st",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2230225, -97.7471161)"
+  },
+  {
+    "atd_location_id": 498,
+    "location_name": "e ben white blvd svrd wb / montopolis dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2126865, -97.7120972)"
+  },
+  {
+    "atd_location_id": 553,
+    "location_name": "beckett rd / davis ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2078648, -97.8693771)"
+  },
+  {
+    "atd_location_id": 499,
+    "location_name": "montopolis dr / e ben white blvd svrd eb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2119789, -97.7125397)"
+  },
+  {
+    "atd_location_id": 500,
+    "location_name": "w slaughter ln / beckett rd",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2009087, -97.8708801)"
+  },
+  {
+    "atd_location_id": 501,
+    "location_name": "brettonwoods ln / rutherford ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3415089, -97.6919937)"
+  },
+  {
+    "atd_location_id": 502,
+    "location_name": "n lamar blvd / n meadows dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3741302, -97.690773)"
+  },
+  {
+    "atd_location_id": 503,
+    "location_name": "w braker ln / parkfield dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3861217, -97.6957474)"
+  },
+  {
+    "atd_location_id": 504,
+    "location_name": "w braker ln / hornsby st",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3802395, -97.6834335)"
+  },
+  {
+    "atd_location_id": 505,
+    "location_name": "e braker ln / tom adams dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3737679, -97.669014)"
+  },
+  {
+    "atd_location_id": 506,
+    "location_name": "w parmer ln / n mopac expy svrd nb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4199772, -97.7035828)"
+  },
+  {
+    "atd_location_id": 507,
+    "location_name": "w parmer ln / n mopac expy svrd sb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4205914, -97.7045975)"
+  },
+  {
+    "atd_location_id": 508,
+    "location_name": "n lamar blvd / w parmer ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4078522, -97.6782227)"
+  },
+  {
+    "atd_location_id": 509,
+    "location_name": "w parmer ln / lamplight village ave",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4158096, -97.6959076)"
+  },
+  {
+    "atd_location_id": 510,
+    "location_name": "e stassney ln / nuckols crossing rd",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.1932106, -97.738884)"
+  },
+  {
+    "atd_location_id": 511,
+    "location_name": "w wells branch pkwy / surrender ave",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4359627, -97.6829147)"
+  },
+  {
+    "atd_location_id": 512,
+    "location_name": "w braker ln / seton center pkwy",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4002647, -97.7425232)"
+  },
+  {
+    "atd_location_id": 513,
+    "location_name": "w parmer ln /",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4190121, -97.7022171)"
+  },
+  {
+    "atd_location_id": 514,
+    "location_name": "w braker ln / n mopac expy svrd nb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3954906, -97.7321243)"
+  },
+  {
+    "atd_location_id": 515,
+    "location_name": "w braker ln / n mopac expy svrd sb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.396101, -97.7333984)"
+  },
+  {
+    "atd_location_id": 516,
+    "location_name": "e braker ln / dessau rd",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3724384, -97.6657333)"
+  },
+  {
+    "atd_location_id": 517,
+    "location_name": "n ih 35 svrd sb / w yager ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3991852, -97.6738205)"
+  },
+  {
+    "atd_location_id": 518,
+    "location_name": "tech ridge blvd / n ih 35 svrd nb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3991604, -97.6730423)"
+  },
+  {
+    "atd_location_id": 519,
+    "location_name": "southwest pkwy / republic of texas blvd",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2400837, -97.8302536)"
+  },
+  {
+    "atd_location_id": 520,
+    "location_name": "w sh 71 / fletcher ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2470665, -97.888443)"
+  },
+  {
+    "atd_location_id": 521,
+    "location_name": "w slaughter ln /",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.1891022, -97.8568878)"
+  },
+  {
+    "atd_location_id": 522,
+    "location_name": "w slaughter ln / curlew dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.1765766, -97.833992)"
+  },
+  {
+    "atd_location_id": 523,
+    "location_name": "burleson rd / montopolis dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2055626, -97.7165909)"
+  },
+  {
+    "atd_location_id": 524,
+    "location_name": "n lamar blvd / w yager ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4017849, -97.6791687)"
+  },
+  {
+    "atd_location_id": 525,
+    "location_name": "fm 2222 rd / city park rd",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.3658009, -97.7974396)"
+  },
+  {
+    "atd_location_id": 526,
+    "location_name": "w parmer ln / n ih 35 svrd nb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4078636, -97.6739502)"
+  },
+  {
+    "atd_location_id": 527,
+    "location_name": "w parmer ln / n ih 35 svrd sb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4080296, -97.6752319)"
+  },
+  {
+    "atd_location_id": 528,
+    "location_name": "metric blvd / lamplight village ave",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4107037, -97.6955185)"
+  },
+  {
+    "atd_location_id": 529,
+    "location_name": "e howard ln / dessau rd",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.4036503, -97.6384277)"
+  },
+  {
+    "atd_location_id": 530,
+    "location_name": "n lamar blvd /",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.41516846, -97.67701947)"
+  },
+  {
+    "atd_location_id": 531,
+    "location_name": "w slaughter ln / wolftrap dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.1866856, -97.8550339)"
+  },
+  {
+    "atd_location_id": 532,
+    "location_name": "s 1st st / w ben white blvd svrd wb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.226881, -97.7692413)"
+  },
+  {
+    "atd_location_id": 533,
+    "location_name": "s 1st st / w ben white blvd svrd eb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2261848, -97.7696686)"
+  },
+  {
+    "atd_location_id": 534,
+    "location_name": "w ben white blvd svrd wb / banister ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2281132, -97.7791214)"
+  },
+  {
+    "atd_location_id": 535,
+    "location_name": "w ben white blvd svrd eb / banister ln",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2274132, -97.779686)"
+  },
+  {
+    "atd_location_id": 536,
+    "location_name": "manchaca rd / w ben white blvd svrd wb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.23036, -97.7880554)"
+  },
+  {
+    "atd_location_id": 537,
+    "location_name": "manchaca rd / w ben white blvd svrd eb",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2296352, -97.7885208)"
+  },
+  {
+    "atd_location_id": 538,
+    "location_name": "grove blvd / e riverside dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2016,
+    "location": "(30.2270241, -97.7079239)"
+  },
+  {
+    "atd_location_id": 539,
+    "location_name": "e riverside dr / montopolis dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2249317, -97.7034378)"
+  },
+  {
+    "atd_location_id": 540,
+    "location_name": "porter st / montopolis dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2310562, -97.6995697)"
+  },
+  {
+    "atd_location_id": 541,
+    "location_name": "ponca st / montopolis dr",
+    "request_status": "requested",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2375507, -97.6952896)"
+  },
+  {
+    "atd_location_id": 809,
+    "location_name": "e sh 71 wb / thornberry rd",
+    "request_status": "study",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.218642, -97.668901)"
+  },
+  {
+    "atd_location_id": 947,
+    "location_name": "e sh 71 svrd wb / cheviot ln",
+    "request_status": "study",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2047272, -97.6425323)"
+  },
+  {
+    "atd_location_id": 856,
+    "location_name": "/ s fm 973 rd",
+    "request_status": "study",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2031937, -97.6394501)"
+  },
+  {
+    "atd_location_id": 150,
+    "location_name": "san jacinto blvd / e 2nd st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2636414, -97.7417908)"
+  },
+  {
+    "atd_location_id": 151,
+    "location_name": "e cesar chavez st / red river st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2617817, -97.7387924)"
+  },
+  {
+    "atd_location_id": 152,
+    "location_name": "guadalupe st / w 2nd st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2652874, -97.747673)"
+  },
+  {
+    "atd_location_id": 153,
+    "location_name": "lavaca st / w 2nd st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2649975, -97.7465897)"
+  },
+  {
+    "atd_location_id": 154,
+    "location_name": "congress ave / w 2nd st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2643204, -97.744194)"
+  },
+  {
+    "atd_location_id": 155,
+    "location_name": "s 1st st / cumberland rd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.238203, -97.7621002)"
+  },
+  {
+    "atd_location_id": 156,
+    "location_name": "airport blvd / shady ln",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2593136, -97.6936188)"
+  },
+  {
+    "atd_location_id": 157,
+    "location_name": "airport blvd / goodwin ave",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2681007, -97.6962738)"
+  },
+  {
+    "atd_location_id": 158,
+    "location_name": "airport blvd / bolm rd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2600937, -97.6938629)"
+  },
+  {
+    "atd_location_id": 159,
+    "location_name": "airport blvd / springdale rd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2656097, -97.6955109)"
+  },
+  {
+    "atd_location_id": 160,
+    "location_name": "springdale rd / oak springs dr",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2735615, -97.6904221)"
+  },
+  {
+    "atd_location_id": 161,
+    "location_name": "airport blvd / oak springs dr",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2735558, -97.6979065)"
+  },
+  {
+    "atd_location_id": 162,
+    "location_name": "airport blvd / e 12th st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2768612, -97.7003326)"
+  },
+  {
+    "atd_location_id": 163,
+    "location_name": "airport blvd / e martin luther king jr blvd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2825718, -97.703949)"
+  },
+  {
+    "atd_location_id": 164,
+    "location_name": "airport blvd / manor rd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.286293, -97.7063599)"
+  },
+  {
+    "atd_location_id": 165,
+    "location_name": "airport blvd / e 38th half st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2891846, -97.7072449)"
+  },
+  {
+    "atd_location_id": 166,
+    "location_name": "airport blvd / n ih 35 svrd nb",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3013058, -97.7145767)"
+  },
+  {
+    "atd_location_id": 167,
+    "location_name": "airport blvd / n ih 35 svrd sb",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3026237, -97.7157364)"
+  },
+  {
+    "atd_location_id": 168,
+    "location_name": "airport blvd / e 45th st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3036251, -97.7159805)"
+  },
+  {
+    "atd_location_id": 169,
+    "location_name": "airport blvd / e 51st st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3120689, -97.7153397)"
+  },
+  {
+    "atd_location_id": 170,
+    "location_name": "airport blvd / e 53rd half st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3150253, -97.7146301)"
+  },
+  {
+    "atd_location_id": 171,
+    "location_name": "airport blvd / e koenig ln svrd eb",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.31991, -97.7125473)"
+  },
+  {
+    "atd_location_id": 172,
+    "location_name": "airport blvd / e koenig ln svrd wb",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3209457, -97.7129517)"
+  },
+  {
+    "atd_location_id": 173,
+    "location_name": "airport blvd / levander loop",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2537231, -97.692543)"
+  },
+  {
+    "atd_location_id": 174,
+    "location_name": "s congress ave / w annie st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2460938, -97.7509689)"
+  },
+  {
+    "atd_location_id": 175,
+    "location_name": "e oltorf st / east side dr",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2367039, -97.7488022)"
+  },
+  {
+    "atd_location_id": 176,
+    "location_name": "brazos st / e 2nd st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2639465, -97.7428589)"
+  },
+  {
+    "atd_location_id": 177,
+    "location_name": "e riverside dr /",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2552376, -97.745018)"
+  },
+  {
+    "atd_location_id": 178,
+    "location_name": "e koenig ln / avenue f",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3219643, -97.7185745)"
+  },
+  {
+    "atd_location_id": 179,
+    "location_name": "w anderson ln / burrell dr",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3519783, -97.7220688)"
+  },
+  {
+    "atd_location_id": 180,
+    "location_name": "brazos st / e cesar chavez st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2630291, -97.7432098)"
+  },
+  {
+    "atd_location_id": 181,
+    "location_name": "e cesar chavez st / trinity st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2623959, -97.7410736)"
+  },
+  {
+    "atd_location_id": 182,
+    "location_name": "s lamar blvd sb / s lamar blvd svrd nb",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2362595, -97.7925873)"
+  },
+  {
+    "atd_location_id": 183,
+    "location_name": "s lamar blvd / panther trl",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2386703, -97.7892838)"
+  },
+  {
+    "atd_location_id": 184,
+    "location_name": "manchaca rd / barton skwy",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2426128, -97.781662)"
+  },
+  {
+    "atd_location_id": 185,
+    "location_name": "w 5th st / bowie st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2697372, -97.7531738)"
+  },
+  {
+    "atd_location_id": 186,
+    "location_name": "manchaca rd / fort view rd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2310085, -97.7876205)"
+  },
+  {
+    "atd_location_id": 187,
+    "location_name": "manchaca rd / redd st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2282581, -97.7894058)"
+  },
+  {
+    "atd_location_id": 188,
+    "location_name": "manchaca rd / lansing dr",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2234383, -97.7923889)"
+  },
+  {
+    "atd_location_id": 189,
+    "location_name": "manchaca rd / jones rd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2207584, -97.7940674)"
+  },
+  {
+    "atd_location_id": 190,
+    "location_name": "manchaca rd / w stassney ln",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2154312, -97.7977066)"
+  },
+  {
+    "atd_location_id": 191,
+    "location_name": "manchaca rd / berkeley ave",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.20858, -97.8048477)"
+  },
+  {
+    "atd_location_id": 192,
+    "location_name": "manchaca rd / w william cannon dr",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2029133, -97.8069077)"
+  },
+  {
+    "atd_location_id": 193,
+    "location_name": "manchaca rd / matthews ln",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.1999645, -97.8073349)"
+  },
+  {
+    "atd_location_id": 194,
+    "location_name": "manchaca rd / davis ln",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.1859264, -97.8163071)"
+  },
+  {
+    "atd_location_id": 195,
+    "location_name": "manchaca rd / w slaughter ln",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.1737366, -97.8237305)"
+  },
+  {
+    "atd_location_id": 196,
+    "location_name": "s pleasant valley rd / e william cannon dr",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.1796741, -97.7469025)"
+  },
+  {
+    "atd_location_id": 197,
+    "location_name": "s 1st st / w annie st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.247448, -97.7558212)"
+  },
+  {
+    "atd_location_id": 198,
+    "location_name": "w slaughter ln / bilbrook pl",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.1738644, -97.8169937)"
+  },
+  {
+    "atd_location_id": 199,
+    "location_name": "e martin luther king jr blvd / cedar ave",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2809563, -97.7142868)"
+  },
+  {
+    "atd_location_id": 200,
+    "location_name": "n lamar blvd / w 40th st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3078613, -97.7413864)"
+  },
+  {
+    "atd_location_id": 201,
+    "location_name": "w 5th st / baylor st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2708549, -97.7560349)"
+  },
+  {
+    "atd_location_id": 202,
+    "location_name": "w slaughter ln / s 1st st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.1724548, -97.7995529)"
+  },
+  {
+    "atd_location_id": 203,
+    "location_name": "w 6th st / campbell st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2757683, -97.7642212)"
+  },
+  {
+    "atd_location_id": 204,
+    "location_name": "southwest pkwy / foster ranch rd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2480564, -97.8497391)"
+  },
+  {
+    "atd_location_id": 205,
+    "location_name": "w 6th st / west lynn st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.274826, -97.7626419)"
+  },
+  {
+    "atd_location_id": 206,
+    "location_name": "w 12th st / west lynn st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2802258, -97.7591171)"
+  },
+  {
+    "atd_location_id": 207,
+    "location_name": "enfield rd / winsted ln",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2862911, -97.7646103)"
+  },
+  {
+    "atd_location_id": 208,
+    "location_name": "newfield ln / enfield rd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2856445, -97.763298)"
+  },
+  {
+    "atd_location_id": 209,
+    "location_name": "enfield rd / hartford rd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2846756, -97.7618637)"
+  },
+  {
+    "atd_location_id": 210,
+    "location_name": "enfield rd / west lynn st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.282774, -97.7578201)"
+  },
+  {
+    "atd_location_id": 211,
+    "location_name": "w 15th st / enfield rd",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2801552, -97.753212)"
+  },
+  {
+    "atd_location_id": 212,
+    "location_name": "w 15th st / west ave",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2791462, -97.7472839)"
+  },
+  {
+    "atd_location_id": 213,
+    "location_name": "w 15th st / rio grande st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.278841, -97.7462311)"
+  },
+  {
+    "atd_location_id": 214,
+    "location_name": "w 15th st / nueces st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2785339, -97.7451477)"
+  },
+  {
+    "atd_location_id": 215,
+    "location_name": "w 15th st / san antonio st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2782192, -97.7440567)"
+  },
+  {
+    "atd_location_id": 217,
+    "location_name": "w 15th st / lavaca st",
+    "request_status": "study",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.2776051, -97.7419281)"
+  },
+  {
+    "atd_location_id": 432,
+    "location_name": "northland dr / balcones dr",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3374195, -97.7570496)"
+  },
+  {
+    "atd_location_id": 433,
+    "location_name": "northland dr / n mopac expy svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3367844, -97.7559586)"
+  },
+  {
+    "atd_location_id": 434,
+    "location_name": "n mopac expy nb / northland dr",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3355293, -97.7537231)"
+  },
+  {
+    "atd_location_id": 435,
+    "location_name": "northland dr / marilyn dr",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3345642, -97.7515335)"
+  },
+  {
+    "atd_location_id": 436,
+    "location_name": "allandale rd / northland dr",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3346004, -97.7491684)"
+  },
+  {
+    "atd_location_id": 437,
+    "location_name": "far west blvd / hart ln",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3551102, -97.7566376)"
+  },
+  {
+    "atd_location_id": 438,
+    "location_name": "far west blvd / wood hollow dr",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3534126, -97.7531357)"
+  },
+  {
+    "atd_location_id": 439,
+    "location_name": "far west blvd / n mopac expy svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3519115, -97.7496185)"
+  },
+  {
+    "atd_location_id": 440,
+    "location_name": "far west blvd / n mopac expy svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3515854, -97.7483673)"
+  },
+  {
+    "atd_location_id": 441,
+    "location_name": "steck ave / n mopac expy svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3684921, -97.7431335)"
+  },
+  {
+    "atd_location_id": 442,
+    "location_name": "steck ave / n mopac expy svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3679314, -97.7419205)"
+  },
+  {
+    "atd_location_id": 443,
+    "location_name": "steck ave / shoal creek blvd",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3663502, -97.7386398)"
+  },
+  {
+    "atd_location_id": 444,
+    "location_name": "w william cannon dr / cooper ln",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.1985073, -97.7911224)"
+  },
+  {
+    "atd_location_id": 445,
+    "location_name": "w wells branch pkwy / owen tech blvd",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.43887911, -97.67208725)"
+  },
+  {
+    "atd_location_id": 446,
+    "location_name": "metric blvd / w parmer ln",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.4132328, -97.6905823)"
+  },
+  {
+    "atd_location_id": 447,
+    "location_name": "w braker ln / metric blvd",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3923416, -97.7082825)"
+  },
+  {
+    "atd_location_id": 448,
+    "location_name": "n lamar blvd / masterson pass",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3711758, -97.6924591)"
+  },
+  {
+    "atd_location_id": 449,
+    "location_name": "burnet rd / gault ln",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.4049339, -97.7160492)"
+  },
+  {
+    "atd_location_id": 450,
+    "location_name": "w braker ln / kramer ln",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3908577, -97.7140121)"
+  },
+  {
+    "atd_location_id": 451,
+    "location_name": "burnet rd / longhorn blvd",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3800125, -97.7248764)"
+  },
+  {
+    "atd_location_id": 452,
+    "location_name": "burnet rd / rutland dr",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3834267, -97.7240753)"
+  },
+  {
+    "atd_location_id": 453,
+    "location_name": "w braker ln / burnet rd",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3911648, -97.7218094)"
+  },
+  {
+    "atd_location_id": 454,
+    "location_name": "burnet rd / palm way",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.4022865, -97.7176056)"
+  },
+  {
+    "atd_location_id": 455,
+    "location_name": "burnet rd / kramer ln",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3952026, -97.7203979)"
+  },
+  {
+    "atd_location_id": 456,
+    "location_name": "e stassney ln / teri rd",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.1912918, -97.7311554)"
+  },
+  {
+    "atd_location_id": 457,
+    "location_name": "w braker ln / domain dr",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3923473, -97.7256241)"
+  },
+  {
+    "atd_location_id": 458,
+    "location_name": "e braker ln / n ih 35 svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3769493, -97.6755829)"
+  },
+  {
+    "atd_location_id": 459,
+    "location_name": "e braker ln / n ih 35 svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3771248, -97.6764832)"
+  },
+  {
+    "atd_location_id": 460,
+    "location_name": "w braker ln / n lamar blvd",
+    "request_status": "under_evaluation",
+    "request_type": "phb",
+    "request_year": 2015,
+    "location": "(30.3819351, -97.6863708)"
+  },
+  {
+    "atd_location_id": 542,
+    "location_name": "e oltorf st / montopolis dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2150421, -97.7102966)"
+  },
+  {
+    "atd_location_id": 543,
+    "location_name": "brush country rd / convict hill rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2169132, -97.8459091)"
+  },
+  {
+    "atd_location_id": 544,
+    "location_name": "e oltorf st / parker ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2323151, -97.7368851)"
+  },
+  {
+    "atd_location_id": 545,
+    "location_name": "burleson rd / mc kinney falls pkwy",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1919994, -97.6983871)"
+  },
+  {
+    "atd_location_id": 546,
+    "location_name": "w sh 71 / covered bridge dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2499123, -97.8943024)"
+  },
+  {
+    "atd_location_id": 547,
+    "location_name": "manchaca rd / old manchaca rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1641369, -97.8300018)"
+  },
+  {
+    "atd_location_id": 548,
+    "location_name": "airport blvd / wilshire blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2978573, -97.7088776)"
+  },
+  {
+    "atd_location_id": 549,
+    "location_name": "e 51st st / lancaster ct",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3075066, -97.7064896)"
+  },
+  {
+    "atd_location_id": 550,
+    "location_name": "s us 183 hwy sb / mc kinney falls pkwy",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1982975, -97.6841202)"
+  },
+  {
+    "atd_location_id": 551,
+    "location_name": "e parmer ln /",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3780251, -97.6355438)"
+  },
+  {
+    "atd_location_id": 552,
+    "location_name": "w slaughter ln / west gate blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1792698, -97.841011)"
+  },
+  {
+    "atd_location_id": 554,
+    "location_name": "blue meadow dr / bluff springs rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1836624, -97.7689667)"
+  },
+  {
+    "atd_location_id": 555,
+    "location_name": "anderson mill rd / cypress creek rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4722462, -97.8476257)"
+  },
+  {
+    "atd_location_id": 556,
+    "location_name": "anderson mill rd / twin creeks club dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4692612, -97.8451691)"
+  },
+  {
+    "atd_location_id": 557,
+    "location_name": "springdale rd / e 12th st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2789841, -97.6870193)"
+  },
+  {
+    "atd_location_id": 558,
+    "location_name": "barbara jordan blvd /",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3067455, -97.7091751)"
+  },
+  {
+    "atd_location_id": 559,
+    "location_name": "w slaughter ln / cullen ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1671963, -97.7909317)"
+  },
+  {
+    "atd_location_id": 560,
+    "location_name": "escarpment blvd / davis ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2116928, -97.8764877)"
+  },
+  {
+    "atd_location_id": 561,
+    "location_name": "e parmer ln / samsung blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3760014, -97.6317139)"
+  },
+  {
+    "atd_location_id": 562,
+    "location_name": "w slaughter ln / lindshire ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1781845, -97.8387756)"
+  },
+  {
+    "atd_location_id": 563,
+    "location_name": "w 5th st / campbell st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2748566, -97.7648392)"
+  },
+  {
+    "atd_location_id": 564,
+    "location_name": "w north loop blvd /",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.325491, -97.7421799)"
+  },
+  {
+    "atd_location_id": 565,
+    "location_name": "shoal creek blvd / hancock dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3256016, -97.7449646)"
+  },
+  {
+    "atd_location_id": 566,
+    "location_name": "bull creek rd / hancock dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3276367, -97.7491455)"
+  },
+  {
+    "atd_location_id": 567,
+    "location_name": "hancock dr / balcones dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3330383, -97.7603607)"
+  },
+  {
+    "atd_location_id": 568,
+    "location_name": "w 45th st / bull creek rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3205681, -97.753479)"
+  },
+  {
+    "atd_location_id": 569,
+    "location_name": "n mopac expy nb / w 45th st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3212357, -97.7548218)"
+  },
+  {
+    "atd_location_id": 570,
+    "location_name": "burleson rd / e ben white blvd svrd wb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2156048, -97.7348709)"
+  },
+  {
+    "atd_location_id": 571,
+    "location_name": "e ben white blvd svrd eb / todd ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2149239, -97.7352905)"
+  },
+  {
+    "atd_location_id": 572,
+    "location_name": "e ben white blvd svrd wb / burleson rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2153988, -97.733429)"
+  },
+  {
+    "atd_location_id": 573,
+    "location_name": "burleson rd / e ben white blvd svrd eb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2146645, -97.7335815)"
+  },
+  {
+    "atd_location_id": 574,
+    "location_name": "barbara jordan blvd / lancaster dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3059559, -97.707489)"
+  },
+  {
+    "atd_location_id": 575,
+    "location_name": "e martin luther king jr blvd / comal st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2791042, -97.7251358)"
+  },
+  {
+    "atd_location_id": 576,
+    "location_name": "w ben white blvd svrd wb / pack saddle pass",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2319946, -97.7915115)"
+  },
+  {
+    "atd_location_id": 577,
+    "location_name": "w ben white blvd svrd eb / pack saddle pass",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.231266, -97.791954)"
+  },
+  {
+    "atd_location_id": 578,
+    "location_name": "w wells branch pkwy / summit dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4414845, -97.6920853)"
+  },
+  {
+    "atd_location_id": 579,
+    "location_name": "n ih 35 svrd nb / e us 290 hwy svrd wb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3227043, -97.7060852)"
+  },
+  {
+    "atd_location_id": 580,
+    "location_name": "n ih 35 svrd sb / e koenig ln svrd wb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3224621, -97.7074203)"
+  },
+  {
+    "atd_location_id": 581,
+    "location_name": "n ih 35 svrd nb / e us 290 hwy svrd eb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3216934, -97.7063751)"
+  },
+  {
+    "atd_location_id": 582,
+    "location_name": "n ih 35 svrd sb / e koenig ln svrd eb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3214207, -97.707489)"
+  },
+  {
+    "atd_location_id": 599,
+    "location_name": "n lamar blvd / w longspur blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3673611, -97.6945877)"
+  },
+  {
+    "atd_location_id": 600,
+    "location_name": "jollyville rd / balcones woods dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.407795, -97.7478638)"
+  },
+  {
+    "atd_location_id": 601,
+    "location_name": "southwest pkwy / boston ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2401161, -97.8332901)"
+  },
+  {
+    "atd_location_id": 602,
+    "location_name": "cameron rd / northridge dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3158131, -97.7015381)"
+  },
+  {
+    "atd_location_id": 603,
+    "location_name": "red river st / e 4th st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2646255, -97.7378387)"
+  },
+  {
+    "atd_location_id": 604,
+    "location_name": "burnet rd / research blvd svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3728848, -97.7264786)"
+  },
+  {
+    "atd_location_id": 605,
+    "location_name": "freidrich ln / woodward st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2132587, -97.7454681)"
+  },
+  {
+    "atd_location_id": 606,
+    "location_name": "n fm 620 rd sb / north lake creek pkwy",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4710636, -97.7902222)"
+  },
+  {
+    "atd_location_id": 607,
+    "location_name": "n fm 620 rd nb / lake creek pkwy",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4702168, -97.7898941)"
+  },
+  {
+    "atd_location_id": 608,
+    "location_name": "e riverside dr / crossing pl",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.231636, -97.7174606)"
+  },
+  {
+    "atd_location_id": 609,
+    "location_name": "n ih 35 svrd sb / e anderson ln svrd eb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3395042, -97.7006454)"
+  },
+  {
+    "atd_location_id": 610,
+    "location_name": "n ih 35 svrd nb / e anderson ln svrd wb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3388557, -97.6995544)"
+  },
+  {
+    "atd_location_id": 611,
+    "location_name": "n fm 620 rd sb / pecan park blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4667587, -97.8042831)"
+  },
+  {
+    "atd_location_id": 612,
+    "location_name": "n fm 620 rd nb / pecan park blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4659653, -97.8039627)"
+  },
+  {
+    "atd_location_id": 613,
+    "location_name": "manor rd / ed bluestein blvd svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3166332, -97.6626892)"
+  },
+  {
+    "atd_location_id": 614,
+    "location_name": "manor rd / ed bluestein blvd svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3152828, -97.6635742)"
+  },
+  {
+    "atd_location_id": 615,
+    "location_name": "ed bluestein blvd nb / loyola ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3026314, -97.6609726)"
+  },
+  {
+    "atd_location_id": 616,
+    "location_name": "ed bluestein blvd sb / techni center dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2760506, -97.6679153)"
+  },
+  {
+    "atd_location_id": 617,
+    "location_name": "great hills trl / jollyville rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3941898, -97.7497025)"
+  },
+  {
+    "atd_location_id": 618,
+    "location_name": "jollyville rd / oak knoll dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.427557, -97.7600708)"
+  },
+  {
+    "atd_location_id": 619,
+    "location_name": "fm 969 rd / ed bluestein blvd svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2854214, -97.6640472)"
+  },
+  {
+    "atd_location_id": 620,
+    "location_name": "e martin luther king jr blvd / ed bluestein blvd svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2858715, -97.6668015)"
+  },
+  {
+    "atd_location_id": 621,
+    "location_name": "e martin luther king jr blvd / springdale rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.285862, -97.6826248)"
+  },
+  {
+    "atd_location_id": 622,
+    "location_name": "w anderson ln svrd wb / n lamar blvd svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3477535, -97.7119446)"
+  },
+  {
+    "atd_location_id": 623,
+    "location_name": "n lamar blvd svrd sb / research blvd svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3483505, -97.712532)"
+  },
+  {
+    "atd_location_id": 624,
+    "location_name": "w anderson ln svrd eb / n lamar blvd svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3470039, -97.7124252)"
+  },
+  {
+    "atd_location_id": 625,
+    "location_name": "n lamar blvd svrd sb / research blvd svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3475475, -97.7131195)"
+  },
+  {
+    "atd_location_id": 626,
+    "location_name": "payton gin rd / ohlen rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3643188, -97.714592)"
+  },
+  {
+    "atd_location_id": 627,
+    "location_name": "w slaughter ln / sendera mesa dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1987305, -97.8627777)"
+  },
+  {
+    "atd_location_id": 628,
+    "location_name": "n fm 620 rd / anderson mill rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4554501, -97.8258057)"
+  },
+  {
+    "atd_location_id": 629,
+    "location_name": "lamplight village ave / scofield ridge pkwy",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4281406, -97.6890717)"
+  },
+  {
+    "atd_location_id": 630,
+    "location_name": "anderson mill rd / pond springs rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4503841, -97.7853088)"
+  },
+  {
+    "atd_location_id": 631,
+    "location_name": "s pleasant valley rd / nuckols crossing rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1844883, -97.7449036)"
+  },
+  {
+    "atd_location_id": 632,
+    "location_name": "springdale rd / e 51st st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2936001, -97.6778107)"
+  },
+  {
+    "atd_location_id": 633,
+    "location_name": "berkman dr / briarcliff blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3140945, -97.6925049)"
+  },
+  {
+    "atd_location_id": 634,
+    "location_name": "e us 290 hwy svrd wb / berkman dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3219185, -97.6890259)"
+  },
+  {
+    "atd_location_id": 635,
+    "location_name": "berkman dr / e us 290 hwy svrd eb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3208694, -97.6889267)"
+  },
+  {
+    "atd_location_id": 636,
+    "location_name": "cameron rd / e st johns ave",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3260517, -97.6923065)"
+  },
+  {
+    "atd_location_id": 637,
+    "location_name": "cameron rd / e us 290 hwy svrd wb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3218555, -97.6949463)"
+  },
+  {
+    "atd_location_id": 638,
+    "location_name": "cameron rd / e us 290 hwy svrd eb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3207817, -97.6958618)"
+  },
+  {
+    "atd_location_id": 639,
+    "location_name": "cameron rd / briarcliff blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3172894, -97.6996155)"
+  },
+  {
+    "atd_location_id": 640,
+    "location_name": "cameron rd / broadmoor dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3114204, -97.7070084)"
+  },
+  {
+    "atd_location_id": 641,
+    "location_name": "e 51st st / cameron rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3091068, -97.7097549)"
+  },
+  {
+    "atd_location_id": 642,
+    "location_name": "e 51st st / n ih 35 svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3101578, -97.7113037)"
+  },
+  {
+    "atd_location_id": 643,
+    "location_name": "manor rd / e 51st st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2981815, -97.6870575)"
+  },
+  {
+    "atd_location_id": 644,
+    "location_name": "w braker ln / jollyville rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4006977, -97.7488632)"
+  },
+  {
+    "atd_location_id": 645,
+    "location_name": "fm 969 rd / craigwood dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2847252, -97.6598206)"
+  },
+  {
+    "atd_location_id": 646,
+    "location_name": "lakeline blvd / north lake creek pkwy",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4801693, -97.795433)"
+  },
+  {
+    "atd_location_id": 647,
+    "location_name": "manor rd / springdale rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3089867, -97.6690598)"
+  },
+  {
+    "atd_location_id": 648,
+    "location_name": "mc neil dr /",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4463997, -97.7342911)"
+  },
+  {
+    "atd_location_id": 649,
+    "location_name": "mc neil rd / w howard ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4490528, -97.7255859)"
+  },
+  {
+    "atd_location_id": 650,
+    "location_name": "burnet rd / research blvd svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3735065, -97.7262878)"
+  },
+  {
+    "atd_location_id": 651,
+    "location_name": "manor rd / susquehanna ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3130779, -97.6650085)"
+  },
+  {
+    "atd_location_id": 652,
+    "location_name": "great hills trl /",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3944759, -97.752121)"
+  },
+  {
+    "atd_location_id": 653,
+    "location_name": "manor rd / pecan brook dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3186951, -97.6613617)"
+  },
+  {
+    "atd_location_id": 654,
+    "location_name": "s lakeline blvd / n us 183 hwy svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4794254, -97.803299)"
+  },
+  {
+    "atd_location_id": 655,
+    "location_name": "lakeline blvd / n us 183 hwy svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4800491, -97.8019562)"
+  },
+  {
+    "atd_location_id": 656,
+    "location_name": "w parmer ln / amberglen blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4714336, -97.7626419)"
+  },
+  {
+    "atd_location_id": 657,
+    "location_name": "w parmer ln / tamayo dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4559517, -97.7527771)"
+  },
+  {
+    "atd_location_id": 658,
+    "location_name": "anderson mill rd / w parmer ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4605808, -97.7545547)"
+  },
+  {
+    "atd_location_id": 659,
+    "location_name": "mc neil dr / w parmer ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4438496, -97.7423935)"
+  },
+  {
+    "atd_location_id": 660,
+    "location_name": "e 51st st / berkman dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3039074, -97.6988754)"
+  },
+  {
+    "atd_location_id": 661,
+    "location_name": "escarpment blvd / la crosse ave",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1939869, -97.8848801)"
+  },
+  {
+    "atd_location_id": 662,
+    "location_name": "escarpment blvd / w slaughter ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2005997, -97.8784256)"
+  },
+  {
+    "atd_location_id": 663,
+    "location_name": "mc neil dr / corpus christi dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4411297, -97.7496262)"
+  },
+  {
+    "atd_location_id": 664,
+    "location_name": "w ben white blvd svrd wb / s lamar blvd svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2342701, -97.7956467)"
+  },
+  {
+    "atd_location_id": 665,
+    "location_name": "w ben white blvd svrd eb / s lamar blvd svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2336826, -97.7966614)"
+  },
+  {
+    "atd_location_id": 666,
+    "location_name": "s capital of texas hwy svrd nb / s lamar blvd svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2345924, -97.7959976)"
+  },
+  {
+    "atd_location_id": 667,
+    "location_name": "s capital of texas hwy svrd sb / s lamar blvd svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2340221, -97.7970657)"
+  },
+  {
+    "atd_location_id": 668,
+    "location_name": "oak knoll dr / research blvd svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4288826, -97.7594604)"
+  },
+  {
+    "atd_location_id": 669,
+    "location_name": "s lakeline blvd / ridgeline blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.475338, -97.8108978)"
+  },
+  {
+    "atd_location_id": 670,
+    "location_name": "fm 2222 rd / jester blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3694973, -97.8019943)"
+  },
+  {
+    "atd_location_id": 671,
+    "location_name": "lakeline mall dr / n us 183 hwy svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4728546, -97.7991867)"
+  },
+  {
+    "atd_location_id": 672,
+    "location_name": "lakeline mall dr / n us 183 hwy svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4732018, -97.7982635)"
+  },
+  {
+    "atd_location_id": 673,
+    "location_name": "w howard ln / n ih 35 svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4242554, -97.6711884)"
+  },
+  {
+    "atd_location_id": 674,
+    "location_name": "w howard ln / n ih 35 svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4244652, -97.6718903)"
+  },
+  {
+    "atd_location_id": 675,
+    "location_name": "research blvd svrd sb / anderson sq",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3528557, -97.714859)"
+  },
+  {
+    "atd_location_id": 676,
+    "location_name": "research blvd svrd nb / anderson sq",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3531017, -97.7141953)"
+  },
+  {
+    "atd_location_id": 677,
+    "location_name": "research blvd svrd nb / fairfield dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.360487, -97.7164764)"
+  },
+  {
+    "atd_location_id": 678,
+    "location_name": "fairfield dr / research blvd svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3603783, -97.7168732)"
+  },
+  {
+    "atd_location_id": 679,
+    "location_name": "duval rd / jollyville rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4172859, -97.7500381)"
+  },
+  {
+    "atd_location_id": 680,
+    "location_name": "duval rd / research blvd svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4189987, -97.7473297)"
+  },
+  {
+    "atd_location_id": 681,
+    "location_name": "e slaughter ln / e slaughter to brandt ramp",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1602306, -97.7767181)"
+  },
+  {
+    "atd_location_id": 682,
+    "location_name": "w slaughter ln / palace pkwy",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1740322, -97.8058777)"
+  },
+  {
+    "atd_location_id": 683,
+    "location_name": "fm 969 rd / decker ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2767944, -97.6372757)"
+  },
+  {
+    "atd_location_id": 684,
+    "location_name": "w us 290 hwy / fm 1826 rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2291946, -97.8883057)"
+  },
+  {
+    "atd_location_id": 685,
+    "location_name": "brodie ln / silk oak dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1907635, -97.8452148)"
+  },
+  {
+    "atd_location_id": 686,
+    "location_name": "mc kinney falls pkwy / dee gabriel collins rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1724491, -97.7220612)"
+  },
+  {
+    "atd_location_id": 687,
+    "location_name": "w us 290 hwy / w william cannon dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2340565, -97.86483)"
+  },
+  {
+    "atd_location_id": 688,
+    "location_name": "n us 183 hwy svrd sb / pecan park blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4653149, -97.7962723)"
+  },
+  {
+    "atd_location_id": 689,
+    "location_name": "n us 183 hwy svrd nb / pecan park blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4655991, -97.7952499)"
+  },
+  {
+    "atd_location_id": 690,
+    "location_name": "w sh 71 / w us 290 hwy eb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2333431, -97.8747025)"
+  },
+  {
+    "atd_location_id": 691,
+    "location_name": "w us 290 hwy svrd wb / industrial oaks blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2370605, -97.8398972)"
+  },
+  {
+    "atd_location_id": 692,
+    "location_name": "w us 290 hwy svrd eb / monterey oaks blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2361565, -97.839798)"
+  },
+  {
+    "atd_location_id": 693,
+    "location_name": "w us 290 hwy /",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2289925, -97.885376)"
+  },
+  {
+    "atd_location_id": 694,
+    "location_name": "w us 290 hwy / convict hill rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2307835, -97.8792953)"
+  },
+  {
+    "atd_location_id": 695,
+    "location_name": "w st johns ave / northcrest blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3366585, -97.7120438)"
+  },
+  {
+    "atd_location_id": 696,
+    "location_name": "w anderson ln svrd wb / northcrest blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3440247, -97.7050705)"
+  },
+  {
+    "atd_location_id": 697,
+    "location_name": "w anderson ln svrd eb / northcrest blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3437004, -97.7053833)"
+  },
+  {
+    "atd_location_id": 698,
+    "location_name": "ohlen rd / research blvd svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3632603, -97.7172623)"
+  },
+  {
+    "atd_location_id": 699,
+    "location_name": "research blvd svrd sb / ohlen rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3631344, -97.7177963)"
+  },
+  {
+    "atd_location_id": 700,
+    "location_name": "thompkins dr / e yager ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3908253, -97.6590424)"
+  },
+  {
+    "atd_location_id": 701,
+    "location_name": "spicewood springs rd / rustic rock dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4301472, -97.7812271)"
+  },
+  {
+    "atd_location_id": 702,
+    "location_name": "mc neil dr / n us 183 hwy svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4344883, -97.7690582)"
+  },
+  {
+    "atd_location_id": 703,
+    "location_name": "spicewood springs rd / n us 183 hwy svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4340858, -97.7701492)"
+  },
+  {
+    "atd_location_id": 704,
+    "location_name": "n us 183 hwy svrd nb / pond springs rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4351349, -97.7703857)"
+  },
+  {
+    "atd_location_id": 705,
+    "location_name": "n us 183 hwy svrd sb / pond springs rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4344368, -97.7708511)"
+  },
+  {
+    "atd_location_id": 706,
+    "location_name": "johnny morris rd / loyola ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3002377, -97.6482162)"
+  },
+  {
+    "atd_location_id": 707,
+    "location_name": "w howard ln / s heatherwilde blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4194069, -97.6609497)"
+  },
+  {
+    "atd_location_id": 708,
+    "location_name": "s 1st st / radam ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.224268, -97.7708817)"
+  },
+  {
+    "atd_location_id": 709,
+    "location_name": "metric blvd / w rundberg ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3751812, -97.7197266)"
+  },
+  {
+    "atd_location_id": 710,
+    "location_name": "s pleasant valley rd /",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2460289, -97.7149734)"
+  },
+  {
+    "atd_location_id": 711,
+    "location_name": "w slaughter ln /",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1737652, -97.8255234)"
+  },
+  {
+    "atd_location_id": 712,
+    "location_name": "guadalupe st / w 3rd st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2662258, -97.7473068)"
+  },
+  {
+    "atd_location_id": 713,
+    "location_name": "tech ridge blvd / canyon ridge dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3990517, -97.6688538)"
+  },
+  {
+    "atd_location_id": 714,
+    "location_name": "southwest pkwy / travis cook rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.262125, -97.8888702)"
+  },
+  {
+    "atd_location_id": 715,
+    "location_name": "dessau rd / dungan ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3522682, -97.675087)"
+  },
+  {
+    "atd_location_id": 716,
+    "location_name": "nuckols crossing rd / palo blanco ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1895466, -97.7412109)"
+  },
+  {
+    "atd_location_id": 718,
+    "location_name": "ed bluestein blvd sb / e 51st st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2923031, -97.6636276)"
+  },
+  {
+    "atd_location_id": 719,
+    "location_name": "e stassney ln / palo blanco ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1936913, -97.7497253)"
+  },
+  {
+    "atd_location_id": 720,
+    "location_name": "southwest pkwy / w william cannon dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2545109, -97.8656235)"
+  },
+  {
+    "atd_location_id": 721,
+    "location_name": "e parmer ln / harris ridge blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4023132, -97.6573715)"
+  },
+  {
+    "atd_location_id": 722,
+    "location_name": "e parmer ln / mc callen pass",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4052601, -97.6639328)"
+  },
+  {
+    "atd_location_id": 723,
+    "location_name": "colorado st / w 3rd st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2656021, -97.7451553)"
+  },
+  {
+    "atd_location_id": 724,
+    "location_name": "spicewood springs rd / parliament pl",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4333057, -97.7726898)"
+  },
+  {
+    "atd_location_id": 725,
+    "location_name": "old lampasas trl / spicewood springs rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4225273, -97.7936096)"
+  },
+  {
+    "atd_location_id": 726,
+    "location_name": "e stassney ln / dove springs dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1939392, -97.7567978)"
+  },
+  {
+    "atd_location_id": 727,
+    "location_name": "w slaughter ln / riddle rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1739826, -97.8271484)"
+  },
+  {
+    "atd_location_id": 728,
+    "location_name": "lake austin blvd / veterans dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2776871, -97.7718658)"
+  },
+  {
+    "atd_location_id": 729,
+    "location_name": "lake austin blvd / redbud trl",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2915916, -97.7830658)"
+  },
+  {
+    "atd_location_id": 730,
+    "location_name": "exposition blvd / lake austin blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2832127, -97.7767715)"
+  },
+  {
+    "atd_location_id": 731,
+    "location_name": "enfield rd / exposition blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2905979, -97.7720566)"
+  },
+  {
+    "atd_location_id": 732,
+    "location_name": "exposition blvd / windsor rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2966995, -97.7682571)"
+  },
+  {
+    "atd_location_id": 733,
+    "location_name": "exposition blvd / westover rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3030338, -97.7643051)"
+  },
+  {
+    "atd_location_id": 734,
+    "location_name": "w 35th st / exposition blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3104992, -97.7627029)"
+  },
+  {
+    "atd_location_id": 735,
+    "location_name": "cross park dr / exchange dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3299866, -97.6672821)"
+  },
+  {
+    "atd_location_id": 736,
+    "location_name": "burnet rd / waterford centre blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3773537, -97.7254715)"
+  },
+  {
+    "atd_location_id": 737,
+    "location_name": "w slaughter ln / barstow ave",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.208704, -97.889267)"
+  },
+  {
+    "atd_location_id": 738,
+    "location_name": "manor rd / northeast dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3085327, -97.6707687)"
+  },
+  {
+    "atd_location_id": 739,
+    "location_name": "w braker ln / stonelake blvd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3989582, -97.7392883)"
+  },
+  {
+    "atd_location_id": 740,
+    "location_name": "w slaughter ln / texas oaks dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1738815, -97.8143845)"
+  },
+  {
+    "atd_location_id": 741,
+    "location_name": "brodie ln / davis ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1953335, -97.8422852)"
+  },
+  {
+    "atd_location_id": 742,
+    "location_name": "brodie ln / deer ln",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1942902, -97.8429794)"
+  },
+  {
+    "atd_location_id": 743,
+    "location_name": "spicewood springs rd / yaupon dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4283123, -97.7830505)"
+  },
+  {
+    "atd_location_id": 744,
+    "location_name": "e parmer ln / harrisglenn dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.3995419, -97.6549225)"
+  },
+  {
+    "atd_location_id": 745,
+    "location_name": "w slaughter ln / s ih 35 svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1670322, -97.7849808)"
+  },
+  {
+    "atd_location_id": 746,
+    "location_name": "w slaughter ln / s ih 35 svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.1670704, -97.7869263)"
+  },
+  {
+    "atd_location_id": 747,
+    "location_name": "n ih 35 svrd nb / holly st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2571259, -97.7365189)"
+  },
+  {
+    "atd_location_id": 748,
+    "location_name": "n ih 35 svrd sb / river st",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2574501, -97.7377014)"
+  },
+  {
+    "atd_location_id": 749,
+    "location_name": "n mopac expy svrd nb / park bend dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4108028, -97.7094955)"
+  },
+  {
+    "atd_location_id": 750,
+    "location_name": "n mopac expy svrd sb / waters park rd",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4114418, -97.7103043)"
+  },
+  {
+    "atd_location_id": 751,
+    "location_name": "manor rd / n ih 35 svrd nb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2829857, -97.7269211)"
+  },
+  {
+    "atd_location_id": 752,
+    "location_name": "manor rd / n ih 35 svrd sb",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2830906, -97.727478)"
+  },
+  {
+    "atd_location_id": 753,
+    "location_name": "s lamar blvd / lamar square dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.2542477, -97.7625885)"
+  },
+  {
+    "atd_location_id": 754,
+    "location_name": "w parmer ln / legendary dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4372978, -97.7359543)"
+  },
+  {
+    "atd_location_id": 755,
+    "location_name": "w parmer ln / spectrum dr",
+    "request_status": "under_evaluation",
+    "request_type": "traffic",
+    "request_year": 2015,
+    "location": "(30.4816914, -97.7670975)"
+  }
+]
