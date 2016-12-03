@@ -43,7 +43,7 @@ var STATUS_TYPES_READABLE = {
     - return first result of sorted by desc timestamp
 */
 
-var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27%20AND%20response_message%20IS%20NULL&$order=timestamp+DESC&$limit=1'
+var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27&$order=timestamp+DESC&$limit=1'
 var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
 //  var data_url = '../components/data/fake_intersection_data.json';
 
