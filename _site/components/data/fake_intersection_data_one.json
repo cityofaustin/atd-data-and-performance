@@ -1,0 +1,18 @@
+[ {
+  "latitude" : "30.2169132",
+  "operation_state" : "1",
+  "cross_st" : "CONVICT HILL RD",
+  "atd_signal_id" : "554",
+  "record_id" : "554_1479029709",
+  "location_name" : "BRUSH COUNTRY RD / CONVICT HILL RD ",
+  "operation_state_datetime" : "2016-11-13T03:30:28",
+  "processed_datetime" : "2016-11-13T03:35:09",
+  "location" : {
+    "latitude" : "30.2169132",
+    "needs_recoding" : false,
+    "longitude" : "-97.8459091"
+  },
+  "plan_id" : "25",
+  "primary_street" : "BRUSH COUNTRY RD",
+  "longitude" : "-97.8459091"
+}]

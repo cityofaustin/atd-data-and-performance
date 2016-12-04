@@ -6,8 +6,6 @@ var map;
 
 var signal_markers = {};
 
-var map_expanded = false;
-
 var formatPct = d3.format("%");
 
 var formatDateTime = d3.timeFormat("%e %b %-I:%M%p");
@@ -45,9 +43,22 @@ var STATUS_TYPES_READABLE = {
 
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27&$order=timestamp+DESC&$limit=1'
 var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
-//  var data_url = '../components/data/fake_intersection_data.json';
+
+//  lots flashing
+var data_url = '../components/data/fake_intersection_data.json';
+
+// one flashing
+//  var data_url = '../components/data/fake_intersection_data_one.json';
+
+var screen_collapse = true;
+
+var screen_collapse_breakpoint = '768'  //  http://getbootstrap.com/css/
+
+var map_expanded = false;
 
 var default_map_size = '40vh';
+
+var adjusted_map_size = default_map_size;
 
 var expanded_map_size = '100vh';  //  vertial height units  
 
@@ -90,6 +101,20 @@ $(document).ready(function(){
             .style("margin-left", "10px");
     }
 
+    $(window).resize(function() {
+        
+        if ( $(window).width() > screen_collapse_breakpoint && screen_collapse) {
+
+                screen_collapse = false
+                adjustMapHeight();
+
+        } else if ( $(window).width() < screen_collapse_breakpoint && !screen_collapse) {
+
+                screen_collapse = true
+                adjustMapHeight();
+        }
+    });
+
 });
 
 
@@ -117,7 +142,7 @@ d3.select("#map-expander").on("click", function(){
 
         map_expanded = false;
     
-        map_size = default_map_size;
+        map_size = adjusted_map_size;
 
         console.log(map_size);
 
@@ -167,10 +192,10 @@ function main(data){
     } else {
 
         table = $('#data_table').DataTable({
-            bFilter: false,
+            "oLanguage" :{ sSearch : 'Filter by Street Name' },
             bInfo: false,
             bPaginate: false,
-            scrollY: '10vh',
+            scrollY: '50vh',
             language: {
                 "emptyTable" : "No Flashing Signals Reported"
             }
@@ -258,11 +283,12 @@ function makeMap(dataset) {
         zoom : 10,
         minZoom : 1,
         maxZoom : 20,
-        scrollWheelZoom: false
+        scrollWheelZoom: false,
+        attributionControl: false
     });      // make a map
 
     var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-        attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, City of austintexas',
         subdomains : 'abcd',
         maxZoom : 20,
         ext : 'png'
@@ -398,8 +424,12 @@ function populateTable(dataset) {
 
     table = $('#data_table').DataTable({
         data: dataset,
-        "pageLength": 5,
-        "bLengthChange": false,
+        responsive: true,
+        scrollX: true,
+        scrollY: '50vh',
+        bPaginate: false,
+        scrollCollapse: true,
+        bLengthChange: false,
          "oLanguage" :{ sSearch : 'Filter by Street Name' },
         columns: [
             { data: 'location_name', 
@@ -432,33 +462,49 @@ function populateTable(dataset) {
         ]
     })
 
-
-    adjustMapHeight(dataset);
+    if ( $(window).width() > screen_collapse_breakpoint ) {
+        
+        screen_collapse = false;
+        adjustMapHeight();
+    
+    }
 
     createTableListeners();
 
 }
 
 
-function adjustMapHeight(dataset) {
+function adjustMapHeight() {
    //  make map same height as table
+
+
     setTimeout(function(){ 
 
-        if (dataset.length < 4 ) {
-            
-            default_map_size = "40vh"
+        if ( screen_collapse ) {
+
+            adjusted_map_size = default_map_size;
 
         } else {
 
-            default_map_size = document.getElementById('data-row').clientHeight + "px";
-        }
+            var table_div_height = document.getElementById('data-row').clientHeight;
 
+            if (table_div_height < 100 ) {
+                
+                adjusted_map_size = "40vh"
+
+            } else {
+
+                adjusted_map_size = document.getElementById('data-row').clientHeight + "px";
+            }
+
+        }
 
         d3.select("#map")
             .transition(t2)
-            .style("height", default_map_size);
+            .style("height", adjusted_map_size);
 
         setTimeout(function(){
+
             map.invalidateSize();
             map.fitBounds(
             signals_on_flash_layer.getBounds(),
