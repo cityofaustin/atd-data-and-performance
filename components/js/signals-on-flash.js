@@ -44,10 +44,10 @@ var STATUS_TYPES_READABLE = {
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27&$order=timestamp+DESC&$limit=1'
 var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
 
-//  lots flashing
-var data_url = '../components/data/fake_intersection_data.json';
+//  dummy data lots flashing
+//  var data_url = '../components/data/fake_intersection_data.json';
 
-// one flashing
+//  dummy data one flashing
 //  var data_url = '../components/data/fake_intersection_data_one.json';
 
 var screen_collapse = true;
