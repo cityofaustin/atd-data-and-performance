@@ -31,13 +31,12 @@
   "total_vol" : "1847",
   "system_id" : "14",
   "system_name" : "AIRPORT",
-  "vol_weighted_avg_tt_pct_change" : "-0.009724092",
+  "vol_weighted_avg_tt_pct_change" : "0",
   "scheduled_fy" : "2016",
-  "vol_weight_avg_stops_pct_change" : "-0.173975098",
+  "vol_weight_avg_stops_pct_change" : "0",
   "number_of_signals" : "27",
-  "weighted_avg_tt_total" : "-17.96039799",
-  "retime_status" : "COMPLETED",
-  "engineer_note" : "Gosh, that was a lot of work!"
+  "weighted_avg_tt_total" : "0",
+  "retime_status" : "PLANNED"
 }
 , {
   "status_date" : "9/26/16",
