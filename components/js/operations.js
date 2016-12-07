@@ -13,34 +13,37 @@ var formats = {
     'formatDate': d3.timeFormat("%x")
 };
 
+
+
 var assets = [
     {
         'name' : 'signals',
         'init_val' : 0,
         'resource_id' : 'p53x-x73x',
         'format' : 'round',
-        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ]   
+        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ]
     },
     {
         'name' : 'phbs',
         'init_val' : 0,
-        'resource_id' : 'p53x-x73x',
         'format' : 'round',
-        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ]  
+        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
+        'data' : [] //  no data here because source data is same as signals
     },
     {
         'name' : 'cameras',
         'init_val' : 0,
-        'resource_id' : 'p53x-x73x',
+        'resource_id' : '',
         'format' : 'round',
-        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ]   
+        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
+        'data' : 227
     },
     {
         'name' : 'sensors',
         'init_val' : 0,
-        'resource_id' : 'p53x-x73x',
         'format' : 'round',
-        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ]   
+        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
+        'data' : 160
     }
 ];
 
@@ -107,13 +110,15 @@ function main(){
 
     getAllTheData(assets);
 
-    map = makeMap('map', map_options);
+    assets[1].data = filterByKey(assets[0].data, 'signal_type', 'PHB' );
 
-    for (var i = 0; i < assets.length; i++) {
+    //  map = makeMap('map', map_options);
+
+    // for (var i = 0; i < assets.length; i++) {
         
-        createMapLayer(assets[i]);
+    //     createMapLayer(assets[i] );
 
-    } 
+    // } 
 
     var infos = appendInfoText(assets);
 
@@ -150,10 +155,18 @@ function makeMap(divId, options) {
 
 function getAllTheData(config_array) {
 
-    for (var i = 0; i < config_array.length; i++) {
+    for (var i = 0; i < config_array.length; i++) {  // socrata resource ID specified
+
+        if (config_array[i].resource_id) {
 
             config_array[i].data = getOpenData(config_array[i].resource_id);
-            
+
+        } else if ( isNaN(config_array[i].data) == false ) {  //  raw number specified
+
+            config_array[i].data = new Array(config_array[i].data);
+    
+        }
+
     }
 
     return;
@@ -225,24 +238,21 @@ function populateTable(dataset, divId, filter_obj) {
           row.signal_status == 'CONSTRUCTION';
     });
 
-    
-
-    if (filter_obj) {
-
-        //  filter dynamically!
-
-    }
-
     table = $('#' + divId).DataTable({
         data: dataset,
-        'bLengthChange': false,
+        scrollX: true,
+        scrollY: '50vh',
+        bPaginate: false,
+        scrollCollapse: true,
+        bLengthChange: false,
         'bFilter': false,
         "autoWidth": false,
+        "order": [[ 1, "desc" ], [2, "asc"]],
         columns: [
 
             { data: 'location_name' },
 
-            { data: 'signal_type' },
+            {  data: 'signal_type'  },
             
             { data: 'signal_status' },
 
@@ -260,6 +270,7 @@ function populateTable(dataset, divId, filter_obj) {
         ]
     })
 }
+
 
 
 function transitionInfoStat(selection, options) {
@@ -291,7 +302,7 @@ function transitionInfoStat(selection, options) {
 
 
 
-function createMapLayer(config_obj) {
+function createMapLayer(config_obj, options) {
 
     map_layers[config_obj.name] = new L.featureGroup();
 
@@ -301,7 +312,15 @@ function createMapLayer(config_obj) {
 
     var zoom = map.getZoom();
 
-      for (var i = 0; i < data.length; i++) {   
+      for (var i = 0; i < data.length; i++) {
+
+        if (!data[i]) {
+            continue;  // no data, no mapping   
+        }
+
+        if (!data[i].location) {
+            continue  // no locaiton, no mapping
+        }
 
         var popup_text = '';
 
@@ -328,6 +347,27 @@ function createMapLayer(config_obj) {
 
 
 
+function filterByKey(obj_arr, key, val) {
+    //  case insensitive
+
+    var filtered = [];  
+
+    for (var i = 0; i < obj_arr.length; i++) {
+
+        if (obj_arr[i][key].toUpperCase() == val.toUpperCase()) {
+
+            filtered.push(obj_arr[i]);
+
+        }
+
+    }
+
+    return filtered;
+
+
+}
+
+
 
 function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-screen-javascript
         return (('ontouchstart' in window)
@@ -336,3 +376,16 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
 }
 
 
+function filterMutiple(dataset, filter_obj) {
+
+    for (var i = 0; i < filter_obj.length; i++) {
+
+        for (key in filter_obj[i]) { 
+            
+            dataset = filterByKey(dataset, key, filter_obj[i][key])
+
+        } 
+               
+    }
+
+}

@@ -21,7 +21,6 @@
   -ms-user-select: none; /* IE10+ */
 }
 
-
 .div-filter {
   cursor: pointer;
 }
@@ -121,12 +120,9 @@ button.map-expander{
 
 }
 
-
-
 .tableRow {
   cursor: pointer;
 }
-
 
 .fa {
   font-size: 18px;
@@ -141,7 +137,15 @@ button.map-expander{
   float: left;
 }
 
-
 p.loading {
-  font-size: 14px;
+  font-size: 12px;
+  font-style: italic;
 }
+
+p.quote-of-the-day {
+  margin: 5px;
+  font-size: 20px;
+  font-style: italic;
+  text-align: right;
+}
+
