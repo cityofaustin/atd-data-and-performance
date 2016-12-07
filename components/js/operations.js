@@ -16,19 +16,27 @@ var formats = {
 
 
 var assets = [
+
+    {
+        'name' : 'signals',
+        'resource_id' : 'p53x-x73x',
+        'init_val' : 0,
+        'format' : 'round',
+        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
+    },
     {
         'name' : 'signals',
         'init_val' : 0,
-        'resource_id' : 'p53x-x73x',
         'format' : 'round',
-        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ]
+        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
+        'data' : 988 //  no data here because source data is same as signals
     },
     {
         'name' : 'phbs',
         'init_val' : 0,
         'format' : 'round',
         'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
-        'data' : [] //  no data here because source data is same as signals
+        'data' : 49
     },
     {
         'name' : 'cameras',
@@ -36,14 +44,14 @@ var assets = [
         'resource_id' : '',
         'format' : 'round',
         'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
-        'data' : 227
+        'data' : 287
     },
     {
         'name' : 'sensors',
         'init_val' : 0,
         'format' : 'round',
         'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
-        'data' : 160
+        'data' : 147
     }
 ];
 
@@ -110,17 +118,18 @@ function main(){
 
     getAllTheData(assets);
 
-    assets[1].data = filterByKey(assets[0].data, 'signal_type', 'PHB' );
+    //  assets[1].data = filterByKey(assets[0].data, 'signal_type', 'PHB' );
 
     //  map = makeMap('map', map_options);
 
-    // for (var i = 0; i < assets.length; i++) {
+    //  for (var i = 0; i < assets.length; i++) {
         
     //     createMapLayer(assets[i] );
 
     // } 
 
-    var infos = appendInfoText(assets);
+
+    var infos = appendInfoText(assets.splice(1, 4));
 
     transitionInfoStat(infos, t_options);
 
@@ -241,12 +250,10 @@ function populateTable(dataset, divId, filter_obj) {
     table = $('#' + divId).DataTable({
         data: dataset,
         scrollX: true,
-        scrollY: '50vh',
         bPaginate: false,
         scrollCollapse: true,
         bLengthChange: false,
         'bFilter': false,
-        "autoWidth": false,
         "order": [[ 1, "desc" ], [2, "asc"]],
         columns: [
 

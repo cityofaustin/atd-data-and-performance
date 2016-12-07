@@ -1,0 +1,151 @@
+.action-disabled {
+  color: #9D9D9D;
+}
+
+.info {
+  font-size: 500%;
+  font-weight: bold;
+  text-align: center;
+  dominant-baseline: bottom;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+}
+
+.info-text {
+  font-weight: bold;
+  text-align: center;
+  dominant-baseline: bottom;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+}
+
+.div-filter {
+  cursor: pointer;
+}
+
+.infoStat.warning {
+    fill: red;
+}
+
+
+.map {
+    height: 300px;
+}
+
+.filtering{
+  background-color: #F1F1F1;
+}
+
+/* status styles */
+
+.planned {
+  fill: #bfbfbf;
+}
+
+.done {
+  fill: #009304;
+}
+
+.goal-unmet {
+  color: #AD0000;
+}
+
+.goal-met {
+  color: green;
+}
+
+.pieText {
+  font-size: 50%;
+  text-anchor: middle;
+}
+
+.pieTextSmall {
+  font-size: 20%;
+  text-anchor: middle;
+}
+
+.axis-left, .axis-bottom {
+    font-size: 11px;
+    font-family: 'News Cycle';
+    font-weight: bold;
+}
+
+.over_map {
+  position: absolute;
+  bottom: 10px;
+  z-index: 1200;
+}
+
+button.map-expander{
+  color: #333;
+  background-color: white;
+  border: none;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  border-radius: 4px;
+}
+
+.tooltips {
+  cursor: pointer;
+}
+
+.popover-content {
+  font-family: 'News Cycle', sans-serif;
+  color: #fff;
+}
+
+.popover {
+  background-color: #333;
+  border-radius: 0;
+}
+
+.popover-title {
+  border-radius: 0;
+  background-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
+}
+
+.btn-lg {
+ 
+  background-color: #fff;
+  border-color: #BFBFBF;
+
+}
+
+.btn-lg.active, .btn.active {
+
+  color: white;
+  background-color: #3B99FC;
+
+}
+
+.tableRow {
+  cursor: pointer;
+}
+
+.fa {
+  font-size: 18px;
+}
+
+.fa-comment {
+
+  color: #3B99FC;
+}
+
+#data_table_filter {
+  float: left;
+}
+
+p.loading {
+  font-size: 12px;
+  font-style: italic;
+}
+
+p.quote-of-the-day {
+  margin: 5px;
+  font-size: 20px;
+  font-style: italic;
+  text-align: right;
+}
+

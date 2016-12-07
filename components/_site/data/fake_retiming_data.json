@@ -1,0 +1,477 @@
+[ {
+  "travel_time_change" : "-18.3",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "5",
+  "travel_time_before" : "1302.34",
+  "stops_before" : "12.66",
+  "system_id" : "65",
+  "retime_status" : "COMPLETED",
+  "system_name" : "STASSNEY - EAST",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "5",
+  "stops_change" : "0.05",
+  "id" : "23"
+}
+, {
+  "travel_time_change" : "-98.1",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "16",
+  "travel_time_before" : "4188.3333333",
+  "stops_before" : "37.5",
+  "system_id" : "37",
+  "retime_status" : "COMPLETED",
+  "system_name" : "IH 35 SRVC RDS",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "16",
+  "stops_change" : "-0.32",
+  "id" : "20"
+}
+, {
+  "travel_time_change" : "-33.39",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "8",
+  "travel_time_before" : "2583.16",
+  "stops_before" : "29.659999999999997",
+  "system_id" : "16",
+  "retime_status" : "COMPLETED",
+  "system_name" : "BARTON SPRINGS",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "8",
+  "stops_change" : "0.05",
+  "id" : "14"
+}
+, {
+  "travel_time_change" : "-18.36",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "10",
+  "travel_time_before" : "2115.0",
+  "stops_before" : "18.0",
+  "system_id" : "73",
+  "retime_status" : "COMPLETED",
+  "system_name" : "WELLS BRANCH",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "10",
+  "stops_change" : "-0.54",
+  "id" : "26"
+}
+, {
+  "travel_time_change" : "214.07",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "13",
+  "travel_time_before" : "3278.49",
+  "stops_before" : "31.67",
+  "system_id" : "61",
+  "retime_status" : "COMPLETED",
+  "system_name" : "SOUTH 1ST - NORTH",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "13",
+  "stops_change" : "4.59",
+  "id" : "22"
+}
+, {
+  "travel_time_change" : "-96.2",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "30",
+  "travel_time_before" : "7100.0",
+  "stops_before" : "52.0",
+  "system_id" : "75",
+  "retime_status" : "COMPLETED",
+  "system_name" : "WILLIAM CANNON",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "30",
+  "stops_change" : "-1.45",
+  "id" : "27"
+}
+, {
+  "travel_time_change" : "-107.77",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "9",
+  "travel_time_before" : "2189.0",
+  "stops_before" : "28.999999998999996",
+  "system_id" : "72",
+  "retime_status" : "COMPLETED",
+  "system_name" : "US 290 - WEST",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "9",
+  "stops_change" : "-2.22",
+  "id" : "25"
+}
+, {
+  "travel_time_change" : "-32.16",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "10",
+  "travel_time_before" : "1150.0",
+  "stops_before" : "9.33",
+  "system_id" : "28",
+  "retime_status" : "COMPLETED",
+  "system_name" : "DEAN KEETON",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "10",
+  "stops_change" : "-0.9",
+  "id" : "18"
+}
+, {
+  "travel_time_change" : "-35.39",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "12",
+  "travel_time_before" : "2234.5285715",
+  "stops_before" : "18.076190477",
+  "system_id" : "11",
+  "retime_status" : "COMPLETED",
+  "system_name" : "7TH - EAST",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "12",
+  "stops_change" : "0.14",
+  "id" : "12"
+}
+, {
+  "travel_time_change" : "-58.92",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "11",
+  "travel_time_before" : "3121.0833334",
+  "stops_before" : "17.416666665999998",
+  "system_id" : "78",
+  "retime_status" : "COMPLETED",
+  "system_name" : "BURLESON",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "11",
+  "stops_change" : "-0.27",
+  "id" : "16"
+}
+, {
+  "travel_time_change" : "-170.66",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "12",
+  "travel_time_before" : "4095.5",
+  "stops_before" : "43.17",
+  "system_id" : "6",
+  "retime_status" : "COMPLETED",
+  "system_name" : "38TH",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "12",
+  "stops_change" : "-1.1",
+  "id" : "11"
+}
+, {
+  "travel_time_change" : "-71.79",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "17",
+  "travel_time_before" : "3170.8666667999996",
+  "stops_before" : "33.266666666",
+  "system_id" : "34",
+  "retime_status" : "COMPLETED",
+  "system_name" : "GUADALUPE - NORTH",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "17",
+  "stops_change" : "-0.86",
+  "id" : "19"
+}
+, {
+  "travel_time_change" : "-33.17",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "11",
+  "travel_time_before" : "1890.0",
+  "stops_before" : "9.67",
+  "system_id" : "22",
+  "retime_status" : "COMPLETED",
+  "system_name" : "CAMERON - NORTH",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "11",
+  "stops_change" : "-0.68",
+  "id" : "17"
+}
+, {
+  "travel_time_change" : "-1025.77",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "27",
+  "travel_time_before" : "5955.83",
+  "stops_before" : "50.5",
+  "system_id" : "14",
+  "retime_status" : "IN_PROGRESS",
+  "system_name" : "AIRPORT",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "27",
+  "stops_change" : "-8.81",
+  "id" : "13"
+}
+, {
+  "travel_time_change" : "26.8",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "15",
+  "travel_time_before" : "2207.34",
+  "stops_before" : "22.339999999999996",
+  "system_id" : "69",
+  "retime_status" : "COMPLETED",
+  "system_name" : "US 183 - NORTH",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "15",
+  "stops_change" : "-0.22",
+  "id" : "24"
+}
+, {
+  "travel_time_change" : "-192.18",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "19",
+  "travel_time_before" : "5372.0",
+  "stops_before" : "44.8",
+  "system_id" : "19",
+  "retime_status" : "COMPLETED",
+  "system_name" : "BRAKER",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "19",
+  "stops_change" : "-3.84",
+  "id" : "15"
+}
+, {
+  "travel_time_change" : "59.25",
+  "status_date" : "2016-09-26T00:00:00",
+  "number_of_signals" : "6",
+  "travel_time_before" : "1922.5",
+  "stops_before" : "23.17",
+  "system_id" : "53",
+  "retime_status" : "COMPLETED",
+  "system_name" : "RED RIVER - NORTH",
+  "scheduled_fy" : "2016",
+  "signals_retimed" : "6",
+  "stops_change" : "0.25",
+  "id" : "21"
+}
+, {
+  "travel_time_change" : "-18.3",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "5",
+  "travel_time_before" : "1302.34",
+  "stops_before" : "12.66",
+  "system_id" : "65",
+  "retime_status" : "PLANNED",
+  "system_name" : "STASSNEY - EAST",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "5",
+  "stops_change" : "0.05",
+  "id" : "23"
+}
+, {
+  "travel_time_change" : "-98.1",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "16",
+  "travel_time_before" : "4188.3333333",
+  "stops_before" : "37.5",
+  "system_id" : "37",
+  "retime_status" : "PLANNED",
+  "system_name" : "IH 35 SRVC RDS",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "16",
+  "stops_change" : "-0.32",
+  "id" : "20"
+}
+, {
+  "travel_time_change" : "-33.39",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "8",
+  "travel_time_before" : "2583.16",
+  "stops_before" : "29.659999999999997",
+  "system_id" : "16",
+  "retime_status" : "PLANNED",
+  "system_name" : "BARTON SPRINGS",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "8",
+  "stops_change" : "0.05",
+  "id" : "14"
+}
+, {
+  "travel_time_change" : "-18.36",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "10",
+  "travel_time_before" : "2115.0",
+  "stops_before" : "18.0",
+  "system_id" : "73",
+  "retime_status" : "PLANNED",
+  "system_name" : "WELLS BRANCH",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "10",
+  "stops_change" : "-0.54",
+  "id" : "26"
+}
+, {
+  "travel_time_change" : "214.07",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "13",
+  "travel_time_before" : "3278.49",
+  "stops_before" : "31.67",
+  "system_id" : "61",
+  "retime_status" : "PLANNED",
+  "system_name" : "SOUTH 1ST - NORTH",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "13",
+  "stops_change" : "4.59",
+  "id" : "22"
+}
+, {
+  "travel_time_change" : "-96.2",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "30",
+  "travel_time_before" : "7100.0",
+  "stops_before" : "52.0",
+  "system_id" : "75",
+  "retime_status" : "PLANNED",
+  "system_name" : "WILLIAM CANNON",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "30",
+  "stops_change" : "-1.45",
+  "id" : "27"
+}
+, {
+  "travel_time_change" : "-107.77",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "9",
+  "travel_time_before" : "2189.0",
+  "stops_before" : "28.999999998999996",
+  "system_id" : "72",
+  "retime_status" : "PLANNED",
+  "system_name" : "US 290 - WEST",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "9",
+  "stops_change" : "-2.22",
+  "id" : "25"
+}
+, {
+  "travel_time_change" : "-32.16",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "10",
+  "travel_time_before" : "1150.0",
+  "stops_before" : "9.33",
+  "system_id" : "28",
+  "retime_status" : "PLANNED",
+  "system_name" : "DEAN KEETON",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "10",
+  "stops_change" : "-0.9",
+  "id" : "18"
+}
+, {
+  "travel_time_change" : "-35.39",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "12",
+  "travel_time_before" : "2234.5285715",
+  "stops_before" : "18.076190477",
+  "system_id" : "11",
+  "retime_status" : "PLANNED",
+  "system_name" : "7TH - EAST",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "12",
+  "stops_change" : "0.14",
+  "id" : "12"
+}
+, {
+  "travel_time_change" : "-58.92",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "11",
+  "travel_time_before" : "3121.0833334",
+  "stops_before" : "17.416666665999998",
+  "system_id" : "78",
+  "retime_status" : "PLANNED",
+  "system_name" : "BURLESON",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "11",
+  "stops_change" : "-0.27",
+  "id" : "16"
+}
+, {
+  "travel_time_change" : "-170.66",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "12",
+  "travel_time_before" : "4095.5",
+  "stops_before" : "43.17",
+  "system_id" : "6",
+  "retime_status" : "PLANNED",
+  "system_name" : "38TH",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "12",
+  "stops_change" : "-1.1",
+  "id" : "11"
+}
+, {
+  "travel_time_change" : "-71.79",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "17",
+  "travel_time_before" : "3170.8666667999996",
+  "stops_before" : "33.266666666",
+  "system_id" : "34",
+  "retime_status" : "PLANNED",
+  "system_name" : "GUADALUPE - NORTH",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "17",
+  "stops_change" : "-0.86",
+  "id" : "19"
+}
+, {
+  "travel_time_change" : "-33.17",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "11",
+  "travel_time_before" : "1890.0",
+  "stops_before" : "9.67",
+  "system_id" : "22",
+  "retime_status" : "PLANNED",
+  "system_name" : "CAMERON - NORTH",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "11",
+  "stops_change" : "-0.68",
+  "id" : "17"
+}
+, {
+  "travel_time_change" : "-1025.77",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "27",
+  "travel_time_before" : "5955.83",
+  "stops_before" : "50.5",
+  "system_id" : "14",
+  "retime_status" : "IN_PROGRESS",
+  "system_name" : "AIRPORT",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "27",
+  "stops_change" : "-8.81",
+  "id" : "13"
+}
+, {
+  "travel_time_change" : "26.8",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "15",
+  "travel_time_before" : "2207.34",
+  "stops_before" : "22.339999999999996",
+  "system_id" : "69",
+  "retime_status" : "PLANNED",
+  "system_name" : "US 183 - NORTH",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "15",
+  "stops_change" : "-0.22",
+  "id" : "24"
+}
+, {
+  "travel_time_change" : "-192.18",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "19",
+  "travel_time_before" : "5372.0",
+  "stops_before" : "44.8",
+  "system_id" : "19",
+  "retime_status" : "PLANNED",
+  "system_name" : "BRAKER",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "19",
+  "stops_change" : "-3.84",
+  "id" : "15"
+}
+, {
+  "travel_time_change" : "59.25",
+  "status_date" : "2017-09-26T00:00:00",
+  "number_of_signals" : "6",
+  "travel_time_before" : "1922.5",
+  "stops_before" : "23.17",
+  "system_id" : "53",
+  "retime_status" : "PLANNED",
+  "system_name" : "RED RIVER - NORTH",
+  "scheduled_fy" : "2017",
+  "signals_retimed" : "6",
+  "stops_change" : "0.25",
+  "id" : "21"
+}
+]
