@@ -12,83 +12,68 @@
     <div class='wrapper'>
       <div class="container-fluid">
           
-          <div class="row">
-            <div class="col-md-12">
-              <p class = "quote-of-the-day"> "This is an inspiring quotation that Renee will update every week." - John Clary<p>
-            </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p class = "quote-of-the-day"> "This is an inspiring quotation that Renee will update every week." - John Clary<p>
           </div>
-
+        </div>
           
 
-
-          <div class="row">
-              
-            <div class="col-md-6">
-
-              <div class="row">
-                <div class="col-md-12">
-                  <h3> Assets Installed </h3>
-                </div>
-              </div>
-
-              <div class="col-sm-6 info" id="traffic_signals">
-                <h3> <i class="fa fa-car"></i> Traffic Signals </h3>
-                <p class='loading' >Loading...</p>
-              </div>
-
-              <div class="col-sm-6 info" id="phbs">
-                <h3> <i class="fa fa-male"></i> Pedestrian Hybrid Beacons </h3>
-                <p class='loading' >Loading...</p>
-              </div>
-
-              <div class="col-sm-6 info" id="cameras">
-                <h3> <i class="fa fa-video-camera"></i> Cameras </h3>
-                <p class='loading' >Loading...</p>
-              </div>
-
-              <div class="col-sm-6 info" id="sensors">
-                <h3> <i class="fa fa-wifi"></i> Sensors </h3>
-                <p class='loading' >Loading...</p>
-              </div>
-
-            </div>
-
-            <div class="col-md-6">
-
-              <div class="row">
-                <div class="col-md-12">
-                  <h3><i  class="fa fa-gears"></i> </i> Signal Pipeline </h3>
-                </div>
-              </div>
-
-              <div class="row">
-
-                <div class="col-md-12">
-
-                   <!-- Table  -->
-                  <a name="datatable"></a>
-                  <table class="table table-striped table-hover" data-sort-name="address" data-sort-order="desc" id="data_table">
-                    <thead>
-                      <tr>
-                        <th>Location</th>
-                        <th>Signal Type</th>
-                        <th>Status</th>
-                        <th>Updated</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <!-- data goes here programmatically  -->
-                    </tbody>
-                  </table>
-            
-                </div>
-
-              </div>
-              
-            </div>
-
+        <div class="row">
+          <div class="col-md-12">
+            <h3> Assets Installed </h3>
+          </div>
         </div>
-        
+
+        <div class="row">
+          <div class="col-sm-3 info info-small" id="traffic_signals">
+            <h3> <i class="fa fa-car"></i> Traffic Signals </h3>
+            <p class='loading' >Loading...</p>
+          </div>
+
+          <div class="col-sm-3 info" id="phbs">
+            <h3> <i class="fa fa-male"></i> Pedestrian Hybrid Beacons </h3>
+            <p class='loading' >Loading...</p>
+          </div>
+
+          <div class="col-sm-3 info" id="cameras">
+            <h3> <i class="fa fa-video-camera"></i> Cameras </h3>
+            <p class='loading' >Loading...</p>
+          </div>
+
+          <div class="col-sm-3 info" id="sensors">
+            <h3> <i class="fa fa-wifi"></i> Sensors </h3>
+            <p class='loading' >Loading...</p>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <h3><i  class="fa fa-gears"></i> </i> Signal Pipeline </h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+             <!-- Table  -->
+            <a name="datatable"></a>
+            <table class="table table-striped table-hover" data-sort-name="address" data-sort-order="desc" id="data_table">
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Signal Type</th>
+                  <th>Status</th>
+                  <th>Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+              <!-- data goes here programmatically  -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-12 disclaimer">
             <p>
@@ -98,10 +83,10 @@
         </div>     
       </div> 
 
-        <div class="push"></div>
+      <div class="push"></div>
 
-          {% include footer.html %}
- 
+        {% include footer.html %}
+
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

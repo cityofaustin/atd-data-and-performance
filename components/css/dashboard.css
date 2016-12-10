@@ -3,7 +3,7 @@
 }
 
 .info {
-  font-size: 500%;
+  font-size: 300%;
   font-weight: bold;
   text-align: center;
   dominant-baseline: bottom;
@@ -12,7 +12,8 @@
   -ms-user-select: none; /* IE10+ */
 }
 
-.info-text {
+.info-small {
+  font-size: 300%;
   font-weight: bold;
   text-align: center;
   dominant-baseline: bottom;
