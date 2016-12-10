@@ -207,11 +207,10 @@ function populateTable(dataset, divId, filter_obj) {
 
     table = $('#' + divId).DataTable({
         data: filtered,
-        scrollX: true,
         bPaginate: false,
         scrollCollapse: true,
         bLengthChange: false,
-        'bFilter': false,
+        bFilter: false,
         "order": [[ 1, "desc" ], [2, "asc"]],
         columns: [
 
