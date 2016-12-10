@@ -169,8 +169,6 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
             populateInfoStat("info-2", "travel_time_reduction", t1);
 
-            populateInfoStat("info-3", "stops_reduction", t1);
-
             populateTable(SOURCE_DATA_SYSTEMS, function(){
 
                 getLogData(LOGFILE_URL);
@@ -258,35 +256,24 @@ function groupData(dataset, updateCharts) {
                         return d.total_vol;
                     }),
 
-                    stops_change : d3.sum(v, function(d) {
-                        return d.weighted_avg_stops_total;
-                    }) / d3.sum(v, function(d) {
-                        return d.total_vol;
-                    }),
-
                     signals_retimed : d3.sum(v, function(d) {
                         return d.signals_retimed; 
                     }),
 
                     travel_time_before : d3.sum(v, function(d) {
                         return d.travel_time_before; 
-                    }),
-
-                    stops_before : d3.sum(v, function(d) {
-                        return d.stops_before; 
                     })
+
                 };
             })
             .map(dataset); 
 
-    //  calculate travel time and stops reduction
+    //  calculate travel time
     for (var i in GROUPED_RETIMING_DATA){
 
         for (var q in GROUPED_RETIMING_DATA[i]) {
             
             GROUPED_RETIMING_DATA[i][q]['travel_time_reduction'] = +GROUPED_RETIMING_DATA[i][q]['travel_time_change'];
-
-            GROUPED_RETIMING_DATA[i][q]['stops_reduction'] = +GROUPED_RETIMING_DATA[i][q]['stops_change'];
 
         }
         
@@ -351,9 +338,7 @@ function groupData(dataset, updateCharts) {
 
             updateInfoStat("info-2", "travel_time_reduction", t2);
 
-            updateInfoStat("info-3", "stops_reduction", t2);
-
-             populateTable(SOURCE_DATA_SYSTEMS, function(){
+            populateTable(SOURCE_DATA_SYSTEMS, function(){
 
                 createTableListeners();
 
