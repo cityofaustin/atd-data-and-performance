@@ -80,9 +80,19 @@ var cabinet_flash_marker = new L.ExtraMarkers.icon({
     prefix: 'fa'
 });
 
+
+var comm_fail_marker = new L.ExtraMarkers.icon({
+    icon: 'fa-phone',
+    markerColor: 'yellow',
+    shape: 'circle',
+    prefix: 'fa'
+});
+
+
 var marker_icons = {
     '$1': cabinet_flash_marker,
-    '$2': conflict_flash_marker
+    '$2': conflict_flash_marker,
+    '$3': comm_fail_marker
 }
 
 getSignalData(data_url);
