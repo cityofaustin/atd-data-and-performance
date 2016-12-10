@@ -1,5 +1,4 @@
 
-
 var t_options = {
     ease : d3.easeQuad,
     duration : 500
@@ -9,8 +8,15 @@ var t_options = {
 var formats = {
     'round': function(val) { return Math.round(val) },
     'formatDateTime' : d3.timeFormat("%e %b %-I:%M%p"),
-    'formatDate': d3.timeFormat("%x")
+    'formatDate' : d3.timeFormat("%x"),
+    'formatTime' : d3.timeFormat("%I:%M %p")
 };
+
+
+//  https://github.com/d3/d3-queue
+var q = d3.queue();
+
+
 
 var global_data = [
 
@@ -21,7 +27,8 @@ var global_data = [
         'resource_id' : 'p53x-x73x',
         'filters' : [{'signal_type' : 'TRAFFIC' }, { '$limit' : '9000' }], 
         'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
-        'infoStat' : true
+        'infoStat' : true,
+        'log_event' : 'signals_update'
     },{
         'name' : 'phbs',
         'init_val' : 0,
@@ -29,7 +36,8 @@ var global_data = [
         'resource_id' : 'p53x-x73x',
         'filters' : [{'signal_type' : 'PHB' }, { '$limit' : '9000' } ], 
         'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
-        'infoStat' : true
+        'infoStat' : true,
+        'log_event' : 'signals_update'
     },
     {
         'name' : 'cameras',
@@ -37,7 +45,8 @@ var global_data = [
         'resource_id' : 'b4k4-adkb',
         'format' : 'round',
         'disp_fields' : ['atd_camera_id', 'location_name', 'modified_date' ],
-        'infoStat' : true
+        'infoStat' : true,
+        'log_event' : 'cameras_update'
     },
     {
         'name' : 'sensors',
@@ -45,15 +54,10 @@ var global_data = [
         'init_val' : 0,
         'format' : 'round',
         'disp_fields' : ['atd_sensor_id', 'location_name', 'modified_date' ],
-        'infoStat' : true
+        'infoStat' : true,
+        'log_event' : 'sensors_update'
     }
 ];
-
-
-
-//  https://github.com/d3/d3-queue
-var q = d3.queue();
-
 
 
 for (var i = 0; i < global_data.length; ++i) {
@@ -64,8 +68,6 @@ for (var i = 0; i < global_data.length; ++i) {
 
         var name = global_data[i]['name'];
 
-        console.log(url);
-
         q.defer(d3.json, url)
 
     }
@@ -73,10 +75,9 @@ for (var i = 0; i < global_data.length; ++i) {
 }
 
 
-
 function main(data) {
 
-    var infos = appendInfoText(data, { 'signal_status' : 'TURNED_ON' });
+    var infos = appendInfoText(data);
 
     var infos = transitionInfoStat(infos, t_options, 'TURNED_ON' );
     
@@ -84,6 +85,16 @@ function main(data) {
 
     var table = populateTable(table_data, 'data_table');
 
+    for (var i = 0; i  < global_data.length; i++ ) {
+
+        var divId = global_data[i].name;
+        
+        var selection = d3.select("#" + divId);
+
+        var event = global_data[i].log_event;
+
+        postUpdateDate(selection, event);
+    }
 }
 
 
@@ -137,7 +148,7 @@ q.awaitAll(function(error) {
 
 
 
-function appendInfoText(data, filter) {
+function appendInfoText(data) {
 
     d3.selectAll('.loading').remove();
 
@@ -234,3 +245,49 @@ function filterByVal(obj, val) {
 }
 
 
+
+function postUpdateDate(selection, event) {
+
+    var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27_XXX_%27&$order=timestamp+DESC&$limit=1'
+
+    var logfile_url = logfile_url.replace('_XXX_', event);
+
+    console.log(logfile_url);
+
+    d3.json(logfile_url, function(error, data) {
+
+        var update_date_time = new Date(data[0].timestamp * 1000);
+
+        update_date = readableDate( update_date_time );
+
+        var update_time = formats.formatTime( update_date_time );
+
+        console.log(selection);
+        selection.append('h5')
+            .html("Updated " + update_date + " at " + update_time +
+                " | <a href='https://data.austintexas.gov/dataset/5zpr-dehc' target='_blank'> Data <i  class='fa fa-download'></i> </a>"
+             );
+
+    });
+
+    return;
+}  
+
+
+
+function readableDate(date) {
+
+    var update_date = formats.formatDate(date);
+    
+    var today = formats.formatDate( new Date() );
+
+    if (update_date == today) {
+    
+        return "today";
+    
+    } else {
+    
+        return update_date;
+    
+    }
+}
