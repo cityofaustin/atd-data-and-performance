@@ -93,7 +93,9 @@ function main(data) {
 
         var event = global_data[i].log_event;
 
-        postUpdateDate(selection, event);
+        var resource_id = global_data[i].resource_id;
+
+        postUpdateDate(selection, event, resource_id);
     }
 }
 
@@ -245,13 +247,13 @@ function filterByVal(obj, val) {
 
 
 
-function postUpdateDate(selection, event) {
+function postUpdateDate(selection, event, resource_id) {
+
+    var data_url = 'https://data.austintexas.gov/resource/' + resource_id;
 
     var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27_XXX_%27&$order=timestamp+DESC&$limit=1'
 
     var logfile_url = logfile_url.replace('_XXX_', event);
-
-    console.log(logfile_url);
 
     d3.json(logfile_url, function(error, data) {
 
@@ -261,10 +263,9 @@ function postUpdateDate(selection, event) {
 
         var update_time = formats.formatTime( update_date_time );
 
-        console.log(selection);
         selection.append('h5')
             .html("Updated " + update_date + " at " + update_time +
-                " | <a href='https://data.austintexas.gov/dataset/5zpr-dehc' target='_blank'> Data <i  class='fa fa-download'></i> </a>"
+                " | <a href=" + data_url + " target='_blank'> Data <i  class='fa fa-download'></i> </a>"
              );
 
     });
