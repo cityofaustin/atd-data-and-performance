@@ -3,7 +3,7 @@
 }
 
 .info {
-  font-size: 300%;
+  font-size: 500%;
   font-weight: bold;
   text-align: center;
   dominant-baseline: bottom;
@@ -14,12 +14,6 @@
 
 .info-small {
   font-size: 300%;
-  font-weight: bold;
-  text-align: center;
-  dominant-baseline: bottom;
-  -webkit-user-select: none; /* Chrome/Safari */        
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
 }
 
 .div-filter {
