@@ -71,20 +71,20 @@ $(document).ready(function(){
             .style('margin-right', '10px')
             .style('margin-left', '10px');
     }
+    
+    var request_data = getOpenData(requests_url);
 
-    main();
+    main(request_data);
 
 });
 
-function main(){
-
-    var request_data = getOpenData(requests_url);
+function main(data){
 
     map = makeMap('map', map_options);
 
-    request_data = createMarkers(request_data, default_style);
+    request_data = createMarkers(data, default_style);
 
-    var filtered_data = filterData(request_data, default_filters);
+    var filtered_data = filterData(data, default_filters);
 
     var feature_layer = createFeatureLayer(filtered_data);
 
