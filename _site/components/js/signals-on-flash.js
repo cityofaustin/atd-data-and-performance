@@ -205,11 +205,19 @@ function main(data){
             "oLanguage" :{ sSearch : 'Filter by Street Name' },
             bInfo: false,
             bPaginate: false,
-            scrollY: '50vh',
+            scrollY: '30vh',
             language: {
                 "emptyTable" : "No Flashing Signals Reported"
             }
         });
+
+        if ( $(window).width() > screen_collapse_breakpoint ) {
+        
+            screen_collapse = false;
+            
+            adjustMapHeight();
+        
+        }
 
     }
 
@@ -475,6 +483,7 @@ function populateTable(dataset) {
     if ( $(window).width() > screen_collapse_breakpoint ) {
         
         screen_collapse = false;
+
         adjustMapHeight();
     
     }
@@ -489,13 +498,16 @@ function adjustMapHeight() {
 
 
     setTimeout(function(){ 
+        console.log(screen_collapse);
 
         if ( screen_collapse ) {
+            //  if the screen is collapsed use defaul map height
 
             adjusted_map_size = default_map_size;
 
         } else {
-
+            //  if the table is very small (because few rows)
+            //  be at least as hi as the adjusted map size default
             var table_div_height = document.getElementById('data-row').clientHeight;
 
             if (table_div_height < 100 ) {
@@ -503,7 +515,8 @@ function adjustMapHeight() {
                 adjusted_map_size = "40vh"
 
             } else {
-
+            //  if the table is not very small, make the map as tall as the table
+            //  the maximum height of table is limited by vh specified in its init
                 adjusted_map_size = document.getElementById('data-row').clientHeight + "px";
             }
 
@@ -516,14 +529,22 @@ function adjustMapHeight() {
         setTimeout(function(){
 
             map.invalidateSize();
-            map.fitBounds(
-            signals_on_flash_layer.getBounds(),
-                {
-                    paddingTopLeft: [80, 80],
-                    maxZoom: 14
-                }
-            );
+
+            if (signals_on_flash_layer) {
+                
+                map.fitBounds(
+                    signals_on_flash_layer.getBounds(),
+                        {
+                            paddingTopLeft: [80, 80],
+                            maxZoom: 14
+                        }
+                );
+
+            }
+        
         }, 500);
+
+            
 
     }, 200);
 }
