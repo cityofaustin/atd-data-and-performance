@@ -12,65 +12,61 @@
     <div class='wrapper'>
       <div class="container-fluid">
         <div class='row'>
-            
-          <div class="col-sm-3">
-            
+        
+          <div class="col-sm-12">
             <div id="selectors" class="btn-group center" role="group" aria-label="...">
               <h4>Request Type</h4>
-              <button class="btn active" type="button" value="Traffic" checked><i  class="fa fa-car"></i> Traffic</button>
-              <button class="btn" type="button" value="Pedestrian"><i  class="fa fa-male"></i> Pedestrian</button>
+              <button class="btn active map-filter" type="button" value="Traffic" data-type="request_type" data-val="TRAFFIC"><i  class="fa fa-car"></i> Traffic</button>
+              <button class="btn map-filter" type="button" value="Pedestrian" data-type="request_type" data-val="PHB" ><i  class="fa fa-male"></i> Pedestrian</button>
             </div>
-
-          </div>
-
-          <div class="col-sm-3">                        
-            <div id="selectors" class="btn-group center" role="group" aria-label="...">
-              <h4> Funding Year </h4>  
-              <button class="btn active" type="button" value="Traffic">2015</button>
-              <button class="btn" type="button" value="Pedestrian">2016</button>
-              <button class="btn" type="button" value="Pedestrian">2017</button>
-            </div>
-          </div>
-          
-          <div class="col-sm-6 about">
-            <h3>What am I looking at?</h3>
-            <p>This dashboard will display the status of our traffic and pedestrian signal request program. Signals are evaluated on an annual basis and ranked for funding according to criteria set forth by our engineers. To request a signal, call 311.</p>
           </div>
 
         </div>
+
         <div class='row'>
-
-          <div class="col-sm-3 info">
-            <h3> Evaluated <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of locations evaluated by Austin Transportatin staff for possible signalization."></i></h3>
-            <text>50</text>
-          </div>
           
-          <div class="col-sm-3 info">
-            <h3> Recommended <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of locations at which an engineer recommended signalization, based on evaluation."></i></h3>
-            <text>12</text>
-          </div>
+          <div class="col-sm-9">
+          
+            <div class='row'>
 
-          <div class="col-sm-3 info">
-            <h3> Funded <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of recommended signals which were funded for construction."></i></h3>
-            <text>8</text>
-          </div>
+              <div class="col-sm-3 info map-filter div-filter active" data-type="request_status" data-val="under_evaluation">
+                <h3> Evaluated <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of locations evaluated by Austin Transportatin staff for possible signalization."></i></h3>
+                <text>50</text>
+              </div>
+              
+              <div class="col-sm-3 info map-filter div-filter" data-type="request_status" data-val="RECOMMENDED">
+                <h3> Recommended <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of locations at which an engineer recommended signalization, based on evaluation."></i></h3>
+                <text>12</text>
+              </div>
 
-          <div class="col-sm-3 info">
-            <h3> Built <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of signals which have been built during the selected timeframe."></i></h3>
-            <text>6</text>
-          </div>
+              <div class="col-sm-3 info map-filter div-filter" data-type="request_status" data-val="FUNDED">
+                <h3> Funded <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of recommended signals which were funded for construction."></i></h3>
+                <text>8</text>
+              </div>
 
-        </div>
-
-          <!-- map -->
-          <div class="row">
-            <div class="col-sm-6 map" id=map>
-              <a name="map"></a>
-              <div class="over_map" id="map-expander">
-                <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
+              <div class="col-sm-3 info map-filter div-filter" data-type="request_status" data-val="construction">
+                <h3> Built <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The number of signals which have been built during the selected timeframe."></i></h3>
+                <text>6</text>
               </div>
             </div>
-        
+          </div>
+
+          <div class="col-sm-3 about">
+            <h3>What am I looking at?</h3>
+            <p>This dashboard will display the status of our traffic and pedestrian signal request program. Signals are evaluated on an annual basis and ranked for funding according to criteria set forth by our engineers. To request a signal, call 311.</p>
+          </div>        
+        </div>
+        </div>
+
+        <!-- map -->
+        <div class="row">
+          <div class="col-sm-6 map" id=map>
+            <a name="map"></a>
+            <div class="over_map" id="map-expander">
+              <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
+            </div>
+          </div>
+      
           <div class="col-sm-6">
           <!-- Table  -->
             <a name="datatable"></a>

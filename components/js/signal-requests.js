@@ -1,6 +1,6 @@
 var pizza;
 
-var map;
+var map, feature_layer;
 
 var t_options = {
     ease : d3.easeQuad,
@@ -14,10 +14,11 @@ var formats = {
 var map_layers = {};
 
 var default_filters = {
-        'request_year' : [ '2015', '2016' ],
-        'request_type' : [ 'TRAFFIC', 'PHB' ],
-        'request_status' : [ 'STUDY', 'CONSTRUCTION']
+        'request_type' : [ 'TRAFFIC' ],
+        'request_status' : [ 'UNDER_EVALUATION']
     };
+
+var default_view = true;
 
 var default_style = {
     color: '#fff',
@@ -36,7 +37,7 @@ var map_options = {
         scrollWheelZoom: false
     };
 
-var requests_url = '../components/data/fake_request_data.json';
+var requests_url = '../components/data/fake_request_data_short.json';
 
 var SCALE_THRESHOLDS = {
     '$1': 500,
@@ -82,9 +83,9 @@ function main(data){
 
     map = makeMap('map', map_options);
 
-    request_data = createMarkers(data, default_style);
+    data = createMarkers(data, default_style);
 
-    var filtered_data = filterData(data, default_filters);
+    var filtered_data = filterData(data, active_filters);
 
     var feature_layer = createFeatureLayer(filtered_data);
 
@@ -93,6 +94,58 @@ function main(data){
     map.fitBounds(feature_layer.getBounds());
 
     populateTable(filtered_data);
+
+    d3.selectAll(".div-filter").on("click", function(){
+        
+        //  only one div filtere enabled at a time
+        d3.selectAll(".div-filter").classed("active", false);
+
+        d3.select(this).classed("active", true);
+
+        var filter_type = d3.select(this).attr("data-type");
+        var filter_val = d3.select(this).attr("data-val");
+
+        var index = active_filters[filter_type] = [filter_val];
+
+
+        // if (index < 0) {  // activating filter
+
+        //     d3.select(this).classed("active", true);
+        //     active_filters[filter_type].push(filter_val);
+            
+
+        // } else {  // de-activating filter
+
+        //     d3.select(this).classed("active", false);
+        //     active_filters[filter_type].splice(index, 1);
+
+        // }
+
+
+        var filtered_data = filterData(data, active_filters);
+
+        console.log(data);
+        console.log(active_filters);
+        console.log(filtered_data);
+
+        
+        map.removeLayer(feature_layer);
+        
+
+        if (filtered_data.length > 0 ) {
+
+            feature_layer = createFeatureLayer(filtered_data);
+
+            feature_layer.addTo(map);
+
+            map.fitBounds(feature_layer.getBounds());
+
+        }
+
+        
+
+
+    })
 
 
 }
@@ -303,7 +356,7 @@ function matchesFilters(data, filters) {
 
 function createFeatureLayer(data) {
 
-    var feature_layer = new L.featureGroup();
+    feature_layer = new L.featureGroup();
 
     for (var i = 0; i < data.length; i++) {
 

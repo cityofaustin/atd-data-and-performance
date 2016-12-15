@@ -1,5 +1,3 @@
-var pizza;
-
 var table;
 
 var map;
@@ -184,8 +182,6 @@ d3.select("#map-expander").on("click", function(){
 
 
 function main(data){
-
-    pizza = data;
 
     populateInfoStat(data, "info-1", function(){
 

@@ -2698,7 +2698,7 @@
   {
     "atd_location_id": 809,
     "location_name": "e sh 71 wb / thornberry rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "traffic",
     "request_year": 2015,
     "location": "(30.218642, -97.668901)"
@@ -2706,7 +2706,7 @@
   {
     "atd_location_id": 947,
     "location_name": "e sh 71 svrd wb / cheviot ln",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "traffic",
     "request_year": 2015,
     "location": "(30.2047272, -97.6425323)"
@@ -2714,7 +2714,7 @@
   {
     "atd_location_id": 856,
     "location_name": "/ s fm 973 rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "traffic",
     "request_year": 2015,
     "location": "(30.2031937, -97.6394501)"
@@ -2722,7 +2722,7 @@
   {
     "atd_location_id": 150,
     "location_name": "san jacinto blvd / e 2nd st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2636414, -97.7417908)"
@@ -2730,7 +2730,7 @@
   {
     "atd_location_id": 151,
     "location_name": "e cesar chavez st / red river st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2617817, -97.7387924)"
@@ -2738,7 +2738,7 @@
   {
     "atd_location_id": 152,
     "location_name": "guadalupe st / w 2nd st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2652874, -97.747673)"
@@ -2746,7 +2746,7 @@
   {
     "atd_location_id": 153,
     "location_name": "lavaca st / w 2nd st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2649975, -97.7465897)"
@@ -2754,7 +2754,7 @@
   {
     "atd_location_id": 154,
     "location_name": "congress ave / w 2nd st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2643204, -97.744194)"
@@ -2762,7 +2762,7 @@
   {
     "atd_location_id": 155,
     "location_name": "s 1st st / cumberland rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.238203, -97.7621002)"
@@ -2770,7 +2770,7 @@
   {
     "atd_location_id": 156,
     "location_name": "airport blvd / shady ln",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2593136, -97.6936188)"
@@ -2778,7 +2778,7 @@
   {
     "atd_location_id": 157,
     "location_name": "airport blvd / goodwin ave",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2681007, -97.6962738)"
@@ -2786,7 +2786,7 @@
   {
     "atd_location_id": 158,
     "location_name": "airport blvd / bolm rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2600937, -97.6938629)"
@@ -2794,7 +2794,7 @@
   {
     "atd_location_id": 159,
     "location_name": "airport blvd / springdale rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2656097, -97.6955109)"
@@ -2802,7 +2802,7 @@
   {
     "atd_location_id": 160,
     "location_name": "springdale rd / oak springs dr",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2735615, -97.6904221)"
@@ -2810,7 +2810,7 @@
   {
     "atd_location_id": 161,
     "location_name": "airport blvd / oak springs dr",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2735558, -97.6979065)"
@@ -2818,7 +2818,7 @@
   {
     "atd_location_id": 162,
     "location_name": "airport blvd / e 12th st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2768612, -97.7003326)"
@@ -2826,7 +2826,7 @@
   {
     "atd_location_id": 163,
     "location_name": "airport blvd / e martin luther king jr blvd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2825718, -97.703949)"
@@ -2834,7 +2834,7 @@
   {
     "atd_location_id": 164,
     "location_name": "airport blvd / manor rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.286293, -97.7063599)"
@@ -2842,7 +2842,7 @@
   {
     "atd_location_id": 165,
     "location_name": "airport blvd / e 38th half st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2891846, -97.7072449)"
@@ -2850,7 +2850,7 @@
   {
     "atd_location_id": 166,
     "location_name": "airport blvd / n ih 35 svrd nb",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.3013058, -97.7145767)"
@@ -2858,7 +2858,7 @@
   {
     "atd_location_id": 167,
     "location_name": "airport blvd / n ih 35 svrd sb",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.3026237, -97.7157364)"
@@ -2866,7 +2866,7 @@
   {
     "atd_location_id": 168,
     "location_name": "airport blvd / e 45th st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.3036251, -97.7159805)"
@@ -2874,7 +2874,7 @@
   {
     "atd_location_id": 169,
     "location_name": "airport blvd / e 51st st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.3120689, -97.7153397)"
@@ -2882,7 +2882,7 @@
   {
     "atd_location_id": 170,
     "location_name": "airport blvd / e 53rd half st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.3150253, -97.7146301)"
@@ -2890,7 +2890,7 @@
   {
     "atd_location_id": 171,
     "location_name": "airport blvd / e koenig ln svrd eb",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.31991, -97.7125473)"
@@ -2898,7 +2898,7 @@
   {
     "atd_location_id": 172,
     "location_name": "airport blvd / e koenig ln svrd wb",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.3209457, -97.7129517)"
@@ -2906,7 +2906,7 @@
   {
     "atd_location_id": 173,
     "location_name": "airport blvd / levander loop",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2537231, -97.692543)"
@@ -2914,7 +2914,7 @@
   {
     "atd_location_id": 174,
     "location_name": "s congress ave / w annie st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2460938, -97.7509689)"
@@ -2922,7 +2922,7 @@
   {
     "atd_location_id": 175,
     "location_name": "e oltorf st / east side dr",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2367039, -97.7488022)"
@@ -2930,7 +2930,7 @@
   {
     "atd_location_id": 176,
     "location_name": "brazos st / e 2nd st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2639465, -97.7428589)"
@@ -2938,7 +2938,7 @@
   {
     "atd_location_id": 177,
     "location_name": "e riverside dr /",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2552376, -97.745018)"
@@ -2946,7 +2946,7 @@
   {
     "atd_location_id": 178,
     "location_name": "e koenig ln / avenue f",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.3219643, -97.7185745)"
@@ -2954,7 +2954,7 @@
   {
     "atd_location_id": 179,
     "location_name": "w anderson ln / burrell dr",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.3519783, -97.7220688)"
@@ -2962,7 +2962,7 @@
   {
     "atd_location_id": 180,
     "location_name": "brazos st / e cesar chavez st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2630291, -97.7432098)"
@@ -2970,7 +2970,7 @@
   {
     "atd_location_id": 181,
     "location_name": "e cesar chavez st / trinity st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2623959, -97.7410736)"
@@ -2978,7 +2978,7 @@
   {
     "atd_location_id": 182,
     "location_name": "s lamar blvd sb / s lamar blvd svrd nb",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2362595, -97.7925873)"
@@ -2986,7 +2986,7 @@
   {
     "atd_location_id": 183,
     "location_name": "s lamar blvd / panther trl",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2386703, -97.7892838)"
@@ -2994,7 +2994,7 @@
   {
     "atd_location_id": 184,
     "location_name": "manchaca rd / barton skwy",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2426128, -97.781662)"
@@ -3002,7 +3002,7 @@
   {
     "atd_location_id": 185,
     "location_name": "w 5th st / bowie st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2697372, -97.7531738)"
@@ -3010,7 +3010,7 @@
   {
     "atd_location_id": 186,
     "location_name": "manchaca rd / fort view rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2310085, -97.7876205)"
@@ -3018,7 +3018,7 @@
   {
     "atd_location_id": 187,
     "location_name": "manchaca rd / redd st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2282581, -97.7894058)"
@@ -3026,7 +3026,7 @@
   {
     "atd_location_id": 188,
     "location_name": "manchaca rd / lansing dr",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2234383, -97.7923889)"
@@ -3034,7 +3034,7 @@
   {
     "atd_location_id": 189,
     "location_name": "manchaca rd / jones rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2207584, -97.7940674)"
@@ -3042,7 +3042,7 @@
   {
     "atd_location_id": 190,
     "location_name": "manchaca rd / w stassney ln",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2154312, -97.7977066)"
@@ -3050,7 +3050,7 @@
   {
     "atd_location_id": 191,
     "location_name": "manchaca rd / berkeley ave",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.20858, -97.8048477)"
@@ -3058,7 +3058,7 @@
   {
     "atd_location_id": 192,
     "location_name": "manchaca rd / w william cannon dr",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2029133, -97.8069077)"
@@ -3066,7 +3066,7 @@
   {
     "atd_location_id": 193,
     "location_name": "manchaca rd / matthews ln",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.1999645, -97.8073349)"
@@ -3074,7 +3074,7 @@
   {
     "atd_location_id": 194,
     "location_name": "manchaca rd / davis ln",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.1859264, -97.8163071)"
@@ -3082,7 +3082,7 @@
   {
     "atd_location_id": 195,
     "location_name": "manchaca rd / w slaughter ln",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.1737366, -97.8237305)"
@@ -3090,7 +3090,7 @@
   {
     "atd_location_id": 196,
     "location_name": "s pleasant valley rd / e william cannon dr",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.1796741, -97.7469025)"
@@ -3098,7 +3098,7 @@
   {
     "atd_location_id": 197,
     "location_name": "s 1st st / w annie st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.247448, -97.7558212)"
@@ -3106,7 +3106,7 @@
   {
     "atd_location_id": 198,
     "location_name": "w slaughter ln / bilbrook pl",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.1738644, -97.8169937)"
@@ -3114,7 +3114,7 @@
   {
     "atd_location_id": 199,
     "location_name": "e martin luther king jr blvd / cedar ave",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2809563, -97.7142868)"
@@ -3122,7 +3122,7 @@
   {
     "atd_location_id": 200,
     "location_name": "n lamar blvd / w 40th st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.3078613, -97.7413864)"
@@ -3130,7 +3130,7 @@
   {
     "atd_location_id": 201,
     "location_name": "w 5th st / baylor st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2708549, -97.7560349)"
@@ -3138,7 +3138,7 @@
   {
     "atd_location_id": 202,
     "location_name": "w slaughter ln / s 1st st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.1724548, -97.7995529)"
@@ -3146,7 +3146,7 @@
   {
     "atd_location_id": 203,
     "location_name": "w 6th st / campbell st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2757683, -97.7642212)"
@@ -3154,7 +3154,7 @@
   {
     "atd_location_id": 204,
     "location_name": "southwest pkwy / foster ranch rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2480564, -97.8497391)"
@@ -3162,7 +3162,7 @@
   {
     "atd_location_id": 205,
     "location_name": "w 6th st / west lynn st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.274826, -97.7626419)"
@@ -3170,7 +3170,7 @@
   {
     "atd_location_id": 206,
     "location_name": "w 12th st / west lynn st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2802258, -97.7591171)"
@@ -3178,7 +3178,7 @@
   {
     "atd_location_id": 207,
     "location_name": "enfield rd / winsted ln",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2862911, -97.7646103)"
@@ -3186,7 +3186,7 @@
   {
     "atd_location_id": 208,
     "location_name": "newfield ln / enfield rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2856445, -97.763298)"
@@ -3194,7 +3194,7 @@
   {
     "atd_location_id": 209,
     "location_name": "enfield rd / hartford rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2846756, -97.7618637)"
@@ -3202,7 +3202,7 @@
   {
     "atd_location_id": 210,
     "location_name": "enfield rd / west lynn st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.282774, -97.7578201)"
@@ -3210,7 +3210,7 @@
   {
     "atd_location_id": 211,
     "location_name": "w 15th st / enfield rd",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2801552, -97.753212)"
@@ -3218,7 +3218,7 @@
   {
     "atd_location_id": 212,
     "location_name": "w 15th st / west ave",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2791462, -97.7472839)"
@@ -3226,7 +3226,7 @@
   {
     "atd_location_id": 213,
     "location_name": "w 15th st / rio grande st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.278841, -97.7462311)"
@@ -3234,7 +3234,7 @@
   {
     "atd_location_id": 214,
     "location_name": "w 15th st / nueces st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2785339, -97.7451477)"
@@ -3242,7 +3242,7 @@
   {
     "atd_location_id": 215,
     "location_name": "w 15th st / san antonio st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2782192, -97.7440567)"
@@ -3250,7 +3250,7 @@
   {
     "atd_location_id": 217,
     "location_name": "w 15th st / lavaca st",
-    "request_status": "study",
+    "request_status": "under_evaulation",
     "request_type": "phb",
     "request_year": 2015,
     "location": "(30.2776051, -97.7419281)"
