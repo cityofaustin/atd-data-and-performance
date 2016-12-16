@@ -97,10 +97,10 @@ function main(data){
 
     d3.selectAll(".div-filter").on("click", function(){
         
-        //  only one div filtere enabled at a time
-        d3.selectAll(".div-filter").classed("active", false);
+        //  only one div filtee enabled at a time
+        // d3.selectAll(".div-filter").classed("active", false);
 
-        d3.select(this).classed("active", true);
+        // d3.select(this).classed("active", true);
 
         var filter_type = d3.select(this).attr("data-type");
         var filter_val = d3.select(this).attr("data-val");
