@@ -1,5 +1,5 @@
 ---
-layout: new-data-tracker
+layout: data-tracker
 title: Arterial Management Data Tracker
 short-name: Data Tracker
 custom_js:
