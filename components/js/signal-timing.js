@@ -369,11 +369,11 @@ function createYearSelectors(divId, createListeners) {
 
             if (data[i] == selected_year) {
         
-                return "btn btn-lg active";
+                return "btn btn active";
         
             }  else {
                 
-                return "btn btn-lg";
+                return "btn btn";
 
             }
 
