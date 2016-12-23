@@ -2,6 +2,7 @@ body {
   padding-bottom: 0px;
 }
 
+
 html {
     position: relative;
     min-height: 100%;
@@ -64,6 +65,12 @@ html {
   font-weight: normal;
 }
 
+@media (max-width: 991px) {
+    .jumbotron {
+        background-image: url(../images/jtron_900.png);
+    }
+}
+
 @media (min-width: 768px) {
 
     .nav {
@@ -74,8 +81,13 @@ html {
 
 }
 
+@media (min-width: 992px) {
+    .jumbotron {
+        background-image: url(../images/jtron_1100.png);
+    }
+}
 
-@media (max-width: 992px) {
+@media (min-width: 992px) {
     .jumbotron {
         background-image: url(../images/jtron_1100.png);
     }
