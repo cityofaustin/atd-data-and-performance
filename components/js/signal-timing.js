@@ -705,12 +705,6 @@ function populateTable(dataset, next) {
                         return STATUS_TYPES_READABLE[data];
                     }
                 },
-                { 
-                    data: 'status_date', 
-                    "render": function ( data, type, full, meta ) {
-                        return formatDate(new Date(data));
-                    }
-                },
                { 
                     data: 'vol_weighted_avg_tt_pct_change', 
                     "render": function ( data, type, full, meta ) {
