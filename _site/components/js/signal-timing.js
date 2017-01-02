@@ -688,8 +688,14 @@ function populateTable(dataset, next) {
             rowId: 'system_id',
             'bPaginate' : false,
             'bLengthChange': false,
+            'autoWidth' : false,
             'bInfo': false,
-             'oLanguage' :{ sSearch : 'Filter by Corridor Name' },
+             'oLanguage' :{ sSearch : 'Search by Corridor Name' },
+             "columnDefs": [
+                 { "width" : "40%", "targets" : 4 },
+                 { "width" : "10%", "targets" : 1 },
+                 { "searchable" : false, "targets" : [1,2,3,4] }
+            ],
             columns: [
                 { data: 'system_name', 
                     "render": function ( data, type, full, meta ) {
@@ -723,7 +729,7 @@ function populateTable(dataset, next) {
                         if (full.engineer_note) {
                             var engineer_note = full.engineer_note;
                             
-                            return "<i  class='fa fa-comment' data-trigger='hover' data-toggle='popover' data-placement='left' data-content='" + engineer_note + "' ></i>";
+                            return engineer_note;
 
                         } else {
                             return ''   

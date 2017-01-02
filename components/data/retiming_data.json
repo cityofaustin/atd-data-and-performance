@@ -2,8 +2,8 @@
   "status_date" : "9/26/16",
   "weighted_avg_stops_total" : "-82.91613248",
   "total_vol" : "1217",
-  "system_id" : "6",
-  "system_name" : "38TH",
+  "system_id" : "11",
+  "system_name" : "7TH - EAST",
   "vol_weighted_avg_tt_pct_change" : "0.087417663",
   "scheduled_fy" : "2016",
   "vol_weight_avg_stops_pct_change" : "-0.06813158",
@@ -15,15 +15,15 @@
   "status_date" : "9/26/16",
   "weighted_avg_stops_total" : "171.3503615",
   "total_vol" : "1217",
-  "system_id" : "11",
-  "system_name" : "7TH - EAST",
+  "system_id" : "6",
+  "system_name" : "38TH",
   "vol_weighted_avg_tt_pct_change" : "0.258535064",
   "scheduled_fy" : "2016",
   "vol_weight_avg_stops_pct_change" : "0.140797339",
   "number_of_signals" : "12",
   "weighted_avg_tt_total" : "314.6371731",
   "retime_status" : "COMPLETED",
-  "engineer_note" : "I am very happy with the otucome of this re-timing"
+  "engineer_note" : "The 38th, Red River, Dean Keeton, and IH 35 Service Road corridors were timed as a group, for an average travel time reduction of 9.1% across all four corridors."
 }
 , {
   "status_date" : "9/26/16",
@@ -88,7 +88,8 @@
   "vol_weight_avg_stops_pct_change" : "0.485325744",
   "number_of_signals" : "10",
   "weighted_avg_tt_total" : "111.6662005",
-  "retime_status" : "COMPLETED"
+  "retime_status" : "COMPLETED",
+  "engineer_note" : "The 38th, Red River, Dean Keeton, and IH 35 Service Road corridors were timed as a group, for an average travel time reduction of 9.1% across all four corridors."
 }
 , {
   "status_date" : "9/26/16",
@@ -114,7 +115,8 @@
   "vol_weight_avg_stops_pct_change" : "-0.167781002",
   "number_of_signals" : "16",
   "weighted_avg_tt_total" : "-34.98460112",
-  "retime_status" : "COMPLETED"
+  "retime_status" : "COMPLETED",
+  "engineer_note" : "The 38th, Red River, Dean Keeton, and IH 35 Service Road corridors were timed as a group, for an average travel time reduction of 9.1% across all four corridors."
 }
 , {
   "status_date" : "9/26/16",
@@ -127,7 +129,8 @@
   "vol_weight_avg_stops_pct_change" : "0.007186978",
   "number_of_signals" : "6",
   "weighted_avg_tt_total" : "-54.86220501",
-  "retime_status" : "COMPLETED"
+  "retime_status" : "COMPLETED",
+  "engineer_note" : "The 38th, Red River, Dean Keeton, and IH 35 Service Road corridors were timed as a group, for an average travel time reduction of 9.1% across all four corridors."
 }
 , {
   "status_date" : "9/26/16",
@@ -205,8 +208,7 @@
   "vol_weight_avg_stops_pct_change" : "0.135711057",
   "number_of_signals" : "30",
   "weighted_avg_tt_total" : "110.5034677",
-  "retime_status" : "COMPLETED",
-  "engineer_note" : "we were able to reduce west-bound travel time during AM peak"
+  "retime_status" : "COMPLETED"
 }
 , {
   "status_date" : "9/26/16",
