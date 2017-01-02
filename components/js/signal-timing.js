@@ -29,7 +29,7 @@ var ANNUAL_GOALS = {
 
 // var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json';
 
-var SYSTEM_RETIMING_URL = '../components/data/fake_retiming_data_2.json';
+var SYSTEM_RETIMING_URL = '../components/data/retiming_data.json';
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json';
 
