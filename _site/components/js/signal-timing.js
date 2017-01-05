@@ -7,7 +7,7 @@ var ANNUAL_GOALS = {
     },
     
     "2017" : {
-        retime_goal: 225,
+        retime_goal: 340,
         travel_time_reduction: .05,
         stops_reduction: 3,
     },
