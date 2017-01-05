@@ -46,7 +46,7 @@ var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
 //  var data_url = '../components/data/fake_intersection_data.json';
 
 //  dummy data one flashing
-//  var data_url = '../components/data/fake_intersection_data_one.json';
+var data_url = '../components/data/fake_intersection_data_one.json';
 
 var screen_collapse = true;
 
