@@ -12,7 +12,6 @@ var formatDate = d3.timeFormat("%x");
 
 var formatTime = d3.timeFormat("%I:%M %p");
 
-//  var formatSeconds = d3.timeFormat("%H:%M:%S");
 var formatSeconds = d3.timeFormat("%-Hhr %Mm");
 
 var t1 = d3.transition()
@@ -45,8 +44,8 @@ var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
 //  dummy data lots flashing
 //  var data_url = '../components/data/fake_intersection_data.json';
 
-//  dummy data one flashing
-var data_url = '../components/data/fake_intersection_data_one.json';
+//  dummy data three flashing
+//  var data_url = '../components/data/fake_intersection_data_one.json';
 
 var screen_collapse = true;
 
