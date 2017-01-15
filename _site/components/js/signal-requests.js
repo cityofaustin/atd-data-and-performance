@@ -1,11 +1,21 @@
-var pizza;
+var carl;
 
-var map, feature_layer;
+var map, feature_layer, data;
+
+var requests_url = '../components/data/fake_request_data.json';
 
 var t_options = {
     ease : d3.easeQuad,
     duration : 500
 };
+
+var t1 = d3.transition()
+    .ease(t_options.ease)
+    .duration(t_options.duration);
+
+var t2 = d3.transition()
+    .ease(t_options.ease)
+    .duration(t_options.duration);
 
 var formats = {
     'round': function(val) { return Math.round(val) },
@@ -18,6 +28,8 @@ var default_filters = {
         'request_status' : [ 'UNDER_EVALUATION']
     };
 
+var active_filters = default_filters;
+
 var default_view = true;
 
 var default_style = {
@@ -27,7 +39,14 @@ var default_style = {
     fillOpacity: .8
 }
 
-var active_filters = default_filters;
+var highlight_style = {
+    color: '#fff',
+    weight: 1,
+    fillColor: '#d95f02',
+    fillOpacity: .9
+}
+
+var table_height = '40vh';
 
 var map_options = {
         center : [30.28, -97.735],
@@ -36,8 +55,6 @@ var map_options = {
         maxZoom : 20,
         scrollWheelZoom: false
     };
-
-var requests_url = '../components/data/fake_request_data_short.json';
 
 var SCALE_THRESHOLDS = {
     '$1': 500,
@@ -68,7 +85,7 @@ $(document).ready(function(){
 
     if (is_touch_device()) {
         
-        d3.select('.map')
+        d3.select('#map')
             .style('margin-right', '10px')
             .style('margin-left', '10px');
     }
@@ -79,74 +96,47 @@ $(document).ready(function(){
 
 });
 
-function main(data){
+
+
+function main(request_data){
 
     map = makeMap('map', map_options);
 
-    data = createMarkers(data, default_style);
+    data = createMarkers(request_data, default_style);
 
-    var filtered_data = filterData(data, active_filters);
+    populateTable(data);
 
-    var feature_layer = createFeatureLayer(filtered_data);
+    $('#search_input').on( 'keyup', function () {
+        table.search( this.value ).draw();
+    } );
 
-    feature_layer.addTo(map);
+    map.on('zoomend', function() {
 
-    map.fitBounds(feature_layer.getBounds());
+        setMarkerSizes(data);
 
-    populateTable(filtered_data);
+    });
 
-    d3.selectAll(".div-filter").on("click", function(){
-        
-        //  only one div filtee enabled at a time
-        // d3.selectAll(".div-filter").classed("active", false);
+    d3.selectAll(".tableRow")
+        .on("click", function(d){
 
-        // d3.select(this).classed("active", true);
+            var marker_id = d3.select(this).attr("id");
+            console.log(marker_id);
+            for (var i = 0; i < data.length; i++ ) {
+                
+                if ('$' + data[i].atd_location_id == marker_id ) {
+                 
+                    map.fitBounds(
+                        data[i].marker.getBounds(),
+                        { maxZoom: 16 }
 
-        var filter_type = d3.select(this).attr("data-type");
-        var filter_val = d3.select(this).attr("data-val");
+                    );
 
-        var index = active_filters[filter_type] = [filter_val];
+                    data[i].marker.setStyle(highlight_style).openPopup();
 
+                }
 
-        // if (index < 0) {  // activating filter
-
-        //     d3.select(this).classed("active", true);
-        //     active_filters[filter_type].push(filter_val);
-            
-
-        // } else {  // de-activating filter
-
-        //     d3.select(this).classed("active", false);
-        //     active_filters[filter_type].splice(index, 1);
-
-        // }
-
-
-        var filtered_data = filterData(data, active_filters);
-
-        console.log(data);
-        console.log(active_filters);
-        console.log(filtered_data);
-
-        
-        map.removeLayer(feature_layer);
-        
-
-        if (filtered_data.length > 0 ) {
-
-            feature_layer = createFeatureLayer(filtered_data);
-
-            feature_layer.addTo(map);
-
-            map.fitBounds(feature_layer.getBounds());
-
-        }
-
-        
-
-
-    })
-
+            }
+    });
 
 }
 
@@ -193,7 +183,7 @@ function getOpenData(resource_id, options) {
 
     //  fvar url = 'https://data.austintexas.gov/resource/' + resource_id + '.json?$limit=2000' + options.filter;
 
-    var data = $.ajax({
+    var request_data = $.ajax({
         'async' : false,
         'global' : false,
         'cache' : false,
@@ -208,7 +198,7 @@ function getOpenData(resource_id, options) {
 
     }); //end get data
 
-    return data.responseJSON;
+    return request_data.responseJSON;
 
 }
 
@@ -245,21 +235,51 @@ function populateTable(data, divId, filters) {
         
             $('[data-toggle="popover"]').popover();
 
+            adjustMapHeight();
+
+        })
+        //  update map after table search
+        .on( 'draw.dt', function () {
+            
+            var ids = [];
+
+            $('.tableRow').each(function(i, obj) {
+                ids.push(obj.id);
+            });
+
+            if (ids.length > 0 ) {
+                var markers = getMarkers(data, ids);
+
+                updateMap(markers);
+
+            }
+
         })
         .DataTable({
-            data: data,
-            rowId: 'system_id',
-            'bLengthChange': false,
-            'bInfo' : false,
-            'bFilter' : false,
+            data : data,
+            rowId : 'system_id',
+            scrollY : table_height,
+            scrollCollapse : true,
+            bInfo : false,
+            paging : false,
             columns: [
-                { data: 'location_name' },
-                { data: 'request_type' },
-                { data: 'request_status' }
+                { data: 'location_name',
+                    "render": function ( data, type, full, meta ) {
+                        return "<a class='tableRow' id='$" + full.atd_location_id + "' >" + data + "</a>";
+                    }
+                },
+                { data: 'request_type', "searchable": false },
+                { data: 'request_status', "searchable": false },
 
             ]
         });
+
+    d3.select("#data_table_filter").remove();
+
 }
+
+
+
 
 
 function transitionInfoStat(selection, options) {
@@ -287,6 +307,13 @@ function transitionInfoStat(selection, options) {
 
     return selection;
 
+}
+
+
+function getActiveIds(table_div) {
+    var ids = $('.tableRow').map(function(index) {
+        return this.text; 
+    });
 }
 
 
@@ -356,18 +383,17 @@ function matchesFilters(data, filters) {
 
 function createFeatureLayer(data) {
 
-    feature_layer = new L.featureGroup();
+    var layer = new L.featureGroup();
 
     for (var i = 0; i < data.length; i++) {
 
-        data[i].marker.addTo(feature_layer);
+        data[i].marker.addTo(layer);
 
     }
 
-    return feature_layer;
+    return layer;
 
 }
-
 
 
 function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-screen-javascript
@@ -377,44 +403,65 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
 }
 
 
+function adjustMapHeight() {
+   //  make map same height as table
+
+    setTimeout(function(){ 
+        
+        var table_div_height = document.getElementById('data-row').clientHeight;
+
+        d3.select("#map")
+            .transition(t2)
+            .style("height", table_div_height + "px");            
+
+    }, 200);
+}
+    
+
+
+function getMarkers(source_data, id_array) {
+    
+    var layer = new L.featureGroup();
+
+    for (var i = 0; i < source_data.length; i++) {
+        
+        if ( id_array.indexOf( '$' + source_data[i]['atd_location_id']) > -1 ) {
+            source_data[i]['marker'].addTo(layer);
+        }
+
+    }
+
+    return layer
+}
+
+
+function updateMap(layer) {
+
+    if ( map.hasLayer(feature_layer) ) {
+        map.removeLayer(feature_layer);
+    }
+
+    feature_layer = layer
+
+    feature_layer.addTo(map);
+
+    map.fitBounds(feature_layer.getBounds());    
+
+}
 
 
 
+function setMarkerSizes(data) {
 
+    var zoom = map.getZoom();
 
+    for (var i = 0; i < data.length; i++){
 
+        data[i].marker.setRadius(SCALE_THRESHOLDS["$"+ zoom]);
 
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 

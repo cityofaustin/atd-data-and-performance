@@ -79,16 +79,16 @@
         </div>
 
 
-        <div class="row">
+        <div class="row" id="data-row">
           
           <div class="col-sm-6">
 
-            <div class="row">
+            <div class="row" id="search-row">
 
               <div class="col-md-6">               
                 <div id="custom-search-input">
                   <div class="input-group col-md-12">
-                      <input type="text" class="form-control input" placeholder="Search by street name" />
+                      <input id="search_input" type="text" class="form-control input" placeholder="Search by street name" />
                       <span class="input-group-btn">
                           <button class="btn" type="button">
                               <i class="fa fa-search"></i>
@@ -98,7 +98,7 @@
                 </div>
               </div>
 
-              </div>
+            </div>
 
 
             <div class="row">
@@ -127,8 +127,8 @@
 
 
           <!-- map -->
-          <div class="col-sm-6 map">
-            <div id='map' class="map"mjek>
+          <div class="col-sm-6">
+            <div id='map' class="map">
               <div class="over_map" id="map-expander">
                 <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
               </div>
