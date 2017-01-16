@@ -1,6 +1,4 @@
-var carl;
-
-var map, feature_layer, data;
+var map, feature_layer, data, highlighted_marker;
 
 var requests_url = '../components/data/fake_request_data.json';
 
@@ -120,22 +118,16 @@ function main(request_data){
         .on("click", function(d){
 
             var marker_id = d3.select(this).attr("id");
-            console.log(marker_id);
-            for (var i = 0; i < data.length; i++ ) {
-                
-                if ('$' + data[i].atd_location_id == marker_id ) {
-                 
-                    map.fitBounds(
-                        data[i].marker.getBounds(),
-                        { maxZoom: 16 }
 
-                    );
+            //  clear existing higlight / popup
+            if (highlighted_marker) {
 
-                    data[i].marker.setStyle(highlight_style).openPopup();
-
-                }
+                highlighted_marker.setStyle(default_style);
 
             }
+
+            highlightMarker(marker_id);
+
     });
 
 }
@@ -254,6 +246,12 @@ function populateTable(data, divId, filters) {
 
             }
 
+            if (highlighted_marker) {
+
+                highlighted_marker.setStyle(default_style);
+
+            }
+
         })
         .DataTable({
             data : data,
@@ -332,7 +330,8 @@ function createMarkers(data, style) {
 
         data[i]['marker'] = L.circle([lat,lon], 500)
           .setStyle(style)
-          .bindPopup('GREAT POPUP!');
+          .bindPopup('GREAT POPUP!')
+          .on('click', markerClick);
 
     }
     
@@ -462,6 +461,53 @@ function setMarkerSizes(data) {
     }
 
 }
+
+
+
+function highlightMarker(marker) {
+
+    for (var i = 0; i < data.length; i++ ) {
+    
+        if ('$' + data[i].atd_location_id == marker ) {
+         
+            map.fitBounds(
+                data[i].marker.getBounds(),
+                { maxZoom: 16 }
+
+            );
+
+            highlighted_marker = data[i].marker;
+
+            highlighted_marker.setStyle(highlight_style).openPopup();
+
+        }
+    }
+}
+
+
+function markerClick(e) {
+
+    if (highlighted_marker) {
+
+        highlighted_marker.setStyle(default_style);
+
+    }
+
+    highlighted_marker = this;
+
+    highlighted_marker.setStyle(highlight_style).openPopup();
+
+
+}
+
+
+
+
+
+
+
+
+
 
 
 
