@@ -419,9 +419,13 @@ function adjustMapHeight() {
 
         d3.select("#map")
             .transition(t2)
-            .style("height", table_div_height + "px");            
+            .style("height", table_div_height + "px")
+            .on("end", function() {
+                map.invalidateSize();
+            });            
 
     }, 200);
+
 }
     
 
@@ -452,7 +456,9 @@ function updateMap(layer) {
 
     feature_layer.addTo(map);
 
-    map.fitBounds(feature_layer.getBounds());    
+    map.fitBounds(feature_layer.getBounds(), { maxZoom: 16 });    
+
+    map.invalidateSize();
 
 }
 
@@ -483,6 +489,8 @@ function highlightMarker(marker) {
                 { maxZoom: 16 }
 
             );
+
+            map.invalidateSize();
 
             highlighted_marker = data[i].marker;
 
