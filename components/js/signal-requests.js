@@ -268,7 +268,11 @@ function populateTable(data, divId, filters) {
                 },
                 { data: 'request_type', "searchable": false },
                 { data: 'request_status', "searchable": false },
-
+                { data: 'location_name',
+                    "render": function ( data, type, full, meta ) {
+                        return Math.round(Math.random() * 100);
+                    }
+                },
             ]
         });
 
@@ -319,9 +323,13 @@ function getActiveIds(table_div) {
 function createMarkers(data, style) {
 
     for (var i = 0; i < data.length; i++) {   
-
-        var popup_text = '';
         
+        var location_name = data[i].location_name;
+
+        var status = data[i].request_status
+
+        var type = data[i].request_type
+
         var location = data[i].location.replace('(','').replace(')','').split(',');
         
         var lat = location[0];
@@ -330,7 +338,7 @@ function createMarkers(data, style) {
 
         data[i]['marker'] = L.circle([lat,lon], 500)
           .setStyle(style)
-          .bindPopup('GREAT POPUP!')
+          .bindPopup('<b>' + location_name + '</b></br> Type: ' + type  + '</br> Status: ' + status )
           .on('click', markerClick);
 
     }
