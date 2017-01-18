@@ -505,7 +505,7 @@ function adjustMapHeight() {
             //  be at least as hi as the adjusted map size default
             var table_div_height = document.getElementById('data-row').clientHeight;
 
-            if (table_div_height < 100 ) {
+            if (table_div_height < 200 ) {
                 
                 adjusted_map_size = "40vh"
 
