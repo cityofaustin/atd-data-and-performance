@@ -1,5 +1,6 @@
 var map, feature_layer, data, highlighted_marker;
 
+//  https://data.austintexas.gov/resource/f6qu-b7zb.json?$select=request_status,latitude,longitude,eval_status,location_name,funding_status,eval_type,request_id
 var requests_url = '../components/data/fake_request_data.json';
 
 var t_options = {
@@ -20,13 +21,6 @@ var formats = {
 };
 
 var map_layers = {};
-
-var default_filters = {
-        'request_type' : [ 'TRAFFIC' ],
-        'request_status' : [ 'UNDER_EVALUATION']
-    };
-
-var active_filters = default_filters;
 
 var default_view = true;
 
@@ -89,6 +83,8 @@ $(document).ready(function(){
     }
     
     var request_data = getOpenData(requests_url);
+
+    var request_data = filterUnique(request_data);
 
     main(request_data);
 
@@ -196,24 +192,6 @@ function getOpenData(resource_id, options) {
 
 
 
-
-function appendInfoText(data) {
-
-    d3.selectAll('.loading').remove();
-
-    var selection = d3.selectAll('.info')
-        .data(data)
-        .append('text')
-        .text(function(d) {
-            return d.init_val;
-        });
-
-    return selection;
-
-}
-
-
-
 function populateTable(data, divId, filters) {
     
     if ( $('#' + divId) ) {
@@ -261,18 +239,24 @@ function populateTable(data, divId, filters) {
             bInfo : false,
             paging : false,
             columns: [
+                
                 { data: 'location_name',
                     "render": function ( data, type, full, meta ) {
-                        return "<a class='tableRow' id='$" + full.atd_location_id + "' >" + data + "</a>";
+                        return "<a class='tableRow' id='$" + full.request_id + "' >" + data + "</a>";
                     }
                 },
-                { data: 'request_type', "searchable": false },
-                { data: 'request_status', "searchable": false },
-                { data: 'location_name',
-                    "render": function ( data, type, full, meta ) {
-                        return Math.round(Math.random() * 100);
+                
+                { data: 'eval_type', "searchable": false,
+                   "render": function ( data, type, full, meta ) {
+                        if (full.eval_type == 'TRAFFIC') {
+                            return "<i class='fa fa-car' ></i>" + full.eval_type;
+                        } else {
+                            return "<i class='fa fa-female' ></i> " + full.eval_type;
+                        }
                     }
                 },
+
+                { data: 'request_status', "searchable": false }
             ]
         });
 
@@ -326,15 +310,13 @@ function createMarkers(data, style) {
         
         var location_name = data[i].location_name;
 
-        var status = data[i].request_status
+        var status = data[i].request_status;
 
-        var type = data[i].request_type
+        var type = data[i].eval_type;
 
-        var location = data[i].location.replace('(','').replace(')','').split(',');
+        var lat = data[i].latitude;
         
-        var lat = location[0];
-
-        var lon = location[1];
+        var lon = data[i].longitude;
 
         data[i]['marker'] = L.circle([lat,lon], 500)
           .setStyle(style)
@@ -422,6 +404,7 @@ function adjustMapHeight() {
             .style("height", table_div_height + "px")
             .on("end", function() {
                 map.invalidateSize();
+                map.fitBounds(feature_layer.getBounds());
             });            
 
     }, 200);
@@ -436,7 +419,7 @@ function getMarkers(source_data, id_array) {
 
     for (var i = 0; i < source_data.length; i++) {
         
-        if ( id_array.indexOf( '$' + source_data[i]['atd_location_id']) > -1 ) {
+        if ( id_array.indexOf( '$' + source_data[i]['request_id']) > -1 ) {
             source_data[i]['marker'].addTo(layer);
         }
 
@@ -482,7 +465,7 @@ function highlightMarker(marker) {
 
     for (var i = 0; i < data.length; i++ ) {
     
-        if ('$' + data[i].atd_location_id == marker ) {
+        if ('$' + data[i].request_id == marker ) {
          
             map.fitBounds(
                 data[i].marker.getBounds(),
@@ -517,16 +500,25 @@ function markerClick(e) {
 }
 
 
+function filterUnique(dataset) {
+    
+    var unique_request_ids = [];
 
+    var unique_records = [];
 
+    for (var i = 0; i < dataset.length; i++) {
 
+        if (unique_request_ids.indexOf(dataset[i].request_id) < 0) {
+            
+            unique_request_ids.push(dataset[i].request_id);
 
+            unique_records.push(dataset[i]);
 
+        }
 
+    }
 
+    return unique_records;
 
-
-
-
-
+}
 
