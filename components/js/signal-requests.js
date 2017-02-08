@@ -38,6 +38,11 @@ var highlight_style = {
     fillOpacity: .9
 }
 
+var icon_lookup = {
+    'PHB' : 'fa-male',
+    'TRAFFIC' : 'fa-car'
+}
+
 var table_height = '40vh';
 
 var map_options = {
@@ -320,7 +325,7 @@ function createMarkers(data, style) {
 
         data[i]['marker'] = L.circle([lat,lon], 500)
           .setStyle(style)
-          .bindPopup('<b>' + location_name + '</b></br> Type: ' + type  + '</br> Status: ' + status )
+          .bindPopup( '<i class="fa ' + icon_lookup[type] + '" ></i> ' + type  + ' REQUEST </br><b>' + location_name + '</b></br> Status: ' + status )
           .on('click', markerClick);
 
     }
