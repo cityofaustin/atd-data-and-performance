@@ -323,6 +323,8 @@ function createMarkers(data, style) {
         
         var lon = data[i].longitude;
 
+        var request_note = ''
+        
         if (data[i].request_note) {
             var request_note = data[i].request_note;
             console.log(request_note)
