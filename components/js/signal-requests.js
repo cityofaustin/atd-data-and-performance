@@ -1,6 +1,6 @@
 var map, feature_layer, data, highlighted_marker;
 
-//  https://data.austintexas.gov/resource/f6qu-b7zb.json?$select=request_status,latitude,longitude,eval_status,location_name,funding_status,eval_type,request_id
+//  
 var requests_url = '../components/data/fake_request_data.json';
 
 var t_options = {
@@ -323,9 +323,14 @@ function createMarkers(data, style) {
         
         var lon = data[i].longitude;
 
+        if (data[i].request_note) {
+            var request_note = data[i].request_note;
+            console.log(request_note)
+        }
+
         data[i]['marker'] = L.circle([lat,lon], 500)
           .setStyle(style)
-          .bindPopup( '<i class="fa ' + icon_lookup[type] + '" ></i> ' + type  + ' REQUEST </br><b>' + location_name + '</b></br> Status: ' + status )
+          .bindPopup( '<i class="fa ' + icon_lookup[type] + '" ></i> ' + type  + ' REQUEST </br><b>' + location_name + '</b></br> Status: ' + status + '</b></br> <i>' + request_note + '</i>')
           .on('click', markerClick);
 
     }
