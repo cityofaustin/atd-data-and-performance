@@ -27,7 +27,7 @@ var default_style = {
     'PHB': {
         color: '#fff',
         weight: 1,
-        fillColor: '#ff7f00',
+        fillColor: '#e28400',
         fillOpacity: .8
     },
     'TRAFFIC' : {
@@ -318,12 +318,13 @@ function createMarkers(data, style) {
         
         if (data[i].request_note) {
             var request_note = data[i].request_note;
-            console.log(request_note)
         }
 
         data[i]['marker'] = L.circle([lat,lon], 500)
           .setStyle(style[eval_type])
-          .bindPopup( '<b><i class="fa ' + icon_lookup[eval_type] + '" ></i> ' + eval_type  + ' REQUEST </b></br>' + location_name + '</br> Status: ' + status + '</b></br> <i>' + request_note + '</i>')
+          .bindPopup( '<b><i class="fa ' + icon_lookup[eval_type] + '" ></i> ' + eval_type  + ' REQUEST </b></br>' + location_name + '</br> Status: ' + status + '</br> <i>' + request_note + '</i>')
+          .setStyle(style)
+          .bindPopup( '<b><i class="fa ' + icon_lookup[eval_type] + '" ></i> ' + eval_type  + ' REQUEST </b></br>' + location_name + '</br> Status: ' + status + '</br> <i>' + request_note + '</i>')
 
     }
     
@@ -508,4 +509,3 @@ function filterUnique(dataset) {
     return unique_records;
 
 }
-
