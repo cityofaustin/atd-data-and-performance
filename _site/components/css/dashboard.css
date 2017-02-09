@@ -72,6 +72,7 @@
   position: absolute;
   bottom: 10px;
   z-index: 1200;
+  margin-left: 10px;
 }
 
 button.map-expander{

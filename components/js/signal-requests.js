@@ -1,5 +1,9 @@
 var map, feature_layer, data;
 
+<<<<<<< HEAD
+=======
+//  
+>>>>>>> 0f2d8b5f9bd9750d5925cc5499f256bb8c038809
 var requests_url = '../components/data/fake_request_data.json';
 
 var t_options = {
@@ -322,8 +326,14 @@ function createMarkers(data, style) {
         }
 
         data[i]['marker'] = L.circle([lat,lon], 500)
+<<<<<<< HEAD
           .setStyle(style[eval_type])
           .bindPopup( '<b><i class="fa ' + icon_lookup[eval_type] + '" ></i> ' + eval_type  + ' REQUEST </b></br>' + location_name + '</br> Status: ' + status + '</b></br> <i>' + request_note + '</i>')
+=======
+          .setStyle(style)
+          .bindPopup( '<i class="fa ' + icon_lookup[type] + '" ></i> ' + type  + ' REQUEST </br><b>' + location_name + '</b></br> Status: ' + status + '</b></br> <i>' + request_note + '</i>')
+          .on('click', markerClick);
+>>>>>>> 0f2d8b5f9bd9750d5925cc5499f256bb8c038809
 
     }
     
