@@ -1,6 +1,5 @@
-var map, feature_layer, data, highlighted_marker;
+var map, feature_layer, data;
 
-//  https://data.austintexas.gov/resource/f6qu-b7zb.json?$select=request_status,latitude,longitude,eval_status,location_name,funding_status,eval_type,request_id
 var requests_url = '../components/data/fake_request_data.json';
 
 var t_options = {
@@ -25,17 +24,18 @@ var map_layers = {};
 var default_view = true;
 
 var default_style = {
-    color: '#fff',
-    weight: 1,
-    fillColor: '#7570b3',
-    fillOpacity: .8
-}
-
-var highlight_style = {
-    color: '#fff',
-    weight: 1,
-    fillColor: '#d95f02',
-    fillOpacity: .9
+    'PHB': {
+        color: '#fff',
+        weight: 1,
+        fillColor: '#ff7f00',
+        fillOpacity: .8
+    },
+    'TRAFFIC' : {
+        color: '#fff',
+        weight: 1,
+        fillColor: '#237FB4',
+        fillOpacity: .8
+    }
 }
 
 var icon_lookup = {
@@ -120,15 +120,9 @@ function main(request_data){
 
             var marker_id = d3.select(this).attr("id");
 
-            //  clear existing higlight / popup
-            if (highlighted_marker) {
+            var eval_type = d3.select(this).attr("data-eval-type");
 
-                highlighted_marker.setStyle(default_style);
-
-            }
-
-            highlightMarker(marker_id);
-
+            zoomToMarker(marker_id);
     });
 
 }
@@ -229,12 +223,6 @@ function populateTable(data, divId, filters) {
 
             }
 
-            if (highlighted_marker) {
-
-                highlighted_marker.setStyle(default_style);
-
-            }
-
         })
         .DataTable({
             data : data,
@@ -247,16 +235,19 @@ function populateTable(data, divId, filters) {
                 
                 { data: 'location_name',
                     "render": function ( data, type, full, meta ) {
-                        return "<a class='tableRow' id='$" + full.request_id + "' >" + data + "</a>";
+                        return "<a class='tableRow' id='$" + full.request_id + "' data-eval-type =" + full.eval_type + ">" + data + "</a>";
                     }
                 },
                 
                 { data: 'eval_type', "searchable": false,
                    "render": function ( data, type, full, meta ) {
+                        
                         if (full.eval_type == 'TRAFFIC') {
-                            return "<i class='fa fa-car' ></i>" + full.eval_type;
+                            return "<span style='font-weight: bold; color: " + default_style[full.eval_type]['fillColor'] + ";' ><i class='fa fa-car' ></i> " + full.eval_type + "</span>";
+                        
                         } else {
-                            return "<i class='fa fa-female' ></i> " + full.eval_type;
+                             return "<span style='font-weight: bold; color: " + default_style[full.eval_type]['fillColor'] + ";' ><i class='fa fa-female' ></i> " + full.eval_type + "</span>";
+                        
                         }
                     }
                 },
@@ -317,16 +308,22 @@ function createMarkers(data, style) {
 
         var status = data[i].request_status;
 
-        var type = data[i].eval_type;
+        var eval_type = data[i].eval_type;
 
         var lat = data[i].latitude;
         
         var lon = data[i].longitude;
 
+        var request_note = ''
+        
+        if (data[i].request_note) {
+            var request_note = data[i].request_note;
+            console.log(request_note)
+        }
+
         data[i]['marker'] = L.circle([lat,lon], 500)
-          .setStyle(style)
-          .bindPopup( '<i class="fa ' + icon_lookup[type] + '" ></i> ' + type  + ' REQUEST </br><b>' + location_name + '</b></br> Status: ' + status )
-          .on('click', markerClick);
+          .setStyle(style[eval_type])
+          .bindPopup( '<b><i class="fa ' + icon_lookup[eval_type] + '" ></i> ' + eval_type  + ' REQUEST </b></br>' + location_name + '</br> Status: ' + status + '</b></br> <i>' + request_note + '</i>')
 
     }
     
@@ -397,6 +394,7 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
 }
 
 
+
 function adjustMapHeight() {
    //  make map same height as table
 
@@ -434,6 +432,7 @@ function getMarkers(source_data, id_array) {
 }
 
 
+
 function updateMap(layer) {
 
     if ( map.hasLayer(feature_layer) ) {
@@ -466,7 +465,7 @@ function setMarkerSizes(data) {
 
 
 
-function highlightMarker(marker) {
+function zoomToMarker(marker) {
 
     for (var i = 0; i < data.length; i++ ) {
     
@@ -480,29 +479,12 @@ function highlightMarker(marker) {
 
             map.invalidateSize();
 
-            highlighted_marker = data[i].marker;
-
-            highlighted_marker.setStyle(highlight_style).openPopup();
+            data[i].marker.openPopup();
 
         }
     }
 }
 
-
-function markerClick(e) {
-
-    if (highlighted_marker) {
-
-        highlighted_marker.setStyle(default_style);
-
-    }
-
-    highlighted_marker = this;
-
-    highlighted_marker.setStyle(highlight_style).openPopup();
-
-
-}
 
 
 function filterUnique(dataset) {
