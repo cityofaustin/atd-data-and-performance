@@ -146,3 +146,19 @@ p.quote-of-the-week {
   text-align: right;
 }
 
+.full_width {
+  padding-bottom: 10px;
+}
+
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: none;
+  border-top: none;
+}
+
+table.dataTable.no-footer {
+  border-bottom: none;
+}
+
+
+

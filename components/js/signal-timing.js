@@ -142,6 +142,7 @@ var SYSTEMS_LAYERS = {};
 
 var visible_layers = new L.featureGroup();
 
+var table_height = '40vh';
 
 $(document).ready(function () {
 
@@ -683,13 +684,16 @@ function populateTable(dataset, next) {
             $('[data-toggle="popover"]').popover();
 
         })
+
         .DataTable({
-            data: filtered_data,
-            rowId: 'system_id',
-            'bPaginate' : false,
-            'bLengthChange': false,
-            'autoWidth' : false,
-            'bInfo': false,
+            data : filtered_data,
+            rowId : 'system_id',
+            scrollY : table_height,
+            scrollCollapse : true,
+            paging : false,
+            bLengthChange: false,
+            autoWidth : false,
+            bInfo : false,
              'oLanguage' :{ sSearch : 'Search by Corridor Name' },
              "columnDefs": [
                  { "width" : "40%", "targets" : 4 },

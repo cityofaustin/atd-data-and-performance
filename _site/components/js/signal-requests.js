@@ -1,4 +1,4 @@
-var map, feature_layer, data;
+var map, feature_layer, data, table;
 
 var requests_url = '../components/data/fake_request_data.json';
 
@@ -21,13 +21,19 @@ var formats = {
 
 var map_layers = {};
 
+var map_expanded = false;
+
+var collapsed_class = 'col-sm-6';
+
+var expanded_class = 'col-sm-12'
+
 var default_view = true;
 
 var default_style = {
     'PHB': {
         color: '#fff',
         weight: 1,
-        fillColor: '#e28400',
+        fillColor: '#a65628',
         fillOpacity: .8
     },
     'TRAFFIC' : {
@@ -44,6 +50,8 @@ var icon_lookup = {
 }
 
 var table_height = '40vh';
+
+var current_table_height;
 
 var map_options = {
         center : [30.28, -97.735],
@@ -95,7 +103,21 @@ $(document).ready(function(){
 
 });
 
+d3.select('#map-expander').on('click', function(){
 
+    if (map_expanded) {
+        
+        map_expanded = false;
+        collapseMap('table_col', 'map_col');
+
+    } else {
+        
+        map_expanded = true;
+
+        expandMap('table_col', 'map_col');
+    }
+
+})
 
 function main(request_data){
 
@@ -292,13 +314,6 @@ function transitionInfoStat(selection, options) {
 }
 
 
-function getActiveIds(table_div) {
-    var ids = $('.tableRow').map(function(index) {
-        return this.text; 
-    });
-}
-
-
 
 function createMarkers(data, style) {
 
@@ -401,7 +416,7 @@ function adjustMapHeight() {
 
     setTimeout(function(){ 
         
-        var table_div_height = document.getElementById('data-row').clientHeight;
+        table_div_height = document.getElementById('data-row').clientHeight;
 
         d3.select("#map")
             .transition(t2)
@@ -410,6 +425,8 @@ function adjustMapHeight() {
                 map.invalidateSize();
                 map.fitBounds(feature_layer.getBounds());
             });            
+
+        console.log(table_div_height);
 
     }, 200);
 
@@ -509,3 +526,58 @@ function filterUnique(dataset) {
     return unique_records;
 
 }
+
+
+
+function expandMap(table_div_id, map_div_id) {
+    
+    d3.select('#' + table_div_id).attr("class", expanded_class + ' full_width');
+
+    d3.select('#' + map_div_id).attr("class", expanded_class + ' full_width');
+
+    d3.select("#map")
+                
+                .transition(t2)
+                .style("height", window.innerHeight + "px")
+                .on("end", function() {
+                    map.invalidateSize();
+                    map.fitBounds(feature_layer.getBounds());
+                }); 
+
+    table.draw();
+
+}
+
+
+
+function collapseMap(table_div_id, map_div_id) {
+    
+    var table_div_height = document.getElementById(table_div_id).clientHeight;
+    
+    d3.select('#' + table_div_id).attr('class', collapsed_class)
+    
+    d3.select('#map').transition(t2)
+        .style('height', table_div_height + "px")
+        .on("end", function() {
+
+            d3.select('#' + map_div_id).attr('class', collapsed_class)
+            map.invalidateSize();
+            map.fitBounds(feature_layer.getBounds());
+
+
+        });            ;
+
+    table.draw();
+
+}
+
+
+
+
+
+
+
+
+
+
+
