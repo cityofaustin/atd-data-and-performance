@@ -1,6 +1,6 @@
 var map, feature_layer, data, table;
 
-var requests_url = '../components/data/fake_request_data.json';
+var requests_url = 'https://data.austintexas.gov/resource/yfa7-33gh.json';
 
 var t_options = {
     ease : d3.easeQuad,
@@ -274,7 +274,7 @@ function populateTable(data, divId, filters) {
                     }
                 },
 
-                { data: 'request_status', "searchable": false }
+                { data: 'request_status' }
             ]
         });
 
