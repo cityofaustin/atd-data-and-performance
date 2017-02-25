@@ -157,15 +157,15 @@ function makeMap(divId, options) {
     L.Icon.Default.imagePath = '../components/images/';
 
     var layers = {
-        Stamen_TonerLite: L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
-})
+        carto_positron: L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        })
     }
 
     var map = new L.Map(divId, options)
-        .addLayer(layers['Stamen_TonerLite']);
+        .addLayer(layers['carto_positron']);
 
     return map;
 
