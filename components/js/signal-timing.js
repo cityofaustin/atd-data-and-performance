@@ -847,7 +847,7 @@ function populateMap(map, dataset) {
 
         var lon = dataset[i].longitude;
 
-        var intersection_name = dataset[i].intersection_name;
+        var intersection_name = dataset[i].location_name;
 
         var atd_signal_id = dataset[i].atd_signal_id;
         
