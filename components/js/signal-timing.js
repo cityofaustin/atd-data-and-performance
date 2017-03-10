@@ -27,9 +27,7 @@ var ANNUAL_GOALS = {
 };
 
 
-// var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json';
-
-var SYSTEM_RETIMING_URL = '../components/data/retiming_data.json';
+var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/g8w2-8uap.json';
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json';
 
@@ -50,7 +48,7 @@ var SYSTEM_IDS = {};
 var tau = 2 * Math.PI,
     arc;
 
-var selected_year = "2016";  //  init year selection
+var selected_year = "2017";  //  init year selection
 
 var previous_selection = "2015";
 
@@ -154,7 +152,6 @@ $(document).ready(function () {
     }
 });
 
-
 //  fetch retiming data
 d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
@@ -252,17 +249,13 @@ function groupData(dataset, updateCharts) {
             .rollup(function (v) {
                 return {
                     travel_time_change : d3.sum(v, function(d) {
-                        return d.weighted_avg_tt_total;
+                        return d.vol_wavg_tt_seconds;
                     }) / d3.sum(v, function(d) {
                         return d.total_vol;
                     }),
 
                     signals_retimed : d3.sum(v, function(d) {
-                        return d.signals_retimed; 
-                    }),
-
-                    travel_time_before : d3.sum(v, function(d) {
-                        return d.travel_time_before; 
+                        return d.signal_count; 
                     })
 
                 };
@@ -395,9 +388,15 @@ function populateInfoStat(divId, metric, transition) {
 
     var goal = ANNUAL_GOALS[selected_year][metric]; 
 
-    var metric_value = 
-        GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
+    if ("$" + STATUS_SELECTED in GROUPED_RETIMING_DATA["$" + selected_year]) {
 
+        var metric_value = GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
+    
+    } else{
+
+        var metric_value = 0;
+    }
+    
     d3.select("#" + divId)
         .append("text")
         .text(FORMAT_TYPES[metric](0))
@@ -707,7 +706,7 @@ function populateTable(dataset, next) {
                     }
                 },
                 { 
-                  data: 'number_of_signals' 
+                  data: 'signal_count' 
                 },
                 { 
                     data: 'retime_status', 
@@ -716,7 +715,7 @@ function populateTable(dataset, next) {
                     }
                 },
                { 
-                    data: 'vol_weighted_avg_tt_pct_change', 
+                    data: 'vol_wavg_tt_pct_change', 
                     "render": function ( data, type, full, meta ) {
                         var travel_time_change = FORMAT_TYPES["travel_time_reduction"](-1 * +data);
                         
@@ -980,4 +979,3 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
       || (navigator.MaxTouchPoints > 0)
       || (navigator.msMaxTouchPoints > 0));
 }
-
