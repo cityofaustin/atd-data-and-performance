@@ -48,7 +48,7 @@ var SYSTEM_IDS = {};
 var tau = 2 * Math.PI,
     arc;
 
-var selected_year = "2016";  //  init year selection
+var selected_year = "2017";  //  init year selection
 
 var previous_selection = "2015";
 
@@ -693,8 +693,9 @@ function populateTable(dataset, next) {
             bLengthChange: false,
             autoWidth : false,
             bInfo : false,
-             'oLanguage' :{ sSearch : 'Search by Corridor Name' },
-             "columnDefs": [
+            order : [[2, 'asc']],
+            oLanguage :{ sSearch : 'Search by Corridor Name' },
+            columnDefs : [
                  { "width" : "40%", "targets" : 4 },
                  { "width" : "10%", "targets" : 1 },
                  { "searchable" : false, "targets" : [1,2,3,4] }
@@ -719,6 +720,10 @@ function populateTable(dataset, next) {
                     "render": function ( data, type, full, meta ) {
                         var travel_time_change = FORMAT_TYPES["travel_time_reduction"](-1 * +data);
                         
+                         if (full.retime_status != 'COMPLETED') {
+                            return '';
+                         };
+
                         if ( +data < 0) {
                             travel_time_change = "+" + travel_time_change;
                         }
