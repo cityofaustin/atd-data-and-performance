@@ -25,7 +25,7 @@ var map_expanded = false;
 
 var collapsed_class = 'col-sm-6';
 
-var expanded_class = 'col-sm-12'
+var expanded_class = 'col-sm-12';
 
 var default_view = true;
 
