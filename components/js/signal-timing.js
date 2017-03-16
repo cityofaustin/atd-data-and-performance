@@ -152,6 +152,10 @@ $(document).ready(function () {
     }
 });
 
+var collapsed_class = 'col-sm-6';
+
+var expanded_class = 'col-sm-12'
+
 //  fetch retiming data
 d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
@@ -191,40 +195,17 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
             d3.select("#map-expander").on("click", function(){
 
-                d3.select(this)
-                    .select("button")
-                        .html(function(){
-
-                            if (map_expanded) {
-
-                                return "<i  class='fa fa-expand'</i>";
-
-                            } else {
-                                
-                                return "<i  class='fa fa-compress'</i>"
-
-                            }
-                        });
-                
-                var map_size = expanded_map_size;
-
                 if (map_expanded) {
-
+        
                     map_expanded = false;
-                
-                    map_size = default_map_size;
-                
-                } else {
+                    collapseMap('table_col', 'map_col');
 
+                } else {
+                    
                     map_expanded = true;
 
+                    expandMap('table_col', 'map_col');
                 }
-
-                d3.select("#map")
-                    .transition(t2)
-                    .style("height", map_size + "px");
-
-                setTimeout(function(){ map.invalidateSize()}, t2_duration);
 
             });
 
@@ -682,6 +663,8 @@ function populateTable(dataset, next) {
         
             $('[data-toggle="popover"]').popover();
 
+            adjustMapHeight();
+
         })
 
         .DataTable({
@@ -747,8 +730,6 @@ function populateTable(dataset, next) {
 
             ]
         })
-
-    
 
     next();
 
@@ -978,9 +959,78 @@ function arcTween(newAngle) {
 }
 
 
-
 function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-screen-javascript
         return (('ontouchstart' in window)
       || (navigator.MaxTouchPoints > 0)
       || (navigator.msMaxTouchPoints > 0));
+}
+
+
+
+function adjustMapHeight() {
+   //  make map same height as table
+
+    setTimeout(function(){ 
+        
+        table_div_height = document.getElementById('data-row').clientHeight;
+
+        d3.select("#map")
+            .transition(t2)
+            .style("height", table_div_height + "px")
+            .on("end", function() {
+                map.invalidateSize();
+                map.fitBounds(visible_layers.getBounds());
+            });            
+
+        console.log(table_div_height);
+
+    }, 200);
+
+}
+
+
+
+function expandMap(table_div_id, map_div_id) {
+    
+    d3.select('#' + table_div_id).attr("class", expanded_class + ' full_width');
+
+    d3.select('#' + map_div_id).attr("class", expanded_class + ' full_width');
+
+    d3.select("#map")
+                
+                .transition(t2)
+                .style("height", window.innerHeight + "px")
+                .on("end", function() {
+                    map.invalidateSize();
+                    map.fitBounds(visible_layers.getBounds());
+                }); 
+
+    table.draw();
+
+}
+
+
+
+
+
+
+function collapseMap(table_div_id, map_div_id) {
+    
+    var table_div_height = document.getElementById(table_div_id).clientHeight;
+    
+    d3.select('#' + table_div_id).attr('class', collapsed_class)
+    
+    d3.select('#map').transition(t2)
+        .style('height', table_div_height + "px")
+        .on("end", function() {
+
+            d3.select('#' + map_div_id).attr('class', collapsed_class)
+            map.invalidateSize();
+            map.fitBounds(visible_layers.getBounds());
+
+
+        });            ;
+
+    table.draw();
+
 }
