@@ -27,9 +27,7 @@ var ANNUAL_GOALS = {
 };
 
 
-// var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/eyaq-uimn.json';
-
-var SYSTEM_RETIMING_URL = '../components/data/retiming_data.json';
+var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/g8w2-8uap.json';
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json';
 
@@ -50,7 +48,7 @@ var SYSTEM_IDS = {};
 var tau = 2 * Math.PI,
     arc;
 
-var selected_year = "2016";  //  init year selection
+var selected_year = "2017";  //  init year selection
 
 var previous_selection = "2015";
 
@@ -154,6 +152,9 @@ $(document).ready(function () {
     }
 });
 
+var collapsed_class = 'col-sm-6';
+
+var expanded_class = 'col-sm-12'
 
 //  fetch retiming data
 d3.json(SYSTEM_RETIMING_URL, function(dataset) {
@@ -194,40 +195,17 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
             d3.select("#map-expander").on("click", function(){
 
-                d3.select(this)
-                    .select("button")
-                        .html(function(){
-
-                            if (map_expanded) {
-
-                                return "<i  class='fa fa-expand'</i>";
-
-                            } else {
-                                
-                                return "<i  class='fa fa-compress'</i>"
-
-                            }
-                        });
-                
-                var map_size = expanded_map_size;
-
                 if (map_expanded) {
-
+        
                     map_expanded = false;
-                
-                    map_size = default_map_size;
-                
-                } else {
+                    collapseMap('table_col', 'map_col');
 
+                } else {
+                    
                     map_expanded = true;
 
+                    expandMap('table_col', 'map_col');
                 }
-
-                d3.select("#map")
-                    .transition(t2)
-                    .style("height", map_size + "px");
-
-                setTimeout(function(){ map.invalidateSize()}, t2_duration);
 
             });
 
@@ -252,17 +230,13 @@ function groupData(dataset, updateCharts) {
             .rollup(function (v) {
                 return {
                     travel_time_change : d3.sum(v, function(d) {
-                        return d.weighted_avg_tt_total;
+                        return d.vol_wavg_tt_seconds;
                     }) / d3.sum(v, function(d) {
                         return d.total_vol;
                     }),
 
                     signals_retimed : d3.sum(v, function(d) {
-                        return d.signals_retimed; 
-                    }),
-
-                    travel_time_before : d3.sum(v, function(d) {
-                        return d.travel_time_before; 
+                        return d.signal_count; 
                     })
 
                 };
@@ -395,9 +369,15 @@ function populateInfoStat(divId, metric, transition) {
 
     var goal = ANNUAL_GOALS[selected_year][metric]; 
 
-    var metric_value = 
-        GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
+    if ("$" + STATUS_SELECTED in GROUPED_RETIMING_DATA["$" + selected_year]) {
 
+        var metric_value = GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
+    
+    } else{
+
+        var metric_value = 0;
+    }
+    
     d3.select("#" + divId)
         .append("text")
         .text(FORMAT_TYPES[metric](0))
@@ -683,6 +663,8 @@ function populateTable(dataset, next) {
         
             $('[data-toggle="popover"]').popover();
 
+            adjustMapHeight();
+
         })
 
         .DataTable({
@@ -694,8 +676,9 @@ function populateTable(dataset, next) {
             bLengthChange: false,
             autoWidth : false,
             bInfo : false,
-             'oLanguage' :{ sSearch : 'Search by Corridor Name' },
-             "columnDefs": [
+            order : [[2, 'asc']],
+            oLanguage :{ sSearch : 'Search by Corridor Name' },
+            columnDefs : [
                  { "width" : "40%", "targets" : 4 },
                  { "width" : "10%", "targets" : 1 },
                  { "searchable" : false, "targets" : [1,2,3,4] }
@@ -707,7 +690,7 @@ function populateTable(dataset, next) {
                     }
                 },
                 { 
-                  data: 'number_of_signals' 
+                  data: 'signal_count' 
                 },
                 { 
                     data: 'retime_status', 
@@ -716,10 +699,14 @@ function populateTable(dataset, next) {
                     }
                 },
                { 
-                    data: 'vol_weighted_avg_tt_pct_change', 
+                    data: 'vol_wavg_tt_pct_change', 
                     "render": function ( data, type, full, meta ) {
                         var travel_time_change = FORMAT_TYPES["travel_time_reduction"](-1 * +data);
                         
+                         if (full.retime_status != 'COMPLETED') {
+                            return '';
+                         };
+
                         if ( +data < 0) {
                             travel_time_change = "+" + travel_time_change;
                         }
@@ -743,8 +730,6 @@ function populateTable(dataset, next) {
 
             ]
         })
-
-    
 
     next();
 
@@ -847,7 +832,7 @@ function populateMap(map, dataset) {
 
         var lon = dataset[i].longitude;
 
-        var intersection_name = dataset[i].intersection_name;
+        var intersection_name = dataset[i].location_name;
 
         var atd_signal_id = dataset[i].atd_signal_id;
         
@@ -974,10 +959,78 @@ function arcTween(newAngle) {
 }
 
 
-
 function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-screen-javascript
         return (('ontouchstart' in window)
       || (navigator.MaxTouchPoints > 0)
       || (navigator.msMaxTouchPoints > 0));
 }
 
+
+
+function adjustMapHeight() {
+   //  make map same height as table
+
+    setTimeout(function(){ 
+        
+        table_div_height = document.getElementById('data-row').clientHeight;
+
+        d3.select("#map")
+            .transition(t2)
+            .style("height", table_div_height + "px")
+            .on("end", function() {
+                map.invalidateSize();
+                map.fitBounds(visible_layers.getBounds());
+            });            
+
+        console.log(table_div_height);
+
+    }, 200);
+
+}
+
+
+
+function expandMap(table_div_id, map_div_id) {
+    
+    d3.select('#' + table_div_id).attr("class", expanded_class + ' full_width');
+
+    d3.select('#' + map_div_id).attr("class", expanded_class + ' full_width');
+
+    d3.select("#map")
+                
+                .transition(t2)
+                .style("height", window.innerHeight + "px")
+                .on("end", function() {
+                    map.invalidateSize();
+                    map.fitBounds(visible_layers.getBounds());
+                }); 
+
+    table.draw();
+
+}
+
+
+
+
+
+
+function collapseMap(table_div_id, map_div_id) {
+    
+    var table_div_height = document.getElementById(table_div_id).clientHeight;
+    
+    d3.select('#' + table_div_id).attr('class', collapsed_class)
+    
+    d3.select('#map').transition(t2)
+        .style('height', table_div_height + "px")
+        .on("end", function() {
+
+            d3.select('#' + map_div_id).attr('class', collapsed_class)
+            map.invalidateSize();
+            map.fitBounds(visible_layers.getBounds());
+
+
+        });            ;
+
+    table.draw();
+
+}

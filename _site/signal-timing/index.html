@@ -121,61 +121,48 @@
 </nav>
 
         
-        <div class="container-fluid">
-          <div class="row">
-
-            <div class="col-sm-12">
-              <a name="year-selector"></a>
-              <h4> Fiscal Year <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-container="body" data-content="The City of Austin's Fiscal Year begins in October and ends in September"></i></h4>                            
-              <div id="selectors" class="btn-group" role="group" aria-label="..."></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-4 about">
-              <h3>What am I looking at?</h3>
-              <p>
-                This dashboard reports the progress of the Austin Transportation Department's Annual Signal Timing Program. Beginning in 2017, traffic signal engineers will re-time approximately 1/3 of the city’s 1,000+ signals each year, with the goal of ensuring signals are timed for optimum safety and performance.
-                <a href=#about> More info</a>
-              </p>
-            </div>
-            <div class="col-sm-4 info" id=info-1 data-status=2>
-              <a name="info-1"></a>
-              <h3> Signals Re-Timed <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Number of traffic signals re-timed this fiscal year, as a percentage of our annual goal."></i></h3>
-              <svg></svg>
-            </div>
-            <div class="col-sm-4 info" id=info-2 data-status=1>
-              <a name="info-2"></a>
-              <h3> Travel Time Reduced <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The volume-weighted average % change in travel time, across all corridors, as a result of signal re-timing."></i></h3>
-            </div>
-    
-
-          </div>
-
-          <div class="row">
-            <a name="update-info"></a>
-            <div class="col-sm-12 info" id="update-info"></div> 
-
-          </div>
-
-          <!-- map -->
-          <div class="row">
-            <div class="col-md-12">
-              <div class="map" id=map>
-                <a name="map"></a>
-                <div class="over_map" id="map-expander">
-                  <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-	  <!-- Table  -->
-    <a name="datatable"></a>
     <div class="container-fluid">
       <div class="row">
-        <div class='col-sm-12'>
+
+        <div class="col-sm-12">
+          <a name="year-selector"></a>
+          <h4> Fiscal Year <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-container="body" data-content="The City of Austin's Fiscal Year begins in October and ends in September"></i></h4>                            
+          <div id="selectors" class="btn-group" role="group" aria-label="..."></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 about">
+          <h3>What am I looking at?</h3>
+          <p>
+            This dashboard reports the progress of the Austin Transportation Department's Annual Signal Timing Program. Beginning in 2017, traffic signal engineers will re-time approximately 1/3 of the city’s 1,000+ signals each year, with the goal of ensuring signals are timed for optimum safety and performance.
+            <a href=#about> More info</a>
+          </p>
+        </div>
+        <div class="col-sm-4 info" id=info-1 data-status=2>
+          <a name="info-1"></a>
+          <h3> Signals Re-Timed <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Number of traffic signals re-timed this fiscal year, as a percentage of our annual goal."></i></h3>
+          <svg></svg>
+        </div>
+        <div class="col-sm-4 info" id=info-2 data-status=1>
+          <a name="info-2"></a>
+          <h3> Travel Time Reduced <i  class="fa fa-info-circle" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="The volume-weighted average % change in travel time, across all corridors, as a result of signal re-timing."></i></h3>
+        </div>
+
+      </div>
+
+      <!-- update date row -->
+      <div class="row">
+        <a name="update-info"></a>
+        <div class="col-sm-12 info" id="update-info"></div> 
+
+      </div>
+      
+      <!-- table / map row -->
+      <div class="row" id="data-row">
+
+        <!-- Table  -->
+        <a name="datatable"></a>
+        <div class='col-sm-6' id="table_col">
           <table class="table table-striped table-hover" data-sort-name="address" data-sort-order="desc" id="data_table">
             <thead>
               <tr>
@@ -191,50 +178,59 @@
             </tbody>
           </table>
         </div>
+
+        <!-- map -->
+        <div class="col-md-6" id="map_col">
+          <div class="map" id=map>
+            <a name="map"></a>
+            <div class="over_map" id="map-expander">
+              <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-        
 
+    <div class="container-fluid about" id="about">
+      <a name="about"></a>
 
-     <div class="container-fluid about" id="about">
-        <a name="about"></a>
-
-        <div class="row">
-          <div class="col-md-12">
-            <h2>About Signal Timing</h2>
-          </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h2>About Signal Timing</h2>
         </div>
-        
-        <div class="row">
+      </div>
+      
+      <div class="row">
 
-          <div class="col-md-4">
-            <h3>How do you choose which signals will be re-timed?</h3>
-            <p>
-              We identify corridors for re-timing on annual basis, typically in October. Every signal in our system is re-timed at least once every three years. You can view the corridors that have been scheduled for re-timing in the above table. 
-            </p>
-          </div>
-          <div class="col-md-4">
-            <h3>How do you set your goals?</h3>
-            <p>
-              The Annual Signal Timing Program's performance goals are established by city management, and are reviewed annually based on the pervious year's performance.</p>
-          </div>
-          <div class="col-md-4">
-            <h3>Report an Issue</h3>
-            <p>
-              To report an issue or request a new traffic signal, call 3-1-1. You can also <a href='https://austin-csrprodcwi.motorolasolutions.com/ServiceRequest.mvc/SRIntakeStep2/TRASIGNE?guid=59340171d27247fa93fe951cdaf37dcc'>submit a traffic signal service request online.</a>
-            </p>
-          </div>
+        <div class="col-md-4">
+          <h3>How do you choose which signals will be re-timed?</h3>
+          <p>
+            We identify corridors for re-timing on annual basis, typically in October. Every signal in our system is re-timed at least once every three years. You can view the corridors that have been scheduled for re-timing in the above table. 
+          </p>
         </div>
-        <div class="row">
+        <div class="col-md-4">
+          <h3>How do you set your goals?</h3>
+          <p>
+            The Annual Signal Timing Program's performance goals are established by city management, and are reviewed annually based on the pervious year's performance.</p>
+        </div>
+        <div class="col-md-4">
+          <h3>Report an Issue</h3>
+          <p>
+            To report an issue or request a new traffic signal, call 3-1-1. You can also <a href='https://austin-csrprodcwi.motorolasolutions.com/ServiceRequest.mvc/SRIntakeStep2/TRASIGNE?guid=59340171d27247fa93fe951cdaf37dcc'>submit a traffic signal service request online.</a>
+          </p>
+        </div>
+      </div>
+      <div class="row">
 
-          <div class="col-md-12 disclaimer">
-            <p>
-              This dashboard is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of traffic signals.
-            </p>
-          </div>
+        <div class="col-md-12 disclaimer">
+          <p>
+            This dashboard is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of traffic signals.
+          </p>
+        </div>
 
-        </div>      
-      </div> 
+      </div>      
+    </div> 
     
     
 <footer class="footer">

@@ -1,19 +1,6 @@
 var map, feature_layer, data, table;
 
-var requests_url = 'https://data.austintexas.gov/resource/yfa7-33gh.json';
-
-var t_options = {
-    ease : d3.easeQuad,
-    duration : 500
-};
-
-var t1 = d3.transition()
-    .ease(t_options.ease)
-    .duration(t_options.duration);
-
-var t2 = d3.transition()
-    .ease(t_options.ease)
-    .duration(t_options.duration);
+var requests_url = 'https://data.austintexas.gov/resource/fs3c-45ge.json?$query= SELECT atd_camera_id, location_name, location';
 
 var formats = {
     'round': function(val) { return Math.round(val) },
@@ -30,18 +17,10 @@ var expanded_class = 'col-sm-12';
 var default_view = true;
 
 var default_style = {
-    'PHB': {
-        color: '#fff',
-        weight: 1,
-        fillColor: '#a65628',
-        fillOpacity: .8
-    },
-    'TRAFFIC' : {
-        color: '#fff',
-        weight: 1,
-        fillColor: '#237FB4',
-        fillOpacity: .8
-    }
+    color: '#fff',
+    weight: 1,
+    fillColor: '#237FB4',
+    fillOpacity: .8
 }
 
 var icon_lookup = {
@@ -49,9 +28,20 @@ var icon_lookup = {
     'TRAFFIC' : 'fa-car'
 }
 
-var table_height = '40vh';
+var table_height = '60vh';
+
+var popup_width = '100px';
 
 var current_table_height;
+
+var t_options = {
+    ease : d3.easeQuad,
+    duration : 500
+};
+
+var t2 = d3.transition()
+    .ease(t_options.ease)
+    .duration(t_options.duration);
 
 var map_options = {
         center : [30.28, -97.735],
@@ -97,8 +87,6 @@ $(document).ready(function(){
     
     var request_data = getOpenData(requests_url);
 
-    var request_data = filterUnique(request_data);
-
     main(request_data);
 
 });
@@ -141,8 +129,6 @@ function main(request_data){
         .on("click", function(d){
 
             var marker_id = d3.select(this).attr("id");
-
-            var eval_type = d3.select(this).attr("data-eval-type");
 
             zoomToMarker(marker_id);
     });
@@ -247,40 +233,26 @@ function populateTable(data, divId, filters) {
         })
         .DataTable({
             data : data,
-            rowId : 'system_id',
+            rowId : 'atd_camera_id',
             scrollY : table_height,
             scrollCollapse : true,
             bInfo : false,
             paging : false,
             columns: [
                 
+                { data: 'atd_camera_id' },
+
                 { data: 'location_name',
                     "render": function ( data, type, full, meta ) {
-                        return "<a class='tableRow' id='$" + full.request_id + "' data-eval-type =" + full.eval_type + ">" + data + "</a>";
+                        return "<a class='tableRow' id='$" + full.atd_camera_id + "' '>" + data + "</a>";
                     }
-                },
-                
-                { data: 'eval_type', "searchable": false,
-                   "render": function ( data, type, full, meta ) {
-                        
-                        if (full.eval_type == 'TRAFFIC') {
-                            return "<span style='font-weight: bold; color: " + default_style[full.eval_type]['fillColor'] + ";' ><i class='fa fa-car' ></i> " + full.eval_type + "</span>";
-                        
-                        } else {
-                             return "<span style='font-weight: bold; color: " + default_style[full.eval_type]['fillColor'] + ";' ><i class='fa fa-female' ></i> " + full.eval_type + "</span>";
-                        
-                        }
-                    }
-                },
-
-                { data: 'request_status' }
+                }
             ]
         });
 
     d3.select("#data_table_filter").remove();
 
 }
-
 
 
 
@@ -316,29 +288,21 @@ function transitionInfoStat(selection, options) {
 
 function createMarkers(data, style) {
 
+    base_url = 'https://raw.githubusercontent.com/cityofaustin/transportation-data-publishing/master/data/cam_img/'
+
     for (var i = 0; i < data.length; i++) {   
         
         var location_name = data[i].location_name;
 
-        var status = data[i].request_status;
+        var id = data[i].atd_camera_id
 
-        var eval_type = data[i].eval_type;
-
-        var lat = data[i].latitude;
+        var lat = data[i]["location"]["coordinates"][1];
         
-        var lon = data[i].longitude;
-
-        var request_note = ''
-        
-        if (data[i].request_note) {
-            var request_note = data[i].request_note;
-        }
+        var lon = data[i]["location"]["coordinates"][0];
 
         data[i]['marker'] = L.circle([lat,lon], 500)
-          .setStyle(style[eval_type])
-          .bindPopup( '<b><i class="fa ' + icon_lookup[eval_type] + '" ></i> ' + eval_type  + ' REQUEST </b></br>' + location_name + '</br> Status: ' + status + '</br> <i>' + request_note + '</i>')
           .setStyle(style)
-          .bindPopup( '<b><i class="fa ' + icon_lookup[eval_type] + '" ></i> ' + eval_type  + ' REQUEST </b></br>' + location_name + '</br> Status: ' + status + '</br> <i>' + request_note + '</i>')
+          .bindPopup( "<img src=" + base_url + id + ".jpg width=300 /></br>" +  id + ': ' + location_name)
 
     }
     
@@ -439,7 +403,7 @@ function getMarkers(source_data, id_array) {
 
     for (var i = 0; i < source_data.length; i++) {
         
-        if ( id_array.indexOf( '$' + source_data[i]['request_id']) > -1 ) {
+        if ( id_array.indexOf( '$' + source_data[i]['atd_camera_id']) > -1 ) {
             source_data[i]['marker'].addTo(layer);
         }
 
@@ -451,6 +415,7 @@ function getMarkers(source_data, id_array) {
 
 
 function updateMap(layer) {
+
 
     if ( map.hasLayer(feature_layer) ) {
         map.removeLayer(feature_layer);
@@ -486,7 +451,7 @@ function zoomToMarker(marker) {
 
     for (var i = 0; i < data.length; i++ ) {
     
-        if ('$' + data[i].request_id == marker ) {
+        if ('$' + data[i].atd_camera_id == marker ) {
          
             map.fitBounds(
                 data[i].marker.getBounds(),
@@ -502,29 +467,6 @@ function zoomToMarker(marker) {
     }
 }
 
-
-
-function filterUnique(dataset) {
-    
-    var unique_request_ids = [];
-
-    var unique_records = [];
-
-    for (var i = 0; i < dataset.length; i++) {
-
-        if (unique_request_ids.indexOf(dataset[i].request_id) < 0) {
-            
-            unique_request_ids.push(dataset[i].request_id);
-
-            unique_records.push(dataset[i]);
-
-        }
-
-    }
-
-    return unique_records;
-
-}
 
 
 
