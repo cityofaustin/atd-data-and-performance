@@ -1,12 +1,9 @@
 var quote_data
 
-
-
 var t_options = {
     ease : d3.easeQuad,
     duration : 500
 };
-
 
 var formats = {
     'round': function(val) { return Math.round(val) },
@@ -15,11 +12,7 @@ var formats = {
     'formatTime' : d3.timeFormat("%I:%M %p")
 };
 
-
-//  https://github.com/d3/d3-queue
 var q = d3.queue();
-
-
 
 var global_data = [
 
@@ -76,6 +69,7 @@ for (var i = 0; i < global_data.length; ++i) {
     }
 
 }
+
 
 
 function main(data) {
@@ -266,7 +260,7 @@ function postUpdateDate(selection, event, resource_id) {
 
     var data_url = 'https://data.austintexas.gov/resource/' + resource_id;
 
-    var logfile_url = "https://data.austintexas.gov/resource/n5kp-f8k4.json?$query=SELECT * WHERE event='_XXX_' AND (created > 0 or updated > 0) ORDER BY timestamp DESC LIMIT 1"
+    var logfile_url = "https://data.austintexas.gov/resource/n5kp-f8k4.json?$query=SELECT * WHERE event='_XXX_' AND (created > 0 OR updated > 0 OR deleted > 0) ORDER BY timestamp DESC LIMIT 1";
     
     logfile_url = logfile_url.replace('_XXX_', event);
 
