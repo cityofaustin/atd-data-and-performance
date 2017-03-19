@@ -266,9 +266,9 @@ function postUpdateDate(selection, event, resource_id) {
 
     var data_url = 'https://data.austintexas.gov/resource/' + resource_id;
 
-    var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27_XXX_%27&$order=timestamp+DESC&$limit=1'
-
-    var logfile_url = logfile_url.replace('_XXX_', event);
+    var logfile_url = "https://data.austintexas.gov/resource/n5kp-f8k4.json?$query=SELECT * WHERE event='_XXX_' AND (created > 0 or updated > 0) ORDER BY timestamp DESC LIMIT 1"
+    
+    logfile_url = logfile_url.replace('_XXX_', event);
 
     d3.json(logfile_url, function(error, data) {
 
@@ -276,10 +276,10 @@ function postUpdateDate(selection, event, resource_id) {
 
         update_date = readableDate( update_date_time );
 
-        var update_time = formats.formatTime( update_date_time );
+        // var update_time = formats.formatTime( update_date_time );
 
         selection.append('h5')
-            .html("Updated " + update_date + " at " + update_time +
+            .html("Updated " + update_date +
                 " | <a href=" + data_url + " target='_blank'> Data <i  class='fa fa-download'></i> </a>"
              );
 
