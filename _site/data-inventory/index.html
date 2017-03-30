@@ -9,11 +9,11 @@
     <meta name="author" content="City of Austin Transportation Department">
     <link rel="icon" href="/components/images/favicon.ico">
     
-    <meta name="title" content="Experiments - City of Austin Transportation Department">
+    <meta name="title" content="Open Data Inventory">
     <meta name="description" content="">
 
 
-    <title>Experiments - City of Austin Transportation Department</title>
+    <title>Open Data Inventory</title>
 
     <!-- Bootstrap core CSS with min removed by hailey -->
     <link href="/components/css/bootstrap.css" rel="stylesheet"> 
@@ -22,14 +22,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="/components/css/custom.css" rel="stylesheet"> 
     <link href='https://fonts.googleapis.com/css?family=News+Cycle' rel='stylesheet' type='text/css'>
-    
-    
-    
-      
-    
-      <link rel="stylesheet" href="/components/css/dashboard.css" media="screen" type="text/css">
-    
-      
     
     
 
@@ -42,12 +34,20 @@
 
 
   <body>
+    
+    <div class="container-fluid coa-header">    
+    <row>
+        <div class="col-sm-12">
+            <h6>An official website of the City of Austin</h6>
+        </div>
+    </row>
+</div>
 
-  	<nav class="navbar navbar-default">
+    <nav class="navbar navbar-default">
   <div class="container-fluid opi">
     <row>
       <div class="col-sm-6">
-        <h2> Experiments</h2>
+        <h2> Open Data Inventory</h2>
         <p>City of Austin Transportation Department</p>
       </div>
       <div class="col-sm-6 nav">
@@ -101,29 +101,35 @@
 
 </nav>
 
-        
-        <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-12">
-                <h4>Lamar Northbound: Jan, Feb, Apr 2016</h4>
-                <form>
-                <select id='selected_time'>
-                  <option id='am_off' value='am_off' >AM Off</option>
-                  <option id='am_peak' value='am_peak' >AM Peak</option>
-                  <option id='mid_day' value='mid_day'>Mid Day</option>
-                  <option id='pm_peak' value='pm_peak'>PM Peak</option>
-                  <option id='pm_off' value='pm_off'>PM Off</option>
-                </select>
-              </form>
-              </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12" id="content-wrapper">
-                </div>
-            </div>
-    </div>
 
+    <div class='wrapper'>
+      <div class="container-fluid">
+
+        <div class="row">
         
+          <div class="col-sm-10 about">
+            <h3>About the Austin Transportation Open Data Inventory</h3>
+            <p>
+              Austin Transportation Department's Open Data Inventory tracks the publication status of all transportation data assets of which the Transportation Department is a steward. Datasets listed with a publication status of "Production" are available for download on the <a href='http://data.austintexas.gov' target='_blank'>City of Austin's Open Data Portal</a>. Contact <a href="mailto:transportation.data@austintexas.gov"> transportation.data@austintexas.gov</a> for additional information about the data inventory.
+            </p>
+          </div>
+          <div class="col-sm-2" ></div>
+        </div>
+
+        <div class="row">
+          
+          <div class="col-sm-10">
+            <iframe class="airtable-embed" src="https://airtable.com/embed/shrwrg0MIrbWkzmuI?backgroundColor=transparent" frameborder="0" onmousewheel="" width="100%" height="750" style="background: transparent;"></iframe>
+          </div>
+
+          <div class="col-sm-2" ></div>
+
+        </div>
+
+      </div> 
+    </div>
+      
+    
 <footer class="footer">
     <div class="container" >
         <div class = "row">
@@ -170,13 +176,6 @@
         </div>
     </div>
 </footer>
-
-
-<!--             <div style="float:right;" class="col-md-3" id="update_date">
-                <h5>Last Updated 25 May 2016 8:45AM</h5>
-            </div> -->
-            
-
  
 <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -186,28 +185,8 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/components/js/ie10-viewport-bug-workaround.js"></script>
     <script src="/components/js/js-cookie.js"></script>
-    
-    
-      
-    
-        <script src='/components/js/d3.v4.min.js' type="text/javascript"></script>
-    
-      
-    
-        <script src='/components/js/d3-scale-chromatic.v1.min.js' type="text/javascript"></script>
-    
-      
-    
-        <script src='/components/js/bt_chart_v0.1.js' type="text/javascript"></script>
-    
-      
-    
+
     
 
   </body>
 </html>
-
-
-
-
- 
