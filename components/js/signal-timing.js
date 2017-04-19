@@ -259,7 +259,7 @@ function groupData(dataset, updateCharts) {
 
         for (var q = 0; q < SOURCE_DATA_SYSTEMS.length; q++) {
 
-            var signal_id = parseInt(+GROUPED_DATA_INTERSECTIONS[i].atd_signal_id);
+            var signal_id = parseInt(+GROUPED_DATA_INTERSECTIONS[i].signal_id);
 
             var system_id_source = +GROUPED_DATA_INTERSECTIONS[i].system_id;
 
@@ -841,7 +841,7 @@ function populateMap(map, dataset) {
 
         var intersection_name = dataset[i].location_name;
 
-        var atd_signal_id = dataset[i].atd_signal_id;
+        var signal_id = dataset[i].signal_id;
         
         var marker = L.circle([lat,lon], SCALE_THRESHOLDS['$' + zoom])
             .bindPopup(
