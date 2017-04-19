@@ -7,7 +7,7 @@ var ANNUAL_GOALS = {
     },
     
     "2017" : {
-        retime_goal: 340,
+        retime_goal: 360,
         travel_time_reduction: .05,
         stops_reduction: 3,
     },
@@ -31,7 +31,7 @@ var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/g8w2-8uap.json'
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json';
 
-var LOGFILE_URL = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_retiming%27%20AND%20response_message%20IS%20NULL%20&$order=timestamp+DESC&$limit=1';
+var LOGFILE_URL = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27corridor_retiming_update%27%20AND%20response_message%20IS%20NULL%20&$order=timestamp+DESC&$limit=1';
 
 var STATUS_SELECTED = 'COMPLETED';
 
