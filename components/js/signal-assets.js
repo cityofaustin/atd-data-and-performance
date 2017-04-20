@@ -22,7 +22,7 @@ var global_data = [
         'format' : 'round',
         'resource_id' : 'p53x-x73x',
         'filters' : [{'signal_type' : 'TRAFFIC' }, { '$limit' : '9000' }], 
-        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
+        'disp_fields' : ['signal_id', 'location_name', 'modified_date' ],
         'infoStat' : true,
         'log_event' : 'signals_update'
     },{
@@ -31,7 +31,7 @@ var global_data = [
         'format' : 'round',
         'resource_id' : 'p53x-x73x',
         'filters' : [{'signal_type' : 'PHB' }, { '$limit' : '9000' } ], 
-        'disp_fields' : ['atd_signal_id', 'location_name', 'modified_date' ],
+        'disp_fields' : ['signal_id', 'location_name', 'modified_date' ],
         'infoStat' : true,
         'log_event' : 'signals_update'
     },
