@@ -343,7 +343,7 @@ function populateMap(map, dataset, createSideBar) {
 
                 var status_time = formatDateTime( new Date(dataset[i].operation_state_datetime) );
 
-                var atd_signal_id = dataset[i].atd_signal_id;
+                var signal_id = dataset[i].signal_id;
 
                 var duration = formatDuration(dataset[i].operation_state_datetime);
                 
@@ -352,7 +352,7 @@ function populateMap(map, dataset, createSideBar) {
                     });
                 
                 marker.bindPopup(
-                        "<b>Signal #" + atd_signal_id + ":</b> " + address + " <br>" +
+                        "<b>Signal #" + signal_id + ":</b> " + address + " <br>" +
                         "<b>Status: </b>" + STATUS_TYPES_READABLE[status] + 
                         "<br><b>Updated:</b> " + status_time +
                         "<br><b>Duration:</b> " + duration
@@ -360,7 +360,7 @@ function populateMap(map, dataset, createSideBar) {
                     
                     marker.addTo(signals_on_flash_layer);
 
-                    signal_markers['$' + atd_signal_id] = marker;
+                    signal_markers['$' + signal_id] = marker;
 
             }
 
@@ -384,8 +384,6 @@ function createTableListeners() {
             map.setView(signal_markers[signal_id].getLatLng(), 14);
 
             signal_markers[signal_id].openPopup();
-
-            console.log("HEY");
 
             //  location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
 
@@ -453,11 +451,11 @@ function populateTable(dataset) {
         columns: [
             { data: 'location_name', 
                 "render": function ( data, type, full, meta ) {
-                    return "<a class='tableRow' id='$" + full.atd_signal_id + "' >" + data + "</a>";
+                    return "<a class='tableRow' id='$" + full.signal_id + "' >" + data + "</a>";
                 }
             },
 
-            {   data: 'atd_signal_id' },
+            {   data: 'signal_id' },
             
             { 
                 data: 'operation_state', 
