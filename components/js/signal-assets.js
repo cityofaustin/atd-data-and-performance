@@ -21,7 +21,7 @@ var global_data = [
         'init_val' : 0,
         'format' : 'round',
         'resource_id' : 'p53x-x73x',
-        'filters' : [{'signal_type' : 'TRAFFIC' }, { '$limit' : '9000' }], 
+        'filters' : [{'signal_type' : 'TRAFFIC', 'signal_status' : 'TURNED_ON' }, { '$limit' : '9000' }], 
         'disp_fields' : ['signal_id', 'location_name', 'modified_date' ],
         'infoStat' : true,
         'log_event' : 'signals_update'
