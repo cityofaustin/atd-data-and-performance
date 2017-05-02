@@ -31,7 +31,7 @@ var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/g8w2-8uap.json'
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json';
 
-var LOGFILE_URL = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27corridor_retiming_update%27%20AND%20response_message%20IS%20NULL%20&$order=timestamp+DESC&$limit=1';
+var LOGFILE_URL = "https://data.austintexas.gov/resource/n5kp-f8k4.json?$query=SELECT * WHERE event='signal_retiming' AND (created > 0 OR updated > 0 OR deleted > 0) ORDER BY timestamp DESC LIMIT 1";
 
 var STATUS_SELECTED = 'COMPLETED';
 
