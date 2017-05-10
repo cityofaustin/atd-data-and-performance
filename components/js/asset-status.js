@@ -235,16 +235,36 @@ function populateTable(data, divId, filters) {
             data : data,
             rowId : 'atd_camera_id',
             scrollY : table_height,
-            scrollCollapse : true,
+            scrollCollapse : false,
             bInfo : false,
             paging : false,
+            autoWidth: false,
             columns: [
                 
-                { data: 'atd_camera_id' },
-
+                { data: 'asset_type_here',
+                    "render": function ( data, type, full, meta ) {
+                        return " <i class='fa fa-video-camera'></i>";
+                    }
+                },
+                { data: 'atd_camera_id',
+                    "render": function ( data, type, full, meta ) {
+                        return data;
+                    }
+                },
                 { data: 'location_name',
                     "render": function ( data, type, full, meta ) {
                         return "<a class='tableRow' id='$" + full.atd_camera_id + "' '>" + data + "</a>";
+                    }
+                },
+
+                { data: 'ip_comm_here',
+                    "render": function ( data, type, full, meta ) {
+                        var rando = Math.floor(Math.random() * 100);
+                        if (rando < 60) {
+                            return "<i class='fa fa-check-circle' style='color:green'></i>";
+                        } else {
+                            return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+                        }
                     }
                 }
             ]
