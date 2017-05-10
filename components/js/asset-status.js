@@ -308,7 +308,7 @@ function transitionInfoStat(selection, options) {
 
 function createMarkers(data, style) {
 
-    base_url = 'https://raw.githubusercontent.com/cityofaustin/transportation-data-publishing/master/data/cam_img/'
+    base_url = 'http://162.89.4.145/CCTVImages/CCTV';
 
     for (var i = 0; i < data.length; i++) {   
         
@@ -323,7 +323,7 @@ function createMarkers(data, style) {
         data[i]['marker'] = L.circle([lat,lon], 500)
           .setStyle(style)
           .bindPopup( "<img src=" + base_url + id + ".jpg width=300 /></br>" +  id + ': ' + location_name)
-
+          
     }
     
     return data;
