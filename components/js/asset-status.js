@@ -240,12 +240,7 @@ function populateTable(data, divId, filters) {
             paging : false,
             autoWidth: false,
             columns: [
-                
-                { data: 'asset_type_here',
-                    "render": function ( data, type, full, meta ) {
-                        return " <i class='fa fa-video-camera'></i>";
-                    }
-                },
+
                 { data: 'atd_camera_id',
                     "render": function ( data, type, full, meta ) {
                         return data;
@@ -257,10 +252,34 @@ function populateTable(data, divId, filters) {
                     }
                 },
 
-                { data: 'ip_comm_here',
+                { data: 'cam_comm_here',
                     "render": function ( data, type, full, meta ) {
                         var rando = Math.floor(Math.random() * 100);
-                        if (rando < 60) {
+                        if (rando < 70) {
+                            return "<i class='fa fa-check-circle' style='color:green'></i>";
+                        } else if (rando < 90){
+                            return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+                        } else {
+                            return ""
+                        }
+                    }
+                },
+               { data: 'bt_comm_here',
+                    "render": function ( data, type, full, meta ) {
+                        var rando = Math.floor(Math.random() * 100);
+                        if (rando < 50) {
+                            return "<i class='fa fa-check-circle' style='color:green'></i>";
+                        } else if (rando < 95){
+                            return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+                        } else {
+                            return ""
+                        }
+                    }
+                },
+               { data: 'switch_comm_here',
+                    "render": function ( data, type, full, meta ) {
+                        var rando = Math.floor(Math.random() * 100);
+                        if (rando < 80) {
                             return "<i class='fa fa-check-circle' style='color:green'></i>";
                         } else {
                             return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
@@ -323,7 +342,7 @@ function createMarkers(data, style) {
         data[i]['marker'] = L.circle([lat,lon], 500)
           .setStyle(style)
           .bindPopup( "<img src=" + base_url + id + ".jpg width=300 /></br>" +  id + ': ' + location_name)
-          
+
     }
     
     return data;
