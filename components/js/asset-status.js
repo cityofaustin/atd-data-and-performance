@@ -18,20 +18,26 @@ var device_data = [
         'query' : 'select * limit 10'
     },
     {
-        'name' : 'camera',
+        'name' : 'cctv',
         'resource_id' : 'b4k4-adkb',
         'id_field' : 'atd_camera_id',
-        'query' : ''
+        'query' : 'select * where upper(camera_mfg) not in ("GRIDSMART")'
+    },
+    {
+        'name' : 'gridsmart',
+        'resource_id' : 'b4k4-adkb',
+        'id_field' : 'atd_camera_id',
+        'query' : 'select * where upper(camera_mfg) in ("GRIDSMART")'
     },
     {
         'name' : 'travel_sensor',
         'resource_id' : '6yd9-yz29',
         'id_field' : 'sensor_id',
-        'query' : 'select latitude,longitude,sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status="TURNED_ON"'
+        'query' : 'select latitude,longitude,sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status in ("TURNED_ON")'
     }
 ];
 
-var device_names = ['traffic_signal', 'camera', 'travel_sensor'];
+var device_names = ['traffic_signal', 'cctv', 'gridsmart', 'travel_sensor'];
 
 var map_options = {
         center : [30.28, -97.735],
@@ -311,8 +317,8 @@ function createMarkers(data, style) {
             
             if (device_names[q] in data[i]) {
                 
-                if (device_names[q] == 'camera') {
-                    var id = data[i]['camera']['device_id'];
+                if (device_names[q] == 'cctv') {
+                    var id = data[i]['cctv']['device_id'];
                     var img_url = img_url_base + id + '.jpg';
                 }
 
@@ -448,11 +454,11 @@ function populateTable(data, divId, filters) {
                     }
                 },
 
-                { data: 'camera',
+                { data: 'cctv',
                     "render": function ( data, type, full, meta ) {
                         
-                        if ('camera' in full) {
-                            if (full['camera']['status'] == 'ONLINE') {
+                        if ('cctv' in full) {
+                            if (full['cctv']['status'] == 'ONLINE') {
                                 return "<i class='fa fa-check-circle' style='color:green'></i>";
                             } else {
                                 return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
