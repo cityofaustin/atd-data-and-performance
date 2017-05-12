@@ -35,7 +35,7 @@ var device_names = ['traffic_signal', 'camera', 'travel_sensor'];
 
 var map_options = {
         center : [30.28, -97.735],
-        zoom : 10,
+        zoom : 12,
         minZoom : 1,
         maxZoom : 20,
         scrollWheelZoom: false
@@ -273,7 +273,7 @@ function makeMap(divId, options) {
     }
 
     var map = new L.Map(divId, options)
-        .addLayer(layers['stamen_toner_lite']);
+        .addLayer(layers['carto_positron']);
 
     return map;
 
