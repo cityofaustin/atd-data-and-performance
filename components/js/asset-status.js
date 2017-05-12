@@ -1,20 +1,46 @@
-var map, feature_layer, data, table;
+//  limiting signal query until comm status available
+//  assumes one record per device-type per location
 
-var requests_url = 'https://data.austintexas.gov/resource/fs3c-45ge.json?$query= SELECT atd_camera_id, location_name, location';
+var data_master, map, feature_layer, table;
 
-var formats = {
-    'round': function(val) { return Math.round(val) },
+var q = d3.queue();
+
+var location_id_field = "atd_location_id";
+var comm_status_field = "ip_comm_status";
+var comm_status_date_field = "comm_status_datetime_utc";
+
+var device_data = [
+    {
+        'name' : 'traffic_signal',
+        'resource_id' : 'p53x-x73x',
+        'id_field' : 'signal_id',
+        'query' : 'select * limit 10'
+    },
+    {
+        'name' : 'camera',
+        'resource_id' : 'b4k4-adkb',
+        'id_field' : 'atd_camera_id',
+        'query' : ''
+    },
+    {
+        'name' : 'travel_sensor',
+        'resource_id' : '6yd9-yz29',
+        'id_field' : 'sensor_id',
+        'query' : 'select latitude,longitude,sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status="TURNED_ON"'
+    }
+];
+
+var device_names = ['traffic_signal', 'camera', 'travel_sensor'];
+
+var map_options = {
+        center : [30.28, -97.735],
+        zoom : 10,
+        minZoom : 1,
+        maxZoom : 20,
+        scrollWheelZoom: false
 };
 
-var map_layers = {};
-
-var map_expanded = false;
-
-var collapsed_class = 'col-sm-6';
-
-var expanded_class = 'col-sm-12';
-
-var default_view = true;
+var img_url_base = 'http://162.89.4.145/CCTVImages/CCTV';
 
 var default_style = {
     color: '#fff',
@@ -23,33 +49,22 @@ var default_style = {
     fillOpacity: .8
 }
 
-var icon_lookup = {
-    'PHB' : 'fa-male',
-    'TRAFFIC' : 'fa-car'
-}
-
-var table_height = '60vh';
-
-var popup_width = '100px';
-
-var current_table_height;
+var table_height = '40vh';
 
 var t_options = {
     ease : d3.easeQuad,
     duration : 500
 };
 
+var t1 = d3.transition()
+    .ease(t_options.ease)
+    .duration(t_options.duration);
+
 var t2 = d3.transition()
     .ease(t_options.ease)
     .duration(t_options.duration);
 
-var map_options = {
-        center : [30.28, -97.735],
-        zoom : 10,
-        minZoom : 1,
-        maxZoom : 20,
-        scrollWheelZoom: false
-    };
+
 
 var SCALE_THRESHOLDS = {
     '$1': 500,
@@ -74,6 +89,7 @@ var SCALE_THRESHOLDS = {
     '$20': 10,
 };
 
+
 $(document).ready(function(){
 
     $('[data-toggle="popover"]').popover();
@@ -85,44 +101,61 @@ $(document).ready(function(){
             .style('margin-left', '10px');
     }
     
-    var request_data = getOpenData(requests_url);
+    for (var i = 0; i < device_data.length; ++i) {
 
-    main(request_data);
+        if ( 'resource_id' in device_data[i] ) {
+
+            var url = buildSocrataUrl(device_data[i]);
+
+            var name = device_data[i]['name'];
+
+            q.defer(d3.json, url)
+
+        }
+
+    }
+
+    q.awaitAll(function(error) {
+
+        if (error) throw error;
+
+        for ( var i = 0; i < arguments[1].length; i++ ) {
+            device_data[i].data = arguments[1][i];
+
+        }
+
+        main(device_data);
+
+    });
 
 });
 
-d3.select('#map-expander').on('click', function(){
 
-    if (map_expanded) {
-        
-        map_expanded = false;
-        collapseMap('table_col', 'map_col');
 
-    } else {
-        
-        map_expanded = true;
+function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-screen-javascript
+        return (('ontouchstart' in window)
+      || (navigator.MaxTouchPoints > 0)
+      || (navigator.msMaxTouchPoints > 0));
+}
 
-        expandMap('table_col', 'map_col');
-    }
 
-})
 
-function main(request_data){
+function main(data) {
+
+    data_master = groupByLocation(data);
 
     map = makeMap('map', map_options);
 
-    data = createMarkers(request_data, default_style);
+    data_master = createMarkers(data_master, default_style);
 
-    populateTable(data);
+    populateTable(data_master);
 
     $('#search_input').on( 'keyup', function () {
         table.search( this.value ).draw();
     } );
 
     map.on('zoomend', function() {
-
-        setMarkerSizes(data);
-
+        setMarkerSizes(data_master);
     });
 
     d3.selectAll(".tableRow")
@@ -130,9 +163,90 @@ function main(request_data){
 
             var marker_id = d3.select(this).attr("id");
 
-            zoomToMarker(marker_id);
+            zoomToMarker(marker_id, data_master);
     });
+}
 
+
+
+function buildSocrataUrl(data) {
+
+    var resource_id = data.resource_id;
+    
+    var url = 'https://data.austintexas.gov/resource/' + resource_id + '.json';
+
+    if (data.query) {
+
+        url = url + '?$query=' + data.query;
+
+
+    }
+    console.log(url);
+    return url;
+}
+
+
+function findWithAttr(array, attr, value) {
+    //    http://stackoverflow.com/questions/7176908/how-to-get-index-of-object-by-its-property-in-javascript
+    for (var i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+function groupByLocation(data) {
+
+    var data_master = [];
+
+    for (var i = 0; i < device_data.length; ++i) {
+
+        for (var q = 0; q < device_data[i].data.length; q++) {  
+            
+            var location = device_data[i].data[q][location_id_field];
+            
+            var current_id = data_master.length + 1
+
+            var loc_exists = data_master.some(function (loc) {
+                return loc.location === location;
+            });
+
+            if (!(loc_exists)) {
+                //  build location record        
+                var device_name = device_data[i]['name'];
+                
+                var new_loc = {
+                    'location' : location,
+                    'latitude' : device_data[i].data[q].latitude,
+                    'longitude' : device_data[i].data[q].longitude,
+                    'location_name' : device_data[i].data[q].location_name,
+                };
+
+                //  append device-specifc attributes    
+                new_loc[device_name] = {
+                        'status' : device_data[i].data[q][comm_status_field],
+                        'status_date' : device_data[i].data[q][comm_status_date_field],
+                        'device_id' : device_data[i].data[q][device_data[i]['id_field']]
+                };
+                
+                data_master.push(new_loc);
+
+            } else {
+                // location exists
+                //  append device-specifc attributes
+                var index = findWithAttr(data_master, 'location', location);
+                
+                data_master[index][device_data[i].name] = {
+                    'status' : device_data[i].data[q][comm_status_field],
+                    'status_date' : device_data[i].data[q][comm_status_date_field],
+                    'device_id' : device_data[i].data[q][device_data[i]['id_field']]
+                };       
+            }
+        }
+    }
+    return data_master;
 }
 
 
@@ -147,52 +261,123 @@ function makeMap(divId, options) {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
             subdomains: 'abcd',
             maxZoom: 19
+        }),
+
+        stamen_toner_lite: L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+            attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            subdomains : 'abcd',
+            maxZoom : 20,
+            ext : 'png' 
         })
     }
 
     var map = new L.Map(divId, options)
-        .addLayer(layers['carto_positron']);
+        .addLayer(layers['stamen_toner_lite']);
 
     return map;
 
 }
 
 
-function getOpenData(resource_id, options) {
 
-    var url = requests_url;  // testing
 
-    if (options != undefined) {
-        if (!('filter' in options)) {
+function createMarkers(data, style) {
+
+    for (var i = 0; i < data.length; i++) {
+        
+        var location_name = data[i].location_name;
+
+        var lat = data[i].latitude;
+        
+        var lon = data[i].longitude;
+
+        var popup_text = '<b>' + location_name +  '</b>';
+
+        var img_url = false;
+
+        for (var q = 0; q < device_names.length; q++) {
             
-            options.filter = '';
-            
+            if (device_names[q] in data[i]) {
+                
+                if (device_names[q] == 'camera') {
+                    var id = data[i]['camera']['device_id'];
+                    var img_url = img_url_base + id + '.jpg';
+                }
+
+                popup_text = popup_text
+                + '<br>' + device_names[q] + ": "+ data[i][device_names[q]]['status']
+                + ' at ' + data[i][device_names[q]]['status_date'];
+
+            }
         }
-    } else {
 
-        options = {};
-        options.filter = ''
+        if (img_url) {
+            popup_text = "<img src=" + img_url + " width=300 /><br>" + popup_text;
+        }
+
+        data[i]['marker'] = L.circle([lat,lon], 500)
+          .bindPopup(popup_text)
+          .setStyle(style)
+
+    }
+    
+    return data;
+
+}
+
+
+
+function adjustMapHeight() {
+   //  make map same height as table
+
+    setTimeout(function(){ 
+        
+        table_div_height = document.getElementById('data-row').clientHeight;
+
+        d3.select("#map")
+            .transition(t2)
+            .style("height", table_div_height + "px")
+            .on("end", function() {
+                map.invalidateSize();
+                map.fitBounds(feature_layer.getBounds());
+            });            
+
+    }, 200);
+
+}
+    
+
+
+function getMarkers(source_data, id_array) {
+    
+    var layer = new L.featureGroup();
+
+    for (var i = 0; i < source_data.length; i++) {
+        
+        if ( id_array.indexOf( '$' + source_data[i]['location']) > -1 ) {
+            source_data[i]['marker'].addTo(layer);
+        }
 
     }
 
-    //  fvar url = 'https://data.austintexas.gov/resource/' + resource_id + '.json?$limit=2000' + options.filter;
+    return layer
+}
 
-    var request_data = $.ajax({
-        'async' : false,
-        'global' : false,
-        'cache' : false,
-        'url' : url,
-        'dataType' : 'json',
-        'success' : function (data) {
-            return data;
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.log(textStatus, errorThrown);
-        }
 
-    }); //end get data
 
-    return request_data.responseJSON;
+function updateMap(layer) {
+
+    if ( map.hasLayer(feature_layer) ) {
+        map.removeLayer(feature_layer);
+    }
+
+    feature_layer = layer
+
+    feature_layer.addTo(map);
+
+    map.fitBounds(feature_layer.getBounds(), { maxZoom: 16 });    
+
+    map.invalidateSize();
 
 }
 
@@ -225,7 +410,7 @@ function populateTable(data, divId, filters) {
 
             if (ids.length > 0 ) {
                 var markers = getMarkers(data, ids);
-
+                
                 updateMap(markers);
 
             }
@@ -233,7 +418,7 @@ function populateTable(data, divId, filters) {
         })
         .DataTable({
             data : data,
-            rowId : 'atd_camera_id',
+            rowId : 'location',
             scrollY : table_height,
             scrollCollapse : false,
             bInfo : false,
@@ -241,48 +426,67 @@ function populateTable(data, divId, filters) {
             autoWidth: false,
             columns: [
 
-                { data: 'atd_camera_id',
+                { data: 'location',
                     "render": function ( data, type, full, meta ) {
                         return data;
                     }
                 },
                 { data: 'location_name',
                     "render": function ( data, type, full, meta ) {
-                        return "<a class='tableRow' id='$" + full.atd_camera_id + "' '>" + data + "</a>";
+                        return "<a class='tableRow' id='$" + full.location + "' '>" + data + "</a>";
                     }
                 },
 
-                { data: 'cam_comm_here',
+                { data: 'camera',
                     "render": function ( data, type, full, meta ) {
-                        var rando = Math.floor(Math.random() * 100);
-                        if (rando < 70) {
-                            return "<i class='fa fa-check-circle' style='color:green'></i>";
-                        } else if (rando < 90){
-                            return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+                        
+                        if ('camera' in full) {
+                            if (full['camera']['status'] == 'ONLINE') {
+                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+                            } else {
+                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+                            }
                         } else {
                             return ""
                         }
                     }
+
                 },
-               { data: 'bt_comm_here',
+                { data: 'travel_sensor',
                     "render": function ( data, type, full, meta ) {
-                        var rando = Math.floor(Math.random() * 100);
-                        if (rando < 50) {
-                            return "<i class='fa fa-check-circle' style='color:green'></i>";
-                        } else if (rando < 95){
-                            return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+                        
+                        if ('travel_sensor' in full) {
+
+                            if (full['travel_sensor']['status'] == 'ONLINE') {
+                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+
+                            } else {
+
+                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+
+                            } 
                         } else {
+                                
                             return ""
                         }
                     }
                 },
-               { data: 'switch_comm_here',
+                { data: 'signal',
                     "render": function ( data, type, full, meta ) {
-                        var rando = Math.floor(Math.random() * 100);
-                        if (rando < 80) {
-                            return "<i class='fa fa-check-circle' style='color:green'></i>";
+                        
+                        if ('signal' in full) {
+
+                            if (full['signal']['status'] == 'ONLINE') {
+                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+
+                            } else {
+
+                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+
+                            } 
                         } else {
-                            return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+                                
+                            return ""
                         }
                     }
                 }
@@ -294,203 +498,23 @@ function populateTable(data, divId, filters) {
 }
 
 
-
-
-function transitionInfoStat(selection, options) {
-
-    var t = d3.transition()
-        .ease(options.ease)
-        .duration(options.duration);
-
-    selection.transition(t)  //  do this for each selection in sequence
-        .tween('text', function () {
-            
-            var that = d3.select(this);
-
-            var new_value = that.data()[0].data.length;
-            
-            var i = d3.interpolate(0, new_value);
-            
-            return function (t) {
-            
-                that.text( formats['round'](i(t)) );  // how to access the format type from the 'this' data?
-            
-            }
-
-        });
-
-    return selection;
-
-}
-
-
-
-function createMarkers(data, style) {
-
-    base_url = 'http://162.89.4.145/CCTVImages/CCTV';
-
-    for (var i = 0; i < data.length; i++) {   
-        
-        var location_name = data[i].location_name;
-
-        var id = data[i].atd_camera_id
-
-        var lat = data[i]["location"]["coordinates"][1];
-        
-        var lon = data[i]["location"]["coordinates"][0];
-
-        data[i]['marker'] = L.circle([lat,lon], 500)
-          .setStyle(style)
-          .bindPopup( "<img src=" + base_url + id + ".jpg width=300 /></br>" +  id + ': ' + location_name)
-
-    }
-    
-    return data;
-
-}
-
-
-
-function filterData(data, filters) {
-
-    var filtered_data = [];
-
-    for (var i = 0; i < data.length; i++) { 
-
-        if ( matchesFilters( data[i], filters ) ) {
-
-            //  inspired by https://blogs.kent.ac.uk/websolutions/2015/01/29/filtering-map-markers-with-leaflet-js-a-brief-technical-overview/
-           filtered_data.push( data[i] );
-
-        }
-
-    }
-
-    return filtered_data;
-
-}
-
-
-
-function matchesFilters(data, filters) {
-
-    for (var filter in filters) {
-
-        if ( filters[filter].indexOf( String(data[filter] ).toUpperCase() ) < 0 ) {
-
-            return false;
-
-        }
-
-    }
-
-    return true;
-
-}
-
-
-
-function createFeatureLayer(data) {
-
-    var layer = new L.featureGroup();
-
-    for (var i = 0; i < data.length; i++) {
-
-        data[i].marker.addTo(layer);
-
-    }
-
-    return layer;
-
-}
-
-
-function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-screen-javascript
-        return (('ontouchstart' in window)
-      || (navigator.MaxTouchPoints > 0)
-      || (navigator.msMaxTouchPoints > 0));
-}
-
-
-
-function adjustMapHeight() {
-   //  make map same height as table
-
-    setTimeout(function(){ 
-        
-        table_div_height = document.getElementById('data-row').clientHeight;
-
-        d3.select("#map")
-            .transition(t2)
-            .style("height", table_div_height + "px")
-            .on("end", function() {
-                map.invalidateSize();
-                map.fitBounds(feature_layer.getBounds());
-            });            
-
-        console.log(table_div_height);
-
-    }, 200);
-
-}
-    
-
-
-function getMarkers(source_data, id_array) {
-    
-    var layer = new L.featureGroup();
-
-    for (var i = 0; i < source_data.length; i++) {
-        
-        if ( id_array.indexOf( '$' + source_data[i]['atd_camera_id']) > -1 ) {
-            source_data[i]['marker'].addTo(layer);
-        }
-
-    }
-
-    return layer
-}
-
-
-
-function updateMap(layer) {
-
-
-    if ( map.hasLayer(feature_layer) ) {
-        map.removeLayer(feature_layer);
-    }
-
-    feature_layer = layer
-
-    feature_layer.addTo(map);
-
-    map.fitBounds(feature_layer.getBounds(), { maxZoom: 16 });    
-
-    map.invalidateSize();
-
-}
-
-
-
 function setMarkerSizes(data) {
 
     var zoom = map.getZoom();
-
     for (var i = 0; i < data.length; i++){
-
         data[i].marker.setRadius(SCALE_THRESHOLDS["$"+ zoom]);
-
     }
 
 }
 
 
 
-function zoomToMarker(marker) {
+
+function zoomToMarker(marker, data) {
 
     for (var i = 0; i < data.length; i++ ) {
     
-        if ('$' + data[i].atd_camera_id == marker ) {
+        if ('$' + data[i].location == marker ) {
          
             map.fitBounds(
                 data[i].marker.getBounds(),
@@ -505,59 +529,3 @@ function zoomToMarker(marker) {
         }
     }
 }
-
-
-
-
-function expandMap(table_div_id, map_div_id) {
-    
-    d3.select('#' + table_div_id).attr("class", expanded_class + ' full_width');
-
-    d3.select('#' + map_div_id).attr("class", expanded_class + ' full_width');
-
-    d3.select("#map")
-                
-                .transition(t2)
-                .style("height", window.innerHeight + "px")
-                .on("end", function() {
-                    map.invalidateSize();
-                    map.fitBounds(feature_layer.getBounds());
-                }); 
-
-    table.draw();
-
-}
-
-
-
-function collapseMap(table_div_id, map_div_id) {
-    
-    var table_div_height = document.getElementById(table_div_id).clientHeight;
-    
-    d3.select('#' + table_div_id).attr('class', collapsed_class)
-    
-    d3.select('#map').transition(t2)
-        .style('height', table_div_height + "px")
-        .on("end", function() {
-
-            d3.select('#' + map_div_id).attr('class', collapsed_class)
-            map.invalidateSize();
-            map.fitBounds(feature_layer.getBounds());
-
-
-        });            ;
-
-    table.draw();
-
-}
-
-
-
-
-
-
-
-
-
-
-
