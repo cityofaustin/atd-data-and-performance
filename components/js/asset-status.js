@@ -13,25 +13,25 @@ var comm_status_date_field = "comm_status_datetime_utc";
 var device_data = [
     {
         'name' : 'traffic_signal',
-        'resource_id' : 'p53x-x73x',
+        'resource_id' : 'xwqn-2f78',
         'id_field' : 'signal_id',
         'query' : 'select * limit 10'
     },
     {
         'name' : 'cctv',
-        'resource_id' : 'b4k4-adkb',
+        'resource_id' : 'fs3c-45ge',
         'id_field' : 'atd_camera_id',
         'query' : 'select * where upper(camera_mfg) not in ("GRIDSMART")'
     },
     {
         'name' : 'gridsmart',
-        'resource_id' : 'b4k4-adkb',
+        'resource_id' : 'fs3c-45ge',
         'id_field' : 'atd_camera_id',
-        'query' : 'select * where upper(camera_mfg) in ("GRIDSMART")'
+        'query' : 'select * where upper(camera_mfg) LIKE ("%25GRIDSMART%25")'
     },
     {
         'name' : 'travel_sensor',
-        'resource_id' : '6yd9-yz29',
+        'resource_id' : 'wakh-bdjq',
         'id_field' : 'sensor_id',
         'query' : 'select latitude,longitude,sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status in ("TURNED_ON")'
     }
@@ -459,6 +459,21 @@ function populateTable(data, divId, filters) {
                         
                         if ('cctv' in full) {
                             if (full['cctv']['status'] == 'ONLINE') {
+                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+                            } else {
+                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+                            }
+                        } else {
+                            return ""
+                        }
+                    }
+
+                },
+                { data: 'gridsmart',
+                    "render": function ( data, type, full, meta ) {
+                        
+                        if ('gridsmart' in full) {
+                            if (full['gridsmart']['status'] == 'ONLINE') {
                                 return "<i class='fa fa-check-circle' style='color:green'></i>";
                             } else {
                                 return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
