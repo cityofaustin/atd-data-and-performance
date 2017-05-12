@@ -43,12 +43,21 @@ var map_options = {
 
 var img_url_base = 'http://162.89.4.145/CCTVImages/CCTV';
 
-var default_style = {
-    color: '#fff',
-    weight: 1,
-    fillColor: '#056315',
-    fillOpacity: .8
-}
+
+var default_style = { 
+    'ONLINE' : {
+        color: '#fff',
+        weight: 1,
+        fillColor: '#056315',
+        fillOpacity: .8
+    },
+    'OFFLINE' : {
+        color: '#fff',
+        weight: 1,
+        fillColor: '#a52626',
+        fillOpacity: .8  
+    }
+};
 
 var table_height = '60vh';
 
@@ -286,6 +295,8 @@ function createMarkers(data, style) {
 
     for (var i = 0; i < data.length; i++) {
         
+        var marker_style = style['OFFLINE'];
+
         var location_name = data[i].location_name;
 
         var lat = data[i].latitude;
@@ -316,9 +327,13 @@ function createMarkers(data, style) {
             popup_text = "<img src=" + img_url + " width=300 /><br>" + popup_text;
         }
 
+        if (popup_text.indexOf('ONLINE') > -1 ) {
+            marker_style = style['ONLINE'];
+        }
+
         data[i]['marker'] = L.circle([lat,lon], 500)
           .bindPopup(popup_text)
-          .setStyle(style)
+          .setStyle(marker_style)
 
     }
     
