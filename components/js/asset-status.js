@@ -1,3 +1,4 @@
+//  make marker colors match status
 //  limiting signal query until comm status available
 //  assumes one record per device-type per location
 
@@ -45,7 +46,7 @@ var img_url_base = 'http://162.89.4.145/CCTVImages/CCTV';
 var default_style = {
     color: '#fff',
     weight: 1,
-    fillColor: '#237FB4',
+    fillColor: '#056315',
     fillOpacity: .8
 }
 
@@ -426,11 +427,6 @@ function populateTable(data, divId, filters) {
             autoWidth: false,
             columns: [
 
-                { data: 'location',
-                    "render": function ( data, type, full, meta ) {
-                        return data;
-                    }
-                },
                 { data: 'location_name',
                     "render": function ( data, type, full, meta ) {
                         return "<a class='tableRow' id='$" + full.location + "' '>" + data + "</a>";
