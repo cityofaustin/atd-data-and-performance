@@ -15,7 +15,7 @@ var device_data = [
         'name' : 'traffic_signal',
         'resource_id' : 'xwqn-2f78',
         'id_field' : 'signal_id',
-        'query' : 'select * limit 10'
+        'query' : 'select * limit 10000'
     },
     {
         'name' : 'cctv',
