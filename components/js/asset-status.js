@@ -49,7 +49,7 @@ var default_style = {
     fillOpacity: .8
 }
 
-var table_height = '40vh';
+var table_height = '60vh';
 
 var t_options = {
     ease : d3.easeQuad,
