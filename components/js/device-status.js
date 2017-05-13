@@ -4,6 +4,8 @@
 
 var data_master, map, feature_layer, table;
 
+var init = true;
+
 var q = d3.queue();
 
 var location_id_field = "atd_location_id";
@@ -15,7 +17,7 @@ var device_data = [
         'name' : 'traffic_signal',
         'resource_id' : 'xwqn-2f78',
         'id_field' : 'signal_id',
-        'query' : 'select * limit 10000'
+        'query' : 'select * where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000'
     },
     {
         'name' : 'cctv',
@@ -40,7 +42,7 @@ var device_data = [
 var device_names = ['traffic_signal', 'cctv', 'gridsmart', 'travel_sensor'];
 
 var map_options = {
-        center : [30.28, -97.735],
+        center : [30.27, -97.74],
         zoom : 13,
         minZoom : 1,
         maxZoom : 20,
@@ -81,6 +83,14 @@ var t2 = d3.transition()
     .duration(t_options.duration);
 
 
+var formats = {
+    'round': function(val) { return Math.round(val) },
+    'formatDateTime' : d3.timeFormat("%e %b %-I:%M%p"),
+    'formatDate' : d3.timeFormat("%x"),
+    'formatTime' : d3.timeFormat("%I:%M %p"),
+    'thousands' : d3.format(",")
+};
+
 
 var SCALE_THRESHOLDS = {
     '$1': 500,
@@ -116,7 +126,7 @@ $(document).ready(function(){
             .style('margin-right', '10px')
             .style('margin-left', '10px');
     }
-    
+
     for (var i = 0; i < device_data.length; ++i) {
 
         if ( 'resource_id' in device_data[i] ) {
@@ -164,7 +174,11 @@ function main(data) {
 
     data_master = createMarkers(data_master, default_style);
 
-    populateTable(data_master);
+    var filters = checkFilters();
+    
+    var filtered_data = filterData(data_master, filters);
+    
+    populateTable(filtered_data, 'data_table', true);
 
     $('#search_input').on( 'keyup', function () {
         table.search( this.value ).draw();
@@ -174,13 +188,9 @@ function main(data) {
         setMarkerSizes(data_master);
     });
 
-    d3.selectAll(".tableRow")
-        .on("click", function(d){
+    $(".device-selector").on('change', filterChange);
 
-            var marker_id = d3.select(this).attr("id");
-
-            zoomToMarker(marker_id, data_master);
-    });
+    createTableListeners();
 }
 
 
@@ -197,7 +207,7 @@ function buildSocrataUrl(data) {
 
 
     }
-    console.log(url);
+    
     return url;
 }
 
@@ -324,7 +334,7 @@ function createMarkers(data, style) {
 
                 popup_text = popup_text
                 + '<br>' + device_names[q] + ": "+ data[i][device_names[q]]['status']
-                + ' at ' + data[i][device_names[q]]['status_date'];
+                + ' at ' + formats['formatDateTime']( new Date(data[i][device_names[q]]['status_date']));
 
             }
         }
@@ -355,13 +365,15 @@ function adjustMapHeight() {
     setTimeout(function(){ 
         
         table_div_height = document.getElementById('data-row').clientHeight;
+        
+
 
         d3.select("#map")
             .transition(t2)
             .style("height", table_div_height + "px")
             .on("end", function() {
                 map.invalidateSize();
-                map.fitBounds(feature_layer.getBounds());
+                adjustView(feature_layer);    
             });            
 
     }, 200);
@@ -397,17 +409,17 @@ function updateMap(layer) {
 
     feature_layer.addTo(map);
 
-    map.fitBounds(feature_layer.getBounds(), { maxZoom: 16 });    
+    var bounds = feature_layer.getBounds()
 
-    map.invalidateSize();
+    adjustView(layer);    
 
 
 }
 
 
 
-function populateTable(data, divId, filters) {
-    
+function populateTable(data, divId) {
+
     if ( $('#' + divId) ) {
 
         $('#' + divId).dataTable().fnDestroy();
@@ -416,10 +428,12 @@ function populateTable(data, divId, filters) {
 
     table = $('#data_table')
         .on( 'init.dt', function () {
-        
+            console.log('init');
             $('[data-toggle="popover"]').popover();
 
-            adjustMapHeight();
+            if (data.length > 0) {
+                adjustMapHeight();    
+            }
 
         })
         //  update map after table search
@@ -431,12 +445,9 @@ function populateTable(data, divId, filters) {
                 ids.push(obj.id);
             });
 
-            if (ids.length > 0 ) {
-                var markers = getMarkers(data, ids);
-                
-                updateMap(markers);
-
-            }
+            var marker_layer = getMarkers(data, ids);    
+            
+            updateMap(marker_layer);
 
         })
         .DataTable({
@@ -444,14 +455,19 @@ function populateTable(data, divId, filters) {
             rowId : 'location',
             scrollY : table_height,
             scrollCollapse : false,
-            bInfo : false,
+            bInfo : true,
             paging : false,
             autoWidth: false,
             columns: [
 
                 { data: 'location_name',
                     "render": function ( data, type, full, meta ) {
-                        return "<a class='tableRow' id='$" + full.location + "' '>" + data + "</a>";
+
+                        if ('location' in full) {
+                            return "<a class='tableRow' id='$" + full.location + "' '>" + data + "</a>";
+                        } else {
+                            return '';
+                        }
                     }
                 },
 
@@ -524,9 +540,12 @@ function populateTable(data, divId, filters) {
                     }
                 }
             ]
-        });
+        })
+        
 
     d3.select("#data_table_filter").remove();
+
+    createTableListeners();
 
 }
 
@@ -561,4 +580,91 @@ function zoomToMarker(marker, data) {
 
         }
     }
+}
+
+
+
+function checkFilters(){
+
+    filters = [];
+
+    $('.active').each(function() {
+        filters.push( this.id );
+    });
+
+    return filters;
+
+}
+
+
+
+
+
+function filterData(data, filters) {
+
+    var filtered = data.filter(function(record){
+
+        var has_key = false;
+
+        for (var i = 0; i < filters.length; i++) {
+            if (filters[i] in record) {
+                has_key = true
+                break;
+            }
+        }
+
+        return has_key;
+    })
+
+    return filtered;
+
+}
+
+
+
+function filterChange() {
+    var filters = checkFilters();
+    
+    var data = filterData(data_master, filters);
+
+    populateTable(data, 'data_table', false);
+        
+}
+
+
+
+
+function adjustView(layer) {
+    console.log('adjust_view');
+
+    if (layer) {
+        var bounds = layer.getBounds()
+    } else {
+        var bounds = {};
+    }
+
+    if (Object.keys(bounds).length === 0 && bounds.constructor === Object) {
+        //  http://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
+        //  empty bounds
+        map.setView(map_options.center, map_options.zoom);
+    } else {
+        map.fitBounds(bounds, { maxZoom: 16 });    
+    }
+
+    map.invalidateSize();
+
+}
+
+
+
+function createTableListeners() {
+
+    d3.selectAll(".tableRow")
+        .on("click", function(d){
+
+            var marker_id = d3.select(this).attr("id");
+
+            zoomToMarker(marker_id, data_master);
+    });
+
 }

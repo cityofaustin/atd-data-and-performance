@@ -1,13 +1,13 @@
 ---
-layout: asset-status
-title: Asset Status
-short-name: Asset Status
+layout: device-status
+title: Device Status
+short-name: Device Status
 custom_js:
 - google-analytics
 - d3.v4.min
 - leaflet
 - leaflet.extra-markers.min
-- asset-status
+- device-status
 custom_css:
 - leaflet
 - leaflet.extra-markers.min

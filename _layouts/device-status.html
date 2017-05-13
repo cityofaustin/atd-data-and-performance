@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col-sm-12">
             
-            <h4 style='text-align: center; color: white; background: darkred; line-height: 2em'> Thanks for visiting! This page is under construction. Contact <b>transportation.data@austintexas.gov</b> for more  information</h4>
+            <!-- <h4 style='text-align: center; color: white; background: darkred; line-height: 2em'> Thanks for visiting! This page is under construction. Contact <b>transportation.data@austintexas.gov</b> for more  information</h4> -->
 
           </div>
         </div>
@@ -24,23 +24,24 @@
           
           <div class="col-sm-5" id="table_col">
             
-             <div class="row" id="asset-selector" style="padding-bottom: 10px">
+             <div class="row" id="device-selector" style="padding-bottom: 10px">
               <div class="col-md-12"> 
                 
                 <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-primary active">
+                  <label class="btn btn-primary device-selector active" id='cctv'>
                     <input type="checkbox" checked autocomplete="off"> <i class='fa fa-video-camera'></i> CCTV
                   </label>
-                  <label class="btn btn-primary active">
+                  <label class="btn btn-primary device-selector" id='gridsmart'>
                     <input type="checkbox" autocomplete="off"> <i class='fa fa-crosshairs'></i> GridSmart
                   </label>
                   </label>
-                  <label class="btn btn-primary active">
+                  <label class="btn btn-primary device-selector" id='travel_sensor'>
                     <input type="checkbox" autocomplete="off"> <i class='fa fa-rss'></i> Sensors
                   </label>
-                  <label class="btn btn-primary">
+                  <label class="btn btn-primary device-selector" id='traffic_signal'>
                     <input type="checkbox" autocomplete="off"> <i class='fa fa-car'></i> Signals
                 </div>
+
               </div>
             </div>
             <div class="row" id="search-row">
