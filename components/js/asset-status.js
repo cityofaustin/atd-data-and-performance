@@ -41,7 +41,7 @@ var device_names = ['traffic_signal', 'cctv', 'gridsmart', 'travel_sensor'];
 
 var map_options = {
         center : [30.28, -97.735],
-        zoom : 12,
+        zoom : 13,
         minZoom : 1,
         maxZoom : 20,
         scrollWheelZoom: false
@@ -288,7 +288,7 @@ function makeMap(divId, options) {
     }
 
     var map = new L.Map(divId, options)
-        .addLayer(layers['carto_positron']);
+        .addLayer(layers['stamen_toner_lite']);
 
     return map;
 
@@ -401,6 +401,7 @@ function updateMap(layer) {
 
     map.invalidateSize();
 
+
 }
 
 
@@ -506,9 +507,9 @@ function populateTable(data, divId, filters) {
                 { data: 'signal',
                     "render": function ( data, type, full, meta ) {
                         
-                        if ('signal' in full) {
+                        if ('traffic_signal' in full) {
 
-                            if (full['signal']['status'] == 'ONLINE') {
+                            if (full['traffic_signal']['status'] == 'ONLINE') {
                                 return "<i class='fa fa-check-circle' style='color:green'></i>";
 
                             } else {

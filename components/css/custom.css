@@ -260,4 +260,19 @@ html {
     z-index: 1300; /* A value higher than 1010 that solves the problem */
 }
 
+.dash-panel {
+    background-color: #efeff7;
+    border-radius: 10px;
+    border: 5px solid white;
+
+}
+
+ .dash-panel:hover {
+    background-color: #2c4b7c;
+    color: white;
+    cursor: pointer;
+}
+
+
+
 
