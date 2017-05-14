@@ -95,6 +95,10 @@ var formats = {
 };
 
 
+var coa_net_passthrough = 'http://172.16.1.5/CoaTools'
+
+
+
 var SCALE_THRESHOLDS = {
     '$1': 500,
     '$2': 500,
@@ -343,7 +347,7 @@ function createMarkers(data, style) {
         }
 
         if (img_url) {
-            popup_text = "<img src=" + img_url + " width=300 /><br>" + popup_text;
+            popup_text = "<a href=" + coa_net_passthrough + " target=_blank ><img src=" + img_url + " width=300 /></a><br>" + popup_text;
         }
 
         if (popup_text.indexOf('ONLINE') > -1 ) {
@@ -628,19 +632,21 @@ function filterChange() {
 function adjustView(layer) {
     console.log('adjust_view');
 
+    setMarkerSizes(data_master);
+
     if (layer) {
         var bounds = layer.getBounds()
     } else {
         var bounds = {};
     }
 
-    if (Object.keys(bounds).length === 0 && bounds.constructor === Object) {
-        //  http://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
-        //  empty bounds
-        map.setView(map_options.center, map_options.zoom);
-    } else {
-        map.fitBounds(bounds, { maxZoom: 16 });    
-    }
+    // if (Object.keys(bounds).length === 0 && bounds.constructor === Object) {
+    //     //  http://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
+    //     //  empty bounds
+    //     map.setView(map_options.center, map_options.zoom);
+    // } else {
+    //     map.fitBounds(bounds, { maxZoom: 16 });    
+    // }
 
     map.invalidateSize();
 
