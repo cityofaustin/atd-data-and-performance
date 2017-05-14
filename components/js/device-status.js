@@ -15,31 +15,34 @@ var comm_status_date_field = "comm_status_datetime_utc";
 var device_data = [
     {
         'name' : 'traffic_signal',
+        'display_name' : 'Signal',
         'resource_id' : 'xwqn-2f78',
         'id_field' : 'signal_id',
         'query' : 'select * where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000'
     },
     {
         'name' : 'cctv',
+        'display_name' : 'CCTV',
         'resource_id' : 'fs3c-45ge',
         'id_field' : 'atd_camera_id',
         'query' : 'select * where upper(camera_mfg) not in ("GRIDSMART")'
     },
     {
         'name' : 'gridsmart',
+        'display_name' : 'GRIDSMART',
         'resource_id' : 'fs3c-45ge',
         'id_field' : 'atd_camera_id',
         'query' : 'select * where upper(camera_mfg) LIKE ("%25GRIDSMART%25")'
     },
     {
         'name' : 'travel_sensor',
+        'display_name' : 'Sensor',
         'resource_id' : 'wakh-bdjq',
         'id_field' : 'sensor_id',
         'query' : 'select latitude,longitude,sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status in ("TURNED_ON")'
     }
 ];
 
-var device_names = ['traffic_signal', 'cctv', 'gridsmart', 'travel_sensor'];
 
 var map_options = {
         center : [30.27, -97.74],
@@ -308,7 +311,7 @@ function makeMap(divId, options) {
 
 
 function createMarkers(data, style) {
-
+    //  create markers and layers for each device type
     for (var i = 0; i < data.length; i++) {
         
         var marker_style = style['OFFLINE'];
@@ -323,18 +326,18 @@ function createMarkers(data, style) {
 
         var img_url = false;
 
-        for (var q = 0; q < device_names.length; q++) {
+        for (var q = 0; q < device_data.length; q++) {
             
-            if (device_names[q] in data[i]) {
+            if (device_data[q]['name'] in data[i]) {
                 
-                if (device_names[q] == 'cctv') {
+                if (device_data[q]['name'] == 'cctv') {
                     var id = data[i]['cctv']['device_id'];
                     var img_url = img_url_base + id + '.jpg';
                 }
 
                 popup_text = popup_text
-                + '<br>' + device_names[q] + ": "+ data[i][device_names[q]]['status']
-                + ' at ' + formats['formatDateTime']( new Date(data[i][device_names[q]]['status_date']));
+                + '<br>' + device_data[q]['display_name'] + ": "+ data[i][device_data[q]['name']]['status']
+                + ' at ' + formats['formatDateTime']( new Date(data[i][device_data[q]['name']]['status_date']));
 
             }
         }
@@ -598,25 +601,13 @@ function checkFilters(){
 
 
 
-
-
 function filterData(data, filters) {
 
-    var filtered = data.filter(function(record){
-
-        var has_key = false;
-
-        for (var i = 0; i < filters.length; i++) {
-            if (filters[i] in record) {
-                has_key = true
-                break;
-            }
-        }
-
-        return has_key;
+    return data.filter(function(record){
+        return Object.keys(record).some( function(key){
+            return (filters.indexOf(key) > -1);
+        })
     })
-
-    return filtered;
 
 }
 
