@@ -1,6 +1,8 @@
-//  make marker colors match status
-//  limiting signal query until comm status available
-//  assumes one record per device-type per location
+// assumes one record per device-type per location
+// to do:
+// status pop-ups in data table
+// map expander
+// home button
 
 var data_master, map, feature_layer, table;
 
