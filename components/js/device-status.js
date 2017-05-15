@@ -26,7 +26,7 @@ var device_data = [
         'name' : 'cctv',
         'display_name' : 'CCTV',
         'resource_id' : 'fs3c-45ge',
-        'id_field' : 'atd_camera_id',
+        'id_field' : 'camera_id',
         'query' : 'select * where upper(camera_mfg) not in ("GRIDSMART")'
     },
     {

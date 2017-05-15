@@ -40,7 +40,7 @@ var global_data = [
         'init_val' : 0,
         'resource_id' : 'b4k4-adkb',
         'format' : 'round',
-        'disp_fields' : ['atd_camera_id', 'location_name', 'modified_date' ],
+        'disp_fields' : ['camera_id', 'location_name', 'modified_date' ],
         'infoStat' : true,
         'log_event' : 'cameras_update'
     },
