@@ -1,8 +1,19 @@
 
+//  all config objects must pass through q or data will be assigned to wrong objects
+
 var t_options = {
     ease : d3.easeQuad,
     duration : 500
 };
+
+var today = new Date();
+var month = today.getMonth();
+var year = today.getFullYear();
+var fiscal_year = year;
+
+if (month > 10) {  // if month is later than september
+    fiscal_year = year + 1;
+}
 
 var formats = {
     'round': function(val) { return Math.round(val) },
@@ -14,96 +25,171 @@ var formats = {
 
 var q = d3.queue();
 
-var global_data = [
+var config = [
 
       {
-        'name' : 'traffic_signals',
+        'id' : 'traffic_signals',
+        'display_name' : 'Traffic Signals',
+        'icon' : 'car',
         'init_val' : 0,
         'format' : 'round',
-        'data' : [901],
-        'infoStat' : true
-
+        'infoStat' : true,
+        'caption' : 'Turned On',
+        'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("TRAFFIC") AND signal_status IN ("TURNED_ON") limit 9000',
+        'resource_id' : 'xwqn-2f78',
+        'data_transform' : function(x) { return( [x[0]['count']] )}
     },{
-        'name' : 'phbs',
+        'id' : 'phbs',
+        'display_name' : 'Pedestrian Beacons',
+        'icon' : 'male',
         'init_val' : 0,
         'format' : 'round',
-        'data' : [52],
-        'infoStat' : true
+        'infoStat' : true,
+        'caption' : '',
+        'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("PHB") AND signal_status IN ("TURNED_ON") limit 9000',
+        'resource_id' : 'xwqn-2f78',
+        'data_transform' : function(x) { return( [x[0]['count']] )}
     },
     {
-        'name' : 'cameras',
+        'id' : 'cameras',
+        'display_name' : 'CCTV',
+        'icon' : 'video-camera',
         'init_val' : 0,
         'format' : 'round',
-        'data' : [275],
-        'infoStat' : true
+        'infoStat' : true,
+        'caption' : '',
+        'query' : 'SELECT COUNT(camera_status) as count where upper(camera_mfg) not in ("GRIDSMART") and camera_status in ("TURNED_ON")',
+        'resource_id' : 'fs3c-45ge',
+        'data_transform' : function(x) { return( [x[0]['count']] )}
     },
     {
-        'name' : 'sensors',
+        'id' : 'sensors',
+        'display_name' : 'Travel Sensors',
+        'icon' : 'rss',
         'init_val' : 0,
         'format' : 'round',
         'data' : [145],
-        'infoStat' : true
+        'infoStat' : true,
+        'caption' : '',
+        'query' : 'SELECT COUNT(sensor_type) as count WHERE sensor_status in ("TURNED_ON")',
+        'resource_id' : 'wakh-bdjq',
+        'data_transform' : function(x) { return( [x[0]['count']] )}
     },
     {
-        'name' : 'school-beacons',
-        'init_val' : 0,
-        'format' : 'round',
-        'data' : [520],
-        'infoStat' : true
-    },
-    {
-        'name' : 'detectors',
-        'init_val' : 0,
-        'format' : 'round',
-        'data' : [761],
-        'infoStat' : true
-    },
-    {
-        'name' : 'signals-on-flash',
+        'id' : 'signals-on-flash',
+        'display_name' : 'Signals on Flash',
+        'icon' : 'exclamation-triangle',
         'init_val' : 0,
         'format' : 'round',
         'data' : [0],
-        'infoStat' : true
+        'infoStat' : true,
+        'caption' : '',
+        'query' : 'select COUNT(signal_id) as count',
+        'resource_id' : '5zpr-dehc',
+        'data_transform' : function(x) { return( [x[0]['count']] )}
     },
     {
-        'name' : 'signal-timing',
+        'id' : 'signal-timing',
+        'display_name' : 'Signals Re-Timed',
+        'icon' : 'clock-o',
         'init_val' : 0,
         'format' : 'round',
         'data' : [140],
-        'infoStat' : true
+        'infoStat' : true,
+        'caption' : '',
+        'query' : 'SELECT SUM(signal_count) as count WHERE retime_status IN ("COMPLETED") and scheduled_fy in ("' + fiscal_year + '")',
+        'resource_id' : 'ufnm-yzxy',
+        'data_transform' : function(x) { return( [x[0]['count']] )}
     },
     {
-        'name' : 'work-orders',
+        'id' : 'prev_maint',
+        'display_name' : 'Preventative Maint.',
+        'icon' : 'medkit',
         'init_val' : 0,
         'format' : 'round',
-        'data' : [99],
-        'infoStat' : true
+        'infoStat' : true,
+        'caption' : 'Turned On',
+        'query' : 'SELECT COUNT(pm_max_fiscal_year) as count WHERE pm_max_fiscal_year IN ("' + fiscal_year + '")',
+        'resource_id' : 'xwqn-2f78',
+        'data_transform' : function(x) { return( [x[0]['count']] )}
     },
     {
-        'name' : 'prev-maint',
+        'id' : 'school-beacons',
+        'display_name' : 'School Beacons',
+        'icon' : 'bus',
         'init_val' : 0,
         'format' : 'round',
-        'data' : [87],
-        'infoStat' : true
-    },
-    {
-        'name' : 'vza-enforcement',
-        'init_val' : 0,
-        'format' : 'round',
-        'data' : [2034],
-        'infoStat' : true
-    },
-    {
-        'name' : 'bcycle-trips',
-        'init_val' : 0,
-        'format' : 'thousands',
-        'data' : [14304],
-        'infoStat' : true
+        'data' : [537],
+        'infoStat' : true,
+        'caption' : ''
     }
 ];
 
 
-main(global_data)
+
+$(document).ready(function(){
+
+    $('[data-toggle="popover"]').popover();
+
+    for (var i = 0; i < config.length; ++i) {
+
+        config[i].panel = createPanel('panel-row', config[i].id, config[i].icon, config[i].display_name)
+
+    }
+
+    for (var i = 0; i < config.length; ++i) {
+
+        if ( 'resource_id' in config[i] ) {
+
+            var url = buildSocrataUrl(config[i]);
+
+            var id = config[i].id;
+
+            console.log(url);
+
+            q.defer(d3.json, url)
+
+        }
+
+    }
+
+
+    q.awaitAll(function(error) {
+
+        if (error) throw error;
+
+        for ( var i = 0; i < arguments[1].length; i++ ) {
+            
+            if ('data_transform' in config[i]) {
+                config[i].data = config[i].data_transform( arguments[1][i] );    
+            } else {
+                config[i].data = arguments[1][i];
+            }
+        }
+
+        main(config);
+
+    });
+});
+
+
+
+function buildSocrataUrl(data) {
+
+    var resource_id = data.resource_id;
+    
+    var url = 'https://data.austintexas.gov/resource/' + resource_id + '.json';
+
+    if (data.query) {
+
+        url = url + '?$query=' + data.query;
+
+
+    }
+    
+    return url;
+}
+
 
 
 function main(data) {
@@ -112,10 +198,9 @@ function main(data) {
 
     var infos = transitionInfoStat(infos, t_options, 'TURNED_ON' );
 
+    for (var i = 0; i  < config.length; i++ ) {
 
-    for (var i = 0; i  < global_data.length; i++ ) {
-
-        var divId = global_data[i].name;
+        var divId = config[i].id;
         
         var selection = d3.select("#" + divId);
 
@@ -125,6 +210,18 @@ function main(data) {
 
         postUpdateDate(selection, event, resource_id);
     }
+
+     d3.csv('https://raw.githubusercontent.com/cityofaustin/transportation/gh-pages/components/data/quote_of_the_week.csv', function(error, data) {
+
+        //  http://stackoverflow.com/questions/11488194/how-to-use-d3-min-and-d3-max-within-a-d3-json-command
+        var most_recent = d3.entries(data).sort(function(a, b) { return d3.descending(a.quote_date, b.quote_date); })[0]
+
+        var most_recent = most_recent.value;
+        
+        var quote = d3.select("#quote").text(most_recent.quote);
+
+        var attribution = d3.select("#attribution").text(most_recent.attribution);
+    })
 
  
 }
@@ -215,3 +312,23 @@ function readableDate(date) {
     
     }
 }
+
+
+
+function createPanel(container_id, panel_id, panel_icon, panel_name) {
+
+    var panel = d3.select("#" + container_id)
+        .append("div")
+        .attr("class", "col-sm-3 info info-small dash-panel")
+        .attr("id", panel_id);
+
+    panel.append("h3").html("<i class='fa fa-" + panel_icon + "' ></i> " + panel_name)
+
+    panel.append("p").attr("class", "loading").text("Loading...");
+
+    return panel;
+              
+}
+
+
+
