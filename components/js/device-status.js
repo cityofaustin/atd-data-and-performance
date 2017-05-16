@@ -1,10 +1,13 @@
 // assumes one record per device-type per location
 // to do:
+// align table icons
+// checkbox data selctors
+// scroll zoom
 // status pop-ups in data table
 // map expander
 // home button
 
-var data_master, map, feature_layer, table;
+var data_master, map, feature_layer, table, default_bounds;
 
 var init = true;
 
@@ -50,8 +53,7 @@ var map_options = {
         center : [30.27, -97.74],
         zoom : 13,
         minZoom : 1,
-        maxZoom : 20,
-        scrollWheelZoom: false
+        maxZoom : 20
 };
 
 var img_url_base = 'http://162.89.4.145/CCTVImages/CCTV';
@@ -190,7 +192,9 @@ function main(data) {
     populateTable(filtered_data, 'data_table', true);
 
     $('#search_input').on( 'keyup', function () {
+    
         table.search( this.value ).draw();
+
     } );
 
     map.on('zoomend', function() {
@@ -309,6 +313,8 @@ function makeMap(divId, options) {
     var map = new L.Map(divId, options)
         .addLayer(layers['stamen_toner_lite']);
 
+    default_bounds = map.getBounds();
+    console.log(default_bounds);
     return map;
 
 }
@@ -642,13 +648,13 @@ function adjustView(layer) {
         var bounds = {};
     }
 
-    // if (Object.keys(bounds).length === 0 && bounds.constructor === Object) {
-    //     //  http://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
-    //     //  empty bounds
-    //     map.setView(map_options.center, map_options.zoom);
-    // } else {
-    //     map.fitBounds(bounds, { maxZoom: 16 });    
-    // }
+    if (Object.keys(bounds).length === 0 && bounds.constructor === Object) {
+        //  http://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
+        //  empty bounds
+        map.setView(map_options.center, map_options.zoom);
+    } else {
+        map.fitBounds(bounds, { maxZoom: 16 });    
+    }
 
     map.invalidateSize();
 
