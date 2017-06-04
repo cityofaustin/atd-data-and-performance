@@ -1,0 +1,95 @@
+  <!DOCTYPE html>
+<html lang="en-us">
+
+  {% include head.html %}
+
+  <body>
+    
+    {% include coa-header.html %}
+    
+    {% include dash-top-nav.html %}
+
+    <div class='wrapper'>
+      <div class="container-fluid">
+        
+        <div class="row">
+          <div class="col-sm-12">
+            <h2>Travel Times Through the Day</h2> 
+          </div>
+        </div>
+
+        <div class="row" id="data-row">
+        
+
+            <div class="col-sm-5" id="tbl-col">
+              <img src="../components/images/chart.png" alt="cool chart" width="400"> 
+            </div>
+
+          <!-- map -->
+          <div class="col-sm-7" id="map_col">
+            <div id='map' class="map">
+              <div class="over_map" id="map-expander">
+                <button type="button" class="btn btn-primary map-expander"><i  class="fa fa-expand"></i></button> 
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      
+        <a name="about"></a>
+        <div class="row">
+          <div class="col-sm-8">
+            <h2>About Raspbery Pi-lot Program</h2>
+          </div>
+          <div class="col-sm-4">
+            <h3>Contact Us</h3>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-sm-8 about">           
+            <p>Our goal is to create a network of traffic sensors built with commodity hardware and open-source software. We intend to make the sensor software and collected data publicly available so that research institutions, private companies, and the general public can help us derive new insights about Austin’s transportation system. We do not have the IT resources to take on this project by ourselves, and commercial data collection solutions are prohibitively expensive. That’s why we’re seeking help from Austin’s incredible community of civic-minded technologists to help us achieve our goal. We believe strongly that, if successful, this project will lead to tangible improvements in Austin’s transportation system, and will represent a truly innovative approach to the deployment of community-driven smart city technologies.</p>
+          </div>         
+          <div class="col-sm-4 about">
+            <p> To request a new traffic signal or follow-up on an existing request, call 3-1-1. You can also <a href='https://austin-csrprodcwi.motorolasolutions.com/ServiceRequest.mvc/SRIntakeStep2/TRASIGNE?guid=59340171d27247fa93fe951cdaf37dcc'>submit a traffic signal service request online.</a> </p>
+
+            <p> If you have questions about this web page or the data that powers it, contact <a href="mailto:transportation.data@austintexas.gov"> transportation.data@austintexas.gov </a>
+          </div>
+        </div>
+          
+        <div class="row">
+          <div class="col-md-12 disclaimer">
+            <p>
+              This dashboard is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of traffic signals.
+            </p>
+          </div>
+        </div>     
+      </div> 
+
+        <div class="push"></div>
+
+          {% include footer.html %}
+ 
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{site.baseurl}}/components/js/jquery.min.js"></script>
+    <script src="{{site.baseurl}}/components/js/bootstrap.js"></script>
+    <script src="{{site.baseurl}}/components/js/jquery.dataTables.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{site.baseurl}}/components/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="{{site.baseurl}}/components/js/js-cookie.js"></script>
+    
+    {% if page.custom_js %}
+    
+      {% for js_file in page.custom_js %}
+    
+        <script src='{{ site.baseurl }}/components/js/{{ js_file }}.js' type="text/javascript"></script>
+    
+      {% endfor %}
+    
+    {% endif %}
+
+  </body>
+</html>
