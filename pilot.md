@@ -13,7 +13,7 @@ custom_css:
 - leaflet
 - leaflet.extra-markers.min
 - jquery.dataTables.min
-- dashboard
+- pilot
 ---
 
 

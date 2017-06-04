@@ -6,23 +6,24 @@ var geosegment = [
 		"properties": {
 			"destination_reader_id": "south_1st_oltorf",
 			"origin_reader_id": "south_1st_benwhite",
+			"color": "#bd0026",
 			"segment_id": "106",
 			"segment_name": "Oltorf to Ben White Southbound"
 		},
 		"geometry": {
 			"type": "LineString",
 			"coordinates": [
-				[-97.76924,30.22688],
-				[-97.76681,30.23073],
-				[-97.76583,30.23228],
-				[-97.76519,30.23333],
-				[-97.76479,30.23395],
-				[-97.76442,30.23459],	
-				[-97.76396,30.23528],
-				[-97.76366,30.23575],
-				[-97.76295,30.23688],
-				[-97.76088,30.24013],
-				[-97.75962,30.24211]
+				[-97.76930,30.22688],
+				[-97.76687,30.23073],
+				[-97.76589,30.23228],
+				[-97.76525,30.23333],
+				[-97.76485,30.23395],
+				[-97.76448,30.23459],	
+				[-97.76401,30.23528],
+				[-97.76372,30.23575],
+				[-97.76301,30.23688],
+				[-97.76094,30.24013],
+				[-97.75968,30.24211]
 			]
 		}
 	},
@@ -32,22 +33,23 @@ var geosegment = [
 			"destination_reader_id": "south_1st_oltorf",
 			"origin_reader_id": "south_1st_benwhite",
 			"segment_id": "107",
+			"color": "#31a354",
 			"segment_name": "Oltorf to Ben White Northbound"
 		},
 		"geometry": {
 			"type": "LineString",
 			"coordinates": [
-				[-97.76922,30.22688],
-				[-97.76679,30.23073],
-				[-97.76581,30.23228],
-				[-97.76517,30.23333],
-				[-97.76477,30.23395],
-				[-97.76440,30.23459],	
-				[-97.76394,30.23528],
-				[-97.76364,30.23575],
-				[-97.76293,30.23688],
-				[-97.76086,30.24013],
-				[-97.75960,30.24211]
+				[-97.76920,30.22688],
+				[-97.76678,30.23073],
+				[-97.76580,30.23228],
+				[-97.76516,30.23333],
+				[-97.76476,30.23395],
+				[-97.76439,30.23459],	
+				[-97.76393,30.23528],
+				[-97.76363,30.23575],
+				[-97.76292,30.23688],
+				[-97.76087,30.24013],
+				[-97.75959,30.24211]
 			]
 		}
 	}
@@ -76,7 +78,7 @@ var current_table_height;
 
 var map_options = {
         center : [30.23459, -97.76442],
-        zoom : 14,
+        zoom : 15,
         minZoom : 1,
         maxZoom : 20,
         scrollWheelZoom: false
@@ -148,12 +150,20 @@ function main(){
     map = makeMap('map', map_options);
 	
 	var testline = L.geoJson(geosegment,{
-		
+		style:style
 	});
     testline.addTo(map);
 	console.log(testline);
 
 };
+
+function style(feature) {
+    return {
+        color:feature.properties.color,
+        weight: 4,
+        opacity: 1,
+    };
+}
 
 function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-screen-javascript
         return (('ontouchstart' in window)
@@ -249,7 +259,7 @@ function collapseMap(table_div_id, map_div_id) {
 //function gettimedata() {
 	// function to group sensor data into 15 min bins
 var groupeddata = 	d3.csv('../components/data/hack_data.csv', function(err, data) {
-    
+		var timebin = 1000 * 60 * 15 // 15 minutes in milliseconds
         mintime_epoch = d3.min(data, function(d){ return d.endtime; } );
         maxtime_epoch = d3.max(data, function(d){ return d.endtime; } );
         mintime = new Date(mintime_epoch * 1000);
