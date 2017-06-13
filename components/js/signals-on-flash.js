@@ -26,7 +26,7 @@ var STATUS_TYPES_READABLE = {
     0: "OK",
     1: "Scheduled Flash",
     2: "Unscheduled Flash",
-    3: "No Communication",
+    3: "Communication Outage",
     5: "Communication Disabled",
     11: "Police Flash"
 }
@@ -182,9 +182,20 @@ d3.select("#map-expander").on("click", function(){
 
 function main(data){
 
-    populateInfoStat(data, "info-1", function(){
+    populateInfoStat(data, "info-1", ['2'], function(){
 
-        getLogData(logfile_url);
+        getLogData(logfile_url, "log-data");
+
+    });
+
+    
+    populateInfoStat(data, "info-2", ['1'], function(){
+
+
+    });
+
+    populateInfoStat(data, "info-3", ['3'], function(){
+
 
     });
 
@@ -220,15 +231,22 @@ function main(data){
 
 
 
-function populateInfoStat(dataset, divId, postUpdate) {
+function populateInfoStat(dataset, divId, status_array, postUpdate) {
+
+    var filtered = dataset.filter(function(data){
+        console.log(data['operation_state']);
+        return status_array.indexOf(data['operation_state']) >= 0;
+    })
+
+    console.log(filtered);
 
     d3.select("#" + divId)
         .append("text")
         .text('0');
     
-    if (dataset.length > 0) {
+    if (filtered.length > 0) {
 
-        updateInfoStat(dataset, divId);
+        updateInfoStat(filtered, divId);
 
     } else {
 
@@ -420,7 +438,7 @@ function getSignalData(url) {
 
 }
 
-function getLogData(url) {
+function getLogData(url, divId) {
     $.ajax({
         'async' : false,
         'global' : false,
@@ -428,7 +446,7 @@ function getLogData(url) {
         'url' : url,
         'dataType' : "json",
         'success' : function (data) {
-            postUpdateDate(data, "info-1");
+            postUpdateDate(data, divId);
         }
     
     }); //end get data
@@ -590,8 +608,4 @@ function formatDuration(datetime) {
     return formatSeconds(delta_date);
     
 }
-
-
-
-
 
