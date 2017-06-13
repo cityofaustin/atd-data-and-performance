@@ -1,25 +1,25 @@
 var ANNUAL_GOALS = {
     
     "2018" : {
-        retime_goal: 250,
+        retime_goal: 0, // set progammtically 
         travel_time_reduction: .05,
         stops_reduction: 0,
     },
     
     "2017" : {
-        retime_goal: 360,
+        retime_goal: 0,
         travel_time_reduction: .05,
         stops_reduction: 3,
     },
 
     "2016" : {
-        retime_goal: 200,
+        retime_goal: 0,
         travel_time_reduction: .05,
         stops_reduction: .10,  //   ??
     },
 
     "2015" : {
-        retime_goal: 150,
+        retime_goal: 0,
         travel_time_reduction: .05,
         stops_reduction: 6,  
     }    
@@ -255,6 +255,8 @@ function groupData(dataset, updateCharts) {
     }
 
     //  calculate unique signals re-timed
+    var total_planned_signals = {};
+
     for (var i = 0; i < GROUPED_DATA_INTERSECTIONS.length; i++) {
 
         for (var q = 0; q < SOURCE_DATA_SYSTEMS.length; q++) {
@@ -267,15 +269,30 @@ function groupData(dataset, updateCharts) {
 
             if (system_id_source == system_id_system) {
 
+                var fy = "$" + SOURCE_DATA_SYSTEMS[q].scheduled_fy;
+
+
+                if (!(fy in total_planned_signals)) {
+
+                    total_planned_signals[fy] = [];
+
+                } 
+
+                if (total_planned_signals[fy].indexOf(signal_id ) < 0) {
+
+                    total_planned_signals[fy].push(signal_id);
+
+                }
+                
+
                 if (SOURCE_DATA_SYSTEMS[q].retime_status == 'COMPLETED') {
 
-                    var fy = "$" + SOURCE_DATA_SYSTEMS[q].scheduled_fy;
 
                     if (!(fy in UNIQUE_SIGNALS_RETIMED)) {
 
                         UNIQUE_SIGNALS_RETIMED[fy] = [];
 
-                    }   
+                    } 
 
                     if (UNIQUE_SIGNALS_RETIMED[fy].indexOf(signal_id ) < 0) {
 
@@ -290,6 +307,18 @@ function groupData(dataset, updateCharts) {
         }
 
     }
+
+    var years = Object.keys(ANNUAL_GOALS);
+            
+    for (var z = 0; z < years.length; z++){
+        var year = years[z];
+
+        if (total_planned_signals["$" + year]){
+            ANNUAL_GOALS[year].retime_goal = total_planned_signals["$" + year].length;
+        }
+        
+    }
+
 
     updateCharts();
 
