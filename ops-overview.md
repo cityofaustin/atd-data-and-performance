@@ -8,6 +8,7 @@ custom_js:
 - d3.v4.min
 - leaflet
 - leaflet.extra-markers.min
+- jquery-match-height
 - ops-overview
 custom_css:
 - leaflet

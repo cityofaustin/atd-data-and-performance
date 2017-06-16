@@ -23,6 +23,8 @@ var formats = {
     'thousands' : d3.format(",")
 };
 
+var pub_log_id = 'i9se-t8hz';
+
 var q = d3.queue();
 
 var config = [
@@ -37,7 +39,8 @@ var config = [
         'caption' : 'Turned On',
         'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("TRAFFIC") AND signal_status IN ("TURNED_ON") limit 9000',
         'resource_id' : 'xwqn-2f78',
-        'data_transform' : function(x) { return( [x[0]['count']] )}
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'signals_update'
     },{
         'id' : 'phbs',
         'display_name' : 'Pedestrian Beacons',
@@ -48,7 +51,8 @@ var config = [
         'caption' : '',
         'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("PHB") AND signal_status IN ("TURNED_ON") limit 9000',
         'resource_id' : 'xwqn-2f78',
-        'data_transform' : function(x) { return( [x[0]['count']] )}
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'signals_update'
     },
     {
         'id' : 'cameras',
@@ -60,7 +64,8 @@ var config = [
         'caption' : '',
         'query' : 'SELECT COUNT(camera_status) as count where upper(camera_mfg) not in ("GRIDSMART") and camera_status in ("TURNED_ON")',
         'resource_id' : 'fs3c-45ge',
-        'data_transform' : function(x) { return( [x[0]['count']] )}
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'cameras_update'
     },
     {
         'id' : 'sensors',
@@ -73,7 +78,8 @@ var config = [
         'caption' : '',
         'query' : 'SELECT COUNT(sensor_type) as count WHERE sensor_status in ("TURNED_ON")',
         'resource_id' : 'wakh-bdjq',
-        'data_transform' : function(x) { return( [x[0]['count']] )}
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'travel_sensors_update'
     },
     {
         'id' : 'signals-on-flash',
@@ -86,7 +92,8 @@ var config = [
         'caption' : '',
         'query' : 'select COUNT(signal_id) as count',
         'resource_id' : '5zpr-dehc',
-        'data_transform' : function(x) { return( [x[0]['count']] )}
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'signal_status_update'
     },
     {
         'id' : 'signal-timing',
@@ -99,11 +106,12 @@ var config = [
         'caption' : '',
         'query' : 'SELECT SUM(signal_count) as count WHERE retime_status IN ("COMPLETED") and scheduled_fy in ("' + fiscal_year + '")',
         'resource_id' : 'ufnm-yzxy',
-        'data_transform' : function(x) { return( [x[0]['count']] )}
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'signal_retiming_update'
     },
     {
         'id' : 'prev_maint',
-        'display_name' : 'Preventative Maint.',
+        'display_name' : 'Preventative Maintenance',
         'icon' : 'medkit',
         'init_val' : 0,
         'format' : 'round',
@@ -111,7 +119,8 @@ var config = [
         'caption' : 'Turned On',
         'query' : 'SELECT COUNT(pm_max_fiscal_year) as count WHERE pm_max_fiscal_year IN ("' + fiscal_year + '")',
         'resource_id' : 'xwqn-2f78',
-        'data_transform' : function(x) { return( [x[0]['count']] )}
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'signals_update'
     },
     {
         'id' : 'school-beacons',
@@ -121,8 +130,28 @@ var config = [
         'format' : 'round',
         'data' : [537],
         'infoStat' : true,
-        'caption' : ''
+        'caption' : '',
+        'update_event' : undefined
     }
+    // {
+    //     'id' : 'bcycle-trips',
+    //     'display_name' : 'B-Cycle Trips',
+    //     'icon' : 'bicycle',
+    //     'init_val' : 0,
+    //     'format' : 'round',
+    //     'infoStat' : true,
+    //     'resource_id' : 'cwi3-ckqi',
+    //     'caption' : '',
+    //     'query' : function(){
+    //         var d = new Date();
+    //         var n = d.getMonth();  //  last month's data
+    //         var y = d.getFullYear().toString();
+    //         var monthyear = n.toString() + y; 
+    //         return 'select count(*), month||year as monthyear where monthyear in ("' + monthyear + '") group by monthyear'
+    //     }(),
+    //     'data_transform' : function(x) { return x[0]['count'] },
+    //     'update_event' : undefined
+    // }
 ];
 
 
@@ -150,6 +179,11 @@ $(document).ready(function(){
             q.defer(d3.json, url)
 
         }
+
+    $(function() {
+        $('.dash-panel-header-container').matchHeight();
+        $('.dash-panel').matchHeight();
+    });
 
     }
 
@@ -184,7 +218,6 @@ function buildSocrataUrl(data) {
 
         url = url + '?$query=' + data.query;
 
-
     }
     
     return url;
@@ -193,6 +226,7 @@ function buildSocrataUrl(data) {
 
 
 function main(data) {
+    console.log(data);
 
     var infos = appendInfoText(data);
 
@@ -204,11 +238,10 @@ function main(data) {
         
         var selection = d3.select("#" + divId);
 
-        var event = 'pizza_party'
+        var event = config[i].update_event;
 
-        var resource_id = 'jesus_cristo'
+        postUpdateDate(selection, pub_log_id, event);
 
-        postUpdateDate(selection, event, resource_id);
     }
 
      d3.csv('https://raw.githubusercontent.com/cityofaustin/transportation/gh-pages/components/data/quote_of_the_week.csv', function(error, data) {
@@ -276,20 +309,39 @@ function transitionInfoStat(selection, options) {
 
 
 
-function postUpdateDate(selection, event, resource_id) {
+function postUpdateDate(selection, resource_id, event) {
+    
+    var url = 'https://data.austintexas.gov/resource/' + resource_id + '.json?$select=timestamp&$where=event=%27' + event + '%27&$order=timestamp+DESC&$limit=1';
 
-    var rando = Math.floor(Math.random() * 10 )
+    if (event) {
+        
+        $.ajax({
+            'async' : false,
+            'global' : false,
+            'cache' : false,
+            'url' : url,
+            'dataType' : "json",
+            'success' : function (data) {
+                var update_date_time = new Date(data[0].timestamp * 1000);
 
-    var d = new Date()
+                update_date = readableDate( update_date_time );
 
-    var update_date_time = d.setDate(d.getDate() - rando);
+                selection.append('h5')
+                    .attr("class", "dash-panel-footer-text")
+                    .html("Updated " + update_date +
+                        " | <a href=" + 'empty' + " target='_blank'> Data <i  class='fa fa-download'></i> </a>"
+                );
+            }
+        });
 
-    update_date = readableDate( update_date_time );
+    } else {
 
-    selection.append('h5')
-        .html("Updated " + update_date +
-            " | <a href=" + 'empty' + " target='_blank'> Data <i  class='fa fa-download'></i> </a>"
-         );
+        selection.append('h5')
+            .attr("class", "dash-panel-footer-text")
+            .html("<a href=" + 'empty' + " target='_blank'> Data <i  class='fa fa-download'></i> </a>");
+    }
+
+
 
     return;
 }  
@@ -319,10 +371,17 @@ function createPanel(container_id, panel_id, panel_icon, panel_name) {
 
     var panel = d3.select("#" + container_id)
         .append("div")
-        .attr("class", "col-sm-3 info info-small dash-panel")
+        .attr("class", "col-sm-2 dash-panel-container")
+        .append("div")
+        .attr("class", "info info-small dash-panel")
         .attr("id", panel_id);
 
-    panel.append("h3").html("<i class='fa fa-" + panel_icon + "' ></i> " + panel_name)
+
+    panel.append('div')
+        .attr('class', 'dash-panel-header-container')
+            .append("h4")
+            .attr("class", "dash-panel-header")
+            .html("<i class='fa fa-" + panel_icon + "' ></i> " + panel_name)
 
     panel.append("p").attr("class", "loading").text("Loading...");
 
@@ -331,4 +390,5 @@ function createPanel(container_id, panel_id, panel_icon, panel_name) {
 }
 
 
+//  https://data.austintexas.gov/resource/cwi3-ckqi.json?$query=select count(*), month||year as monthyear where monthyear in ("52017") group by monthyear
 

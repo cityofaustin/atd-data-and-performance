@@ -298,6 +298,7 @@ function postUpdateDate(log_data, divId){
 
     d3.select("#" + divId)
         .append('h5')
+        .attr('class', 'dash-panel-footer')
         .html("Updated " + update_date + " at " + update_time +
             " | <a href='https://data.austintexas.gov/dataset/5zpr-dehc' target='_blank'> Data <i  class='fa fa-download'></i> </a>" );
 
