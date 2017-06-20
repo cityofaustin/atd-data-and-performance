@@ -117,7 +117,7 @@ var config = [
         'format' : 'round',
         'infoStat' : true,
         'caption' : 'Turned On',
-        'query' : 'SELECT COUNT(pm_max_fiscal_year) as count WHERE pm_max_fiscal_year IN ("' + fiscal_year + '")',
+        'query' : 'SELECT COUNT(signal_pm_max_fiscal_year) as count WHERE signal_pm_max_fiscal_year IN ("' + fiscal_year + '")',
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { return( [x[0]['count']] )},
         'update_event' : 'signals_update'
