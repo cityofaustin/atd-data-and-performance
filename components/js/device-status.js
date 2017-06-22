@@ -2,7 +2,6 @@
 // to do:
 // align table icons
 // checkbox data selctors
-// scroll zoom
 // status pop-ups in data table
 // map expander
 // home button
@@ -99,7 +98,7 @@ var formats = {
 };
 
 
-var coa_net_passthrough = 'http://172.16.1.5/CoaTools'
+var coa_net_passthrough = 'http://172.16.1.5/redirect/?'
 
 
 
@@ -349,13 +348,14 @@ function createMarkers(data, style) {
 
                 popup_text = popup_text
                 + '<br>' + device_data[q]['display_name'] + ": "+ data[i][device_data[q]['name']]['status']
-                + ' at ' + formats['formatDateTime']( new Date(data[i][device_data[q]['name']]['status_date']));
+                + ' since ' + formats['formatDateTime']( new Date(data[i][device_data[q]['name']]['status_date']));
 
             }
         }
 
         if (img_url) {
-            popup_text = "<a href=" + coa_net_passthrough + " target=_blank ><img src=" + img_url + " width=300 /></a><br>" + popup_text;
+            cam_url = coa_net_passthrough + 'CAMERA_ID=' + id;
+            popup_text = "<a href=" + cam_url + " target=_blank ><img src=" + img_url + " width=300 /></a><br>" + popup_text;
         }
 
         if (popup_text.indexOf('ONLINE') > -1 ) {
