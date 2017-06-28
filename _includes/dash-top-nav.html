@@ -1,58 +1,25 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid opi">
-    <row>
-      <div class="col-sm-6">
-        <h2> {{ page.short-name }}</h2>
-        <p>City of Austin Transportation Department</p>
-      </div>
-      <div class="col-sm-6 nav">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header navbar-right">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbar-collapse-1">
-          <ul class="nav navbar-nav nav-tabs navbar-right">  
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signal Operations<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{ site.baseurl }}/device-status">Device Status</a></li>
-                <li><a href="{{ site.baseurl }}/signals-on-flash">Signals on Flash</a></li>
-                <li><a href="{{ site.baseurl }}/signal-timing">Signal Timing</a></li>
-                <li><a href="{{ site.baseurl }}/signal-assets">Signal Assets</a></li>
-                <li><a href="{{ site.baseurl }}/signal-requests">Signal Requests</a></li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Maps<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="http://austin.maps.arcgis.com/apps/webappviewer/index.html?id=b4d546f2b83244a79a092b1844064714">Signal Map <i class="fa fa-external-link"></i></a></li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Open Data<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{ site.baseurl }}/data-inventory/">Open Data Inventory</li>
-                <li><a href="http://github.com/cityofaustin/transportation">Austin Transportation GitHub <i class="fa fa-external-link"></i></a></li>
-              </ul>
-            </li>
-
-            <li role="presentation"><a href="{{ site.baseurl }}/">Home</a></li>
-
-          </ul>
-        </div><!-- /.navbar-collapse -->
-
-      </div>
-    </row>
-  </row>
-
-</nav>
+<div class="container-fluid header">
+  <div class="d-flex flex-wrap">
+    <div class="p-2">
+      <h1> Data and Performance Hub </h1>
+      <p>City of Austin Transportation Department</p>
+    </div>
+    <div class="ml-auto mt-auto p-2 nav">
+        <nav class="nav nav-pills d-flex flex-column flex-sm-row align-items-baseline">
+          <li class="nav-item dropdown">
+            <a class="flex-sm-fill text-sm-center nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ page.short-name }}</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </li>
+          <a class="flex-sm-fill text-sm-center nav-link" href="#">Maps</a>
+          <a class="flex-sm-fill text-sm-center nav-link" href="#">Open Data</a>
+          <a class="flex-sm-fill text-sm-center nav-link" href="#">Home</a>
+        </nav>
+    </div>
+  </div>
+</div>
