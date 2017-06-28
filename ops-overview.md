@@ -1,20 +1,10 @@
 ---
-layout: ops-overview
-title: Operations Overview - City of Austin Transportation Department
-description: Austin Transportation Department operations dashboard depicting information related to the installation of traffic and pedestrian signals in Austin, TX.
-short-name: Operations Overview
+layout: card-layout
+title: Operations Overview | Transportation Data and Performance Hub 
+title_short: Operations Overview
+description: Operations Overview Description
 custom_js:
-- google-analytics
-- d3.v4.min
-- leaflet
-- leaflet.extra-markers.min
-- jquery-match-height
 - ops-overview
 custom_css:
-- leaflet
-- leaflet.extra-markers.min
-- jquery.dataTables.min
 - dashboard
 ---
-
-

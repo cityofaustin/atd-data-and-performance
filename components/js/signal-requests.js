@@ -1,4 +1,6 @@
-var map, feature_layer, data, table;
+var map, feature_layer, data, table, curr_breakpoint, marker;
+
+var show_modal = false;
 
 var requests_url = 'https://data.austintexas.gov/resource/f6qu-b7zb.json';
 
@@ -49,9 +51,9 @@ var icon_lookup = {
     'TRAFFIC' : 'fa-car'
 }
 
-var table_height = '40vh';
+var table_height = '60vh';
 
-var current_table_height;
+var table_cols = ['Location', 'Type', 'Status'];
 
 var map_options = {
         center : [30.28, -97.735],
@@ -125,6 +127,8 @@ function main(request_data){
 
     data = createMarkers(request_data, default_style);
 
+    var cols = createTableCols('data_table', table_cols);
+
     populateTable(data);
 
     $('#search_input').on( 'keyup', function () {
@@ -137,14 +141,24 @@ function main(request_data){
 
     });
 
-    d3.selectAll(".tableRow")
+    d3.selectAll("tr")
         .on("click", function(d){
-
             var marker_id = d3.select(this).attr("id");
-
-            var eval_type = d3.select(this).attr("data-eval-type");
-
+            $('#modal-popup-container').remove();
             zoomToMarker(marker_id);
+    });
+
+    resizedw();
+
+        //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+    var resize_timer;
+    window.onresize = function(){
+      clearTimeout(resize_timer);
+      resize_timer = setTimeout(resizedw, 100);
+    };
+
+    $('#dashModal').on('shown.bs.modal', function () {
+        map.invalidateSize();
     });
 
 }
@@ -254,10 +268,10 @@ function populateTable(data, divId, filters) {
         })
         .DataTable({
             data : data,
-            rowId : 'system_id',
+            rowId : 'request_id',
             scrollY : table_height,
-            scrollCollapse : true,
-            bInfo : false,
+            scrollCollapse : false,
+            bInfo : true,
             paging : false,
             columns: [
                 
@@ -418,24 +432,9 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
 
 
 function adjustMapHeight() {
-   //  make map same height as table
-
-    setTimeout(function(){ 
-        
-        table_div_height = document.getElementById('data-row').clientHeight;
-
-        d3.select("#map")
-            .transition(t2)
-            .style("height", table_div_height + "px")
-            .on("end", function() {
-                map.invalidateSize();
-                map.fitBounds(feature_layer.getBounds());
-            });            
-
-        console.log(table_div_height);
-
-    }, 200);
-
+    map.invalidateSize();
+    map.fitBounds(feature_layer.getBounds());
+    
 }
     
 
@@ -489,21 +488,29 @@ function setMarkerSizes(data) {
 
 
 
-function zoomToMarker(marker) {
+function zoomToMarker(marker_id) {
 
     for (var i = 0; i < data.length; i++ ) {
     
-        if ('$' + data[i].request_id == marker ) {
-         
-            map.fitBounds(
-                data[i].marker.getBounds(),
-                { maxZoom: 16 }
+        if (data[i].request_id == marker_id ) {
+            
+            marker = data[i].marker;
 
-            );
+            map.setView(marker._latlng, 16);
 
             map.invalidateSize();
 
-            data[i].marker.openPopup();
+             if (show_modal) {
+                
+                var popup = data[i].marker._popup._content;
+                $('#modal-content-container').append("<div id='modal-popup-container'>" + popup + "</div>");
+                $('#dashModal').modal('toggle');
+
+            } else {
+
+                marker.openPopup();
+                    
+            }
 
         }
     }
@@ -578,11 +585,59 @@ function collapseMap(table_div_id, map_div_id) {
 }
 
 
+function createTableCols(div_id, col_array) {
+
+    var cols = d3.select('#' + div_id).select('thead')
+        .append('tr')
+        .selectAll('th')
+        .data(col_array)
+        .enter()
+        .append('th')
+        .text(function(d) {
+            return d;
+        });
+
+    return cols;
+        
+}
 
 
 
+function resizedw(){
+    
+    prev_breakpoint = curr_breakpoint;
+    curr_breakpoint = breakpoint();
+    
 
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') {
+            //  define which columns are hidden on mobile
+            table.column( 1 ).visible(false)
+            table.column( 2 ).visible(false)
+            
+            if (!show_modal) {
+                //  copy map to modal
+                $('#data-row-1').find('#map').appendTo('#modal-content-container');
+                show_modal = true;
+            }
 
+        } else {
+
+            table.column( 1 ).visible(true)
+            table.column( 2 ).visible(true)
+
+            if (show_modal ) {
+                $('#modal-content-container').find('#map').appendTo('#data-row-1');
+                
+                show_modal = false;
+            }
+        }
+    }
+
+    table.columns.adjust();
+}
+ 
 
 
 

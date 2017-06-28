@@ -1,7 +1,5 @@
 ---
-layout: data-tracker
+layout: data-tracker-layout
 title: Arterial Management Data Tracker
-short-name: Data Tracker
-custom_js:
-- d3.v4.min
+title_short: Data Tracker
 ---

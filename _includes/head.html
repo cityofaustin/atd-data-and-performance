@@ -5,29 +5,25 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="author" content="City of Austin Transportation Department">
     <link rel="icon" href="{{ site.baseurl }}/components/images/favicon.ico">
-    
     <meta name="title" content="{{ page.title }}">
     <meta name="description" content="{{  page.description }}">
-
-
     <title>{{ page.title }}</title>
 
-    <!-- Bootstrap core CSS with min removed by hailey -->
-    <link href="{{site.baseurl}}/components/css/bootstrap.css" rel="stylesheet"> 
-  
-    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link href="{{site.baseurl}}/components/css/custom.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="/components/css/jquery.dataTables.min.css" media="screen" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=News+Cycle' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/components/css/custom.css" type="text/css">
     
     {% if page.custom_css %}
-    
-      {% for stylesheet in page.custom_css %}
-    
-      <link rel="stylesheet" href="{{ site.baseurl }}/components/css/{{ stylesheet }}.css" media="screen" type="text/css">
-    
+      
+      {% for css_file in page.custom_css %}
+      
+        <link rel="stylesheet" href='{{ site.baseurl }}/components/css/{{ css_file }}.css' type="text/css">
+      
       {% endfor %}
-    
+      
     {% endif %}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

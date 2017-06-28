@@ -1,6 +1,10 @@
-var table;
+var table, map, curr_breakpoint;
 
-var map;
+var show_modal = false;
+
+var table_cols = ['Location', 'Status', 'Status Date', 'Duration'];
+
+var table_height = '60vh';
 
 var signal_markers = {};
 
@@ -24,9 +28,9 @@ var t2 = d3.transition()
 
 var STATUS_TYPES_READABLE = {
     0: "OK",
-    1: "Scheduled Flash",
-    2: "Unscheduled Flash",
-    3: "Communication Outage",
+    1: "<i class='fa fa-clock-o'></i> Scheduled Flash",
+    2: "<i class='fa fa-exclamation-triangle'></i> Flash",
+    3: "<i class='fa fa-phone'></i> Comm  Outage",
     5: "Communication Disabled",
     11: "Police Flash"
 }
@@ -39,25 +43,15 @@ var STATUS_TYPES_READABLE = {
 */
 
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27&$order=timestamp+DESC&$limit=1'
-var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
-
+var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
+var data_count_url = "https://data.austintexas.gov/resource/xwqn-2f78.json?$query=select count(*) where SIGNAL_STATUS in ('TURNED_ON')";
 //  dummy data lots flashing
 //  var data_url = '../components/data/fake_intersection_data.json';
 
 //  dummy data three flashing
 //  var data_url = '../components/data/fake_intersection_data_one.json';
 
-var screen_collapse = true;
-
-var screen_collapse_breakpoint = '768'  //  http://getbootstrap.com/css/
-
-var map_expanded = false;
-
-var default_map_size = '40vh';
-
-var adjusted_map_size = default_map_size;
-
-var expanded_map_size = '100vh';  //  vertial height units  
+var default_map_size = '60vh';
 
 var master_layer = new L.featureGroup();
 
@@ -72,7 +66,7 @@ var conflict_flash_marker = new L.ExtraMarkers.icon({
 
 var cabinet_flash_marker = new L.ExtraMarkers.icon({
     icon: 'fa-clock-o',
-    markerColor: 'orange',
+    markerColor: 'blue-dark',
     shape: 'circle',
     prefix: 'fa'
 });
@@ -95,107 +89,32 @@ var marker_icons = {
 getSignalData(data_url);
 
 
-
 //  init tooltips and touch detect
 $(document).ready(function(){
 
     $('[data-toggle="popover"]').popover();
 
-    if (is_touch_device()) {
-        
-        d3.select('.map')
-            .style("margin-right", "10px")
-            .style("margin-left", "10px");
-    }
-
-    $(window).resize(function() {
-        
-        if ( $(window).width() > screen_collapse_breakpoint && screen_collapse) {
-
-                screen_collapse = false
-                adjustMapHeight();
-
-        } else if ( $(window).width() < screen_collapse_breakpoint && !screen_collapse) {
-
-                screen_collapse = true
-                adjustMapHeight();
-        }
-    });
+    adjustMapHeight();
 
 });
-
-
-
-d3.select("#map-expander").on("click", function(){
-    
-    d3.select(this)
-        .select("button")
-            .html(function(){
-
-                if (map_expanded) {
-
-                    return "<i  class='fa fa-expand'</i>";
-
-                } else {
-                    
-                    return "<i  class='fa fa-compress'</i>"
-
-                }
-            });
-    
-    var map_size;
-
-    if (map_expanded) {
-
-        map_expanded = false;
-    
-        map_size = adjusted_map_size;
-
-        console.log(map_size);
-
-    } else {
-
-        map_expanded = true;
-
-        map_size = expanded_map_size;
-
-    }
-
-    d3.select("#map")
-        .transition(t2)
-        .style("height", map_size );
-
-            setTimeout(function(){
-            map.invalidateSize();
-            map.fitBounds(
-            signals_on_flash_layer.getBounds(),
-                {
-                    paddingTopLeft: [80, 80],
-                    maxZoom: 14
-                }
-            );
-        }, 300);
-
-});
-
 
 
 function main(data){
+    
+    var cols = createTableCols('data_table', table_cols);
 
     populateInfoStat(data, "info-1", ['2'], function(){
 
-        getLogData(logfile_url, "log-data");
+        getLogData(logfile_url, "update-date");
 
     });
 
-    
     populateInfoStat(data, "info-2", ['1'], function(){
 
 
     });
 
     populateInfoStat(data, "info-3", ['3'], function(){
-
 
     });
 
@@ -205,10 +124,14 @@ function main(data){
 
         populateTable(data);
 
+        $('#search_input').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        } );
+
+
     } else {
 
         table = $('#data_table').DataTable({
-            "oLanguage" :{ sSearch : 'Filter by Street Name' },
             bInfo: false,
             bPaginate: false,
             scrollY: '30vh',
@@ -216,16 +139,27 @@ function main(data){
                 "emptyTable" : "No Flashing Signals Reported"
             }
         });
-
-        if ( $(window).width() > screen_collapse_breakpoint ) {
         
-            screen_collapse = false;
-            
-            adjustMapHeight();
-        
-        }
+        d3.select("#data_table_filter").remove();
 
+        adjustMapHeight();
+        
     }
+
+    resizedw();
+
+    
+    //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+    var resize_timer;
+
+    window.onresize = function(){
+      clearTimeout(resize_timer);
+      resize_timer = setTimeout(resizedw, 100);
+    };
+
+    $('#dashModal').on('shown.bs.modal', function () {
+        map.invalidateSize();
+    });
 
 };
 
@@ -234,11 +168,8 @@ function main(data){
 function populateInfoStat(dataset, divId, status_array, postUpdate) {
 
     var filtered = dataset.filter(function(data){
-        console.log(data['operation_state']);
         return status_array.indexOf(data['operation_state']) >= 0;
     })
-
-    console.log(filtered);
 
     d3.select("#" + divId)
         .append("text")
@@ -252,7 +183,7 @@ function populateInfoStat(dataset, divId, status_array, postUpdate) {
 
         d3.select("#" + divId)
             .select("text")
-                .classed("goal-met", true);
+                .attr('class', 'muted')
 
     }
 
@@ -268,7 +199,6 @@ function updateInfoStat(dataset, divId) {
 
     d3.select("#" + divId)
             .select("text")
-            .classed("goal-unmet", true)
             .transition(t1)
             .tween("text", function () {
                 
@@ -297,8 +227,7 @@ function postUpdateDate(log_data, divId){
     var update_time = formatTime( update_date_time );
 
     d3.select("#" + divId)
-        .append('h5')
-        .attr('class', 'dash-panel-footer')
+        .append('h6')
         .html("Updated " + update_date + " at " + update_time +
             " | <a href='https://data.austintexas.gov/dataset/5zpr-dehc' target='_blank'> Data <i  class='fa fa-download'></i> </a>" );
 
@@ -332,17 +261,13 @@ function makeMap(dataset) {
         ext : 'png' 
     }).addTo(map);
 
-    populateMap(map, dataset, function(){
-      
-        //  var sidebar = L.control.sidebar('sidebar').addTo(map);
-
-    });
+    populateMap(map, dataset);
 
 }
 
 
 
-function populateMap(map, dataset, createSideBar) {
+function populateMap(map, dataset) {
 
     if (dataset.length > 0) {
 
@@ -393,23 +318,17 @@ function populateMap(map, dataset, createSideBar) {
 
 function createTableListeners() {
 
-    var rows = $('#data_table').dataTable().fnGetNodes()
-
     //  zoom to and highlight feature from table click
-    d3.selectAll(rows).selectAll(".tableRow").on("click", function(d){
+    d3.select("#data_table").selectAll("tr")
+        .on("click", function(d){
 
-            var signal_id = d3.select(this).attr("id");
-
-            map.setView(signal_markers[signal_id].getLatLng(), 14);
-
-            signal_markers[signal_id].openPopup();
-
-            //  location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
+            var marker_id = '$' + d3.select(this).attr("id");
+            $('#modal-popup-container').remove();
+            zoomToMarker(marker_id);
 
         });
 
 }
-
 
 
 function applyStatusTypes(statusObject) {
@@ -423,6 +342,8 @@ function applyStatusTypes(statusObject) {
         }
     }
 }
+
+
 
 function getSignalData(url) {
     $.ajax({
@@ -456,30 +377,47 @@ function getLogData(url, divId) {
 
 
 
+function getSignalCount(url) {
+
+    $.ajax({
+        'async' : false,
+        'global' : false,
+        'cache' : false,
+        'url' : url,
+        'dataType' : "json",
+        'success' : function (data) {
+            var fake_arr = new Array(+data[0].count)
+            
+            updateInfoStat(fake_arr, 'info-4');
+
+        }
+    
+    }); //end get data
+
+}
+
+
 function populateTable(dataset) {
 
     table = $('#data_table').DataTable({
-        data: dataset,
-        responsive: true,
-        scrollX: true,
-        scrollY: '50vh',
-        bPaginate: false,
-        scrollCollapse: true,
-        bLengthChange: false,
-         "oLanguage" :{ sSearch : 'Filter by Street Name' },
+        data : dataset,
+        rowId: 'signal_id',
+        scrollY : table_height,
+        scrollCollapse : false,
+        bInfo : true,
+        paging : false,
+        order: [[ 1, "desc" ]],
         columns: [
             { data: 'location_name', 
                 "render": function ( data, type, full, meta ) {
-                    return "<a class='tableRow' id='$" + full.signal_id + "' >" + data + "</a>";
+                    return "<a id='$" + full.signal_id + "' >" + data + "</a>";
                 }
             },
-
-            {   data: 'signal_id' },
             
             { 
                 data: 'operation_state', 
                 "render": function ( data, type, full, meta ) {
-                    return STATUS_TYPES_READABLE[data];
+                    return "<span class='status-badge status-" + data + "'>" + STATUS_TYPES_READABLE[data] + "</span>";
                 }
             },
 
@@ -498,73 +436,31 @@ function populateTable(dataset) {
         ]
     })
 
-    if ( $(window).width() > screen_collapse_breakpoint ) {
-        
-        screen_collapse = false;
-
-        adjustMapHeight();
-    
-    }
+    adjustMapHeight();
 
     createTableListeners();
+
+    d3.select("#data_table_filter").remove();
 
 }
 
 
 function adjustMapHeight() {
-   //  make map same height as table
+   
+    map.invalidateSize();
 
-
-    setTimeout(function(){ 
-        console.log(screen_collapse);
-
-        if ( screen_collapse ) {
-            //  if the screen is collapsed use defaul map height
-
-            adjusted_map_size = default_map_size;
-
-        } else {
-            //  if the table is very small (because few rows)
-            //  be at least as hi as the adjusted map size default
-            var table_div_height = document.getElementById('data-row').clientHeight;
-
-            if (table_div_height < 200 ) {
-                
-                adjusted_map_size = "40vh"
-
-            } else {
-            //  if the table is not very small, make the map as tall as the table
-            //  the maximum height of table is limited by vh specified in its init
-                adjusted_map_size = document.getElementById('data-row').clientHeight + "px";
-            }
-
-        }
-
-        d3.select("#map")
-            .transition(t2)
-            .style("height", adjusted_map_size);
-
-        setTimeout(function(){
-
-            map.invalidateSize();
-
-            if (signals_on_flash_layer) {
-                
-                map.fitBounds(
-                    signals_on_flash_layer.getBounds(),
-                        {
-                            paddingTopLeft: [80, 80],
-                            maxZoom: 14
-                        }
-                );
-
-            }
+    if (signals_on_flash_layer) {
         
-        }, 500);
+        map.fitBounds(
+            signals_on_flash_layer.getBounds(),
+                {
+                    paddingTopLeft: [80, 80],
+                    maxZoom: 14
+                }
+        );
 
-            
+    }
 
-    }, 200);
 }
     
 
@@ -610,3 +506,81 @@ function formatDuration(datetime) {
     
 }
 
+function createTableCols(div_id, col_array) {
+
+    var cols = d3.select('#' + div_id).select('thead')
+        .append('tr')
+        .selectAll('th')
+        .data(col_array)
+        .enter()
+        .append('th')
+        .text(function(d) {
+            return d;
+        });
+
+    return cols;
+        
+}
+
+
+
+function zoomToMarker(marker_id) {
+
+    var marker = signal_markers[marker_id];
+
+    
+
+    map.invalidateSize();
+
+     if (show_modal) {
+        map.closePopup();  // ensure all popups are closed
+        map.setView(marker._latlng, 17);
+        var popup = marker._popup._content;
+        $('#modal-content-container').append("<div id='modal-popup-container'>" + popup + "</div>");
+        $('#dashModal').modal('toggle');
+
+    } else {
+        map.setView(marker._latlng, 17);
+        marker.openPopup();
+            
+    }
+
+        
+    
+}
+
+
+function resizedw(){
+    
+    prev_breakpoint = curr_breakpoint;
+    curr_breakpoint = breakpoint();
+    
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') {
+            //  define which columns are hidden on mobile
+            table.column( 2 ).visible(false)
+            table.column( 3 ).visible(false)
+            
+            if (!show_modal) {
+                //  copy map to modal
+                $('#data-row-1').find('#map').appendTo('#modal-content-container');
+                show_modal = true;
+            }
+
+        } else {
+
+            table.column( 2 ).visible(true)
+            table.column( 3 ).visible(true)
+
+            if (show_modal ) {
+                $('#modal-content-container').find('#map').appendTo('#data-row-1');
+                
+                show_modal = false;
+            }
+        }
+    }
+
+    table.columns.adjust();
+}
+ 

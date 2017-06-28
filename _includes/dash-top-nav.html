@@ -1,58 +1,32 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid opi">
-    <row>
-      <div class="col-sm-6">
-        <h2> {{ page.short-name }}</h2>
-        <p>City of Austin Transportation Department</p>
+<div class="container-fluid" id="dash-top-nav-container">
+  <!-- nav for medium and larger display -->
+  <div class="row background-img align-items-center" id="dash-top-nav">  <!-- header row -->
+    <div class="col pt-2 pb-2">
+        <h2><a class="brand" href="#">{{ page.title_short }}</a></h2>
+        <h6><a class="brand brand-small" href="#">Transportation Data and Performance Hub</a></h6>
+    </div>
+    <div class="col-2 mr-4">
+      <div class="row justify-content-end">
+        <button class="btn nav-btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          
+           <h4><i class="fa fa-bars"></i></h4>
+
+        </button>
       </div>
-      <div class="col-sm-6 nav">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header navbar-right">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col nav-menu collapse text-left" id="collapseExample">
+      <nav class="nav flex-column">
+        <a class="nav-link" href="{{ site.baseurl }}/"><i class="fa fa-home"></i> Home</a>
+        <a class="nav-link" href="{{ site.baseurl }}/signals-on-flash/"><i class="fa fa-exclamation-triangle"></i> Signals on Flash</a>
+        <a class="nav-link" href="{{ site.baseurl }}/signal-projects/"><i class="fa fa-wrench"></i> Signal Projects</a>
+        <a class="nav-link" href="{{ site.baseurl }}/signal-timing/"><i class="fa fa-clock-o"></i> Signal Timing</a>
+        <a class="nav-link" href="{{ site.baseurl }}/signal-requests/"><i class="fa fa-inbox"></i> Signal Requests</a>
+        <a class="nav-link" href="{{ site.baseurl }}/device-status"/><i class="fa fa-heartbeat"></i> Device Status</a>
+        <a class="nav-link" href="{{ site.baseurl }}/ops-overview"/><i class="fa fa-dashboard"></i> Operations Overview </a>
+      </nav>
+    </div>
+  </div>
+</div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbar-collapse-1">
-          <ul class="nav navbar-nav nav-tabs navbar-right">  
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signal Operations<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{ site.baseurl }}/device-status">Device Status</a></li>
-                <li><a href="{{ site.baseurl }}/signals-on-flash">Signals on Flash</a></li>
-                <li><a href="{{ site.baseurl }}/signal-timing">Signal Timing</a></li>
-                <li><a href="{{ site.baseurl }}/signal-assets">Signal Assets</a></li>
-                <li><a href="{{ site.baseurl }}/signal-requests">Signal Requests</a></li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Maps<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="http://austin.maps.arcgis.com/apps/webappviewer/index.html?id=b4d546f2b83244a79a092b1844064714">Signal Map <i class="fa fa-external-link"></i></a></li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Open Data<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{ site.baseurl }}/data-inventory/">Open Data Inventory</li>
-                <li><a href="http://github.com/cityofaustin/transportation">Austin Transportation GitHub <i class="fa fa-external-link"></i></a></li>
-              </ul>
-            </li>
-
-            <li role="presentation"><a href="{{ site.baseurl }}/">Home</a></li>
-
-          </ul>
-        </div><!-- /.navbar-collapse -->
-
-      </div>
-    </row>
-  </row>
-
-</nav>

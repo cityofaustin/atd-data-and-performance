@@ -6,47 +6,52 @@
 // map expander
 // home button
 
-var data_master, map, feature_layer, table, default_bounds;
+var data_master, map, marker, feature_layer, table, filters, default_bounds, curr_breakpoint;
 
-var init = true;
+var prev_breakpoint = undefined;
+var show_modal = false;
 
 var q = d3.queue();
 
 var location_id_field = "atd_location_id";
 var comm_status_field = "ip_comm_status";
 var comm_status_date_field = "comm_status_datetime_utc";
+var table_cols = ['Location', 'Device Status'];
 
 var device_data = [
     {
-        'name' : 'traffic_signal',
-        'display_name' : 'Signal',
-        'resource_id' : 'xwqn-2f78',
-        'id_field' : 'signal_id',
-        'query' : 'select * where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000'
-    },
-    {
         'name' : 'cctv',
-        'display_name' : 'CCTV',
+        'icon' : 'video-camera',
+        'display_name' : "<i class='fa fa-video-camera'></i> CCTV",
         'resource_id' : 'fs3c-45ge',
         'id_field' : 'camera_id',
         'query' : 'select * where upper(camera_mfg) not in ("GRIDSMART")'
     },
     {
         'name' : 'gridsmart',
-        'display_name' : 'GRIDSMART',
+        'icon' : 'crosshairs',
+        'display_name' : "<i class='fa fa-crosshairs'></i> GRIDSMART",
         'resource_id' : 'fs3c-45ge',
         'id_field' : 'atd_camera_id',
         'query' : 'select * where upper(camera_mfg) LIKE ("%25GRIDSMART%25")'
     },
     {
         'name' : 'travel_sensor',
-        'display_name' : 'Sensor',
+        'icon' : 'rss',
+        'display_name' : "<i class='fa fa-rss'></i> Travel Sensors",
         'resource_id' : 'wakh-bdjq',
         'id_field' : 'sensor_id',
         'query' : 'select latitude,longitude,sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status in ("TURNED_ON")'
+    },
+    {
+        'name' : 'traffic_signal',
+        'icon' : 'car',
+        'display_name' : "<i class='fa fa-car'></i> Signal",
+        'resource_id' : 'xwqn-2f78',
+        'id_field' : 'signal_id',
+        'query' : 'select * where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000'
     }
 ];
-
 
 var map_options = {
         center : [30.27, -97.74],
@@ -56,7 +61,6 @@ var map_options = {
 };
 
 var img_url_base = 'http://162.89.4.145/CCTVImages/CCTV';
-
 
 var default_style = { 
     'ONLINE' : {
@@ -100,8 +104,6 @@ var formats = {
 
 var coa_net_passthrough = 'http://172.16.1.5/redirect/?'
 
-
-
 var SCALE_THRESHOLDS = {
     '$1': 500,
     '$2': 500,
@@ -125,17 +127,19 @@ var SCALE_THRESHOLDS = {
     '$20': 10,
 };
 
+$('#dashModal').on('shown.bs.modal', function (e) {
+  var mod_width = $('.modal-body').width();
+  $('#modal-info').find('img').attr('width', mod_width);
+})
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function() {
+
+    map.invalidateSize();
+
+});
 
 $(document).ready(function(){
 
-    $('[data-toggle="popover"]').popover();
-
-    if (is_touch_device()) {
-        
-        d3.select('#map')
-            .style('margin-right', '10px')
-            .style('margin-left', '10px');
-    }
 
     for (var i = 0; i < device_data.length; ++i) {
 
@@ -167,16 +171,13 @@ $(document).ready(function(){
 });
 
 
-
-function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-screen-javascript
-        return (('ontouchstart' in window)
-      || (navigator.MaxTouchPoints > 0)
-      || (navigator.msMaxTouchPoints > 0));
-}
-
-
+$('#dashModal').on('shown.bs.modal', function () {
+  map.invalidateSize();
+}); 
 
 function main(data) {
+    
+    var map_selectors = createMapSelectors('map_selectors', device_data, 'display_name');
 
     data_master = groupByLocation(data);
 
@@ -184,11 +185,13 @@ function main(data) {
 
     data_master = createMarkers(data_master, default_style);
 
-    var filters = checkFilters();
+    filters = checkFilters();
     
-    var filtered_data = filterData(data_master, filters);
+    var filtered_data = filterByKeyExits(data_master, filters);
     
-    populateTable(filtered_data, 'data_table', true);
+    var cols = createTableCols('data_table', table_cols);
+
+    populateTable(filtered_data, 'data_table');
 
     $('#search_input').on( 'keyup', function () {
     
@@ -200,9 +203,25 @@ function main(data) {
         setMarkerSizes(data_master);
     });
 
-    $(".device-selector").on('change', filterChange);
+    $(".btn-map-selector").on('click', function() {
+
+        if ( $(this).hasClass('active') ) {
+            $(this).removeClass('active').attr('aria-pressed', false);
+        } else {
+            $(this).addClass('active').attr('aria-pressed', true)
+        }
+
+        filterChange();
+    })
 
     createTableListeners();
+
+    //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+    var resize_timer;
+    window.onresize = function(){
+      clearTimeout(resize_timer);
+      resize_timer = setTimeout(resizedw, 100);
+    };
 }
 
 
@@ -223,6 +242,46 @@ function buildSocrataUrl(data) {
     return url;
 }
 
+function createMapSelectors(div_id, obj_arr, display_property) {
+
+    var selectors = d3.select("#" + div_id)
+        .selectAll('div')
+        .data(obj_arr)
+        .enter()
+        .append('div')
+        .attr('class', 'col-sm')
+        .append('btn')
+        .attr('type', 'button')
+        .attr('data_id', function(d){
+            return d.name;
+        })
+        .attr('class', 'btn btn-block btn-primary btn-map-selector')
+        .attr('aria-pressed', function(d, i) {
+            // class first button as 'active'
+            if (i == 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
+        .classed('active', function(d, i) {
+            // class first button as 'active'
+            if (i == 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
+        .html(function(d){
+            return d[display_property];
+        });
+
+    return selectors;
+    
+}
+
 
 function findWithAttr(array, attr, value) {
     //    http://stackoverflow.com/questions/7176908/how-to-get-index-of-object-by-its-property-in-javascript
@@ -237,7 +296,7 @@ function findWithAttr(array, attr, value) {
 
 function groupByLocation(data) {
 
-    var data_master = [];
+    var grouped_data = [];
 
     for (var i = 0; i < device_data.length; ++i) {
 
@@ -245,9 +304,9 @@ function groupByLocation(data) {
             
             var location = device_data[i].data[q][location_id_field];
             
-            var current_id = data_master.length + 1
+            var current_id = grouped_data.length + 1
 
-            var loc_exists = data_master.some(function (loc) {
+            var loc_exists = grouped_data.some(function (loc) {
                 return loc.location === location;
             });
 
@@ -269,14 +328,14 @@ function groupByLocation(data) {
                         'device_id' : device_data[i].data[q][device_data[i]['id_field']]
                 };
                 
-                data_master.push(new_loc);
+                grouped_data.push(new_loc);
 
             } else {
                 // location exists
                 //  append device-specifc attributes
-                var index = findWithAttr(data_master, 'location', location);
+                var index = findWithAttr(grouped_data, 'location', location);
                 
-                data_master[index][device_data[i].name] = {
+                grouped_data[index][device_data[i].name] = {
                     'status' : device_data[i].data[q][comm_status_field],
                     'status_date' : device_data[i].data[q][comm_status_date_field],
                     'device_id' : device_data[i].data[q][device_data[i]['id_field']]
@@ -284,7 +343,7 @@ function groupByLocation(data) {
             }
         }
     }
-    return data_master;
+    return grouped_data;
 }
 
 
@@ -355,7 +414,7 @@ function createMarkers(data, style) {
 
         if (img_url) {
             cam_url = coa_net_passthrough + 'CAMERA_ID=' + id;
-            popup_text = "<a href=" + cam_url + " target=_blank ><img src=" + img_url + " width=300 /></a><br>" + popup_text;
+            popup_text = "<img class='popup-img' src=" + img_url + " width=300 /><br>" + popup_text + "<br><a href=" + cam_url + " target=_blank >Video Feed (Restricted Access)</a>";
         }
 
         if (popup_text.indexOf('ONLINE') > -1 ) {
@@ -372,29 +431,6 @@ function createMarkers(data, style) {
 
 }
 
-
-
-function adjustMapHeight() {
-   //  make map same height as table
-
-    setTimeout(function(){ 
-        
-        table_div_height = document.getElementById('data-row').clientHeight;
-        
-
-
-        d3.select("#map")
-            .transition(t2)
-            .style("height", table_div_height + "px")
-            .on("end", function() {
-                map.invalidateSize();
-                adjustView(feature_layer);    
-            });            
-
-    }, 200);
-
-}
-    
 
 
 function getMarkers(source_data, id_array) {
@@ -424,13 +460,27 @@ function updateMap(layer) {
 
     feature_layer.addTo(map);
 
-    var bounds = feature_layer.getBounds()
-
-    adjustView(layer);    
+   adjustView(layer);    
 
 
 }
 
+
+function createTableCols(div_id, col_array) {
+
+    var cols = d3.select('#' + div_id).select('thead')
+        .append('tr')
+        .selectAll('th')
+        .data(col_array)
+        .enter()
+        .append('th')
+        .text(function(d) {
+            return d;
+        });
+
+    return cols;
+        
+}
 
 
 function populateTable(data, divId) {
@@ -442,18 +492,9 @@ function populateTable(data, divId) {
     }
 
     table = $('#data_table')
-        .on( 'init.dt', function () {
-            console.log('init');
-            $('[data-toggle="popover"]').popover();
-
-            if (data.length > 0) {
-                adjustMapHeight();    
-            }
-
-        })
         //  update map after table search
         .on( 'draw.dt', function () {
-            
+                
             var ids = [];
 
             $('.tableRow').each(function(i, obj) {
@@ -472,7 +513,7 @@ function populateTable(data, divId) {
             scrollCollapse : false,
             bInfo : true,
             paging : false,
-            autoWidth: false,
+            autoWidth: true,
             columns: [
 
                 { data: 'location_name',
@@ -486,73 +527,29 @@ function populateTable(data, divId) {
                     }
                 },
 
-                { data: 'cctv',
+                { data: 'location_name',
                     "render": function ( data, type, full, meta ) {
-                        
-                        if ('cctv' in full) {
-                            if (full['cctv']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
-                            } else {
-                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+
+                        var render_str = '';
+
+                        for (var i=0; i < device_data.length; i++) {
+                            var device_name = device_data[i].name;
+                            
+                            if (device_name in full && filters.indexOf(device_name) >= 0) {
+
+                                if (full[device_name].status == 'ONLINE') {
+                                    render_str = render_str + " <i class='table-icon fa fa-" + device_data[i].icon + "' style='background-color:#028102'></i> "
+
+                                } else {
+                                    render_str = render_str + " <i class='table-icon fa fa-" + device_data[i].icon + "' style='background-color:darkred'></i> "
+                                }
+
                             }
-                        } else {
-                            return ""
                         }
-                    }
-
-                },
-                { data: 'gridsmart',
-                    "render": function ( data, type, full, meta ) {
                         
-                        if ('gridsmart' in full) {
-                            if (full['gridsmart']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
-                            } else {
-                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
-                            }
-                        } else {
-                            return ""
-                        }
+                        return render_str;
                     }
 
-                },
-                { data: 'travel_sensor',
-                    "render": function ( data, type, full, meta ) {
-                        
-                        if ('travel_sensor' in full) {
-
-                            if (full['travel_sensor']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
-
-                            } else {
-
-                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
-
-                            } 
-                        } else {
-                                
-                            return ""
-                        }
-                    }
-                },
-                { data: 'signal',
-                    "render": function ( data, type, full, meta ) {
-                        
-                        if ('traffic_signal' in full) {
-
-                            if (full['traffic_signal']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
-
-                            } else {
-
-                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
-
-                            } 
-                        } else {
-                                
-                            return ""
-                        }
-                    }
                 }
             ]
         })
@@ -561,6 +558,8 @@ function populateTable(data, divId) {
     d3.select("#data_table_filter").remove();
 
     createTableListeners();
+
+    resizedw();
 
 }
 
@@ -577,21 +576,33 @@ function setMarkerSizes(data) {
 
 
 
-function zoomToMarker(marker, data) {
+function zoomToMarker(marker_id, data) {
 
     for (var i = 0; i < data.length; i++ ) {
     
-        if ('$' + data[i].location == marker ) {
-         
-            map.fitBounds(
-                data[i].marker.getBounds(),
-                { maxZoom: 16 }
+        if (data[i].location == marker_id ) {
+            
+            marker = data[i].marker;
 
-            );
+            if (show_modal) {
 
-            map.invalidateSize();
+                map.closePopup();
 
-            data[i].marker.openPopup();
+                map.setView(marker._latlng, 16);
+                
+                var popup = marker._popup._content;
+                $('#modal-info').append("<div id='modal-popup-container'>" + popup + "</div>");
+                $('#dashModal').modal('toggle');
+
+            } else {
+                
+                map.setView(marker._latlng, 17);
+
+                marker.openPopup();
+
+                map.invalidateSize();
+ 
+            }
 
         }
     }
@@ -603,17 +614,16 @@ function checkFilters(){
 
     filters = [];
 
-    $('.active').each(function() {
-        filters.push( this.id );
+    $('btn.active').not(':hidden').each(function() {
+        filters.push( $(this).attr('data_id'));
     });
 
-    return filters;
+    return Array.from(new Set(filters)); //  remove duplicates, which may arise from having 'hidden' filters based on display invalidateSize
 
 }
 
 
-
-function filterData(data, filters) {
+function filterByKeyExits(data, filters) {
 
     return data.filter(function(record){
         return Object.keys(record).some( function(key){
@@ -623,22 +633,15 @@ function filterData(data, filters) {
 
 }
 
-
-
 function filterChange() {
-    var filters = checkFilters();
-    
-    var data = filterData(data_master, filters);
-
-    populateTable(data, 'data_table', false);
+    filters = checkFilters();
+    var data = filterByKeyExits(data_master, filters);
+    populateTable(data, 'data_table');
         
 }
 
 
-
-
 function adjustView(layer) {
-    console.log('adjust_view');
 
     setMarkerSizes(data_master);
 
@@ -661,15 +664,51 @@ function adjustView(layer) {
 }
 
 
-
 function createTableListeners() {
 
-    d3.selectAll(".tableRow")
-        .on("click", function(d){
-
-            var marker_id = d3.select(this).attr("id");
-
+    d3.selectAll('tr')
+        .on('click', function(d){
+            $('#modal-popup-container').remove();
+            var marker_id = d3.select(this).attr('id');
             zoomToMarker(marker_id, data_master);
     });
 
 }
+
+function resizedw(){
+    
+    prev_breakpoint = curr_breakpoint;
+    curr_breakpoint = breakpoint();
+    
+
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') { 
+                
+            if (!show_modal) {
+                //  copy map to modal
+                $('#data-row-1').find('#map').appendTo('#modal-map');
+                map.invalidateSize();
+                show_modal = true;
+            }
+
+        } else {
+
+            if (show_modal ) {
+                $('#modal-map').find('#map').appendTo('#data-row-1');
+                map.invalidateSize();
+                show_modal = false;
+            }
+        }
+    }
+
+    table.columns.adjust();
+}
+
+
+
+
+
+
+
+
