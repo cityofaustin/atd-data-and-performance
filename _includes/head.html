@@ -10,20 +10,12 @@
     <title>{{ page.title }}</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link href="{{site.baseurl}}/components/css/custom.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="/components/css/jquery.dataTables.min.css" media="screen" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=News+Cycle' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/components/css/custom_new.css" type="text/css">
     
-    {% if page.custom_css %}
-    
-      {% for stylesheet in page.custom_css %}
-    
-      <link rel="stylesheet" href="{{ site.baseurl }}/components/css/{{ stylesheet }}.css" media="screen" type="text/css">
-    
-      {% endfor %}
-    
-    {% endif %}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

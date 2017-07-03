@@ -1,0 +1,148 @@
+
+  html, body, div, input, .btn {
+    font-family: 'News Cycle', sans-serif;
+  }
+
+  .background-img {
+    background-size: cover;
+    background-image: url(/components/images/jtron_1600.png);
+  }
+
+  .header-coa {
+    font-family: sans-serif; /* COA header gets unstylized typeface */
+    font-size: .75em;
+  }
+
+  .header-standard {
+    color: #fff;
+    padding-top: 10px;
+  }
+
+  .nav-header {
+    color: #fff !important;  /* override bootstrap nav-link class */
+    background-color: rgba(0,0,0,.3);
+    border: 1px solid rgba(255,255,255,.4);
+    border-radius: 4px;
+    margin: 0px 0px 5px 5px;
+  }
+
+  .nav-header:hover {
+    border: 1px solid rgba(255,255,255,.8);
+  }
+
+  .nav-footer {
+    color: #fff;
+    padding-left: 0px;
+    padding-top: 2px;
+  }
+
+  .footer {
+    color: #fff;
+    background-color: #43484E; 
+  }
+
+  .footer-background-color-fix {
+    background-color: #43484E;  /* otherwite bottom-most content slips to background #fff on collapse */
+  }
+
+  .btn-map-selector {
+    color: #fff;
+    background-color: #878585;
+    font-size: .8em;
+    border-color: #43484E;
+  }
+
+  .btn-map-selector-active {
+    background-color: #3b99fc;
+    text-shadow: 0px 0px 2px rgba(0,0,0,1);
+  }
+
+  .btn-map-selector-inactive {
+    color: #fff;
+  }
+
+  .map-container {
+    min-height: 50vh;
+  }
+
+  .map {
+    height: 100%;
+  }
+  
+  .table {
+    font-size: .8em;
+  }
+  
+  /* styles below here for landing page */
+
+.jumbotron {
+  background-image: url(../components/images/jtron_900.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  background-color: #333;  
+  text-shadow: 0px 0px 2px rgba(0,0,0,1); 
+}
+
+
+@media (max-width: 991px) {
+    .jumbotron {
+        background-image: url(../images/jtron_900.png);
+    }
+}
+
+@media (min-width: 992px) {
+    .jumbotron {
+        background-image: url(../images/jtron_1100.png);
+    }
+}
+
+@media (min-width:1200px) {
+    .jumbotron {
+        background-image: url(../images/jtron_1200.png);
+    }
+
+}
+ 
+@media (min-width:1300px) {
+    .jumbotron {
+        background-image: url(../images/jtron_1300.png);
+    }
+}
+
+@media (min-width:1400px) {
+    .jumbotron {
+        background-image: url(../images/jtron_1400.png);
+    }
+}
+
+.homepage-button {
+  color: #fff;
+  text-align: center;
+}
+
+.homepage-button-row-1 {
+  background-color: #326D89;
+}
+
+.homepage-button-row-2 {
+    background-color: #73264d;
+}
+
+.homepage-button-row-3 {
+    background-color: #8c8c8c;
+}
+
+.homepage-button:hover {
+  background-color: #7D9852;
+}
+
+.button-icon {
+  font-size: 5em;
+  padding: 10px;
+}
+
+.button-icon-small {
+  font-size: 3em;
+  padding: 10px;
+}

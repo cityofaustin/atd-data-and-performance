@@ -7,138 +7,120 @@
   
     {% include coa-header.html %}
 
-    <div class="jumbotron">
+    <div class="jumbotron jumbotron-">
       <div class="container">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-8">
-          <h2> {{page.title}} </h2>
-          <p> City of Austin Transportation Department </p>
-        </div>
-        <div class="col-sm-1"></div>
+        <h1 class="display-4">{{page.title}}</h1>
+        <p class="lead">City of Austin Transportation Department</p>
       </div>
     </div>
+
 
     <div class="container">
-    <div class="row">
-      <div class="col-sm-12"></div>
-    </div>
-      <div class="row">
-          <div class="col-sm-1"></div>
-          <div class="col-sm-2">
-          <h3>Signal Operations</h3>
-          </div>
-          <div class="col-sm-8">
-            <a href='{{site.baseurl}}/signals-on-flash/'>
-              <div class="col-sm-5 homepage-button homepage-button-row-1">
-                <h4>Signals on Flash</h4>
-                <i  class="fa button-icon fa-warning"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
-              </div>
-            </a>
-            <a href='{{site.baseurl}}/signal-assets/'>
-              <div class="col-sm-5 homepage-button homepage-button-row-1">
-                <h4>Signal Assets</h4>
-                <i  class="fa button-icon fa-dashboard"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
-              </div>
-            </a>
-            <a href='{{site.baseurl}}/signal-timing/'>
-              <div class="col-sm-5 homepage-button homepage-button-row-1">
-                <h4>Signal Timing</h4>
-                <i  class="fa button-icon fa-clock-o"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
-              </div>
-            </a>
-             <a href='{{site.baseurl}}/signal-requests/'>
-              <div class="col-sm-5 homepage-button homepage-button-row-1">
-                <h4>Traffic Signal Requests</h4>
-                <i  class="fa button-icon fa-inbox"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
-              </div>
-            </a>
-            <a href='{{site.baseurl}}/device-status/'>
-              <div class="col-sm-5 homepage-button homepage-button-row-1">
-                <h4>Device Status</h4>
-                <i  class="fa button-icon fa-heartbeat"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
-              </div>
-            </a>
-          </div>
-          <div class="col-sm-1"></div>
-    </div>
 
-    <div class="row">
-      <div class="col-sm-12"></div>
-    </div>
-    
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-2">
-          <h3>Maps + Resources</h3>
-      </div>
-      <div class="col-sm-8">
-        <a href='http://austin.maps.arcgis.com/apps/webappviewer/index.html?id=c9bda776b1934e439285570b29d3259c' target='_blank'>
-          <div class="col-sm-5 homepage-button homepage-button-row-2">
-            <h4>Traffic Signals</h4>
-            <i  class="fa button-icon fa-map"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
+      <div class="row">  <!-- signal operations row -->
+          <div class="col-sm-3 text-lg-right pt-md-4">  <!-- row 1 titel col -->
+            <h4>Signal Operations</h4>
           </div>
-        </a>
-        <a href='{{site.baseurl}}/data-tracker/'>
-          <div class="col-sm-5 homepage-button homepage-button-row-2">
-            <h4>Data Tracker</h4>
-            <i  class="fa button-icon fa-lock"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
-          </div>
-        </a>
-      </div>
-      <div class="col-sm-2"></div>
-    </div>
 
-    <div class="row">
-      <div class="col-sm-12"></div>
-    </div>
-  
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-2">
-          <h3>Open Data Inventory</h3>
-      </div>
-      <div class="col-sm-8">
-        <a href='{{site.baseurl}}/data-inventory/'>
-          <div class="col-sm-5 homepage-button homepage-button-row-3">
-            <h4>Open Data Inventory<AustinTexas class="Gov"></AustinTexas></h4>
-            <i  class="fa button-icon fa-database"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
-          </div>
-        </a>
-        <a href='http://github.com/cityofaustin/transportation' target="_blank">
-          <div class="col-sm-5 homepage-button homepage-button-row-3">
-            <h4>City of Austin GitHub<AustinTexas ></AustinTexas></h4>
-            <i  class="fa button-icon fa-github"data-toggle="tooltip" data-placement="right" title="This is some tooltip text. "></i>
-          </div>
-        </a>
-      </div>
-      <div class="col-sm-2"></div>
-    </div>
+          <div class="col">  <!-- buttons column -->
+            <div class="row">
+              
+                <div class="homepage-button homepage-button-row-1 col-md-4 m-2 p-2">
+                  <h5>Signals on Flash</h5>
+                  <i  class="fa button-icon fa-warning"></i>
+                </div>
+
+              
+                <div class="homepage-button homepage-button-row-1 col-md-4 m-2 p-2">
+                  <h5>Signal Assets</h5>
+                  <i  class="fa button-icon fa-dashboard"></i>
+                </div>
+
+                <div class="homepage-button homepage-button-row-1 col-md-4 m-2 p-2">
+                  <h5>Signal Timing</h5>
+                  <i  class="fa button-icon fa-clock-o"></i>
+                </div>
+                
+                <div class="homepage-button homepage-button-row-1 col-md-4 m-2 p-2">
+                  <h5>Signal Requests</h5>
+                  <i  class="fa button-icon fa-inbox"></i>
+                </div>
+
+                <div class="homepage-button homepage-button-row-1 col-md-4 m-2 p-2">
+                  <h5>Device Status</h5>
+                  <i  class="fa button-icon fa-heartbeat"></i>
+                </div>
+            </div>  <!-- end buttons row -->
+          </div>  <!-- end buttons collumn -->
+      </div>  <!-- end top row -->
 
 
-  </div>
+      <div class="row">  <!-- maps and resources-->
+          <div class="col-sm-3 text-lg-right pt-md-4">  <!-- row 1 titel col -->
+            <h4>Maps and Resources</h4>
+          </div>
+
+          <div class="col">  <!-- buttons column -->
+            <div class="row">
+            
+              <div class="homepage-button homepage-button-row-2 col-md-4 m-2 p-2">
+                <h5>Signal Asset Map</h5>
+                <i  class="fa button-icon fa-map"></i>
+              </div>
+
+              <div class="homepage-button homepage-button-row-2 col-md-4 m-2 p-2">
+                <h5>Data Tracker</h5>
+                <i  class="fa button-icon fa-lock"></i>
+              </div>
+
+            </div>  <!-- end buttons row -->
+          </div>  <!-- end buttons collumn -->
+      </div>  <!-- end maps and resources row -->
+
+
+      <div class="row">  <!-- Open Data Row -->
+          <div class="col-sm-3 text-lg-right pt-md-4">  <!-- row 1 titel col -->
+            <h4>Open Data</h4>
+          </div>
+
+          <div class="col">  <!-- buttons column -->
+            <div class="row">
+            
+              <div class="homepage-button homepage-button-row-3 col-md-4 m-2 p-2">
+                <h5>Open Data Inventory</h5>
+                <i  class="fa button-icon fa-database"></i>
+              </div>
+
+              <div class="homepage-button homepage-button-row-3 col-md-4 m-2 p-2">
+                <h5>City of Austin GitHub</h5>
+                <i  class="fa button-icon fa-github"></i>
+              </div>
+
+            </div>  <!-- end buttons row -->
+          </div>  <!-- end buttons collumn -->
+      </div>  <!-- end open data  row -->
+
+
+  </div>  <!-- end body container -->
 
   {% include footer.html %}
 
 
-
-
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{site.baseurl}}/components/js/jquery.min.js"></script>
-    <script src="{{site.baseurl}}/components/js/bootstrap.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{{site.baseurl}}/components/js/ie10-viewport-bug-workaround.js"></script>
+  <script src="{{site.baseurl}}/components/js/jquery.min.js"></script>
+  <script src="{{site.baseurl}}/components/js/tether.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>    
 
     {% if page.custom_js %}
-    
+      
       {% for js_file in page.custom_js %}
-    
+      
         <script src='{{ site.baseurl }}/components/js/{{ js_file }}.js' type="text/javascript"></script>
-    
+      
       {% endfor %}
-    
+      
     {% endif %}
-    
+      
   </body>
 </html>
+
+

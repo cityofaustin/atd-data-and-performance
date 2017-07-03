@@ -1,47 +1,36 @@
-
 <footer class="footer">
-    <div class="container" >
-        <div class = "row">
-
-            <div class="col-sm-3"></div>
-
-
-            <div class="col-sm-9">
-                <div class = "row">
-                    
-                    <!-- image -->
-                    <div class="col-sm-1 footer-img-container">
-                        <img class="footer-img" src="{{site.baseurl}}/components/images/coa_seal_transparent_white.png">
-                    </div>
-                    <!-- image -->
-
-                    <!-- links -->
-                    <div class="col-sm-11">
-                        
-                        <div class = "row">
-                            <div class="col-sm-12 footer-text">
-                                <h3>City of Austin Transportation Department</h3>
-                            </div>
-                        </div>
-
-                        <div class = "row">
-                            <div class="col-sm-12 footer-links">
-                                <a href="{{ site.baseurl }}/">Home</a>
-                                <a href="">About</a>
-                                <a href="https://github.com/cityofaustin/transportation/">Code</a>
-                                <a href="https://data.austintexas.gov/browse?tags=transportation&sortBy=last_modified&utf8=%E2%9C%93">Data</a>
-                                <a href="http://www.austintexas.gov/coa-open-data-licensing">Disclaimer</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- links -->
-
+    <!-- SEE: http://v4-alpha.getbootstrap.com/examples/sticky-footer/ -->
+      <div class="container-fluid">
+        <div class="row justify-content-center footer-background-color-fix mt-4">
+          <div class="col-md-3"></div>
+          <div class="col"> <!-- center div -->
+            <div class="row no-gutters"> <!-- center content only row -->
+              <div class="col-2 align-self-center">  <!-- image column -->
+                <div class="row">
+                  <div class="col text-right">
+                    <img style="height:90px; padding: 10px 10px 10px 0px;" src="/components/images/coa_seal_transparent_white.png">
+                  </div>
                 </div>
-            </div>
-            
-            
+              </div>
+              <div class="col align-self-center"> <!-- title and link column -->
+                <div class="row no-gutters">
+                  <div class="col no-gutters">
+                    <h5>City of Austin Transportation Department</h5>
+                  </div>
+                </div>
+                <div class="row no-gutters">
+                  <div class="col nav no-gutters ">
+                    <a class="nav-link nav-footer" href=''>Home</a>
+                    <a class="nav-link nav-footer" href=''>About</a>
+                    <a class="nav-link nav-footer" href=''>Code</a>
+                    <a class="nav-link nav-footer" href=''>Data</a>
+                    <a class="nav-link nav-footer" href=''>Disclaimer</a>
+                  </div>
+                </div>
+              </div>
 
-        </div>
-    </div>
+            </div> <!-- end center content row -->
+          </div> <!-- end center div -->
+        </div> <!-- end row -->
+      </div>
 </footer>
