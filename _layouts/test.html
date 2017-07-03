@@ -10,18 +10,9 @@
   <style>
 
 
-  body {
+  html, body, div, input, .btn {
     font-family: 'News Cycle', sans-serif;
   }
-
-
-  html, body {
-    height: 100vh;
-  }
-
-.content {
-  flex: 1 0 auto;
-}
 
   .background-img {
     background-size: cover;
@@ -35,7 +26,6 @@
 
   .header-standard {
     color: #fff;
-    text-shadow: 0px 0px 2px rgba(0,0,0,1);
     padding-top: 10px;
   }
 
@@ -66,32 +56,35 @@
     background-color: #43484E;  /* otherwite bottom-most content slips to background #fff on collapse */
   }
 
-.btn {
-    color: #fff;
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125)
-  }
+  .btn-map-selector {
+      color: #fff;
+      background-color: #878585;
+      font-size: .8em;
+      border-color: #43484E;
+
+    }
 
   .btn-map-selector-active {
     background-color: #3b99fc;
-    font-size: .8em;
+    text-shadow: 0px 0px 2px rgba(0,0,0,1);
   }
 
   .btn-map-selector-inactive {
     color: #fff;
-    background-color: #878585;
-    font-size: .8em;
   }
 
-  .map {
+  .map-container {
     min-height: 50vh;
   }
 
-.table {
-  font-size: .8em;
-}
-    
- 
+  .map {
+    height: 100%;
+  }
 
+  .table {
+    font-size: .8em;
+  }
+  
   </style>
 
   <script src="{{site.baseurl}}/components/js/jquery.min.js"></script>
@@ -125,31 +118,26 @@
         <div class="col-sm-6 align-self-end justify-content-md-end justify-content-sm-center nav">
           <a class="nav-link nav-header" href=''>Signal Operations</a>
         </div>
-
       </div>
 
-      <div class="row data-row mt-2">
-    
-        <div class="col-md-5">  <!-- buttons, search, and table column -->
-          
+      <div class="row data-row">
+        <div class="col-md-5 no-gutters mt-2">  <!-- buttons, search, and table column -->
           <div class="col-12"> <!-- Buttons -->
             <div class="btn-group" role="group" aria-label="Map Selectors"> 
-              <button type="button" class="btn btn-secondary btn-map-selector-active">CCTV</button>
-              <button type="button" class="btn btn-secondary btn-map-selector-inactive">Travel Sensors</button>
-              <button type="button" class="btn btn-secondary btn-map-selector-inactive">Signals</button>
+              <button type="button" class="btn btn-secondary  btn-map-selector btn-map-selector-active">CCTV</button>
+              <button type="button" class="btn btn-secondary btn-map-selector btn-map-selector-inactive">Travel Sensors</button>
+              <button type="button" class="btn btn-secondary btn-map-selector btn-map-selector-inactive">Signals</button>
             </div>
-          </div>
-
+          </div>  <!-- end button row -->
           <div class="col-md-12 mt-2 input-group">  <!-- search row/column  -->
             <input id="search_input" type="text" class="form-control input" placeholder="Search by street name or status..." />
             <span class="input-group-btn">
-              <button class="btn" type="button">
+              <button class="btn btn-table-search" type="button">
                 <i class="fa fa-search"></i>
               </button>
             </span>
           </div>   <!-- end search row -->
-    
-          <div class="col-md-12">
+          <div class="col-md-12"> <!-- table row -->
             <table class="table table-striped table-hover compact" data-sort-name="address" data-sort-order="desc" id="data_table">
               <thead>
                 <tr>
@@ -162,15 +150,13 @@
             <!-- data goes here programmatically  -->
             </tbody>
           </table>
-
         </div>  <!-- end table row/column -->
-
-       </div> <!-- end table/search column -->
-
-      <div class="col-md-7" id="map">     
-      </div>
+       </div> <!-- end table/search/button column -->
+      <div class="col-md-7 map-container p-md-0 mt-2">
+        <div class="col map" id="map">
+        </div>
+      </div> <!-- end map container -->
     </div>  <!-- end data row -->
-
     </div> <!-- end container -->
 
     <footer class="footer">
@@ -210,8 +196,6 @@
             </div> <!-- end center content row -->
           </div> <!-- end center div -->
         </div> <!-- end row -->
-        
-        
       </div>
     </footer>
     </body>
