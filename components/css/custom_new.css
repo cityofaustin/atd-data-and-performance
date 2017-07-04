@@ -13,13 +13,9 @@
     font-size: .75em;
   }
 
-  .header-standard {
-    color: #fff;
-    padding-top: 10px;
-  }
-
-  .nav-header {
-    color: #fff !important;  /* override bootstrap nav-link class */
+  /*nav header styles may be deprecated..*/
+ /* .nav-header {
+    color: #fff !important;  
     background-color: rgba(0,0,0,.3);
     border: 1px solid rgba(255,255,255,.4);
     border-radius: 4px;
@@ -28,6 +24,37 @@
 
   .nav-header:hover {
     border: 1px solid rgba(255,255,255,.8);
+  }*/
+
+  .nav-btn {
+    color: #fff !important;  
+    background-color: rgba(0,0,0,.3);
+    border: 1px solid rgba(255,255,255,.4);
+    border-radius: 4px;
+  }
+
+  .nav-btn:hover{
+    border: 1px solid rgba(255,255,255,.8);
+    background-color: rgba(0,0,0,.3);
+  }
+
+  .nav-link {
+    color: #fff;
+    text-shadow: 0px 0px 2px rgba(0,0,0,1);
+  }
+  
+  .navbar-brand {
+    color: #fff;
+    text-shadow: 0px 0px 2px rgba(0,0,0,1);
+    font-size: 1.5em;
+  }
+
+  .navbar-brand:hover, .nav-link:hover {
+    color: #c4c4c4;
+  }
+  
+  .navbar-toggler{
+    color: #fff;
   }
 
   .nav-footer {

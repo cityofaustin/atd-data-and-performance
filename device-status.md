@@ -1,18 +1,6 @@
 ---
-layout: device-status
-title: Device Status
+layout: dash-template
+title: Device Status | Transportation Data and Performance Hub 
 short-name: Device Status
-custom_js:
-- google-analytics
-- d3.v4.min
-- leaflet
-- leaflet.extra-markers.min
-- device-status
-custom_css:
-- leaflet
-- leaflet.extra-markers.min
-- jquery.dataTables.min
-- dashboard
+description: New Bootstrap 4 dashboard template
 ---
-
-

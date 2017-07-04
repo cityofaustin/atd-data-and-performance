@@ -1,9 +1,26 @@
-<div class="row background-img header-standard">  <!-- header row -->
-  <div class="col-sm-6 align-self-end justify-content-md-end justify-content-sm-center">
-   <h1>{{ page.short-name }}</h1>
-   <p>Transportation Data and Performance Hub</p>
-  </div>
-  <div class="col-sm-6 align-self-end justify-content-md-end justify-content-sm-center nav">
-    <a class="nav-link nav-header" href=''>Signal Operations</a>
-  </div>
+<div class="container-fluid">
+    <div class="row background-img">  <!-- header row -->
+        <div class="col-sm-6 align-self-end justify-content-md-end justify-content-sm-center pt-2 pb-2">
+            <a class="navbar-brand" href="#">Open Data and Performance Hub</a>
+        </div>
+        <div class="col-sm-6 nav align-self-center justify-content-end">
+            <div class="dropdown">
+              <button class="btn btn-secondary nav-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                
+                {{ page.short-name }}
+
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Signals on Flash</a>
+                <a class="dropdown-item" href="#">Signal Timing</a>
+                <a class="dropdown-item" href="#">Device Status</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Asset Map</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Data Inventory</a>
+              </div>
+            </div>
+        </div>
+    </div>
 </div>
+
