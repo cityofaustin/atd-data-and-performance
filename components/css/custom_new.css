@@ -75,7 +75,7 @@
   
   /* styles below here for landing page */
 
-.jumbotron-j {
+.homepage-header {
   background-image: url(../components/images/jtron_900.png);
   background-size: cover;
   background-repeat: no-repeat;
@@ -86,32 +86,32 @@
 
 
 @media (max-width: 991px) {
-    .jumbotron-j {
+    .homepage-header {
         background-image: url(../images/jtron_900.png);
     }
 }
 
 @media (min-width: 992px) {
-    .jumbotron-j {
+    .homepage-header {
         background-image: url(../images/jtron_1100.png);
     }
 }
 
 @media (min-width:1200px) {
-    .jumbotron-j {
+    .homepage-header {
         background-image: url(../images/jtron_1200.png);
     }
 
 }
  
 @media (min-width:1300px) {
-    .jumbotron-j {
+    .homepage-header {
         background-image: url(../images/jtron_1300.png);
     }
 }
 
 @media (min-width:1400px) {
-    .jumbotron-j {
+    .homepage-header {
         background-image: url(../images/jtron_1400.png);
     }
 }
