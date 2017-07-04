@@ -94,6 +94,7 @@
 @media (min-width: 992px) {
     .homepage-header {
         background-image: url(../images/jtron_1100.png);
+        min-height: 200px;
     }
 }
 
