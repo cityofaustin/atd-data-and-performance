@@ -25,6 +25,10 @@
   .nav-header:hover {
     border: 1px solid rgba(255,255,255,.8);
   }*/
+  .navbar-toggler-icon {
+    color: #fff;
+    background-color: black;
+  }
 
   .nav-btn {
     color: #fff !important;  
@@ -73,19 +77,29 @@
   }
 
   .btn-map-selector {
-    color: #fff;
-    background-color: #878585;
-    font-size: .8em;
-    border-color: #43484E;
+    background-color: #7f7f7f;
+    border-color: #fff;
+    cursor: pointer;
+  }
+  
+  .btn-map-selector.active {
+    background-color: #0275d8;
+    border-color: #fff;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .3);
   }
 
-  .btn-map-selector-active {
-    background-color: #3b99fc;
-    text-shadow: 0px 0px 2px rgba(0,0,0,1);
+  .btn-map-selector:hover {
+    background-color: #686868;
+    border-color: #fff;
   }
 
-  .btn-map-selector-inactive {
-    color: #fff;
+  .btn-map-selector.active:hover {
+    background-color: #0062b7;
+    border-color: #fff;
+  }
+  
+  .btn-group-vertical {
+    width: 100%;
   }
 
   .map-container {
@@ -100,6 +114,9 @@
     font-size: .8em;
   }
   
+
+
+
   /* styles below here for landing page */
 
 .homepage-header {
