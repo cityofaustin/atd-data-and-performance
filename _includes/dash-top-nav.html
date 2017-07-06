@@ -1,5 +1,7 @@
 <div class="container-fluid">
-    <div class="row background-img">  <!-- header row -->
+
+    <!-- nav for medium and larger display -->
+    <div class="row background-img hidden-sm-down">  <!-- header row -->
         <div class="col-sm-6 align-self-end justify-content-md-end justify-content-sm-center pt-2 pb-2">
             <a class="navbar-brand" href="#">Open Data and Performance Hub</a>
         </div>
@@ -22,5 +24,33 @@
             </div>
         </div>
     </div>
-</div>
 
+    <div class="row navbar-toggleable-md hidden-md-up background-img">
+        <div class="col">
+          <a class="navbar-brand" href="#">Open Data and Performance Hub</a>
+        </div>
+        <div class="col">
+          <button class="navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span><i class="fa fa-menu"></i></span>
+          </button>
+        </div>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+              </li>
+            </ul>
+        </div>
+        </div>
+    </div>
+
+
+
+    </div>
