@@ -216,6 +216,9 @@ function createMapSelectors(div_class, obj_arr, display_property, icon_name) {
         .enter()
         .append('btn')
         .attr('type', 'button')
+        .attr('id', function(d){
+            return d.name;
+        })
         .attr('class', 'btn btn-primary btn-map-selector')
         .classed('active', function(d, i) {
             // class first button as 'active'
@@ -248,7 +251,7 @@ function findWithAttr(array, attr, value) {
 
 function groupByLocation(data) {
 
-    var data_master = [];
+    var grouped_data = [];
 
     for (var i = 0; i < device_data.length; ++i) {
 
@@ -256,9 +259,9 @@ function groupByLocation(data) {
             
             var location = device_data[i].data[q][location_id_field];
             
-            var current_id = data_master.length + 1
+            var current_id = grouped_data.length + 1
 
-            var loc_exists = data_master.some(function (loc) {
+            var loc_exists = grouped_data.some(function (loc) {
                 return loc.location === location;
             });
 
@@ -280,14 +283,14 @@ function groupByLocation(data) {
                         'device_id' : device_data[i].data[q][device_data[i]['id_field']]
                 };
                 
-                data_master.push(new_loc);
+                grouped_data.push(new_loc);
 
             } else {
                 // location exists
                 //  append device-specifc attributes
-                var index = findWithAttr(data_master, 'location', location);
+                var index = findWithAttr(grouped_data, 'location', location);
                 
-                data_master[index][device_data[i].name] = {
+                grouped_data[index][device_data[i].name] = {
                     'status' : device_data[i].data[q][comm_status_field],
                     'status_date' : device_data[i].data[q][comm_status_date_field],
                     'device_id' : device_data[i].data[q][device_data[i]['id_field']]
@@ -295,7 +298,7 @@ function groupByLocation(data) {
             }
         }
     }
-    return data_master;
+    return grouped_data;
 }
 
 
@@ -576,7 +579,7 @@ function zoomToMarker(marker, data) {
 
     for (var i = 0; i < data.length; i++ ) {
     
-        if ('$' + data[i].location == marker ) {
+        if (data[i].location == marker ) {
          
             map.fitBounds(
                 data[i].marker.getBounds(),
@@ -599,6 +602,7 @@ function checkFilters(){
     filters = [];
 
     $('.active').each(function() {
+        console.log(this.id);
         filters.push( this.id );
     });
 
@@ -659,12 +663,20 @@ function adjustView(layer) {
 
 function createTableListeners() {
 
-    d3.selectAll(".tableRow")
-        .on("click", function(d){
+    d3.selectAll('tr')
+        .on('click', function(d){
 
-            var marker_id = d3.select(this).attr("id");
-
+            var marker_id = d3.select(this).attr('id');
+            console.log(marker_id);
             zoomToMarker(marker_id, data_master);
     });
 
 }
+
+
+
+
+
+
+
+
