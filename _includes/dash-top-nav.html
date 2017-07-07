@@ -1,29 +1,31 @@
 <div class="container-fluid">
   <!-- nav for medium and larger display -->
-  <div class="row background-img">  <!-- header row -->
-    <div class="col align-self-end justify-content-md-end justify-content-sm-center pt-2 pb-2">
-        <a class="navbar-brand" href="#">Open Data and Performance Hub</a>
+  <div class="row background-img align-items-center">  <!-- header row -->
+    <div class="col pt-2 pb-2">
+        <h2><a class="brand" href="#">{{ page.title_short }}</a></h2>
+        <h6><a class="brand brand-small" href="#">Transportation Data and Performance Hub</a></h6>
     </div>
-    <div class="col nav align-self-center justify-content-end">
-      <div class="col-lg-4 col-xs-12">
-        <button class="btn nav-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <div class="col-2 mr-4">
+      <div class="row justify-content-end">
+        <button class="btn nav-btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           
-          <i class="fa fa-bars"></i>
+           <h4><i class="fa fa-bars"></i></h4>
 
         </button>
       </div>
     </div>
   </div>
-
   <div class="row">
-    <div class="col collapse" id="collapseExample">
-      <a href="#">Signals on Flash</a>
-      <a href="#">Signal Timing</a>
-      <a href="#">Device Status</a>
-      <div class="dropdown-divider"></div>
-      <a href="#">Asset Map</a>
-      <div class="dropdown-divider"></div>
-      <a href="#">Data Inventory</a>
+    <div class="col collapse nav-menu text-right" id="collapseExample">
+      
+    <nav class="nav flex-column">
+      <a class="nav-link" href="#">Signals on Flash <i class="fa fa-exclamation-triangle"></i></a>
+      <a class="nav-link" href="#">Signals Timing <i class="fa fa-clock-o"></i></a>
+      <a class="nav-link" href="#">Signal Requests <i class="fa fa-inbox"></i></a>
+      <a class="nav-link" href="#">Device Status <i class="fa fa-heartbeat"></i></a>
+    </nav>
+
+ 
     </div>
   </div>
 </div>
