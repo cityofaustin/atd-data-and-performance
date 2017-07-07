@@ -1,7 +1,7 @@
 ---
 layout: dash-template
 title: Device Status | Transportation Data and Performance Hub 
-short-name: Device Status
+title_short: Device Status
 description: New Bootstrap 4 dashboard template
 custom_js:
 - device-status
