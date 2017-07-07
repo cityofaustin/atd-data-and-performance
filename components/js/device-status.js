@@ -159,7 +159,7 @@ $(document).ready(function(){
 
 function main(data) {
     
-    var map_selectors = createMapSelectors('map-selector-group', device_data, 'display_name');
+    var map_selectors = createMapSelectors('map_selectors', device_data, 'display_name');
 
     data_master = groupByLocation(data);
 
@@ -185,7 +185,16 @@ function main(data) {
         setMarkerSizes(data_master);
     });
 
-    $(".btn-map-selector").on('change', filterChange);
+    $(".btn-map-selector").on('click', function() {
+
+        if ( $(this).hasClass('active') ) {
+            $(this).removeClass('active').attr('aria-pressed', false);
+        } else {
+            $(this).addClass('active').attr('aria-pressed', true)
+        }
+
+        filterChange();
+    })
 
     createTableListeners();
 }
@@ -208,18 +217,29 @@ function buildSocrataUrl(data) {
     return url;
 }
 
-function createMapSelectors(div_class, obj_arr, display_property, icon_name) {
+function createMapSelectors(div_id, obj_arr, display_property, icon_name) {
 
-    var selectors = d3.selectAll("." + div_class)
-        .selectAll('btn')
+    var selectors = d3.select("#" + div_id)
+        .selectAll('div')
         .data(obj_arr)
         .enter()
+        .append('div')
+        .attr('class', 'col')
         .append('btn')
         .attr('type', 'button')
-        .attr('id', function(d){
+        .attr('data_id', function(d){
             return d.name;
         })
-        .attr('class', 'btn btn-primary btn-map-selector')
+        .attr('class', 'btn btn-block btn-primary btn-map-selector')
+        .attr('aria-pressed', function(d, i) {
+            // class first button as 'active'
+            if (i == 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
         .classed('active', function(d, i) {
             // class first button as 'active'
             if (i == 0) {
@@ -415,8 +435,6 @@ function updateMap(layer) {
 
     feature_layer.addTo(map);
 
-    var bounds = feature_layer.getBounds()
-
     adjustView(layer);    
 
 
@@ -601,12 +619,11 @@ function checkFilters(){
 
     filters = [];
 
-    $('.active').each(function() {
-        console.log(this.id);
-        filters.push( this.id );
+    $('btn.active').not(':hidden').each(function() {
+        filters.push( $(this).attr('data_id'));
     });
 
-    return filters;
+    return Array.from(new Set(filters)); //  remove duplicates, which may arise from having 'hidden' filters based on display invalidateSize
 
 }
 
@@ -626,7 +643,7 @@ function filterData(data, filters) {
 
 function filterChange() {
     var filters = checkFilters();
-    
+    console.log(filters);
     var data = filterData(data_master, filters);
 
     populateTable(data, 'data_table');
@@ -667,7 +684,6 @@ function createTableListeners() {
         .on('click', function(d){
 
             var marker_id = d3.select(this).attr('id');
-            console.log(marker_id);
             zoomToMarker(marker_id, data_master);
     });
 
