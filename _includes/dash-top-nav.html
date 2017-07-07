@@ -1,56 +1,30 @@
 <div class="container-fluid">
-
-    <!-- nav for medium and larger display -->
-    <div class="row background-img hidden-sm-down">  <!-- header row -->
-        <div class="col-sm-6 align-self-end justify-content-md-end justify-content-sm-center pt-2 pb-2">
-            <a class="navbar-brand" href="#">Open Data and Performance Hub</a>
-        </div>
-        <div class="col-sm-6 nav align-self-center justify-content-end">
-            <div class="dropdown">
-              <button class="btn btn-secondary nav-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                
-                {{ page.short-name }}
-
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Signals on Flash</a>
-                <a class="dropdown-item" href="#">Signal Timing</a>
-                <a class="dropdown-item" href="#">Device Status</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Asset Map</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Data Inventory</a>
-              </div>
-            </div>
-        </div>
+  <!-- nav for medium and larger display -->
+  <div class="row background-img">  <!-- header row -->
+    <div class="col align-self-end justify-content-md-end justify-content-sm-center pt-2 pb-2">
+        <a class="navbar-brand" href="#">Open Data and Performance Hub</a>
     </div>
+    <div class="col nav align-self-center justify-content-end">
+      <div class="col-lg-4 col-xs-12">
+        <button class="btn nav-btn btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          
+          <i class="fa fa-bars"></i>
 
-    <div class="row navbar-toggleable-md hidden-md-up background-img">
-        <div class="col">
-          <a class="navbar-brand" href="#">Open Data and Performance Hub</a>
-        </div>
-        <div class="col">
-          <button class="navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span><i class="fa fa-menu"></i></span>
-          </button>
-        </div>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-              </li>
-            </ul>
-        </div>
-        </div>
+        </button>
+      </div>
     </div>
+  </div>
 
-
-
+  <div class="row">
+    <div class="col collapse" id="collapseExample">
+      <a href="#">Signals on Flash</a>
+      <a href="#">Signal Timing</a>
+      <a href="#">Device Status</a>
+      <div class="dropdown-divider"></div>
+      <a href="#">Asset Map</a>
+      <div class="dropdown-divider"></div>
+      <a href="#">Data Inventory</a>
     </div>
+  </div>
+</div>
+
