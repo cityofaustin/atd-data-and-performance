@@ -13,18 +13,6 @@
     font-size: .75em;
   }
 
-  /*nav header styles may be deprecated..*/
- /* .nav-header {
-    color: #fff !important;  
-    background-color: rgba(0,0,0,.3);
-    border: 1px solid rgba(255,255,255,.4);
-    border-radius: 4px;
-    margin: 0px 0px 5px 5px;
-  }
-
-  .nav-header:hover {
-    border: 1px solid rgba(255,255,255,.8);
-  }*/
   .navbar-toggler-icon {
     color: #fff;
     background-color: black;
@@ -34,7 +22,7 @@
     color: #fff !important;  
     background-color: rgba(0,0,0,.3);
     border: 1px solid rgba(255,255,255,.4);
-    border-radius: 4px;
+    border-radius: 0px;
   }
 
   .nav-btn:hover{
