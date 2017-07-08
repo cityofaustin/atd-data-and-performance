@@ -9,9 +9,16 @@
         
         {% include dash-top-nav.html %}
       
-      <div class="container-fluid">
-        <div class="row data-row">
-          <div class="col-lg-5 no-gutters mt-2">  <!-- buttons, search, and table column -->
+      <div class="container-fluid" id="dash-container">
+        <!-- quote of the week (requires quote-of-the-week.js) -->
+        <div class="row" id="quote-row">
+          <div class="col-md-12 text-right m-0" id="quote-of-the-week">
+            
+          </div>
+        </div>
+
+        <div class="row data-row" id="data-row-1">
+          <div class="col-lg-5 no-gutters">  <!-- buttons, search, and table column -->
             <div class="row map-selector-group no-gutters" aria-label="Map Selectors" id="map_selectors">
               
               
@@ -51,6 +58,8 @@
     <script src="/components/js/jquery.dataTables.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
     <script src='/components/js/leaflet.extra-markers.min.js' type="text/javascript"></script>
+    <script src='/components/js/quote-of-the-week.js' type="text/javascript"></script>
+    <script src='/components/js/dash-helpers.js' type="text/javascript"></script>
 
     {% if page.custom_js %}
       
