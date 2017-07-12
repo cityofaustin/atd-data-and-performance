@@ -54,6 +54,11 @@
     color: #c4c4c4;
     text-decoration: none;
   }
+  
+  p.quote-of-the-week {
+    margin: 0;
+    padding: 0;
+  }
 
   .nav-footer {
     color: #fff;
@@ -224,8 +229,33 @@
 }
 
 
-.info-text {
-  font-size: 3em;
+.pie-gray {
+  fill: #bfbfbf;
+}
+
+.pie-green {
+  fill: #009304;
+}
+
+.goal-unmet {
+  color: #AD0000;
+}
+
+.goal-met {
+  color: green;
+}
+
+.pie-info {
+  font-size: 2.5em;
+  text-anchor: middle;
+}
+
+.pie-info-small {
+  text-anchor: middle;
+}
+
+.info-metric {
+  font-size: 5em;
   text-align: left;
   dominant-baseline: bottom;
   -webkit-user-select: none; /* Chrome/Safari */        
@@ -233,4 +263,6 @@
   -ms-user-select: none; /* IE10+ */
 }
 
-
+p.about {
+    text-align: justify;
+}

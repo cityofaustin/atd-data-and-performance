@@ -495,7 +495,7 @@ function populateTable(data, divId) {
                     "render": function ( data, type, full, meta ) {
 
                         if ('location' in full) {
-                            return "<a class='tableRow' id='$" + full.location + "' '>" + data + "</a>";
+                            return "<a class='tableRow' id='$" + full.location + "' data-toggle='modal' data-target='#exampleModalLong' '>" + data + "</a>";
                         } else {
                             return '';
                         }
@@ -688,6 +688,15 @@ function createTableListeners() {
     });
 
 }
+
+
+$('#exampleModalLong').on('show.bs.modal', function (event) {
+
+    var bob = $('#map').find('.leaflet-popup-content').children().clone().appendTo('.modal-body');
+    console.log(bob);
+
+
+});
 
 
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+  <html lang="en-us">
+  
+    {% include head.html %}
+  
+    <body>
+      
+      {% include coa-header.html %}
+      
+      {% include data-tracker-nav.html %}
+      
+      <script type="text/javascript">app_id="5942bca07acbea501f849f40";distribution_key="dist_2";</script>
+      <script type="text/javascript" src="https://loader.knack.com/5942bca07acbea501f849f40/dist_2/knack.js"></script>
+      <div id="knack-dist_2">Loading...</div>
+
+      <script src="{{site.baseurl}}/components/js/jquery.min.js"></script>
+      <script src="{{site.baseurl}}/components/js/tether.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+      {% include footer.html %}
+
+      {% if page.custom_js %}
+        
+        {% for js_file in page.custom_js %}
+        
+          <script src='{{ site.baseurl }}/components/js/{{ js_file }}.js' type="text/javascript"></script>
+        
+        {% endfor %}
+        
+      {% endif %}
+      
+  </body>
+</html>

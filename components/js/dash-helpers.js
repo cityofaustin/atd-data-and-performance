@@ -1,11 +1,14 @@
 //  requires d3
 
-var dash = {
-    'insertRow' :
-        function(container, before, new_div_id ) {
-            var row = d3.select(container).insert('div', before)
+function DashRow(container, before, id) {
+  this.container = container;
+  this.before = before;
+  this.id = id;
+  this.row = function() {
+            var row = d3.select(this.container).insert('div', this.before)
                 .attr('class', 'row')
-                .attr('id', new_div_id);
+                .attr('id', this.id);
             return row;
         }
-} 
+}
+

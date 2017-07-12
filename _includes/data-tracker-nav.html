@@ -1,0 +1,29 @@
+<div class="container-fluid" id="dash-top-nav-container">
+  <!-- nav for medium and larger display -->
+  <div class="row background-img align-items-center" id="dash-top-nav">  <!-- header row -->
+    <div class="col pt-2 pb-2">
+        <h2><a class="brand" href="#">{{ page.title_short }}</a></h2>
+        <h6><a class="brand brand-small" href="#">Transportation Data and Performance Hub</a></h6>
+    </div>
+    <div class="col-2 mr-4">
+      <div class="row justify-content-end">
+        <button class="btn nav-btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          
+           <h4><i class="fa fa-bars"></i></h4>
+
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col nav-menu collapse text-left" id="collapseExample">
+      <nav class="flex-column">
+        <a class="nav-link" href="{{ site.baseurl }}/data-tracker/"><i class="fa fa-home"></i> Home</a>
+        <a class="nav-link" href="{{ site.baseurl }}/data-tracker/signals-timing/"><i class="fa fa-car"></i> Signals</a>
+        <a class="nav-link" href="{{ site.baseurl }}/data-tracker/signals-on-flash/"><i class="fa fa-phone"></i> Service Requests</a>
+        <a class="nav-link" href="{{ site.baseurl }}/data-tracker/signals-timing/"><i class="fa fa-wrench"></i> Work Orders</a>
+        <a class="nav-link" href="{{ site.baseurl }}/data-tracker/signal-requests/"><i class="fa fa-inbox"></i> Signal Requests</a>
+        <nav>
+    </div>
+  </div>
+</div>
