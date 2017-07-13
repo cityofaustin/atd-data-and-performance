@@ -203,7 +203,41 @@
   padding: 10px;
 }
 
-  
+
+/*signal controller state styles*/
+.status-badge {
+  white-space: pre;
+  padding: 4px;
+  margin: 2px;
+  border-radius: 3px;
+  box-shadow: 0px 1px 2px 0px gray;
+}
+
+.status-1 {
+  color: #fff;
+  background-color: #BA5099;
+}
+
+.status-2 {
+  color: #fff;
+  background-color: #8C2025;
+}
+
+.status-3 {
+  color: #fff;
+  background-color: #F1AC37;
+}
+
+.muted {
+  color: #707070;
+}
+
+.popover {
+/*  match leaflet popup content*/
+  color: #fff;
+  background: rgba(48, 51, 56, .95);
+  border-radius: 3px;
+}
 
 /* styling for card-template */
 .dash-panel {
@@ -215,6 +249,12 @@
 }
 
 .dash-panel:hover {
+    background-color: #f7f7f7;
+    /*color: white;*/
+    cursor: pointer;
+}
+
+.dash-panel-borderless:hover {
     background-color: #f7f7f7;
     /*color: white;*/
     cursor: pointer;

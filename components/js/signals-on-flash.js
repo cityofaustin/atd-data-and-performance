@@ -28,9 +28,9 @@ var t2 = d3.transition()
 
 var STATUS_TYPES_READABLE = {
     0: "OK",
-    1: "Scheduled Flash",
-    2: "Unscheduled Flash",
-    3: "Communication Outage",
+    1: "<i class='fa fa-clock-o'></i> Scheduled Flash",
+    2: "<i class='fa fa-exclamation-triangle'></i> Flash",
+    3: "<i class='fa fa-phone'></i> Comm  Outage",
     5: "Communication Disabled",
     11: "Police Flash"
 }
@@ -66,7 +66,7 @@ var conflict_flash_marker = new L.ExtraMarkers.icon({
 
 var cabinet_flash_marker = new L.ExtraMarkers.icon({
     icon: 'fa-clock-o',
-    markerColor: 'orange',
+    markerColor: 'pink',
     shape: 'circle',
     prefix: 'fa'
 });
@@ -164,7 +164,7 @@ function populateInfoStat(dataset, divId, status_array, postUpdate) {
 
         d3.select("#" + divId)
             .select("text")
-                .classed("goal-met", true);
+                .attr('class', 'muted')
 
     }
 
@@ -180,7 +180,6 @@ function updateInfoStat(dataset, divId) {
 
     d3.select("#" + divId)
             .select("text")
-            .classed("goal-unmet", true)
             .transition(t1)
             .tween("text", function () {
                 
@@ -378,7 +377,7 @@ function populateTable(dataset) {
             { 
                 data: 'operation_state', 
                 "render": function ( data, type, full, meta ) {
-                    return STATUS_TYPES_READABLE[data];
+                    return "<span class='status-badge status-" + data + "'>" + STATUS_TYPES_READABLE[data] + "</span>";
                 }
             },
 
