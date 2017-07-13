@@ -783,8 +783,6 @@ function createTableListeners() {
             highlightLayer(SYSTEMS_LAYERS[system_id]);
 
             map.fitBounds(SYSTEMS_LAYERS[system_id].getBounds());
-
-            //  location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
             
     });
 
