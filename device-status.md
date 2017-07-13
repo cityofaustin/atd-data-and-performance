@@ -1,5 +1,5 @@
 ---
-layout: dash-template
+layout: dash-layout
 title: Device Status | Transportation Data and Performance Hub 
 title_short: Device Status
 description: 

@@ -3,52 +3,45 @@
   
     {% include head.html %}
   
-    <body>
+  <body>
+
+    {% include modal.html %}
+
+    {% include coa-header.html %}
+    
+    {% include dash-top-nav.html %}
+  
+    <div class="container-fluid" id="dash-container">
+    
+      {% include quote-of-the-week-row.html %}
       
-        {% include coa-header.html %}
-        
-        {% include dash-top-nav.html %}
-      
-      <div class="container-fluid" id="dash-container">
-        
-        {% include modal.html %}
+      {% include map-selector-row.html %}
 
-        {% include quote-of-the-week-row.html %}
-        
-        {% include map-selector-row.html %}
+      <div class="row" id="info-row-1">
 
-        <div class="row" id="info-row-1">
-          <div class="col-md-4 info-text" id="info-1">
-            <h4 class="info-header">What am I Looking At?</h4>
-            <p class="about">
-              This dashboard reports the progress of the Austin Transportation Department's Annual Signal Timing Program. Beginning in 2017, traffic signal engineers will re-time approximately 1/3 of the city’s 1,000+ signals each year, with the goal of ensuring signals are timed for optimum safety and performance.
-              <a href="#about"> More info</a>
-            </p>
-          </div>
-
-          <div class="col-md-4 info text-center" id="info-2">
-            <h4 class="info-header">Signals Re-Timed <i class="fa fa-info-circle" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Number of traffic signals re-timed this fiscal year, as a percentage of our annual goal." data-original-title="" title=""></i></h4>
-          </div>
-
-          <div class="col-md-4 info text-center" id="info-3">
-            <h4 class="info-header">Travel Time Reduced <i  class="fa fa-info-circle" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="The volume-weighted average % change in travel time, across all corridors, as a result of signal re-timing."></i></h4>
-          </div>
-
+        <div class="col-md-4 info-text" id="info-1">
+          <h4 class="info-header">What am I Looking At?</h4>
+          <p class="about">
+            This dashboard reports the progress of the Austin Transportation Department's Annual Signal Timing Program. Beginning in 2017, traffic signal engineers will re-time approximately 1/3 of the city’s 1,000+ signals each year, with the goal of ensuring signals are timed for optimum safety and performance.
+            <a href="#about"> More info</a>
+          </p>
         </div>
 
-        <div class="row data-row" id="data-row-1">
+        <div class="col-md-4 info text-center" id="info-2">
+          <h4 class="info-header">Signals Re-Timed <i class="fa fa-info-circle" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Number of traffic signals re-timed this fiscal year, as a percentage of our annual goal." data-original-title="" title=""></i></h4>
+        </div>
+
+        <div class="col-md-4 info text-center" id="info-3">
+          <h4 class="info-header">Travel Time Reduced <i  class="fa fa-info-circle" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="The volume-weighted average % change in travel time, across all corridors, as a result of signal re-timing."></i></h4>
+        </div>
+
+      </div>
+
+      <div class="row data-row" id="data-row-1">
           
-          <div class="col-lg-5 no-gutters" id="select-search-table-col">  <!-- buttons, search, and table column -->
+          {% include table-col-default.html %}
 
-            {% include search-row.html %}
-
-            {% include table-row.html %}
-
-         </div> <!-- end table/search/button column -->
-
-        <div class="col-lg-7 map-container p-md-0 mt-2">
-          <div class="col map" id="map"></div>
-        </div> <!-- end map container -->
+          {% include map-col-default.html %}
 
       </div>  <!-- end data row -->
       
@@ -58,7 +51,7 @@
           <h2>About Signal Timing</h2>
         </div>
       
-        <div class="col info-text" id="about-2">
+        <div class="col info-text" id="about">
           <h4 class="info-header">How do you choose which signals will be re-timed?</h4>
           <p class="about">
             We identify corridors for re-timing on annual basis, typically in October. Every signal in our system is re-timed at least once every three years. You can view the corridors that have been scheduled for re-timing in the above table.
