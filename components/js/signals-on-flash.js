@@ -124,6 +124,10 @@ function main(data){
 
         populateTable(data);
 
+        $('#search_input').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        } );
+
 
     } else {
 
