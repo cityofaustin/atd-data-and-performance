@@ -48,7 +48,7 @@ var config = [
         'init_val' : 0,
         'format' : 'round',
         'infoStat' : true,
-        'caption' : '',
+        'caption' : 'Pedestrian signals turned-on',
         'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("PHB") AND signal_status IN ("TURNED_ON") limit 9000',
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { return( [x[0]['count']] )},
@@ -158,8 +158,6 @@ var config = [
 
 $(document).ready(function(){
 
-    $('[data-toggle="popover"]').popover();
-
     for (var i = 0; i < config.length; ++i) {
 
         config[i].panel = createPanel('panel-row', config[i].id, config[i].icon, config[i].display_name)
@@ -174,16 +172,9 @@ $(document).ready(function(){
 
             var id = config[i].id;
 
-            console.log(url);
-
             q.defer(d3.json, url)
 
         }
-
-    $(function() {
-        $('.dash-panel-header-container').matchHeight();
-        $('.dash-panel').matchHeight();
-    });
 
     }
 
@@ -226,7 +217,6 @@ function buildSocrataUrl(data) {
 
 
 function main(data) {
-    console.log(data);
 
     var infos = appendInfoText(data);
 
@@ -261,21 +251,35 @@ function main(data) {
 
 
 
-
 function appendInfoText(data) {
 
     d3.selectAll('.loading').remove();
 
-    var selection = d3.selectAll('.info')
+    var selection = d3.selectAll('.dash-panel')
         .data(data)
+        .append('div')
+        .attr('class', 'row')
+        .append('div')
+        .attr('class', 'col info-metric')
         .append('text')
         .text(function(d) {
             return d.init_val;
         });
 
+    d3.selectAll('.dash-panel')
+        .attr('data-container', 'body')
+        .attr('data-trigger', 'hover')
+        .attr('data-toggle', 'popover')
+        .attr('data-placement', 'top')
+        .attr('data-content', function(d) {
+            return d.caption;
+        });
+
+    $('[data-toggle="popover"]').popover();
+
     return selection;
 
-}
+}   
 
 
 function transitionInfoStat(selection, options) {
@@ -326,8 +330,14 @@ function postUpdateDate(selection, resource_id, event) {
 
                 update_date = readableDate( update_date_time );
 
-                selection.append('h5')
-                    .attr("class", "dash-panel-footer-text")
+                selection
+                    .append('div')
+                    .attr('class', 'row')
+                    .append('div')
+                    .attr('class', 'col')
+                    // .select('.info-metric')
+                    .append('h6')
+                    .attr("class", "dash-panel-footer-text text-left")
                     .html("Updated " + update_date +
                         " | <a href=" + 'empty' + " target='_blank'> Data <i  class='fa fa-download'></i> </a>"
                 );
@@ -356,7 +366,7 @@ function readableDate(date) {
 
     if (update_date == today) {
     
-        return "today";
+        return "Today";
     
     } else {
     
@@ -366,23 +376,29 @@ function readableDate(date) {
 }
 
 
+function createPanel(row_container_id, panel_id, panel_icon, panel_name) {
 
-function createPanel(container_id, panel_id, panel_icon, panel_name) {
+    //  create container and panel divs
+    var panel = d3.select("#" + row_container_id)
+        .append("div")
+        .attr("class", "col-sm-6 col-md-4 col-lg-3 dash-panel-container p-2")
+        .append("div")
+        .attr("class", "col dash-panel h-100 p-2")
 
-    var panel = d3.select("#" + container_id)
-        .append("div")
-        .attr("class", "col-sm-2 dash-panel-container")
-        .append("div")
-        .attr("class", "info info-small dash-panel")
         .attr("id", panel_id);
 
+    //  create header
+    var header = panel.append("div")
+        .attr("class", "row dash-panel-header");
 
-    panel.append('div')
-        .attr('class', 'dash-panel-header-container')
-            .append("h4")
-            .attr("class", "dash-panel-header")
-            .html("<i class='fa fa-" + panel_icon + "' ></i> " + panel_name)
+    header.append("div")
+        .attr("class", "col-1 dash-panel-icon")
+        .html("<h4><i class='fa fa-" + panel_icon + "' ></i></h4>");
 
+    header.append("div")
+        .attr("class", "col dash-panel-title")
+        .html("<h4>" + panel_name + "</h4>");
+    
     panel.append("p").attr("class", "loading").text("Loading...");
 
     return panel;

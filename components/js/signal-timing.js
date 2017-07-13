@@ -26,12 +26,13 @@ var ANNUAL_GOALS = {
 
 };
 
+var table_cols = ['Corridor Name', 'Number of Signals', 'Status', 'Travel Time Change', 'Engineer Note'];
 
 var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/g8w2-8uap.json';
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json';
 
-var LOGFILE_URL = "https://data.austintexas.gov/resource/n5kp-f8k4.json?$query=SELECT * WHERE event='signal_retiming' AND (created > 0 OR updated > 0 OR deleted > 0) ORDER BY timestamp DESC LIMIT 1";
+var LOGFILE_URL = "https://data.austintexas.gov/resource/n5kp-f8k4.json?$query=SELECT * WHERE event='signal_retiming_update' AND (created > 0 OR updated > 0 OR deleted > 0) ORDER BY timestamp DESC LIMIT 1";
 
 var STATUS_SELECTED = 'COMPLETED';
 
@@ -132,15 +133,11 @@ var SIGNAL_MARKERS = [];
 
 var map_expanded = false;
 
-var default_map_size = 300;
-
-var expanded_map_size = 600;
-
 var SYSTEMS_LAYERS = {};
 
 var visible_layers = new L.featureGroup();
 
-var table_height = '40vh';
+var table_height = '60vh';
 
 $(document).ready(function () {
 
@@ -153,11 +150,14 @@ $(document).ready(function () {
 });
 
 var collapsed_class = 'col-sm-6';
-
-var expanded_class = 'col-sm-12'
+var expanded_class = 'col-sm-12';
 
 //  fetch retiming data
 d3.json(SYSTEM_RETIMING_URL, function(dataset) {
+    
+    $('#map_selectors').append('<div class="col" id="map_selector_container"></div>');
+
+    $('#map_selector_container').append('<div class="row"><div class="col"><h5> Fiscal Year <i class="fa fa-info-circle" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="right" data-content="The City of Austin Fiscal Year Begins on October 1." data-original-title="" title=""></i></h5></div></div>');
 
     SOURCE_DATA_SYSTEMS = dataset;
 
@@ -167,17 +167,29 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
         groupData(SOURCE_DATA_SYSTEMS, function() {
 
-            createProgressChart("info-1", "retiming_progress");
+            createProgressChart("info-2", "retiming_progress");
 
-            populateInfoStat("info-2", "travel_time_reduction", t1);
+            populateInfoStat("info-3", "travel_time_reduction", t1);
+
+            var cols = createTableCols('data_table', table_cols);
 
             populateTable(SOURCE_DATA_SYSTEMS, function(){
+
+                $(function () {
+                    $('[data-toggle="popover"]').popover()
+                })
 
                 getLogData(LOGFILE_URL);
 
                 createTableListeners();
 
             });
+
+            $('#search_input').on( 'keyup', function () {
+    
+            table.search( this.value ).draw();
+
+    } );
 
         });
 
@@ -189,23 +201,6 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
             map.on('zoomend', function() {
 
                 setMarkerSizes();
-
-            });
-
-
-            d3.select("#map-expander").on("click", function(){
-
-                if (map_expanded) {
-        
-                    map_expanded = false;
-                    collapseMap('table_col', 'map_col');
-
-                } else {
-                    
-                    map_expanded = true;
-
-                    expandMap('table_col', 'map_col');
-                }
 
             });
 
@@ -322,25 +317,25 @@ function groupData(dataset, updateCharts) {
 
     updateCharts();
 
-    createYearSelectors("selectors", function(){
+    createYearSelectors("map_selector_container", function(selectors){
 
-        d3.select("#selectors").selectAll(".btn").on("click", function(d){
+        $(".btn-map-selector").on('click', function() {
 
-            d3.select("#selectors").selectAll(".btn").classed("active", false)
+            $(".btn-map-selector").removeClass('active').attr('aria-pressed', false);
 
-            d3.select(this).classed("active", true);
+            $(this).addClass('active').attr('aria-pressed', true);
+                            
+            previous_selection = selected_year;
+
+            selected_year = $(this).attr('value');
 
             t2 = d3.transition()
                 .ease(d3.easeQuad)
                 .duration(t2_duration);
-            
-            previous_selection = selected_year;
 
-            selected_year = d3.select(this).node().value;
+            updateProgressChart("info-2", t2);
 
-            updateProgressChart("info-1", t2);
-
-            updateInfoStat("info-2", "travel_time_reduction", t2);
+            updateInfoStat("info-3", "travel_time_reduction", t2);
 
             populateTable(SOURCE_DATA_SYSTEMS, function(){
 
@@ -361,35 +356,42 @@ function createYearSelectors(divId, createListeners) {
 
     data = GROUPED_RETIMING_DATA.keys().sort();
 
-    //  data = ['2017', '2016', '2015'];
-
-    d3.select("#" + divId)
-        .selectAll("button")
+    var selectors = d3.select("#" + divId)
+        .append('div')
+        .attr('class', 'row pb-2')
+        .append('div')
+        .attr('class', 'btn-group col')
+        .attr('role', 'group')
+        .selectAll('btn')
         .data(data)
         .enter()
-        .append("button")
-        .attr("type", "button")
-        .attr("class", function(d, i) {
-
+        .append('btn')
+        .attr('type', 'button')
+        .attr('class', 'btn btn-primary btn-map-selector')
+        .attr('aria-pressed', function(d, i) {
             if (data[i] == selected_year) {
-        
-                return "btn btn active";
-        
-            }  else {
-                
-                return "btn btn";
-
+                return true;
             }
-
+            else {
+                return false;
+            }
         })
-        .text(function(d) {
-            return d;
+        .classed('active', function(d, i) {
+            if (data[i] == selected_year) {
+                return true;
+            }
+            else {
+                return false;
+            }
         })
         .attr("value", function(d) {
-            return +d;
+            return d;
+        })
+        .html(function(d){
+            return d;
         });
 
-    createListeners();
+    createListeners(selectors);
 }
 
 
@@ -413,9 +415,9 @@ function populateInfoStat(divId, metric, transition) {
         .transition(transition)
         .attr("class", function(){
             if (metric_value >= +goal) {
-                return "goal-met";
+                return "goal-met info-metric";
             } else {
-                return "goal-unmet"
+                return "goal-unmet info-metric"
             }
         })
         .tween("text", function () {
@@ -474,9 +476,9 @@ function updateInfoStat(divId, metric, transition) {
         .attr("class", function(){
 
             if (metric_value >= +goal) {
-                return "goal-met";
+                return "goal-met info-metric";
             } else {
-                return "goal-unmet"
+                return "goal-unmet info-metric";
             }
         })
         .tween("text", function () {
@@ -521,7 +523,7 @@ function createProgressChart(divId, metric) {  //  see https://bl.ocks.org/mbost
         .startAngle(0);
 
     var svg = d3.select("#" + divId)
-        .select("svg")
+        .append("svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -531,12 +533,12 @@ function createProgressChart(divId, metric) {  //  see https://bl.ocks.org/mbost
 
     var background = g.append("path")
         .datum({endAngle: tau})
-        .attr("class", "planned")
+        .attr("class", "pie-gray")
         .attr("d", arc);
 
     var progress = g.append("path")
         .datum({endAngle: pct_complete * tau})
-        .attr("class", "done")
+        .attr("class", "pie-green")
         .attr("id", "progress-pie")
         .attr("d", arc);
 
@@ -544,7 +546,7 @@ function createProgressChart(divId, metric) {  //  see https://bl.ocks.org/mbost
 
     pieTextContainer.append("text")
         .attr("id", "pieTextLarge")
-        .attr("class", "pieText")
+        .attr("class", "pie-info")
         .attr("y", height / 2)
         .attr("x", width / 2)
         .html(function (d) {
@@ -555,7 +557,7 @@ function createProgressChart(divId, metric) {  //  see https://bl.ocks.org/mbost
         .attr("id", "pieTextSmall")
         .attr("y", height / 1.6)
         .attr("x", width / 2 )
-        .attr("class", "pieTextSmall")
+        .attr("class", "pie-info-small")
         .html("0 of " + 0);
 
     
@@ -572,7 +574,9 @@ function postUpdateDate(log_data, divId){
     var update_time = formatTime( update_date_time );
 
     d3.select("#" + divId)
-        .append('h5')
+        .append('div')
+        .attr('class', 'col justify-content-center text-center')
+        .append('h6')
         .html("Updated " + update_date + " at " + update_time +
             " | <a href='https://data.austintexas.gov/browse?q=traffic+signals' target='_blank'> Data <i  class='fa fa-download'></i> </a>" );
 
@@ -587,7 +591,7 @@ function getLogData(url) {
         'url' : url,
         'dataType' : "json",
         'success' : function (data) {
-            postUpdateDate(data, "update-info");
+            postUpdateDate(data, "info-row-1");
         }
     
     }); //end get data
@@ -689,18 +693,18 @@ function populateTable(dataset, next) {
 
     table = $('#data_table')
         .on( 'init.dt', function () {
-        
-            $('[data-toggle="popover"]').popover();
-
-            adjustMapHeight();
-
+            
+            if (map) {
+                resetMap();
+            }
+            
         })
 
         .DataTable({
             data : filtered_data,
             rowId : 'system_id',
             scrollY : table_height,
-            scrollCollapse : true,
+            scrollCollapse : false,
             paging : false,
             bLengthChange: false,
             autoWidth : false,
@@ -760,6 +764,8 @@ function populateTable(dataset, next) {
             ]
         })
 
+    d3.select("#data_table_filter").remove();
+
     next();
 
 } //  end populateTable
@@ -777,8 +783,6 @@ function createTableListeners() {
             highlightLayer(SYSTEMS_LAYERS[system_id]);
 
             map.fitBounds(SYSTEMS_LAYERS[system_id].getBounds());
-
-            //  location.href = $(this).find("a").attr("href");  // http://stackoverflow.com/questions/4904938/link-entire-table-row
             
     });
 
@@ -1003,24 +1007,10 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
 
 
 
-function adjustMapHeight() {
+function resetMap() {
    //  make map same height as table
-
-    setTimeout(function(){ 
-        
-        table_div_height = document.getElementById('data-row').clientHeight;
-
-        d3.select("#map")
-            .transition(t2)
-            .style("height", table_div_height + "px")
-            .on("end", function() {
-                map.invalidateSize();
-                map.fitBounds(visible_layers.getBounds());
-            });            
-
-        console.log(table_div_height);
-
-    }, 200);
+    map.invalidateSize();
+    map.fitBounds(visible_layers.getBounds());
 
 }
 
@@ -1047,9 +1037,6 @@ function expandMap(table_div_id, map_div_id) {
 
 
 
-
-
-
 function collapseMap(table_div_id, map_div_id) {
     
     var table_div_height = document.getElementById(table_div_id).clientHeight;
@@ -1070,3 +1057,21 @@ function collapseMap(table_div_id, map_div_id) {
     table.draw();
 
 }
+
+
+function createTableCols(div_id, col_array) {
+
+    var cols = d3.select('#' + div_id).select('thead')
+        .append('tr')
+        .selectAll('th')
+        .data(col_array)
+        .enter()
+        .append('th')
+        .text(function(d) {
+            return d;
+        });
+
+    return cols;
+        
+}
+

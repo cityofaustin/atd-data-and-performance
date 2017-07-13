@@ -49,9 +49,9 @@ var icon_lookup = {
     'TRAFFIC' : 'fa-car'
 }
 
-var table_height = '40vh';
+var table_height = '60vh';
 
-var current_table_height;
+var table_cols = ['Location', 'Type', 'Status'];
 
 var map_options = {
         center : [30.28, -97.735],
@@ -125,6 +125,8 @@ function main(request_data){
 
     data = createMarkers(request_data, default_style);
 
+    var cols = createTableCols('data_table', table_cols);
+
     populateTable(data);
 
     $('#search_input').on( 'keyup', function () {
@@ -137,12 +139,10 @@ function main(request_data){
 
     });
 
-    d3.selectAll(".tableRow")
+    d3.selectAll("tr")
         .on("click", function(d){
 
             var marker_id = d3.select(this).attr("id");
-
-            var eval_type = d3.select(this).attr("data-eval-type");
 
             zoomToMarker(marker_id);
     });
@@ -254,10 +254,10 @@ function populateTable(data, divId, filters) {
         })
         .DataTable({
             data : data,
-            rowId : 'system_id',
+            rowId : 'request_id',
             scrollY : table_height,
-            scrollCollapse : true,
-            bInfo : false,
+            scrollCollapse : false,
+            bInfo : true,
             paging : false,
             columns: [
                 
@@ -418,24 +418,9 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
 
 
 function adjustMapHeight() {
-   //  make map same height as table
-
-    setTimeout(function(){ 
-        
-        table_div_height = document.getElementById('data-row').clientHeight;
-
-        d3.select("#map")
-            .transition(t2)
-            .style("height", table_div_height + "px")
-            .on("end", function() {
-                map.invalidateSize();
-                map.fitBounds(feature_layer.getBounds());
-            });            
-
-        console.log(table_div_height);
-
-    }, 200);
-
+    map.invalidateSize();
+    map.fitBounds(feature_layer.getBounds());
+    
 }
     
 
@@ -493,7 +478,7 @@ function zoomToMarker(marker) {
 
     for (var i = 0; i < data.length; i++ ) {
     
-        if ('$' + data[i].request_id == marker ) {
+        if (data[i].request_id == marker ) {
          
             map.fitBounds(
                 data[i].marker.getBounds(),
@@ -578,6 +563,21 @@ function collapseMap(table_div_id, map_div_id) {
 }
 
 
+function createTableCols(div_id, col_array) {
+
+    var cols = d3.select('#' + div_id).select('thead')
+        .append('tr')
+        .selectAll('th')
+        .data(col_array)
+        .enter()
+        .append('th')
+        .text(function(d) {
+            return d;
+        });
+
+    return cols;
+        
+}
 
 
 
