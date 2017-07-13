@@ -43,8 +43,8 @@ var STATUS_TYPES_READABLE = {
 */
 
 var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27&$order=timestamp+DESC&$limit=1'
-var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json"
-
+var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
+var data_count_url = "https://data.austintexas.gov/resource/xwqn-2f78.json?$query=select count(*) where SIGNAL_STATUS in ('TURNED_ON')";
 //  dummy data lots flashing
 //  var data_url = '../components/data/fake_intersection_data.json';
 
@@ -117,6 +117,13 @@ function main(data){
     populateInfoStat(data, "info-3", ['3'], function(){
 
     });
+
+    // populateInfoStat(data, "info-4", ['99'], function(){
+
+    //     var count = getSignalCount(data_count_url);
+
+    // });
+
 
     makeMap(data);
 
@@ -330,6 +337,8 @@ function applyStatusTypes(statusObject) {
     }
 }
 
+
+
 function getSignalData(url) {
     $.ajax({
         'async' : false,
@@ -360,6 +369,26 @@ function getLogData(url, divId) {
 
 }
 
+
+
+function getSignalCount(url) {
+
+    $.ajax({
+        'async' : false,
+        'global' : false,
+        'cache' : false,
+        'url' : url,
+        'dataType' : "json",
+        'success' : function (data) {
+            var fake_arr = new Array(+data[0].count)
+            
+            updateInfoStat(fake_arr, 'info-4');
+
+        }
+    
+    }); //end get data
+
+}
 
 
 function populateTable(dataset) {
@@ -485,3 +514,5 @@ function createTableCols(div_id, col_array) {
     return cols;
         
 }
+
+
