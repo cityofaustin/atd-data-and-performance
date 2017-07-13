@@ -251,7 +251,6 @@ function main(data) {
 
 
 
-
 function appendInfoText(data) {
 
     d3.selectAll('.loading').remove();
@@ -261,7 +260,7 @@ function appendInfoText(data) {
         .append('div')
         .attr('class', 'row')
         .append('div')
-        .attr('class', 'col info-metric text-left')
+        .attr('class', 'col info-metric')
         .append('text')
         .text(function(d) {
             return d.init_val;
@@ -331,10 +330,12 @@ function postUpdateDate(selection, resource_id, event) {
 
                 update_date = readableDate( update_date_time );
 
-                selection.append('div')
+                selection
+                    .append('div')
                     .attr('class', 'row')
                     .append('div')
                     .attr('class', 'col')
+                    // .select('.info-metric')
                     .append('h6')
                     .attr("class", "dash-panel-footer-text text-left")
                     .html("Updated " + update_date +
