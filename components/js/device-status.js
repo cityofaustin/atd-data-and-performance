@@ -495,7 +495,8 @@ function populateTable(data, divId) {
                     "render": function ( data, type, full, meta ) {
 
                         if ('location' in full) {
-                            return "<a class='tableRow' id='$" + full.location + "' data-toggle='modal' data-target='#exampleModalLong' '>" + data + "</a>";
+                            // return "<a class='tableRow' id='$" + full.location + "' data-toggle='modal' data-target='#exampleModalLong' '>" + data + "</a>";
+                            return "<a class='tableRow' id='$" + full.location + "' data-target='#exampleModalLong' '>" + data + "</a>";
                         } else {
                             return '';
                         }
