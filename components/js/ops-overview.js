@@ -48,7 +48,7 @@ var config = [
         'init_val' : 0,
         'format' : 'round',
         'infoStat' : true,
-        'caption' : '',
+        'caption' : 'Pedestrian signals turned-on',
         'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("PHB") AND signal_status IN ("TURNED_ON") limit 9000',
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { return( [x[0]['count']] )},
@@ -157,8 +157,6 @@ var config = [
 
 
 $(document).ready(function(){
-
-    $('[data-toggle="popover"]').popover();
 
     for (var i = 0; i < config.length; ++i) {
 
@@ -269,9 +267,20 @@ function appendInfoText(data) {
             return d.init_val;
         });
 
+    d3.selectAll('.dash-panel')
+        .attr('data-container', 'body')
+        .attr('data-trigger', 'hover')
+        .attr('data-toggle', 'popover')
+        .attr('data-placement', 'top')
+        .attr('data-content', function(d) {
+            return d.caption;
+        });
+
+    $('[data-toggle="popover"]').popover();
+
     return selection;
 
-}
+}   
 
 
 function transitionInfoStat(selection, options) {
@@ -356,7 +365,7 @@ function readableDate(date) {
 
     if (update_date == today) {
     
-        return "today";
+        return "Today";
     
     } else {
     
