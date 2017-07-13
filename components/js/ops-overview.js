@@ -219,7 +219,6 @@ function buildSocrataUrl(data) {
 
 
 function main(data) {
-    console.log(data);
 
     var infos = appendInfoText(data);
 
@@ -264,7 +263,7 @@ function appendInfoText(data) {
         .append('div')
         .attr('class', 'row')
         .append('div')
-        .attr('class', 'col info-text text-left')
+        .attr('class', 'col info-metric text-left')
         .append('text')
         .text(function(d) {
             return d.init_val;
@@ -367,22 +366,15 @@ function readableDate(date) {
 }
 
 
-function createPanel(container_id, panel_id, panel_icon, panel_name) {
+function createPanel(row_container_id, panel_id, panel_icon, panel_name) {
 
-
-    //  the reason you have a container is because without it margin and shit push things to the next wrap.
-
-    //  you need a container without styling!
-
-
-    //  create container
-    var panel = d3.select("#" + container_id)
+    //  create container and panel divs
+    var panel = d3.select("#" + row_container_id)
         .append("div")
-        .attr("class", "col-sm-3 dash-panel p-2 m-2 h-100")
-        // .append("div")
-        // .attr("class", "dash-panel p-2 h-100")
-        // .append("div")
-        // .attr("class", "row dash-panel h-100 no-gutters")
+        .attr("class", "col-sm-6 col-md-4 col-lg-3 dash-panel-container p-2")
+        .append("div")
+        .attr("class", "col dash-panel h-100 p-2")
+
         .attr("id", panel_id);
 
     //  create header

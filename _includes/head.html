@@ -16,6 +16,15 @@
     <link href='https://fonts.googleapis.com/css?family=News+Cycle' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/components/css/custom_new.css" type="text/css">
     
+    {% if page.custom_css %}
+      
+      {% for css_file in page.custom_css %}
+      
+        <link rel="stylesheet" href='{{ site.baseurl }}/components/css/{{ css_file }}.css' type="text/css">
+      
+      {% endfor %}
+      
+    {% endif %}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
