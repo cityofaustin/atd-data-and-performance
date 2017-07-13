@@ -8,14 +8,15 @@
       {% include coa-header.html %}
       
       {% include data-tracker-nav.html %}
-      
-      <script type="text/javascript">app_id="5942bca07acbea501f849f40";distribution_key="dist_2";</script>
-      <script type="text/javascript" src="https://loader.knack.com/5942bca07acbea501f849f40/dist_2/knack.js"></script>
-      <div id="knack-dist_2">Loading...</div>
+      <div class="container">
+        <div id="knack-dist_2">Loading...</div>
+      </div>
 
       <script src="{{site.baseurl}}/components/js/jquery.min.js"></script>
       <script src="{{site.baseurl}}/components/js/tether.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+      <script type="text/javascript">app_id="5942bca07acbea501f849f40";distribution_key="dist_2";</script>
+      <script type="text/javascript" src="https://loader.knack.com/5942bca07acbea501f849f40/dist_2/knack.js"></script>
 
       {% include footer.html %}
 
@@ -28,6 +29,14 @@
         {% endfor %}
         
       {% endif %}
+
+      <script>
+        //  close menu when nav clicked (because navving in data tracker doesn't actually refresh the page)
+        $('.nav-link').on('click', function() { 
+            $('#collapseMenu').collapse('hide')
+        });
+
+      </script>
       
   </body>
 </html>
