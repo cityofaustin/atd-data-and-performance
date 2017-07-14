@@ -416,7 +416,7 @@ function createPanel(row_container_id, panel_id, panel_icon, panel_name, data) {
     var panel = d3.select("#" + row_container_id)
         .append("div")
         .data([data])
-        .attr("class", "col-sm-6 col-md-4 col-lg-3 col-xl-2 dash-panel-container p-2")
+        .attr("class", "col-sm-6 col-md-4 col-lg-3 dash-panel-container p-2")
         .append("div")
         .attr("class", "col dash-panel h-100 p-2")
         .attr("id", panel_id);
