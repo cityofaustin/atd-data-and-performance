@@ -96,7 +96,22 @@ var config = [
         'data' : [0],
         'infoStat' : true,
         'caption' : "Traffic signals current flashing, as reported by the City of Austin's Advanced Traffic Management System",
-        'query' : 'select COUNT(signal_id) as count',
+        'query' : "select COUNT(signal_id) as count where operation_state='2'",
+        'resource_id' : '5zpr-dehc',
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'signal_status_update'
+    },
+    {
+        'id' : 'signals-comm-issue',
+        'row_container_id' : 'panel-row-3',
+        'display_name' : 'Communication Outage',
+        'icon' : 'phone',
+        'init_val' : 0,
+        'format' : 'round',
+        'data' : [0],
+        'infoStat' : true,
+        'caption' : "Traffic signals with communication outage, as reported by the City of Austin's Advanced Traffic Management System",
+        'query' : "select COUNT(signal_id) as count where operation_state='3'",
         'resource_id' : '5zpr-dehc',
         'data_transform' : function(x) { return( [x[0]['count']] )},
         'update_event' : 'signal_status_update'
@@ -172,6 +187,8 @@ $(document).ready(function(){
         if ( 'resource_id' in config[i] ) {
 
             var url = buildSocrataUrl(config[i]);
+
+            console.log(url);
 
             var id = config[i].id;
 
