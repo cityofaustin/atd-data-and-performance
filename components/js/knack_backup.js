@@ -7,7 +7,6 @@
 // });
 
 
-
 $(document).on('knack-page-render.any', function(event, page) {
   
     //  reload page on sign in to populate headers
