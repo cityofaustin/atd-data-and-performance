@@ -400,6 +400,7 @@ function populateTable(dataset) {
         scrollCollapse : false,
         bInfo : true,
         paging : false,
+        order: [[ 1, "desc" ]],
         columns: [
             { data: 'location_name', 
                 "render": function ( data, type, full, meta ) {

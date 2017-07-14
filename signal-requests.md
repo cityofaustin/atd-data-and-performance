@@ -5,6 +5,8 @@ description: Austin Transportation Department operations dashboard depicting inf
 title_short: Signal Requests
 custom_js:
 - signal-requests
+custom_css:
+- dashboard
 ---
 
 

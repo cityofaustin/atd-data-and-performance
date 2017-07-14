@@ -1,10 +1,10 @@
+// custom js from an early version of data tracker
 
 // remove menu on knack beta theme
 // $(document).on('knack-page-render.any', function(event, page) {
 //   var navRow = $('#kn-app-header').detach();
 //   navRow.appendTo('#data-tracker-nav')
 // });
-
 
 
 $(document).on('knack-page-render.any', function(event, page) {

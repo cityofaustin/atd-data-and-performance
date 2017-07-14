@@ -7,6 +7,7 @@ custom_js:
 - leaflet.extra-markers.min
 - signals-on-flash
 custom_css:
+- dashboard
 - leaflet.extra-markers.min
 ---
 
