@@ -145,18 +145,18 @@ var config = [
         'data_transform' : function(x) { return( [x[0]['count']] )},
         'update_event' : 'signals_update'
     },
-    {
-        'id' : 'school-beacons',
-        'row_container_id' : 'panel-row-1',
-        'display_name' : 'School Beacons',
-        'icon' : 'bus',
-        'init_val' : 0,
-        'format' : 'round',
-        'data' : [537],
-        'infoStat' : true,
-        'caption' : '',
-        'update_event' : undefined
-    }
+    // {
+    //     'id' : 'school-beacons',
+    //     'row_container_id' : 'panel-row-1',
+    //     'display_name' : 'School Beacons',
+    //     'icon' : 'bus',
+    //     'init_val' : 0,
+    //     'format' : 'round',
+    //     'data' : [537],
+    //     'infoStat' : true,
+    //     'caption' : '',
+    //     'update_event' : undefined
+    // }
     // {
     //     'id' : 'bcycle-trips',
     //     'display_name' : 'B-Cycle Trips',
