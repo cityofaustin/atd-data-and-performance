@@ -5,4 +5,6 @@ title_short: Device Status
 description: 
 custom_js:
 - device-status
+custom_css:
+- dashboard
 ---
