@@ -92,8 +92,6 @@ p.quote-of-the-week {
 }
 
 
-
-/* styling for card-template */
 .dash-panel {
     /*background-color: #efeff7;*/
     border-radius: 2px;
@@ -119,8 +117,14 @@ p.quote-of-the-week {
 }
 
 .dash-panel-footer-text {
+    font-size: .8em;
     color: #707070;
 }
+
+.panel-title-row {
+  background-color: #e5e5e5;
+}
+
 
 .pie-gray {
   fill: #bfbfbf;

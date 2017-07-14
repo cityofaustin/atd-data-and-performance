@@ -29,26 +29,29 @@ var q = d3.queue();
 
 var config = [
 
-      {
+    {
         'id' : 'traffic_signals',
+        'row_container_id' : 'panel-row-1',
         'display_name' : 'Traffic Signals',
         'icon' : 'car',
         'init_val' : 0,
         'format' : 'round',
         'infoStat' : true,
-        'caption' : 'Turned On',
+        'caption' : 'Total traffic signals maintained by the City of Austin',
         'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("TRAFFIC") AND signal_status IN ("TURNED_ON") limit 9000',
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { return( [x[0]['count']] )},
         'update_event' : 'signals_update'
-    },{
+    },
+    {
         'id' : 'phbs',
+        'row_container_id' : 'panel-row-1',
         'display_name' : 'Pedestrian Beacons',
         'icon' : 'male',
         'init_val' : 0,
         'format' : 'round',
         'infoStat' : true,
-        'caption' : 'Pedestrian signals turned-on',
+        'caption' : 'Total pedestrian beacons maintained by the City of Austin',
         'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("PHB") AND signal_status IN ("TURNED_ON") limit 9000',
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { return( [x[0]['count']] )},
@@ -56,12 +59,13 @@ var config = [
     },
     {
         'id' : 'cameras',
+        'row_container_id' : 'panel-row-1',
         'display_name' : 'CCTV',
         'icon' : 'video-camera',
         'init_val' : 0,
         'format' : 'round',
         'infoStat' : true,
-        'caption' : '',
+        'caption' : 'Total traffic cameras maintained by the City of Austin.',
         'query' : 'SELECT COUNT(camera_status) as count where upper(camera_mfg) not in ("GRIDSMART") and camera_status in ("TURNED_ON")',
         'resource_id' : 'fs3c-45ge',
         'data_transform' : function(x) { return( [x[0]['count']] )},
@@ -69,13 +73,14 @@ var config = [
     },
     {
         'id' : 'sensors',
+        'row_container_id' : 'panel-row-1',
         'display_name' : 'Travel Sensors',
         'icon' : 'rss',
         'init_val' : 0,
         'format' : 'round',
         'data' : [145],
         'infoStat' : true,
-        'caption' : '',
+        'caption' : 'Total travel sensors maintained by the City of Austin',
         'query' : 'SELECT COUNT(sensor_type) as count WHERE sensor_status in ("TURNED_ON")',
         'resource_id' : 'wakh-bdjq',
         'data_transform' : function(x) { return( [x[0]['count']] )},
@@ -83,27 +88,44 @@ var config = [
     },
     {
         'id' : 'signals-on-flash',
+        'row_container_id' : 'panel-row-3',
         'display_name' : 'Signals on Flash',
         'icon' : 'exclamation-triangle',
         'init_val' : 0,
         'format' : 'round',
         'data' : [0],
         'infoStat' : true,
-        'caption' : '',
-        'query' : 'select COUNT(signal_id) as count',
+        'caption' : "Traffic signals current flashing, as reported by the City of Austin's Advanced Traffic Management System",
+        'query' : "select COUNT(signal_id) as count where operation_state='2'",
+        'resource_id' : '5zpr-dehc',
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'signal_status_update'
+    },
+    {
+        'id' : 'signals-comm-issue',
+        'row_container_id' : 'panel-row-3',
+        'display_name' : 'Communication Outage',
+        'icon' : 'phone',
+        'init_val' : 0,
+        'format' : 'round',
+        'data' : [0],
+        'infoStat' : true,
+        'caption' : "Traffic signals with communication outage, as reported by the City of Austin's Advanced Traffic Management System",
+        'query' : "select COUNT(signal_id) as count where operation_state='3'",
         'resource_id' : '5zpr-dehc',
         'data_transform' : function(x) { return( [x[0]['count']] )},
         'update_event' : 'signal_status_update'
     },
     {
         'id' : 'signal-timing',
+        'row_container_id' : 'panel-row-2',
         'display_name' : 'Signals Re-Timed',
         'icon' : 'clock-o',
         'init_val' : 0,
         'format' : 'round',
         'data' : [140],
         'infoStat' : true,
-        'caption' : '',
+        'caption' : 'Traffic signals retimied this fiscal year',
         'query' : 'SELECT SUM(signal_count) as count WHERE retime_status IN ("COMPLETED") and scheduled_fy in ("' + fiscal_year + '")',
         'resource_id' : 'ufnm-yzxy',
         'data_transform' : function(x) { return( [x[0]['count']] )},
@@ -111,12 +133,13 @@ var config = [
     },
     {
         'id' : 'prev_maint',
+        'row_container_id' : 'panel-row-2',
         'display_name' : 'Preventative Maintenance',
         'icon' : 'medkit',
         'init_val' : 0,
         'format' : 'round',
         'infoStat' : true,
-        'caption' : 'Turned On',
+        'caption' : 'Signals that have received preventative maintenance this fiscal year.',
         'query' : 'SELECT COUNT(signal_pm_max_fiscal_year) as count WHERE signal_pm_max_fiscal_year IN ("' + fiscal_year + '")',
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { return( [x[0]['count']] )},
@@ -124,6 +147,7 @@ var config = [
     },
     {
         'id' : 'school-beacons',
+        'row_container_id' : 'panel-row-1',
         'display_name' : 'School Beacons',
         'icon' : 'bus',
         'init_val' : 0,
@@ -160,15 +184,11 @@ $(document).ready(function(){
 
     for (var i = 0; i < config.length; ++i) {
 
-        config[i].panel = createPanel('panel-row', config[i].id, config[i].icon, config[i].display_name)
-
-    }
-
-    for (var i = 0; i < config.length; ++i) {
-
         if ( 'resource_id' in config[i] ) {
 
             var url = buildSocrataUrl(config[i]);
+
+            console.log(url);
 
             var id = config[i].id;
 
@@ -218,9 +238,15 @@ function buildSocrataUrl(data) {
 
 function main(data) {
 
-    var infos = appendInfoText(data);
+    for (var i = 0; i < config.length; ++i) {
 
-    var infos = transitionInfoStat(infos, t_options, 'TURNED_ON' );
+        config[i].panel = createPanel(config[i].row_container_id, config[i].id, config[i].icon, config[i].display_name, config[i])
+
+    }
+
+    var panels = appendInfoText(data);
+
+    var panels = transitionInfoStat(panels, t_options, 'TURNED_ON' );
 
     for (var i = 0; i  < config.length; i++ ) {
 
@@ -255,13 +281,14 @@ function appendInfoText(data) {
 
     d3.selectAll('.loading').remove();
 
-    var selection = d3.selectAll('.dash-panel')
-        .data(data)
+    var panel_content = d3.selectAll('.dash-panel')
         .append('div')
         .attr('class', 'row')
         .append('div')
-        .attr('class', 'col info-metric')
-        .append('text')
+        .attr('class', 'col')
+
+    panel_content.append('text')
+        .attr('class', 'info-metric')
         .text(function(d) {
             return d.init_val;
         });
@@ -277,7 +304,7 @@ function appendInfoText(data) {
 
     $('[data-toggle="popover"]').popover();
 
-    return selection;
+    return d3.selectAll('.dash-panel');
 
 }   
 
@@ -288,7 +315,8 @@ function transitionInfoStat(selection, options) {
         .ease(options.ease)
         .duration(options.duration);
 
-    selection.transition(t)  //  do this for each selection in sequence
+    selection.selectAll('.info-metric')
+        .transition(t)  //  do this for each selection in sequence
         .tween('text', function () {
             
             var that = d3.select(this);
@@ -315,7 +343,10 @@ function transitionInfoStat(selection, options) {
 
 function postUpdateDate(selection, resource_id, event) {
     
-    var url = 'https://data.austintexas.gov/resource/' + resource_id + '.json?$select=timestamp&$where=event=%27' + event + '%27&$order=timestamp+DESC&$limit=1';
+    
+    var url = 'https://data.austintexas.gov/resource/' + resource_id + '.json?$select=timestamp&$where=event=%27' + event + '%27%20AND%20%28created%20%3E%200%20OR%20updated%20%3E%200%20OR%20deleted%20%3E%200%29%20&$order=timestamp+DESC&$limit=1';
+
+    // decoded: https://data.austintexas.gov/resource/i9se-t8hz.json?$select=timestamp&$where=event='cameras_update' AND (created > 0 OR updated > 0 OR deleted > 0) &$order=timestamp DESC&$limit=1
 
     if (event) {
         
@@ -326,9 +357,12 @@ function postUpdateDate(selection, resource_id, event) {
             'url' : url,
             'dataType' : "json",
             'success' : function (data) {
+                
                 var update_date_time = new Date(data[0].timestamp * 1000);
 
-                update_date = readableDate( update_date_time );
+                var update_date = readableDate( update_date_time );
+
+                var update_time = formats.formatTime(update_date_time)
 
                 selection
                     .append('div')
@@ -338,7 +372,7 @@ function postUpdateDate(selection, resource_id, event) {
                     // .select('.info-metric')
                     .append('h6')
                     .attr("class", "dash-panel-footer-text text-left")
-                    .html("Updated " + update_date +
+                    .html("Updated " + update_date + " at " + update_time + 
                         " | <a href=" + 'empty' + " target='_blank'> Data <i  class='fa fa-download'></i> </a>"
                 );
             }
@@ -346,7 +380,7 @@ function postUpdateDate(selection, resource_id, event) {
 
     } else {
 
-        selection.append('h5')
+        selection.append('h6')
             .attr("class", "dash-panel-footer-text")
             .html("<a href=" + 'empty' + " target='_blank'> Data <i  class='fa fa-download'></i> </a>");
     }
@@ -366,7 +400,7 @@ function readableDate(date) {
 
     if (update_date == today) {
     
-        return "Today";
+        return "today";
     
     } else {
     
@@ -376,15 +410,15 @@ function readableDate(date) {
 }
 
 
-function createPanel(row_container_id, panel_id, panel_icon, panel_name) {
+function createPanel(row_container_id, panel_id, panel_icon, panel_name, data) {
 
     //  create container and panel divs
     var panel = d3.select("#" + row_container_id)
         .append("div")
+        .data([data])
         .attr("class", "col-sm-6 col-md-4 col-lg-3 dash-panel-container p-2")
         .append("div")
         .attr("class", "col dash-panel h-100 p-2")
-
         .attr("id", panel_id);
 
     //  create header
