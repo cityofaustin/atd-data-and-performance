@@ -145,6 +145,20 @@ var config = [
         'data_transform' : function(x) { return( [x[0]['count']] )},
         'update_event' : 'signals_update'
     },
+    {
+        'id' : 'signal_construction',
+        'row_container_id' : 'panel-row-3',
+        'display_name' : 'Under Construction',
+        'icon' : 'wrench',
+        'init_val' : 0,
+        'format' : 'round',
+        'infoStat' : true,
+        'caption' : 'Signals that are currently being constructed',
+        'query' : 'SELECT COUNT(signal_status) as count WHERE signal_status IN ("CONSTRUCTION")',
+        'resource_id' : 'xwqn-2f78',
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'signals_update'
+    }
     // {
     //     'id' : 'school-beacons',
     //     'row_container_id' : 'panel-row-1',
