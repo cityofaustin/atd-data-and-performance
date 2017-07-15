@@ -174,7 +174,7 @@ function main(data) {
 
     var filters = checkFilters();
     
-    var filtered_data = filterData(data_master, filters);
+    var filtered_data = filterByKeyExits(data_master, filters);
     
     var cols = createTableCols('data_table', table_cols);
 
@@ -231,7 +231,7 @@ function buildSocrataUrl(data) {
     return url;
 }
 
-function createMapSelectors(div_id, obj_arr, display_property, icon_name) {
+function createMapSelectors(div_id, obj_arr, display_property) {
 
     var selectors = d3.select("#" + div_id)
         .selectAll('div')
@@ -653,8 +653,7 @@ function checkFilters(){
 }
 
 
-
-function filterData(data, filters) {
+function filterByKeyExits(data, filters) {
 
     return data.filter(function(record){
         return Object.keys(record).some( function(key){
@@ -667,14 +666,13 @@ function filterData(data, filters) {
 function filterChange() {
     var filters = checkFilters();
     console.log(filters);
-    var data = filterData(data_master, filters);
+    var data = filterByKeyExits(data_master, filters);
     populateTable(data, 'data_table');
         
 }
 
 
 function adjustView(layer) {
-    console.log('adjust_view');
 
     setMarkerSizes(data_master);
 
