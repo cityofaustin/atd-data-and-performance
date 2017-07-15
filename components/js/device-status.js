@@ -6,9 +6,9 @@
 // map expander
 // home button
 
-var data_master, map, feature_layer, table, default_bounds;
+var data_master, map, feature_layer, table, default_bounds, curr_breakpoint;
 
-var init = true;
+prev_breakpoint = undefined;
 
 var q = d3.queue();
 
@@ -197,6 +197,15 @@ function main(data) {
     })
 
     createTableListeners();
+
+    resizedw();
+
+    //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+    var resize_timer;
+    window.onresize = function(){
+      clearTimeout(resize_timer);
+      resize_timer = setTimeout(resizedw, 100);
+    };
 }
 
 
@@ -640,18 +649,13 @@ function filterData(data, filters) {
 
 }
 
-
-
 function filterChange() {
     var filters = checkFilters();
     console.log(filters);
     var data = filterData(data_master, filters);
-
     populateTable(data, 'data_table');
         
 }
-
-
 
 
 function adjustView(layer) {
@@ -691,6 +695,30 @@ function createTableListeners() {
 }
 
 
+function resizedw(){
+    
+    prev_breakpoint = curr_breakpoint;
+    curr_breakpoint = breakpoint();
+
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm') {
+            table.column( 1 ).visible(false)
+            table.column( 2 ).visible(false)
+            table.column( 3 ).visible(false)
+            table.column( 4 ).visible(false) 
+        } else {
+            table.column( 1 ).visible(true)
+            table.column( 2 ).visible(true)
+            table.column( 3 ).visible(true)
+            table.column( 4 ).visible(true)
+        }
+    }
+
+    table.columns.adjust().draw( false ); 
+}
+
+
 $('#exampleModalLong').on('show.bs.modal', function (event) {
 
     var bob = $('#map').find('.leaflet-popup-content').children().clone().appendTo('.modal-body');
@@ -698,6 +726,12 @@ $('#exampleModalLong').on('show.bs.modal', function (event) {
 
 
 });
+
+
+
+
+
+
 
 
 
