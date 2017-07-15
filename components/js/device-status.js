@@ -6,16 +6,16 @@
 // map expander
 // home button
 
-var data_master, map, feature_layer, table, default_bounds;
+var data_master, map, feature_layer, table, default_bounds, curr_breakpoint;
 
-var init = true;
+prev_breakpoint = undefined;
 
 var q = d3.queue();
 
 var location_id_field = "atd_location_id";
 var comm_status_field = "ip_comm_status";
 var comm_status_date_field = "comm_status_datetime_utc";
-var table_cols = ['Location', 'CCTV', 'GRIDSMART', 'Sensor', 'Signal'];
+var table_cols = ['Location', 'CCTV', 'GRIDSMART', 'Sensors', 'Signals'];
 
 var device_data = [
     {
@@ -41,7 +41,7 @@ var device_data = [
     },
     {
         'name' : 'traffic_signal',
-        'display_name' : "<i class='fa fa-car'></i> Signals",
+        'display_name' : "<i class='fa fa-car'></i> Signal",
         'resource_id' : 'xwqn-2f78',
         'id_field' : 'signal_id',
         'query' : 'select * where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000'
@@ -122,6 +122,10 @@ var SCALE_THRESHOLDS = {
     '$20': 10,
 };
 
+$('#dashModal').on('shown.bs.modal', function (e) {
+  var mod_width = $('#modal-content-container').width();
+  $('#modal-content-container').find('img').attr('width', mod_width);
+})
 
 $(document).ready(function(){
 
@@ -154,6 +158,7 @@ $(document).ready(function(){
     });
 
 });
+
 
 
 
@@ -197,6 +202,15 @@ function main(data) {
     })
 
     createTableListeners();
+
+    resizedw();
+
+    //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+    var resize_timer;
+    window.onresize = function(){
+      clearTimeout(resize_timer);
+      resize_timer = setTimeout(resizedw, 100);
+    };
 }
 
 
@@ -389,7 +403,7 @@ function createMarkers(data, style) {
 
         if (img_url) {
             cam_url = coa_net_passthrough + 'CAMERA_ID=' + id;
-            popup_text = "<a href=" + cam_url + " target=_blank ><img src=" + img_url + " width=300 /></a><br>" + popup_text;
+            popup_text = "<a href=" + cam_url + " target=_blank ><img class='popup-img' src=" + img_url + " width=300 /></a><br>" + popup_text;
         }
 
         if (popup_text.indexOf('ONLINE') > -1 ) {
@@ -435,7 +449,7 @@ function updateMap(layer) {
 
     feature_layer.addTo(map);
 
-    adjustView(layer);    
+   adjustView(layer);    
 
 
 }
@@ -469,7 +483,7 @@ function populateTable(data, divId) {
     table = $('#data_table')
         //  update map after table search
         .on( 'draw.dt', function () {
-            
+                
             var ids = [];
 
             $('.tableRow').each(function(i, obj) {
@@ -495,8 +509,7 @@ function populateTable(data, divId) {
                     "render": function ( data, type, full, meta ) {
 
                         if ('location' in full) {
-                            // return "<a class='tableRow' id='$" + full.location + "' data-toggle='modal' data-target='#exampleModalLong' '>" + data + "</a>";
-                            return "<a class='tableRow' id='$" + full.location + "' data-target='#exampleModalLong' '>" + data + "</a>";
+                            return "<a class='tableRow' id='$" + full.location + "' '>" + data + "</a>";
                         } else {
                             return '';
                         }
@@ -608,7 +621,18 @@ function zoomToMarker(marker, data) {
 
             map.invalidateSize();
 
-            data[i].marker.openPopup();
+
+            if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm') {
+                
+                var popup = data[i].marker._popup._content;
+                $('#modal-content-container').append(popup);
+                $('#dashModal').modal('toggle');
+
+            } else {
+
+                data[i].marker.openPopup();
+                    
+            }
 
         }
     }
@@ -640,18 +664,13 @@ function filterData(data, filters) {
 
 }
 
-
-
 function filterChange() {
     var filters = checkFilters();
     console.log(filters);
     var data = filterData(data_master, filters);
-
     populateTable(data, 'data_table');
         
 }
-
-
 
 
 function adjustView(layer) {
@@ -678,12 +697,11 @@ function adjustView(layer) {
 }
 
 
-
 function createTableListeners() {
 
     d3.selectAll('tr')
         .on('click', function(d){
-
+            $('#modal-content-container').empty();
             var marker_id = d3.select(this).attr('id');
             zoomToMarker(marker_id, data_master);
     });
@@ -691,13 +709,31 @@ function createTableListeners() {
 }
 
 
-$('#exampleModalLong').on('show.bs.modal', function (event) {
+function resizedw(){
+    
+    prev_breakpoint = curr_breakpoint;
+    curr_breakpoint = breakpoint();
 
-    var bob = $('#map').find('.leaflet-popup-content').children().clone().appendTo('.modal-body');
-    console.log(bob);
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm') {
+            table.column( 1 ).visible(false)
+            table.column( 2 ).visible(false)
+            table.column( 3 ).visible(false)
+            table.column( 4 ).visible(false) 
+        } else {
+            table.column( 1 ).visible(true)
+            table.column( 2 ).visible(true)
+            table.column( 3 ).visible(true)
+            table.column( 4 ).visible(true)
+        }
+    }
+
+    table.columns.adjust();
+}
+                
 
 
-});
 
 
 

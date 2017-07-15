@@ -66,7 +66,7 @@ var conflict_flash_marker = new L.ExtraMarkers.icon({
 
 var cabinet_flash_marker = new L.ExtraMarkers.icon({
     icon: 'fa-clock-o',
-    markerColor: 'pink',
+    markerColor: 'blue-dark',
     shape: 'circle',
     prefix: 'fa'
 });

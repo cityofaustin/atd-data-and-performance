@@ -66,16 +66,19 @@ p.quote-of-the-week {
 }
 
 .status-1 {
+  /*scheduled flash*/
   color: #fff;
-  background-color: #BA5099;
+  background-color: #1B495C;
 }
 
 .status-2 {
+  /*conflict flash*/
   color: #fff;
   background-color: #8C2025;
 }
 
 .status-3 {
+  /*comm outage*/
   color: #fff;
   background-color: #F1AC37;
 }
@@ -163,3 +166,14 @@ p.quote-of-the-week {
 p.about {
     text-align: justify;
 }
+
+.modal-body {
+  /*  match leaflet popup content*/
+  color: #fff;
+  background: rgba(48, 51, 56, .95);
+}
+
+
+
+
+
