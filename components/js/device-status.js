@@ -174,7 +174,7 @@ function main(data) {
 
     var filters = checkFilters();
     
-    var filtered_data = filterData(data_master, filters);
+    var filtered_data = filterByKeyExits(data_master, filters);
     
     var cols = createTableCols('data_table', table_cols);
 
@@ -231,7 +231,7 @@ function buildSocrataUrl(data) {
     return url;
 }
 
-function createMapSelectors(div_id, obj_arr, display_property, icon_name) {
+function createMapSelectors(div_id, obj_arr, display_property) {
 
     var selectors = d3.select("#" + div_id)
         .selectAll('div')
@@ -521,7 +521,7 @@ function populateTable(data, divId) {
                         
                         if ('cctv' in full) {
                             if (full['cctv']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
                             } else {
                                 return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
                             }
@@ -536,7 +536,7 @@ function populateTable(data, divId) {
                         
                         if ('gridsmart' in full) {
                             if (full['gridsmart']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
                             } else {
                                 return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
                             }
@@ -552,7 +552,7 @@ function populateTable(data, divId) {
                         if ('travel_sensor' in full) {
 
                             if (full['travel_sensor']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
 
                             } else {
 
@@ -571,7 +571,7 @@ function populateTable(data, divId) {
                         if ('traffic_signal' in full) {
 
                             if (full['traffic_signal']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
 
                             } else {
 
@@ -653,8 +653,7 @@ function checkFilters(){
 }
 
 
-
-function filterData(data, filters) {
+function filterByKeyExits(data, filters) {
 
     return data.filter(function(record){
         return Object.keys(record).some( function(key){
@@ -666,15 +665,13 @@ function filterData(data, filters) {
 
 function filterChange() {
     var filters = checkFilters();
-    console.log(filters);
-    var data = filterData(data_master, filters);
+    var data = filterByKeyExits(data_master, filters);
     populateTable(data, 'data_table');
         
 }
 
 
 function adjustView(layer) {
-    console.log('adjust_view');
 
     setMarkerSizes(data_master);
 

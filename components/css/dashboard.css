@@ -37,9 +37,12 @@
   font-size: .8em;
 }
 
-
 td {
   cursor: pointer;
+}
+
+tr {
+  height: 40px;
 }
 
 .leaflet-popup-content-wrapper {
@@ -60,7 +63,6 @@ p.quote-of-the-week {
 .status-badge {
   white-space: pre;
   padding: 4px;
-  margin: 2px;
   border-radius: 3px;
   box-shadow: 0px 1px 2px 0px gray;
 }
@@ -81,6 +83,21 @@ p.quote-of-the-week {
   /*comm outage*/
   color: #fff;
   background-color: #F1AC37;
+}
+
+.status-construction {
+  color: #fff;
+  background-color: #F1AC37;
+}
+
+.status-design {
+  color: #fff;
+  background-color: #1B495C;
+}
+
+.status-turned_on {
+  color: #fff;
+  background-color: #028102;
 }
 
 .muted {
