@@ -521,7 +521,7 @@ function populateTable(data, divId) {
                         
                         if ('cctv' in full) {
                             if (full['cctv']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
                             } else {
                                 return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
                             }
@@ -536,7 +536,7 @@ function populateTable(data, divId) {
                         
                         if ('gridsmart' in full) {
                             if (full['gridsmart']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
                             } else {
                                 return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
                             }
@@ -552,7 +552,7 @@ function populateTable(data, divId) {
                         if ('travel_sensor' in full) {
 
                             if (full['travel_sensor']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
 
                             } else {
 
@@ -571,7 +571,7 @@ function populateTable(data, divId) {
                         if ('traffic_signal' in full) {
 
                             if (full['traffic_signal']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:green'></i>";
+                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
 
                             } else {
 
@@ -665,7 +665,6 @@ function filterByKeyExits(data, filters) {
 
 function filterChange() {
     var filters = checkFilters();
-    console.log(filters);
     var data = filterByKeyExits(data_master, filters);
     populateTable(data, 'data_table');
         
