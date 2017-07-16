@@ -238,7 +238,7 @@ function createMapSelectors(div_id, obj_arr, display_property) {
         .data(obj_arr)
         .enter()
         .append('div')
-        .attr('class', 'col')
+        .attr('class', 'col-sm')
         .append('btn')
         .attr('type', 'button')
         .attr('data_id', function(d){
