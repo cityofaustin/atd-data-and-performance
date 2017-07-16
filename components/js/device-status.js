@@ -203,8 +203,6 @@ function main(data) {
 
     createTableListeners();
 
-    resizedw();
-
     //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
     var resize_timer;
     window.onresize = function(){
@@ -592,6 +590,8 @@ function populateTable(data, divId) {
 
     createTableListeners();
 
+    resizedw();
+
 }
 
 
@@ -710,20 +710,17 @@ function resizedw(){
     
     prev_breakpoint = curr_breakpoint;
     curr_breakpoint = breakpoint();
-
-    if (curr_breakpoint != prev_breakpoint) {
         
-        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm') {
-            table.column( 1 ).visible(false)
-            table.column( 2 ).visible(false)
-            table.column( 3 ).visible(false)
-            table.column( 4 ).visible(false) 
-        } else {
-            table.column( 1 ).visible(true)
-            table.column( 2 ).visible(true)
-            table.column( 3 ).visible(true)
-            table.column( 4 ).visible(true)
-        }
+    if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm') {
+        table.column( 1 ).visible(false)
+        table.column( 2 ).visible(false)
+        table.column( 3 ).visible(false)
+        table.column( 4 ).visible(false) 
+    } else {
+        table.column( 1 ).visible(true)
+        table.column( 2 ).visible(true)
+        table.column( 3 ).visible(true)
+        table.column( 4 ).visible(true)
     }
 
     table.columns.adjust();
