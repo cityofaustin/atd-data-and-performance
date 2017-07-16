@@ -2,6 +2,7 @@
 var map, feature_layer, table, curr_breakpoint;
 
 var init = true;
+var show_modal = false;
 
 var table_height = '60vh';
 
@@ -113,6 +114,10 @@ for (var i = 0; i < global_data.length; ++i) {
     }
 
 }
+
+$('#dashModal').on('shown.bs.modal', function () {
+  map.invalidateSize();
+})
 
 function main() {
     
@@ -516,7 +521,7 @@ function createTableListeners() {
 
     d3.selectAll('tr')
         .on('click', function(d){
-            $('#modal-content-container').empty();
+            $('#modal-popup-container').remove();
             var marker_id = d3.select(this).attr('id');
             zoomToMarker(marker_id, global_data[0].data);
     });
@@ -539,10 +544,10 @@ function zoomToMarker(marker, data) {
             map.invalidateSize();
 
 
-            if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm') {
+            if (show_modal) {
                 
                 var popup = data[i].marker._popup._content;
-                $('#modal-content-container').append(popup);
+                $('#modal-content-container').append("<div id='modal-popup-container'>" + popup + "</div>");
                 $('#dashModal').modal('toggle');
 
             } else {
@@ -561,15 +566,31 @@ function resizedw(){
     
     prev_breakpoint = curr_breakpoint;
     curr_breakpoint = breakpoint();
+    
 
     if (curr_breakpoint != prev_breakpoint) {
         
-        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm') {
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') {
+            //  define which columns are hidden on mobile
             table.column( 1 ).visible(false)
             table.column( 3 ).visible(false)
+            
+            if (!show_modal) {
+                //  copy map to modal
+                $('#data-row-1').find('#map').appendTo('#modal-content-container');
+                show_modal = true;
+            }
+
         } else {
+
             table.column( 1 ).visible(true)
             table.column( 3 ).visible(true)
+
+            if (show_modal ) {
+                $('#modal-content-container').find('#map').appendTo('#data-row-1');
+                
+                show_modal = false;
+            }
         }
     }
 
