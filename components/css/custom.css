@@ -1,5 +1,10 @@
 html, body, div, input, .btn {
   font-family: 'News Cycle', sans-serif;
+  -webkit-appearance: none; 
+}
+
+btn[type=button] {
+  -webkit-appearance: none; 
 }
 
 .background-img {
@@ -15,7 +20,6 @@ html, body, div, input, .btn {
 .nav-btn {
   color: #fff !important;  
   background-color: rgba(0,0,0,.4);
-  /*border: 1px solid rgba(255,255,255,.4);*/
   border-radius: 3px;
   cursor: pointer;
 }
