@@ -6,7 +6,7 @@
 // map expander
 // home button
 
-var data_master, map, feature_layer, table, default_bounds, curr_breakpoint;
+var data_master, map, feature_layer, table, filters, default_bounds, curr_breakpoint;
 
 prev_breakpoint = undefined;
 
@@ -15,11 +15,12 @@ var q = d3.queue();
 var location_id_field = "atd_location_id";
 var comm_status_field = "ip_comm_status";
 var comm_status_date_field = "comm_status_datetime_utc";
-var table_cols = ['Location', 'CCTV', 'GRIDSMART', 'Sensors', 'Signals'];
+var table_cols = ['Location', 'Device Status'];
 
 var device_data = [
     {
         'name' : 'cctv',
+        'icon' : 'video-camera',
         'display_name' : "<i class='fa fa-video-camera'></i> CCTV",
         'resource_id' : 'fs3c-45ge',
         'id_field' : 'camera_id',
@@ -27,6 +28,7 @@ var device_data = [
     },
     {
         'name' : 'gridsmart',
+        'icon' : 'crosshairs',
         'display_name' : "<i class='fa fa-crosshairs'></i> GRIDSMART",
         'resource_id' : 'fs3c-45ge',
         'id_field' : 'atd_camera_id',
@@ -34,6 +36,7 @@ var device_data = [
     },
     {
         'name' : 'travel_sensor',
+        'icon' : 'rss',
         'display_name' : "<i class='fa fa-rss'></i> Travel Sensors",
         'resource_id' : 'wakh-bdjq',
         'id_field' : 'sensor_id',
@@ -41,6 +44,7 @@ var device_data = [
     },
     {
         'name' : 'traffic_signal',
+        'icon' : 'car',
         'display_name' : "<i class='fa fa-car'></i> Signal",
         'resource_id' : 'xwqn-2f78',
         'id_field' : 'signal_id',
@@ -172,7 +176,7 @@ function main(data) {
 
     data_master = createMarkers(data_master, default_style);
 
-    var filters = checkFilters();
+    filters = checkFilters();
     
     var filtered_data = filterByKeyExits(data_master, filters);
     
@@ -500,7 +504,7 @@ function populateTable(data, divId) {
             scrollCollapse : false,
             bInfo : true,
             paging : false,
-            autoWidth: false,
+            autoWidth: true,
             columns: [
 
                 { data: 'location_name',
@@ -514,73 +518,29 @@ function populateTable(data, divId) {
                     }
                 },
 
-                { data: 'cctv',
+                { data: 'location_name',
                     "render": function ( data, type, full, meta ) {
-                        
-                        if ('cctv' in full) {
-                            if (full['cctv']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
-                            } else {
-                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
+
+                        var render_str = '';
+
+                        for (var i=0; i < device_data.length; i++) {
+                            var device_name = device_data[i].name;
+                            
+                            if (device_name in full && filters.indexOf(device_name) >= 0) {
+
+                                if (full[device_name].status == 'ONLINE') {
+                                    render_str = render_str + " <i class='table-icon fa fa-" + device_data[i].icon + "' style='background-color:#028102'></i> "
+
+                                } else {
+                                    render_str = render_str + " <i class='table-icon fa fa-" + device_data[i].icon + "' style='background-color:darkred'></i> "
+                                }
+
                             }
-                        } else {
-                            return ""
                         }
-                    }
-
-                },
-                { data: 'gridsmart',
-                    "render": function ( data, type, full, meta ) {
                         
-                        if ('gridsmart' in full) {
-                            if (full['gridsmart']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
-                            } else {
-                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
-                            }
-                        } else {
-                            return ""
-                        }
+                        return render_str;
                     }
 
-                },
-                { data: 'travel_sensor',
-                    "render": function ( data, type, full, meta ) {
-                        
-                        if ('travel_sensor' in full) {
-
-                            if (full['travel_sensor']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
-
-                            } else {
-
-                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
-
-                            } 
-                        } else {
-                                
-                            return ""
-                        }
-                    }
-                },
-                { data: 'signal',
-                    "render": function ( data, type, full, meta ) {
-                        
-                        if ('traffic_signal' in full) {
-
-                            if (full['traffic_signal']['status'] == 'ONLINE') {
-                                return "<i class='fa fa-check-circle' style='color:#028102'></i>";
-
-                            } else {
-
-                                return "<i class='fa fa-exclamation-triangle' style='color:darkred'></i>";
-
-                            } 
-                        } else {
-                                
-                            return ""
-                        }
-                    }
                 }
             ]
         })
@@ -664,7 +624,7 @@ function filterByKeyExits(data, filters) {
 }
 
 function filterChange() {
-    var filters = checkFilters();
+    filters = checkFilters();
     var data = filterByKeyExits(data_master, filters);
     populateTable(data, 'data_table');
         
@@ -710,18 +670,6 @@ function resizedw(){
     
     prev_breakpoint = curr_breakpoint;
     curr_breakpoint = breakpoint();
-        
-    if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm') {
-        table.column( 1 ).visible(false)
-        table.column( 2 ).visible(false)
-        table.column( 3 ).visible(false)
-        table.column( 4 ).visible(false) 
-    } else {
-        table.column( 1 ).visible(true)
-        table.column( 2 ).visible(true)
-        table.column( 3 ).visible(true)
-        table.column( 4 ).visible(true)
-    }
 
     table.columns.adjust();
 }
