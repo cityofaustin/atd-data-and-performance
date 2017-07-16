@@ -45,6 +45,16 @@ tr {
   height: 40px;
 }
 
+
+.table-icon {
+  /*device status icons in device status dash*/
+  font-size: 1.5em;
+  padding: 5px;
+  
+  color: white;
+  box-shadow: 0px 1px 2px 0px gray;
+}
+
 .leaflet-popup-content-wrapper {
   /* overwride default leaflet styles */
   color: #fff;
