@@ -117,7 +117,7 @@ for (var i = 0; i < global_data.length; ++i) {
 
 $('#dashModal').on('shown.bs.modal', function () {
   map.invalidateSize();
-})
+});
 
 function main() {
     

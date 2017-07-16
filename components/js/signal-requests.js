@@ -1,4 +1,6 @@
-var map, feature_layer, data, table;
+var map, feature_layer, data, table, curr_breakpoint;
+
+var show_modal = false;
 
 var requests_url = 'https://data.austintexas.gov/resource/f6qu-b7zb.json';
 
@@ -141,10 +143,22 @@ function main(request_data){
 
     d3.selectAll("tr")
         .on("click", function(d){
-
             var marker_id = d3.select(this).attr("id");
-
+            $('#modal-popup-container').remove();
             zoomToMarker(marker_id);
+    });
+
+    resizedw();
+
+        //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+    var resize_timer;
+    window.onresize = function(){
+      clearTimeout(resize_timer);
+      resize_timer = setTimeout(resizedw, 100);
+    };
+
+    $('#dashModal').on('shown.bs.modal', function () {
+        map.invalidateSize();
     });
 
 }
@@ -488,7 +502,17 @@ function zoomToMarker(marker) {
 
             map.invalidateSize();
 
-            data[i].marker.openPopup();
+             if (show_modal) {
+                
+                var popup = data[i].marker._popup._content;
+                $('#modal-content-container').append("<div id='modal-popup-container'>" + popup + "</div>");
+                $('#dashModal').modal('toggle');
+
+            } else {
+
+                data[i].marker.openPopup();
+                    
+            }
 
         }
     }
@@ -581,8 +605,41 @@ function createTableCols(div_id, col_array) {
 
 
 
+function resizedw(){
+    
+    prev_breakpoint = curr_breakpoint;
+    curr_breakpoint = breakpoint();
+    
 
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') {
+            //  define which columns are hidden on mobile
+            table.column( 1 ).visible(false)
+            table.column( 2 ).visible(false)
+            
+            if (!show_modal) {
+                //  copy map to modal
+                $('#data-row-1').find('#map').appendTo('#modal-content-container');
+                show_modal = true;
+            }
 
+        } else {
+
+            table.column( 1 ).visible(true)
+            table.column( 2 ).visible(true)
+
+            if (show_modal ) {
+                $('#modal-content-container').find('#map').appendTo('#data-row-1');
+                
+                show_modal = false;
+            }
+        }
+    }
+
+    table.columns.adjust();
+}
+ 
 
 
 
