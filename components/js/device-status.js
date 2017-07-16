@@ -8,7 +8,8 @@
 
 var data_master, map, feature_layer, table, filters, default_bounds, curr_breakpoint;
 
-prev_breakpoint = undefined;
+var prev_breakpoint = undefined;
+var show_modal = false;
 
 var q = d3.queue();
 
@@ -164,7 +165,9 @@ $(document).ready(function(){
 });
 
 
-
+$('#dashModal').on('shown.bs.modal', function () {
+  map.invalidateSize();
+}); 
 
 function main(data) {
     
@@ -582,10 +585,10 @@ function zoomToMarker(marker, data) {
             map.invalidateSize();
 
 
-            if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm') {
+            if (show_modal) {
                 
                 var popup = data[i].marker._popup._content;
-                $('#modal-content-container').append(popup);
+                $('#modal-content-container').append("<div id='modal-popup-container'>" + popup + "</div>");
                 $('#dashModal').modal('toggle');
 
             } else {
@@ -658,24 +661,41 @@ function createTableListeners() {
 
     d3.selectAll('tr')
         .on('click', function(d){
-            $('#modal-content-container').empty();
+            $('#modal-popup-container').remove();
             var marker_id = d3.select(this).attr('id');
             zoomToMarker(marker_id, data_master);
     });
 
 }
 
-
 function resizedw(){
     
     prev_breakpoint = curr_breakpoint;
     curr_breakpoint = breakpoint();
+    
+
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') { 
+                
+            if (!show_modal) {
+                //  copy map to modal
+                // $('#data-row-1').find('#map').appendTo('#modal-content-container');
+                show_modal = true;
+            }
+
+        } else {
+
+            if (show_modal ) {
+                //  $('#modal-content-container').find('#map').appendTo('#data-row-1');
+                
+                show_modal = false;
+            }
+        }
+    }
 
     table.columns.adjust();
 }
-                
-
-
 
 
 
