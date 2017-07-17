@@ -408,7 +408,7 @@ function createMarkers(data, style) {
 
         if (img_url) {
             cam_url = coa_net_passthrough + 'CAMERA_ID=' + id;
-            popup_text = "<a href=" + cam_url + " target=_blank ><img class='popup-img' src=" + img_url + " width=300 /></a><br>" + popup_text;
+            popup_text = "<img class='popup-img' src=" + img_url + " width=300 /><br>" + popup_text + "<br><a href=" + cam_url + " target=_blank >Video Feed (Restricted Access)</a>";
         }
 
         if (popup_text.indexOf('ONLINE') > -1 ) {
