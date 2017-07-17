@@ -1,6 +1,6 @@
-var table;
+var table, map, curr_breakpoint;
 
-var map;
+var show_modal = false;
 
 var table_cols = ['Location', 'Status', 'Status Date', 'Duration'];
 
@@ -118,13 +118,6 @@ function main(data){
 
     });
 
-    // populateInfoStat(data, "info-4", ['99'], function(){
-
-    //     var count = getSignalCount(data_count_url);
-
-    // });
-
-
     makeMap(data);
 
     if (data.length > 0) {
@@ -152,6 +145,21 @@ function main(data){
         adjustMapHeight();
         
     }
+
+    resizedw();
+
+    
+    //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+    var resize_timer;
+
+    window.onresize = function(){
+      clearTimeout(resize_timer);
+      resize_timer = setTimeout(resizedw, 100);
+    };
+
+    $('#dashModal').on('shown.bs.modal', function () {
+        map.invalidateSize();
+    });
 
 };
 
@@ -314,11 +322,9 @@ function createTableListeners() {
     d3.select("#data_table").selectAll("tr")
         .on("click", function(d){
 
-            var signal_id = '$' + d3.select(this).attr("id");
-
-            map.setView(signal_markers[signal_id].getLatLng(), 14);
-
-            signal_markers[signal_id].openPopup();
+            var marker_id = '$' + d3.select(this).attr("id");
+            $('#modal-popup-container').remove();
+            zoomToMarker(marker_id);
 
         });
 
@@ -517,3 +523,64 @@ function createTableCols(div_id, col_array) {
 }
 
 
+
+function zoomToMarker(marker_id) {
+
+    var marker = signal_markers[marker_id];
+
+    
+
+    map.invalidateSize();
+
+     if (show_modal) {
+        map.closePopup();  // ensure all popups are closed
+        map.setView(marker._latlng, 17);
+        var popup = marker._popup._content;
+        $('#modal-content-container').append("<div id='modal-popup-container'>" + popup + "</div>");
+        $('#dashModal').modal('toggle');
+
+    } else {
+        map.setView(marker._latlng, 17);
+        marker.openPopup();
+            
+    }
+
+        
+    
+}
+
+
+function resizedw(){
+    
+    prev_breakpoint = curr_breakpoint;
+    curr_breakpoint = breakpoint();
+    
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') {
+            //  define which columns are hidden on mobile
+            table.column( 2 ).visible(false)
+            table.column( 3 ).visible(false)
+            
+            if (!show_modal) {
+                //  copy map to modal
+                $('#data-row-1').find('#map').appendTo('#modal-content-container');
+                show_modal = true;
+            }
+
+        } else {
+
+            table.column( 2 ).visible(true)
+            table.column( 3 ).visible(true)
+
+            if (show_modal ) {
+                $('#modal-content-container').find('#map').appendTo('#data-row-1');
+                
+                show_modal = false;
+            }
+        }
+    }
+
+    table.columns.adjust();
+}
+ 
