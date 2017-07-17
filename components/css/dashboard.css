@@ -1,3 +1,31 @@
+.nav-tabs {
+  /*background-color: #43484e;*/
+}
+
+.nav-link-modal.active {
+  color: #fff !important;
+  background-color: #43484e !important;
+  border-color: #43484e !important;;
+}
+
+.nav-link-modal {
+  color: #43484e;
+  background-color: #f0f0f0;
+}
+
+.nav-link-modal:hover {
+  color: #43484e;
+  background-color: #e6e6e6;
+}
+
+
+.modal-body {
+  /*  match leaflet popup content*/
+  color: #fff;
+  background: #43484e;
+}
+
+
 
 .btn-map-selector {
   background-color: #7f7f7f;
@@ -189,13 +217,6 @@ p.quote-of-the-week {
 p.about {
     text-align: justify;
 }
-
-.modal-body {
-  /*  match leaflet popup content*/
-  color: #fff;
-  background: rgba(48, 51, 56, .95);
-}
-
 
 
 

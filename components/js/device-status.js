@@ -6,7 +6,7 @@
 // map expander
 // home button
 
-var data_master, map, feature_layer, table, filters, default_bounds, curr_breakpoint;
+var data_master, map, marker, feature_layer, table, filters, default_bounds, curr_breakpoint;
 
 var prev_breakpoint = undefined;
 var show_modal = false;
@@ -128,9 +128,15 @@ var SCALE_THRESHOLDS = {
 };
 
 $('#dashModal').on('shown.bs.modal', function (e) {
-  var mod_width = $('#modal-content-container').width();
-  $('#modal-content-container').find('img').attr('width', mod_width);
+  var mod_width = $('.modal-body').width();
+  $('#modal-info').find('img').attr('width', mod_width);
 })
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function() {
+
+    map.invalidateSize();
+
+});
 
 $(document).ready(function(){
 
@@ -570,31 +576,32 @@ function setMarkerSizes(data) {
 
 
 
-function zoomToMarker(marker, data) {
+function zoomToMarker(marker_id, data) {
 
     for (var i = 0; i < data.length; i++ ) {
     
-        if (data[i].location == marker ) {
-         
-            map.fitBounds(
-                data[i].marker.getBounds(),
-                { maxZoom: 16 }
-
-            );
-
-            map.invalidateSize();
-
+        if (data[i].location == marker_id ) {
+            
+            marker = data[i].marker;
 
             if (show_modal) {
+
+                map.closePopup();
+
+                map.setView(marker._latlng, 17);
                 
-                var popup = data[i].marker._popup._content;
-                $('#modal-content-container').append("<div id='modal-popup-container'>" + popup + "</div>");
+                var popup = marker._popup._content;
+                $('#modal-info').append("<div id='modal-popup-container'>" + popup + "</div>");
                 $('#dashModal').modal('toggle');
 
             } else {
+                
+                map.setView(marker._latlng, 17);
 
-                data[i].marker.openPopup();
-                    
+                marker.openPopup();
+
+                map.invalidateSize();
+ 
             }
 
         }
@@ -680,15 +687,16 @@ function resizedw(){
                 
             if (!show_modal) {
                 //  copy map to modal
-                // $('#data-row-1').find('#map').appendTo('#modal-content-container');
+                $('#data-row-1').find('#map').appendTo('#modal-map');
+                map.invalidateSize();
                 show_modal = true;
             }
 
         } else {
 
             if (show_modal ) {
-                //  $('#modal-content-container').find('#map').appendTo('#data-row-1');
-                
+                $('#modal-map').find('#map').appendTo('#data-row-1');
+                map.invalidateSize();
                 show_modal = false;
             }
         }
