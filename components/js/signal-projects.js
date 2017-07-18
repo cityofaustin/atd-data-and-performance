@@ -1,5 +1,5 @@
 
-var map, feature_layer, table, curr_breakpoint;
+var map, feature_layer, table, curr_breakpoint, marker;
 
 var init = true;
 var show_modal = false;
@@ -529,17 +529,15 @@ function createTableListeners() {
 }
 
 
-function zoomToMarker(marker, data) {
+function zoomToMarker(marker_id, data) {
     
     for (var i = 0; i < data.length; i++ ) {
     
-        if (data[i].atd_location_id == marker ) {
+        if (data[i].atd_location_id == marker_id ) {
             
-            map.fitBounds(
-                data[i].marker.getBounds(),
-                { maxZoom: 16 }
+            marker = data[i].marker;
 
-            );
+            map.setView(marker._latlng, 16);
 
             map.invalidateSize();
 
@@ -552,7 +550,7 @@ function zoomToMarker(marker, data) {
 
             } else {
 
-                data[i].marker.openPopup();
+                marker.openPopup();
                     
             }
 

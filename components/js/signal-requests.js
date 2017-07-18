@@ -1,4 +1,4 @@
-var map, feature_layer, data, table, curr_breakpoint;
+var map, feature_layer, data, table, curr_breakpoint, marker;
 
 var show_modal = false;
 
@@ -488,17 +488,15 @@ function setMarkerSizes(data) {
 
 
 
-function zoomToMarker(marker) {
+function zoomToMarker(marker_id) {
 
     for (var i = 0; i < data.length; i++ ) {
     
-        if (data[i].request_id == marker ) {
-         
-            map.fitBounds(
-                data[i].marker.getBounds(),
-                { maxZoom: 16 }
+        if (data[i].request_id == marker_id ) {
+            
+            marker = data[i].marker;
 
-            );
+            map.setView(marker._latlng, 16);
 
             map.invalidateSize();
 
@@ -510,7 +508,7 @@ function zoomToMarker(marker) {
 
             } else {
 
-                data[i].marker.openPopup();
+                marker.openPopup();
                     
             }
 

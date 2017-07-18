@@ -75,6 +75,7 @@ var STATUS_TYPES_READABLE = {
     'COMPLETED': 'Completed'
 };
 
+var show_modal = false;
 
 var t1_duration = 1200;
 
@@ -84,9 +85,7 @@ var t1 = d3.transition()
 
 var t2_duration = 1000;
 
-var t2;
-
-var map;
+var t2, map, curr_breakpoint;
 
 var color_index =.9;
 
@@ -97,14 +96,12 @@ var HIGHLIGHT_STYLE = {
     fillOpacity: .9
 }
 
-
 var DEFAULT_STYLE = {
     color: '#fff',
     weight: 1,
     fillColor: '#7570b3',
     fillOpacity: .8
 }
-
 
 var SCALE_THRESHOLDS = {
     '$1': 500,
@@ -152,6 +149,10 @@ $(document).ready(function () {
 var collapsed_class = 'col-sm-6';
 var expanded_class = 'col-sm-12';
 
+$('#dashModal').on('shown.bs.modal', function () {
+  map.invalidateSize();
+});
+
 //  fetch retiming data
 d3.json(SYSTEM_RETIMING_URL, function(dataset) {
     
@@ -182,6 +183,15 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
                 getLogData(LOGFILE_URL);
 
                 createTableListeners();
+
+                resizedw();
+
+                //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+                var resize_timer;
+                window.onresize = function(){
+                clearTimeout(resize_timer);
+                resize_timer = setTimeout(resizedw, 100);
+    };
 
             });
 
@@ -778,11 +788,27 @@ function createTableListeners() {
             .classed("tableRow", true)
             .on("click", function(d){
 
-            var system_id = '$' + d3.select(this).attr("id");
+                $('#modal-popup-container').remove();
 
-            highlightLayer(SYSTEMS_LAYERS[system_id]);
+                var system_id = '$' + d3.select(this).attr("id");
 
-            map.fitBounds(SYSTEMS_LAYERS[system_id].getBounds());
+                highlightLayer(SYSTEMS_LAYERS[system_id]);
+
+                map.fitBounds(SYSTEMS_LAYERS[system_id].getBounds());
+
+                if (show_modal) {
+
+                    var popup_content = getSystemInfo(system_id);
+
+                    var modal_content = buildModalContent(popup_content);
+                    
+                    $('#modal-content-container').append("<div id='modal-popup-container'>" + modal_content + "</div>");
+                    
+                    map.setView(SYSTEMS_LAYERS[system_id].getBounds().getCenter(), 13);
+
+                    $('#dashModal').modal('toggle');
+
+                }
             
     });
 
@@ -1074,4 +1100,94 @@ function createTableCols(div_id, col_array) {
     return cols;
         
 }
+
+
+
+function resizedw(){
+    
+    prev_breakpoint = curr_breakpoint;
+    curr_breakpoint = breakpoint();
+    
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') {
+            //  define which columns are hidden on mobile
+            table.column( 1 ).visible(false)
+            table.column( 3 ).visible(false)
+            table.column( 4 ).visible(false)
+
+            if (!show_modal) {
+                //  copy map to modal
+                $('#data-row-1').find('#map').appendTo('#modal-content-container');
+                show_modal = true;
+            }
+
+        } else {
+
+            table.column( 1 ).visible(true)
+            table.column( 3 ).visible(true)
+            table.column( 4 ).visible(true)
+
+            if (show_modal ) {
+                $('#modal-content-container').find('#map').appendTo('#data-row-1');
+                
+                show_modal = false;
+
+                map.invalidateSize();
+            }
+        }
+    }
+
+    table.columns.adjust();
+}
+                
+
+
+function getSystemInfo(system_id) {
+    
+    system_id = system_id.replace('$', '');
+    
+    for (var i = 0; i < SOURCE_DATA_SYSTEMS.length; i++)
+
+        if (+SOURCE_DATA_SYSTEMS[i].system_id == +system_id) {
+            
+            return SOURCE_DATA_SYSTEMS[i];
+        }
+
+    return undefined;
+}
+
+
+function buildModalContent(system_info){
+    
+    var status = STATUS_TYPES_READABLE[system_info.retime_status];
+    var system_name = system_info.system_name;
+
+    var travel_time_change = ''
+
+    if (status == 'Completed') {
+        travel_time_change = FORMAT_TYPES["travel_time_reduction"](-1 * +system_info.vol_wavg_tt_pct_change);    
+
+        if ( +travel_time_change < 0) {
+            travel_time_change = "+" + travel_time_change;
+        }
+
+    }
+    
+    var engineer_note = '';
+
+    if (system_info.engineer_note) {
+        var engineer_note = system_info.engineer_note    
+    } 
+
+    return '<h5>' + system_name + '</h5>' + 
+        '<b>Status: <b>' + status +
+        '<br>' +
+        '<b>Travel Time Change: <b>' + travel_time_change +
+        '<br>' +
+        '<b>Engineer Note: <b>' + engineer_note
+    
+}
+
+
 
