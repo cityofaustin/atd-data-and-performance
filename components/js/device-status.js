@@ -588,7 +588,7 @@ function zoomToMarker(marker_id, data) {
 
                 map.closePopup();
 
-                map.setView(marker._latlng, 17);
+                map.setView(marker._latlng, 16);
                 
                 var popup = marker._popup._content;
                 $('#modal-info').append("<div id='modal-popup-container'>" + popup + "</div>");
