@@ -73,3 +73,14 @@ btn[type=button] {
   background-color: #43484E;  /* otherwite bottom-most content slips to background #fff on collapse */
 }
 
+span.col-1, span.co-2,
+span.col-3, span.col-4,
+span.col-5, span.col-6,
+span.col-6, span.col-7,
+span.col-8, span.col-9,
+span.col-10, span.col-11,
+span.col-12, span.col-13,
+span.col-14, span.col-15 {
+  padding: 0px;
+}
+
