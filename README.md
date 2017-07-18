@@ -76,4 +76,4 @@ Much of the content on the site is generated in-browser using [D3js](http://d3js
 
 ## Contributing
 
-Public contributions are welcome! Assign pull requests to @johnclary.
+Public contributions are welcome! Assign pull requests to [@johnclary](http://github.com/johnclary).
