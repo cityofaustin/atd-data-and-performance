@@ -1,10 +1,4 @@
 // assumes one record per device-type per location
-// to do:
-// align table icons
-// checkbox data selctors
-// status pop-ups in data table
-// map expander
-// home button
 
 var data_master, map, marker, feature_layer, table, filters, default_bounds, curr_breakpoint;
 
@@ -31,9 +25,9 @@ var device_data = [
         'name' : 'gridsmart',
         'icon' : 'crosshairs',
         'display_name' : "<i class='fa fa-crosshairs'></i> GRIDSMART",
-        'resource_id' : 'fs3c-45ge',
+        'resource_id' : 'sqwb-zh93',  // qpuw-8eeb
         'id_field' : 'atd_camera_id',
-        'query' : 'select * where upper(camera_mfg) LIKE ("%25GRIDSMART%25")'
+        'query' : 'select * where upper(detector_type) LIKE ("%25GRIDSMART%25")'
     },
     {
         'name' : 'travel_sensor',
@@ -314,6 +308,12 @@ function groupByLocation(data) {
                 //  build location record        
                 var device_name = device_data[i]['name'];
                 
+                if (!(device_data[i].data[q].latitude) && device_data[i].data[q].location) {
+                    device_data[i].data[q].longitude = device_data[i].data[q].location.coordinates[0]
+                    device_data[i].data[q].latitude = device_data[i].data[q].location.coordinates[1]
+                    
+                }
+
                 var new_loc = {
                     'location' : location,
                     'latitude' : device_data[i].data[q].latitude,
@@ -704,11 +704,3 @@ function resizedw(){
 
     table.columns.adjust();
 }
-
-
-
-
-
-
-
-
