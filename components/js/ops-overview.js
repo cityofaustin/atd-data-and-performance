@@ -123,7 +123,6 @@ var config = [
         'icon' : 'clock-o',
         'init_val' : 0,
         'format' : 'round',
-        'data' : [140],
         'infoStat' : true,
         'caption' : 'Traffic signals retimied this fiscal year',
         'query' : 'SELECT SUM(signal_count) as count WHERE retime_status IN ("COMPLETED") and scheduled_fy in ("' + fiscal_year + '")',
@@ -158,6 +157,20 @@ var config = [
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { return( [x[0]['count']] )},
         'update_event' : 'signals_update'
+    }, 
+    {
+        'id' : 'gridsmart',
+        'row_container_id' : 'panel-row-1',
+        'display_name' : 'Gridsmart',
+        'icon' : 'crosshairs',
+        'init_val' : 0,
+        'format' : 'round',
+        'infoStat' : true,
+        'caption' : 'Gridsmart detection cameras installed',
+        'query' : 'select count(detector_id) as count where upper(detector_type) in ("GRIDSMART")',
+        'resource_id' : 'sqwb-zh93',
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'detectors_update'
     }
     // {
     //     'id' : 'school-beacons',
@@ -302,7 +315,7 @@ function appendInfoText(data) {
         .attr('class', 'col')
 
     panel_content.append('text')
-        .attr('class', 'info-metric')
+        .attr('class', 'info-metric-small')
         .text(function(d) {
             return d.init_val;
         });
@@ -329,7 +342,7 @@ function transitionInfoStat(selection, options) {
         .ease(options.ease)
         .duration(options.duration);
 
-    selection.selectAll('.info-metric')
+    selection.selectAll('.info-metric-small')
         .transition(t)  //  do this for each selection in sequence
         .tween('text', function () {
             
@@ -383,7 +396,6 @@ function postUpdateDate(selection, resource_id, event) {
                     .attr('class', 'row')
                     .append('div')
                     .attr('class', 'col')
-                    // .select('.info-metric')
                     .append('h6')
                     .attr("class", "dash-panel-footer-text text-left")
                     .html("Updated " + update_date + " at " + update_time + 

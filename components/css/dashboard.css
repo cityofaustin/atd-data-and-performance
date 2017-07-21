@@ -206,7 +206,18 @@ p.quote-of-the-week {
 }
 
 .info-metric {
+  /* dash panel and signal retiming */
   font-size: 5em;
+  text-align: left;
+  dominant-baseline: bottom;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+}
+
+.info-metric-small {
+  /* dash panel and signal retiming */
+  font-size: 2.5em;
   text-align: left;
   dominant-baseline: bottom;
   -webkit-user-select: none; /* Chrome/Safari */        
