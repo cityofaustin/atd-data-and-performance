@@ -16,7 +16,7 @@ var device_data = [
     {
         'name' : 'cctv',
         'icon' : 'video-camera',
-        'display_name' : "<i class='fa fa-video-camera'></i> CCTV",
+        'display_name' : "CCTV",
         'resource_id' : 'fs3c-45ge',
         'id_field' : 'camera_id',
         'query' : 'select * where upper(camera_mfg) not in ("GRIDSMART")'
@@ -24,7 +24,7 @@ var device_data = [
     {
         'name' : 'gridsmart',
         'icon' : 'crosshairs',
-        'display_name' : "<i class='fa fa-crosshairs'></i> GRIDSMART",
+        'display_name' : 'GRIDSMART',
         'resource_id' : 'sqwb-zh93',  // qpuw-8eeb
         'id_field' : 'atd_camera_id',
         'query' : 'select * where upper(detector_type) LIKE ("%25GRIDSMART%25")'
@@ -32,7 +32,7 @@ var device_data = [
     {
         'name' : 'travel_sensor',
         'icon' : 'rss',
-        'display_name' : "<i class='fa fa-rss'></i> Travel Sensors",
+        'display_name' : 'Travel Sensors',
         'resource_id' : 'wakh-bdjq',
         'id_field' : 'sensor_id',
         'query' : 'select latitude,longitude,sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status in ("TURNED_ON")'
@@ -40,7 +40,7 @@ var device_data = [
     {
         'name' : 'traffic_signal',
         'icon' : 'car',
-        'display_name' : "<i class='fa fa-car'></i> Signal",
+        'display_name' : "Signal",
         'resource_id' : 'xwqn-2f78',
         'id_field' : 'signal_id',
         'query' : 'select * where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000'
@@ -89,7 +89,7 @@ var t2 = d3.transition()
 
 var formats = {
     'round': function(val) { return Math.round(val) },
-    'formatDateTime' : d3.timeFormat("%e %b %-I:%M%p"),
+    'formatDateTime' : d3.timeFormat("%x %X"),
     'formatDate' : d3.timeFormat("%x"),
     'formatTime' : d3.timeFormat("%I:%M %p"),
     'thousands' : d3.format(",")
@@ -171,7 +171,7 @@ $('#dashModal').on('shown.bs.modal', function () {
 
 function main(data) {
     
-    var map_selectors = createMapSelectors('map_selectors', device_data, 'display_name');
+    var map_selectors = createMapSelectors('map_selectors', device_data);
 
     data_master = groupByLocation(data);
 
@@ -236,7 +236,7 @@ function buildSocrataUrl(data) {
     return url;
 }
 
-function createMapSelectors(div_id, obj_arr, display_property) {
+function createMapSelectors(div_id, obj_arr) {
 
     var selectors = d3.select("#" + div_id)
         .selectAll('div')
@@ -269,7 +269,7 @@ function createMapSelectors(div_id, obj_arr, display_property) {
             }
         })
         .html(function(d){
-            return d[display_property];
+            return '<i class="fa fa-' + d.icon + '" ></i> ' + d.display_name;
         });
 
     return selectors;
@@ -405,11 +405,27 @@ function createMarkers(data, style) {
                     var img_url = img_url_base + id + '.jpg';
                 }
 
-                popup_text = popup_text
-                + '<br>' + device_data[q]['display_name'] + ": "+ data[i][device_data[q]['name']]['status']
-                + ' since ' + formats['formatDateTime']( new Date(data[i][device_data[q]['name']]['status_date']));
+                if (data[i][device_data[q]['name']]['status'] == 'ONLINE') {
+                    var status = 'Online';
+                } else {
+                    var status = 'Offline'
+                }
+
+                if (data[i][device_data[q]['name']]['status_date']) {
+                    var status_date = new Date( data[i][device_data[q]['name']]['status_date'] );
+                    status_date = formats['formatDateTime'](status_date);
+                    status_date = ' since ' + status_date;
+                } else {
+                    var status_date = '';
+                }
+
+                popup_text = popup_text + '<br>' +
+                '<i class="fa fa-' + device_data[q].icon + '" ></i>'
+                + ": "+ status + status_date;
 
             }
+
+
         }
 
         if (img_url) {
@@ -417,7 +433,7 @@ function createMarkers(data, style) {
             popup_text = "<img class='popup-img' src=" + img_url + " width=300 /><br>" + popup_text + "<br><a href=" + cam_url + " target=_blank >Video Feed (Restricted Access)</a>";
         }
 
-        if (popup_text.indexOf('ONLINE') > -1 ) {
+        if (popup_text.indexOf('Online') > -1 ) {
             marker_style = style['ONLINE'];
         }
 
