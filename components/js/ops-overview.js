@@ -167,9 +167,9 @@ var config = [
         'format' : 'round',
         'infoStat' : true,
         'caption' : 'Gridsmart detection cameras installed',
-        'query' : 'select count(detector_id) as count where upper(detector_type) in ("GRIDSMART")',
+        'query' : 'select signal_id where upper(detector_type) in ("GRIDSMART") group by signal_id',
         'resource_id' : 'sqwb-zh93',
-        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'data_transform' : function(x) { return [x.length]; },
         'update_event' : 'detectors_update'
     }
     // {
