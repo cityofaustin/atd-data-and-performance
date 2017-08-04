@@ -56,7 +56,7 @@ var map_options = {
 
 var img_url_base = 'http://162.89.4.145/CCTVImages/CCTV';
 
-var default_style = { 
+var default_styles = { 
     'ONLINE' : {
         color: '#fff',
         weight: 1,
@@ -177,7 +177,7 @@ function main(data) {
 
     map = makeMap('map', map_options);
 
-    data_master = createMarkers(data_master, default_style);
+    data_master = createMarkers(data_master, default_styles);
 
     filters = checkFilters();
     
@@ -456,7 +456,9 @@ function getMarkers(source_data, id_array) {
     for (var i = 0; i < source_data.length; i++) {
         
         if ( id_array.indexOf( '$' + source_data[i]['location']) > -1 ) {
-            source_data[i]['marker'].addTo(layer);
+            var marker_style = getStyle(source_data[i], default_styles);
+            source_data[i]['marker'].setStyle(marker_style).addTo(layer);
+
         }
 
     }
@@ -720,3 +722,30 @@ function resizedw(){
 
     table.columns.adjust();
 }
+
+
+function getStyle(record, style) {
+    //  style marker based on current filers and comm status
+    var marker_style = style['ONLINE'];  //  device style is online until proven otherwise
+    
+    for (var i=0; i < device_data.length; i++) {
+        var device_name = device_data[i].name;
+        
+        if (device_name in record && filters.indexOf(device_name) >= 0) {
+
+            if (record[device_name].status != 'ONLINE') {
+                marker_style = style['OFFLINE']
+                break;
+            } else {
+                continue;
+            }
+        }
+    }
+
+    return marker_style;
+}
+
+
+
+
+
