@@ -100,7 +100,7 @@ $(document).ready(function(){
 
 
 function main(data){
-    
+    master = data
     var cols = createTableCols('data_table', table_cols);
 
     populateInfoStat(data, "info-1", ['2'], function(){
@@ -275,21 +275,21 @@ function populateMap(map, dataset) {
         
         for (var i = 0; i < dataset.length; i++) {   
             
-            if(dataset[i].latitude > 0) {
+            if(dataset[i].location_latitude > 0) {
 
                 var status = +dataset[i].operation_state;
 
-                var lat = dataset[i].latitude;
+                var lat = dataset[i].location_latitude;
         
-                var lon = dataset[i].longitude;
+                var lon = dataset[i].location_longitude;
 
                 var address = dataset[i].location_name;
 
-                var status_time = formatDateTime( new Date(dataset[i].operation_state_datetime) );
+                var status_time = formatDateTime( new Date(dataset[i].operation_state_datetime * 1000) );
 
                 var signal_id = dataset[i].signal_id;
 
-                var duration = formatDuration(dataset[i].operation_state_datetime);
+                var duration = formatDuration(dataset[i].operation_state_datetime * 1000);
                 
                 var marker = L.marker([lat,lon], {
                         icon:  marker_icons['$' + status]
@@ -424,13 +424,13 @@ function populateTable(dataset) {
             { 
                 data: 'operation_state_datetime', 
                 "render": function ( data, type, full, meta ) {
-                    return formatDateTime( new Date(data) );
+                    return formatDateTime( new Date(data * 1000) );
                 }
             },
             { 
                 data: 'operation_state_datetime', 
                 "render": function ( data, type, full, meta ) {
-                    return formatDuration( data );
+                    return formatDuration( data * 1000 );
                 }
             }
         ]
