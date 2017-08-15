@@ -35,7 +35,7 @@ var device_data = [
         'display_name' : 'Travel Sensors',
         'resource_id' : 'wakh-bdjq',
         'id_field' : 'sensor_id',
-        'query' : 'select latitude,longitude,sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status in ("TURNED_ON")'
+        'query' : 'select location_latitude,location_longitude,sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status in ("TURNED_ON")'
     },
     {
         'name' : 'traffic_signal',
@@ -43,7 +43,7 @@ var device_data = [
         'display_name' : "Signal",
         'resource_id' : 'xwqn-2f78',
         'id_field' : 'signal_id',
-        'query' : 'select * where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000'
+        'query' : 'select atd_location_id,signal_id,signal_status,latitude,longitude,control,ip_comm_status,comm_status_datetime_utc where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000'
     }
 ];
 
@@ -308,16 +308,10 @@ function groupByLocation(data) {
                 //  build location record        
                 var device_name = device_data[i]['name'];
                 
-                if (!(device_data[i].data[q].latitude) && device_data[i].data[q].location) {
-                    device_data[i].data[q].longitude = device_data[i].data[q].location.coordinates[0]
-                    device_data[i].data[q].latitude = device_data[i].data[q].location.coordinates[1]
-                    
-                }
-
                 var new_loc = {
                     'location' : location,
-                    'latitude' : device_data[i].data[q].latitude,
-                    'longitude' : device_data[i].data[q].longitude,
+                    'latitude' : device_data[i].data[q].location_latitude,
+                    'longitude' : device_data[i].data[q].location_longitude,
                     'location_name' : device_data[i].data[q].location_name,
                 };
 
