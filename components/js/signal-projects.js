@@ -389,7 +389,7 @@ function createMarkers(data, style) {
 
     for (var i = 0; i < data.length; i++) {
         
-        if (!data[i].latitude) {
+        if (!data[i].location_latitude) {
             continue;
         }
         var status = data[i].signal_status;
@@ -398,9 +398,9 @@ function createMarkers(data, style) {
 
         var location_name = data[i].location_name;
 
-        var lat = data[i].latitude;
+        var lat = data[i].location_latitude;
         
-        var lon = data[i].longitude;
+        var lon = data[i].location_longitude;
          
         var updated = formats.formatDate( new Date(data[i].modified_date) )
 
