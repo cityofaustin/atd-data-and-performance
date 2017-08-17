@@ -305,6 +305,11 @@ function groupByLocation(data) {
             });
 
             if (!(loc_exists)) {
+                if (!device_data[i].data[q].location_latitude){
+                    console.log(device_data[i].data[q]);
+                    continue;
+                }
+
                 //  build location record        
                 var device_name = device_data[i]['name'];
                 
@@ -315,6 +320,7 @@ function groupByLocation(data) {
                     'location_name' : device_data[i].data[q].location_name,
                 };
 
+                
                 //  append device-specifc attributes    
                 new_loc[device_name] = {
                         'status' : device_data[i].data[q][comm_status_field],
