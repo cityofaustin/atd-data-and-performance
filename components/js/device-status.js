@@ -43,7 +43,7 @@ var device_data = [
         'display_name' : "Signal",
         'resource_id' : 'xwqn-2f78',
         'id_field' : 'signal_id',
-        'query' : 'select atd_location_id,signal_id,signal_status,latitude,longitude,control,ip_comm_status,comm_status_datetime_utc where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000'
+        'query' : 'select atd_location_id,signal_id,signal_status,location_latitude,location_longitude,control,ip_comm_status,comm_status_datetime_utc where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000'
     }
 ];
 
