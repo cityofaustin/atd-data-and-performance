@@ -894,9 +894,9 @@ function populateMap(map, dataset) {
 
         var system_name = dataset[i].system_name;
 
-        var lat = dataset[i].latitude;
+        var lat = dataset[i].location_latitude;
 
-        var lon = dataset[i].longitude;
+        var lon = dataset[i].location_longitude;
 
         var intersection_name = dataset[i].location_name;
 
