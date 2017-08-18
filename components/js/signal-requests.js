@@ -345,9 +345,9 @@ function createMarkers(data, style) {
 
         var eval_type = data[i].eval_type;
 
-        var lat = data[i].latitude;
+        var lat = data[i].location_latitude;
         
-        var lon = data[i].longitude;
+        var lon = data[i].location_longitude;
 
         var request_note = ''
         
