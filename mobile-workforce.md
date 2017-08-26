@@ -1,7 +1,7 @@
 ---
 layout: mobile-workforce-layout
 title: Mobile Workforce | City of Austin Transportation Department
-description: Test
+description: Mobile Workforce
 title_short: Mobile Workforce
 custom_js:
 - leaflet.extra-markers.min
