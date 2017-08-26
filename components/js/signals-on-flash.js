@@ -10,7 +10,7 @@ var signal_markers = {};
 
 var formatPct = d3.format("%");
 
-var formatDateTime = d3.timeFormat("%e %b %-I:%M%p");
+var formatDateTime = d3.timeFormat("%e %b %H:%M");
 
 var formatDate = d3.timeFormat("%x");
 
@@ -244,9 +244,14 @@ function makeMap(dataset) {
         zoom : 10,
         minZoom : 1,
         maxZoom : 20,
-        scrollWheelZoom: false,
-        attributionControl: false
+        scrollWheelZoom: true,
+        attributionControl: true,
+        zoomControl: false
     });      // make a map
+
+    var zoomHome = L.Control.zoomHome();
+    zoomHome.addTo(map);
+
 
     var carto_positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
@@ -406,7 +411,7 @@ function populateTable(dataset) {
         scrollCollapse : false,
         bInfo : true,
         paging : false,
-        order: [[ 1, "desc" ]],
+        order: [[ 2 , "desc" ]],
         columns: [
             { data: 'location_name', 
                 "render": function ( data, type, full, meta ) {
