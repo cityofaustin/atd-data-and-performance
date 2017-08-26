@@ -1,0 +1,123 @@
+#map {
+    position: absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    z-index: 1;
+}
+
+#left-overlay-container {
+    height: 100vh;
+    pointer-events: none;
+}
+
+#left-overlay {
+    pointer-events: auto;
+}
+
+.over-map {
+    z-index: 2;
+}
+
+.map-control-toggle {
+    z-index: 3;
+    cusor: pointer;
+}
+
+.map-control-custom {
+    z-index: 3;
+    background-color: #fff;
+    box-shadow: 0px 1px 2px 0px gray;
+}   
+
+.leaflet-bar a {
+    /*style zoomHome control*/
+    color: #fff;
+    background-color: #43484E;
+}
+
+.leaflet-popup-content-wrapper {
+ /*overrwrite dashboard popup styling here*/
+}
+
+.btn-map-custom {
+    color: #fff;
+    background-color: #43484e;
+}
+
+.fa-phone-square {
+    color: #9A282D;
+}
+.input-control-icon {
+    z-index: 3;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 60px;
+    color: gray;
+    background-color: #fff;
+}
+
+#map-menu {
+    background-color: #fff;
+    box-shadow: 0px 1px 2px 0px gray;
+}
+
+#feature-details-card {
+    box-shadow: 0px 1px 2px 0px gray;
+}
+
+.input-control-icon:hover {
+    color: #43484e;
+}
+
+#close-feature-details {
+    z-index: 3;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: gray;
+    background-color: #fff;
+}
+
+#close-feature-details:hover {
+    color: #43484e;
+}
+
+.feature-table td {
+    border-top: none;
+}
+
+table.feature-table.dataTable.no-footer {
+    border-bottom: none;
+}
+
+#data-table_wrapper {
+    background-color: #fff;
+}
+
+
+thead {
+    /*hide table head (because it's connected to the search bar)*/
+    display: none;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+    /*disayble datatabe top and bottom borders*/
+    border: none;
+}
+
+.modal-content {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+table.dataTable.feature-table tbody tr {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+
+
