@@ -60,7 +60,7 @@ var map_options = {
         zoom : 10,
         minZoom : 1,
         maxZoom : 20,
-        scrollWheelZoom: false
+        zoomControl: false
     };
 
 var SCALE_THRESHOLDS = {
@@ -188,6 +188,9 @@ function makeMap(divId, options) {
     var map = new L.Map(divId, options)
         .addLayer(layers['stamen_toner_lite']);
 
+    var zoomHome = L.Control.zoomHome();
+    zoomHome.addTo(map);
+
     return map;
 
 }
@@ -249,23 +252,6 @@ function populateTable(data, divId, filters) {
             adjustMapHeight();
 
         })
-        //  update map after table search
-        .on( 'draw.dt', function () {
-            
-            var ids = [];
-
-            $('.tableRow').each(function(i, obj) {
-                ids.push(obj.id);
-            });
-
-            if (ids.length > 0 ) {
-                var markers = getMarkers(data, ids);
-
-                updateMap(markers);
-
-            }
-
-        })
         .DataTable({
             data : data,
             rowId : 'request_id',
@@ -273,6 +259,22 @@ function populateTable(data, divId, filters) {
             scrollCollapse : false,
             bInfo : true,
             paging : false,
+            drawCallback : function( settings ) {
+                var ids = [];
+
+                $('.tableRow').each(function(i, obj) {
+                    ids.push(obj.id);
+                });
+
+                if (ids.length > 0) {
+                    var markers = getMarkers(data, ids);
+                } else {
+                    var markers = undefined;
+                }
+                
+                updateMap(markers);
+
+            },
             columns: [
                 
                 { data: 'location_name',
@@ -462,13 +464,16 @@ function updateMap(layer) {
         map.removeLayer(feature_layer);
     }
 
-    feature_layer = layer
+    if (layer) {
 
-    feature_layer.addTo(map);
+        feature_layer = layer
 
-    map.fitBounds(feature_layer.getBounds(), { maxZoom: 16 });    
+        feature_layer.addTo(map);
 
-    map.invalidateSize();
+        map.fitBounds(feature_layer.getBounds(), { maxZoom: 16 });    
+
+        map.invalidateSize();
+    }
 
 }
 

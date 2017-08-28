@@ -1,6 +1,5 @@
 // assumes one record per device-type per location
-
-var data_master, map, marker, feature_layer, table, filters, default_bounds, curr_breakpoint;
+var data_master, map, marker, feature_layer, table, filters, selector_change, curr_breakpoint;
 
 var prev_breakpoint = undefined;
 var show_modal = false;
@@ -49,9 +48,10 @@ var device_data = [
 
 var map_options = {
         center : [30.27, -97.74],
-        zoom : 13,
+        zoom : 11,
         minZoom : 1,
-        maxZoom : 20
+        maxZoom : 20,
+        zoomControl : false
 };
 
 var img_url_base = 'http://162.89.4.145/CCTVImages/CCTV';
@@ -188,7 +188,7 @@ function main(data) {
     populateTable(filtered_data, 'data_table');
 
     $('#search_input').on( 'keyup', function () {
-    
+        
         table.search( this.value ).draw();
 
     } );
@@ -204,6 +204,8 @@ function main(data) {
         } else {
             $(this).addClass('active').attr('aria-pressed', true)
         }
+        
+        selector_change = true;
 
         filterChange();
     })
@@ -370,9 +372,10 @@ function makeMap(divId, options) {
 
     var map = new L.Map(divId, options)
         .addLayer(layers['stamen_toner_lite']);
+    
+    var zoomHome = L.Control.zoomHome();
+    zoomHome.addTo(map);
 
-    default_bounds = map.getBounds();
-    console.log(default_bounds);
     return map;
 
 }
@@ -430,7 +433,16 @@ function createMarkers(data, style) {
 
         if (img_url) {
             cam_url = coa_net_passthrough + 'CAMERA_ID=' + id;
-            popup_text = "<img class='popup-img' src=" + img_url + " width=300 /><br>" + popup_text + "<br><a href=" + cam_url + " target=_blank >Video Feed (Restricted Access)</a>";
+            popup_text = 
+                "<a href=" + img_url +
+                " target=_blank >" +
+                "<img class='popup-img' src=" +
+                img_url + 
+                " width=300 /></a><br>" +
+                popup_text + 
+                "<br><a href=" + 
+                cam_url + 
+                " target=_blank >Video Feed (Restricted Access)</a>";
         }
 
         if (popup_text.indexOf('Online') > -1 ) {
@@ -478,8 +490,7 @@ function updateMap(layer) {
 
     feature_layer.addTo(map);
 
-   adjustView(layer);    
-
+    adjustView(layer);
 
 }
 
@@ -510,20 +521,6 @@ function populateTable(data, divId) {
     }
 
     table = $('#data_table')
-        //  update map after table search
-        .on( 'draw.dt', function () {
-                
-            var ids = [];
-
-            $('.tableRow').each(function(i, obj) {
-                ids.push(obj.id);
-            });
-
-            var marker_layer = getMarkers(data, ids);    
-            
-            updateMap(marker_layer);
-
-        })
         .DataTable({
             data : data,
             rowId : 'location',
@@ -532,6 +529,17 @@ function populateTable(data, divId) {
             bInfo : true,
             paging : false,
             autoWidth: true,
+            drawCallback : function( settings ) {
+                var ids = [];
+
+                $('.tableRow').each(function(i, obj) {
+                    ids.push(obj.id);
+                });
+
+                var marker_layer = getMarkers(data, ids);    
+                
+                updateMap(marker_layer);
+            },
             columns: [
 
                 { data: 'location_name',
@@ -655,29 +663,30 @@ function filterChange() {
     filters = checkFilters();
     var data = filterByKeyExits(data_master, filters);
     populateTable(data, 'data_table');
-        
 }
 
 
 function adjustView(layer) {
 
-    setMarkerSizes(data_master);
-
-    if (layer) {
-        var bounds = layer.getBounds()
-    } else {
-        var bounds = {};
-    }
-
-    if (Object.keys(bounds).length === 0 && bounds.constructor === Object) {
-        //  http://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
-        //  empty bounds
+    if ( filters.length == 0 ) {
+        //  apply default view when no filters are applied (ie map is empty)
         map.setView(map_options.center, map_options.zoom);
-    } else {
-        map.fitBounds(bounds, { maxZoom: 16 });    
+
+        map.invalidateSize();
+
+    } else if (!selector_change) {  //  view not updated if selector change
+
+        var bounds = layer.getBounds();
+
+        if ( bounds.hasOwnProperty('_southWest') ) {
+              map.fitBounds(bounds, { maxZoom: 16 });
+        }
+
+        map.invalidateSize();
+
     }
 
-    map.invalidateSize();
+    selector_change = false;
 
 }
 
