@@ -1,5 +1,23 @@
 var ANNUAL_GOALS = {
     
+    "2021" : {
+        retime_goal: 0, // set progammtically 
+        travel_time_reduction: .05,
+        stops_reduction: 0,
+    },
+
+    "2020" : {
+        retime_goal: 0, // set progammtically 
+        travel_time_reduction: .05,
+        stops_reduction: 0,
+    },       
+    
+    "2019" : {
+        retime_goal: 0, // set progammtically 
+        travel_time_reduction: .05,
+        stops_reduction: 0,
+    },    
+
     "2018" : {
         retime_goal: 0, // set progammtically 
         travel_time_reduction: .05,
@@ -25,12 +43,13 @@ var ANNUAL_GOALS = {
     }    
 
 };
+//  https://data.austintexas.gov/resource/efct-8fs9.json?$where=system_name="LAMAR - NORTH"
 
 var table_cols = ['Corridor Name', 'Number of Signals', 'Status', 'Travel Time Change', 'Engineer Note'];
 
 var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/g8w2-8uap.json';
 
-var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json';
+var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json?$limit=5000';
 
 var LOGFILE_URL = "https://data.austintexas.gov/resource/n5kp-f8k4.json?$query=SELECT * WHERE event='signal_retiming_update' AND (created > 0 OR updated > 0 OR deleted > 0) ORDER BY timestamp DESC LIMIT 1";
 
@@ -188,33 +207,36 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
                 //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
                 var resize_timer;
+                
                 window.onresize = function(){
-                clearTimeout(resize_timer);
-                resize_timer = setTimeout(resizedw, 100);
-    };
+                    clearTimeout(resize_timer);
+                    resize_timer = setTimeout(resizedw, 100);
+                };
+
+                makeMap(GROUPED_DATA_INTERSECTIONS, function(map, dataset) {
+
+                    populateMap(map, dataset);
+
+                    map.on('zoomend', function() {
+
+                        setMarkerSizes();
+
+                    });
+
+                });
 
             });
 
             $('#search_input').on( 'keyup', function () {
     
-            table.search( this.value ).draw();
-
-    } );
-
-        });
-
-
-        makeMap(GROUPED_DATA_INTERSECTIONS, function(map, dataset) {
-
-            populateMap(map, dataset);
-
-            map.on('zoomend', function() {
-
-                setMarkerSizes();
+                table.search( this.value ).draw();
 
             });
 
         });
+
+
+
 
     });
 
@@ -702,14 +724,6 @@ function populateTable(dataset, next) {
 
 
     table = $('#data_table')
-        .on( 'init.dt', function () {
-            
-            if (map) {
-                resetMap();
-            }
-            
-        })
-
         .DataTable({
             data : filtered_data,
             rowId : 'system_id',
@@ -721,6 +735,9 @@ function populateTable(dataset, next) {
             bInfo : false,
             order : [[2, 'asc']],
             oLanguage :{ sSearch : 'Search by Corridor Name' },
+            drawCallback : function( settings ) {
+                //  resetMap();
+            },
             columnDefs : [
                  { "width" : "40%", "targets" : 4 },
                  { "width" : "10%", "targets" : 1 },
@@ -841,7 +858,7 @@ function makeMap(dataset, next) {
             zoom : 12,
             minZoom : 1,
             maxZoom : 20,
-            scrollWheelZoom: false
+            zoomControl : false //  zoom control replaces with custom zoom control plugin
         });      // make a map
 
         var carto_positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -856,6 +873,9 @@ function makeMap(dataset, next) {
             maxZoom : 20,
             ext : 'png' 
         }).addTo(map);
+
+        var zoomHome = L.Control.zoomHome();
+        zoomHome.addTo(map);
 
         next(map, dataset);
 
@@ -918,7 +938,6 @@ function populateMap(map, dataset) {
         
 }
 
-var pizza;
 
 function updateVisibleLayers() {
 
@@ -1034,9 +1053,12 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
 
 
 function resetMap() {
+   
    //  make map same height as table
-    map.invalidateSize();
-    map.fitBounds(visible_layers.getBounds());
+    if (map) {
+        map.invalidateSize();
+        map.fitBounds(visible_layers.getBounds());
+    };
 
 }
 
