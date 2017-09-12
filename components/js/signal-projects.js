@@ -27,27 +27,31 @@ var map_options = {
         center : [30.28, -97.74],
         zoom : 12,
         minZoom : 1,
-        maxZoom : 20
+        maxZoom : 20,
+        zoomControl : false
 };
 
 var default_style = { 
     'CONSTRUCTION' : {
         color: '#fff',
         weight: 1,
-        fillColor: '#F1AC37',
-        fillOpacity: .8
+        fillColor: '#ed9f1c',
+        fillOpacity: .8,
+        icon : 'wrench'
     },
     'DESIGN' : {
         color: '#fff',
         weight: 1,
-        fillColor: '#1B495C',
-        fillOpacity: .8  
+        fillColor: '#1b7756',
+        fillOpacity: .8,
+        icon : 'pencil'  
     },
     'TURNED_ON' : {
         color: '#fff',
         weight: 1,
         fillColor: '#028102',
-        fillOpacity: .8  
+        fillOpacity: .8,
+        icon : 'car'  
     }
 }
 
@@ -238,6 +242,9 @@ function makeMap(divId, options) {
     var map = new L.Map(divId, options)
         .addLayer(layers['stamen_toner_lite']);
 
+    var zoomHome = L.Control.zoomHome();
+    zoomHome.addTo(map);
+
     default_bounds = map.getBounds();
     
     return map;
@@ -298,7 +305,10 @@ function populateTable(dataset, divId, filter_obj) {
             { 
                 data: 'signal_status', 
                 "render": function ( data, type, full, meta ) {
-                    return "<span class='status-badge status-" + data.toLowerCase() + "'>" + data + "</span>";
+                    var icon = default_style[data].icon;
+                    return "<span class='status-badge status-" + data.toLowerCase() + "'>" +
+                    "<i class='fa fa-" + icon + "'></i> " +
+                     data + "</span>";
                 }
             },
 
@@ -404,9 +414,22 @@ function createMarkers(data, style) {
          
         var updated = formats.formatDate( new Date(data[i].modified_date) )
 
-        var popup_text = '<b>' + location_name + 
-            '</b><br><b>Status: <b> ' + status + 
-            '<br><b> Updated: <b>' +  updated;
+        var const_note = data[i].construction_note;
+
+        if (const_note) {
+            const_note = '<i>' + const_note + '</i><br>';
+        } else {
+            const_note = '';
+        }
+        
+        var icon = default_style[status].icon;
+
+        var popup_text ='<b>' + location_name + '</b><br>' + 
+        const_note + 
+        '<b> Updated: <b>' +
+        updated + "</br></br><span class='status-badge status-" + status.toLowerCase() + "'>" +
+        "<i class='fa fa-" + icon + "'></i> " +
+         status + "</span>" 
 
         data[i]['marker'] = L.circle([lat,lon], 500)
             .bindPopup(popup_text)
