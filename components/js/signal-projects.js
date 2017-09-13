@@ -417,6 +417,7 @@ function createMarkers(data, style) {
         var const_note = data[i].construction_note;
 
         if (const_note) {
+
             const_note = '<i>' + const_note + '</i><br>';
         } else {
             const_note = '';
