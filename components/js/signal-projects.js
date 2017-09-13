@@ -417,19 +417,20 @@ function createMarkers(data, style) {
         var const_note = data[i].construction_note;
 
         if (const_note) {
-            const_note = '<br><i>' + const_note + '</i>';
+
+            const_note = '<i>' + const_note + '</i><br>';
         } else {
             const_note = '';
         }
         
         var icon = default_style[status].icon;
 
-        var popup_text = "<span class='status-badge status-" + status.toLowerCase() + "'>" +
+        var popup_text ='<b>' + location_name + '</b><br>' + 
+        const_note + 
+        '<b> Updated: <b>' +
+        updated + "</br></br><span class='status-badge status-" + status.toLowerCase() + "'>" +
         "<i class='fa fa-" + icon + "'></i> " +
-         status + "</span>" +
-        '<br><br><b>' + location_name + '</b><br>' + 
-        const_note +
-        '<b> Updated: <b>' +  updated;
+         status + "</span>" 
 
         data[i]['marker'] = L.circle([lat,lon], 500)
             .bindPopup(popup_text)
