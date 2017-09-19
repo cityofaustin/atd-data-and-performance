@@ -18,16 +18,14 @@
   background-color: #e6e6e6;
 }
 
-
 .modal-body {
   /*  match leaflet popup content*/
   color: #fff;
   background: #43484e;
 }
 
-
-
 .btn-map-selector {
+  color: #fff;
   background-color: #7f7f7f;
   border-color: #fff;
   cursor: pointer;
@@ -51,10 +49,6 @@
   background-color: #0062b7;
   border-color: #fff;
   -webkit-appearance: none; 
-}
-
-.btn-group-vertical {
-  width: 100%;
 }
 
 .map-container {
@@ -86,7 +80,7 @@ tr {
 .leaflet-popup-content-wrapper {
   /* overwride default leaflet styles */
   color: #fff;
-  background: rgba(48, 51, 56, .95);
+  background: #43484e;
   border-radius: 3px;
 }
 /* styles below here for landing page */
