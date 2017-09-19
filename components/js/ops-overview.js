@@ -12,7 +12,7 @@ var year = today.getFullYear();
 var fiscal_year = year;
 
 
-if (month > 10) {  // if month is later than september
+if (month > 8) {  // if month is later than september
     fiscal_year = year + 1;
 }
 
@@ -150,7 +150,10 @@ var config = [
         'caption' : 'Signals that have received preventative maintenance this fiscal year.',
         'query' : 'SELECT COUNT(signal_pm_max_fiscal_year) as count WHERE signal_pm_max_fiscal_year IN ("' + fiscal_year + '")',
         'resource_id' : 'xwqn-2f78',
-        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'data_transform' : function(x) { 
+            console.log(fiscal_year);
+            return( [x[0]['count']] )
+        },
         'update_event' : 'signals_update'
     },
     {
