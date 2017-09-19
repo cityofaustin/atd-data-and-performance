@@ -10,7 +10,7 @@
     <div class="container-fluid" id="dash-container">
       <div class="row">
         <div class="map-container" id="map"></div>
-        <div id="left-overlay-container" class="col-md-5 pt-md-2 pl-md-4 over-map"><!--   left overlay pane -->
+        <div id="left-overlay-container" class="col-md-5 pt-md-2 pl-md-2 over-map"><!--   left overlay pane -->
           <div id="left-overlay" class="container-fluid">
             <div class="row">    
               <div class="col p-0">  <!-- menu button and search -->
@@ -43,6 +43,7 @@
               <div class="col-md-12 py-2 px-0" id="feature-details">
                 <div id="feature-details-card" class="card">
                   <div class="card-body">
+                    <a href='' target="_blank" ><img class="card-img-top" src="" alt="No Image Available"></a>
                     <button id="close-feature-details" class="btn btn input-control-icon" type="button"><i class="fa fa-close"></i></button>
                     <h3 class="card-title"></h3>
                     <p class="card-text"></p>
@@ -63,14 +64,27 @@
             </div>   <!-- end feature details row -->
             
             <div class="row">  <!-- map menu row -->
-              <div id="map-menu" class="col-md-12 pt-2 pb-2">
-                <h2> <b> What an adequate map! <b></h1>
-                <h4> There could be some cool map selectors here. </h3>
-                <p> Or an abundance of detail about mundane transportation management things. </p>
-                <button id="fake-btn" class="btn btn-primary " type="button" aria-expanded="false" aria-controls="fake-btn">Important Button</i></button>
-              </div>
-            </div>    <!-- end map menu row -->
-
+              <div id="map-menu" class="col-md-12 p-0">  <!-- map menu container -->
+                <div class="row">
+                  <div class="col-12 p-2">
+                    <div class="col-12">
+                      <h2> <b> Traffic Management Operations </b></h2>
+                      <h4> There could be some cool map selectors here. </h4>
+                      <p> Or an abundance of detail about mundane transportation management things. </p>
+                      <h5 class="card-title"><i class='fa fa-map'></i> Map Layers </h5>
+                      <btn type="button" data_id="cctv" class="btn btn-block btn-map-selector" aria-pressed="false"><i class="fa fa-video-camera"></i> CCTV</btn>
+                      <btn type="button" data_id="service_requests" class="btn btn-block btn-map-selector" aria-pressed="false"><i class="fa fa-phone-square"></i> Service Requests</btn>
+                      <btn type="button" data_id="service_requests" class="btn btn-block btn-map-selector" aria-pressed="false"><i class="fa fa-info-circle"></i> Digital Message Signs </btn>
+                    </div>
+                  </div>
+                  <div class="col-md-12 pt-0">
+                    <div class='menu-footer'>
+                      <img style="height:90px; padding: 10px 10px 10px 0px;" src="/components/images/coa_seal_transparent_white.png">
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- end map menu container -->
+            </div>                  <!-- end map menu row -->
           </div>  <!-- end left overlay pane -->
         </div> <!-- end elfet overlay container -->
       </div>  <!-- end data row -->

@@ -92,7 +92,7 @@ var CONFIG = {
     'cctv' : {
        'source' : 'socrata',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'wgs84',  //  stateplan, wgs84
-        'init_display' : false,  //  show layer on map init
+        'init_display' : true,  //  show layer on map init
         'name' : 'cctv',
         'resource_id' : 'fs3c-45ge',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
@@ -100,6 +100,9 @@ var CONFIG = {
         'display_field' : 'location_name', //  field to display in table results
         'rowIdField' : 'camera_id',  //  unique id field- for table/map interactivity
         'divId' : 'data_table',  //  destination table
+        image_url : function(record) { 
+            return 'http://162.89.4.145/CCTVImages/CCTV' + record.camera_id + '.jpg';
+        },
         'lonField' : 'location_longitude',
         'latField' : 'location_latitude',
         'query' : 'select * where upper(camera_mfg) not in ("GRIDSMART")',
@@ -110,6 +113,22 @@ var CONFIG = {
             //  function to post-process display field data
             //  here we take only the street name of a comma-separated address
             return field_value;
+        },
+        details : function(record) {
+            return [
+                {
+                    'name' : 'Location',
+                    'value'  : record.location_name
+                },
+                {
+                    'name' : 'Status',
+                    'value'  : record.ip_comm_status
+                },
+                {
+                    'name' : 'Status Date',
+                    'value'  : record.comm_status_datetime_utc
+                }
+            ]   
         },
         'filterField' : 'camera_status',  //  use status field to filter records
         'filters' : [
