@@ -13,8 +13,4 @@ custom_css:
 - leaflet.extra-markers.min
 - selectize.min
 - mobile-workforce
-
 ---
-
-
-
