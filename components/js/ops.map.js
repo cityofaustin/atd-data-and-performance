@@ -52,7 +52,7 @@ function makeMap(divId, options) {
         .addLayer(layers['stamen_toner_lite'])
         .on('resize', function() {
         });
-
+    
     //  $('#loader').modal('toggle');
 
     var zoomHome = L.Control.zoomHome({position : 'bottomright'});
@@ -483,13 +483,11 @@ function populateDetails(divId, layer_name, record) {
 
     if (CONFIG[layer_name].image_url) {
         var image_url = CONFIG[layer_name].image_url(record);
-        
         $('#' + divId).find('a').attr('href', image_url).show();
         $('#' + divId).find('img').attr('src', image_url);
     } else {
         $('#' + divId).find('a').attr('href', '').hide();
         $('#' + divId).find('img').attr('src', '');
-
     }
 
     details.splice(0, 1); //  remove 'header' elem

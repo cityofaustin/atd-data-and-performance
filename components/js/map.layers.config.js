@@ -8,33 +8,8 @@ var MAP_OPTIONS = {
 
 var CONFIG = { 
     'service_requests' : {
-        //  field_1388 - location
-        //  field_1446 - details
-        //  field_1636 - status
-        //  field_1445 - type
-        //  field_1517 - date
-        'source' : 'knack',  //  source app (knack, socrata, ...)
-        'spatial_ref' : 'stateplane',  //  stateplan, wgs84
-        'init_display' : true,  //  show layer on map init
-        'name' : 'service_requests',
-        'data' : [],  //  data will go here programmatically
-        'display_name' : 'Service Request',
-        'display_field' : 'field_1388', //  field to display in table results
-        'rowIdField' : 'id',  //  unique id field- for table/map interactivity
         'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
-        'sceneKey' : 'scene_514',  //  knack api param
-        'viewKey' : 'view_1552',  //  knack api param
-        'divId' : 'data_table',  //  destination table
-        'lonField' : 'field_1402',
-        'latField' : 'field_1401',
-        popup : function(record) {
-            return '<b> ' + record.field_1388 + '<b>';        
-        },
-        processDisplayField : function(field_value) {
-            //  function to post-process display field data
-            //  here we take only the street name of a comma-separated address
-            return field_value.split(',')[0];
-        },
+        'data' : [],  //  data will go here programmatically
         details : function(record) {
 
             return [
@@ -64,6 +39,9 @@ var CONFIG = {
                 },
             ]
         },
+        'display_name' : 'Service Request',
+        'display_field' : 'field_1388', //  field to display in table results
+        'divId' : 'data_table',  //  destination table
         'filterField' : 'field_1797',  //  use status field to filter records
         'filters' : [
             {
@@ -87,7 +65,24 @@ var CONFIG = {
                 'icon_color' : '#028102',
                 'marker' : 'service_request_repairs_complete'
             }
-        ]
+        ],
+        'init_display' : true,  //  show layer on map init
+        'name' : 'service_requests',
+        'source' : 'knack',  //  source app (knack, socrata, ...)
+        'spatial_ref' : 'stateplane',  //  stateplan, wgs84
+        'rowIdField' : 'id',  //  unique id field- for table/map interactivity
+        'sceneKey' : 'scene_514',  //  knack api param
+        'viewKey' : 'view_1552',  //  knack api param
+        'lonField' : 'field_1402',
+        'latField' : 'field_1401',
+        popup : function(record) {
+            return '<b> ' + record.field_1388 + '<b>';        
+        },
+        processDisplayField : function(field_value) {
+            //  function to post-process display field data
+            //  here we take only the street name of a comma-separated address
+            return field_value.split(',')[0];
+        }
     },
     'cctv' : {
        'source' : 'socrata',  //  source app (knack, socrata, ...)
