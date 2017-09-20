@@ -1,7 +1,7 @@
 ---
 layout: fullscreen-map
 title: Traffic Management Operations | Transportation Data and Performance Hub 
-title_short: Traffic Management Ops
+title_short: Traffic Management Operations
 description: 
 custom_js:
 - leaflet.extra-markers.min
