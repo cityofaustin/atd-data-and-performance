@@ -46,9 +46,6 @@
     background-color: #43484e;
 }
 
-.fa-phone-square {
-    color: #9A282D;
-}
 .input-control-icon {
     z-index: 3;
     cursor: pointer;
@@ -59,12 +56,7 @@
     background-color: #fff;
 }
 
-#map-menu {
-    background-color: #fff;
-    box-shadow: 0px 1px 2px 0px gray;
-}
-
-#feature-details-card {
+.map-card {
     box-shadow: 0px 1px 2px 0px gray;
 }
 
@@ -118,11 +110,29 @@ table.dataTable.feature-table tbody tr {
     background-color: rgba(0, 0, 0, 0);
 }
 
-
-
 .menu-footer {
     color: #fff;
     background-color: #43484e; 
 }
+
+
+.map-layer-toggle {
+    color: #a3a1a1;
+    font-size: 1.1em;
+    background-color: inherit;
+    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.map-layer-toggle.toggled {
+    color: #3338ce;
+    background-color: #F8F9FA;
+}
+
+
+
+
+
 
 
