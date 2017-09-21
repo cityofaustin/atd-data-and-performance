@@ -16,12 +16,13 @@ var map_center;
 var table_data = [];
 var markers = [];
 var showing_details = false;
-var showing_overlay = false;
+var showing_menu = false;
 var q = d3.queue();
 
 $(document).ready(function(){
     // $('#loader').modal('toggle');
     $('#map-menu').show();
+    showing_menu = true;
     $('#feature-details').hide();
     $('#close-search').hide();
     getData(CONFIG);
@@ -118,7 +119,7 @@ function populateTable(data, divId
 function makeEventListeners() {
     
     $('#map-menu-btn').on('click', function(){
-        toggleOverlay();
+        toggleMenu();
     });
 
     $('#search-input')
@@ -442,25 +443,25 @@ function findRecord(rowId, layer_name, config) {
     }
 }
 
-function toggleOverlay() {
+function toggleMenu() {
     if (showing_details) {
         $("#feature-details").hide();
         showing_details = false;
     }
-    if (!showing_overlay) {
+    if (!showing_menu) {
         $('#map-menu').fadeIn();
-        showing_overlay = true;
+        showing_menu = true;
     } else {
         $('#map-menu').fadeOut();
-        showing_overlay = false;
+        showing_menu = false;
     }
     
 }
 
 function toggleDetails() {
-    if (showing_overlay) {
+    if (showing_menu) {
         $('#map-menu').hide();
-        showing_overlay = false;
+        showing_menu = false;
     }
 
     if (!showing_details) {
