@@ -21,7 +21,7 @@ var q = d3.queue();
 
 $(document).ready(function(){
     // $('#loader').modal('toggle');
-    $('#map-menu').hide();
+    $('#map-menu').show();
     $('#feature-details').hide();
     $('#close-search').hide();
     getData(CONFIG);
