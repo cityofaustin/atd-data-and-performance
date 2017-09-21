@@ -10,10 +10,10 @@
     <div class="container-fluid" id="dash-container">
       <div class="row">
         <div class="map-container" id="map"></div>
-        <div id="left-overlay-container" class="col-md-5 pt-md-2 pl-md-2 over-map"><!--   left overlay pane -->
+        <div id="left-overlay-container" class="col-md-5 over-map pt-sm-2 px-0 px-sm-2"><!--   left overlay pane -->
           <div id="left-overlay" class="container-fluid">
             <div class="row">    
-              <div class="col p-0">  <!-- menu button and search -->
+              <div id="map-controls" class="col p-0 ">  <!-- menu button and search - don't change padding -->
                 <div class="input-group">
                   <button id="map-menu-btn" class="btn btn-lg btn-map-custom map-control-custom map-control-toggle" type="button" aria-expanded="false" aria-controls="show-menu"><i class="fa fa-bars"></i></button>
                   <span class='p-1'></span>
@@ -26,7 +26,7 @@
               </div>
             </div> <!-- end search bar -->
             <div class="row">
-              <div class="col-md-12 data-table-container pt-2"> <!-- table row -->
+              <div class="col-md-12 data-table-container pt-sm-2"> <!-- table row -->
                 <table class="table table-striped table-hover compact" id="data-table">
                   <thead>
                     <tr>
@@ -40,8 +40,8 @@
               </div>  <!-- end table col -->
             </div> <!-- end table row -->
             <div class="row">
-              <div class="col-md-12 py-2 px-0" id="feature-details">
-                <div id="feature-details-card" class="card">
+              <div class="col-md-12 px-0" id="feature-details">   <!-- don't remove px-0 -->
+                <div id="feature-details-card" class="card map-card">
                   <div class="card-body">
                     <a href='' target="_blank" ><img class="card-img-top" src="" alt="No Image Available"></a>
                     <button id="close-feature-details" class="btn btn input-control-icon" type="button"><i class="fa fa-close"></i></button>
@@ -61,30 +61,32 @@
                   </div>  <!-- end card body -->
                 </div>  <!-- end card -->
               </div>  <!-- end feature details -->
-            </div>   <!-- end feature details row -->
-            
+            </div>   <!-- end feature details row -->  
             <div class="row">  <!-- map menu row -->
-              <div id="map-menu" class="col-md-12 p-0">  <!-- map menu container -->
-                <div class="row">
-                  <div class="col-12 p-2">
-                    <div class="col-12">
-                      <h2> <b> Traffic Management Operations </b></h2>
-                      <h4> There could be some cool map selectors here. </h4>
-                      <p> Or an abundance of detail about mundane transportation management things. </p>
-                      <h5 class="card-title"><i class='fa fa-map'></i> Map Layers </h5>
-                      <btn type="button" data_id="cctv" class="btn btn-block btn-map-selector" aria-pressed="false"><i class="fa fa-video-camera"></i> CCTV</btn>
-                      <btn type="button" data_id="service_requests" class="btn btn-block btn-map-selector" aria-pressed="false"><i class="fa fa-phone-square"></i> Service Requests</btn>
-                      <btn type="button" data_id="service_requests" class="btn btn-block btn-map-selector" aria-pressed="false"><i class="fa fa-info-circle"></i> Digital Message Signs </btn>
-                    </div>
+              <div id="map-menu" class="col-md-12 px-0" >
+                <div class="card map-card">
+                  <div class="card-header">
+                    <div class="media">
+                      <img class="d-flex align-self-center mr-3" src="../components/images/coa_seal_bw_transparent_sm.png" alt="City of Austin Seal">
+                      <div class="media-body align-self-center">
+                        <h3 class="mt-0">Traffic Management Operations</h3>
+                        <p class="mb-0">City of Austin Transportation Department</p>
+                      </div>
+                    </div>             
                   </div>
-                  <div class="col-md-12 pt-0">
-                    <div class='menu-footer'>
-                      <img style="height:90px; padding: 10px 10px 10px 0px;" src="/components/images/coa_seal_transparent_white.png">
-                    </div>
+                  <div class="list-group list-group-flush pt-2">
+                    <a href="#" class="map-layer-toggle list-group-item toggled"><i class="fa fa-phone-square"></i> Service Requests</a>
+                    <a href="#" class="map-layer-toggle list-group-item toggled"><i class="fa fa-video-camera"></i> CCTV</a>
+                    <a href="#" class="map-layer-toggle list-group-item"><i class="fa fa-info-circle"></i> Digital Message Signs</a>
+                    <a href="#" class="map-layer-toggle list-group-item"><i class="fa fa-car"></i> Traffic Signals</a>
                   </div>
-                </div>
+                  <div class="list-group list-group-flush pt-2">
+                    <a class="list-group-item" href="#" style="color: black;" >About the Traffic Management Center</a>
+                    <a class="list-group-item" href="#" style="color: black;">Open Data and Performance</a>
+                  </div>
+                </div>  <!-- end card -->
               </div> <!-- end map menu container -->
-            </div>                  <!-- end map menu row -->
+            </div> <!-- end map menu row -->
           </div>  <!-- end left overlay pane -->
         </div> <!-- end elfet overlay container -->
       </div>  <!-- end data row -->

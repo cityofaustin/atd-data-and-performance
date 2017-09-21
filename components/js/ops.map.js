@@ -9,7 +9,7 @@
 //  google maps link
 //  overlay on small display
 //  layer selectors
-//  use mapbox / vector tiles?
+//  hide #map-controls on collapse when details are showing
 
 var map, table, feature_layer;
 var map_center;
