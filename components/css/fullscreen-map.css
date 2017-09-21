@@ -125,14 +125,27 @@ table.dataTable.feature-table tbody tr {
     padding-bottom: 5px;
 }
 
+.map-layer-toggle:hover {
+    color: #A3A1A1;
+    background-color: #e8e8e8;
+}
+
 .map-layer-toggle.toggled {
     color: #000ea0;
     background-color: #F8F9FA;
 }
 
+.map-layer-toggle.toggled:hover {
+    background-color: #e8e8e8;
+}
 
+@keyframes fade { 
+  from { opacity: 0.3; } 
+}
 
-
+.marker-highlight {
+  animation: fade 1s infinite alternate;
+}
 
 
 
