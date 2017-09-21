@@ -66,7 +66,9 @@ var CONFIG = {
                 'marker' : 'service_request_repairs_complete'
             }
         ],
-        'init_display' : true,  //  show layer on map init
+        'icon' : 'phone-square',
+        'init_load' : true,  //  get layer data on app load
+        'init_display' : true, //  display map layer on app load
         'name' : 'service_requests',
         'source' : 'knack',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'stateplane',  //  stateplan, wgs84
@@ -87,7 +89,9 @@ var CONFIG = {
     'cctv' : {
        'source' : 'socrata',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'wgs84',  //  stateplan, wgs84
-        'init_display' : true,  //  show layer on map init
+        'init_load' : true,  //  get layer data on app load
+        'init_display' : false, //  display map layer on app load
+        'icon' : 'video-camera',
         'name' : 'cctv',
         'resource_id' : 'fs3c-45ge',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
@@ -172,7 +176,28 @@ var MARKERS = {
 }
 
 
-
+var HIGHLIGTH_MARKER_SIZE = {  //  in meters
+    '$1': 800,
+    '$2': 800,
+    '$3': 800,
+    '$4': 800,
+    '$5': 800,
+    '$6': 800,
+    '$7': 800,
+    '$8': 800,
+    '$9': 800,
+    '$10': 800,
+    '$11': 800,
+    '$12': 500,
+    '$13': 300,
+    '$14': 200,
+    '$15': 125,
+    '$16': 90,
+    '$17': 20,
+    '$18': 20,
+    '$19': 20,
+    '$20': 20,
+};
 
 
 

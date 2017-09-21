@@ -6,15 +6,15 @@
 //  'filters' is not the right place to assign markers in config
 //          add layers/get more data
 //  create address name field on CSR records
-//  google maps link
 //  overlay on small display
-//  layer selectors
 //  hide #map-controls on collapse when details are showing
 
-var map, table, feature_layer;
-var map_center;
-var table_data = [];
-var markers = [];
+var map, table, feature_layer, highlight;
+
+//  referenced when updating datatable to determine
+//  if table should be shown
+var filter_change = true;   
+
 var showing_details = false;
 var showing_menu = false;
 var q = d3.queue();
@@ -30,13 +30,15 @@ $(document).ready(function(){
 });
 
 function main(config) {
-    makeMap('map', MAP_OPTIONS);
-    populateTable(table_data, 'data-table');
-    makeEventListeners();
+    map = createMap('map', MAP_OPTIONS);
+    var data = updateData(config)
+    populateTable(data, 'data-table');
+    createEventListeners();
     createTableListeners();
+    createLayerSelectListeners('map-layer-selectors', config);
 }
 
-function makeMap(divId, options) {
+function createMap(divId, options) {
     //  mappy map
     L.Icon.Default.imagePath = '../components/images/';
 
@@ -63,10 +65,10 @@ function makeMap(divId, options) {
 }
 
 
-function populateTable(data, divId
-
-    ) {
+function populateTable(data, divId) {
+    
     $('#data-table').hide();
+    $('#' + divId).dataTable().fnDestroy();
 
     table = $('#' + divId)
         .DataTable({
@@ -75,7 +77,17 @@ function populateTable(data, divId
             data : data,
             bInfo : false,
             paging : false,
-            drawCallback : function( settings ) {
+            drawCallback : function() {
+
+                if (!filter_change) {
+                    if ( $( ".sorting_1" ).length) {
+                        $('#data-table').show();
+                    } else {
+                       $('#data-table').hide();
+                    }
+                }
+
+                fitler_change = false;
                 //  create map layer from table rows
                 //  i.e., the table contents always drives
                 //  the map contents
@@ -102,33 +114,41 @@ function populateTable(data, divId
                 }
             ]
         })
-        .on( 'draw.dt', function () {
-            $('#data-table').hide();
-
-            if ( $( ".sorting_1" ).length) {
-                $('#data-table').show();
-            } else {
-               $('#data-table').hide();
-            }
-        });
+        .on( 'draw.dt', function () {});
     
     $('#data-table_filter').remove();
 }
 
 
-function makeEventListeners() {
-    
+function createEventListeners() {
+    map.on('click', function() {
+        map.removeLayer(highlight);
+    });
+
+    map.on('zoomend', function(){
+        //  resize highlight marker on zoom
+        if (map.hasLayer(highlight)) {
+            resizeMarker(highlight);
+        }
+    });
+
     $('#map-menu-btn').on('click', function(){
         toggleMenu();
     });
 
     $('#search-input')
         .on('keyup', function () {
+            filter_change = false;
             if (this.value) {
                 //  search for features
                 $('#close-search').show();
                 table.search( this.value ).draw();
                 $('#map-menu').hide();
+                
+                if (map.hasLayer(highlight)) {
+                      map.removeLayer(highlight);  
+                } 
+
             } else {
                 //  hide search results and (x) if no text in input
                 $('#data-table').hide();
@@ -150,6 +170,10 @@ function makeEventListeners() {
         //  close search when (x) is clicked
         closeSearch();
         toggleDetails();
+        
+        if (map.hasLayer(highlight)) {
+          map.removeLayer(highlight);  
+        } 
     })
 
     $('#close-feature-details').on('click', function() {
@@ -158,7 +182,11 @@ function makeEventListeners() {
         document.getElementById('search-input').value = '';
         $('#close-search').hide();
         toggleDetails();
-        map.closePopup();
+        
+        if (map.hasLayer(highlight)) {
+          map.removeLayer(highlight);  
+        }
+
     })
     
     $(document).keyup(function(e) {
@@ -192,7 +220,7 @@ function getData(config) {
     for (var layer_name in config) {
         if (config.hasOwnProperty(layer_name)) {
 
-            if (config[layer_name].init_display) {
+            if (config[layer_name].init_load) {
 
                 if (config[layer_name].source == 'knack') {
                     var req = knackViewRequest(config[layer_name]);
@@ -216,9 +244,16 @@ function getData(config) {
             var layer_name = layer_names[i];
 
             var layer = handleData(config[layer_name], arguments[1][i], function(layer){
-                addToTable(layer.data, config[layer_name]);
+                addMapLayerSelector(config[layer_name], 'map-layer-selectors');
                 
-                var markers = makeMarkers(layer.data, config[layer_name]);
+                //  set initial visibility state of layer
+                if (config[layer_name].init_display) {
+                    config[layer_name].active = true;
+                } else {
+                    config[layer_name].active = false;
+                }
+                
+                var markers = createMarkers(layer.data, config[layer_name]);
                 return markers;
             });
             
@@ -259,7 +294,6 @@ function handleData(layer, data, callback) {
 
 }
 
-
 function projectPoint(record, xField, yField) {    
     var latLon = sp_to_wgs84(record[xField], record[yField]);
     record[xField] = latLon['lon'];
@@ -278,7 +312,7 @@ function socrataRequest(config) {
 }
 
 
-function makeMarkers(data, config) {
+function createMarkers(data, config) {
 
     if (data.length > 0) {
 
@@ -310,11 +344,12 @@ function makeMarkers(data, config) {
                 }
                 var zoom = map.getZoom();
                 zoomToMarker(record.marker, zoom);
+                highlightMarker(record.marker);
                 
             });
             
             var popup = config.popup(data[i]);
-            marker.bindPopup(popup);
+            //  marker.bindPopup(popup);
 
             config.data[i]['marker'] = marker;
         }
@@ -390,7 +425,7 @@ function adjustView(layer) {
 }
 
 
-function addToTable(data, config) {
+function addToTable(data, config, table_data) {
     //  homegenize and merge data to be displayed one datatable
     for (var i = 0; i < data.length; i++) {
         var display_value = data[i][config.display_field];
@@ -405,7 +440,7 @@ function addToTable(data, config) {
         table_data.push(rec);
     }
 
-    return data;
+    return table_data;
 }
 
 
@@ -426,6 +461,7 @@ function createTableListeners() {
         }
         //  zoom to marker and open popup
         zoomToMarker(record.marker);
+        highlightMarker(record.marker);
         record.marker.openPopup();
     });
 
@@ -475,7 +511,6 @@ function toggleDetails() {
 
 
 function populateDetails(divId, layer_name, record) {
-    console.log(record);
    $('#' + 'feature-table').dataTable().fnDestroy();
 
     var details = CONFIG[layer_name].details(record);
@@ -553,3 +588,85 @@ function fitMarker(marker, offset, max_zoom=17) {
     });
 }
 
+//  we have a filters object
+//  add to filters object when get data
+//  create map selector, too
+//  we update the table data with the filters object
+//  and re-create the layers
+
+function addMapLayerSelector(config, divId) {
+    
+    if (config.init_display) {
+        //  apply toggled layer class
+        //  according to config
+        var toggle_class = 'toggled';        
+    } else {
+        var toggle_class = '';
+    }
+
+    var selector = "<a href=\"#\" class=\"map-layer-toggle list-group-item " + toggle_class + "\" data-layer-name=\"" + config.name + "\" ><i class=\"fa fa-" + config.icon + "\"></i> " + config.display_name + "</a>";
+    $('#' + divId).append(selector);
+
+}
+
+
+function updateData(config) {
+    //  refresh data objects based on current filters
+    table_data = [];
+
+    for (var layer_name in config) {
+        if (config[layer_name].active) {
+            table_data = addToTable(config[layer_name].data, config[layer_name], table_data);        
+        }
+    }
+
+    return table_data;
+}
+
+
+
+function createLayerSelectListeners(divId, config) {
+    $('#' + divId).children().on('click', function() {
+        var layer_name = $(this).data('layer-name');
+        filter_change = true;
+
+        //  set activation state of layer
+        if (config[layer_name].active) {
+            config[layer_name].active = false;
+            $(this).removeClass("toggled");
+        } else {
+            config[layer_name].active = true;
+            $(this).addClass("toggled");
+        }
+
+        var data = updateData(config);
+        populateTable(data, 'data-table');
+    });
+}
+
+
+function highlightMarker(marker) {
+    if (map.hasLayer(highlight)) {
+        map.removeLayer(highlight);  
+    } 
+    var marker_size = markerRadius();
+
+    highlight = L.circle(marker._latlng, {
+            className: 'marker-highlight',
+            radius: marker_size,
+        })
+        .setStyle({
+            color: '#4250f4'
+        })
+        .addTo(map);
+}
+
+function markerRadius() {
+    var zoom = map.getZoom()
+    return HIGHLIGTH_MARKER_SIZE['$' + zoom];
+}
+
+function resizeMarker(marker) {
+    var marker_size = markerRadius();
+    marker.setRadius(marker_size);
+}
