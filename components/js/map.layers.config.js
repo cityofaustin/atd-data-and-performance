@@ -2,7 +2,7 @@ var MAP_OPTIONS = {
         center : [30.27, -97.74],
         zoom : 13,
         minZoom : 1,
-        maxZoom : 20,
+        maxZoom : 19,
         zoomControl: false
 };
 
@@ -37,9 +37,14 @@ var CONFIG = {
                     'name' : 'Date',
                     'value' : record.field_1517
                 },
+                {
+                    'type' : 'row',
+                    'name' : 'Issue ID',
+                    'value' : record.field_1678
+                }
             ]
         },
-        'display_name' : 'Service Request',
+        'display_name' : 'Service Requests',
         'display_field' : 'field_1388', //  field to display in table results
         'divId' : 'data_table',  //  destination table
         'filterField' : 'field_1797',  //  use status field to filter records
@@ -189,14 +194,14 @@ var HIGHLIGTH_MARKER_SIZE = {  //  in meters
     '$10': 800,
     '$11': 800,
     '$12': 500,
-    '$13': 300,
-    '$14': 200,
-    '$15': 125,
-    '$16': 90,
-    '$17': 20,
-    '$18': 20,
-    '$19': 20,
-    '$20': 20,
+    '$13': 200,
+    '$14': 150,
+    '$15': 85,
+    '$16': 50,
+    '$17': 30,
+    '$18': 15,
+    '$19': 10,
+    '$20': 10,
 };
 
 

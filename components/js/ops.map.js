@@ -8,13 +8,16 @@
 //  create address name field on CSR records
 //  overlay on small display
 //  hide #map-controls on collapse when details are showing
+//  test on IE and consider support
+//  weird highlight behavior on search/toggle combos
 
-var map, table, feature_layer, highlight;
+var map, basemap, table, feature_layer, highlight;
 
-//  referenced when updating datatable to determine
-//  if table should be shown
-var filter_change = true;   
-
+//  if table/map are updating from layer selector toggle,
+//  layer_change is true and is referenced when updating datatable
+//  to determine if search results table (data table) should be shown
+var layer_change = true;   
+var searching = false;
 var showing_details = false;
 var showing_menu = false;
 var q = d3.queue();
@@ -42,19 +45,16 @@ function createMap(divId, options) {
     //  mappy map
     L.Icon.Default.imagePath = '../components/images/';
 
-    var layers = {
-        stamen_toner_lite: L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-            attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            subdomains : 'abcd',
-            maxZoom : 20,
-            ext : 'png'
-        })
-    }
+
+    basemap = new L.tileLayer( 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+                attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                subdomains : 'abcd',
+                maxZoom : 20,
+                ext : 'png'
+            });
 
     map = new L.Map(divId, options)
-        .addLayer(layers['stamen_toner_lite'])
-        .on('resize', function() {
-        });
+        .addLayer(basemap);
     
     //  $('#loader').modal('toggle');
 
@@ -79,30 +79,29 @@ function populateTable(data, divId) {
             paging : false,
             drawCallback : function() {
 
-                if (!filter_change) {
+                clearMap();
+
+                //  if map is redrawing because of keyup
+                if (searching) {
+
                     if ( $( ".sorting_1" ).length) {
+                        //  show data table if there are search results
                         $('#data-table').show();
                     } else {
                        $('#data-table').hide();
                     }
+                    
+                    var layers = getSearchMarkers();
+                    addLayers(layers);   
+                    adjustView(layers);
+  
+                } else {
+                    //  layers added or removed
+                    var layers = getConfigLayers();
+                    addLayers(layers);   
                 }
 
-                fitler_change = false;
-                //  create map layer from table rows
-                //  i.e., the table contents always drives
-                //  the map contents
-                var ids = [];
-                $('.tableRow').each(function(i, obj) {
-                    var rowId = obj.id;
-                    var layer_name = $(obj).data('layer-name');
-                    ids.push({ 
-                            'rowId' : rowId, 
-                            'layer_name' : layer_name,
-                        });
-                });
-                var marker_layer = getMarkers(ids); 
-                updateMap(marker_layer);   
-            
+
             },
             columns: [
                 { 
@@ -138,12 +137,18 @@ function createEventListeners() {
 
     $('#search-input')
         .on('keyup', function () {
-            filter_change = false;
+            layer_change = false;
+            searching = true;
             if (this.value) {
                 //  search for features
-                $('#close-search').show();
                 table.search( this.value ).draw();
+                $('#close-search').show();
+
                 $('#map-menu').hide();
+                showing_menu = false;
+
+                 $('#feature-details').hide();
+                 showing_details = false;
                 
                 if (map.hasLayer(highlight)) {
                       map.removeLayer(highlight);  
@@ -153,7 +158,6 @@ function createEventListeners() {
                 //  hide search results and (x) if no text in input
                 $('#data-table').hide();
                 $('#close-search').hide();
-                toggleDetails();
             }
         })
         .on('click', function () {
@@ -168,12 +172,14 @@ function createEventListeners() {
 
     $('#close-search').on('click', function() {
         //  close search when (x) is clicked
+    
         closeSearch();
-        toggleDetails();
-        
+    
         if (map.hasLayer(highlight)) {
           map.removeLayer(highlight);  
-        } 
+        }     
+
+        
     })
 
     $('#close-feature-details').on('click', function() {
@@ -191,13 +197,19 @@ function createEventListeners() {
     
     $(document).keyup(function(e) {
         //  esc key to cancel search input
+        //  or to zoom home if not searching
         //  https://stackoverflow.com/questions/1160008/which-keycode-for-escape-key-with-jquery
         if (e.keyCode === 27) {
-            
-            closeSearch();
-            
-            if (showing_details) {
-                toggleDetails();    
+            if (searching) {
+                closeSearch();
+
+                if (showing_details) {
+                    toggleDetails();    
+                }
+
+            } else {
+                map.setView(MAP_OPTIONS.center, MAP_OPTIONS.zoom);
+
             }
         }
     });
@@ -207,6 +219,8 @@ function createEventListeners() {
 
 function closeSearch() {
     document.getElementById('search-input').value = '';
+    document.activeElement.blur();  //  clear focus from search input
+    searching = false;
     table.search('').draw();
     $('#data-table').hide();
     $('#close-search').hide();
@@ -313,6 +327,17 @@ function socrataRequest(config) {
 
 
 function createMarkers(data, config) {
+    //  iterate through all records, adding markers to:
+    //  the record itself
+    //  a master layer which contains all markers for the dataset
+
+    //  master layer with all markers
+    //  will not change after init
+    var layer = new L.featureGroup();
+
+    //  empty search layer that will be populated
+    //  dynamically by search results
+    var layer_searching = new L.featureGroup();
 
     if (data.length > 0) {
 
@@ -348,25 +373,29 @@ function createMarkers(data, config) {
                 
             });
             
-            var popup = config.popup(data[i]);
+            //  var popup = config.popup(data[i]);
             //  marker.bindPopup(popup);
 
             config.data[i]['marker'] = marker;
+            marker.addTo(layer);
         }
         
     }
 
+    config.layer = layer;
+    config.layer_searching = layer_searching;
 }
 
 
-function updateMap(layer) {
-    if ( map.hasLayer(feature_layer) ) {
-        map.removeLayer(feature_layer);
+function addLayers(layers) {
+    for (layer in layers) {
+         layers[layer].addTo(map);
     }
+}
 
-    feature_layer = layer;
-    feature_layer.addTo(map);
-   adjustView(layer);    
+
+function removeLayer(layers) {
+
 }
 
 
@@ -380,45 +409,27 @@ function filterByKeyValue(arr, key, value) {
 }
 
 
-function getMarkers(id_data) {
-    //  get markers for all rows in data
-    //  and add feature layer
-    var layer = new L.featureGroup();
+function getMarker(rowId, layer_name) {
+    var rowIdField = CONFIG[layer_name].rowIdField;
 
-    for (var i = 0; i < id_data.length; i++){
-        //  get row properties
-        var layer_name = id_data[i].layer_name;
-        var rowId = id_data[i].rowId;
-        var rowIdField = CONFIG[layer_name].rowIdField;
-        
-        //  find matching marker in config master data
-        for (var q = 0; q < CONFIG[layer_name].data.length; q++) {
-            if (rowId == '$' + CONFIG[layer_name].data[q][rowIdField]) {
-                CONFIG[layer_name].data[q].marker.addTo(layer);
-                continue;
-            }
-        }
+    for (var i = 0; i < CONFIG[layer_name].data.length; i++) {
+        if (rowId == '$' + CONFIG[layer_name].data[i][rowIdField]) {
+            return CONFIG[layer_name].data[i].marker;
+        }  
     }
-
-    return layer;
 }
 
 
-function adjustView(layer) {
+function adjustView(layers) {
 
-    if (layer) {
-        var bounds = layer.getBounds()
-    } else {
-        var bounds = {};
+    var first_layer = layers[Object.keys(layers)[0]]
+    var bounds = L.latLngBounds( first_layer );
+
+    for (layer in layers) {
+        bounds.extend( layers[layer].getBounds() )
     }
 
-    if (Object.keys(bounds).length === 0 && bounds.constructor === Object) {
-        //  http://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
-        //  empty bounds
-        map.setView(MAP_OPTIONS.center, MAP_OPTIONS.zoom);
-    } else {
-        map.fitBounds(bounds, { maxZoom: 16 });    
-    }
+    map.fitBounds( bounds, { maxZoom: 16 } );    
 
     map.invalidateSize();
 
@@ -480,6 +491,7 @@ function findRecord(rowId, layer_name, config) {
 }
 
 function toggleMenu() {
+     $("#data-table").hide();
     if (showing_details) {
         $("#feature-details").hide();
         showing_details = false;
@@ -628,7 +640,7 @@ function updateData(config) {
 function createLayerSelectListeners(divId, config) {
     $('#' + divId).children().on('click', function() {
         var layer_name = $(this).data('layer-name');
-        filter_change = true;
+        layer_change = true;
 
         //  set activation state of layer
         if (config[layer_name].active) {
@@ -670,3 +682,52 @@ function resizeMarker(marker) {
     var marker_size = markerRadius();
     marker.setRadius(marker_size);
 }
+
+
+function clearMap() {
+    map.eachLayer(function(layer){
+        map.removeLayer(layer);
+    });
+                
+    map.addLayer(basemap);
+}
+
+function getSearchMarkers() {
+
+    var search_layers = {};
+    //  Iterate through all rows in search results
+    //  Find marker and add to corresponding search layer
+    $('.tableRow').each(function(i, obj) {
+        var rowId = obj.id;
+        var layer_name = $(obj).data('layer-name');
+        var marker = getMarker(rowId, layer_name); 
+        if ( !search_layers.hasOwnProperty(layer_name) ) {
+            search_layers[layer_name] = new L.featureGroup();
+        }
+        marker.addTo(search_layers[layer_name]);
+    });
+
+
+    return search_layers;
+
+}
+
+
+function getConfigLayers() {
+    var layers = {};
+    for (dataset in CONFIG) {
+        if (CONFIG[dataset].active) {
+            layers[dataset] = CONFIG[dataset].layer;
+        }
+    }
+    return layers;
+}
+
+
+
+
+
+
+
+
+                
