@@ -9,7 +9,9 @@
 //  overlay on small display
 //  hide #map-controls on collapse when details are showing
 //  test on IE and consider support
-//  weird highlight behavior on search/toggle combos
+//  weird highlight behavior on search/toggle combos (possibly lagging?)
+//  table row icon rendering
+//  handle when pane is longer than viewport (hide overflow?)
 
 var map, basemap, table, feature_layer, highlight;
 
@@ -37,7 +39,6 @@ function main(config) {
     var data = updateData(config)
     populateTable(data, 'data-table');
     createEventListeners();
-    createTableListeners();
     createLayerSelectListeners('map-layer-selectors', config);
 }
 
@@ -78,7 +79,7 @@ function populateTable(data, divId) {
             bInfo : false,
             paging : false,
             drawCallback : function() {
-
+                createTableListeners();
                 clearMap();
 
                 //  if map is redrawing because of keyup
@@ -108,7 +109,9 @@ function populateTable(data, divId) {
                     data: 'display_value',
                 
                     "render": function ( data, type, full, meta ) {
-                        return "<a class='tableRow' data-layer-name='" + full.layer_name + "' id='$" + full.rowId + "' '>" + data + "</a>";
+                        return "<a class='tableRow' data-layer-name='" + full.layer_name + "' id='$" + full.rowId + "' '>" +
+                        "<i class='fa fa-" + CONFIG[full.layer_name].icon + "' style='color:" + CONFIG[full.layer_name].icon_color + "'></i> " +
+                         data + "</a>";
                     }   
                 }
             ]

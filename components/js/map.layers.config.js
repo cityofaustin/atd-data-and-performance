@@ -72,6 +72,7 @@ var CONFIG = {
             }
         ],
         'icon' : 'phone-square',
+        'icon_color' : '#962125',
         'init_load' : true,  //  get layer data on app load
         'init_display' : true, //  display map layer on app load
         'name' : 'service_requests',
@@ -97,6 +98,7 @@ var CONFIG = {
         'init_load' : true,  //  get layer data on app load
         'init_display' : false, //  display map layer on app load
         'icon' : 'video-camera',
+        'icon_color' : '#ED8F35',
         'name' : 'cctv',
         'resource_id' : 'fs3c-45ge',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
