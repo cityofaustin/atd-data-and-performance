@@ -529,7 +529,7 @@ function populateDetails(divId, layer_name, record) {
    $('#' + 'feature-table').dataTable().fnDestroy();
 
     var details = CONFIG[layer_name].details(record);
-    $('#' + divId).find('h3').html("<i class='fa fa-phone-square'></i> " + CONFIG[layer_name].display_name);
+    $('#' + divId).find('h3').html("<i class='fa fa-" + CONFIG[layer_name].icon + "' style='color: " + CONFIG[layer_name].icon_color + "' ></i> " + CONFIG[layer_name].display_name);
     $('#' + divId).find('p').text(details[0].value);
 
     if (CONFIG[layer_name].image_url) {

@@ -44,7 +44,7 @@ var CONFIG = {
                 }
             ]
         },
-        'display_name' : 'Service Requests',
+        'display_name' : 'Service Request',
         'display_field' : 'field_1388', //  field to display in table results
         'divId' : 'data_table',  //  destination table
         'filterField' : 'field_1797',  //  use status field to filter records
