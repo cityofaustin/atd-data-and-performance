@@ -10,14 +10,14 @@
 //  hide #map-controls on collapse when details are showing
 //  test on IE and consider support
 //  weird highlight behavior on search/toggle combos (possibly lagging?)
-//  table row icon rendering
 //  handle when pane is longer than viewport (hide overflow?)
+//  dms need location name attribute
+//  getflex notes (out of scope)
 
 var map, basemap, table, feature_layer, highlight;
 
-//  if table/map are updating from layer selector toggle,
+//  If table/map are updating from layer selector toggle,
 //  layer_change is true and is referenced when updating datatable
-//  to determine if search results table (data table) should be shown
 var layer_change = true;   
 var searching = false;
 var showing_details = false;
@@ -331,8 +331,8 @@ function socrataRequest(config) {
 
 function createMarkers(data, config) {
     //  iterate through all records, adding markers to:
-    //  the record itself
-    //  a master layer which contains all markers for the dataset
+    //  the record itself and a master layer
+    //  which contains all markers for the dataset
 
     //  master layer with all markers
     //  will not change after init
@@ -397,11 +397,6 @@ function addLayers(layers) {
 }
 
 
-function removeLayer(layers) {
-
-}
-
-
 function filterByKeyValue(arr, key, value) {
     //  search an array of objects
     //  for a matching key/value
@@ -424,6 +419,8 @@ function getMarker(rowId, layer_name) {
 
 
 function adjustView(layers) {
+    //  determine current map bounds
+    //  and set map extent to fit
 
     var first_layer = layers[Object.keys(layers)[0]]
     var bounds = L.latLngBounds( first_layer );
@@ -440,7 +437,7 @@ function adjustView(layers) {
 
 
 function addToTable(data, config, table_data) {
-    //  homegenize and merge data to be displayed one datatable
+    //  homegenize and merge data to be displayed in one datatable
     for (var i = 0; i < data.length; i++) {
         var display_value = data[i][config.display_field];
         display_value = config.processDisplayField(display_value);
@@ -459,16 +456,17 @@ function addToTable(data, config, table_data) {
 
 
 function createTableListeners() {
-    
+    //  zoom to marker on search results click
+
     $("tr").on('click', function(obj) {
         //  get data from search results
         var rowId = $(this).find("a").attr("id");
         var layer_name = $(this).find("a").data('layer-name');
-        //  get record, zoome to corresponding marker
+        //  get record
         var record = findRecord(rowId, layer_name, CONFIG);
         //  hide search results
         $('#data-table').hide();
-        //  update details pane and toggle it if necessary
+        //  update details pane and toggle if necessary
         populateDetails('feature-details', layer_name, record);
         if (!showing_details) {
             toggleDetails();    
@@ -603,11 +601,6 @@ function fitMarker(marker, offset, max_zoom=17) {
     });
 }
 
-//  we have a filters object
-//  add to filters object when get data
-//  create map selector, too
-//  we update the table data with the filters object
-//  and re-create the layers
 
 function addMapLayerSelector(config, divId) {
     
@@ -619,7 +612,14 @@ function addMapLayerSelector(config, divId) {
         var toggle_class = '';
     }
 
-    var selector = "<a href=\"#\" class=\"map-layer-toggle list-group-item " + toggle_class + "\" data-layer-name=\"" + config.name + "\" ><i class=\"fa fa-" + config.icon + "\"></i> " + config.display_name + "</a>";
+    var selector_class = 'map-selector-' + config.name;
+    var selector = "<a href=\"#\" class=\"map-layer-toggle list-group-item " + 
+        toggle_class + ' '  + selector_class + 
+        "\" data-layer-name=\"" 
+        + config.name + 
+        "\" ><i class=\"fa fa-" + config.icon + "\"></i> "
+        + config.display_name +
+        "</a>";
     $('#' + divId).append(selector);
 
 }
@@ -672,12 +672,12 @@ function highlightMarker(marker) {
         })
         .setStyle({
             stroke: false,
-            fillOpacity : 1,
+            fillOpacity : .5,
             color: 'rgb(66, 134, 244)'
         })
         .addTo(map);
 
-    animateMarker();
+    //  animateMarker();
 }
 
 function markerRadius() {

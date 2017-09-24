@@ -123,7 +123,7 @@ table.dataTable.feature-table tbody tr {
 }
 
 .map-card-expander, .map-card-expander a {
-    color: black;
+    color: #000000;
 }
 
 .map-layer-toggle {
@@ -140,14 +140,31 @@ table.dataTable.feature-table tbody tr {
     background-color: #e8e8e8;
 }
 
-.map-layer-toggle.toggled {
-    color: #0012ce;
-    font-weight: bold;
-}
-
 .map-layer-toggle.toggled:hover {
     background-color: #e8e8e8;
 }
+
+ /*each slector-specific style should
+ match map marker colors*/
+.map-selector-service_requests.toggled {
+    color: #962125;
+    font-weight: bold;
+}
+
+
+.map-selector-dms.toggled {
+    color: #000000;
+    font-weight: bold;
+}
+
+
+.map-selector-cctv.toggled {
+    color: #2B6272;
+    font-weight: bold;
+}
+
+
+
 
 
 

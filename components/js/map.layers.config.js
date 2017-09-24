@@ -41,6 +41,12 @@ var CONFIG = {
                     'type' : 'row',
                     'name' : 'Issue ID',
                     'value' : record.field_1678
+                },
+                {
+                    'type' : 'row',
+                    'name' : '',
+                    'value' : "<a target=_blank href='http://transportation.austintexas.io/data-tracker/#home/tmc/view-tmc-details/" + record.id + " ' >Data Tracker (Restricted Access)</a>",
+                    
                 }
             ]
         },
@@ -98,7 +104,7 @@ var CONFIG = {
         'init_load' : true,  //  get layer data on app load
         'init_display' : false, //  display map layer on app load
         'icon' : 'video-camera',
-        'icon_color' : '#ED8F35',
+        'icon_color' : '#2B6272',  // match extra-markers colors (see MARKERS below)
         'name' : 'cctv',
         'resource_id' : 'fs3c-45ge',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
@@ -153,7 +159,7 @@ var CONFIG = {
         'init_load' : true,  //  get layer data on app load
         'init_display' : false, //  display map layer on app load
         'icon' : 'info-circle',
-        'icon_color' : '#0F7E31',
+        'icon_color' : '#000000',
         'name' : 'dms',
         'resource_id' : '4r2j-b4rx',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
@@ -223,14 +229,14 @@ var MARKERS = {
     }),
     'cctv' : new L.ExtraMarkers.icon({
         icon: 'fa-video-camera',
-        markerColor: 'orange',
-        shape: 'circle',
+        markerColor: 'blue-dark',
+        shape: 'square',
         prefix: 'fa'
     }),
     'dms' : new L.ExtraMarkers.icon({
         icon: 'fa-info-circle',
-        markerColor: 'green',
-        shape: 'circle',
+        markerColor: 'black',
+        shape: 'square',
         prefix: 'fa'
     })
 }
