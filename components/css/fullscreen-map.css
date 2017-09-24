@@ -114,6 +114,10 @@ table.dataTable.feature-table tbody tr {
     background-color: #fff;
 }
 
+#city-seal {
+    height: 90px;
+}
+
 .map-card-body {
     padding: 0;
 }
