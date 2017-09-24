@@ -671,9 +671,13 @@ function highlightMarker(marker) {
             radius: marker_size,
         })
         .setStyle({
-            color: '#4250f4'
+            stroke: false,
+            fillOpacity : 1,
+            color: 'rgb(66, 134, 244)'
         })
         .addTo(map);
+
+    animateMarker();
 }
 
 function markerRadius() {
@@ -727,10 +731,47 @@ function getConfigLayers() {
 }
 
 
+function animateMarker() {
+    //  not currently using, but one could do this:
+    //  https://bl.ocks.org/d3noob/bf44061b1d443f455b3f857f82721372
+    var markers = d3.selectAll(".marker-highlight")
+    var ease = d3.easeCircleIn;
+    var color1 = "rgb(255, 255, 255)";
+    var color2 = "rgb(242, 197, 0)";
 
+    repeat();
+    
+    function repeat() {
+
+      markers
+        .transition()   
+        .ease(ease)    
+        .duration(400)
+        .attr('opacity', .7)
+        .attr('fill', color2)
+        .transition()      
+        .duration(1000)    
+        .attr('opacity', .1)
+        .attr('fill', color1)
+        .on("end", repeat);
+    };
+
+}
 
 
 
 
 
                 
+
+
+
+
+
+
+
+
+
+
+
+

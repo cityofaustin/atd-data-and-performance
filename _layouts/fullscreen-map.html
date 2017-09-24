@@ -62,10 +62,15 @@
                 </div>  <!-- end card -->
               </div>  <!-- end feature details -->
             </div>   <!-- end feature details row -->  
+            
+
+
+
             <div class="row">  <!-- map menu row -->
               <div id="map-menu" class="col-md-12 px-0" >
                 <div class="card map-card">
-                  <div class="card-header">
+                  
+                  <div id="map-menu-header" class="card-header">
                     <div class="media">
                       <img class="d-flex align-self-center mr-3" src="../components/images/coa_seal_bw_transparent_sm.png" alt="City of Austin Seal">
                       <div class="media-body align-self-center">
@@ -74,13 +79,46 @@
                       </div>
                     </div>             
                   </div>
-                  <div id="map-layer-selectors" class="list-group list-group-flush pt-2">
+
+                  <div id="accordion" role="tablist">
+                    <div class="card">
+                      <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <div class="card-header map-card-expander" role="tab" id="mapLayers">
+                          <h6 class="mb-0">                        
+                            Map Layers                        
+                          </h6>
+                        </div>
+                      </a>
+                      <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="mapLayers" data-parent="#accordion">
+                        <div class="card-body map-card-body">
+                          <div id="map-layer-selectors" class="list-group list-group-flush"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <div class="card-header map-card-expander" role="tab" id="aboutTmc">
+                          <h6 class="mb-0">
+                            About the Traffic Management Center
+                          </h6>
+                        </div>
+                      </a>
+                      <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="aboutTmc" data-parent="#accordion">
+                        <div class="card-body">
+                          <p>
+                            The Traffic Management Center (TMC) is the City of Austin's headquarters for monitoring and managing traffic throughout the Austin area. The center is staffed seven days a week through peak travel times, and may be staffed continuously through large events.
+                          </p>
+                          <p>
+                             This map enables TMC engineers to monitor traffic conditions and adjust signal timing in response to roadway condtions. Crews may be dispatched as needed to respond to downed or malfunctioning traffic signals.
+                          </p>
+                          <p>
+                            To report a traffic signal issue, <a href="http://www.austintexas.gov/department/311" target=_blank>contact 311</a>.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="list-group list-group-flush pt-2">
-                    <a class="list-group-item" href="#" style="color: black;" >About the Traffic Management Center</a>
-                    <a class="list-group-item" href="#" style="color: black;">Open Data and Performance</a>
-                  </div>
-                </div>  <!-- end card -->
+                </div>  <!-- end map card -->
               </div> <!-- end map menu container -->
             </div> <!-- end map menu row -->
           </div>  <!-- end left overlay pane -->

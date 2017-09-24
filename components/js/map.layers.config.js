@@ -146,6 +146,53 @@ var CONFIG = {
                 'marker' : 'cctv'
             }
         ]
+    },
+    'dms' : {
+       'source' : 'socrata',  //  source app (knack, socrata, ...)
+        'spatial_ref' : 'wgs84',  //  stateplane, wgs84
+        'init_load' : true,  //  get layer data on app load
+        'init_display' : false, //  display map layer on app load
+        'icon' : 'info-circle',
+        'icon_color' : '#0F7E31',
+        'name' : 'dms',
+        'resource_id' : '4r2j-b4rx',  //  socrata dataset id
+        'data' : [],  //  data will go here programmatically
+        'display_name' : 'Dynamic Message Sign',
+        'display_field' : 'dms_id', //  field to display in table results
+        'rowIdField' : 'dms_id',  //  unique id field- for table/map interactivity
+        'divId' : 'data_table',  //  destination table
+        'lonField' : 'location_longitude',
+        'latField' : 'location_latitude',
+        popup : function(record) {
+            return '<b> ' + record.dms_id + '<b>';        
+        },
+        processDisplayField : function(field_value) {
+            //  function to post-process display field data
+            //  here we take only the street name of a comma-separated address
+            return field_value;
+        },
+        details : function(record) {
+            return [
+                {
+                    'name' : 'Message',
+                    'value'  : 'Keep Austin Beard.'
+                },
+                {
+                    'name' : 'Updated',
+                    'value'  : '9/22/2017 11:40am'
+                }
+            ]   
+        },
+        'filterField' : 'dms_status',  //  use status field to filter records
+        'filters' : [
+            {
+                'display_name' : 'Status',
+                'value' : 'TURNED_ON',
+                'icon' : 'fa-info-circle',
+                'icon_color' : '#4286f4',
+                'marker' : 'dms'
+            }
+        ]
     }
 }
 
@@ -179,6 +226,12 @@ var MARKERS = {
         markerColor: 'orange',
         shape: 'circle',
         prefix: 'fa'
+    }),
+    'dms' : new L.ExtraMarkers.icon({
+        icon: 'fa-info-circle',
+        markerColor: 'green',
+        shape: 'circle',
+        prefix: 'fa'
     })
 }
 
@@ -197,13 +250,13 @@ var HIGHLIGTH_MARKER_SIZE = {  //  in meters
     '$11': 800,
     '$12': 500,
     '$13': 200,
-    '$14': 150,
-    '$15': 85,
-    '$16': 50,
-    '$17': 30,
-    '$18': 15,
-    '$19': 10,
-    '$20': 10,
+    '$14': 160,
+    '$15': 95,
+    '$16': 60,
+    '$17': 40,
+    '$18': 25,
+    '$19': 20,
+    '$20': 20,
 };
 
 
