@@ -110,11 +110,17 @@ table.dataTable.feature-table tbody tr {
     background-color: rgba(0, 0, 0, 0);
 }
 
-.menu-footer {
-    color: #fff;
-    background-color: #43484e; 
+#map-menu-header {
+    background-color: #fff;
 }
 
+.map-card-body {
+    padding: 0;
+}
+
+.map-card-expander, .map-card-expander a {
+    color: black;
+}
 
 .map-layer-toggle {
     color: #a3a1a1;
@@ -131,21 +137,14 @@ table.dataTable.feature-table tbody tr {
 }
 
 .map-layer-toggle.toggled {
-    color: #000ea0;
-    background-color: #F8F9FA;
+    color: #0012ce;
+    font-weight: bold;
 }
 
 .map-layer-toggle.toggled:hover {
     background-color: #e8e8e8;
 }
 
-@keyframes fade { 
-  from { opacity: 0.3; } 
-}
-
-.marker-highlight {
-  animation: fade 1s infinite alternate;
-}
 
 
 
