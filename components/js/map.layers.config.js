@@ -7,7 +7,7 @@ var MAP_OPTIONS = {
 };
 
 var CONFIG = { 
-    'service_requests' : {
+    'service_requests_new' : {
         'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
         'data' : [],  //  data will go here programmatically
         details : function(record) {
@@ -53,35 +53,11 @@ var CONFIG = {
         'display_name' : 'Service Request',
         'display_field' : 'field_1388', //  field to display in table results
         'divId' : 'data_table',  //  destination table
-        'filterField' : 'field_1797',  //  use status field to filter records
-        'filters' : [
-            {
-                'display_name' : 'New',
-                'value' : 'new',
-                'icon' : 'fa-exclamation-triangle',
-                'icon_color' : '#832025',
-                'marker' : 'service_request_new'
-            },
-            {
-                'display_name' : 'In Progress',
-                'value' : 'in_progress',
-                'icon' : 'fa-wrench',
-                'icon_color' : '#1865B1',
-                'marker' : 'service_request_in_progress'
-            },
-            {
-                'display_name' : 'Repairs Complete',
-                'value' : 'repairs_complete',
-                'icon' : 'fa-check-circle',
-                'icon_color' : '#028102',
-                'marker' : 'service_request_repairs_complete'
-            }
-        ],
         'icon' : 'phone-square',
-        'icon_color' : '#962125',
+        'icon_color' : '#962125',  // match extra-markers color
         'init_load' : true,  //  get layer data on app load
         'init_display' : true, //  display map layer on app load
-        'name' : 'service_requests',
+        'layer_name' : 'service_requests_new',  //  match parent object name
         'source' : 'knack',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'stateplane',  //  stateplan, wgs84
         'rowIdField' : 'id',  //  unique id field- for table/map interactivity
@@ -92,20 +68,121 @@ var CONFIG = {
         popup : function(record) {
             return '<b> ' + record.field_1388 + '<b>';        
         },
-        processDisplayField : function(field_value) {
-            //  function to post-process display field data
-            //  here we take only the street name of a comma-separated address
-            return field_value.split(',')[0];
-        }
     },
+    'service_requests_in_progress' : {
+        'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
+        'data' : [],  //  data will go here programmatically
+        details : function(record) {
+
+            return [
+                {
+                    'name' : 'Location',
+                    'value'  : record.field_1388
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Status',
+                    'value'  : record.field_1636
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Issue Type',
+                    'value' : record.field_1445
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Details',
+                    'value' : record.field_1446
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Date',
+                    'value' : record.field_1517
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Issue ID',
+                    'value' : record.field_1678
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Actions Taken',
+                    'value' : record.field_1053
+                },
+                {
+                    'type' : 'row',
+                    'name' : '',
+                    'value' : "<a target=_blank href='http://transportation.austintexas.io/data-tracker/#home/tmc/view-tmc-details/" + record.id + " ' >Data Tracker (Restricted Access)</a>",
+                    
+                }
+            ]
+        },
+        'display_name' : 'Work In Progress',
+        'display_field' : 'field_1388', //  field to display in table results
+        'divId' : 'data_table',  //  destination table
+        'icon' : 'wrench',
+        'icon_color' : '#196BB3',  // match extra-markers color
+        'init_load' : true,  //  get layer data on app load
+        'init_display' : true, //  display map layer on app load
+        'layer_name' : 'service_requests_in_progress',  //  match parent object name
+        'source' : 'knack',  //  source app (knack, socrata, ...)
+        'spatial_ref' : 'stateplane',  //  stateplan, wgs84
+        'rowIdField' : 'id',  //  unique id field- for table/map interactivity
+        'sceneKey' : 'scene_514',  //  knack api param
+        'viewKey' : 'view_1623',  //  knack api param
+        'lonField' : 'field_1402',
+        'latField' : 'field_1401',
+        popup : function(record) {
+            return '<b> ' + record.field_1388 + '<b>';        
+        },
+    },
+
+    'incident_report' : {
+        'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
+        'data' : [],  //  data will go here programmatically
+        details : function(record) {
+
+            return [
+                {
+                    'name' : 'Location',
+                    'value'  : record.field_1828
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Issue Reported',
+                    'value'  : record.field_1829
+                },
+         
+            ]
+        },
+        'display_name' : 'Incident Report',
+        'display_field' : 'field_1828', //  field to display in table results
+        'divId' : 'data_table',  //  destination table
+        'icon' : 'exclamation-triangle',
+        'icon_color' : '#EB7B2B',  // match extra-markers color
+        'init_load' : true,  //  get layer data on app load
+        'init_display' : true, //  display map layer on app load
+        'layer_name' : 'incident_report',  //  match parent object name
+        'source' : 'knack',  //  source app (knack, socrata, ...)
+        'spatial_ref' : 'wgs84',  //  stateplan, wgs84
+        'rowIdField' : 'id',  //  unique id field- for table/map interactivity
+        'sceneKey' : 'scene_514',  //  knack api param
+        'viewKey' : 'view_1624',  //  knack api param
+        'lonField' : 'field_1838',
+        'latField' : 'field_1837',
+        popup : function(record) {
+            return '<b> ' + record.field_1828 + '<b>';        
+        },
+    },
+
     'cctv' : {
        'source' : 'socrata',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'wgs84',  //  stateplan, wgs84
         'init_load' : true,  //  get layer data on app load
         'init_display' : false, //  display map layer on app load
         'icon' : 'video-camera',
-        'icon_color' : '#2B6272',  // match extra-markers colors (see MARKERS below)
-        'name' : 'cctv',
+        'icon_color' : '#2B6272',  // match extra_markers color (see MARKERS below)
+        'layer_name' : 'cctv',
         'resource_id' : 'fs3c-45ge',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
         'display_name' : 'CCTV',
@@ -117,14 +194,9 @@ var CONFIG = {
         },
         'lonField' : 'location_longitude',
         'latField' : 'location_latitude',
-        'query' : 'select * where upper(camera_mfg) not in ("GRIDSMART")',
+        'query' : "select camera_id, camera_mfg, location_name, ip_comm_status, comm_status_datetime_utc, location_longitude, location_latitude where upper(camera_mfg) not in (\"GRIDSMART\") and upper(camera_status) in (\"TURNED_ON\")",
         popup : function(record) {
             return '<b> ' + record.location_name + '<b>';        
-        },
-        processDisplayField : function(field_value) {
-            //  function to post-process display field data
-            //  here we take only the street name of a comma-separated address
-            return field_value;
         },
         details : function(record) {
             return [
@@ -160,7 +232,7 @@ var CONFIG = {
         'init_display' : false, //  display map layer on app load
         'icon' : 'info-circle',
         'icon_color' : '#000000',
-        'name' : 'dms',
+        'layer_name' : 'dms',
         'resource_id' : '4r2j-b4rx',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
         'display_name' : 'Dynamic Message Sign',
@@ -171,11 +243,6 @@ var CONFIG = {
         'latField' : 'location_latitude',
         popup : function(record) {
             return '<b> ' + record.dms_id + '<b>';        
-        },
-        processDisplayField : function(field_value) {
-            //  function to post-process display field data
-            //  here we take only the street name of a comma-separated address
-            return field_value;
         },
         details : function(record) {
             return [
@@ -188,34 +255,20 @@ var CONFIG = {
                     'value'  : '9/22/2017 11:40am'
                 }
             ]   
-        },
-        'filterField' : 'dms_status',  //  use status field to filter records
-        'filters' : [
-            {
-                'display_name' : 'Status',
-                'value' : 'TURNED_ON',
-                'icon' : 'fa-info-circle',
-                'icon_color' : '#4286f4',
-                'marker' : 'dms'
-            }
-        ]
+        }
     }
+    
 }
 
-var MARKERS = {
-    'signal_marker' : new L.ExtraMarkers.icon({
-        icon: 'fa-car',
-        markerColor: 'red',
-        shape: 'circle',
-        prefix: 'fa'
-    }),
-    'service_request_new' : new L.ExtraMarkers.icon({
+var MARKERS = { 
+    //  marker names must match layer_name from config
+    'service_requests_new' : new L.ExtraMarkers.icon({
         icon: 'fa-phone',
         markerColor: 'red',
         shape: 'circle',
         prefix: 'fa'
     }),
-    'service_request_in_progress' : new L.ExtraMarkers.icon({
+    'service_requests_in_progress' : new L.ExtraMarkers.icon({
         icon: 'fa-wrench',
         markerColor: 'blue',
         shape: 'circle',
@@ -225,6 +278,12 @@ var MARKERS = {
         icon: 'fa-check-circle',
         markerColor: 'green',
         shape: 'circle',
+        prefix: 'fa'
+    }),
+    'incident_report' : new L.ExtraMarkers.icon({
+        icon: 'fa-exclamation-triangle',
+        markerColor: 'orange',
+        shape: 'star',
         prefix: 'fa'
     }),
     'cctv' : new L.ExtraMarkers.icon({
@@ -270,6 +329,11 @@ var HIGHLIGTH_MARKER_SIZE = {  //  in meters
 
 
 
+
+
+
+
+    
 
 
 
