@@ -1,3 +1,7 @@
+#dash-container {
+    overflow:hidden;
+}
+
 #map {
     position: absolute;
     top:0;
@@ -144,13 +148,28 @@ table.dataTable.feature-table tbody tr {
     background-color: #e8e8e8;
 }
 
- /*each slector-specific style should
- match map marker colors*/
-.map-selector-service_requests.toggled {
+
+.map-selector-service_requests_new.toggled {
+/* each layer-specific style should match map marker colors */
+/* class name must match layer_name from config */
     color: #962125;
     font-weight: bold;
 }
 
+.map-selector-service_requests_in_progress.toggled {
+/* each layer-specific style should match map marker colors */
+/* class name must match layer_name from config */
+    color: #196BB3;
+    font-weight: bold;
+}
+
+
+.map-selector-incident_report.toggled {
+/* each layer-specific style should match map marker colors */
+/* class name must match layer_name from config */
+    color: #EC892C;
+    font-weight: bold;
+}
 
 .map-selector-dms.toggled {
     color: #000000;

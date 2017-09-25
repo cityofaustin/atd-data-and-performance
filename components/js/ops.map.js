@@ -1,10 +1,10 @@
 //  todo:
+//  modal loader
+//  url parameters
 //  what to do about requests missing lat/lon?
 //  maybe dump them into a list that can be toggled?
 //  ideally run them through COA geocoder
 //  update socrata queries to selected specific fields of concern
-//  'filters' is not the right place to assign markers in config
-//          add layers/get more data
 //  create address name field on CSR records
 //  overlay on small display
 //  hide #map-controls on collapse when details are showing
@@ -241,11 +241,11 @@ function getData(config) {
 
                 if (config[layer_name].source == 'knack') {
                     var req = knackViewRequest(config[layer_name]);
-                    layer_names.push(config[layer_name].name)
+                    layer_names.push(config[layer_name].layer_name)
                     q.defer(req.get)
                 } else if (config[layer_name].source == 'socrata') {
                     var req = socrataRequest(config[layer_name]);
-                    layer_names.push(config[layer_name].name);
+                    layer_names.push(config[layer_name].layer_name);
                     q.defer(req.get);
                 } else {
                     alert('no method to handle this layer source');
@@ -348,20 +348,12 @@ function createMarkers(data, config) {
             var lat =  data[i][config.latField];
             var lon = data[i][config.lonField];
 
-            var filterVal = data[i][config.filterField];
-            
-            //  get filter config
-            var filter = filterByKeyValue(config.filters, 'value', filterVal)
-            if (!filter[0]) {
-                continue
-            }
-
             var marker = L.marker([lat,lon], {
-                icon:  MARKERS[filter[0].marker]
+                icon:  MARKERS[config.layer_name]
             })
 
             marker.rowId = '$' + data[i][config['rowIdField']];
-            marker.layer_name = config.name;
+            marker.layer_name = config.layer_name;
             
             marker.on('click', function(){
                 $('#data-table').hide();
@@ -394,16 +386,6 @@ function addLayers(layers) {
     for (layer in layers) {
          layers[layer].addTo(map);
     }
-}
-
-
-function filterByKeyValue(arr, key, value) {
-    //  search an array of objects
-    //  for a matching key/value
-    return arr.filter(function(entry){ 
-        return entry[key] == value;
-    });
-
 }
 
 
@@ -440,10 +422,9 @@ function addToTable(data, config, table_data) {
     //  homegenize and merge data to be displayed in one datatable
     for (var i = 0; i < data.length; i++) {
         var display_value = data[i][config.display_field];
-        display_value = config.processDisplayField(display_value);
         data[i]['display_value'] = display_value;
         var rec = {
-            'layer_name' : config.name,
+            'layer_name' : config.layer_name,
             'rowId' : data[i][config.rowIdField],
             'display_value' : display_value,
         };
@@ -612,11 +593,11 @@ function addMapLayerSelector(config, divId) {
         var toggle_class = '';
     }
 
-    var selector_class = 'map-selector-' + config.name;
+    var selector_class = 'map-selector-' + config.layer_name;
     var selector = "<a href=\"#\" class=\"map-layer-toggle list-group-item " + 
         toggle_class + ' '  + selector_class + 
         "\" data-layer-name=\"" 
-        + config.name + 
+        + config.layer_name + 
         "\" ><i class=\"fa fa-" + config.icon + "\"></i> "
         + config.display_name +
         "</a>";
@@ -644,6 +625,7 @@ function createLayerSelectListeners(divId, config) {
     $('#' + divId).children().on('click', function() {
         var layer_name = $(this).data('layer-name');
         layer_change = true;
+        searching = false;
 
         //  set activation state of layer
         if (config[layer_name].active) {
