@@ -122,6 +122,10 @@ table.dataTable.feature-table tbody tr {
     height: 90px;
 }
 
+.card-text {
+    margin-bottom: 0px;
+}
+
 .map-card-body {
     padding: 0;
 }

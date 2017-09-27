@@ -345,7 +345,7 @@ function projectPoint(record, xField, yField) {
 
 function socrataRequest(config) {
     var resource_id = config.resource_id;
-    var url = 'https://data.austintexas.gov/resource/' + resource_id + '.json';
+    var url = config.base_url + resource_id + '.json';
     if (config.query) {
         url = url + '?$query=' + config.query;
     }
