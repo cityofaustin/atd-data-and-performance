@@ -137,6 +137,17 @@ function createEventListeners() {
         toggleMenu();
     });
 
+    $('#map-menu-home').on('click', function(){
+        //  reset view if menu 'home' button clicked;
+        map.setView(MAP_OPTIONS.center, MAP_OPTIONS.zoom);
+        closeSearch();
+        $('#feature-details').hide();
+        
+        if (map.hasLayer(highlight)) {
+            map.removeLayer(highlight);  
+        } 
+    });
+
     $('#search-input')
         .on('keyup', function () {
             layer_change = false;
@@ -219,7 +230,6 @@ function createEventListeners() {
 
             } else {
                 map.setView(MAP_OPTIONS.center, MAP_OPTIONS.zoom);
-
             }
         }
     });
@@ -610,13 +620,22 @@ function xOffset(pixelPoint, callback) {
 function zoomToMarker(marker, max_zoom=17) {
     //  zoom to a marker while accounting for overlay pane
     //  convert marker to pixels
-    toPixels(marker._latlng, function(pixelPoint) {
-        //  calculate offset distance in pixels
-        xOffset(pixelPoint, function(pixelPoint, offset) {
-            //  convert marker to bounds and add offset as padding
-            fitMarker(marker, offset, max_zoom);
+    if (collapsed) {
+        //  center on marker when collapsed
+        //  you'll have to close menus to see marker
+        fitMarker(marker, 0, max_zoom);
+
+    } else {
+        //  if not collapsed, zoom to offset point
+        //  which avoids menu overlapping marker
+        toPixels(marker._latlng, function(pixelPoint) {
+            //  calculate offset distance in pixels
+            xOffset(pixelPoint, function(pixelPoint, offset) {
+                //  convert marker to bounds and add offset as padding
+                fitMarker(marker, offset, max_zoom);
+            });
         });
-    });
+    }
     
 }
 
