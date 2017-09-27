@@ -6,7 +6,6 @@
 //  ideally run them through COA geocoder
 //  update socrata queries to selected specific fields of concern
 //  create address name field on CSR records
-//  overlay on small display
 //  hide #map-controls on collapse when details are showing
 //  test on IE and consider support
 //  weird highlight behavior on search/toggle combos (possibly lagging?)
@@ -261,7 +260,7 @@ function getData(config) {
             var layer_name = layer_names[i];
 
             var layer = handleData(config[layer_name], arguments[1][i], function(layer){
-                addMapLayerSelector(config[layer_name], 'map-layer-selectors');
+                createMapLayerSelector(config[layer_name], 'map-layer-selectors');
                 
                 //  set initial visibility state of layer
                 if (config[layer_name].init_display) {
@@ -508,7 +507,7 @@ function populateDetails(divId, layer_name, record) {
    $('#' + 'feature-table').dataTable().fnDestroy();
 
     var details = CONFIG[layer_name].details(record);
-    $('#' + divId).find('h3').html("<i class='fa fa-" + CONFIG[layer_name].icon + "' style='color: " + CONFIG[layer_name].icon_color + "' ></i> " + CONFIG[layer_name].display_name);
+    $('#' + divId).find('h3').html("<span class=\" map-menu-badge\" style=\"background-color: " + CONFIG[layer_name].icon_color + "\" ><i class='fa fa-" + CONFIG[layer_name].icon + "'></i></span> " + CONFIG[layer_name].display_name);
     $('#' + divId).find('p').text(details[0].value);
 
     if (CONFIG[layer_name].image_url) {
@@ -540,6 +539,20 @@ function populateDetails(divId, layer_name, record) {
 
     $('#feature-table_filter').remove();
 }
+
+
+function humanDate(timestamp) {
+    //  https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+    // Create a new JavaScript Date object based on the timestamp
+    // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+    var date = new Date(timestamp*1000);
+    var day = date.getDate();
+    var month = date.getMonth();
+    var year = date.getUTCFullYear();
+    var formattedTime = month + '/' + day + '/' + year;
+    return formattedTime;
+}
+
 
 
 function toPixels(latlng, callback) {
@@ -583,7 +596,7 @@ function fitMarker(marker, offset, max_zoom=17) {
 }
 
 
-function addMapLayerSelector(config, divId) {
+function createMapLayerSelector(config, divId) {
     
     if (config.init_display) {
         //  apply toggled layer class
@@ -593,12 +606,9 @@ function addMapLayerSelector(config, divId) {
         var toggle_class = '';
     }
 
-    var selector_class = 'map-selector-' + config.layer_name;
-    var selector = "<a href=\"#\" class=\"map-layer-toggle list-group-item " + 
-        toggle_class + ' '  + selector_class + 
-        "\" data-layer-name=\"" 
+    var selector = "<a href=\"#\" class=\"map-layer-toggle list-group-item " + toggle_class + " \" data-layer-name=\"" 
         + config.layer_name + 
-        "\" ><i class=\"fa fa-" + config.icon + "\"></i> "
+        "\" ><span class=\"map-layer-toggle-icon " + toggle_class + ' '  + config.layer_name + "\" ><i class=\"fa fa-" + config.icon + "\"></i></span> "
         + config.display_name +
         "</a>";
     $('#' + divId).append(selector);
@@ -624,18 +634,22 @@ function updateData(config) {
 function createLayerSelectListeners(divId, config) {
     $('#' + divId).children().on('click', function() {
         var layer_name = $(this).data('layer-name');
+        //  set global layer change and searching statuses
         layer_change = true;
         searching = false;
 
         //  set activation state of layer
         if (config[layer_name].active) {
             config[layer_name].active = false;
-            $(this).removeClass("toggled");
+            $(this).removeClass("toggled")
+            $(this).find("span").removeClass("toggled");
         } else {
             config[layer_name].active = true;
             $(this).addClass("toggled");
+            $(this).find("span").addClass("toggled");
         }
 
+        //  redraw search results and map
         var data = updateData(config);
         populateTable(data, 'data-table');
     });
