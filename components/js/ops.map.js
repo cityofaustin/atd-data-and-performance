@@ -45,7 +45,6 @@ function createMap(divId, options) {
     //  mappy map
     L.Icon.Default.imagePath = '../components/images/';
 
-
     basemap = new L.tileLayer( 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
                 attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
                 subdomains : 'abcd',
@@ -56,12 +55,11 @@ function createMap(divId, options) {
     map = new L.Map(divId, options)
         .addLayer(basemap);
     
+    map.zoomControl.setPosition('bottomright');
+
     //  $('#loader').modal('toggle');
 
-    var zoomHome = L.Control.zoomHome({position : 'bottomright'});
-    zoomHome.addTo(map);
     return map;
-
 }
 
 

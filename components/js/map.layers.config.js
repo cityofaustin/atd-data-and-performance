@@ -2,8 +2,7 @@ var MAP_OPTIONS = {
         center : [30.27, -97.74],
         zoom : 13,
         minZoom : 1,
-        maxZoom : 19,
-        zoomControl: false
+        maxZoom : 19
 };
 
 var CONFIG = { 
