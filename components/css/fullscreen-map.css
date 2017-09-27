@@ -26,7 +26,7 @@
 
 .map-control-toggle {
     z-index: 3;
-    cusor: pointer;
+    cursor: pointer;
 }
 
 .map-control-custom {
@@ -68,7 +68,7 @@
     color: #43484e;
 }
 
-#close-feature-details {
+.close-pane {
     z-index: 3;
     cursor: pointer;
     position: absolute;

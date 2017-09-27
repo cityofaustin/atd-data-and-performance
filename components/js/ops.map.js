@@ -10,10 +10,9 @@
 //  test on IE and consider support
 //  weird highlight behavior on search/toggle combos (possibly lagging?)
 //  handle when pane is longer than viewport (hide overflow?)
-//  dms need location name attribute
 //  getflex notes (out of scope)
 
-var map, basemap, table, feature_layer, highlight;
+var map, basemap, table, feature_layer, highlight, curr_breakpoint, collapsed;
 
 //  If table/map are updating from layer selector toggle,
 //  layer_change is true and is referenced when updating datatable
@@ -34,6 +33,7 @@ $(document).ready(function(){
 });
 
 function main(config) {
+    resizedw();
     map = createMap('map', MAP_OPTIONS);
     var data = updateData(config)
     populateTable(data, 'data-table');
@@ -137,6 +137,17 @@ function createEventListeners() {
         toggleMenu();
     });
 
+    $('#map-menu-home').on('click', function(){
+        //  reset view if menu 'home' button clicked;
+        map.setView(MAP_OPTIONS.center, MAP_OPTIONS.zoom);
+        closeSearch();
+        $('#feature-details').hide();
+        
+        if (map.hasLayer(highlight)) {
+            map.removeLayer(highlight);  
+        } 
+    });
+
     $('#search-input')
         .on('keyup', function () {
             layer_change = false;
@@ -196,6 +207,14 @@ function createEventListeners() {
         }
 
     })
+
+     $('#close-menu').on('click', function() {
+        //  close menu when (x) is clicked
+        //  map state is preserved
+        showing_menu = false;
+        $('#map-menu').hide();
+        toggleMapControls();
+    })
     
     $(document).keyup(function(e) {
         //  esc key to cancel search input
@@ -211,10 +230,16 @@ function createEventListeners() {
 
             } else {
                 map.setView(MAP_OPTIONS.center, MAP_OPTIONS.zoom);
-
             }
         }
     });
+
+     //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+    var resize_timer;
+    window.onresize = function(){
+      clearTimeout(resize_timer);
+      resize_timer = setTimeout(resizedw, 100);
+    };
 
     return true;
 }
@@ -471,6 +496,22 @@ function findRecord(rowId, layer_name, config) {
     }
 }
 
+
+function toggleMapControls() {
+    if (!collapsed) {
+        //  always show map controls when not collapsed
+        $("#map-controls").show();
+    } else {
+        
+        if (showing_details || showing_menu) {
+           $("#map-controls").hide();
+        } else {
+            $("#map-controls").show();
+        }    
+    }
+}
+
+
 function toggleMenu() {
      $("#data-table").hide();
     if (showing_details) {
@@ -478,12 +519,14 @@ function toggleMenu() {
         showing_details = false;
     }
     if (!showing_menu) {
-        $('#map-menu').fadeIn();
+        $('#map-menu').show();
         showing_menu = true;
     } else {
-        $('#map-menu').fadeOut();
+        $('#map-menu').hide();
         showing_menu = false;
     }
+
+    toggleMapControls();
     
 }
 
@@ -494,12 +537,14 @@ function toggleDetails() {
     }
 
     if (!showing_details) {
-        $('#feature-details').fadeIn();
+        $('#feature-details').show();
         showing_details = true;
     } else {
-        $('#feature-details').fadeOut();
+        $('#feature-details').hide();
         showing_details = false;
     }
+
+    toggleMapControls()
 }
 
 
@@ -547,7 +592,7 @@ function humanDate(timestamp) {
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
     var date = new Date(timestamp*1000);
     var day = date.getDate();
-    var month = date.getMonth();
+    var month = date.getMonth() + 1;
     var year = date.getUTCFullYear();
     var formattedTime = month + '/' + day + '/' + year;
     return formattedTime;
@@ -575,13 +620,22 @@ function xOffset(pixelPoint, callback) {
 function zoomToMarker(marker, max_zoom=17) {
     //  zoom to a marker while accounting for overlay pane
     //  convert marker to pixels
-    toPixels(marker._latlng, function(pixelPoint) {
-        //  calculate offset distance in pixels
-        xOffset(pixelPoint, function(pixelPoint, offset) {
-            //  convert marker to bounds and add offset as padding
-            fitMarker(marker, offset, max_zoom);
+    if (collapsed) {
+        //  center on marker when collapsed
+        //  you'll have to close menus to see marker
+        fitMarker(marker, 0, max_zoom);
+
+    } else {
+        //  if not collapsed, zoom to offset point
+        //  which avoids menu overlapping marker
+        toPixels(marker._latlng, function(pixelPoint) {
+            //  calculate offset distance in pixels
+            xOffset(pixelPoint, function(pixelPoint, offset) {
+                //  convert marker to bounds and add offset as padding
+                fitMarker(marker, offset, max_zoom);
+            });
         });
-    });
+    }
     
 }
 
@@ -755,6 +809,26 @@ function animateMarker() {
 }
 
 
+
+function resizedw(){
+
+    prev_breakpoint = curr_breakpoint;
+    curr_breakpoint = breakpoint();
+
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') { 
+            collapsed = true;
+            toggleMapControls();
+
+        } else {
+
+            collapsed = false;
+            toggleMapControls();
+
+        }
+    }
+}
 
 
 
