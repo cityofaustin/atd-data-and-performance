@@ -10,7 +10,6 @@
 //  test on IE and consider support
 //  weird highlight behavior on search/toggle combos (possibly lagging?)
 //  handle when pane is longer than viewport (hide overflow?)
-//  dms need location name attribute
 //  getflex notes (out of scope)
 
 var map, basemap, table, feature_layer, highlight;
