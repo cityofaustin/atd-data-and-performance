@@ -10,6 +10,7 @@
 //  test on IE and consider support
 //  weird highlight behavior on search/toggle combos (possibly lagging?)
 //  handle when pane is longer than viewport (hide overflow?)
+//  knack layer request filters
 //  getflex notes (out of scope)
 
 var map, basemap, table, feature_layer, highlight, curr_breakpoint, collapsed;
@@ -369,6 +370,11 @@ function createMarkers(data, config) {
         for (var i = 0; i < data.length; i++) {   
             var lat =  data[i][config.latField];
             var lon = data[i][config.lonField];
+
+            if ( !lat || lat < 20) {
+                //  skip records with missing or invalid latitude
+                continue;
+            }
 
             var marker = L.marker([lat,lon], {
                 icon:  MARKERS[config.layer_name]

@@ -151,7 +151,11 @@ var CONFIG = {
                     'name' : 'Issue Reported',
                     'value'  : record.field_1829
                 },
-         
+                {
+                    'type' : 'row',
+                    'name' : 'Updated',
+                    'value'  : record.field_1827
+                }
             ]
         },
         'display_name' : 'Incident Report',
