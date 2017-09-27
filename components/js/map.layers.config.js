@@ -183,6 +183,7 @@ var CONFIG = {
         'icon' : 'video-camera',
         'icon_color' : '#2B6272',  // match extra_markers color (see MARKERS below)
         'layer_name' : 'cctv',
+        'base_url' : 'https://data.austintexas.gov/resource/',
         'resource_id' : 'fs3c-45ge',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
         'display_name' : 'CCTV',
@@ -211,6 +212,9 @@ var CONFIG = {
                 {
                     'name' : 'Status Date',
                     'value'  : record.comm_status_datetime_utc
+                },
+                {   'name' : 'Source',
+                    'value' : "<a href=" + this.base_url + this.resource_id + " target=_blank ><i class=\"fa fa-cloud-download\" ></i> Data</a>"
                 }
             ]   
         },
@@ -233,6 +237,7 @@ var CONFIG = {
         'icon' : 'info-circle',
         'icon_color' : '#000000',
         'layer_name' : 'dms',
+        'base_url' : 'https://data.austintexas.gov/resource/',
         'resource_id' : '4r2j-b4rx',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
         'display_name' : 'Dynamic Message Sign',
@@ -257,6 +262,9 @@ var CONFIG = {
                 {
                     'name' : 'Updated',
                     'value'  : humanDate(record.message_time)
+                },
+                {   'name' : 'Source',
+                    'value' : "<a href=" + this.base_url + this.resource_id + " target=_blank ><i class=\"fa fa-cloud-download\" ></i> Data</a>"
                 }
             ]   
         }

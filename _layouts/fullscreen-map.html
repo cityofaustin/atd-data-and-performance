@@ -43,14 +43,14 @@
                 </table>
               </div>  <!-- end table col -->
             </div> <!-- end table row -->
-            <div class="row">
+            <div id="feature-details-row" class="row">
               <div class="col-md-12 px-0" id="feature-details">   <!-- don't remove px-0 -->
                 <div id="feature-details-card" class="card map-card">
                   <div class="card-body">
                     <button id="close-feature-details" class="btn btn input-control-icon close-pane" type="button"><i class="fa fa-close"></i></button>
-                    <a href='' target="_blank" ><img class="card-img-top" src="" alt="No Image Available"></a>
                     <h3 class="card-title"></h3>
                     <p class="card-text"></p>
+                    <a href='' target="_blank" ><img class="card-img" src="" alt="No Image Available"></a>
                     <table id="feature-table" class="row-border compact feature-table">
                       <thead>
                         <tr>
@@ -82,14 +82,14 @@
 
                   <div id="accordion" role="tablist">
                     <div class="card">
-                      <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                         <div class="card-header map-card-expander" role="tab" id="mapLayers">
                           <h6 class="mb-0">                        
                             Map Layers                        
                           </h6>
                         </div>
                       </a>
-                      <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="mapLayers" data-parent="#accordion">
+                      <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="mapLayers" data-parent="#accordion">
                         <div class="card-body map-card-body">
                           <div id="map-layer-selectors" class="list-group list-group-flush">
                           </div>
