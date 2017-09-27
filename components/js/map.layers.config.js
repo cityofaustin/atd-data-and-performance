@@ -53,7 +53,7 @@ var CONFIG = {
         'display_name' : 'Service Request',
         'display_field' : 'field_1388', //  field to display in table results
         'divId' : 'data_table',  //  destination table
-        'icon' : 'phone-square',
+        'icon' : 'phone',
         'icon_color' : '#962125',  // match extra-markers color
         'init_load' : true,  //  get layer data on app load
         'init_display' : true, //  display map layer on app load
@@ -247,12 +247,16 @@ var CONFIG = {
         details : function(record) {
             return [
                 {
+                    'name' : 'Location',
+                    'value'  : record.location_name
+                },
+                {
                     'name' : 'Message',
-                    'value'  : 'Keep Austin Beard.'
+                    'value'  : '<b>' + record.dms_message + '</b>'
                 },
                 {
                     'name' : 'Updated',
-                    'value'  : '9/22/2017 11:40am'
+                    'value'  : humanDate(record.message_time)
                 }
             ]   
         }
