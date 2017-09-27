@@ -12,7 +12,7 @@
 //  handle when pane is longer than viewport (hide overflow?)
 //  getflex notes (out of scope)
 
-var map, basemap, table, feature_layer, highlight;
+var map, basemap, table, feature_layer, highlight, curr_breakpoint, collapsed;
 
 //  If table/map are updating from layer selector toggle,
 //  layer_change is true and is referenced when updating datatable
@@ -33,6 +33,7 @@ $(document).ready(function(){
 });
 
 function main(config) {
+    resizedw();
     map = createMap('map', MAP_OPTIONS);
     var data = updateData(config)
     populateTable(data, 'data-table');
@@ -195,6 +196,14 @@ function createEventListeners() {
         }
 
     })
+
+     $('#close-menu').on('click', function() {
+        //  close menu when (x) is clicked
+        //  map state is preserved
+        showing_menu = false;
+        $('#map-menu').hide();
+        toggleMapControls();
+    })
     
     $(document).keyup(function(e) {
         //  esc key to cancel search input
@@ -214,6 +223,13 @@ function createEventListeners() {
             }
         }
     });
+
+     //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
+    var resize_timer;
+    window.onresize = function(){
+      clearTimeout(resize_timer);
+      resize_timer = setTimeout(resizedw, 100);
+    };
 
     return true;
 }
@@ -470,6 +486,22 @@ function findRecord(rowId, layer_name, config) {
     }
 }
 
+
+function toggleMapControls() {
+    if (!collapsed) {
+        //  always show map controls when not collapsed
+        $("#map-controls").show();
+    } else {
+        
+        if (showing_details || showing_menu) {
+           $("#map-controls").hide();
+        } else {
+            $("#map-controls").show();
+        }    
+    }
+}
+
+
 function toggleMenu() {
      $("#data-table").hide();
     if (showing_details) {
@@ -477,12 +509,14 @@ function toggleMenu() {
         showing_details = false;
     }
     if (!showing_menu) {
-        $('#map-menu').fadeIn();
+        $('#map-menu').show();
         showing_menu = true;
     } else {
-        $('#map-menu').fadeOut();
+        $('#map-menu').hide();
         showing_menu = false;
     }
+
+    toggleMapControls();
     
 }
 
@@ -493,12 +527,14 @@ function toggleDetails() {
     }
 
     if (!showing_details) {
-        $('#feature-details').fadeIn();
+        $('#feature-details').show();
         showing_details = true;
     } else {
-        $('#feature-details').fadeOut();
+        $('#feature-details').hide();
         showing_details = false;
     }
+
+    toggleMapControls()
 }
 
 
@@ -546,7 +582,7 @@ function humanDate(timestamp) {
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
     var date = new Date(timestamp*1000);
     var day = date.getDate();
-    var month = date.getMonth();
+    var month = date.getMonth() + 1;
     var year = date.getUTCFullYear();
     var formattedTime = month + '/' + day + '/' + year;
     return formattedTime;
@@ -754,6 +790,26 @@ function animateMarker() {
 }
 
 
+
+function resizedw(){
+
+    prev_breakpoint = curr_breakpoint;
+    curr_breakpoint = breakpoint();
+
+    if (curr_breakpoint != prev_breakpoint) {
+        
+        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') { 
+            collapsed = true;
+            toggleMapControls();
+
+        } else {
+
+            collapsed = false;
+            toggleMapControls();
+
+        }
+    }
+}
 
 
 

@@ -68,7 +68,7 @@
     color: #43484e;
 }
 
-#close-feature-details {
+.close-pane {
     z-index: 3;
     cursor: pointer;
     position: absolute;
