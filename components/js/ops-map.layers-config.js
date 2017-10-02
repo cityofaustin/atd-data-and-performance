@@ -54,7 +54,6 @@ var CONFIG = {
         'divId' : 'data_table',  //  destination table
         'icon' : 'phone',
         'icon_color' : '#962125',  // match extra-markers color
-        'init_load' : true,  //  get layer data on app load
         'init_display' : true, //  display map layer on app load
         'layer_name' : 'service_requests_new',  //  match parent object name
         'source' : 'knack',  //  source app (knack, socrata, ...)
@@ -121,7 +120,6 @@ var CONFIG = {
         'divId' : 'data_table',  //  destination table
         'icon' : 'wrench',
         'icon_color' : '#196BB3',  // match extra-markers color
-        'init_load' : true,  //  get layer data on app load
         'init_display' : true, //  display map layer on app load
         'layer_name' : 'service_requests_in_progress',  //  match parent object name
         'source' : 'knack',  //  source app (knack, socrata, ...)
@@ -163,7 +161,6 @@ var CONFIG = {
         'divId' : 'data_table',  //  destination table
         'icon' : 'exclamation-triangle',
         'icon_color' : '#EB7B2B',  // match extra-markers color
-        'init_load' : true,  //  get layer data on app load
         'init_display' : true, //  display map layer on app load
         'layer_name' : 'incident_report',  //  match parent object name
         'source' : 'knack',  //  source app (knack, socrata, ...)
@@ -181,7 +178,6 @@ var CONFIG = {
     'cctv' : {
        'source' : 'socrata',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'wgs84',  //  stateplan, wgs84
-        'init_load' : true,  //  get layer data on app load
         'init_display' : false, //  display map layer on app load
         'icon' : 'video-camera',
         'icon_color' : '#2B6272',  // match extra_markers color (see MARKERS below)
@@ -235,7 +231,6 @@ var CONFIG = {
     'dms' : {
        'source' : 'socrata',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'wgs84',  //  stateplane, wgs84
-        'init_load' : true,  //  get layer data on app load
         'init_display' : false, //  display map layer on app load
         'icon' : 'info-circle',
         'icon_color' : '#000000',
