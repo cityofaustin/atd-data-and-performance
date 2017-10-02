@@ -13,33 +13,52 @@
 //  knack layer request filters
 //  getflex notes (out of scope)
 
-var map, basemap, table, feature_layer, highlight, curr_breakpoint, collapsed;
+//  todo: use map state to set toggle class and zoom to marker
+//  toggle class is on two elements! the href and the span
+//  do this after create markers (or there will be no marker to zoom to)
+//  uh you have to preserve the base url on refresh layers!
+//  see: https://stackoverflow.com/questions/4740364/jquery-check-and-remove-slash-from-the-end-of-url-read
+//  target.replace(/\/$/, '');
+//  also: https://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page
+//  
+
+var map, basemap, table, feature_layer, highlight;
 
 //  If table/map are updating from layer selector toggle,
-//  layer_change is true and is referenced when updating datatable
-var layer_change = true;   
-var searching = false;
-var showing_details = false;
-var showing_menu = false;
 var q = d3.queue();
 
+var max_zoom_to = 16;
+
+//  init map state
+//  to be updated by url params if they exist
+
+var state = {
+    'init_layers' : ['service_requests_new', 'service_requests_in_progress', 'incident_report'],
+    'layers' : [],
+    'feature' : {
+        'id' : '',
+        'layer_name' : '',
+        'marker' : '',
+        'record' : '',
+    },
+    'showing_deatils' : false,
+    'showing_menu' : true,
+    'searching' : false,
+    'collapsed' : false,
+    'curr_breakpoint' : ''
+}
+
 $(document).ready(function(){
-    // $('#loader').modal('toggle');
-    $('#map-menu').show();
-    showing_menu = true;
-    $('#feature-details').hide();
-    $('#close-search').hide();
     getData(CONFIG);
-    
 });
 
 function main(config) {
     resizedw();
     map = createMap('map', MAP_OPTIONS);
-    var data = updateData(config)
-    populateTable(data, 'data-table');
+    var data = updateData(state.layers, config)
     createEventListeners();
     createLayerSelectListeners('map-layer-selectors', config);
+    stateChange('init');
 }
 
 function createMap(divId, options) {
@@ -57,8 +76,6 @@ function createMap(divId, options) {
         .addLayer(basemap);
     
     map.zoomControl.setPosition('bottomright');
-
-    //  $('#loader').modal('toggle');
 
     return map;
 }
@@ -80,9 +97,9 @@ function populateTable(data, divId) {
                 createTableListeners();
                 clearMap();
 
-                //  if map is redrawing because of keyup
-                if (searching) {
-
+                
+                if (state.searching) {
+                    //  map redrawing because of keyup
                     if ( $( ".sorting_1" ).length) {
                         //  show data table if there are search results
                         $('#data-table').show();
@@ -95,9 +112,10 @@ function populateTable(data, divId) {
                     adjustView(layers);
   
                 } else {
-                    //  layers added or removed
-                    var layers = getConfigLayers();
+                    //  map redrawing because of layer change
+                    var layers = getConfigLayers(state.layers);
                     addLayers(layers);   
+
                 }
 
 
@@ -132,39 +150,22 @@ function createEventListeners() {
         }
     });
 
-    $('#map-menu-btn').on('click', function(){
-        toggleMenu();
+    $('#map-btn-menu').on('click', function(){
+        stateChange('map_menu_toggle');
     });
 
-    $('#map-menu-home').on('click', function(){
-        //  reset view if menu 'home' button clicked;
-        map.setView(MAP_OPTIONS.center, MAP_OPTIONS.zoom);
-        closeSearch();
-        $('#feature-details').hide();
-        
-        if (map.hasLayer(highlight)) {
-            map.removeLayer(highlight);  
-        } 
+    $('#map-btn-home').on('click', function(){
+        stateChange('map_home_toggle');
     });
 
     $('#search-input')
         .on('keyup', function () {
-            layer_change = false;
-            searching = true;
+            state.searching = true;
             if (this.value) {
                 //  search for features
                 table.search( this.value ).draw();
-                $('#close-search').show();
 
-                $('#map-menu').hide();
-                showing_menu = false;
-
-                 $('#feature-details').hide();
-                 showing_details = false;
-                
-                if (map.hasLayer(highlight)) {
-                      map.removeLayer(highlight);  
-                } 
+                stateChange('search_input');
 
             } else {
                 //  hide search results and (x) if no text in input
@@ -197,22 +198,12 @@ function createEventListeners() {
     $('#close-feature-details').on('click', function() {
         //  close feature details when feature (x) is clicked
         //  map state is preserved
-        document.getElementById('search-input').value = '';
-        $('#close-search').hide();
-        toggleDetails();
-        
-        if (map.hasLayer(highlight)) {
-          map.removeLayer(highlight);  
-        }
+        stateChange('close_feature_details');
 
     })
 
      $('#close-menu').on('click', function() {
-        //  close menu when (x) is clicked
-        //  map state is preserved
-        showing_menu = false;
-        $('#map-menu').hide();
-        toggleMapControls();
+        stateChange('close_menu');
     })
     
     $(document).keyup(function(e) {
@@ -220,10 +211,10 @@ function createEventListeners() {
         //  or to zoom home if not searching
         //  https://stackoverflow.com/questions/1160008/which-keycode-for-escape-key-with-jquery
         if (e.keyCode === 27) {
-            if (searching) {
+            if (state.searching) {
                 closeSearch();
 
-                if (showing_details) {
+                if (state.showing_details) {
                     toggleDetails();    
                 }
 
@@ -246,7 +237,7 @@ function createEventListeners() {
 function closeSearch() {
     document.getElementById('search-input').value = '';
     document.activeElement.blur();  //  clear focus from search input
-    searching = false;
+    state.searching = false;
     table.search('').draw();
     $('#data-table').hide();
     $('#close-search').hide();
@@ -260,20 +251,18 @@ function getData(config) {
     for (var layer_name in config) {
         if (config.hasOwnProperty(layer_name)) {
 
-            if (config[layer_name].init_load) {
-
-                if (config[layer_name].source == 'knack') {
-                    var req = knackViewRequest(config[layer_name]);
-                    layer_names.push(config[layer_name].layer_name)
-                    q.defer(req.get)
-                } else if (config[layer_name].source == 'socrata') {
-                    var req = socrataRequest(config[layer_name]);
-                    layer_names.push(config[layer_name].layer_name);
-                    q.defer(req.get);
-                } else {
-                    alert('no method to handle this layer source');
-                }
+            if (config[layer_name].source == 'knack') {
+                var req = knackViewRequest(config[layer_name]);
+                layer_names.push(config[layer_name].layer_name)
+                q.defer(req.get)
+            } else if (config[layer_name].source == 'socrata') {
+                var req = socrataRequest(config[layer_name]);
+                layer_names.push(config[layer_name].layer_name);
+                q.defer(req.get);
+            } else {
+                alert('no method to handle this layer source');
             }
+
         }
         
     }
@@ -285,13 +274,6 @@ function getData(config) {
 
             var layer = handleData(config[layer_name], arguments[1][i], function(layer){
                 createMapLayerSelector(config[layer_name], 'map-layer-selectors');
-                
-                //  set initial visibility state of layer
-                if (config[layer_name].init_display) {
-                    config[layer_name].active = true;
-                } else {
-                    config[layer_name].active = false;
-                }
                 
                 var markers = createMarkers(layer.data, config[layer_name]);
                 return markers;
@@ -384,20 +366,13 @@ function createMarkers(data, config) {
             marker.layer_name = config.layer_name;
             
             marker.on('click', function(){
-                $('#data-table').hide();
-                var record = findRecord(this.rowId, this.layer_name, CONFIG);
-                populateDetails('feature-details', this.layer_name, record);
-                if (!showing_details) {
-                    toggleDetails();
-                }
-                var zoom = map.getZoom();
-                zoomToMarker(record.marker, zoom);
-                highlightMarker(record.marker);
-                
+                var record = findRecord(this.rowId, this.layer_name, CONFIG);                
+                state.feature.layer_name = this.layer_name;
+                state.feature.id = this.rowId;
+                state.feature.record = record;
+                stateChange('marker_click', { 'hold_zoom' : true });
+
             });
-            
-            //  var popup = config.popup(data[i]);
-            //  marker.bindPopup(popup);
 
             config.data[i]['marker'] = marker;
             marker.addTo(layer);
@@ -439,7 +414,7 @@ function adjustView(layers) {
         bounds.extend( layers[layer].getBounds() )
     }
 
-    map.fitBounds( bounds, { maxZoom: 16 } );    
+    map.fitBounds( bounds, { maxZoom: max_zoom_to } );    
 
     map.invalidateSize();
 
@@ -458,6 +433,7 @@ function addToTable(data, config, table_data) {
         };
 
         table_data.push(rec);
+
     }
 
     return table_data;
@@ -468,22 +444,15 @@ function createTableListeners() {
     //  zoom to marker on search results click
 
     $("tr").on('click', function(obj) {
+
         //  get data from search results
-        var rowId = $(this).find("a").attr("id");
-        var layer_name = $(this).find("a").data('layer-name');
+        state.feature.rowId = $(this).find("a").attr("id");
+        state.feature.layer_name = $(this).find("a").data('layer-name');
         //  get record
-        var record = findRecord(rowId, layer_name, CONFIG);
-        //  hide search results
-        $('#data-table').hide();
-        //  update details pane and toggle if necessary
-        populateDetails('feature-details', layer_name, record);
-        if (!showing_details) {
-            toggleDetails();    
-        }
-        //  zoom to marker and open popup
-        zoomToMarker(record.marker);
-        highlightMarker(record.marker);
-        record.marker.openPopup();
+        var record = findRecord(state.feature.rowId, state.feature.layer_name, CONFIG);
+        state.feature.record = record;
+        stateChange('marker_click', { 'hold_zoom' : false });
+
     });
 
 }
@@ -502,12 +471,12 @@ function findRecord(rowId, layer_name, config) {
 
 
 function toggleMapControls() {
-    if (!collapsed) {
+    if (!state.collapsed) {
         //  always show map controls when not collapsed
         $("#map-controls").show();
     } else {
         
-        if (showing_details || showing_menu) {
+        if (state.showing_details || state.showing_menu) {
            $("#map-controls").hide();
         } else {
             $("#map-controls").show();
@@ -518,37 +487,46 @@ function toggleMapControls() {
 
 function toggleMenu() {
      $("#data-table").hide();
-    if (showing_details) {
+    if (state.showing_details) {
         $("#feature-details").hide();
-        showing_details = false;
+        state.showing_details = false;
     }
-    if (!showing_menu) {
+    if (!state.showing_menu) {
         $('#map-menu').show();
-        showing_menu = true;
+        state.showing_menu = true;
     } else {
         $('#map-menu').hide();
-        showing_menu = false;
+        state.showing_menu = false;
     }
 
     toggleMapControls();
-    
 }
 
 function toggleDetails() {
-    if (showing_menu) {
+    if (state.showing_menu) {
         $('#map-menu').hide();
-        showing_menu = false;
+        state.showing_menu = false;
     }
 
-    if (!showing_details) {
+    if (!state.showing_details) {
         $('#feature-details').show();
-        showing_details = true;
+        state.showing_details = true;
     } else {
         $('#feature-details').hide();
-        showing_details = false;
+        state.showing_details = false;
     }
 
     toggleMapControls()
+}
+
+
+function toggleHome() {
+        //  reset view if menu 'home' button clicked;
+        map.setView(MAP_OPTIONS.center, MAP_OPTIONS.zoom);
+        
+        if (map.hasLayer(highlight)) {
+            map.removeLayer(highlight);  
+        } 
 }
 
 
@@ -621,10 +599,10 @@ function xOffset(pixelPoint, callback) {
 }
 
 
-function zoomToMarker(marker, max_zoom=17) {
+function zoomToMarker(marker, max_zoom=max_zoom_to) {
     //  zoom to a marker while accounting for overlay pane
     //  convert marker to pixels
-    if (collapsed) {
+    if (state.collapsed) {
         //  center on marker when collapsed
         //  you'll have to close menus to see marker
         fitMarker(marker, 0, max_zoom);
@@ -655,18 +633,10 @@ function fitMarker(marker, offset, max_zoom=17) {
 
 
 function createMapLayerSelector(config, divId) {
-    
-    if (config.init_display) {
-        //  apply toggled layer class
-        //  according to config
-        var toggle_class = 'toggled';        
-    } else {
-        var toggle_class = '';
-    }
 
-    var selector = "<a href=\"#\" class=\"map-layer-toggle list-group-item " + toggle_class + " \" data-layer-name=\"" 
+    var selector = "<a href=\"#\" class=\"map-layer-toggle list-group-item\" data-layer-name=\"" 
         + config.layer_name + 
-        "\" ><span class=\"map-layer-toggle-icon " + toggle_class + ' '  + config.layer_name + "\" ><i class=\"fa fa-" + config.icon + "\"></i></span> "
+        "\" ><span class=\"map-layer-toggle-icon " + config.layer_name + "\" ><i class=\"fa fa-" + config.icon + "\"></i></span> "
         + config.display_name +
         "</a>";
     $('#' + divId).append(selector);
@@ -674,14 +644,13 @@ function createMapLayerSelector(config, divId) {
 }
 
 
-function updateData(config) {
+function updateData(layers, config) {
     //  refresh data objects based on current filters
     table_data = [];
 
-    for (var layer_name in config) {
-        if (config[layer_name].active) {
-            table_data = addToTable(config[layer_name].data, config[layer_name], table_data);        
-        }
+    for (var i=0; i<layers.length; i++) {
+        var layer_name = layers[i];
+        table_data = addToTable(config[layer_name].data, config[layer_name], table_data);        
     }
 
     return table_data;
@@ -691,26 +660,38 @@ function updateData(config) {
 
 function createLayerSelectListeners(divId, config) {
     $('#' + divId).children().on('click', function() {
-        var layer_name = $(this).data('layer-name');
-        //  set global layer change and searching statuses
-        layer_change = true;
-        searching = false;
-
-        //  set activation state of layer
-        if (config[layer_name].active) {
-            config[layer_name].active = false;
-            $(this).removeClass("toggled")
-            $(this).find("span").removeClass("toggled");
-        } else {
-            config[layer_name].active = true;
-            $(this).addClass("toggled");
-            $(this).find("span").addClass("toggled");
-        }
-
-        //  redraw search results and map
-        var data = updateData(config);
-        populateTable(data, 'data-table');
+        toggleLayer(this);
     });
+}
+
+
+function toggleLayer(layer_selector) {
+    //  set global layer change and searching statuses
+    state.searching = false;
+
+    var layer_name = $(layer_selector).data('layer-name');
+    var layer_index = state.layers.indexOf(layer_name);
+    
+    if (state.layers.indexOf(layer_name) == -1){
+        //  add layer if not in state
+        state.layers.push(layer_name);
+        
+        //  add toggle class to selector and icon span
+        $(layer_selector).addClass("toggled");
+        $(layer_selector).find("span").addClass("toggled");  
+
+
+    } else {
+        //  remove layer if alreday in state
+        state.layers.splice(layer_index, 1);
+        $(layer_selector).removeClass("toggled")
+        $(layer_selector).find("span").removeClass("toggled");
+    }
+
+    //  redraw search results and map
+    var data = updateData(state.layers, CONFIG);
+    populateTable(data, 'data-table');
+
 }
 
 
@@ -747,10 +728,15 @@ function resizeMarker(marker) {
 
 function clearMap() {
     map.eachLayer(function(layer){
-        map.removeLayer(layer);
+        if (layer==basemap) {
+            return
+            
+        } else {
+            map.removeLayer(layer);
+        }
+
     });
                 
-    map.addLayer(basemap);
 }
 
 function getSearchMarkers() {
@@ -774,13 +760,14 @@ function getSearchMarkers() {
 }
 
 
-function getConfigLayers() {
+function getConfigLayers(layer_names) {
     var layers = {};
-    for (dataset in CONFIG) {
-        if (CONFIG[dataset].active) {
-            layers[dataset] = CONFIG[dataset].layer;
-        }
+    
+    for (var i=0; i<layer_names.length; i++) {
+        var layer_name = layer_names[i];
+        layers[layer_name] = CONFIG[layer_name].layer;
     }
+    
     return layers;
 }
 
@@ -816,36 +803,160 @@ function animateMarker() {
 
 function resizedw(){
 
-    prev_breakpoint = curr_breakpoint;
-    curr_breakpoint = breakpoint();
+    var prev_breakpoint = state.curr_breakpoint;
+    state.curr_breakpoint = breakpoint();
 
-    if (curr_breakpoint != prev_breakpoint) {
+    if (state.curr_breakpoint != prev_breakpoint) {
         
-        if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') { 
-            collapsed = true;
+        if (state.curr_breakpoint === 'xs' || state.curr_breakpoint === 'sm' || state.curr_breakpoint === 'md') { 
+            state.collapsed = true;
             toggleMapControls();
-
         } else {
-
-            collapsed = false;
+            state.collapsed = false;
             toggleMapControls();
-
         }
     }
 }
 
 
 
+
+
+function checkParams() {
+// update state
+//  layers
+//  popup feature
+}
+
                 
+function setSate(state, param, val) {
+
+    state[param]=val;
+
+    refreshParams(state);
+    
+}
+
+
+function refreshParams(state) {
+    //  add params to window.location
+    //  https://stackoverflow.com/questions/8737615/append-a-param-onto-the-current-url
+    var loc = '';
+    
+    if (state.layers) {
+        //  add layers
+        loc += "?layers=" + state.layers.join(",")
+        
+        if (state.feature.id) {
+            loc += '&feature=' + 
+            state.feature.id +
+            'layer=' + state.feature.layer_name
+        }
+
+    }
+
+    location.href = loc;
+
+    return loc;
+
+}
+
+
+function stateChange(event, options) {
+    //  function to manage map state during ui events
+    //  and page init and when url params
+    if (event=='init') {
+        $('#feature-details').hide();
+        $('#close-search').hide();
+
+        $('#map-layer-selectors').children().each(function () {
+            
+            var layer_name = $(this).data('layer-name');
+
+            if (state.init_layers.indexOf(layer_name) >= 0) {
+                toggleLayer(this);
+            }
+            
+        });
+
+    } else if (event=='map_menu_toggle') {
+        toggleMenu();
+
+    } else if (event=='map_home_toggle') {
+
+        if (state.showing_details) {
+            toggleDetails();
+        }
+
+        toggleHome();
+        closeSearch();
+
+    } else if (event=='search_input') {
+
+        $('#map-menu').hide();
+        state.showing_menu = false;
+        //  ensure details pane closes by toggling
+        // details as if showing_details is true
+        if (state.showing_details) {
+            toggleDetails();
+        }
+        
+        //  remove highlight
+        if (map.hasLayer(highlight)) {
+              map.removeLayer(highlight);  
+        } 
+
+        $('#close-search').show();
+
+    } else if (event=='close_feature_details') {
+
+        document.getElementById('search-input').value = '';
+        
+        $('#close-search').hide();
+        
+        toggleDetails();        
+        
+        if (map.hasLayer(highlight)) {
+          map.removeLayer(highlight);  
+        }
+    }  else if (event=='close_menu') {
+        //  close menu when (x) is clicked
+        //  map state is preserved
+        showing_menu = false;
+        $('#map-menu').hide();
+        toggleMapControls();
+
+    } else if (event=='marker_click') {
+        
+        if (options.hold_zoom) {
+            //  hold current zoom when clicking on marker
+            var max_zoom = map.getZoom();
+        } else {            
+            var max_zoom = max_zoom_to;
+        }
+
+        zoomToMarker(state.feature.record.marker, max_zoom=max_zoom);
+
+        highlightMarker(state.feature.record.marker);
+
+        populateDetails('feature-details', state.feature.layer_name, state.feature.record);
+
+        $('#data-table').hide();
+                
+        if (!state.showing_details) {
+            toggleDetails();
+        }
+
+        if (state.showing_menu) {
+            toggleMenu();
+        }
+        
+    }
+    
+    
+}
 
 
 
 
-
-
-
-
-
-
-
-
+            

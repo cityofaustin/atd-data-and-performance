@@ -5,9 +5,10 @@ title_short: Traffic Management Ops
 description: 
 custom_js:
 - leaflet.extra-markers.min
-- map.layers.config
+- param-handler
+- ops-map.layers-config
 - state-plane-convert
-- ops.map
+- ops-map
 custom_css:
 - leaflet.extra-markers.min
 - dashboard
