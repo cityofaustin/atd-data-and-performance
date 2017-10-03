@@ -2,25 +2,20 @@
 //  modal loader
 //  url parameters
 //  what to do about requests missing lat/lon?
-//  maybe dump them into a list that can be toggled?
-//  ideally run them through COA geocoder
-//  update socrata queries to selected specific fields of concern
+//      maybe dump them into a list that can be toggled?
+//      ideally run them through COA geocoder
+//      update socrata queries to selected specific fields of concern
 //  create address name field on CSR records
-//  hide #map-controls on collapse when details are showing
 //  test on IE and consider support
-//  weird highlight behavior on search/toggle combos (possibly lagging?)
+//  weird highlight behavior on search/toggle combos
 //  handle when pane is longer than viewport (hide overflow?)
-//  knack layer request filters
-//  getflex notes (out of scope)
-
-//  todo: use map state to set toggle class and zoom to marker
-//  toggle class is on two elements! the href and the span
-//  do this after create markers (or there will be no marker to zoom to)
-//  uh you have to preserve the base url on refresh layers!
+//  you have to preserve the base url on refresh layers!
 //  see: https://stackoverflow.com/questions/4740364/jquery-check-and-remove-slash-from-the-end-of-url-read
 //  target.replace(/\/$/, '');
 //  also: https://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page
-//  
+//  if map menu was open, show it on close feature details
+//  move keyup escape to setstate business
+//  boom! http://localhost:4000/ops-map/?layers=service_requests_new,cctv&featureid=209&layername=cctv#
 
 var map, basemap, table, feature_layer, highlight;
 
@@ -55,7 +50,11 @@ $(document).ready(function(){
 function main(config) {
     resizedw();
     map = createMap('map', MAP_OPTIONS);
-    var data = updateData(state.layers, config)
+    
+    getParams(function(){
+        updateData(state.layers, config);
+    })
+    
     createEventListeners();
     createLayerSelectListeners('map-layer-selectors', config);
     stateChange('init');
@@ -150,9 +149,9 @@ function createEventListeners() {
         }
     });
 
-    $('#map-btn-menu').on('click', function(){
-        stateChange('map_menu_toggle');
-    });
+        $('#map-btn-menu').on('click', function(){
+            stateChange('map_menu_toggle');
+        });
 
     $('#map-btn-home').on('click', function(){
         stateChange('map_home_toggle');
@@ -366,7 +365,7 @@ function createMarkers(data, config) {
             marker.layer_name = config.layer_name;
             
             marker.on('click', function(){
-                var record = findRecord(this.rowId, this.layer_name, CONFIG);                
+                var record = getRecord(this.rowId, this.layer_name, CONFIG);                
                 state.feature.layer_name = this.layer_name;
                 state.feature.id = this.rowId;
                 state.feature.record = record;
@@ -446,10 +445,10 @@ function createTableListeners() {
     $("tr").on('click', function(obj) {
 
         //  get data from search results
-        state.feature.rowId = $(this).find("a").attr("id");
+        state.feature.id = $(this).find("a").attr("id");
         state.feature.layer_name = $(this).find("a").data('layer-name');
         //  get record
-        var record = findRecord(state.feature.rowId, state.feature.layer_name, CONFIG);
+        var record = getRecord(state.feature.id, state.feature.layer_name, CONFIG);
         state.feature.record = record;
         stateChange('marker_click', { 'hold_zoom' : false });
 
@@ -458,15 +457,15 @@ function createTableListeners() {
 }
 
 
-function findRecord(rowId, layer_name, config) {
-    //  offset zoom when overlay panel is visible
-
+function getRecord(rowId, layer_name, config) {
     var rowIdField = config[layer_name].rowIdField;
     for (var i = 0; i < config[layer_name].data.length; i++ ) {
         if ('$' + config[layer_name].data[i][rowIdField] == rowId ) {
+
             return config[layer_name].data[i];
         }
     }
+
 }
 
 
@@ -819,17 +818,34 @@ function resizedw(){
 }
 
 
+function getParam(name) {
+    //  https://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript/11582513#11582513
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+}
 
 
+function getParams(callback) {
+    var layers = getParam('layers');
 
-function checkParams() {
-// update state
-//  layers
-//  popup feature
+    if (layers) { 
+        layers =  layers.split(',') 
+        state.init_layers = layers;
+    }
+    
+    var feature_id = '$' + getParam('featureid');
+    var layer_name = getParam('layername')
+    
+    if (feature_id && layer_name) {
+        state.feature.id = feature_id;
+        state.feature.layer_name = layer_name;
+    }
+    
+    callback(layers);
+
 }
 
                 
-function setSate(state, param, val) {
+function setState(state, param, val) {
 
     state[param]=val;
 
@@ -868,6 +884,17 @@ function stateChange(event, options) {
     if (event=='init') {
         $('#feature-details').hide();
         $('#close-search').hide();
+
+        if (state.feature.id && state.feature.layer_name) {
+            
+            var record = getRecord(state.feature.id, state.feature.layer_name, CONFIG);
+            if (record) {
+                state.feature.record = record;
+                stateChange('marker_click', { 'hold_zoom' : false });
+            } else {
+                alert('record and/or layer not found');
+            }
+        }
 
         $('#map-layer-selectors').children().each(function () {
             
@@ -934,7 +961,7 @@ function stateChange(event, options) {
         } else {            
             var max_zoom = max_zoom_to;
         }
-
+        
         zoomToMarker(state.feature.record.marker, max_zoom=max_zoom);
 
         highlightMarker(state.feature.record.marker);
@@ -959,4 +986,3 @@ function stateChange(event, options) {
 
 
 
-            
