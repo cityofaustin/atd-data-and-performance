@@ -11,7 +11,7 @@ var month = today.getMonth();
 var year = today.getFullYear();
 var fiscal_year = year;
 
-if (month > 10) {  // if month is later than september
+if (month > 9) {  // if month is later than september
     fiscal_year = year + 1;
 }
 
