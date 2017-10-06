@@ -56,6 +56,7 @@ var CONFIG = {
         'icon_color' : '#962125',  // match extra-markers color
         'init_display' : true, //  display map layer on app load
         'layer_name' : 'service_requests_new',  //  match parent object name
+        'layer_type' : 'markerLayer',
         'source' : 'knack',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'stateplane',  //  stateplan, wgs84
         'rowIdField' : 'id',  //  unique id field- for table/map interactivity
@@ -122,6 +123,7 @@ var CONFIG = {
         'icon_color' : '#196BB3',  // match extra-markers color
         'init_display' : true, //  display map layer on app load
         'layer_name' : 'service_requests_in_progress',  //  match parent object name
+        'layer_type' : 'markerLayer',
         'source' : 'knack',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'stateplane',  //  stateplan, wgs84
         'rowIdField' : 'id',  //  unique id field- for table/map interactivity
@@ -163,6 +165,7 @@ var CONFIG = {
         'icon_color' : '#EB7B2B',  // match extra-markers color
         'init_display' : true, //  display map layer on app load
         'layer_name' : 'incident_report',  //  match parent object name
+        'layer_type' : 'markerLayer',
         'source' : 'knack',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'wgs84',  //  stateplan, wgs84
         'rowIdField' : 'id',  //  unique id field- for table/map interactivity
@@ -182,6 +185,7 @@ var CONFIG = {
         'icon' : 'video-camera',
         'icon_color' : '#2B6272',  // match extra_markers color (see MARKERS below)
         'layer_name' : 'cctv',
+        'layer_type' : 'markerLayer',
         'base_url' : 'https://data.austintexas.gov/resource/',
         'resource_id' : 'fs3c-45ge',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
@@ -235,6 +239,7 @@ var CONFIG = {
         'icon' : 'info-circle',
         'icon_color' : '#000000',
         'layer_name' : 'dms',
+        'layer_type' : 'markerLayer',
         'base_url' : 'https://data.austintexas.gov/resource/',
         'resource_id' : '4r2j-b4rx',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
@@ -263,6 +268,27 @@ var CONFIG = {
                 },
                 {   'name' : 'Source',
                     'value' : "<a href=" + this.base_url + this.resource_id + " target=_blank ><i class=\"fa fa-cloud-download\" ></i> Data</a>"
+                }
+            ]   
+        }
+    },
+    'traffic' : {
+        'source' : 'mapquest',  //  source app (knack, socrata, ...)
+        'init_display' : false, //  display map layer on app load
+        'icon' : 'car',
+        'icon_color' : '#000000',
+        'layer_name' : 'taffic',
+        'layer_type' : 'baseLayer',
+        layer_func : function() { 
+            return MQ.trafficLayer({layers: ['flow']});
+        },
+        'data' : [],  //  data will go here programmatically
+        'display_name' : 'Traffic',
+        details : function(record) {
+            return [
+                {
+                    'name' : 'Traffic',
+                    'value'  : 'Current Traffic'
                 }
             ]   
         }

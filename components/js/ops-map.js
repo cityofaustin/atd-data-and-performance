@@ -16,7 +16,7 @@
 //  if map menu was open, show it on close feature details
 //  move keyup escape to setstate business
 //  boom! http://localhost:4000/ops-map/?layers=service_requests_new,cctv&featureid=209&layername=cctv#
-
+//  init event fires populatetable multiple times via toggle layer
 var map, basemap, table, feature_layer, highlight;
 
 //  If table/map are updating from layer selector toggle,
@@ -26,7 +26,6 @@ var max_zoom_to = 16;
 
 //  init map state
 //  to be updated by url params if they exist
-
 var state = {
     'init_layers' : ['service_requests_new', 'service_requests_in_progress', 'incident_report'],
     'layers' : [],
@@ -81,7 +80,6 @@ function createMap(divId, options) {
 
 
 function populateTable(data, divId) {
-    
     $('#data-table').hide();
     $('#' + divId).dataTable().fnDestroy();
 
@@ -95,7 +93,6 @@ function populateTable(data, divId) {
             drawCallback : function() {
                 createTableListeners();
                 clearMap();
-
                 
                 if (state.searching) {
                     //  map redrawing because of keyup
@@ -106,9 +103,13 @@ function populateTable(data, divId) {
                        $('#data-table').hide();
                     }
                     
-                    var layers = getSearchMarkers();
+                    var search_layers = getSearchMarkers();
+                    var base_layers = getBaseLayers(state.layers);
+                    var layers = search_layers.concat(base_layers);
+                    //  update map with active search and base layers
                     addLayers(layers);   
-                    adjustView(layers);
+                    //  set bounds to extent of search layer
+                    adjustView(search_layers);
   
                 } else {
                     //  map redrawing because of layer change
@@ -252,12 +253,16 @@ function getData(config) {
 
             if (config[layer_name].source == 'knack') {
                 var req = knackViewRequest(config[layer_name]);
-                layer_names.push(config[layer_name].layer_name)
+                layer_names.push(layer_name)
                 q.defer(req.get)
             } else if (config[layer_name].source == 'socrata') {
                 var req = socrataRequest(config[layer_name]);
-                layer_names.push(config[layer_name].layer_name);
+                layer_names.push(layer_name);
                 q.defer(req.get);
+            } else if (config[layer_name].source == 'mapquest') {
+                layer_names.push(layer_name);
+                var empty = [];
+                q.defer(handleBaseLayer, config[layer_name]);
             } else {
                 alert('no method to handle this layer source');
             }
@@ -270,10 +275,9 @@ function getData(config) {
         if (error) throw error;
         for ( var i = 0; i < arguments[1].length; i++ ) {
             var layer_name = layer_names[i];
-
+            console.log(arguments);
             var layer = handleData(config[layer_name], arguments[1][i], function(layer){
                 createMapLayerSelector(config[layer_name], 'map-layer-selectors');
-                
                 var markers = createMarkers(layer.data, config[layer_name]);
                 return markers;
             });
@@ -293,6 +297,11 @@ function knackViewRequest(config, currentPage=1) {
 }
 
 
+function handleBaseLayer(layer, callback) {
+    createMapLayerSelector(layer, 'map-layer-selectors');
+    callback(null);
+}
+
 function handleData(layer, data, callback) {
     //  handle app-specific data
     //  and assign data to config layer
@@ -309,6 +318,8 @@ function handleData(layer, data, callback) {
     } else if (layer.source == 'socrata') {
         layer.data = data;
         callback(layer);
+    } else if (layer.source == 'mapquest') {
+        
     } else {
         alert('Unable to handle undefined datasource!');
     }
@@ -632,7 +643,6 @@ function fitMarker(marker, offset, max_zoom=17) {
 
 
 function createMapLayerSelector(config, divId) {
-
     var selector = "<a href=\"#\" class=\"map-layer-toggle list-group-item\" data-layer-name=\"" 
         + config.layer_name + 
         "\" ><span class=\"map-layer-toggle-icon " + config.layer_name + "\" ><i class=\"fa fa-" + config.icon + "\"></i></span> "
@@ -753,9 +763,21 @@ function getSearchMarkers() {
         marker.addTo(search_layers[layer_name]);
     });
 
-
     return search_layers;
 
+}
+
+
+function getBaseLayers(layer_names) {
+    //  get layers of type baseLayer from config
+    var layers = [];
+    for (var i=0; i<layer_names.length; i++) {
+        var layer_name = layer_names[i];
+        if (CONFIG[layer_name].layer_type == 'baseLayer') {
+            layers.append(CONFIG[layer_name].layer)
+        }
+    }
+    return layers;
 }
 
 
