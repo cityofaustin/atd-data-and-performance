@@ -25,4 +25,3 @@ deploy:
     on:
       repo: cityofaustin/transportation
       branch: gh-pages
-

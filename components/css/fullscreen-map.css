@@ -1,3 +1,7 @@
+#dash-container {
+    overflow:hidden;
+}
+
 #map {
     position: absolute;
     top:0;
@@ -22,7 +26,7 @@
 
 .map-control-toggle {
     z-index: 3;
-    cusor: pointer;
+    cursor: pointer;
 }
 
 .map-control-custom {
@@ -46,9 +50,6 @@
     background-color: #43484e;
 }
 
-.fa-phone-square {
-    color: #9A282D;
-}
 .input-control-icon {
     z-index: 3;
     cursor: pointer;
@@ -59,12 +60,7 @@
     background-color: #fff;
 }
 
-#map-menu {
-    background-color: #fff;
-    box-shadow: 0px 1px 2px 0px gray;
-}
-
-#feature-details-card {
+.map-card {
     box-shadow: 0px 1px 2px 0px gray;
 }
 
@@ -72,7 +68,7 @@
     color: #43484e;
 }
 
-#close-feature-details {
+.close-pane {
     z-index: 3;
     cursor: pointer;
     position: absolute;
@@ -118,11 +114,98 @@ table.dataTable.feature-table tbody tr {
     background-color: rgba(0, 0, 0, 0);
 }
 
-
-
-.menu-footer {
-    color: #fff;
-    background-color: #43484e; 
+#map-menu-header {
+    background-color: #fff;
 }
 
+#city-seal {
+    height: 90px;
+}
 
+.card-text {
+    margin-bottom: 0px;
+}
+
+.map-card-body {
+    padding: 0;
+}
+
+.map-card-expander, .map-card-expander a {
+    color: #000000;
+}
+
+.map-menu-badge {
+    height: 95%;
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    color: #fff;
+    border-radius:3px;
+    box-shadow: 0px 1px 2px 0px gray;
+}
+
+.map-layer-toggle {
+    /* styles for rows of map selectorsm*/
+    color: #a3a1a1;
+    font-size: 1.1em;
+    background-color: inherit;
+    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.map-layer-toggle.toggled {
+    /* black and bold text when map selector is toggled */
+    color: #000000;
+    font-weight: bold;
+}
+
+.map-layer-toggle:hover {
+    /* highlight selectors on hover */
+    background-color: #e8e8e8;
+}
+
+.map-layer-toggle-icon {
+    /* span icon styles */
+    font-size: 1em;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #fff;
+    background-color: #a3a1a1;
+    border-radius:3px;
+}
+
+.map-layer-toggle-icon.toggled {
+    /* add backround shadow and icon color when icon is toggled */
+    color: #fff;
+    box-shadow: 0px 1px 2px 0px gray;    
+}
+
+.map-layer-toggle-icon.toggled.service_requests_new {
+    /* each layer-specific style should match map marker colors */
+    /* class name must match layer_name from config */
+    background-color: #962125;
+}
+
+.map-layer-toggle-icon.toggled.service_requests_in_progress {
+/* each layer-specific style should match map marker colors */
+/* class name must match layer_name from config */
+    background-color: #196BB3;
+}
+
+.map-layer-toggle-icon.toggled.incident_report {
+/* each layer-specific style should match map marker colors */
+/* class name must match layer_name from config */
+    background-color: #EC892C;
+}
+
+.map-layer-toggle-icon.toggled.dms {
+    background-color: #000000;
+}
+
+.map-layer-toggle-icon.toggled.cctv {
+    background-color: #2B6272;
+}
