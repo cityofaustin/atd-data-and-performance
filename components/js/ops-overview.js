@@ -11,7 +11,8 @@ var month = today.getMonth();
 var year = today.getFullYear();
 var fiscal_year = year;
 
-if (month > 10) {  // if month is later than september
+
+if (month > 8) {  // if month is later than september
     fiscal_year = year + 1;
 }
 
@@ -127,8 +128,16 @@ var config = [
         'caption' : 'Traffic signals retimied this fiscal year',
         'query' : 'SELECT SUM(signal_count) as count WHERE retime_status IN ("COMPLETED") and scheduled_fy in ("' + fiscal_year + '")',
         'resource_id' : 'ufnm-yzxy',
-        'data_transform' : function(x) { return( [x[0]['count']] )},
-        'update_event' : 'signal_retiming_update'
+        'data_transform' : function(x) { 
+            var obj = x[0];
+            if (!Object.keys(obj).length === 0) {
+                return [obj['count']];
+            } else {
+                return [0];
+            }  
+        },
+        'update_event' : 'signal_retiming_update',
+        'data' : []
     },
     {
         'id' : 'prev_maint',
@@ -141,7 +150,10 @@ var config = [
         'caption' : 'Signals that have received preventative maintenance this fiscal year.',
         'query' : 'SELECT COUNT(signal_pm_max_fiscal_year) as count WHERE signal_pm_max_fiscal_year IN ("' + fiscal_year + '")',
         'resource_id' : 'xwqn-2f78',
-        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'data_transform' : function(x) { 
+            console.log(fiscal_year);
+            return( [x[0]['count']] )
+        },
         'update_event' : 'signals_update'
     },
     {
@@ -215,8 +227,6 @@ $(document).ready(function(){
 
             var url = buildSocrataUrl(config[i]);
 
-            console.log(url);
-
             var id = config[i].id;
 
             q.defer(d3.json, url)
@@ -233,6 +243,9 @@ $(document).ready(function(){
         for ( var i = 0; i < arguments[1].length; i++ ) {
             
             if ('data_transform' in config[i]) {
+                
+                // console.log(Object.keys(data).length === 0 && data.constructor === Object);
+                
                 config[i].data = config[i].data_transform( arguments[1][i] );    
             } else {
                 config[i].data = arguments[1][i];
@@ -286,19 +299,6 @@ function main(data) {
         postUpdateDate(selection, pub_log_id, event);
 
     }
-
-     d3.csv('https://raw.githubusercontent.com/cityofaustin/transportation/gh-pages/components/data/quote_of_the_week.csv', function(error, data) {
-
-        //  http://stackoverflow.com/questions/11488194/how-to-use-d3-min-and-d3-max-within-a-d3-json-command
-        var most_recent = d3.entries(data).sort(function(a, b) { return d3.descending(a.quote_date, b.quote_date); })[0]
-
-        var most_recent = most_recent.value;
-        
-        var quote = d3.select("#quote").text(most_recent.quote);
-
-        var attribution = d3.select("#attribution").text(most_recent.attribution);
-    })
-
  
 }
 
