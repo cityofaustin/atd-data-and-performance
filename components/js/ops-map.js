@@ -9,14 +9,18 @@
 //  test on IE and consider support
 //  weird highlight behavior on search/toggle combos
 //  handle when pane is longer than viewport (hide overflow?)
-//  you have to preserve the base url on refresh layers!
-//  see: https://stackoverflow.com/questions/4740364/jquery-check-and-remove-slash-from-the-end-of-url-read
+//  you have to preserve the browser location base url on refresh layers!
+//  see: https://stackoverflow.com/questions/4740364/jquery-check-and-  -slash-from-the-end-of-url-read
 //  target.replace(/\/$/, '');
 //  also: https://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page
 //  if map menu was open, show it on close feature details
 //  move keyup escape to setstate business
 //  boom! http://localhost:4000/ops-map/?layers=service_requests_new,cctv&featureid=209&layername=cctv#
 //  init event fires populatetable multiple times via toggle layer
+//
+//
+//  debugging marker highlight. check logging for race condition on search results click
+
 var map, basemap, table, feature_layer, highlight;
 
 //  If table/map are updating from layer selector toggle,
@@ -35,7 +39,7 @@ var state = {
         'marker' : '',
         'record' : '',
     },
-    'showing_deatils' : false,
+    'showing_details' : false,
     'showing_menu' : true,
     'searching' : false,
     'collapsed' : false,
@@ -68,7 +72,7 @@ function createMap(divId, options) {
                 subdomains : 'abcd',
                 maxZoom : 20,
                 ext : 'png'
-            });
+    });
 
     map = new L.Map(divId, options)
         .addLayer(basemap);
@@ -104,10 +108,12 @@ function populateTable(data, divId) {
                     }
                     
                     var search_layers = getSearchMarkers();
-                    var base_layers = getBaseLayers(state.layers);
-                    var layers = search_layers.concat(base_layers);
+                    //  var base_layers = getBaseLayers(state.layers);
+                    //  var layers = search_layers.concat(base_layers);
+                    //  baselayers to search_layers
+                    //  Object.assign(search_layers, layers);
                     //  update map with active search and base layers
-                    addLayers(layers);   
+                    addLayers(search_layers);   
                     //  set bounds to extent of search layer
                     adjustView(search_layers);
   
@@ -139,9 +145,9 @@ function populateTable(data, divId) {
 
 
 function createEventListeners() {
-    map.on('click', function() {
-        map.removeLayer(highlight);
-    });
+    // map.on('click', function() {
+    //     map.removeLayer(highlight);
+    // });
 
     map.on('zoomend', function(){
         //  resize highlight marker on zoom
@@ -150,9 +156,9 @@ function createEventListeners() {
         }
     });
 
-        $('#map-btn-menu').on('click', function(){
-            stateChange('map_menu_toggle');
-        });
+    $('#map-btn-menu').on('click', function(){
+        stateChange('map_menu_toggle');
+    });
 
     $('#map-btn-home').on('click', function(){
         stateChange('map_home_toggle');
@@ -189,7 +195,8 @@ function createEventListeners() {
         closeSearch();
     
         if (map.hasLayer(highlight)) {
-          map.removeLayer(highlight);  
+            console.log('remove highlight - close search')
+            highlight.removeFrom(map);
         }     
 
         
@@ -275,7 +282,6 @@ function getData(config) {
         if (error) throw error;
         for ( var i = 0; i < arguments[1].length; i++ ) {
             var layer_name = layer_names[i];
-            console.log(arguments);
             var layer = handleData(config[layer_name], arguments[1][i], function(layer){
                 createMapLayerSelector(config[layer_name], 'map-layer-selectors');
                 var markers = createMarkers(layer.data, config[layer_name]);
@@ -319,7 +325,8 @@ function handleData(layer, data, callback) {
         layer.data = data;
         callback(layer);
     } else if (layer.source == 'mapquest') {
-        
+        // fire layer create function from layer config
+        layer.layer = layer.layer_func();
     } else {
         alert('Unable to handle undefined datasource!');
     }
@@ -485,7 +492,6 @@ function toggleMapControls() {
         //  always show map controls when not collapsed
         $("#map-controls").show();
     } else {
-        
         if (state.showing_details || state.showing_menu) {
            $("#map-controls").hide();
         } else {
@@ -496,11 +502,13 @@ function toggleMapControls() {
 
 
 function toggleMenu() {
-     $("#data-table").hide();
+    $("#data-table").hide();
+    
     if (state.showing_details) {
         $("#feature-details").hide();
         state.showing_details = false;
     }
+
     if (!state.showing_menu) {
         $('#map-menu').show();
         state.showing_menu = true;
@@ -513,17 +521,18 @@ function toggleMenu() {
 }
 
 function toggleDetails() {
-    if (state.showing_menu) {
-        $('#map-menu').hide();
-        state.showing_menu = false;
-    }
-
+    
     if (!state.showing_details) {
+        $('#map-menu').hide();
         $('#feature-details').show();
         state.showing_details = true;
     } else {
         $('#feature-details').hide();
         state.showing_details = false;
+
+        if (state.showing_menu) {
+            $('#map-menu').show();
+        }
     }
 
     toggleMapControls()
@@ -535,7 +544,8 @@ function toggleHome() {
         map.setView(MAP_OPTIONS.center, MAP_OPTIONS.zoom);
         
         if (map.hasLayer(highlight)) {
-            map.removeLayer(highlight);  
+            console.log('remove highlight - toggle home');
+            highlight.removeFrom(map);
         } 
 }
 
@@ -656,10 +666,11 @@ function createMapLayerSelector(config, divId) {
 function updateData(layers, config) {
     //  refresh data objects based on current filters
     table_data = [];
-
     for (var i=0; i<layers.length; i++) {
         var layer_name = layers[i];
-        table_data = addToTable(config[layer_name].data, config[layer_name], table_data);        
+        if (config[layer_name].layer_type == 'markerLayer') {
+            table_data = addToTable(config[layer_name].data, config[layer_name], table_data);        
+        }
     }
 
     return table_data;
@@ -705,9 +716,12 @@ function toggleLayer(layer_selector) {
 
 
 function highlightMarker(marker) {
+    //  apply a circle marker around 
     if (map.hasLayer(highlight)) {
-        map.removeLayer(highlight);  
+        console.log('remove higlight - new highlight');
+        highlight.removeFrom(map);
     } 
+
     var marker_size = markerRadius();
 
     highlight = L.circle(marker._latlng, {
@@ -721,7 +735,8 @@ function highlightMarker(marker) {
         })
         .addTo(map);
 
-    //  animateMarker();
+    console.log('add new highlight');
+
 }
 
 function markerRadius() {
@@ -770,11 +785,11 @@ function getSearchMarkers() {
 
 function getBaseLayers(layer_names) {
     //  get layers of type baseLayer from config
-    var layers = [];
+    var layers = {};
     for (var i=0; i<layer_names.length; i++) {
         var layer_name = layer_names[i];
         if (CONFIG[layer_name].layer_type == 'baseLayer') {
-            layers.append(CONFIG[layer_name].layer)
+            layers[layer_name] = CONFIG[layer_name].layer;
         }
     }
     return layers;
@@ -793,37 +808,8 @@ function getConfigLayers(layer_names) {
 }
 
 
-function animateMarker() {
-    //  not currently using, but one could do this:
-    //  https://bl.ocks.org/d3noob/bf44061b1d443f455b3f857f82721372
-    var markers = d3.selectAll(".marker-highlight")
-    var ease = d3.easeCircleIn;
-    var color1 = "rgb(255, 255, 255)";
-    var color2 = "rgb(242, 197, 0)";
-
-    repeat();
-    
-    function repeat() {
-
-      markers
-        .transition()   
-        .ease(ease)    
-        .duration(400)
-        .attr('opacity', .7)
-        .attr('fill', color2)
-        .transition()      
-        .duration(1000)    
-        .attr('opacity', .1)
-        .attr('fill', color1)
-        .on("end", repeat);
-    };
-
-}
-
-
-
 function resizedw(){
-
+    //  update UI when window is resized
     var prev_breakpoint = state.curr_breakpoint;
     state.curr_breakpoint = breakpoint();
 
@@ -952,7 +938,8 @@ function stateChange(event, options) {
         
         //  remove highlight
         if (map.hasLayer(highlight)) {
-              map.removeLayer(highlight);  
+            console.log('remove highlight - search input');
+            highlight.removeFrom(map);
         } 
 
         $('#close-search').show();
@@ -966,12 +953,16 @@ function stateChange(event, options) {
         toggleDetails();        
         
         if (map.hasLayer(highlight)) {
-          map.removeLayer(highlight);  
+            console.log('remove highlight - close details');
+            highlight.removeFrom(map);
         }
+
+
+
     }  else if (event=='close_menu') {
         //  close menu when (x) is clicked
         //  map state is preserved
-        showing_menu = false;
+        state.showing_menu = false;
         $('#map-menu').hide();
         toggleMapControls();
 
@@ -994,11 +985,7 @@ function stateChange(event, options) {
                 
         if (!state.showing_details) {
             toggleDetails();
-        }
-
-        if (state.showing_menu) {
-            toggleMenu();
-        }
+        }3
         
     }
     

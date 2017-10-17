@@ -275,9 +275,9 @@ var CONFIG = {
     'traffic' : {
         'source' : 'mapquest',  //  source app (knack, socrata, ...)
         'init_display' : false, //  display map layer on app load
-        'icon' : 'car',
+        'icon' : 'road',
         'icon_color' : '#000000',
-        'layer_name' : 'taffic',
+        'layer_name' : 'traffic',
         'layer_type' : 'baseLayer',
         layer_func : function() { 
             return MQ.trafficLayer({layers: ['flow']});

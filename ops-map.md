@@ -13,4 +13,5 @@ custom_css:
 - leaflet.extra-markers.min
 - dashboard
 - fullscreen-map
+- ops-map
 ---
