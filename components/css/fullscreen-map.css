@@ -137,6 +137,12 @@ table.dataTable.feature-table tbody tr {
     border-radius: 0px;
 }
 
+.map-expander-link:hover {
+    text-decoration: none;  /* override bs default */
+    background-color: #e8e8e8;
+}
+
+
 .map-card-expander, .map-card-expander a {
     color: #000000;
 }
