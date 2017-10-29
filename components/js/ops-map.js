@@ -13,20 +13,23 @@
 //  see: https://stackoverflow.com/questions/4740364/jquery-check-and-  -slash-from-the-end-of-url-read
 //  target.replace(/\/$/, '');
 //  also: https://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page
-//  if map menu was open, show it on close feature details
 //  move keyup escape to setstate business
 //  boom! http://localhost:4000/ops-map/?layers=service_requests_new,cctv&featureid=209&layername=cctv#
 //  init event fires populatetable multiple times via toggle layer
-//
-//
-//  debugging marker highlight. check logging for race condition on search results click
+//  clear search on close feature details // or show search results again
+//  
+//  debugging marker highlight. not removing. only adding. wtf?
+var map, basemap, table, feature_layer, highlight_marker;
 
-var map, basemap, table, feature_layer, highlight;
-
-//  If table/map are updating from layer selector toggle,
 var q = d3.queue();
 
 var max_zoom_to = 16;
+
+var highlight_style = {
+    stroke: false,
+    fillOpacity : .5,
+    color: 'rgb(66, 134, 244)'
+};
 
 //  init map state
 //  to be updated by url params if they exist
@@ -62,6 +65,7 @@ function main(config) {
     createLayerSelectListeners('map-layer-selectors', config);
     stateChange('init');
 }
+
 
 function createMap(divId, options) {
     //  mappy map
@@ -120,8 +124,7 @@ function populateTable(data, divId) {
                 } else {
                     //  map redrawing because of layer change
                     var layers = getConfigLayers(state.layers);
-                    addLayers(layers);   
-
+                    addLayers(layers);
                 }
 
 
@@ -145,14 +148,11 @@ function populateTable(data, divId) {
 
 
 function createEventListeners() {
-    // map.on('click', function() {
-    //     map.removeLayer(highlight);
-    // });
 
     map.on('zoomend', function(){
         //  resize highlight marker on zoom
-        if (map.hasLayer(highlight)) {
-            resizeMarker(highlight);
+        if (map.hasLayer(highlight_marker)) {
+            resizeMarker(highlight_marker);
         }
     });
 
@@ -193,12 +193,6 @@ function createEventListeners() {
         //  close search when (x) is clicked
     
         closeSearch();
-    
-        if (map.hasLayer(highlight)) {
-            console.log('remove highlight - close search')
-            highlight.removeFrom(map);
-        }     
-
         
     })
 
@@ -241,6 +235,7 @@ function createEventListeners() {
     return true;
 }
 
+
 function closeSearch() {
     document.getElementById('search-input').value = '';
     document.activeElement.blur();  //  clear focus from search input
@@ -249,6 +244,7 @@ function closeSearch() {
     $('#data-table').hide();
     $('#close-search').hide();
 }
+
 
 function getData(config) {    
     //  store request names here so we we can assign
@@ -308,6 +304,7 @@ function handleBaseLayer(layer, callback) {
     callback(null);
 }
 
+
 function handleData(layer, data, callback) {
     //  handle app-specific data
     //  and assign data to config layer
@@ -332,6 +329,7 @@ function handleData(layer, data, callback) {
     }
 
 }
+
 
 function projectPoint(record, xField, yField) {    
     var latLon = sp_to_wgs84(record[xField], record[yField]);
@@ -520,6 +518,7 @@ function toggleMenu() {
     toggleMapControls();
 }
 
+
 function toggleDetails() {
     
     if (!state.showing_details) {
@@ -543,10 +542,6 @@ function toggleHome() {
         //  reset view if menu 'home' button clicked;
         map.setView(MAP_OPTIONS.center, MAP_OPTIONS.zoom);
         
-        if (map.hasLayer(highlight)) {
-            console.log('remove highlight - toggle home');
-            highlight.removeFrom(map);
-        } 
 }
 
 
@@ -599,7 +594,6 @@ function humanDate(timestamp) {
     var formattedTime = month + '/' + day + '/' + year;
     return formattedTime;
 }
-
 
 
 function toPixels(latlng, callback) {
@@ -677,7 +671,6 @@ function updateData(layers, config) {
 }
 
 
-
 function createLayerSelectListeners(divId, config) {
     $('#' + divId).children().on('click', function() {
         toggleLayer(this);
@@ -695,7 +688,6 @@ function toggleLayer(layer_selector) {
     if (state.layers.indexOf(layer_name) == -1){
         //  add layer if not in state
         state.layers.push(layer_name);
-        
         //  add toggle class to selector and icon span
         $(layer_selector).addClass("toggled");
         $(layer_selector).find("span").addClass("toggled");  
@@ -717,32 +709,36 @@ function toggleLayer(layer_selector) {
 
 function highlightMarker(marker) {
     //  apply a circle marker around 
-    if (map.hasLayer(highlight)) {
-        console.log('remove higlight - new highlight');
-        highlight.removeFrom(map);
-    } 
 
-    var marker_size = markerRadius();
+    if (map.hasLayer(highlight_marker)) {
+        map.removeLayer(highlight_marker);
+    }
+    
+    highlight_marker = getHighlight(marker);
 
-    highlight = L.circle(marker._latlng, {
-            className: 'marker-highlight',
-            radius: marker_size,
-        })
-        .setStyle({
-            stroke: false,
-            fillOpacity : .5,
-            color: 'rgb(66, 134, 244)'
-        })
-        .addTo(map);
+    highlight_marker.addTo(map);
 
     console.log('add new highlight');
 
 }
+    
 
+function getHighlight(marker) {
+    var marker_size = markerRadius();
+
+    return L.circle(marker._latlng, {
+            className: 'marker-highlight',
+            radius: marker_size,
+        })
+        .setStyle(highlight_style);
+}
+
+   
 function markerRadius() {
     var zoom = map.getZoom()
     return HIGHLIGTH_MARKER_SIZE['$' + zoom];
 }
+
 
 function resizeMarker(marker) {
     var marker_size = markerRadius();
@@ -753,15 +749,13 @@ function resizeMarker(marker) {
 function clearMap() {
     map.eachLayer(function(layer){
         if (layer==basemap) {
-            return
-            
+            return 
         } else {
             map.removeLayer(layer);
         }
-
-    });
-                
+    });       
 }
+
 
 function getSearchMarkers() {
 
@@ -935,12 +929,6 @@ function stateChange(event, options) {
         if (state.showing_details) {
             toggleDetails();
         }
-        
-        //  remove highlight
-        if (map.hasLayer(highlight)) {
-            console.log('remove highlight - search input');
-            highlight.removeFrom(map);
-        } 
 
         $('#close-search').show();
 
@@ -951,12 +939,6 @@ function stateChange(event, options) {
         $('#close-search').hide();
         
         toggleDetails();        
-        
-        if (map.hasLayer(highlight)) {
-            console.log('remove highlight - close details');
-            highlight.removeFrom(map);
-        }
-
 
 
     }  else if (event=='close_menu') {
@@ -977,7 +959,7 @@ function stateChange(event, options) {
         
         zoomToMarker(state.feature.record.marker, max_zoom=max_zoom);
 
-        highlightMarker(state.feature.record.marker);
+        //  highlightMarker(state.feature.record.marker);
 
         populateDetails('feature-details', state.feature.layer_name, state.feature.record);
 
@@ -985,13 +967,8 @@ function stateChange(event, options) {
                 
         if (!state.showing_details) {
             toggleDetails();
-        }3
+        }
         
     }
-    
-    
+        
 }
-
-
-
-
