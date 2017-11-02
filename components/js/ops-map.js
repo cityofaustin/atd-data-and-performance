@@ -17,7 +17,7 @@
 //  boom! http://localhost:4000/ops-map/?layers=service_requests_new,cctv&featureid=209&layername=cctv#
 //  init event fires populatetable multiple times via toggle layer
 //  clear search on close feature details // or show search results again
-//  
+//  fullscreen popup on mobile?
 //  debugging marker highlight. not removing. only adding. wtf?
 var map, basemap, table, feature_layer, highlight_marker;
 
@@ -72,7 +72,7 @@ function createMap(divId, options) {
     L.Icon.Default.imagePath = '../components/images/';
 
     basemap = new L.tileLayer( 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-                attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                attribution : 'Map tiles by <a href=\'http://stamen.com\'>Stamen Design</a>, <a href=\'http://creativecommons.org/licenses/by/3.0\'>CC BY 3.0</a> &mdash; Map data &copy; <a href=\'http://www.openstreetmap.org/copyright\'>OpenStreetMap</a>',
                 subdomains : 'abcd',
                 maxZoom : 20,
                 ext : 'png'
@@ -104,7 +104,7 @@ function populateTable(data, divId) {
                 
                 if (state.searching) {
                     //  map redrawing because of keyup
-                    if ( $( ".sorting_1" ).length) {
+                    if ( $( '.sorting_1' ).length) {
                         //  show data table if there are search results
                         $('#data-table').show();
                     } else {
@@ -133,10 +133,11 @@ function populateTable(data, divId) {
                 { 
                     data: 'display_value',
                 
-                    "render": function ( data, type, full, meta ) {
-                        return "<a class='tableRow' data-layer-name='" + full.layer_name + "' id='$" + full.rowId + "' '>" +
-                        "<i class='fa fa-" + CONFIG[full.layer_name].icon + "' style='color:" + CONFIG[full.layer_name].icon_color + "'></i> " +
-                         data + "</a>";
+                    'render': function ( data, type, full, meta ) {
+                        return '<a class=\'tableRow\' data-layer-name=\'' + full.layer_name + '\'id=\'$' + full.rowId +  '\'  \'>' +
+                        '<i class=\'fa fa-' + CONFIG[full.layer_name].icon + '\' style=\'color:' + 
+                        CONFIG[full.layer_name].icon_color + '\'></i> ' +
+                         data + '</a>';
                     }   
                 }
             ]
@@ -458,11 +459,11 @@ function addToTable(data, config, table_data) {
 function createTableListeners() {
     //  zoom to marker on search results click
 
-    $("tr").on('click', function(obj) {
+    $('tr').on('click', function(obj) {
 
         //  get data from search results
-        state.feature.id = $(this).find("a").attr("id");
-        state.feature.layer_name = $(this).find("a").data('layer-name');
+        state.feature.id = $(this).find('a').attr('id');
+        state.feature.layer_name = $(this).find('a').data('layer-name');
         //  get record
         var record = getRecord(state.feature.id, state.feature.layer_name, CONFIG);
         state.feature.record = record;
@@ -488,22 +489,22 @@ function getRecord(rowId, layer_name, config) {
 function toggleMapControls() {
     if (!state.collapsed) {
         //  always show map controls when not collapsed
-        $("#map-controls").show();
+        $('#map-controls').show();
     } else {
         if (state.showing_details || state.showing_menu) {
-           $("#map-controls").hide();
+           $('#map-controls').hide();
         } else {
-            $("#map-controls").show();
+            $('#map-controls').show();
         }    
     }
 }
 
 
 function toggleMenu() {
-    $("#data-table").hide();
+    $('#data-table').hide();
     
     if (state.showing_details) {
-        $("#feature-details").hide();
+        $('#feature-details').hide();
         state.showing_details = false;
     }
 
@@ -529,7 +530,9 @@ function toggleDetails() {
         $('#feature-details').hide();
         state.showing_details = false;
 
-        if (state.showing_menu) {
+        if (state.searching) {
+            $('#data-table').show();
+        } else if (state.showing_menu) {
             $('#map-menu').show();
         }
     }
@@ -549,7 +552,9 @@ function populateDetails(divId, layer_name, record) {
    $('#' + 'feature-table').dataTable().fnDestroy();
 
     var details = CONFIG[layer_name].details(record);
-    $('#' + divId).find('h3').html("<span class=\" map-menu-badge\" style=\"background-color: " + CONFIG[layer_name].icon_color + "\" ><i class='fa fa-" + CONFIG[layer_name].icon + "'></i></span> " + CONFIG[layer_name].display_name);
+    $('#' + divId).find('h3').html('<span class=\'map-menu-badge\' style=\'background-color: ' +
+        CONFIG[layer_name].icon_color + '\' ><i class=\'fa fa-' + 
+        CONFIG[layer_name].icon + '\' ></i></span> ' + CONFIG[layer_name].display_name);
     $('#' + divId).find('p').text(details[0].value);
 
     if (CONFIG[layer_name].image_url) {
@@ -605,7 +610,7 @@ function toPixels(latlng, callback) {
 function xOffset(pixelPoint, callback) {
     //  return map center x offset in pixels
     var doc_width = $(document).width();
-    var overlay_width = $("#map-menu").width();
+    var overlay_width = $('#map-menu').width();
     var map_width = doc_width - overlay_width;
     var offset = map_width/2 - 250;  //  using a tempoary hardcode adjustment until overlay layout is finalized
     callback(pixelPoint, offset);
@@ -647,11 +652,11 @@ function fitMarker(marker, offset, max_zoom=17) {
 
 
 function createMapLayerSelector(config, divId) {
-    var selector = "<a href=\"#\" class=\"map-layer-toggle list-group-item\" data-layer-name=\"" 
+    var selector = '<a href=\'#\' class=\'map-layer-toggle list-group-item\' data-layer-name=\'' 
         + config.layer_name + 
-        "\" ><span class=\"map-layer-toggle-icon " + config.layer_name + "\" ><i class=\"fa fa-" + config.icon + "\"></i></span> "
+        '\' ><span class=\'map-layer-toggle-icon ' + config.layer_name + '\' ><i class=\'fa fa-' + config.icon + '\'></i></span> '
         + config.display_name +
-        "</a>";
+        '</a>';
     $('#' + divId).append(selector);
 
 }
@@ -689,15 +694,15 @@ function toggleLayer(layer_selector) {
         //  add layer if not in state
         state.layers.push(layer_name);
         //  add toggle class to selector and icon span
-        $(layer_selector).addClass("toggled");
-        $(layer_selector).find("span").addClass("toggled");  
+        $(layer_selector).addClass('toggled');
+        $(layer_selector).find('span').addClass('toggled');  
 
 
     } else {
         //  remove layer if alreday in state
         state.layers.splice(layer_index, 1);
-        $(layer_selector).removeClass("toggled")
-        $(layer_selector).find("span").removeClass("toggled");
+        $(layer_selector).removeClass('toggled')
+        $(layer_selector).find('span').removeClass('toggled');
     }
 
     //  redraw search results and map
@@ -863,7 +868,7 @@ function refreshParams(state) {
     
     if (state.layers) {
         //  add layers
-        loc += "?layers=" + state.layers.join(",")
+        loc += '?layers=' + state.layers.join(',')
         
         if (state.feature.id) {
             loc += '&feature=' + 
@@ -934,12 +939,7 @@ function stateChange(event, options) {
 
     } else if (event=='close_feature_details') {
 
-        document.getElementById('search-input').value = '';
-        
-        $('#close-search').hide();
-        
         toggleDetails();        
-
 
     }  else if (event=='close_menu') {
         //  close menu when (x) is clicked
