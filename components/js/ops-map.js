@@ -17,11 +17,7 @@
 //  move keyup escape to setstate business
 //  boom! http://localhost:4000/ops-map/?layers=service_requests_new,cctv&featureid=209&layername=cctv#
 //  init event fires populatetable multiple times via toggle layer
-//  clear search on close feature details // or show search results again
-//  fullscreen popup on mobile?
-//  debugging marker highlight. not removing. only adding. wtf?
-//  map.eachLayer(function(layer) { bob = bob + 1; console.log(bob)})
-
+//  expanding details working! but weird pointer events happening
 
 var map, basemap, table, feature_layer;
 
@@ -48,6 +44,7 @@ var state = {
         'record' : '',
     },
     'showing_details' : false,
+    'collapsed_details' : false,
     'showing_menu' : true,
     'searching' : false,
     'collapsed' : false,
@@ -58,6 +55,8 @@ var state = {
 $(document).ready(function(){
     $('#feature-details').hide();
     $('#close-search').hide();
+    $('#mobile-card-expand').hide();
+    $('#mobile-card-collapse').hide();
     getData(CONFIG);
 });
 
@@ -533,6 +532,7 @@ function toggleMenu() {
 function toggleDetails() {
     
     if (!state.showing_details) {
+    
         $('#map-menu').hide();
         $('#feature-details').show();
         state.showing_details = true;
@@ -546,7 +546,7 @@ function toggleDetails() {
         }
     }
 
-    toggleMapControls()
+    toggleMapControls();
 }
 
 
@@ -594,6 +594,34 @@ function populateDetails(divId, layer_name, record) {
         });
 
     $('#feature-table_filter').remove();
+}
+
+
+function responsiveDetails() {
+    if (state.collapsed && !(state.collapsed_details)) {
+        //  hide feature details body and replace with expander button
+        $('#card-body-wrapper').hide();
+        $('#mobile-card-expand').show();
+        $('#mobile-card-collapse').show();
+        state.collapsed_details = true;
+    } else if ((!state.collapsed) && state.collapsed_details) {
+        $('#card-body-wrapper').show();
+        $('#mobile-card-expand').hide();
+        $('#mobile-card-collapse').hide();
+        state.collapsed_details = false;
+    }
+
+    $('#card-header-wrapper').on('click', function() {
+        if (state.collapsed && state.collapsed_details) {
+            state.collapsed_details = false;
+            $('#card-body-wrapper').show();
+        } else if (state.collapsed && (!state.collapsed_details)) {
+            state.collapsed_details = true;
+            $('#card-body-wrapper').hide();
+        }
+        
+    })
+
 }
 
 
@@ -836,6 +864,8 @@ function resizedw(){
             state.collapsed = false;
             toggleMapControls();
         }
+
+        responsiveDetails();
     }
 }
 

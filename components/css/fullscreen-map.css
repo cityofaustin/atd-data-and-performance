@@ -80,7 +80,9 @@
     background-color: #fff;
 }
 
-#close-feature-details:hover {
+#close-feature-details:hover,
+#mobile-card-expand:hover,
+#mobile-card-collapse {
     color: #43484e;
 }
 
@@ -90,6 +92,14 @@
 
 table.feature-table.dataTable.no-footer {
     border-bottom: none;
+}
+
+#mobile-card-expand, #mobile-card-collapse {
+    position: absolute;
+    cursor: pointer;
+    color: gray;
+    bottom: 20px;
+    right: 20px;
 }
 
 #data-table_wrapper {
@@ -115,7 +125,6 @@ thead {
 .modal-content {
     background-color: rgba(0, 0, 0, 0);
 }
-
 
 
 table.dataTable.feature-table tbody tr {
