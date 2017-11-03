@@ -19,16 +19,19 @@
 //  clear search on close feature details // or show search results again
 //  fullscreen popup on mobile?
 //  debugging marker highlight. not removing. only adding. wtf?
-var map, basemap, table, feature_layer, highlight_marker;
+//  map.eachLayer(function(layer) { bob = bob + 1; console.log(bob)})
+
+var mega // test
+var map, basemap, table, feature_layer;
 
 var q = d3.queue();
 
 var max_zoom_to = 16;
 
 var highlight_style = {
-    stroke: false,
-    fillOpacity : .5,
-    color: 'rgb(66, 134, 244)'
+    weight: 2,
+    fillOpacity : .2,
+    color: '#0845a8'
 };
 
 //  init map state
@@ -36,6 +39,7 @@ var highlight_style = {
 var state = {
     'init_layers' : ['service_requests_new', 'service_requests_in_progress', 'incident_report'],
     'layers' : [],
+    'search_layers' : [],
     'feature' : {
         'id' : '',
         'layer_name' : '',
@@ -46,10 +50,13 @@ var state = {
     'showing_menu' : true,
     'searching' : false,
     'collapsed' : false,
-    'curr_breakpoint' : ''
+    'curr_breakpoint' : '',
+    'highlight_marker' : ''
 }
 
 $(document).ready(function(){
+    $('#feature-details').hide();
+    $('#close-search').hide();
     getData(CONFIG);
 });
 
@@ -99,7 +106,7 @@ function populateTable(data, divId) {
             bInfo : false,
             paging : false,
             drawCallback : function() {
-                createTableListeners();
+                createTableListeners()
                 clearMap();
                 
                 if (state.searching) {
@@ -111,15 +118,12 @@ function populateTable(data, divId) {
                        $('#data-table').hide();
                     }
                     
-                    var search_layers = getSearchMarkers();
-                    //  var base_layers = getBaseLayers(state.layers);
-                    //  var layers = search_layers.concat(base_layers);
-                    //  baselayers to search_layers
-                    //  Object.assign(search_layers, layers);
+                    state.search_layers = getSearchMarkers();
+
                     //  update map with active search and base layers
-                    addLayers(search_layers);   
+                    addLayers(state.search_layers);   
                     //  set bounds to extent of search layer
-                    adjustView(search_layers);
+                    adjustView(state.search_layers);
   
                 } else {
                     //  map redrawing because of layer change
@@ -152,8 +156,8 @@ function createEventListeners() {
 
     map.on('zoomend', function(){
         //  resize highlight marker on zoom
-        if (map.hasLayer(highlight_marker)) {
-            resizeMarker(highlight_marker);
+        if (map.hasLayer(state.highlight_marker)) {
+            resizeMarker(state.highlight_marker);
         }
     });
 
@@ -383,10 +387,13 @@ function createMarkers(data, config) {
             
             marker.on('click', function(){
                 var record = getRecord(this.rowId, this.layer_name, CONFIG);                
-                state.feature.layer_name = this.layer_name;
-                state.feature.id = this.rowId;
-                state.feature.record = record;
-                stateChange('marker_click', { 'hold_zoom' : true });
+
+                stateChange('marker_click', { 
+                    'hold_zoom' : true,
+                    'layer_name' : this.layer_name,
+                    'feature_id' : this.rowId,
+                    'record' : record
+                });
 
             });
 
@@ -457,17 +464,23 @@ function addToTable(data, config, table_data) {
 
 
 function createTableListeners() {
+    //  remove any existing click event
+    $('#data-table').children('tbody').children('tr').off('click');
     //  zoom to marker on search results click
-
-    $('tr').on('click', function(obj) {
+    $('#data-table').children('tbody').children('tr').on('click', function(obj) {
 
         //  get data from search results
-        state.feature.id = $(this).find('a').attr('id');
-        state.feature.layer_name = $(this).find('a').data('layer-name');
+        var rowId = $(this).find('a').attr('id');
+        var layer_name = $(this).find('a').data('layer-name');
         //  get record
-        var record = getRecord(state.feature.id, state.feature.layer_name, CONFIG);
-        state.feature.record = record;
-        stateChange('marker_click', { 'hold_zoom' : false });
+        var record = getRecord(rowId, layer_name, CONFIG);        
+        
+        stateChange('marker_click', { 
+            'hold_zoom' : false,
+            'layer_name' : layer_name,
+            'feature_id' : rowId,
+            'record' : record
+        });
 
     });
 
@@ -714,14 +727,16 @@ function toggleLayer(layer_selector) {
 
 function highlightMarker(marker) {
     //  apply a circle marker around 
-
-    if (map.hasLayer(highlight_marker)) {
-        map.removeLayer(highlight_marker);
+    
+    if (map.hasLayer(state.highlight_marker)) {
+        state.highlight_marker.removeFrom(map);
     }
     
-    highlight_marker = getHighlight(marker);
+    var highlight = getHighlight(marker);
 
-    highlight_marker.addTo(map);
+    highlight.addTo(map);
+    state.highlight_marker = highlight;
+    
 
     console.log('add new highlight');
 
@@ -734,6 +749,7 @@ function getHighlight(marker) {
     return L.circle(marker._latlng, {
             className: 'marker-highlight',
             radius: marker_size,
+            className: 'blinking'
         })
         .setStyle(highlight_style);
 }
@@ -752,13 +768,19 @@ function resizeMarker(marker) {
 
 
 function clearMap() {
-    map.eachLayer(function(layer){
-        if (layer==basemap) {
-            return 
-        } else {
-            map.removeLayer(layer);
-        }
-    });       
+    //  remove active layers from map
+    //  using map.eachLayer() method was bugging out
+    //  so instead we keep track of active layers and
+    //  remove them explicitly
+    if (state.searching) {
+        var layers = state.search_layers;
+    } else {    
+        var layers = getConfigLayers(state.layers);
+    }   
+    for (layer in layers) {
+        console.log(layer);
+        layers[layer].removeFrom(map);
+    }
 }
 
 
@@ -889,9 +911,7 @@ function stateChange(event, options) {
     //  function to manage map state during ui events
     //  and page init and when url params
     if (event=='init') {
-        $('#feature-details').hide();
-        $('#close-search').hide();
-
+        
         if (state.feature.id && state.feature.layer_name) {
             
             var record = getRecord(state.feature.id, state.feature.layer_name, CONFIG);
@@ -904,7 +924,7 @@ function stateChange(event, options) {
         }
 
         $('#map-layer-selectors').children().each(function () {
-            
+            //  iteratere through map selectors and toggle default layers
             var layer_name = $(this).data('layer-name');
 
             if (state.init_layers.indexOf(layer_name) >= 0) {
@@ -938,6 +958,10 @@ function stateChange(event, options) {
         $('#close-search').show();
 
     } else if (event=='close_feature_details') {
+        
+        if (map.hasLayer(state.highlight_marker)) {
+            state.highlight_marker.removeFrom(map);
+        }
 
         toggleDetails();        
 
@@ -949,7 +973,7 @@ function stateChange(event, options) {
         toggleMapControls();
 
     } else if (event=='marker_click') {
-        
+
         if (options.hold_zoom) {
             //  hold current zoom when clicking on marker
             var max_zoom = map.getZoom();
@@ -957,11 +981,16 @@ function stateChange(event, options) {
             var max_zoom = max_zoom_to;
         }
         
-        zoomToMarker(state.feature.record.marker, max_zoom=max_zoom);
+        //  update globals
+        state.feature.layer_name = options.layer_name;
+        state.feature.id = options.rowId;
+        state.feature.record = options.record;
 
-        //  highlightMarker(state.feature.record.marker);
-
-        populateDetails('feature-details', state.feature.layer_name, state.feature.record);
+        zoomToMarker(options.record.marker, max_zoom=max_zoom);
+        highlightMarker(options.record.marker);
+        populateDetails('feature-details', options.layer_name, options.record);
+        
+        mega = options.record.marker;  //  testing
 
         $('#data-table').hide();
                 
