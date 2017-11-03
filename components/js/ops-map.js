@@ -1,5 +1,6 @@
 //  todo:
 //  modal loader
+//  fix dms
 //  url parameters
 //  what to do about requests missing lat/lon?
 //      maybe dump them into a list that can be toggled?
@@ -21,7 +22,7 @@
 //  debugging marker highlight. not removing. only adding. wtf?
 //  map.eachLayer(function(layer) { bob = bob + 1; console.log(bob)})
 
-var mega // test
+
 var map, basemap, table, feature_layer;
 
 var q = d3.queue();
@@ -182,6 +183,7 @@ function createEventListeners() {
                 //  hide search results and (x) if no text in input
                 $('#data-table').hide();
                 $('#close-search').hide();
+                closeSearch();
             }
         })
         .on('click', function () {
@@ -245,7 +247,7 @@ function closeSearch() {
     document.getElementById('search-input').value = '';
     document.activeElement.blur();  //  clear focus from search input
     state.searching = false;
-    table.search('').draw();
+    table.search('').draw(); 
     $('#data-table').hide();
     $('#close-search').hide();
 }
@@ -363,10 +365,6 @@ function createMarkers(data, config) {
     //  will not change after init
     var layer = new L.featureGroup();
 
-    //  empty search layer that will be populated
-    //  dynamically by search results
-    var layer_searching = new L.featureGroup();
-
     if (data.length > 0) {
 
         for (var i = 0; i < data.length; i++) {   
@@ -404,7 +402,6 @@ function createMarkers(data, config) {
     }
 
     config.layer = layer;
-    config.layer_searching = layer_searching;
 }
 
 
@@ -539,13 +536,12 @@ function toggleDetails() {
         $('#map-menu').hide();
         $('#feature-details').show();
         state.showing_details = true;
+
     } else {
         $('#feature-details').hide();
         state.showing_details = false;
 
-        if (state.searching) {
-            $('#data-table').show();
-        } else if (state.showing_menu) {
+        if (state.showing_menu) {
             $('#map-menu').show();
         }
     }
@@ -737,9 +733,6 @@ function highlightMarker(marker) {
     highlight.addTo(map);
     state.highlight_marker = highlight;
     
-
-    console.log('add new highlight');
-
 }
     
 
@@ -769,18 +762,18 @@ function resizeMarker(marker) {
 
 function clearMap() {
     //  remove active layers from map
+    //
     //  using map.eachLayer() method was bugging out
     //  so instead we keep track of active layers and
     //  remove them explicitly
-    if (state.searching) {
-        var layers = state.search_layers;
-    } else {    
-        var layers = getConfigLayers(state.layers);
-    }   
-    for (layer in layers) {
-        console.log(layer);
-        layers[layer].removeFrom(map);
+    for (layer in state.search_layers) {
+        state.search_layers[layer].removeFrom(map);
     }
+    
+    for (dataset in CONFIG) {
+        CONFIG[dataset].layer.removeFrom(map);
+    }
+
 }
 
 
@@ -963,7 +956,8 @@ function stateChange(event, options) {
             state.highlight_marker.removeFrom(map);
         }
 
-        toggleDetails();        
+        toggleDetails();
+        closeSearch();     
 
     }  else if (event=='close_menu') {
         //  close menu when (x) is clicked
@@ -989,15 +983,13 @@ function stateChange(event, options) {
         zoomToMarker(options.record.marker, max_zoom=max_zoom);
         highlightMarker(options.record.marker);
         populateDetails('feature-details', options.layer_name, options.record);
-        
-        mega = options.record.marker;  //  testing
 
         $('#data-table').hide();
                 
         if (!state.showing_details) {
             toggleDetails();
         }
-        
+
     }
         
 }
