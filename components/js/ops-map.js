@@ -18,7 +18,7 @@
 //  boom! http://localhost:4000/ops-map/?layers=service_requests_new,cctv&featureid=209&layername=cctv#
 //  init event fires populatetable multiple times via toggle layer
 //  expanding details working! but weird pointer events happening
-
+//  dummy comment to recommit
 var map, basemap, table, feature_layer;
 
 var q = d3.queue();
