@@ -1,6 +1,6 @@
 //  todo:
-//  modal loader
 //  fix dms
+//  modal loader
 //  url parameters
 //  what to do about requests missing lat/lon?
 //      maybe dump them into a list that can be toggled?
@@ -611,13 +611,15 @@ function responsiveDetails() {
         state.collapsed_details = false;
     }
 
-    $('#card-header-wrapper').on('click', function() {
+    $('#feature-details').on('click', function() {
         if (state.collapsed && state.collapsed_details) {
             state.collapsed_details = false;
             $('#card-body-wrapper').show();
+            $('#mobile-card-expand').hide();
         } else if (state.collapsed && (!state.collapsed_details)) {
             state.collapsed_details = true;
             $('#card-body-wrapper').hide();
+            $('#mobile-card-expand').show();
         }
         
     })
@@ -859,9 +861,11 @@ function resizedw(){
         
         if (state.curr_breakpoint === 'xs' || state.curr_breakpoint === 'sm' || state.curr_breakpoint === 'md') { 
             state.collapsed = true;
+            $('#feature-details').css('cursor', 'pointer');
             toggleMapControls();
         } else {
             state.collapsed = false;
+            $('#feature-details').css('cursor', 'default');
             toggleMapControls();
         }
 
