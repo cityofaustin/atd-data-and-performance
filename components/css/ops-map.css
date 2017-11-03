@@ -1,0 +1,47 @@
+.map-layer-toggle-icon.toggled.service_requests_new {
+    /* each layer-specific style should match map marker colors */
+    /* class name must match layer_name from config */
+    background-color: #962125;
+}
+
+.map-layer-toggle-icon.toggled.service_requests_in_progress {
+/* each layer-specific style should match map marker colors */
+/* class name must match layer_name from config */
+    background-color: #196BB3;
+}
+
+.map-layer-toggle-icon.toggled.incident_report {
+/* each layer-specific style should match map marker colors */
+/* class name must match layer_name from config */
+    background-color: #EC892C;
+}
+
+.map-layer-toggle-icon.toggled.dms {
+    background-color: #000;
+}
+
+.map-layer-toggle-icon.toggled.cctv {
+    background-color: #2B6272;
+}
+
+
+.map-layer-toggle-icon.toggled.traffic {
+    background-color: #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
