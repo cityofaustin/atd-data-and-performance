@@ -18,7 +18,7 @@
 //  boom! http://localhost:4000/ops-map/?layers=service_requests_new,cctv&featureid=209&layername=cctv#
 //  init event fires populatetable multiple times via toggle layer
 //  expanding details working! but weird pointer events happening
-//  dummy comment to recommit
+
 var map, basemap, table, feature_layer;
 
 var q = d3.queue();
@@ -62,6 +62,11 @@ $(document).ready(function(){
 
 function main(config) {
     resizedw();
+    
+    $(function () {
+      $('[data-toggle="popover"]').popover()
+    })
+
     map = createMap('map', MAP_OPTIONS);
     
     getParams(function(){
@@ -691,9 +696,11 @@ function fitMarker(marker, offset, max_zoom=17) {
 
 
 function createMapLayerSelector(config, divId) {
+    var popup = getPopup(config);
+    console.log(popup);
     var selector = '<a href=\'#\' class=\'map-layer-toggle list-group-item\' data-layer-name=\'' 
         + config.layer_name + 
-        '\' ><span class=\'map-layer-toggle-icon ' + config.layer_name + '\' ><i class=\'fa fa-' + config.icon + '\'></i></span> '
+        '\' ' + popup +' ><span class=\'map-layer-toggle-icon ' + config.layer_name + '\' ><i class=\'fa fa-' + config.icon + '\'></i></span> '
         + config.display_name +
         '</a>';
     $('#' + divId).append(selector);
@@ -1027,3 +1034,12 @@ function stateChange(event, options) {
     }
         
 }
+
+
+function getPopup(config) {
+    //  return bootstrap popup html that can be inserted into dom element properties
+    return 'data-container=\'body\' data-trigger=\'hover\' data-toggle=\'popover\' data-placement=\'top\' data-content=\'' + config.popup_text + '\'';
+}
+
+
+
