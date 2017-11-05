@@ -1,5 +1,6 @@
 #dash-container {
-    overflow:hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 #map {
@@ -14,12 +15,12 @@
 #left-overlay-container {
     height: 100vh;
     pointer-events: none;
-    overflow-y: scroll;
 }
 
 #left-overlay {
     pointer-events: auto;
 }
+
 
 .over-map {
     z-index: 2;

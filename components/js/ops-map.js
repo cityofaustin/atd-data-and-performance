@@ -1,5 +1,6 @@
 //  todo:
-//  dummy commit
+//  non-military time dates
+//  
 //  fix dms
 //  modal loader
 //  url parameters
@@ -8,8 +9,7 @@
 //      ideally run them through COA geocoder
 //      update socrata queries to selected specific fields of concern
 //  create address name field on CSR records
-//  test on IE and consider support
-//  weird highlight behavior on search/toggle combos
+//  test on IE
 //  handle when pane is longer than viewport (hide overflow?)
 //  you have to preserve the browser location base url on refresh layers!
 //  see: https://stackoverflow.com/questions/4740364/jquery-check-and-  -slash-from-the-end-of-url-read
