@@ -1,6 +1,6 @@
 //  todo:
 //  non-military time dates
-//  
+//  resolve CSR shit
 //  fix dms
 //  modal loader
 //  url parameters
@@ -10,7 +10,6 @@
 //      update socrata queries to selected specific fields of concern
 //  create address name field on CSR records
 //  test on IE
-//  handle when pane is longer than viewport (hide overflow?)
 //  you have to preserve the browser location base url on refresh layers!
 //  see: https://stackoverflow.com/questions/4740364/jquery-check-and-  -slash-from-the-end-of-url-read
 //  target.replace(/\/$/, '');
