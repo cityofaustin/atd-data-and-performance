@@ -84,3 +84,7 @@ span.col-14, span.col-15 {
   padding: 0px;
 }
 
+.nav-homepage:hover{
+  text-decoration: none;
+}
+
