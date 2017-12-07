@@ -14,16 +14,11 @@ var CONFIG = {
             return [
                 {
                     'name' : 'Location',
-                    'value'  : record.field_1388
+                    'value'  : record.field_1963
                 },
                 {
                     'type' : 'row',
-                    'name' : 'Status',
-                    'value'  : record.field_1636
-                },
-                {
-                    'type' : 'row',
-                    'name' : 'Issue Type',
+                    'name' : 'Issue',
                     'value' : record.field_1445
                 },
                 {
@@ -49,12 +44,11 @@ var CONFIG = {
                 }
             ]
         },
-        'display_name' : 'Service Request',
+        'display_name' : 'New Service Request',
         'display_field' : 'field_1388', //  field to display in table results
         'divId' : 'data_table',  //  destination table
         'icon' : 'phone',
         'icon_color' : '#962125',  // match extra-markers color
-        'init_display' : true, //  display map layer on app load
         'layer_name' : 'service_requests_new',  //  match parent object name
         'layer_type' : 'markerLayer',
         'popup_text' : 'Recently received service requests',
@@ -77,16 +71,11 @@ var CONFIG = {
             return [
                 {
                     'name' : 'Location',
-                    'value'  : record.field_1388
+                    'value'  : record.field_1963
                 },
                 {
                     'type' : 'row',
-                    'name' : 'Status',
-                    'value'  : record.field_1636
-                },
-                {
-                    'type' : 'row',
-                    'name' : 'Issue Type',
+                    'name' : 'Issue',
                     'value' : record.field_1445
                 },
                 {
@@ -122,7 +111,6 @@ var CONFIG = {
         'divId' : 'data_table',  //  destination table
         'icon' : 'wrench',
         'icon_color' : '#196BB3',  // match extra-markers color
-        'init_display' : true, //  display map layer on app load
         'layer_name' : 'service_requests_in_progress',  //  match parent object name
         'layer_type' : 'markerLayer',
         'popup_text' : 'Blah blah blah',
@@ -137,7 +125,130 @@ var CONFIG = {
             return '<b> ' + record.field_1388 + '<b>';        
         },
     },
+    'service_requests_repairs_complete' : {
+        'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
+        'data' : [],  //  data will go here programmatically
+        details : function(record) {
 
+            return [
+                {
+                    'name' : 'Location',
+                    'value'  : record.field_1963
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Issue',
+                    'value' : record.field_1445
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Details',
+                    'value' : record.field_1446
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Date',
+                    'value' : record.field_1517
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Issue ID',
+                    'value' : record.field_1678
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Actions Taken',
+                    'value' : record.field_1053
+                },
+                {
+                    'type' : 'row',
+                    'name' : '',
+                    'value' : "<a target=_blank href='http://transportation.austintexas.io/data-tracker/#home/tmc/view-tmc-details/" + record.id + " ' >Data Tracker (Restricted Access)</a>",
+                    
+                }
+            ]
+        },
+        'display_name' : 'Repairs Complete',
+        'display_field' : 'field_1388', //  field to display in table results
+        'divId' : 'data_table',  //  destination table
+        'icon' : 'check-circle',
+        'icon_color' : '#108131',  // match extra-markers color
+        'layer_name' : 'service_requests_repairs_complete',  //  match parent object name
+        'layer_type' : 'markerLayer',
+        'popup_text' : 'Blah blah blah',
+        'source' : 'knack',  //  source app (knack, socrata, ...)
+        'spatial_ref' : 'stateplane',  //  stateplan, wgs84
+        'rowIdField' : 'id',  //  unique id field- for table/map interactivity
+        'sceneKey' : 'scene_514',  //  knack api param
+        'viewKey' : 'view_1803',  //  knack api param
+        'lonField' : 'field_1402',
+        'latField' : 'field_1401',
+        popup : function(record) {
+            return '<b> ' + record.field_1388 + '<b>';        
+        },
+    },
+    'service_requests_pending_review' : {
+        'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
+        'data' : [],  //  data will go here programmatically
+        details : function(record) {
+
+            return [
+                {
+                    'name' : 'Location',
+                    'value'  : record.field_1963
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Issue',
+                    'value' : record.field_1445
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Details',
+                    'value' : record.field_1446
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Date',
+                    'value' : record.field_1517
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Issue ID',
+                    'value' : record.field_1678
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Actions Taken',
+                    'value' : record.field_1053
+                },
+                {
+                    'type' : 'row',
+                    'name' : '',
+                    'value' : "<a target=_blank href='http://transportation.austintexas.io/data-tracker/#home/tmc/view-tmc-details/" + record.id + " ' >Data Tracker (Restricted Access)</a>",
+                    
+                }
+            ]
+        },
+        'display_name' : 'Pending Engineer Review',
+        'display_field' : 'field_1388', //  field to display in table results
+        'divId' : 'data_table',  //  destination table
+        'icon' : 'clock-o',
+        'icon_color' : '#196BB3',  // match extra-markers color
+        'layer_name' : 'service_requests_pending_review',  //  match parent object name
+        'layer_type' : 'markerLayer',
+        'popup_text' : 'Blah blah blah',
+        'source' : 'knack',  //  source app (knack, socrata, ...)
+        'spatial_ref' : 'stateplane',  //  stateplan, wgs84
+        'rowIdField' : 'id',  //  unique id field- for table/map interactivity
+        'sceneKey' : 'scene_514',  //  knack api param
+        'viewKey' : 'view_1804',  //  knack api param
+        'lonField' : 'field_1402',
+        'latField' : 'field_1401',
+        popup : function(record) {
+            return '<b> ' + record.field_1388 + '<b>';        
+        },
+    },
     'incident_report' : {
         'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
         'data' : [],  //  data will go here programmatically
@@ -165,7 +276,6 @@ var CONFIG = {
         'divId' : 'data_table',  //  destination table
         'icon' : 'exclamation-triangle',
         'icon_color' : '#EB7B2B',  // match extra-markers color
-        'init_display' : true, //  display map layer on app load
         'layer_name' : 'incident_report',  //  match parent object name
         'layer_type' : 'markerLayer',
         'popup_text' : 'Blah blah blah',
@@ -185,7 +295,6 @@ var CONFIG = {
         'base_url' : 'https://data.austintexas.gov/resource/',
         'source' : 'socrata',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'wgs84',  //  stateplan, wgs84
-        'init_display' : false, //  display map layer on app load
         'icon' : 'video-camera',
         'icon_color' : '#2B6272',  // match extra_markers color (see MARKERS below)
         'layer_name' : 'cctv',
@@ -239,7 +348,6 @@ var CONFIG = {
     'dms' : {
        'source' : 'socrata',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'wgs84',  //  stateplane, wgs84
-        'init_display' : false, //  display map layer on app load
         'icon' : 'info-circle',
         'icon_color' : '#000000',
         'layer_name' : 'dms',
@@ -275,11 +383,11 @@ var CONFIG = {
                     'value' : "<a href=" + this.base_url + this.resource_id + " target=_blank ><i class=\"fa fa-cloud-download\" ></i> Data</a>"
                 }
             ]   
-        }
+        },
+        'query' :'SELECT * WHERE dms_message IS NOT NULL'
     },
     'traffic' : {
         'source' : 'mapquest',  //  source app (knack, socrata, ...)
-        'init_display' : false, //  display map layer on app load
         'icon' : 'road',
         'icon_color' : '#000000',
         'popup_text' : 'blah blah blah',
@@ -316,9 +424,15 @@ var MARKERS = {
         shape: 'circle',
         prefix: 'fa'
     }),
-    'service_request_repairs_complete' : new L.ExtraMarkers.icon({
+    'service_requests_repairs_complete' : new L.ExtraMarkers.icon({
         icon: 'fa-check-circle',
         markerColor: 'green',
+        shape: 'circle',
+        prefix: 'fa'
+    }),
+    'service_requests_pending_review' : new L.ExtraMarkers.icon({
+        icon: 'fa-clock-o',
+        markerColor: 'blue',
         shape: 'circle',
         prefix: 'fa'
     }),

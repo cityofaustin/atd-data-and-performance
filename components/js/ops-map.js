@@ -1,16 +1,8 @@
 //  todo:
 //  non-military time dates
-//  
-//  fix dms
 //  modal loader
 //  url parameters
-//  what to do about requests missing lat/lon?
-//      maybe dump them into a list that can be toggled?
-//      ideally run them through COA geocoder
-//      update socrata queries to selected specific fields of concern
-//  create address name field on CSR records
 //  test on IE
-//  handle when pane is longer than viewport (hide overflow?)
 //  you have to preserve the browser location base url on refresh layers!
 //  see: https://stackoverflow.com/questions/4740364/jquery-check-and-  -slash-from-the-end-of-url-read
 //  target.replace(/\/$/, '');
@@ -35,7 +27,13 @@ var highlight_style = {
 //  init map state
 //  to be updated by url params if they exist
 var state = {
-    'init_layers' : ['service_requests_new', 'service_requests_in_progress', 'incident_report'],
+    'init_layers' : [
+        'service_requests_new',
+        'service_requests_in_progress',
+        'service_requests_repairs_complete',
+        'service_requests_pending_review',
+        'incident_report'
+    ],
     'layers' : [],
     'search_layers' : [],
     'feature' : {

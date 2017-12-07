@@ -10,6 +10,19 @@
     background-color: #196BB3;
 }
 
+.map-layer-toggle-icon.toggled.service_requests_pending_review {
+/* each layer-specific style should match map marker colors */
+/* class name must match layer_name from config */
+    background-color: #196BB3;
+}
+
+
+.map-layer-toggle-icon.toggled.service_requests_repairs_complete {
+/* each layer-specific style should match map marker colors */
+/* class name must match layer_name from config */
+    background-color: #108131;
+}
+
 .map-layer-toggle-icon.toggled.incident_report {
 /* each layer-specific style should match map marker colors */
 /* class name must match layer_name from config */
