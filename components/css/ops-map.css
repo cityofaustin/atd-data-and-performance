@@ -13,7 +13,7 @@
 .map-layer-toggle-icon.toggled.service_requests_pending_review {
 /* each layer-specific style should match map marker colors */
 /* class name must match layer_name from config */
-    background-color: #196BB3;
+    background-color: #372341;
 }
 
 

@@ -125,6 +125,68 @@ var CONFIG = {
             return '<b> ' + record.field_1388 + '<b>';        
         },
     },
+    'service_requests_pending_review' : {
+        'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
+        'data' : [],  //  data will go here programmatically
+        details : function(record) {
+
+            return [
+                {
+                    'name' : 'Location',
+                    'value'  : record.field_1963
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Issue',
+                    'value' : record.field_1445
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Details',
+                    'value' : record.field_1446
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Date',
+                    'value' : record.field_1517
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Issue ID',
+                    'value' : record.field_1678
+                },
+                {
+                    'type' : 'row',
+                    'name' : 'Actions Taken',
+                    'value' : record.field_1053
+                },
+                {
+                    'type' : 'row',
+                    'name' : '',
+                    'value' : "<a target=_blank href='http://transportation.austintexas.io/data-tracker/#home/tmc/view-tmc-details/" + record.id + " ' >Data Tracker (Restricted Access)</a>",
+                    
+                }
+            ]
+        },
+        'display_name' : 'Pending Engineer Review',
+        'display_field' : 'field_1388', //  field to display in table results
+        'divId' : 'data_table',  //  destination table
+        'icon' : 'clock-o',
+        'icon_color' : '#372341',  // match extra-markers color
+        'layer_name' : 'service_requests_pending_review',  //  match parent object name
+        'layer_type' : 'markerLayer',
+        'popup_text' : 'Blah blah blah',
+        'source' : 'knack',  //  source app (knack, socrata, ...)
+        'spatial_ref' : 'stateplane',  //  stateplan, wgs84
+        'rowIdField' : 'id',  //  unique id field- for table/map interactivity
+        'sceneKey' : 'scene_514',  //  knack api param
+        'viewKey' : 'view_1804',  //  knack api param
+        'lonField' : 'field_1402',
+        'latField' : 'field_1401',
+        popup : function(record) {
+            return '<b> ' + record.field_1388 + '<b>';        
+        },
+    },
     'service_requests_repairs_complete' : {
         'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
         'data' : [],  //  data will go here programmatically
@@ -181,68 +243,6 @@ var CONFIG = {
         'rowIdField' : 'id',  //  unique id field- for table/map interactivity
         'sceneKey' : 'scene_514',  //  knack api param
         'viewKey' : 'view_1803',  //  knack api param
-        'lonField' : 'field_1402',
-        'latField' : 'field_1401',
-        popup : function(record) {
-            return '<b> ' + record.field_1388 + '<b>';        
-        },
-    },
-    'service_requests_pending_review' : {
-        'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
-        'data' : [],  //  data will go here programmatically
-        details : function(record) {
-
-            return [
-                {
-                    'name' : 'Location',
-                    'value'  : record.field_1963
-                },
-                {
-                    'type' : 'row',
-                    'name' : 'Issue',
-                    'value' : record.field_1445
-                },
-                {
-                    'type' : 'row',
-                    'name' : 'Details',
-                    'value' : record.field_1446
-                },
-                {
-                    'type' : 'row',
-                    'name' : 'Date',
-                    'value' : record.field_1517
-                },
-                {
-                    'type' : 'row',
-                    'name' : 'Issue ID',
-                    'value' : record.field_1678
-                },
-                {
-                    'type' : 'row',
-                    'name' : 'Actions Taken',
-                    'value' : record.field_1053
-                },
-                {
-                    'type' : 'row',
-                    'name' : '',
-                    'value' : "<a target=_blank href='http://transportation.austintexas.io/data-tracker/#home/tmc/view-tmc-details/" + record.id + " ' >Data Tracker (Restricted Access)</a>",
-                    
-                }
-            ]
-        },
-        'display_name' : 'Pending Engineer Review',
-        'display_field' : 'field_1388', //  field to display in table results
-        'divId' : 'data_table',  //  destination table
-        'icon' : 'clock-o',
-        'icon_color' : '#196BB3',  // match extra-markers color
-        'layer_name' : 'service_requests_pending_review',  //  match parent object name
-        'layer_type' : 'markerLayer',
-        'popup_text' : 'Blah blah blah',
-        'source' : 'knack',  //  source app (knack, socrata, ...)
-        'spatial_ref' : 'stateplane',  //  stateplan, wgs84
-        'rowIdField' : 'id',  //  unique id field- for table/map interactivity
-        'sceneKey' : 'scene_514',  //  knack api param
-        'viewKey' : 'view_1804',  //  knack api param
         'lonField' : 'field_1402',
         'latField' : 'field_1401',
         popup : function(record) {
@@ -432,7 +432,7 @@ var MARKERS = {
     }),
     'service_requests_pending_review' : new L.ExtraMarkers.icon({
         icon: 'fa-clock-o',
-        markerColor: 'blue',
+        markerColor: 'purple',
         shape: 'circle',
         prefix: 'fa'
     }),
