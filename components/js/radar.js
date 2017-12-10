@@ -1,5 +1,3 @@
-
-//  var url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, detname, timebin, avg(volume) WHERE intname=\''+ sensor + '\' and detname=\'' + direction + '\' GROUP BY intname, detname, timebin ORDER BY timebin ASC';
 var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, detname GROUP BY intname, detname ORDER BY intname ASC';
 var directions= ['NB', 'SB', 'EB', 'WB'];
 
@@ -75,10 +73,27 @@ function getDirections() {
 
 
 function getDates(plot_id) {
-  return  {
-    'start' : d3.select("#" + plot_id + "_start").node().value,
-    'end' : d3.select("#" + plot_id + "_end").node().value
+  var start = d3.select("#" + plot_id + "_start").node().value;
+  var end = d3.select("#" + plot_id + "_end").node().value;
+  
+  if (!(end)) {
+    //  get current date/time time for
+    var d = new Date();
+    var day = d.getDate();
+    if (day < 10) { day = '0' + day };
+    var year = d.getFullYear();
+    var month = d.getMonth() + 1;
+    var offset = d.getTimezoneOffset() / 60;
+    var timestring = ' 0' + offset + ':00:00.000';  // offset timezone for socrata query 
+    end = year + '-' + month + '-' + day + timestring;
   }
+
+  //  this is fucked
+  return  {
+    'start' : start,
+    'end' : end
+  }
+
 }
 
 function makeChart(options) {
@@ -96,30 +111,14 @@ function makeChart(options) {
   var direction = d3.select('#direction').node().value.replace('$','');
   
   var dates = getDates(options.type);
-
+  console.log(dates);
   var where = 'intname=\''+ sensor +
   '\' and detname=\'' + direction +
-  '\' and curdatetime >= \'' + dates.start + '\''
+  '\' and curdatetime >= \'' + dates.start +
   '\' and curdatetime <= \'' + dates.end + '\'';
 
   var url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, detname, timebin, avg(volume) WHERE ' + where + ' GROUP BY intname, detname, timebin ORDER BY timebin ASC';
-  // if (options.type=='plot_1') {
-  //   var url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, detname, timebin, avg(volume) WHERE ' + where + ' GROUP BY intname, detname, timebin ORDER BY timebin ASC';
-  //   console.log(url);
-  // } else if (options.type=='plot_2') {
-  //   //  format timestamp for socrata query
-  //   var d = new Date();
-  //   var day = d.getDate();
-  //   if (day < 10) { day = '0' + day };
-  //   var year = d.getFullYear();
-  //   var month = d.getMonth() + 1;
-  //   var offset = d.getTimezoneOffset() / 60;
-  //   var timestring = ' 0' + offset + ':00:00.000';  // offset timezone for socrata query 
-  //   var datetime = year + '-' + month + '-' + day + timestring;
-    
-  //   var url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, detname, timebin, avg(volume) WHERE intname=\''+ sensor + '\' and detname=\'' + direction + '\' and curdatetime > \'' + datetime + '\' GROUP BY intname, detname, timebin ORDER BY timebin ASC';
-  // }
-  
+  console.log(url);
   d3.json(url, function(error, json) {
 
     data = d3.nest().key(function(e) {
