@@ -10,10 +10,12 @@
   display: none;
 }
 
-.today {
+.plot_2 {
     stroke: red;
+    stroke-width: 3px;
 }
 
-.historical {
+.plot_1 {
     stroke: steelblue;
+    stroke-dasharray: 4,4;
 }
