@@ -1,4 +1,4 @@
-var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, detname GROUP BY intname, detname ORDER BY intname ASC';
+var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction GROUP BY intname, direction ORDER BY intname ASC';
 var directions= ['NB', 'SB', 'EB', 'WB'];
 
 var grouped,
@@ -29,6 +29,15 @@ d3.select("#submit")
 
 getSensors();
 
+
+// https://stackoverflow.com/questions/563406/add-days-to-javascript-date
+Date.prototype.addDays = function(days) {
+  var dat = new Date(this.valueOf());
+  dat.setDate(dat.getDate() + days);
+  return dat;
+}
+
+
 function getSensors() {
   //  get sensor attributes and and popoulate selectors
   d3.json(URL_SENSORS, function(error, json) {
@@ -58,7 +67,7 @@ function getDirections() {
 
   var sensor = d3.select('#sensors').node().value;
   
-  var dirs = d3.map(sensor_directions['$' + sensor], function(d) { return d.detname}).keys();
+  var dirs = d3.map(sensor_directions['$' + sensor], function(d) { return d.direction}).keys();
 
   var options = d3.select('#direction')
     .selectAll('option')
@@ -73,28 +82,38 @@ function getDirections() {
 
 
 function getDates(plot_id) {
+
   var start = d3.select("#" + plot_id + "_start").node().value;
   var end = d3.select("#" + plot_id + "_end").node().value;
   
-  if (!(end)) {
-    //  get current date/time time for
-    var d = new Date();
-    var day = d.getDate();
-    if (day < 10) { day = '0' + day };
-    var year = d.getFullYear();
-    var month = d.getMonth() + 1;
-    var offset = d.getTimezoneOffset() / 60;
-    var timestring = ' 0' + offset + ':00:00.000';  // offset timezone for socrata query 
-    end = year + '-' + month + '-' + day + timestring;
-  }
+  //  get current date/time and other time attributes
+  var d = new Date();
+  var day = d.getDate();
+  if (day < 10) { day = '0' + day };
+  var year = d.getFullYear();
+  var month = d.getMonth() + 1;
+  var offset = d.getTimezoneOffset() / 60;
+    
+  // round start down to beginning of day
+  start = start + ' 0' + offset + ':00:00.000';
 
-  //  this is fucked
+  if (!(end)) {
+    // if no end, use beginning of tomorrow
+    d.setDate(day + 1)
+    year = d.getFullYear();
+    month = d.getMonth() + 1;
+    offset = d.getTimezoneOffset() / 60;
+    day = d.getDate();
+    end = year + '-' + month + '-' + day + ' 0' + offset + ':00:00.000';
+  }
+    
   return  {
     'start' : start,
     'end' : end
   }
 
 }
+
 
 function makeChart(options) {
 
@@ -113,11 +132,11 @@ function makeChart(options) {
   var dates = getDates(options.type);
   console.log(dates);
   var where = 'intname=\''+ sensor +
-  '\' and detname=\'' + direction +
+  '\' and direction=\'' + direction +
   '\' and curdatetime >= \'' + dates.start +
   '\' and curdatetime <= \'' + dates.end + '\'';
 
-  var url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, detname, timebin, avg(volume) WHERE ' + where + ' GROUP BY intname, detname, timebin ORDER BY timebin ASC';
+  var url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction, timebin, avg(volume) WHERE ' + where + ' GROUP BY intname, direction, timebin ORDER BY timebin ASC';
   console.log(url);
   d3.json(url, function(error, json) {
 
