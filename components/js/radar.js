@@ -1,8 +1,9 @@
-var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction GROUP BY intname, direction ORDER BY intname ASC';
-var directions= ['NB', 'SB', 'EB', 'WB'];
+var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction WHERE direction != \'None\' GROUP BY intname, direction ORDER BY intname ASC';
 
 var grouped,
     sensor_directions;
+
+var init = true;
 
 var svg = d3.select("svg"),
     margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -28,15 +29,6 @@ d3.select("#submit")
   .on("click", makeChart);
 
 getSensors();
-
-
-// https://stackoverflow.com/questions/563406/add-days-to-javascript-date
-Date.prototype.addDays = function(days) {
-  var dat = new Date(this.valueOf());
-  dat.setDate(dat.getDate() + days);
-  return dat;
-}
-
 
 function getSensors() {
   //  get sensor attributes and and popoulate selectors
@@ -74,10 +66,12 @@ function getDirections() {
     .data(dirs)
     .enter()
     .append('option')
-      .text(function (d) { return d; });
+    .text(function (d) { return d; });
 
-  // 
-
+  if (init) {
+    init = false;
+    makeChart();
+  }
 }
 
 
@@ -86,32 +80,52 @@ function getDates(plot_id) {
   var start = d3.select("#" + plot_id + "_start").node().value;
   var end = d3.select("#" + plot_id + "_end").node().value;
   
-  //  get current date/time and other time attributes
-  var d = new Date();
-  var day = d.getDate();
-  if (day < 10) { day = '0' + day };
-  var year = d.getFullYear();
-  var month = d.getMonth() + 1;
-  var offset = d.getTimezoneOffset() / 60;
-    
-  // round start down to beginning of day
-  start = start + ' 0' + offset + ':00:00.000';
+  if (start) {
+    // parse date, rounding time to 0
+    start = start.split('-')
+    start = new Date(start[0] + '/' + start[1] + '/' + start[2]);
 
-  if (!(end)) {
-    // if no end, use beginning of tomorrow
-    d.setDate(day + 1)
-    year = d.getFullYear();
-    month = d.getMonth() + 1;
-    offset = d.getTimezoneOffset() / 60;
-    day = d.getDate();
-    end = year + '-' + month + '-' + day + ' 0' + offset + ':00:00.000';
+  } else {
+    start = new Date();
+    start.setHours(0,0,0,0);
   }
-    
+  
+  start = start.toISOString();
+
+  if (end) {
+    //  parse end date
+    end = new Date(end[0] + '/' + end[1] + '/' + end[2]);
+  } else {
+    //  use today's date if no end specified
+    end = new Date();
+  }
+  
+  //  set end to beginning of next day
+  var date = end.getDate();
+  end = new Date(end.setDate(date + 1))
+  end = end.toISOString();
+
   return  {
     'start' : start,
     'end' : end
   }
 
+}
+
+
+function getDays(plot_id) {
+  var weekdays = d3.select('#' + plot_id + '_weekdays').property('checked');
+  var weekends = d3.select('#' + plot_id + '_weekends').property('checked');
+  
+  if (weekdays && weekends) {
+    return null;
+  } else if (weekdays) {
+    return 'weekdays';
+  } else if (weekends) {
+    return 'weekends';
+  } else {
+    return null;
+  }
 }
 
 
@@ -130,14 +144,21 @@ function makeChart(options) {
   var direction = d3.select('#direction').node().value.replace('$','');
   
   var dates = getDates(options.type);
+  var days = getDays(options.type);
   console.log(dates);
   var where = 'intname=\''+ sensor +
-  '\' and direction=\'' + direction +
-  '\' and curdatetime >= \'' + dates.start +
-  '\' and curdatetime <= \'' + dates.end + '\'';
+  '\' AND direction=\'' + direction +
+  '\' AND curdatetime >= \'' + dates.start +
+  '\' AND curdatetime <= \'' + dates.end + '\'';
 
-  var url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction, timebin, avg(volume) WHERE ' + where + ' GROUP BY intname, direction, timebin ORDER BY timebin ASC';
-  console.log(url);
+  if (days == 'weekdays') {
+    where = where + ' AND (day_of_week > 0 OR day_of_week < 7) ';  
+  } else if (days == 'weekends') {
+    where = where + ' AND (day_of_week < 1 OR day_of_week > 6) ';
+  }
+  
+  var url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction, timebin, AVG(volume) WHERE ' + where + ' GROUP BY intname, direction, timebin ORDER BY timebin ASC';
+  console.log(url)
   d3.json(url, function(error, json) {
 
     data = d3.nest().key(function(e) {
@@ -164,9 +185,7 @@ function makeChart(options) {
 
        g.append("g")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x))
-          .select(".domain")
-            .remove();
+            .call(d3.axisBottom(x));
 
         g.append("g")
             .call(d3.axisLeft(y))
