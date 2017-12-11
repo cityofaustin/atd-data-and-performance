@@ -27,18 +27,32 @@
       <select id="direction"></select>
     </div>
     <div id="date-wrapper-1">
-      <i>Leave End Date Empty for Current Date/Time</i>
       <br>
+      <br>
+      <i>Leave End Date Empty for Current Date/Time</i>
       <br>
       Plot 1 (Dashed Line)
       Start: <input type="date" name="plot-1-start" id="plot_1_start">
       End: <input type="date" name="plot-1-end" id="plot_1_end">
+      <br>
+      <input type="checkbox" id="plot_1_weekdays" name="plot-1-weekdays" value="weekdays" checked>
+      <label for="plot_1_weekdays">Weekdays</label>
+      <input type="checkbox" id="plot_1_weekends" name="plot-1-weekends" value="weekends" checked>
+      <label for="plot_1_weekends">Weekends</label>
+    <br>
+    <br>
     </div>
     <div id="date-wrapper-1">
       Plot 2 (Solid Line)
       Start: <input type="date" name="plot-2-start" id="plot_2_start">
       End: <input type="date" name="plot-2-end" id="plot_2_end">
     </div>
+    <input type="checkbox" id="plot_2_weekdays" name="plot-2-weekdays" value="weekends" checked>
+    <label for="plot_2_weekdays">Weekdays</label>
+    <input type="checkbox" id="plot_2_weekends" name="plot-2-weekends" value="weekdays" checked>
+    <label for="plot_2_weekends">Weekends</label>
+    <br>
+    <br>
     <input type="submit" value="Submit" id="submit">
   </div>
     <svg width="960" height="500"></svg>
