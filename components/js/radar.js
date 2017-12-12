@@ -42,7 +42,7 @@ function setDateSelectors(){
   //  init date selectors
   //  this is a actually race condition with getData...
   var start = d3.select("#plot_1_start").node().value;
-  
+
   if (!start) {
     d3.select('#plot_1_start').property('value', '2017-06-01');
   }
@@ -95,6 +95,7 @@ function getDirections() {
 function getDates(plot_id) {
 
   var start = d3.select("#" + plot_id + "_start").node().value;
+  
   var end = d3.select("#" + plot_id + "_end").node().value;
 
   if (start) {
@@ -152,9 +153,13 @@ function getRequestURL(plot_id) {
   // get extents, create scales
   // make each chart
   // req = d3.json(url);
+
   var sensor = d3.select('#sensors').node().value;
+
   var direction = d3.select('#direction').node().value.replace('$','');
+
   var dates = getDates(plot_id);
+  
   var days = getDays(plot_id);
   
   var where = 'intname=\''+ sensor +
@@ -163,9 +168,9 @@ function getRequestURL(plot_id) {
     '\' AND curdatetime < \'' + dates.end + '\'';
 
   if (days == 'weekdays') {
-    where = where + ' AND (day_of_week > 1 OR day_of_week < 7) ';  
+    where = where + ' AND (day_of_week > 0 AND day_of_week < 6) ';  
   } else if (days == 'weekends') {
-    where = where + ' AND (day_of_week < 2 OR day_of_week > 6) ';
+    where = where + ' AND (day_of_week = 0 OR day_of_week = 6) ';
   }
   
   url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction, timebin, AVG(volume) WHERE ' + where + ' GROUP BY intname, direction, timebin ORDER BY timebin ASC';    
