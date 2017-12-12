@@ -19,6 +19,10 @@ select {
   display: none;
 }
 
+.download-link {
+  font-size: .7em;
+}
+
 .legend {
   line-height: 18px;
   color: #555;
