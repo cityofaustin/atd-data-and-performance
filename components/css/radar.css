@@ -14,12 +14,30 @@ html {
   display: none;
 }
 
-.plot_2 {
-    stroke: red;
-    stroke-width: 3px;
+#plot_1 {
+    stroke: #d95f02;
+    stroke-dasharray: 4,4;
+    stroke-width: 2px;
 }
 
-.plot_1 {
-    stroke: steelblue;
-    stroke-dasharray: 4,4;
+#plot_2 {
+    stroke: #1b9e77;
+    stroke-width: 2px;
 }
+
+#submit {
+    padding: 10px;
+    color: #fff;
+    background-color: steelblue;
+}
+
+
+
+
+
+
+
+
+
+
+

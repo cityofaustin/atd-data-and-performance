@@ -19,6 +19,9 @@
   </style>  
   <body>
   <div>
+    <div>
+      <h3> Wavetronix (Radar) Data Explorer </h3>
+    </div>
     <div id="selectors">
       <div id="sensor-wrapper">
       Count Station:
@@ -34,26 +37,32 @@
       Plot 1 (Dashed Line)
       Start: <input type="date" name="plot-1-start" id="plot_1_start">
       End: <input type="date" name="plot-1-end" id="plot_1_end">
-      <br>
+    </div>
+    <div>
       <input type="checkbox" id="plot_1_weekdays" name="plot-1-weekdays" value="weekdays" checked>
       <label for="plot_1_weekdays">Weekdays</label>
       <input type="checkbox" id="plot_1_weekends" name="plot-1-weekends" value="weekends" checked>
       <label for="plot_1_weekends">Weekends</label>
-    <br>
-    <br>
+      <a id='plot_1_download' href=''></a>
     </div>
-    <div id="date-wrapper-1">
+    <br>
+    <br>
+    
+    <div id="date-wrapper-2">
       Plot 2 (Solid Line)
       Start: <input type="date" name="plot-2-start" id="plot_2_start">
       End: <input type="date" name="plot-2-end" id="plot_2_end">
     </div>
-    <input type="checkbox" id="plot_2_weekdays" name="plot-2-weekdays" value="weekends" checked>
-    <label for="plot_2_weekdays">Weekdays</label>
-    <input type="checkbox" id="plot_2_weekends" name="plot-2-weekends" value="weekdays" checked>
-    <label for="plot_2_weekends">Weekends</label>
-    <br>
-    <br>
-    <input type="submit" value="Submit" id="submit">
+    <div>
+      <input type="checkbox" id="plot_2_weekdays" name="plot-2-weekdays" value="weekends" checked>
+      <label for="plot_2_weekdays">Weekdays</label>
+      <input type="checkbox" id="plot_2_weekends" name="plot-2-weekends" value="weekdays" checked>
+      <label for="plot_2_weekends">Weekends</label>
+      <a id='plot_2_download' href=''></a>
+      <br>
+      <br>
+      <input type="submit" value="Submit" id="submit">
+    </div>
   </div>
     <svg width="960" height="500"></svg>
   </div>

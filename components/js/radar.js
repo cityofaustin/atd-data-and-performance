@@ -1,8 +1,13 @@
+//  weekdays/weekends debug >> overhaul pub script and re-process
+
 var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction WHERE direction != \'None\' GROUP BY intname, direction ORDER BY intname ASC';
 
-var grouped,
-    sensor_directions;
+var plots = [
+  { 'div_id' : 'plot_1' },
+  { 'div_id' : 'plot_2' }
+];
 
+var sensor_directions;
 var init = true;
 
 var svg = d3.select("svg"),
@@ -15,7 +20,8 @@ var x = d3.scaleTime().rangeRound([0, width]),
 
 var line = d3.line()
   .x(function(d) { return x(new Date(d.key)); })
-  .y(function(d) { return y(d.value.avg); });
+  .y(function(d) { return y(d.value.avg); })
+  .curve(d3.curveBasis);
 
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -26,9 +32,22 @@ d3.select("#sensors")
     .on('change', getDirections);
   
 d3.select("#submit")
-  .on("click", makeChart);
+  .on("click", onSubmit);
 
+setDateSelectors();
 getSensors();
+
+
+function setDateSelectors(){
+  //  init date selectors
+  //  this is a actually race condition with getData...
+  var start = d3.select("#plot_1_start").node().value;
+  
+  if (!start) {
+    d3.select('#plot_1_start').property('value', '2017-06-01');
+  }
+
+}
 
 function getSensors() {
   //  get sensor attributes and and popoulate selectors
@@ -41,7 +60,6 @@ function getSensors() {
 }
 
 function createOptions(divId, data) {
-
   var options = d3.select("#" + divId)
     .selectAll('option')
     .data(data).enter()
@@ -69,8 +87,7 @@ function getDirections() {
     .text(function (d) { return d; });
 
   if (init) {
-    init = false;
-    makeChart();
+    getData(plots);
   }
 }
 
@@ -79,7 +96,7 @@ function getDates(plot_id) {
 
   var start = d3.select("#" + plot_id + "_start").node().value;
   var end = d3.select("#" + plot_id + "_end").node().value;
-  
+
   if (start) {
     // parse date, rounding time to 0
     start = start.split('-')
@@ -94,6 +111,7 @@ function getDates(plot_id) {
 
   if (end) {
     //  parse end date
+    end = end.split('-');
     end = new Date(end[0] + '/' + end[1] + '/' + end[2]);
   } else {
     //  use today's date if no end specified
@@ -112,7 +130,6 @@ function getDates(plot_id) {
 
 }
 
-
 function getDays(plot_id) {
   var weekdays = d3.select('#' + plot_id + '_weekdays').property('checked');
   var weekends = d3.select('#' + plot_id + '_weekends').property('checked');
@@ -129,39 +146,76 @@ function getDays(plot_id) {
 }
 
 
-function makeChart(options) {
-
-  if (!(options)) {
-      var options = {remove : true, type :'plot_1'}
-  }
-
-  //  remove previous chart elements
-  if (options.remove) {
-    d3.selectAll('.chart-container').selectAll('*').remove()  
-  }
-
+function getRequestURL(plot_id) {
+    // get params
+  // get data for both charts
+  // get extents, create scales
+  // make each chart
+  // req = d3.json(url);
   var sensor = d3.select('#sensors').node().value;
   var direction = d3.select('#direction').node().value.replace('$','');
+  var dates = getDates(plot_id);
+  var days = getDays(plot_id);
   
-  var dates = getDates(options.type);
-  var days = getDays(options.type);
-  console.log(dates);
   var where = 'intname=\''+ sensor +
-  '\' AND direction=\'' + direction +
-  '\' AND curdatetime >= \'' + dates.start +
-  '\' AND curdatetime <= \'' + dates.end + '\'';
+    '\' AND direction=\'' + direction +
+    '\' AND curdatetime >= \'' + dates.start +
+    '\' AND curdatetime < \'' + dates.end + '\'';
 
   if (days == 'weekdays') {
-    where = where + ' AND (day_of_week > 0 OR day_of_week < 7) ';  
+    where = where + ' AND (day_of_week > 1 OR day_of_week < 7) ';  
   } else if (days == 'weekends') {
-    where = where + ' AND (day_of_week < 1 OR day_of_week > 6) ';
+    where = where + ' AND (day_of_week < 2 OR day_of_week > 6) ';
   }
   
-  var url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction, timebin, AVG(volume) WHERE ' + where + ' GROUP BY intname, direction, timebin ORDER BY timebin ASC';
-  console.log(url)
-  d3.json(url, function(error, json) {
+  url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction, timebin, AVG(volume) WHERE ' + where + ' GROUP BY intname, direction, timebin ORDER BY timebin ASC';    
 
-    data = d3.nest().key(function(e) {
+  var url_dl = url.replace('json', 'csv');
+  postDownloadURL(url_dl, plot_id);
+
+  return url;
+    
+}
+
+function postDownloadURL(url, plot_id) {
+  
+  d3.select('#' + plot_id + '_download')
+    .html('<i> Download Data <i>')
+    .attr('href', url)
+    .attr('target', '_blank');
+
+}
+
+function onSubmit() {
+  //  clear existing plot data
+  getData(plots);
+}
+
+function getData(charts) {
+
+  var q = d3.queue();
+  //  get create socrata request instance for each plot
+  //  send to d3-queue and create charts when data is available
+  for (var i=0; i < charts.length; i++) {
+    var plot_id = charts[i].div_id;
+    var url = getRequestURL(plot_id);
+    console.log(url);
+    var req = d3.json(url);
+    q.defer(req.get);
+  }
+
+  q.awaitAll(function(error, results) {
+    // get data!
+    var prepared = prepareData(results, charts);
+    var extent = getExtent(charts);
+    makeCharts(prepared, extent);
+    
+  })
+
+}
+
+function groupByBin(data) {
+   return d3.nest().key(function(e) {
         //  turn time bin into date string
         return '1/1/2000 ' + e.timebin;
       })
@@ -169,51 +223,104 @@ function makeChart(options) {
         return {
             avg: d3.mean(v, function(d) { return d.avg_volume; })      }
       })
-      .entries(json);
+      .entries(data);
+}
 
-      if (options.type=='plot_1') {
-        //  draw axes and stuff for historical
-        bin_range = d3.extent(data, function(d) { return new Date(d.key); });
 
-        //  extract volumes
-        var vols = data.map(function (currentValue, index, array) { return currentValue.value.avg});
+function getExtent(charts){
+    //  get min/max volume and timebin extent from chart data
+    //  values are fed to x/y scales
+    data_all = [];
 
-        var max_vol = d3.max(vols);
+    for (var i=0;i<charts.length;i++) {      
+      data_all = data_all.concat(charts[i].data);
+    }
 
-        x.domain(bin_range);
-        y.domain([0, max_vol]);
+    var bin_range = d3.extent(data_all, function(d) { return new Date(d.key); });
+    var vols = data_all.map(function (currentValue, index, array) { return currentValue.value.avg});
+    var max_vol = d3.max(vols);
+    
+    return {
+      'x' : bin_range,
+      'y' : [0, max_vol],
+    }
+}
 
-       g.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
 
-        g.append("g")
-            .call(d3.axisLeft(y))
-          .append("text")
-            .attr("fill", "#000")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", "0.71em")
-            .attr("text-anchor", "end")
-            .text("Avg. Volume");
+function prepareData(data, charts) {
+  for (var i=0;i<charts.length;i++) {
+    charts[i].data = groupByBin(data[i]);
+  }
+  return charts;
+}
+
+
+function makeCharts(charts, extent, options) {
+
+  //  remove previous chart elements
+  d3.selectAll('.axis').remove(); 
+  
+  x.domain(extent.x);
+  y.domain(extent.y);
+
+  g.append("g")
+      .attr('class', 'axis')
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  g.append("g")
+      .attr('class', 'axis')
+      .call(d3.axisLeft(y))
+    .append("text")
+      .attr("fill", "#000")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", "0.71em")
+      .attr("text-anchor", "end")
+      .text("Avg. Volume");
+  ;
+
+
+  for (var i=0; i < charts.length; i++) {
+    var div_id = charts[i].div_id
+
+    if (init) {
+      if (i+1==charts.length) {
+        init=false;
       }
 
-    g.append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("class", function() {
-        if (options.type=='plot_2') { return 'plot_2'}
-          else if (options.type=='plot_1') { return 'plot_1'}
-      })
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1.5)
-      .attr("d", line)
-      
-      if (options.type=='plot_1') {
-        makeChart({remove: false, type: 'plot_2'});
-      }
-  });
+      // make charts for the first time
+      g.append("path")
+        .datum(0)
+        .attr("fill", "none")
+        .attr("id", function() { 
+          return div_id;
+        })
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", 1.5)
+        .attr("d", line);
+
+      d3.selectAll('#' + div_id)
+       .datum(charts[i].data)
+        .transition()
+        .duration(500)
+        .ease(d3.easeLinear)
+        .attr("d", line)
+        .transition();
+
+    } else {
+
+      // update chart with new data
+      d3.selectAll('#' + div_id)
+        .datum(charts[i].data)
+        .transition()
+        .duration(500)
+        .ease(d3.easeLinear)
+        .attr("d", line)
+        .transition()
+    } 
+  }
     
 }
 
