@@ -185,8 +185,9 @@ function getRequestURL(plot_id) {
 function postDownloadURL(url, plot_id) {
   
   d3.select('#' + plot_id + '_download')
-    .html('<i> Download Data <i>')
+    .html('<i class="fa fa-download"></i> Data')
     .attr('href', url)
+    .attr('class', 'download-link')
     .attr('target', '_blank');
 
 }
