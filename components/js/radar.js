@@ -3,12 +3,26 @@
 
 var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction WHERE direction != \'None\' GROUP BY intname, direction ORDER BY intname ASC';
 
+var margin = {top: 20, right: 20, bottom: 30, left: 40};
+var svg_width = 960;
+var svg_height = 300;
+var width = svg_width - margin.left - margin.right
+var height = svg_height - margin.top - margin.bottom;
+
+var x = d3.scaleTime().rangeRound([0, width]),
+  y = d3.scaleLinear().rangeRound([height, 0]);
+
+var line = d3.line()
+      .x(function(d) { return x(new Date(d.key)); })
+      .y(function(d) { return y(+d.value); })
+      .curve(d3.curveBasis);
+
 //  config
 var charts = [
   {
     'div_id' : 'chart_1',
     'type' : 'timebin',
-    'init' : true,
+    'line' : line,
     'plots' : [
       {
         'plot_id' : 'plot_1',
@@ -16,39 +30,30 @@ var charts = [
       {
         'plot_id' : 'plot_2',
       },
-    ]
+    ],
+    'scales' : {
+      'x': x,
+      'y': y
+    },
   },
   {
     'div_id' : 'chart_2',
     'type' : 'daily',
-    'init' : true,
+    'line' : line,
     'plots' : [
       { 
         'plot_id' : 'plot_3',
       },
-    ]
+    ],
+    'scales' : {
+      'x': x,
+      'y': y,
+    }
   },
 ];
 
 
 var sensor_directions;
-
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom;
-
-var x = d3.scaleTime().rangeRound([0, width]),
-  y = d3.scaleLinear().rangeRound([height, 0]);
-
-var line = d3.line()
-  .x(function(d) { return x(new Date(d.key)); })
-  .y(function(d) { return y(d.value.avg); })
-  .curve(d3.curveBasis);
-
-var g = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    .attr("class", "chart-container");
 
 //  init select event listeners
 d3.select("#sensors")
@@ -171,7 +176,8 @@ function getDirections() {
     .append('option')
     .text(function (d) { return d; });
 
-  if (charts[0].init) {
+  if (!charts[0].div) {
+    //  init only, otherwise waiting for 'submit' button
     for (var i=0;i<charts.length;i++) {
       // get data for each chart and draw chart
       getData(charts[i]);
@@ -256,7 +262,8 @@ function getParams(plot_id, chart_type) {
 function getRequestURL(params, chart_type) {
   
   if (chart_type == 'daily') {
-    return  'https://data.austintexas.gov/resource/vw6m-5i7b.json?$query=SELECT date_trunc_ymd(curdatetime) AS date, sum(volume) WHERE intname=\'' + params.sensor + '\' GROUP BY date';
+    // daily chart queries all daya available for sensor, totaled by date
+    return  'https://data.austintexas.gov/resource/vw6m-5i7b.json?$query=SELECT date_trunc_ymd(curdatetime) AS key, sum(volume) as value WHERE intname=\'' + params.sensor + '\' GROUP BY key ORDER BY KEY DESC';
   }
   
   var where = 'intname=\''+ params.sensor +
@@ -270,7 +277,7 @@ function getRequestURL(params, chart_type) {
     where = where + ' AND (day_of_week = 0 OR day_of_week = 6) ';
   }
   
-  return 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction, timebin, AVG(volume) WHERE ' + where + ' GROUP BY intname, direction, timebin ORDER BY timebin ASC';    
+  return 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT timebin as key, AVG(volume) as value WHERE ' + where + ' GROUP BY timebin ORDER BY timebin ASC';    
     
 }
 
@@ -303,6 +310,7 @@ function getData(chart) {
   //  send to d3-queue and create charts when data is retrieved
 
   for (var i=0; i < chart.plots.length; i++) {
+
     var plot_id = chart.plots[i].plot_id;
 
     var params = getParams(plot_id, chart.type);
@@ -320,45 +328,67 @@ function getData(chart) {
 
   q.awaitAll(function(error, results) {
     // requests data availabe as results
-    if (chart.type=='timebin') {
-      chart = prepareData(results, chart);  
+      
+      for (var i=0;i<chart.plots.length;i++) {
+        if (chart.type=='timebin') {
+          chart.plots[i].data = groupByBin(results[i]);
+        } else {
+          chart.plots[i].data = results[i];
+        }
+      }
+      
       chart.extent = getExtent(chart);
-      makeChart(chart);
-    } else {
-      console.log(results);
-    }
+      if (!chart.div) {
+        makeTimeChart(chart);
+      } else {
+        updateTimeChart(chart);
+      }
     
-  })
+    });
+}
 
+
+function group2(data) { 
+  return d3.nest().key(function(e) {
+        //  turn time bin into date string
+        return '1/1/2000 ' + e.key;
+      })
+      .rollup(function(v) {
+        return {
+            value: d3.mean(v, function(d) { return d.value; })      }
+      })
+      .map(data);
 }
 
 
 function groupByBin(data) {
-   return d3.nest().key(function(e) {
-        //  turn time bin into date string
-        return '1/1/2000 ' + e.timebin;
-      })
-      .rollup(function(v) {
-        return {
-            avg: d3.mean(v, function(d) { return d.avg_volume; })      }
-      })
-      .entries(data);
-}
+
+  return d3.nest().key(function(e) {
+      //  turn time bin into date string
+      return '1/1/2000 ' + e.key;
+    })
+    .rollup(function(v) {
+      return d3.mean(v, function(d) { return d.value; }) 
+    })
+    .entries(data);
+  }
 
 
 function getExtent(chart){
     //  get min/max volume and timebin extent from chart data
     //  values are fed to x/y scales
-    data_all = [];
-
+    var data_all = [];
+    
     for (var i=0;i<chart.plots.length;i++) {      
       data_all = data_all.concat(chart.plots[i].data);
     }
 
     var bin_range = d3.extent(data_all, function(d) { return new Date(d.key); });
-    var vols = data_all.map(function (currentValue, index, array) { return currentValue.value.avg});
+
+    var vols = data_all.map(function (d) { return +d.value});
+
     var max_vol = d3.max(vols);
-    
+
     return {
       'x' : bin_range,
       'y' : [0, max_vol],
@@ -367,29 +397,66 @@ function getExtent(chart){
 
 
 function prepareData(data, chart) {
+
   for (var i=0;i<chart.plots.length;i++) {
+
     chart.plots[i].data = groupByBin(data[i]);
+
   }
   return chart;
 }
 
 
-function makeChart(chart, options) {
 
+
+function makeChartDiv(div_id) {
+
+  return d3.select("#" + div_id)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("class", "chart-container");
+}
+
+function makeTimeChart(chart) {
+    
+  chart.div = makeChartDiv(chart.div_id);
+
+  for (var i=0;i<chart.plots.length;i++) {
+    var div_id = chart.plots[i].plot_id
+
+    chart.plots[i].plot = chart.div.append("path")
+      .datum(0)
+      .attr("fill", "none")
+      .attr("id", function() { 
+        return div_id;
+      })
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr("d", line);
+     
+    }
+
+  updateTimeChart(chart);
+
+}
+
+
+function updateTimeChart(chart) {
   //  remove previous chart elements
-  d3.selectAll('.axis').remove(); 
+  chart.div.selectAll('.axis').remove(); 
   
-  x.domain(chart.extent.x);
-  y.domain(chart.extent.y);
+  chart.scales.x.domain(chart.extent.x);
+  chart.scales.y.domain(chart.extent.y);
 
-  g.append("g")
+  chart.div.append("g")
       .attr('class', 'axis')
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(chart.scales.x));
 
-  g.append("g")
+  chart.div.append("g")
       .attr('class', 'axis')
-      .call(d3.axisLeft(y))
+      .call(d3.axisLeft(chart.scales.y))
     .append("text")
       .attr("fill", "#000")
       .attr("transform", "rotate(-90)")
@@ -398,28 +465,9 @@ function makeChart(chart, options) {
       .attr("text-anchor", "end")
       .text("Avg. Volume");
 
-  for (var i=0; i < chart.plots.length; i++) {
-
-    var div_id = chart.plots[i].plot_id
-
-    if (chart.init) {
-      if (i+1==chart.plots.length) {
-        chart.init=false;
-      }
-
-      // make charts for the first time
-      g.append("path")
-        .datum(0)
-        .attr("fill", "none")
-        .attr("id", function() { 
-          return div_id;
-        })
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-linecap", "round")
-        .attr("stroke-width", 1.5)
-        .attr("d", line);
-
-      d3.selectAll('#' + div_id)
+  for (var i=0;i<chart.plots.length;i++) {
+    
+     chart.plots[i].plot
        .datum(chart.plots[i].data)
         .transition()
         .duration(500)
@@ -427,21 +475,8 @@ function makeChart(chart, options) {
         .attr("d", line)
         .transition();
 
-    } else {
-
-      // update chart with new data
-      d3.selectAll('#' + div_id)
-        .datum(chart.plots[i].data)
-        .transition()
-        .duration(500)
-        .ease(d3.easeLinear)
-        .attr("d", line)
-        .transition()
-    } 
-  }
-    
+      }
 }
-
 
 
 

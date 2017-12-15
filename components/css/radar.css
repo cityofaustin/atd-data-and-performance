@@ -48,6 +48,10 @@ select {
 }
 
 
+#plot_3 {
+    stroke: #1b9e77;
+    stroke-width: 2px;
+}
 
 
 
