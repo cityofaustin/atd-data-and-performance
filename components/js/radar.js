@@ -154,13 +154,13 @@ function createOptions(divId, data) {
     .data(data).enter()
     .append('option')
       .text(function (d) { return d; });
+
     getDirections();
 }
 
 
 function getDirections() {
   //  append direction select options for given sensor
-
   //  remove previous direction choices
   d3.select('#direction').selectAll('option').remove();
 
@@ -185,7 +185,7 @@ function getDirections() {
 }
 
 
-function getDates(plot_id) {
+function getDateParams(plot_id) {
 
   var start = d3.select("#" + plot_id + "_start").node().value;
   var end = d3.select("#" + plot_id + "_end").node().value;
@@ -223,7 +223,7 @@ function getDates(plot_id) {
 
 }
 
-function getDays(plot_id) {
+function getDaysParams(plot_id) {
   var weekdays = d3.select('#' + plot_id + '_weekdays').property('checked');
   var weekends = d3.select('#' + plot_id + '_weekends').property('checked');
   
@@ -248,8 +248,8 @@ function getParams(plot_id, chart_type) {
 
   if (chart_type=='timebin') {
     params.direction = d3.select('#direction').node().value.replace('$','');
-    params.dates = getDates(plot_id);
-    params.days = getDays(plot_id);  
+    params.dates = getDateParams(plot_id);
+    params.days = getDaysParams(plot_id);  
     
   }
   
@@ -347,19 +347,6 @@ function getData(chart) {
 }
 
 
-function group2(data) { 
-  return d3.nest().key(function(e) {
-        //  turn time bin into date string
-        return '1/1/2000 ' + e.key;
-      })
-      .rollup(function(v) {
-        return {
-            value: d3.mean(v, function(d) { return d.value; })      }
-      })
-      .map(data);
-}
-
-
 function groupByBin(data) {
 
   return d3.nest().key(function(e) {
@@ -393,19 +380,6 @@ function getExtent(chart){
       'y' : [0, max_vol],
     }
 }
-
-
-function prepareData(data, chart) {
-
-  for (var i=0;i<chart.plots.length;i++) {
-
-    chart.plots[i].data = groupByBin(data[i]);
-
-  }
-  return chart;
-}
-
-
 
 
 function makeChartDiv(div_id) {
