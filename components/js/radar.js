@@ -1,27 +1,37 @@
-//  git pulll
-//  failing at getparams
-// move prepare data and extents
-// change makecharts to makeChart and take a plots param.
+//  timezone issues (test in non-us central to see wonkiness)
+//  check params.dates: still not handling date/time local properly
 
 var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction WHERE direction != \'None\' GROUP BY intname, direction ORDER BY intname ASC';
 
-var plots = [
-  { 
-    'div_id' : 'plot_1', 
-    'chart_id' : 'timebin'
+//  config
+var charts = [
+  {
+    'div_id' : 'chart_1',
+    'type' : 'timebin',
+    'init' : true,
+    'plots' : [
+      {
+        'plot_id' : 'plot_1',
+      },
+      {
+        'plot_id' : 'plot_2',
+      },
+    ]
   },
-  { 
-    'div_id' : 'plot_2',
-    'chart_id' : 'timebin'
-  },
-  { 
-    'div_id' : 'plot_3',
-    'chart_id' : 'daily'
+  {
+    'div_id' : 'chart_2',
+    'type' : 'daily',
+    'init' : true,
+    'plots' : [
+      { 
+        'plot_id' : 'plot_3',
+      },
+    ]
   },
 ];
 
+
 var sensor_directions;
-var init = true;
 
 var svg = d3.select("svg"),
     margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -47,20 +57,82 @@ d3.select("#sensors")
 d3.select("#submit")
   .on("click", onSubmit);
 
-setDateSelectors();
-getSensors();
+main();
 
+function main() {
 
-function setDateSelectors(){
-  //  init date selectors
-  //  this is a actually race condition with getData...
-  var start = d3.select("#plot_1_start").node().value;
-
-  if (!start) {
-    d3.select('#plot_1_start').property('value', '2017-06-01');
-  }
+  setDateSelectors(function() {
+    getSensors();  
+  });
 
 }
+
+
+function formatDate(date, options) {
+  //  take a js date object and return in format YYYY-MM-dd (local time);
+  //  boolean option 'tomorrow' will return tomorrow's date
+  //  int monthsAgo will return x number of months ago 
+
+  options = (options) ? options : {};
+
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+
+  if (options.tomrrow) {
+    day++;
+  }
+
+  if (options.monthsAgo) {
+    month = month - +options.monthsAgo;
+    month = (month > 0) ? month : month + 12;
+  }
+
+  //  ensure day and month are two digits
+  //  https://stackoverflow.com/questions/8043026/javascript-format-number-to-have-2-digit
+  day = ("0" + day).slice(-2);
+  month = ("0" + month).slice(-2);  
+  return year + '-' + month + '-' + day;
+}
+
+
+
+function setDateSelectors(callback){
+  //  init date for plots 1 and 2 selectors
+
+  //  plot 1 (default: six months to present)
+  var start = d3.select("#plot_1_start").node().value;
+  var end = d3.select("#plot_1_end").node().value;
+
+  if (!start) {
+    start = formatDate(new Date(), {'monthsAgo' : 6 });
+    d3.select('#plot_1_start').property('value', start);
+  }
+
+  if (!end) {
+    end = formatDate(new Date(), {'tomrrow' : true});
+    d3.select('#plot_1_end').property('value', end);
+  }
+
+  //  plot 2 (default: beginning of today to tomorrow)
+  start = d3.select("#plot_2_start").node().value;
+  end = d3.select("#plot_2_end").node().value;
+
+  if (!start) {
+    start = formatDate(new Date());
+    d3.select('#plot_2_start').property('value', start);
+  }
+
+  if (!end) {
+    end = formatDate(new Date(), {'tomrrow' : true});
+    d3.select('#plot_2_end').property('value', end);
+  }
+
+  callback();
+
+}
+
+
 
 function getSensors() {
   //  get sensor attributes and and popoulate selectors
@@ -99,8 +171,11 @@ function getDirections() {
     .append('option')
     .text(function (d) { return d; });
 
-  if (init) {
-    getData(plots);
+  if (charts[0].init) {
+    for (var i=0;i<charts.length;i++) {
+      // get data for each chart and draw chart
+      getData(charts[i]);
+    }
   }
 }
 
@@ -108,7 +183,6 @@ function getDirections() {
 function getDates(plot_id) {
 
   var start = d3.select("#" + plot_id + "_start").node().value;
-  
   var end = d3.select("#" + plot_id + "_end").node().value;
 
   if (start) {
@@ -165,15 +239,13 @@ function getParams(plot_id, chart_type) {
 
   var params = {
     'sensor' : sensor,
-    'direction' : undefined,
-    'dates' : undefined,
-    'days' : undefined
   }
 
   if (chart_type=='timebin') {
     params.direction = d3.select('#direction').node().value.replace('$','');
     params.dates = getDates(plot_id);
     params.days = getDays(plot_id);  
+    
   }
   
   return params;
@@ -186,7 +258,7 @@ function getRequestURL(params, chart_type) {
   if (chart_type == 'daily') {
     return  'https://data.austintexas.gov/resource/vw6m-5i7b.json?$query=SELECT date_trunc_ymd(curdatetime) AS date, sum(volume) WHERE intname=\'' + params.sensor + '\' GROUP BY date';
   }
-
+  
   var where = 'intname=\''+ params.sensor +
     '\' AND direction=\'' + params.direction +
     '\' AND curdatetime >= \'' + params.dates.start +
@@ -216,25 +288,29 @@ function postDownloadURL(url, plot_id) {
 
 
 function onSubmit() {
-  //  clear existing plot data
-  getData(plots);
+  // get data for each chart and draw chart
+  for (var i=0;i<charts.length;i++) {
+    getData(charts[i]);  
+  }
+  
 }
 
 
-function getData(charts) {
+function getData(chart) {
 
   var q = d3.queue();
   //  create socrata request instance for each plot
   //  send to d3-queue and create charts when data is retrieved
-  for (var i=0; i < charts.length; i++) {
-    var plot_id = charts[i].div_id;
-    var chart_type = charts[i].chart_id;
-    var params = getParams(plot_id, chart_type);
-    
-    var url = getRequestURL(params, chart_type);
-    console.log(url);
-    if (chart_type=='timebin') {
-      //  we should post a download link fot the dail chart, too
+
+  for (var i=0; i < chart.plots.length; i++) {
+    var plot_id = chart.plots[i].plot_id;
+
+    var params = getParams(plot_id, chart.type);
+  
+    var url = getRequestURL(params, chart.type);
+
+    if (chart.type=='timebin') {
+      //  should post a download link fot the daily chart, too
       postDownloadURL(url, plot_id)  
     }
     
@@ -243,11 +319,14 @@ function getData(charts) {
   }
 
   q.awaitAll(function(error, results) {
-    console.log(results);
-    // get data!
-    var prepared = prepareData(results, charts);
-    var extent = getExtent(charts);
-    makeCharts(prepared, extent);
+    // requests data availabe as results
+    if (chart.type=='timebin') {
+      chart = prepareData(results, chart);  
+      chart.extent = getExtent(chart);
+      makeChart(chart);
+    } else {
+      console.log(results);
+    }
     
   })
 
@@ -267,13 +346,13 @@ function groupByBin(data) {
 }
 
 
-function getExtent(charts){
+function getExtent(chart){
     //  get min/max volume and timebin extent from chart data
     //  values are fed to x/y scales
     data_all = [];
 
-    for (var i=0;i<charts.length;i++) {      
-      data_all = data_all.concat(charts[i].data);
+    for (var i=0;i<chart.plots.length;i++) {      
+      data_all = data_all.concat(chart.plots[i].data);
     }
 
     var bin_range = d3.extent(data_all, function(d) { return new Date(d.key); });
@@ -287,21 +366,21 @@ function getExtent(charts){
 }
 
 
-function prepareData(data, charts) {
-  for (var i=0;i<charts.length;i++) {
-    charts[i].data = groupByBin(data[i]);
+function prepareData(data, chart) {
+  for (var i=0;i<chart.plots.length;i++) {
+    chart.plots[i].data = groupByBin(data[i]);
   }
-  return charts;
+  return chart;
 }
 
 
-function makeCharts(plots, extent, options) {
+function makeChart(chart, options) {
 
   //  remove previous chart elements
   d3.selectAll('.axis').remove(); 
   
-  x.domain(extent.x);
-  y.domain(extent.y);
+  x.domain(chart.extent.x);
+  y.domain(chart.extent.y);
 
   g.append("g")
       .attr('class', 'axis')
@@ -319,16 +398,13 @@ function makeCharts(plots, extent, options) {
       .attr("text-anchor", "end")
       .text("Avg. Volume");
 
-  for (var i=0; i < charts.length; i++) {
-    if (charts[i].chart_id == 'daily') {
-      continue;
-    }
+  for (var i=0; i < chart.plots.length; i++) {
 
-    var div_id = charts[i].div_id
+    var div_id = chart.plots[i].plot_id
 
-    if (init) {
-      if (i+1==charts.length) {
-        init=false;
+    if (chart.init) {
+      if (i+1==chart.plots.length) {
+        chart.init=false;
       }
 
       // make charts for the first time
@@ -344,7 +420,7 @@ function makeCharts(plots, extent, options) {
         .attr("d", line);
 
       d3.selectAll('#' + div_id)
-       .datum(charts[i].data)
+       .datum(chart.plots[i].data)
         .transition()
         .duration(500)
         .ease(d3.easeLinear)
@@ -355,7 +431,7 @@ function makeCharts(plots, extent, options) {
 
       // update chart with new data
       d3.selectAll('#' + div_id)
-        .datum(charts[i].data)
+        .datum(chart.plots[i].data)
         .transition()
         .duration(500)
         .ease(d3.easeLinear)
