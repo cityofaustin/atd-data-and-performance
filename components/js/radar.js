@@ -1,6 +1,5 @@
-//  timezone issues (test in non-us central to see wonkiness)
+//  timezone issues (test in non-us central)
 //  check params.dates: still not handling date/time local properly
-
 var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction WHERE direction != \'None\' GROUP BY intname, direction ORDER BY intname ASC';
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40};
