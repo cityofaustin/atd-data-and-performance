@@ -1,10 +1,23 @@
-//  weekdays/weekends debug >> overhaul pub script and re-process
+//  git pulll
+//  failing at getparams
+// move prepare data and extents
+// change makecharts to makeChart and take a plots param.
 
 var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction WHERE direction != \'None\' GROUP BY intname, direction ORDER BY intname ASC';
 
 var plots = [
-  { 'div_id' : 'plot_1' },
-  { 'div_id' : 'plot_2' }
+  { 
+    'div_id' : 'plot_1', 
+    'chart_id' : 'timebin'
+  },
+  { 
+    'div_id' : 'plot_2',
+    'chart_id' : 'timebin'
+  },
+  { 
+    'div_id' : 'plot_3',
+    'chart_id' : 'daily'
+  },
 ];
 
 var sensor_directions;
@@ -136,53 +149,62 @@ function getDays(plot_id) {
   var weekends = d3.select('#' + plot_id + '_weekends').property('checked');
   
   if (weekdays && weekends) {
-    return null;
+    return undefined;
   } else if (weekdays) {
     return 'weekdays';
   } else if (weekends) {
     return 'weekends';
   } else {
-    return null;
+    return undefined;
   }
 }
 
 
-function getRequestURL(plot_id) {
-    // get params
-  // get data for both charts
-  // get extents, create scales
-  // make each chart
-  // req = d3.json(url);
-
+function getParams(plot_id, chart_type) {
   var sensor = d3.select('#sensors').node().value;
 
-  var direction = d3.select('#direction').node().value.replace('$','');
+  var params = {
+    'sensor' : sensor,
+    'direction' : undefined,
+    'dates' : undefined,
+    'days' : undefined
+  }
 
-  var dates = getDates(plot_id);
+  if (chart_type=='timebin') {
+    params.direction = d3.select('#direction').node().value.replace('$','');
+    params.dates = getDates(plot_id);
+    params.days = getDays(plot_id);  
+  }
   
-  var days = getDays(plot_id);
-  
-  var where = 'intname=\''+ sensor +
-    '\' AND direction=\'' + direction +
-    '\' AND curdatetime >= \'' + dates.start +
-    '\' AND curdatetime < \'' + dates.end + '\'';
+  return params;
 
-  if (days == 'weekdays') {
+}
+
+
+function getRequestURL(params, chart_type) {
+  
+  if (chart_type == 'daily') {
+    return  'https://data.austintexas.gov/resource/vw6m-5i7b.json?$query=SELECT date_trunc_ymd(curdatetime) AS date, sum(volume) WHERE intname=\'' + params.sensor + '\' GROUP BY date';
+  }
+
+  var where = 'intname=\''+ params.sensor +
+    '\' AND direction=\'' + params.direction +
+    '\' AND curdatetime >= \'' + params.dates.start +
+    '\' AND curdatetime < \'' + params.dates.end + '\'';
+
+  if (params.days == 'weekdays') {
     where = where + ' AND (day_of_week > 0 AND day_of_week < 6) ';  
-  } else if (days == 'weekends') {
+  } else if (params.days == 'weekends') {
     where = where + ' AND (day_of_week = 0 OR day_of_week = 6) ';
   }
   
-  url = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction, timebin, AVG(volume) WHERE ' + where + ' GROUP BY intname, direction, timebin ORDER BY timebin ASC';    
-
-  var url_dl = url.replace('json', 'csv');
-  postDownloadURL(url_dl, plot_id);
-
-  return url;
+  return 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction, timebin, AVG(volume) WHERE ' + where + ' GROUP BY intname, direction, timebin ORDER BY timebin ASC';    
     
 }
 
+
 function postDownloadURL(url, plot_id) {
+  var url_dl = url.replace('json', 'csv');
   
   d3.select('#' + plot_id + '_download')
     .html('<i class="fa fa-download"></i> Data')
@@ -192,25 +214,36 @@ function postDownloadURL(url, plot_id) {
 
 }
 
+
 function onSubmit() {
   //  clear existing plot data
   getData(plots);
 }
 
+
 function getData(charts) {
 
   var q = d3.queue();
-  //  get create socrata request instance for each plot
-  //  send to d3-queue and create charts when data is available
+  //  create socrata request instance for each plot
+  //  send to d3-queue and create charts when data is retrieved
   for (var i=0; i < charts.length; i++) {
     var plot_id = charts[i].div_id;
-    var url = getRequestURL(plot_id);
+    var chart_type = charts[i].chart_id;
+    var params = getParams(plot_id, chart_type);
+    
+    var url = getRequestURL(params, chart_type);
     console.log(url);
+    if (chart_type=='timebin') {
+      //  we should post a download link fot the dail chart, too
+      postDownloadURL(url, plot_id)  
+    }
+    
     var req = d3.json(url);
     q.defer(req.get);
   }
 
   q.awaitAll(function(error, results) {
+    console.log(results);
     // get data!
     var prepared = prepareData(results, charts);
     var extent = getExtent(charts);
@@ -219,6 +252,7 @@ function getData(charts) {
   })
 
 }
+
 
 function groupByBin(data) {
    return d3.nest().key(function(e) {
@@ -261,7 +295,7 @@ function prepareData(data, charts) {
 }
 
 
-function makeCharts(charts, extent, options) {
+function makeCharts(plots, extent, options) {
 
   //  remove previous chart elements
   d3.selectAll('.axis').remove(); 
@@ -284,10 +318,12 @@ function makeCharts(charts, extent, options) {
       .attr("dy", "0.71em")
       .attr("text-anchor", "end")
       .text("Avg. Volume");
-  ;
-
 
   for (var i=0; i < charts.length; i++) {
+    if (charts[i].chart_id == 'daily') {
+      continue;
+    }
+
     var div_id = charts[i].div_id
 
     if (init) {
