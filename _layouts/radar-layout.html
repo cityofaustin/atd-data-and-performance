@@ -25,9 +25,9 @@
                 </div>
               </div>
               <div class="form-row">
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-5" id="plot_1">
                   <h5> Plot 1 (Dashed Line) <a id='plot_1_download' href=''></a></h5>
-                  <small id="dateHelp" class="form-text text-muted">Leave end date empty for current date/time.</small>
+                  <small id="dateHelp" class="form-text text-muted">Leave date empty for current date/time.</small>
                   <div class="form-row">
                     <div class="form-group col">
                       <label for="plot_1_start">Start</label>
@@ -52,7 +52,7 @@
                   </div>
                 </div> <!-- end plot 1 column -->
 
-                <div class="form-group col-md-5"> 
+                <div class="form-group col-md-5" id="plot_2">
                   <h5> Plot 2 (Solid Line) <a id='plot_2_download' href=''></a></h5>
                   <small id="dateHelp" class="form-text text-muted">Leave end date empty for current date/time.</small>
                   <div class="form-row">
@@ -93,11 +93,21 @@
         <div class="col-md-12">
           <br>
           <h4> Average Volume by Time of Day</a></h4>
-          </div>
-            <svg width="960" height="300"></svg>
+          <div>
+            <svg id="chart_1" width="960" height="300"></svg>
           </div>
         </div>
-      </div> <!-- end container -->
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <br>
+          <h4> Total Volume by Day </a></h4>
+          <div>
+            <svg id="chart_2" width="960" height="300"></svg>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end container -->
 
     {% include footer.html %}
 
