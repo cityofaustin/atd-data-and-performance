@@ -35,7 +35,7 @@ var charts = [
     'line' : d3.line(),
     'plots' : [
       { 
-        'plot_id' : 'plot_1',
+        'plot_id' : 'plot_2',
       },
     ],
     'scales' : {
@@ -449,7 +449,7 @@ function lineChart(chart) {
     chart.plots[i].plot = chart.div.append("path")
       .datum(chart.plots[i].data)
       .attr("fill", "none")
-      .attr("id", function() { 
+      .attr("class", function() { 
         return div_id;
       })
       .attr("stroke-linejoin", "round")
@@ -472,36 +472,36 @@ function updateLineChart(chart) {
   chart.scales.y.domain(chart.extent.y);
   
   chart.line
-      .x(function(d) { return chart.scales.x(new Date(d.key)); })
-      .y(function(d) { return chart.scales.y(+d.value); })
-      .curve(d3.curveCardinal);
+    .x(function(d) { return chart.scales.x(new Date(d.key)); })
+    .y(function(d) { return chart.scales.y(+d.value); })
+    .curve(d3.curveCardinal);
 
   chart.div.append("g")
-      .attr('class', 'axis')
-      .attr("transform", "translate(0," + height_plots + ")")
-      .call(d3.axisBottom(chart.scales.x));
+    .attr('class', 'axis')
+    .attr("transform", "translate(0," + height_plots + ")")
+    .call(d3.axisBottom(chart.scales.x));
 
   chart.div.append("g")
-      .attr('class', 'axis')
-      .call(d3.axisLeft(chart.scales.y))
+    .attr('class', 'axis')
+    .call(d3.axisLeft(chart.scales.y))
     .append("text")
-      .attr("fill", "#000")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", "0.71em")
-      .attr("text-anchor", "end")
-      .text(function() {
-        return axisLabel(chart);
-      });
+    .attr("fill", "#000")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", "0.71em")
+    .attr("text-anchor", "end")
+    .text(function() {
+      return axisLabel(chart);
+    });
 
   for (var i=0;i<chart.plots.length;i++) {
      chart.plots[i].plot
-       .datum(chart.plots[i].data)
-        .transition()
-        .duration(500)
-        .ease(d3.easeLinear)
-        .attr("d", chart.line)
-        .transition();
+      .datum(chart.plots[i].data)
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .attr("d", chart.line)
+      .transition();
 
       }
 }

@@ -36,15 +36,15 @@ select {
   opacity: 0.7;
 }
 
-#plot_1 {
-    stroke: #d95f02;
-    stroke-dasharray: 4,4;
-    stroke-width: 2px;
+.plot_1 {
+  stroke: #d95f02;
+  stroke-dasharray: 4,4;
+  stroke-width: 2px;
 }
 
-#plot_2 {
-    stroke: #1b9e77;
-    stroke-width: 3px;
+.plot_2 {
+  stroke: #1b9e77;
+  stroke-width: 3px;
 }
 
 
