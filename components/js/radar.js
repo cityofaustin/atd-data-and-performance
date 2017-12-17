@@ -1,27 +1,21 @@
 //  timezone issues (test in non-us central)
-//  check params.dates: still not handling date/time local properly
+//  default weekday/weekend checkbox
+//  legend
+
 var URL_SENSORS = 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT intname, direction WHERE direction != \'None\' GROUP BY intname, direction ORDER BY intname ASC';
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40};
-var svg_width = 960;
-var svg_height = 300;
-var width = svg_width - margin.left - margin.right
-var height = svg_height - margin.top - margin.bottom;
-
-var x = d3.scaleTime().rangeRound([0, width]),
-  y = d3.scaleLinear().rangeRound([height, 0]);
-
-var line = d3.line()
-      .x(function(d) { return x(new Date(d.key)); })
-      .y(function(d) { return y(+d.value); })
-      .curve(d3.curveBasis);
+var width_column = document.getElementById("chart_1").clientWidth;
+var height_column = 300;
+var width_plots = width_column - margin.left - margin.right
+var height_plots = height_column - margin.top - margin.bottom;
 
 //  config
 var charts = [
   {
     'div_id' : 'chart_1',
-    'type' : 'timebin',
-    'line' : line,
+    'chart_type' : 'timebin',
+    'line' : d3.line(),
     'plots' : [
       {
         'plot_id' : 'plot_1',
@@ -31,22 +25,22 @@ var charts = [
       },
     ],
     'scales' : {
-      'x': x,
-      'y': y
-    },
+      'x': d3.scaleTime().rangeRound([0, width_plots]),
+      'y': d3.scaleLinear().rangeRound([height_plots, 0])
+    }
   },
   {
     'div_id' : 'chart_2',
-    'type' : 'daily',
-    'line' : line,
+    'chart_type' : 'daily',
+    'line' : d3.line(),
     'plots' : [
       { 
-        'plot_id' : 'plot_3',
+        'plot_id' : 'plot_1',
       },
     ],
     'scales' : {
-      'x': x,
-      'y': y,
+      'x': d3.scaleTime().rangeRound([0, width_plots]),
+      'y': d3.scaleLinear().rangeRound([height_plots, 0])
     }
   },
 ];
@@ -73,17 +67,16 @@ function main() {
 
 
 function formatDate(date, options) {
-  //  take a js date object and return in format YYYY-MM-dd (local time);
-  //  boolean option 'tomorrow' will return tomorrow's date
-  //  int monthsAgo will return x number of months ago 
-
-  options = (options) ? options : {};
-
+  //  take a date object and return in format YYYY-MM-dd (local time);
+  //  boolean option 'tomorrow' returns tomorrow's date
+  //  int option monthsAgo returns x number of months ago 
   var year = date.getFullYear();
   var month = date.getMonth() + 1;
   var day = date.getDate();
 
-  if (options.tomrrow) {
+  options = (options) ? options : {};
+
+  if (options.tomorrow) {
     day++;
   }
 
@@ -114,7 +107,7 @@ function setDateSelectors(callback){
   }
 
   if (!end) {
-    end = formatDate(new Date(), {'tomrrow' : true});
+    end = formatDate(new Date(), {'tomorrow' : true});
     d3.select('#plot_1_end').property('value', end);
   }
 
@@ -128,7 +121,7 @@ function setDateSelectors(callback){
   }
 
   if (!end) {
-    end = formatDate(new Date(), {'tomrrow' : true});
+    end = formatDate(new Date(), {'tomorrow' : true});
     d3.select('#plot_2_end').property('value', end);
   }
 
@@ -240,44 +233,59 @@ function getDaysParams(plot_id) {
 
 
 function getParams(plot_id, chart_type) {
-  var sensor = d3.select('#sensors').node().value;
 
-  var params = {
-    'sensor' : sensor,
-  }
-
-  if (chart_type=='timebin') {
-    params.direction = d3.select('#direction').node().value.replace('$','');
-    params.dates = getDateParams(plot_id);
-    params.days = getDaysParams(plot_id);  
-    
+  return {
+    'sensor' : d3.select('#sensors').node().value,
+    'direction' : d3.select('#direction').node().value.replace('$',''),
+    'metric' : d3.select('#metric').node().value.toLowerCase(),
+    'dates' : getDateParams(plot_id),
+    'days' : getDaysParams(plot_id)
   }
   
-  return params;
-
 }
 
 
 function getRequestURL(params, chart_type) {
-  
+    
+  var where = 'intname=\'' + params.sensor +
+    '\'AND direction=\'' + params.direction + '\'';
+
   if (chart_type == 'daily') {
-    // daily chart queries all daya available for sensor, totaled by date
-    return  'https://data.austintexas.gov/resource/vw6m-5i7b.json?$query=SELECT date_trunc_ymd(curdatetime) AS key, sum(volume) as value WHERE intname=\'' + params.sensor + '\' GROUP BY key ORDER BY KEY DESC';
-  }
-  
-  var where = 'intname=\''+ params.sensor +
-    '\' AND direction=\'' + params.direction +
-    '\' AND curdatetime >= \'' + params.dates.start +
+    // group total volume by date
+    if (params.metric == 'volume') {
+      var calc = 'SUM(volume)';
+    } else if (params.metric =='speed') {
+      var calc = 'AVG(speed)';
+    }
+
+    var select = 'date_trunc_ymd(curdatetime) AS key, ' + calc + ' AS value';
+      
+    return 'https://data.austintexas.gov/resource/vw6m-5i7b.json?$query=SELECT ' + select + ' WHERE ' + where + ' GROUP BY key ORDER BY KEY DESC';
+    
+  } else if (chart_type == 'timebin') {
+    //  group average volume in 15 mins
+
+    if (params.metric == 'volume') {
+      var calc = 'AVG(volume)';
+    } else if (params.metric =='speed') {
+      var calc = 'AVG(speed)';
+    }
+
+    var select = 'timebin as key, ' + calc +' AS value';
+
+    where = where + ' AND curdatetime >= \'' + params.dates.start +
     '\' AND curdatetime < \'' + params.dates.end + '\'';
 
-  if (params.days == 'weekdays') {
-    where = where + ' AND (day_of_week > 0 AND day_of_week < 6) ';  
-  } else if (params.days == 'weekends') {
-    where = where + ' AND (day_of_week = 0 OR day_of_week = 6) ';
+    if (params.days == 'weekdays') {
+      where = where + ' AND (day_of_week > 0 AND day_of_week < 6) ';  
+    } else if (params.days == 'weekends') {
+      where = where + ' AND (day_of_week = 0 OR day_of_week = 6) ';
+    }
+    
+    return 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT ' + select + ' WHERE ' + where + ' GROUP BY timebin ORDER BY timebin ASC';    
+
   }
   
-  return 'https://data.austintexas.gov/resource/i626-g7ub.json?$query=SELECT timebin as key, AVG(volume) as value WHERE ' + where + ' GROUP BY timebin ORDER BY timebin ASC';    
-    
 }
 
 
@@ -290,6 +298,41 @@ function postDownloadURL(url, plot_id) {
     .attr('class', 'download-link')
     .attr('target', '_blank');
 
+}
+
+
+
+function chartTitle(chart) {
+  var metric = chart.plots[0].params.metric;
+
+  if (chart.chart_type == 'timebin') {
+    if (metric=='volume') {
+        return 'Average Volume by Time of Day';
+      } else if (metric=='speed') {
+        return 'Average Speed by Time of Day';
+      }
+  } else if (chart.chart_type == 'daily') {
+    if (metric=='volume') {
+        return 'Total Daily Volume';
+      } else if (metric=='speed') {
+        return 'Average Daily Speed';
+      }
+  }
+}
+
+
+function axisLabel(chart) {
+  var metric = chart.plots[0].params.metric;
+  if (metric=='volume') {
+      if (chart.chart_type == 'timebin') {
+        return 'Avg. Volume';
+      } else if (chart.chart_type == 'daily') {
+        return 'Total Volume';
+      }
+  } else if (metric=='speed') {
+    return 'Avg. Speed';
+  }
+ 
 }
 
 
@@ -312,11 +355,11 @@ function getData(chart) {
 
     var plot_id = chart.plots[i].plot_id;
 
-    var params = getParams(plot_id, chart.type);
+    chart.plots[i].params = getParams(plot_id, chart.chart_type);
   
-    var url = getRequestURL(params, chart.type);
-
-    if (chart.type=='timebin') {
+    var url = getRequestURL(chart.plots[i].params, chart.chart_type);
+    console.log(url);
+    if (chart.chart_type=='timebin') {
       //  should post a download link fot the daily chart, too
       postDownloadURL(url, plot_id)  
     }
@@ -329,7 +372,7 @@ function getData(chart) {
     // requests data availabe as results
       
       for (var i=0;i<chart.plots.length;i++) {
-        if (chart.type=='timebin') {
+        if (chart.chart_type=='timebin') {
           chart.plots[i].data = groupByBin(results[i]);
         } else {
           chart.plots[i].data = results[i];
@@ -338,9 +381,9 @@ function getData(chart) {
       
       chart.extent = getExtent(chart);
       if (!chart.div) {
-        makeTimeChart(chart);
+        lineChart(chart);
       } else {
-        updateTimeChart(chart);
+        updateLineChart(chart);
       }
     
     });
@@ -369,62 +412,73 @@ function getExtent(chart){
       data_all = data_all.concat(chart.plots[i].data);
     }
 
-    var bin_range = d3.extent(data_all, function(d) { return new Date(d.key); });
-
+    var range = d3.extent(data_all, function(d) { return new Date(d.key); });
     var vols = data_all.map(function (d) { return +d.value});
-
     var max_vol = d3.max(vols);
 
     return {
-      'x' : bin_range,
+      'x' : range,
       'y' : [0, max_vol],
     }
 }
 
 
 function makeChartDiv(div_id) {
+  
+  var svg = d3.select("#" + div_id)
+    .append('svg')
+    .attr('height', height_column)
+    .attr('width', width_column)
 
-  return d3.select("#" + div_id)
-      .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .attr("class", "chart-container");
+  return svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .attr("class", "chart-container");
 }
 
-function makeTimeChart(chart) {
-    
+
+function lineChart(chart) {
+  var title = chartTitle(chart);
+  d3.select('#' + chart.div_id).select('.chart-title').text(title);
+
   chart.div = makeChartDiv(chart.div_id);
 
   for (var i=0;i<chart.plots.length;i++) {
+    //  init each plot
     var div_id = chart.plots[i].plot_id
 
     chart.plots[i].plot = chart.div.append("path")
-      .datum(0)
+      .datum(chart.plots[i].data)
       .attr("fill", "none")
       .attr("id", function() { 
         return div_id;
       })
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1.5)
-      .attr("d", line);
-     
+      .attr("stroke-width", 1.5);
     }
 
-  updateTimeChart(chart);
+  updateLineChart(chart);
 
 }
 
 
-function updateTimeChart(chart) {
-  //  remove previous chart elements
+function updateLineChart(chart) {
   chart.div.selectAll('.axis').remove(); 
+
+  var title = chartTitle(chart);
+  d3.select('#' + chart.div_id).select('.chart-title').text(title);
   
   chart.scales.x.domain(chart.extent.x);
   chart.scales.y.domain(chart.extent.y);
+  
+  chart.line
+      .x(function(d) { return chart.scales.x(new Date(d.key)); })
+      .y(function(d) { return chart.scales.y(+d.value); })
+      .curve(d3.curveCardinal);
 
   chart.div.append("g")
       .attr('class', 'axis')
-      .attr("transform", "translate(0," + height + ")")
+      .attr("transform", "translate(0," + height_plots + ")")
       .call(d3.axisBottom(chart.scales.x));
 
   chart.div.append("g")
@@ -436,23 +490,21 @@ function updateTimeChart(chart) {
       .attr("y", 6)
       .attr("dy", "0.71em")
       .attr("text-anchor", "end")
-      .text("Avg. Volume");
+      .text(function() {
+        return axisLabel(chart);
+      });
 
   for (var i=0;i<chart.plots.length;i++) {
-    
      chart.plots[i].plot
        .datum(chart.plots[i].data)
         .transition()
         .duration(500)
         .ease(d3.easeLinear)
-        .attr("d", line)
+        .attr("d", chart.line)
         .transition();
 
       }
 }
-
-
-
 
 
 
