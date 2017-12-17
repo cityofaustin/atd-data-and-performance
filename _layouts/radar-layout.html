@@ -23,6 +23,13 @@
                   <label for="direction">Direction</label>
                   <select class="form-control form-control-sm" id="direction"></select>
                 </div>
+                <div class="form-group col-md-2">
+                  <label for="sensors">Metric</label>
+                  <select class="form-control form-control-sm" id="metric">
+                    <option>Volume</option>
+                    <option>Speed</option>
+                  </select>
+                </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-5" id="plot_1">
@@ -90,21 +97,13 @@
       </div><!--  end entire form row -->
 
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" id="chart_1">
           <br>
-          <h4> Average Volume by Time of Day</a></h4>
-          <div>
-            <svg id="chart_1" width="960" height="300"></svg>
-          </div>
+          <h4 class="chart-title"> Average Volume by Time of Day</a></h4>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" id="chart_2">
           <br>
-          <h4> Total Volume by Day </a></h4>
-          <div>
-            <svg id="chart_2" width="960" height="300"></svg>
-          </div>
+          <h4 class="chart-title" > Total Daily Volume </a></h4>
         </div>
       </div>
     </div> <!-- end container -->
