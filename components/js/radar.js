@@ -82,7 +82,9 @@ function formatDate(date, options) {
 
   if (options.monthsAgo) {
     month = month - +options.monthsAgo;
+    year = (month > 0) ? year : year -1;
     month = (month > 0) ? month : month + 12;
+
   }
 
   //  ensure day and month are two digits
