@@ -476,7 +476,7 @@ function updateLineChart(chart) {
   chart.line
     .x(function(d) { return chart.scales.x(new Date(d.key)); })
     .y(function(d) { return chart.scales.y(+d.value); })
-    .curve(d3.curveCardinal);
+    .curve();
 
   chart.div.append("g")
     .attr('class', 'axis')
