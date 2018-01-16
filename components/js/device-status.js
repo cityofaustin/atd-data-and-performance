@@ -96,7 +96,7 @@ var formats = {
 };
 
 
-var coa_net_passthrough = 'http://172.16.1.5/redirect/?'
+var coa_net_passthrough = 'http://10.66.2.55:5000/?'
 
 var SCALE_THRESHOLDS = {
     '$1': 500,
@@ -432,7 +432,7 @@ function createMarkers(data, style) {
         }
 
         if (img_url) {
-            cam_url = coa_net_passthrough + 'CAMERA_ID=' + id;
+            cam_url = coa_net_passthrough + 'cam_id=' + id;
             popup_text = 
                 "<a href=" + img_url +
                 " target=_blank >" +
