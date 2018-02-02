@@ -89,6 +89,7 @@ var FORMAT_TYPES = {
 };
 
 var STATUS_TYPES_READABLE = {
+    'READY FOR DATA COLLECTION' : 'In Progress',
     'PLANNED': 'Planned',
     'IN_PROGRESS': 'In Progress',
     'COMPLETED': 'Completed'
