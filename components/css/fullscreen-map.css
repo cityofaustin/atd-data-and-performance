@@ -76,10 +76,11 @@
     z-index: 3;
     cursor: pointer;
     position: absolute;
-    top: 5px;
+    top: 0px;
     right: 5px;
     color: gray;
-    background-color: #fff;
+    background-color: none;
+    padding: 0em;
 }
 
 #close-feature-details:hover,
