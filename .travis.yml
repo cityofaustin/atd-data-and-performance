@@ -1,0 +1,28 @@
+language: ruby
+rvm:
+- 2.4
+script: bundle exec jekyll build
+deploy:
+  - provider: s3
+    access_key_id: AKIAJZMRR4HJGJXD3URQ
+    secret_access_key:
+      secure: IwwVahOVbsvjmA2hCNcOPPWuuyuIJo275Yp7koNBTysrMdPqfGcqt5IY7BkOowqtOLDR3ChHinl/7BYCYBYMN1VhvQMXcWuZwa0k/KpEePzZcmP16Y0cD76wR0a1ScDMAkK/g0RPplbhNoSPDDYMvTp2xYt0ouNDSqagovgyUk6eGi2LM7C4AAgbYl6XdKk/VZGu6awTwal28W/3a6U68lfUue1Fm+7lIa1B0fatclMpeOwfpRe2rJft7mhKg87coPkskZZDP4nY4Geop5pafL5Ll7p/LXhH4v+RsHOh6FXHiGiM8FNH3Ng6NriRTBoKDpgXEzlXN8flrOL3FzXdP6ljHXtXNx5zNrV0xfC1Ol8V1ELPQUye4dNOyvvvsnZV8HlFuLZkjLVdDcaqCHMgw4OeGii4GTJW6Q8Fo7X0Lp6NmxFznb6Zunk00ttPe/FEnrgb+OuOmfRVFcrYYuZ0jugvETo1gxuDi+jGJQwH8HsQUJ/yGpIi03Z2RU0yX/2iMsfHizDFSxt2ZFG5v+J+yHxpS02d0C4t+w9CC8k7hyhj8cPYL6RcdR2o4CchongmHpX8WOaxXKh8YQ+jhCJvdz19e8Low+1cwG3Kf1PCHRgkUNJqMTFve777Zt/ri1hOnfqjdzne2KyZeENrVKyYSUCExcvIej7SQI1bHntkpqc=
+    bucket: transportation.austintexas.dev
+    local-dir: _site
+    skip_cleanup: true
+    acl: public_read
+    on:
+      repo: cityofaustin/transportation
+      branch: dev
+  - provider: s3
+    access_key_id: AKIAJZMRR4HJGJXD3URQ
+    secret_access_key:
+      secure: IwwVahOVbsvjmA2hCNcOPPWuuyuIJo275Yp7koNBTysrMdPqfGcqt5IY7BkOowqtOLDR3ChHinl/7BYCYBYMN1VhvQMXcWuZwa0k/KpEePzZcmP16Y0cD76wR0a1ScDMAkK/g0RPplbhNoSPDDYMvTp2xYt0ouNDSqagovgyUk6eGi2LM7C4AAgbYl6XdKk/VZGu6awTwal28W/3a6U68lfUue1Fm+7lIa1B0fatclMpeOwfpRe2rJft7mhKg87coPkskZZDP4nY4Geop5pafL5Ll7p/LXhH4v+RsHOh6FXHiGiM8FNH3Ng6NriRTBoKDpgXEzlXN8flrOL3FzXdP6ljHXtXNx5zNrV0xfC1Ol8V1ELPQUye4dNOyvvvsnZV8HlFuLZkjLVdDcaqCHMgw4OeGii4GTJW6Q8Fo7X0Lp6NmxFznb6Zunk00ttPe/FEnrgb+OuOmfRVFcrYYuZ0jugvETo1gxuDi+jGJQwH8HsQUJ/yGpIi03Z2RU0yX/2iMsfHizDFSxt2ZFG5v+J+yHxpS02d0C4t+w9CC8k7hyhj8cPYL6RcdR2o4CchongmHpX8WOaxXKh8YQ+jhCJvdz19e8Low+1cwG3Kf1PCHRgkUNJqMTFve777Zt/ri1hOnfqjdzne2KyZeENrVKyYSUCExcvIej7SQI1bHntkpqc=
+    bucket: transportation.austintexas.io
+    local-dir: _site
+    skip_cleanup: true
+    acl: public_read
+    on:
+      repo: cityofaustin/transportation
+      branch: gh-pages
+
