@@ -6,8 +6,8 @@ var table_cols = ['Name', 'Source', 'Destination', 'Start Date', 'End Date', 'St
 
 var status_types = {
     'error' : {
-        'icon' : 'exclamation-traingle',
-        'display_name' : '   Error   '
+        'icon' : 'exclamation-triangle',
+        'display_name' : '    Error    '
     },
     'in_progress' : {
         'icon' : 'clock-o',
@@ -36,7 +36,7 @@ var global_data = [
     }
 ];
 
-var formatDate = d3.timeFormat("%a %x %H:%M");
+var formatDate = d3.timeFormat("%c");
 
 d3.json('http://34.201.40.220/jobs_latest', function(json){
     main(json);
@@ -84,7 +84,7 @@ function populateTable(dataset, divId) {
             bInfo : true,
             paging : false,
             autoWidth: true,
-            "order": [[2, "asc"], [3, "desc"] ],
+            "order": [[3, "desc"]],
             columns: [
 
             { data: 'name' },
@@ -96,7 +96,6 @@ function populateTable(dataset, divId) {
                 defaultContent: '',
 
                 "render": function ( data, type, full, meta ) {
-                    console.log(data);
                     return formatDate(new Date(Date.parse(data)));
                 },
 

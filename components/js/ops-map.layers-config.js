@@ -51,7 +51,7 @@ var CONFIG = {
         'icon_color' : '#962125',  // match extra-markers color
         'layer_name' : 'service_requests_new',  //  match parent object name
         'layer_type' : 'markerLayer',
-        'popup_text' : 'New customer Service Requests from Austin 311',
+        'popup_text' : 'New customer Service Requests from Austin 311.',
         'source' : 'knack',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'stateplane',  //  stateplan, wgs84
         'rowIdField' : 'id',  //  unique id field- for table/map interactivity
@@ -175,7 +175,7 @@ var CONFIG = {
         'icon_color' : '#372341',  // match extra-markers color
         'layer_name' : 'service_requests_pending_review',  //  match parent object name
         'layer_type' : 'markerLayer',
-        'popup_text' : 'Service requests pending review by a professional transportation engineer',
+        'popup_text' : 'Service requests pending review by a professional transportation engineer.',
         'source' : 'knack',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'stateplane',  //  stateplan, wgs84
         'rowIdField' : 'id',  //  unique id field- for table/map interactivity
@@ -237,7 +237,7 @@ var CONFIG = {
         'icon_color' : '#108131',  // match extra-markers color
         'layer_name' : 'service_requests_repairs_complete',  //  match parent object name
         'layer_type' : 'markerLayer',
-        'popup_text' : 'Service requests locations at which equipment has been repaired.',
+        'popup_text' : 'Service request locations at which equipment has been repaired.',
         'source' : 'knack',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'stateplane',  //  stateplan, wgs84
         'rowIdField' : 'id',  //  unique id field- for table/map interactivity
@@ -278,7 +278,7 @@ var CONFIG = {
         'icon_color' : '#EB7B2B',  // match extra-markers color
         'layer_name' : 'incident_report',  //  match parent object name
         'layer_type' : 'markerLayer',
-        'popup_text' : 'Traffic incidents reported reported to the Austin Police, Aviation Police, and Travis County Sheriff',
+        'popup_text' : 'Traffic incidents reported to the Austin Police, Aviation Police, and Travis County Sheriff.',
         'source' : 'knack',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'wgs84',  //  stateplan, wgs84
         'rowIdField' : 'id',  //  unique id field- for table/map interactivity
@@ -299,7 +299,7 @@ var CONFIG = {
         'icon_color' : '#2B6272',  // match extra_markers color (see MARKERS below)
         'layer_name' : 'cctv',
         'layer_type' : 'markerLayer',
-        'popup_text' : 'CCTV camera locations',
+        'popup_text' : 'CCTV camera locations.',
         'resource_id' : 'fs3c-45ge',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
         'display_name' : 'CCTV',
@@ -352,7 +352,7 @@ var CONFIG = {
         'icon_color' : '#000000',
         'layer_name' : 'dms',
         'layer_type' : 'markerLayer',
-        'popup_text' : 'Dynamic Messaging Sign locations',
+        'popup_text' : 'Dynamic Message Sign locations.',
         'base_url' : 'https://data.austintexas.gov/resource/',
         'resource_id' : '4r2j-b4rx',  //  socrata dataset id
         'data' : [],  //  data will go here programmatically
@@ -390,7 +390,7 @@ var CONFIG = {
         'source' : 'mapquest',  //  source app (knack, socrata, ...)
         'icon' : 'road',
         'icon_color' : '#000000',
-        'popup_text' : 'Current traffic conditions',
+        'popup_text' : 'Current traffic conditions.',
         'layer_name' : 'traffic',
         'layer_type' : 'baseLayer',
         layer_func : function() { 

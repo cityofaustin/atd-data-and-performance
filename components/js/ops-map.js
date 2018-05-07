@@ -1,17 +1,3 @@
-//  todo:
-//  non-military time dates
-//  modal loader
-//  url parameters
-//  test on IE
-//  you have to preserve the browser location base url on refresh layers!
-//  see: https://stackoverflow.com/questions/4740364/jquery-check-and-  -slash-from-the-end-of-url-read
-//  target.replace(/\/$/, '');
-//  also: https://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page
-//  move keyup escape to setstate business
-//  boom! http://localhost:4000/ops-map/?layers=service_requests_new,cctv&featureid=209&layername=cctv#
-//  init event fires populatetable multiple times via toggle layer
-//  expanding details working! but weird pointer events happening
-
 var map, basemap, table, feature_layer;
 
 var q = d3.queue();
