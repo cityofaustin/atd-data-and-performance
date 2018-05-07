@@ -3,6 +3,10 @@ html, body, div, .btn {
   -webkit-appearance: none; 
 }
 
+#dash-top-nav-container {
+  padding-bottom: 10px;
+}
+
 btn[type=button] {
   -webkit-appearance: none; 
 }
