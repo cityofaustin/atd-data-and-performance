@@ -42,7 +42,7 @@ var STATUS_TYPES_READABLE = {
     - return first result of sorted by desc timestamp
 */
 
-var logfile_url = 'https://data.austintexas.gov/resource/n5kp-f8k4.json?$select=timestamp&$where=event=%27signal_status_update%27&$order=timestamp+DESC&$limit=1'
+var logfile_url = 'http://34.201.40.220/jobs?name=eq.sig_stat_pub&status=eq.success&order=start_date.desc&limit=1'
 var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
 var data_count_url = "https://data.austintexas.gov/resource/xwqn-2f78.json?$query=select count(*) where SIGNAL_STATUS in ('TURNED_ON')";
 //  dummy data lots flashing
@@ -220,8 +220,8 @@ function updateInfoStat(dataset, divId) {
 
 function postUpdateDate(log_data, divId){
 
-    var update_date_time = new Date(log_data[0].timestamp * 1000);
-
+    var update_date_time = new Date(log_data[0].start_date);
+    
     update_date = readableDate( update_date_time );
 
     var update_time = formatTime( update_date_time );
@@ -366,13 +366,11 @@ function getSignalData(url) {
 }
 
 function getLogData(url, divId) {
+
     $.ajax({
-        'async' : false,
-        'global' : false,
-        'cache' : false,
         'url' : url,
-        'dataType' : "json",
         'success' : function (data) {
+            console.log('hi!')
             postUpdateDate(data, divId);
         }
     

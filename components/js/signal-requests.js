@@ -2,7 +2,7 @@ var map, feature_layer, data, table, curr_breakpoint, marker;
 
 var show_modal = false;
 
-var requests_url = 'https://data.austintexas.gov/resource/f6qu-b7zb.json';
+var requests_url = 'https://data.austintexas.gov/resource/f6qu-b7zb.json?$limit=10000';
 
 var t_options = {
     ease : d3.easeQuad,

@@ -43,7 +43,6 @@ var ANNUAL_GOALS = {
     }    
 
 };
-//  https://data.austintexas.gov/resource/efct-8fs9.json?$where=system_name="LAMAR - NORTH"
 
 var table_cols = ['Corridor Name', 'Number of Signals', 'Status', 'Travel Time Change', 'Engineer Note'];
 
@@ -51,7 +50,7 @@ var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/g8w2-8uap.json'
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json?$limit=5000';
 
-var LOGFILE_URL = "https://data.austintexas.gov/resource/n5kp-f8k4.json?$query=SELECT * WHERE event='signal_retiming_update' AND (created > 0 OR updated > 0 OR deleted > 0) ORDER BY timestamp DESC LIMIT 1";
+var LOGFILE_URL = 'http://34.201.40.220/jobs?name=eq.knack_data_pub_timed_corridors_knack_socrata&status=eq.success&records_processed=gt.0';
 
 var STATUS_SELECTED = 'COMPLETED';
 
@@ -592,15 +591,14 @@ function createProgressChart(divId, metric) {  //  see https://bl.ocks.org/mbost
         .attr("x", width / 2 )
         .attr("class", "pie-info-small")
         .html("0 of " + 0);
-
     
     updateProgressChart("info-1", t1);
 
 }
 
-function postUpdateDate(log_data, divId){
+function postUpdateDate(log_date, divId){
 
-    var update_date_time = new Date(log_data[0].timestamp * 1000);
+    var update_date_time = new Date(log_date);
 
     update_date = readableDate( update_date_time );
 
@@ -617,18 +615,11 @@ function postUpdateDate(log_data, divId){
 
 
 function getLogData(url) {
-    $.ajax({
-        'async' : false,
-        'global' : false,
-        'cache' : false,
-        'url' : url,
-        'dataType' : "json",
-        'success' : function (data) {
-            postUpdateDate(data, "info-row-1");
-        }
-    
-    }); //end get data
 
+    d3.json(url, function(error, data) {
+        postUpdateDate(data[0].start_date, "info-row-1");
+    });
+    
 }
 
 
