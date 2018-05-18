@@ -13,3 +13,11 @@
   background-color: #028102;
 }
 
+.modal-body {
+    background-color: #fff;
+    color: black;
+}
+
+.modal-lg {
+    max-width: 1000px !important;
+}
