@@ -235,8 +235,7 @@ function createTableCols(div_id, col_array) {
 }
 
 
-function job
-ils(job_name) {
+function jobDetails(job_name) {
     
     $('#dashModal').modal('toggle');
     
