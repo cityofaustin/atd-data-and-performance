@@ -232,16 +232,16 @@ function createTableCols(div_id, col_array) {
         });
 
     return cols;
-        
 }
 
 
-function jobDetails(job_name) {
+function job
+ils(job_name) {
     
     $('#dashModal').modal('toggle');
     
-    var url = endpoint_details + '?name=eq.' + job_name + '&limit=100';
-    
+    var url = endpoint_details + '?name=eq.' + job_name + '&order=start_date.desc&limit=500';
+
     d3.json(url, function(json){
         console.log(json);
         $('#job-name').text(job_name);
@@ -251,22 +251,3 @@ function jobDetails(job_name) {
     
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
