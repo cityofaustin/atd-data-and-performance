@@ -150,4 +150,44 @@ function createTableCols(div_id, col_array) {
 
     return cols;
         
+<<<<<<< Updated upstream
 }
+=======
+}
+
+
+function jobDetails(job_name) {
+    
+    $('#dashModal').modal('toggle');
+    
+    var url = endpoint_details + '?name=eq.' + job_name + '&order=start_date.desc&limit=500';
+    
+    d3.json(url, function(json){
+        console.log(json);
+        $('#job-name').text(job_name);
+        populateModalTable(json, 'modal_table');
+    })
+
+    
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes
