@@ -42,7 +42,7 @@ var config = [
         'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("TRAFFIC") AND signal_status IN ("TURNED_ON") limit 9000',
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { return( [x[0]['count']] )},
-        'update_event' : 'signals_update'
+        'update_event' : 'knack_data_pub_signals_knack_socrata'
     },
     {
         'id' : 'phbs',
@@ -56,7 +56,7 @@ var config = [
         'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("PHB") AND signal_status IN ("TURNED_ON") limit 9000',
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { return( [x[0]['count']] )},
-        'update_event' : 'signals_update'
+        'update_event' : 'knack_data_pub_signals_knack_socrata'
     },
     {
         'id' : 'cameras',
@@ -70,7 +70,7 @@ var config = [
         'query' : 'SELECT COUNT(camera_status) as count where upper(camera_mfg) not in ("GRIDSMART") and camera_status in ("TURNED_ON")',
         'resource_id' : 'fs3c-45ge',
         'data_transform' : function(x) { return( [x[0]['count']] )},
-        'update_event' : 'cameras_update'
+        'update_event' : 'knack_data_pub_cameras_knack_socrata'
     },
     {
         'id' : 'sensors',
@@ -85,7 +85,7 @@ var config = [
         'query' : 'SELECT COUNT(sensor_type) as count WHERE sensor_status in ("TURNED_ON")',
         'resource_id' : 'wakh-bdjq',
         'data_transform' : function(x) { return( [x[0]['count']] )},
-        'update_event' : 'travel_sensors_update'
+        'update_event' : 'knack_data_pub_travel_sensors_knack_socrata'
     },
     {
         'id' : 'signals-on-flash',
@@ -100,7 +100,7 @@ var config = [
         'query' : "select COUNT(signal_id) as count where operation_state='2'",
         'resource_id' : '5zpr-dehc',
         'data_transform' : function(x) { return( [x[0]['count']] )},
-        'update_event' : 'signal_status_update'
+        'update_event' : 'sig_stat_pub'
     },
     {
         'id' : 'signals-comm-issue',
@@ -115,7 +115,7 @@ var config = [
         'query' : "select COUNT(signal_id) as count where operation_state='3'",
         'resource_id' : '5zpr-dehc',
         'data_transform' : function(x) { return( [x[0]['count']] )},
-        'update_event' : 'signal_status_update'
+        'update_event' : 'sig_stat_pub'
     },
     {
         'id' : 'signal-timing',
@@ -136,7 +136,7 @@ var config = [
                 return [0];
             }  
         },
-        'update_event' : 'signal_retiming_update',
+        'update_event' : 'knack_data_pub_signal_retiming_knack_socrata',
         'data' : []
     },
     {
@@ -151,10 +151,9 @@ var config = [
         'query' : 'SELECT COUNT(signal_pm_max_fiscal_year) as count WHERE signal_pm_max_fiscal_year IN ("' + fiscal_year + '")',
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { 
-            console.log(fiscal_year);
             return( [x[0]['count']] )
         },
-        'update_event' : 'signals_update'
+        'update_event' : 'knack_data_pub_signals_knack_socrata'
     },
     {
         'id' : 'signal_construction',
@@ -168,7 +167,7 @@ var config = [
         'query' : 'SELECT COUNT(signal_status) as count WHERE signal_status IN ("CONSTRUCTION")',
         'resource_id' : 'xwqn-2f78',
         'data_transform' : function(x) { return( [x[0]['count']] )},
-        'update_event' : 'signals_update'
+        'update_event' : 'knack_data_pub_signals_knack_socrata'
     }, 
     {
         'id' : 'gridsmart',
@@ -182,7 +181,7 @@ var config = [
         'query' : 'select count(detector_id) as count where upper(detector_type) in ("GRIDSMART")',
         'resource_id' : 'sqwb-zh93',
         'data_transform' : function(x) { return( [x[0]['count']] )},
-        'update_event' : 'detectors_update'
+        'update_event' : 'knack_data_pub_detectors_knack_socrata'
     }
     // {
     //     'id' : 'school-beacons',
@@ -242,10 +241,7 @@ $(document).ready(function(){
 
         for ( var i = 0; i < arguments[1].length; i++ ) {
             
-            if ('data_transform' in config[i]) {
-                
-                // console.log(Object.keys(data).length === 0 && data.constructor === Object);
-                
+            if ('data_transform' in config[i]) {                
                 config[i].data = config[i].data_transform( arguments[1][i] );    
             } else {
                 config[i].data = arguments[1][i];
@@ -296,7 +292,7 @@ function main(data) {
 
         var event = config[i].update_event;
 
-        postUpdateDate(selection, pub_log_id, event);
+        postUpdateDate(selection, config[i].resource_id, event);
 
     }
  
@@ -367,51 +363,44 @@ function transitionInfoStat(selection, options) {
 }
 
 
-
 function postUpdateDate(selection, resource_id, event) {
-    
-    
-    var url = 'https://data.austintexas.gov/resource/' + resource_id + '.json?$select=timestamp&$where=event=%27' + event + '%27%20AND%20%28created%20%3E%200%20OR%20updated%20%3E%200%20OR%20deleted%20%3E%200%29%20&$order=timestamp+DESC&$limit=1';
-
-    // decoded: https://data.austintexas.gov/resource/i9se-t8hz.json?$select=timestamp&$where=event='cameras_update' AND (created > 0 OR updated > 0 OR deleted > 0) &$order=timestamp DESC&$limit=1
-
+        
+    var url = 'http://34.201.40.220/jobs'
+    var download_url = 'https://data.austintexas.gov/resource/' + resource_id;
     if (event) {
         
-        $.ajax({
-            'async' : false,
-            'global' : false,
-            'cache' : false,
-            'url' : url,
-            'dataType' : "json",
-            'success' : function (data) {
-                
-                var update_date_time = new Date(data[0].timestamp * 1000);
+        url = url + '?name=eq.' + event + '&status=eq.success&order=start_date.desc&limit=1';
+
+        d3.json(url, function(error, data) {
+
+            if (data.length > 0) {
+
+                var update_date_time = new Date(data[0].start_date);
 
                 var update_date = readableDate( update_date_time );
 
                 var update_time = formats.formatTime(update_date_time)
 
-                selection
+                var html = "Updated " + update_date + " at " + update_time + 
+                        " | <a href=" + download_url + " target='_blank'> Data <i  class='fa fa-download'></i> </a>";
+
+            } else {
+                
+                var html = "<a href=" + download_url + " target='_blank'> Data <i  class='fa fa-download'></i> </a>";
+
+            }
+
+            selection
                     .append('div')
                     .attr('class', 'row')
                     .append('div')
                     .attr('class', 'col')
                     .append('h6')
                     .attr("class", "dash-panel-footer-text text-left")
-                    .html("Updated " + update_date + " at " + update_time + 
-                        " | <a href=" + 'empty' + " target='_blank'> Data <i  class='fa fa-download'></i> </a>"
-                );
-            }
-        });
+                    .html(html);
+            });
 
-    } else {
-
-        selection.append('h6')
-            .attr("class", "dash-panel-footer-text")
-            .html("<a href=" + 'empty' + " target='_blank'> Data <i  class='fa fa-download'></i> </a>");
     }
-
-
 
     return;
 }  

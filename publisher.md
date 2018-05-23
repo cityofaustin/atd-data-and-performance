@@ -7,5 +7,5 @@ custom_js:
 - publisher
 custom_css:
 - dashboard
-- publisher-statuses
+- publisher
 ---

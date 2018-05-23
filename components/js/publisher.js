@@ -3,6 +3,10 @@ var table;
 var table_height = '60vh';
 
 var table_cols = ['Name', 'Source', 'Destination', 'Start Date', 'End Date', 'Status', 'Message', 'Records Processed'];
+var table_cols_short = ['Start Date', 'End Date', 'Status', 'Message', 'Records Processed'];
+
+var endpoint = 'http://34.201.40.220/jobs_latest';
+var endpoint_details = 'http://34.201.40.220/jobs';
 
 var status_types = {
     'error' : {
@@ -38,7 +42,7 @@ var global_data = [
 
 var formatDate = d3.timeFormat("%c");
 
-d3.json('http://34.201.40.220/jobs_latest', function(json){
+d3.json(endpoint, function(json){
     main(json);
 })
 
@@ -46,11 +50,17 @@ d3.json('http://34.201.40.220/jobs_latest', function(json){
 function main(data) {
     
     var cols = createTableCols('data_table', table_cols);
+    var cols_modal = createTableCols('modal_table', table_cols_short);
     
     populateTable(data, 'data_table');
 
     $('#search_input').on( 'keyup', function () {
         table.search( this.value ).draw();
+    });
+
+    d3.select('#data_table').selectAll("tr")
+        .on("click", function(d) {
+            jobDetails(d3.select(this).attr('id'));
     });
 
 }
@@ -78,8 +88,7 @@ function populateTable(dataset, divId) {
 
         .DataTable({
             data: dataset,
-            rowId : 'id',
-            scrollY : table_height,
+            rowId : 'name',
             scrollCollapse : false,
             bInfo : true,
             paging : false,
@@ -90,6 +99,80 @@ function populateTable(dataset, divId) {
             { data: 'name' },
             { data: 'source' },
             { data: 'destination' },
+            { 
+                data: 'start_date',
+
+                defaultContent: '',
+
+                "render": function ( data, type, full, meta ) {
+                    return formatDate(new Date(Date.parse(data)));
+                },
+
+            },
+            { 
+                data: 'end_date',
+
+                defaultContent: '',
+
+                "render": function ( data, type, full, meta ) {
+                    if (data) {
+                        return formatDate(new Date(Date.parse(data)));    
+                    } else {
+                        return '';
+                    }
+                    
+                },
+
+            },
+
+            { 
+                data: 'status',
+                 "render": function ( data, type, full, meta ) {
+                    var icon = status_types[data].icon;
+                    return "<span class='status-badge status-" + data.toLowerCase() + "'>" +
+                    "<i class='fa fa-" + icon + "'></i>  " +
+                     status_types[data].display_name + "</span>";
+                }
+            },
+            { data: 'message' },
+            { data: 'records_processed' }
+            
+        ]
+    })
+
+    d3.select("#data_table_filter").remove();
+
+}
+
+
+function populateModalTable(dataset, divId) {
+
+    if ( $('#' + divId) ) {
+
+        $('#' + divId).dataTable().fnDestroy();
+
+    }
+
+    table = $('#' + divId)
+        //  update map after table search
+        .on( 'draw.dt', function () {
+                
+            var ids = [];
+
+            $('.tableRow').each(function(i, obj) {
+                ids.push(obj.id);
+            });
+
+        })
+
+        .DataTable({
+            data: dataset,
+            rowId : 'name',
+            scrollCollapse : false,
+            paging : false,
+            "order": [[1, "desc"]],
+            columns: [
+
             { 
                 data: 'start_date',
 
@@ -149,19 +232,16 @@ function createTableCols(div_id, col_array) {
         });
 
     return cols;
-        
-<<<<<<< Updated upstream
-}
-=======
 }
 
 
-function jobDetails(job_name) {
+function job
+ils(job_name) {
     
     $('#dashModal').modal('toggle');
     
     var url = endpoint_details + '?name=eq.' + job_name + '&order=start_date.desc&limit=500';
-    
+
     d3.json(url, function(json){
         console.log(json);
         $('#job-name').text(job_name);
@@ -171,23 +251,3 @@ function jobDetails(job_name) {
     
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> Stashed changes
