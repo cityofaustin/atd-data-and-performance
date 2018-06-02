@@ -16,7 +16,7 @@ var formatDate = d3.timeFormat("%x");
 
 var formatTime = d3.timeFormat("%I:%M %p");
 
-var formatSeconds = d3.timeFormat("%-Hhr %Mm");
+var formatSeconds = d3.timeFormat("%ed %-Hhr %Mm");
 
 var t1 = d3.transition()
     .ease(d3.easeQuad)
@@ -500,12 +500,19 @@ function formatDuration(datetime) {
     var now = new Date();
     
     var status_date = new Date(datetime);
+    var delta_seconds = (now - status_date) / 1000;
 
-    var delta = (now - status_date) / 1000;
-
-    var delta_date = new Date(2016, 0, 1, 0, 0, delta);
-
-    return formatSeconds(delta_date);
+    var days = parseInt(Math.floor(delta_seconds / 86400));
+    var hours = parseInt(Math.floor( (delta_seconds - ( 86400 * days)) / 3600));
+    var minutes = parseInt(Math.floor( (delta_seconds - ( 86400 * days) - (3600 * hours)) / 60));
+    
+    if (days > 0) {
+        return days + 'd ' + hours + 'h ' + minutes + 'm ';
+    } else if (hours > 0) {
+        return hours = 'h ' + minutes + 'm ';
+    } else {
+        return minutes + 'm ';
+    }
     
 }
 
