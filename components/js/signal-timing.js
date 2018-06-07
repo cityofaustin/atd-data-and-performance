@@ -50,7 +50,7 @@ var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/g8w2-8uap.json'
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json?$limit=5000';
 
-var LOGFILE_URL = 'http://34.201.40.220/jobs?name=eq.knack_data_pub_timed_corridors_knack_socrata&status=eq.success&records_processed=gt.0';
+var LOGFILE_URL = 'https://transportation-data.austintexas.io/jobs?name=eq.knack_data_pub_timed_corridors_knack_socrata&status=eq.success&records_processed=gt.0';
 
 var STATUS_SELECTED = 'COMPLETED';
 
