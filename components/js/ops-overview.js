@@ -365,7 +365,7 @@ function transitionInfoStat(selection, options) {
 
 function postUpdateDate(selection, resource_id, event) {
         
-    var url = 'http://34.201.40.220/jobs'
+    var url = 'https://transportation-data.austintexas.io/jobs'
     var download_url = 'https://data.austintexas.gov/resource/' + resource_id;
     if (event) {
         

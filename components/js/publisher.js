@@ -5,8 +5,8 @@ var table_height = '60vh';
 var table_cols = ['Name', 'Source', 'Destination', 'Start Date', 'End Date', 'Status', 'Message', 'Records Processed'];
 var table_cols_short = ['Start Date', 'End Date', 'Status', 'Message', 'Records Processed'];
 
-var endpoint = 'http://34.201.40.220/jobs_latest';
-var endpoint_details = 'http://34.201.40.220/jobs';
+var endpoint = 'https://transportation-data.austintexas.io/jobs_latest';
+var endpoint_details = 'https://transportation-data.austintexas.io/jobs';
 
 var status_types = {
     'error' : {
