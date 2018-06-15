@@ -67,7 +67,7 @@ var SYSTEM_IDS = {};
 var tau = 2 * Math.PI,
     arc;
 
-var selected_year = "2017";  //  init year selection
+var selected_year = "2018";  //  init year selection
 
 var previous_selection = "2015";
 
