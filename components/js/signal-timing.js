@@ -312,7 +312,7 @@ function groupData(dataset, updateCharts) {
                 }
                 
 
-                if (SOURCE_DATA_SYSTEMS[q].retime_status == 'COMPLETED') {
+                if (SOURCE_DATA_SYSTEMS[q].retime_status == 'COMPLETED' || SOURCE_DATA_SYSTEMS[q].retime_status == 'WAITING FOR EVALUATION') {
 
 
                     if (!(fy in UNIQUE_SIGNALS_RETIMED)) {
