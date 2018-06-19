@@ -91,7 +91,8 @@ var STATUS_TYPES_READABLE = {
     'READY FOR DATA COLLECTION' : 'In Progress',
     'PLANNED': 'Planned',
     'IN_PROGRESS': 'In Progress',
-    'COMPLETED': 'Completed'
+    'COMPLETED': 'Completed',
+    'WAITING FOR EVALUATION' : 'Waiting for Post-Retiming Evaluation'
 };
 
 var show_modal = false;
