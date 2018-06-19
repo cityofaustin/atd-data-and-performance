@@ -50,7 +50,7 @@ var SYSTEM_RETIMING_URL = 'https://data.austintexas.gov/resource/g8w2-8uap.json'
 
 var SYSTEM_INTERSECTIONS_URL = 'https://data.austintexas.gov/resource/efct-8fs9.json?$limit=5000';
 
-var LOGFILE_URL = 'https://transportation-data.austintexas.io/jobs?name=eq.knack_data_pub_timed_corridors_knack_socrata&status=eq.success&records_processed=gt.0';
+var LOGFILE_URL = 'https://transportation-data.austintexas.io/jobs?name=eq.knack_data_pub_timed_corridors_knack_socrata&status=eq.success&order=start_date.desc';
 
 var STATUS_SELECTED = 'COMPLETED';
 
@@ -91,7 +91,8 @@ var STATUS_TYPES_READABLE = {
     'READY FOR DATA COLLECTION' : 'In Progress',
     'PLANNED': 'Planned',
     'IN_PROGRESS': 'In Progress',
-    'COMPLETED': 'Completed'
+    'COMPLETED': 'Completed',
+    'WAITING FOR EVALUATION' : 'Waiting for Post-Retiming Evaluation'
 };
 
 var show_modal = false;
