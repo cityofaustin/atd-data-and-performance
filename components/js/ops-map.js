@@ -625,7 +625,9 @@ function humanDate(timestamp) {
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getUTCFullYear();
-    var formattedTime = month + '/' + day + '/' + year;
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var formattedTime = month + '/' + day + '/' + year + ' ' + hours + ':' + minutes;
     return formattedTime;
 }
 

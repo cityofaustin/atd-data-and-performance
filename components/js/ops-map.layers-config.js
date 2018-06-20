@@ -251,43 +251,44 @@ var CONFIG = {
     },
     'incident_report' : {
         'appId' : '5815f29f7f7252cc2ca91c4f',  //  knack api param
+        'base_url' : 'https://data.austintexas.gov/resource/',
         'data' : [],  //  data will go here programmatically
         details : function(record) {
 
             return [
                 {
                     'name' : 'Location',
-                    'value'  : record.field_1828
+                    'value'  : record.arddress
                 },
                 {
                     'type' : 'row',
                     'name' : 'Issue Reported',
-                    'value'  : record.field_1829
+                    'value'  : record.issue_reported
                 },
                 {
                     'type' : 'row',
                     'name' : 'Updated',
-                    'value'  : record.field_1827
+                    'value'  : humanDate(record.traffic_report_status_date_time)
                 }
             ]
         },
         'display_name' : 'Incident Report',
-        'display_field' : 'field_1828', //  field to display in table results
+        'display_field' : 'address', //  field to display in table results
         'divId' : 'data_table',  //  destination table
         'icon' : 'exclamation-triangle',
         'icon_color' : '#EB7B2B',  // match extra-markers color
         'layer_name' : 'incident_report',  //  match parent object name
         'layer_type' : 'markerLayer',
         'popup_text' : 'Traffic incidents reported to the Austin Police, Aviation Police, and Travis County Sheriff.',
-        'source' : 'knack',  //  source app (knack, socrata, ...)
+        'resource_id' : 'dx9v-zd7x',
+        'source' : 'socrata',  //  source app (knack, socrata, ...)
         'spatial_ref' : 'wgs84',  //  stateplan, wgs84
-        'rowIdField' : 'id',  //  unique id field- for table/map interactivity
-        'sceneKey' : 'scene_514',  //  knack api param
-        'viewKey' : 'view_2030',  //  knack api param
-        'lonField' : 'field_1838',
-        'latField' : 'field_1837',
+        'rowIdField' : 'traffic_report_id',  //  unique id field- for table/map interactivity
+        'lonField' : 'longitude',
+        'latField' : 'latitude',
+        'query' : "select * where traffic_report_status like \"ACTIVE\"",
         popup : function(record) {
-            return '<b> ' + record.field_1828 + '<b>';        
+            return '<b> ' + record.issue_reported + '<b>';        
         },
     },
 
