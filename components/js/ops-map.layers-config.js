@@ -258,7 +258,7 @@ var CONFIG = {
             return [
                 {
                     'name' : 'Location',
-                    'value'  : record.arddress
+                    'value'  : record.address
                 },
                 {
                     'type' : 'row',
