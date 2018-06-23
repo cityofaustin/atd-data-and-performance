@@ -21,7 +21,7 @@ var formats = {
     'formatDateTime' : d3.timeFormat("%e %b %-I:%M%p"),
     'formatDate' : d3.timeFormat("%x"),
     'formatTime' : d3.timeFormat("%I:%M %p"),
-    'thousands' : d3.format(",")
+    'thousands' : d3.format(",d")
 };
 
 var pub_log_id = 'i9se-t8hz';
@@ -36,7 +36,7 @@ var config = [
         'display_name' : 'Traffic Signals',
         'icon' : 'car',
         'init_val' : 0,
-        'format' : 'round',
+        'format' : 'thousands',
         'infoStat' : true,
         'caption' : 'Total traffic signals maintained by the City of Austin',
         'query' : 'SELECT COUNT(signal_type) as count WHERE signal_type IN ("TRAFFIC") AND signal_status IN ("TURNED_ON") limit 9000',
@@ -64,7 +64,7 @@ var config = [
         'display_name' : 'CCTV',
         'icon' : 'video-camera',
         'init_val' : 0,
-        'format' : 'round',
+        'format' : 'thousands',
         'infoStat' : true,
         'caption' : 'Total traffic cameras maintained by the City of Austin.',
         'query' : 'SELECT COUNT(camera_status) as count where upper(camera_mfg) not in ("GRIDSMART") and camera_status in ("TURNED_ON")',
@@ -144,7 +144,7 @@ var config = [
         'display_name' : 'Preventative Maintenance',
         'icon' : 'medkit',
         'init_val' : 0,
-        'format' : 'round',
+        'format' : 'thousands',
         'infoStat' : true,
         'caption' : 'Signals that have received preventative maintenance this fiscal year.',
         'query' : 'SELECT COUNT(signal_pm_max_fiscal_year) as count WHERE signal_pm_max_fiscal_year IN ("' + fiscal_year + '")',
@@ -200,7 +200,7 @@ var config = [
         'display_name' : 'Signal Work Orders',
         'icon' : 'wrench',
         'init_val' : 0,
-        'format' : 'round',
+        'format' : 'thousands',
         'infoStat' : true,
         'caption' : 'Work orders completed at traffic signal assets',
         'query' : 'select count(created_date) as count where upper(work_order_status) in (\'SUBMITTED\', \'CLOSED\') and fiscal_year=' + fiscal_year,
@@ -362,7 +362,7 @@ function transitionInfoStat(selection, options) {
             var i = d3.interpolate(0, new_data[0]);
             
             return function (t) {
-            
+                
                 that.text( formats[format](i(t)) );  // how to access the format type from the 'this' data?
             
             }
