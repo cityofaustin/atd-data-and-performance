@@ -1,4 +1,4 @@
-.nav-tabs {
+ .nav-tabs {
   /*background-color: #43484e;*/
 }
 
@@ -157,6 +157,10 @@ tr {
 
 .dash-panel-header {
     color: #707070;
+}
+
+.dash-panel-icon {
+  padding-right: 20px;
 }
 
 .dash-panel-footer-text {

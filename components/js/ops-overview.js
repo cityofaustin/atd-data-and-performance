@@ -125,13 +125,12 @@ var config = [
         'init_val' : 0,
         'format' : 'round',
         'infoStat' : true,
-        'caption' : 'Traffic signals retimied this fiscal year',
-        'query' : 'SELECT SUM(signal_count) as count WHERE retime_status IN ("COMPLETED") and scheduled_fy in ("' + fiscal_year + '")',
+        'caption' : 'Traffic signals re-timed this fiscal year',
+        'query' : 'SELECT SUM(signal_count) as count WHERE retime_status IN ("COMPLETED", "WAITING FOR EVALUATION") and scheduled_fy in ("' + fiscal_year + '")',
         'resource_id' : 'ufnm-yzxy',
         'data_transform' : function(x) { 
-            var obj = x[0];
-            if (!Object.keys(obj).length === 0) {
-                return [obj['count']];
+            if (!Object.keys(x).length == 0) {
+                return [x[0]['count']];
             } else {
                 return [0];
             }  
@@ -178,11 +177,11 @@ var config = [
         'format' : 'round',
         'infoStat' : true,
         'caption' : 'Gridsmart detection cameras installed',
-        'query' : 'select count(detector_id) as count where upper(detector_type) in ("GRIDSMART")',
+        'query' : 'select count(detector_id) as count where upper(detector_type) in ("GRIDSMART") group by signal_id',
         'resource_id' : 'sqwb-zh93',
-        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'data_transform' : function(x) { return( [x.length] )},
         'update_event' : 'knack_data_pub_detectors_knack_socrata'
-    }
+    },
     // {
     //     'id' : 'school-beacons',
     //     'row_container_id' : 'panel-row-1',
@@ -195,25 +194,37 @@ var config = [
     //     'caption' : '',
     //     'update_event' : undefined
     // }
-    // {
-    //     'id' : 'bcycle-trips',
-    //     'display_name' : 'B-Cycle Trips',
-    //     'icon' : 'bicycle',
-    //     'init_val' : 0,
-    //     'format' : 'round',
-    //     'infoStat' : true,
-    //     'resource_id' : 'cwi3-ckqi',
-    //     'caption' : '',
-    //     'query' : function(){
-    //         var d = new Date();
-    //         var n = d.getMonth();  //  last month's data
-    //         var y = d.getFullYear().toString();
-    //         var monthyear = n.toString() + y; 
-    //         return 'select count(*), month||year as monthyear where monthyear in ("' + monthyear + '") group by monthyear'
-    //     }(),
-    //     'data_transform' : function(x) { return x[0]['count'] },
-    //     'update_event' : undefined
-    // }
+    {
+        'id' : 'work_orders_signals',
+        'row_container_id' : 'panel-row-2',
+        'display_name' : 'Signal Work Orders',
+        'icon' : 'wrench',
+        'init_val' : 0,
+        'format' : 'round',
+        'infoStat' : true,
+        'caption' : 'Work orders completed at traffic signal assets',
+        'query' : 'select count(created_date) as count where upper(work_order_status) in (\'SUBMITTED\', \'CLOSED\') and fiscal_year=' + fiscal_year,
+        'resource_id' : 'v2ig-5yw3',
+        'data_transform' : function(x) { return( [x[0]['count']] )},
+        'update_event' : 'knack_data_pub_work_orders_signals_knack_socrata'
+    },
+    {
+        'id' : 'bcycle-trips',
+        'row_container_id' : 'panel-row-2',
+        'display_name' : '  B-Cycle Trips',
+        'icon' : 'bicycle',
+        'init_val' : 0,
+        'format' : 'thousands',
+        'infoStat' : true,
+        'resource_id' : 'cwi3-ckqi',
+        'caption' : '# of Austin B-Cycle trips taken this year.',
+        'query' : function(){
+            var y = new Date().getFullYear().toString();
+            return 'select count(checkout_date) as count where date_extract_y(checkout_date)=' + y;
+        }(),
+        'data_transform' : function(x) { return [x[0]['count']] },
+        'update_event' : 'bcycle_trip_pub'
+    }
 ];
 
 
