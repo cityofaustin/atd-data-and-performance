@@ -96,7 +96,7 @@ var formats = {
 };
 
 
-var coa_net_passthrough = 'http://10.66.2.55:5000/?'
+var coa_net_passthrough = 'http://10.66.2.64:5000/?'
 
 var SCALE_THRESHOLDS = {
     '$1': 500,
