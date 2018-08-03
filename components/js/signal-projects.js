@@ -6,7 +6,7 @@ var show_modal = false;
 
 var table_height = '60vh';
 
-var table_cols = ['Location', 'Type', 'Status', 'Updated'];
+var table_cols = ['Location', 'Type', 'Status', 'Note'];
 
 var map_selector_types = [
     { 
@@ -42,14 +42,14 @@ var default_style = {
     'DESIGN' : {
         color: '#fff',
         weight: 1,
-        fillColor: '#1b7756',
+        fillColor: '#7570b3',
         fillOpacity: .8,
         icon : 'pencil'  
     },
     'TURNED_ON' : {
         color: '#fff',
         weight: 1,
-        fillColor: '#028102',
+        fillColor: '#6b6b6b',
         fillOpacity: .8,
         icon : 'car'  
     }
@@ -95,10 +95,11 @@ var global_data = [
         'format' : 'round',
         'resource_id' : 'xwqn-2f78',
         'params' : [
+            { '$select' : 'modified_date, atd_location_id, signal_type, signal_id, signal_status, location_name, construction_note, construction_note_date, location_latitude, location_longitude'},
             { '$limit' : '9000' },
             { '$where' : 'signal_status in ("DESIGN", "CONSTRUCTION", "TURNED_ON")'}
         ], 
-        'disp_fields' : ['signal_id', 'location_name', 'modified_date' ],
+        'disp_fields' : ['signal_id', 'location_name', 'construction_note','construction_note_date' ],
         'infoStat' : true,
         'log_event' : 'signals_update'
     }
@@ -313,14 +314,15 @@ function populateTable(dataset, divId, filter_obj) {
             },
 
             { 
-                data: 'modified_date',
-
+                data: 'construction_note', 
                 defaultContent: '',
-
                 "render": function ( data, type, full, meta ) {
-                    return formats.formatDate( new Date(data) );
-                },
-
+                    if (data) {
+                        return '<i>' + data + '</i>';
+                    } else {
+                        return '';
+                    }
+                }
             }
             
         ]
@@ -412,7 +414,7 @@ function createMarkers(data, style) {
         
         var lon = data[i].location_longitude;
          
-        var updated = formats.formatDate( new Date(data[i].modified_date) )
+        var updated = formats.formatDate( new Date(data[i].construction_note_date) )
 
         var const_note = data[i].construction_note;
 
@@ -425,7 +427,7 @@ function createMarkers(data, style) {
         
         var icon = default_style[status].icon;
 
-        var popup_text ='<b>' + location_name + '</b><br>' + 
+        var popup_text ='<h6>' + location_name + '</h6>' + 
         const_note + 
         '<b> Updated: <b>' +
         updated + "</br></br><span class='status-badge status-" + status.toLowerCase() + "'>" +
