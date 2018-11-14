@@ -54,7 +54,7 @@ var map_options = {
         zoomControl : false
 };
 
-var img_url_base = 'http://162.89.4.145/CCTVImages/CCTV';
+var img_url_base = 'http://162.89.13.145/CCTVImages/CCTV';
 
 var default_styles = { 
     'ONLINE' : {
