@@ -277,72 +277,68 @@ var config = [
     format: "thousands",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "# of Dockless Mobility trips taken this year.",
+    caption: "# of total Dockless Mobility trips taken.",
     query: (function() {
-      var y = new Date().getFullYear().toString();
       return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
     })(),
     data_transform: function(x) {
       return [x[0]["total_trips"]];
     },
-    update_event: "TODO"
+    update_event: "dockless_trips"
   },
   {
     id: "dockless-trips-total-distance",
     row_container_id: "panel-row-4",
-    display_name: "Total Distance",
-    icon: "mobile",
+    display_name: "Total Distance (Miles)",
+    icon: "tachometer",
     init_val: 0,
     format: "thousands",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "# of Dockless Mobility trips taken this year.",
+    caption: "Total miles from Dockless Mobility trips.",
     query: (function() {
-      var y = new Date().getFullYear().toString();
-      return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
+      return "select sum(trip_distance) * 0.000621371 as total_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
     })(),
     data_transform: function(x) {
-      return [x[0]["total_trips"]];
+      return [x[0]["total_miles"]];
     },
-    update_event: "TODO"
+    update_event: "dockless_trips"
   },
   {
     id: "dockless-trips-avg-distance",
     row_container_id: "panel-row-4",
-    display_name: " Average Trip Distance",
-    icon: "mobile",
+    display_name: " Average Trip Distance (Miles)",
+    icon: "tachometer",
     init_val: 0,
-    format: "thousands",
+    format: "decimal",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "# of Dockless Mobility trips taken this year.",
+    caption: "Average distance of all Dockless Mobility trips (miles)",
     query: (function() {
-      var y = new Date().getFullYear().toString();
-      return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
+      return "select avg(trip_distance) * 0.000621371 as avg_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
     })(),
     data_transform: function(x) {
-      return [x[0]["total_trips"]];
+      return [x[0]["avg_miles"]];
     },
-    update_event: "TODO"
+    update_event: "dockless_trips"
   },
   {
     id: "dockless-trips-avg-duration",
     row_container_id: "panel-row-4",
-    display_name: "Average Trip Duration",
-    icon: "mobile",
+    display_name: "Average Trip Duration (minutes)",
+    icon: "hourglass-half",
     init_val: 0,
-    format: "thousands",
+    format: "decimal",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "# of Dockless Mobility trips taken this year.",
+    caption: "Average duration of all Dockless Mobility trips",
     query: (function() {
-      var y = new Date().getFullYear().toString();
-      return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
+      return "select avg(trip_duration)/60 as avg_duration_minutes  where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
     })(),
     data_transform: function(x) {
-      return [x[0]["total_trips"]];
+      return [x[0]["avg_duration_minutes"]];
     },
-    update_event: "TODO"
+    update_event: "dockless_trips"
   }
 ];
 
