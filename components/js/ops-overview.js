@@ -326,7 +326,7 @@ var config = [
     id: "dockless-trips-avg-duration",
     row_container_id: "panel-row-4",
     display_name: "Average Trip Duration (minutes)",
-    icon: "hourglass-half",
+    icon: "hourglass",
     init_val: 0,
     format: "decimal",
     infoStat: true,
