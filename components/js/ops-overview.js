@@ -22,7 +22,10 @@ var formats = {
   formatDateTime: d3.timeFormat("%e %b %-I:%M%p"),
   formatDate: d3.timeFormat("%x"),
   formatTime: d3.timeFormat("%I:%M %p"),
-  thousands: d3.format(",d")
+  thousands: d3.format(",d"),
+  decimal: function(val) {
+    return parseFloat(Math.round(val * 100) / 100).toFixed(3);
+  }
 };
 
 var pub_log_id = "i9se-t8hz";
