@@ -183,7 +183,7 @@ var config = [
   {
     id: "dockless-bike-trips-total-count",
     row_container_id: "panel-row-dockless-bike",
-    display_name: "Bicycle Trips",
+    display_name: " Bicycle Trips",
     icon: "bicycle",
     init_val: 0,
     format: "thousands",
