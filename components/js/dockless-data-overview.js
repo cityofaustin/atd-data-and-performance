@@ -33,240 +33,224 @@ var pub_log_id = "i9se-t8hz";
 var q = d3.queue();
 
 var config = [
+  // TOTAL DOCKLESS COUNTS
   {
-    id: "traffic_signals",
-    row_container_id: "panel-row-1",
-    display_name: "Traffic Signals",
-    icon: "car",
+    id: "dockless-trips-total-count",
+    row_container_id: "panel-row-dockless",
+    display_name: "  Total Trips (scooter & bicycle)",
+    icon: "mobile",
     init_val: 0,
     format: "thousands",
     infoStat: true,
-    caption: "Total traffic signals maintained by the City of Austin",
-    query:
-      'SELECT COUNT(signal_type) as count WHERE signal_type IN ("TRAFFIC") AND signal_status IN ("TURNED_ON") limit 9000',
-    resource_id: "xwqn-2f78",
+    resource_id: "7d8e-dm7r",
+    caption: "# of total Dockless Mobility trips taken.",
+    query: (function() {
+      return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
+    })(),
     data_transform: function(x) {
-      return [x[0]["count"]];
+      return [x[0]["total_trips"]];
     },
-    update_event: "knack_data_pub_signals_knack_socrata"
+    update_event: "dockless_trips"
   },
   {
-    id: "phbs",
-    row_container_id: "panel-row-1",
-    display_name: "Pedestrian Beacons",
-    icon: "male",
-    init_val: 0,
-    format: "round",
-    infoStat: true,
-    caption: "Total pedestrian beacons maintained by the City of Austin",
-    query:
-      'SELECT COUNT(signal_type) as count WHERE signal_type IN ("PHB") AND signal_status IN ("TURNED_ON") limit 9000',
-    resource_id: "xwqn-2f78",
-    data_transform: function(x) {
-      return [x[0]["count"]];
-    },
-    update_event: "knack_data_pub_signals_knack_socrata"
-  },
-  {
-    id: "cameras",
-    row_container_id: "panel-row-1",
-    display_name: "CCTV",
-    icon: "video-camera",
+    id: "dockless-trips-total-distance",
+    row_container_id: "panel-row-dockless",
+    display_name: "Total Distance (Miles)",
+    icon: "tachometer",
     init_val: 0,
     format: "thousands",
     infoStat: true,
-    caption: "Total traffic cameras maintained by the City of Austin.",
-    query:
-      'SELECT COUNT(camera_status) as count where upper(camera_mfg) not in ("GRIDSMART") and camera_status in ("TURNED_ON")',
-    resource_id: "fs3c-45ge",
+    resource_id: "7d8e-dm7r",
+    caption: "Total miles from Dockless Mobility trips.",
+    query: (function() {
+      return "select sum(trip_distance) * 0.000621371 as total_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
+    })(),
     data_transform: function(x) {
-      return [x[0]["count"]];
+      return [x[0]["total_miles"]];
     },
-    update_event: "knack_data_pub_cameras_knack_socrata"
+    update_event: "dockless_trips"
   },
   {
-    id: "sensors",
-    row_container_id: "panel-row-1",
-    display_name: "Travel Sensors",
-    icon: "rss",
+    id: "dockless-trips-avg-distance",
+    row_container_id: "panel-row-dockless",
+    display_name: " Average Trip Distance (Miles)",
+    icon: "tachometer",
     init_val: 0,
-    format: "round",
-    data: [145],
+    format: "decimal",
     infoStat: true,
-    caption: "Total travel sensors maintained by the City of Austin",
-    query:
-      'SELECT COUNT(sensor_type) as count WHERE sensor_status in ("TURNED_ON")',
-    resource_id: "wakh-bdjq",
+    resource_id: "7d8e-dm7r",
+    caption: "Average distance of all Dockless Mobility trips (miles)",
+    query: (function() {
+      return "select avg(trip_distance) * 0.000621371 as avg_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
+    })(),
     data_transform: function(x) {
-      return [x[0]["count"]];
+      return [x[0]["avg_miles"]];
     },
-    update_event: "knack_data_pub_travel_sensors_knack_socrata"
+    update_event: "dockless_trips"
   },
   {
-    id: "signals-on-flash",
-    row_container_id: "panel-row-3",
-    display_name: "Signals on Flash",
-    icon: "exclamation-triangle",
+    id: "dockless-trips-avg-duration",
+    row_container_id: "panel-row-dockless",
+    display_name: "Average Trip Duration (minutes)",
+    icon: "hourglass",
     init_val: 0,
-    format: "round",
-    data: [0],
+    format: "decimal",
     infoStat: true,
-    caption:
-      "Traffic signals current flashing, as reported by the City of Austin's Advanced Traffic Management System",
-    query: "select COUNT(signal_id) as count where operation_state='2'",
-    resource_id: "5zpr-dehc",
+    resource_id: "7d8e-dm7r",
+    caption: "Average duration of all Dockless Mobility trips",
+    query: (function() {
+      return "select avg(trip_duration)/60 as avg_duration_minutes  where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
+    })(),
     data_transform: function(x) {
-      return [x[0]["count"]];
+      return [x[0]["avg_duration_minutes"]];
     },
-    update_event: "sig_stat_pub"
+    update_event: "dockless_trips"
   },
+  // SCOOTER DOCKLESS COUNTS
   {
-    id: "signals-comm-issue",
-    row_container_id: "panel-row-3",
-    display_name: "Communication Outage",
-    icon: "phone",
-    init_val: 0,
-    format: "round",
-    data: [0],
-    infoStat: true,
-    caption:
-      "Traffic signals with communication outage, as reported by the City of Austin's Advanced Traffic Management System",
-    query: "select COUNT(signal_id) as count where operation_state='3'",
-    resource_id: "5zpr-dehc",
-    data_transform: function(x) {
-      return [x[0]["count"]];
-    },
-    update_event: "sig_stat_pub"
-  },
-  {
-    id: "signal-timing",
-    row_container_id: "panel-row-2",
-    display_name: "Signals Re-Timed",
-    icon: "clock-o",
-    init_val: 0,
-    format: "round",
-    infoStat: true,
-    caption: "Traffic signals re-timed this fiscal year",
-    query:
-      'SELECT SUM(signal_count) as count WHERE retime_status IN ("COMPLETED", "WAITING FOR EVALUATION") and scheduled_fy in ("' +
-      fiscal_year +
-      '")',
-    resource_id: "ufnm-yzxy",
-    data_transform: function(x) {
-      if (!Object.keys(x).length == 0) {
-        return [x[0]["count"]];
-      } else {
-        return [0];
-      }
-    },
-    update_event: "knack_data_pub_signal_retiming_knack_socrata",
-    data: []
-  },
-  {
-    id: "prev_maint",
-    row_container_id: "panel-row-2",
-    display_name: "Preventative Maintenance",
-    icon: "medkit",
+    id: "scooter-trips-total-count",
+    row_container_id: "panel-row-scooter",
+    display_name: " Scooter Trips",
+    icon: "bolt",
     init_val: 0,
     format: "thousands",
     infoStat: true,
-    caption:
-      "Signals that have received preventative maintenance this fiscal year.",
-    query:
-      'SELECT COUNT(signal_pm_max_fiscal_year) as count WHERE signal_pm_max_fiscal_year IN ("' +
-      fiscal_year +
-      '")',
-    resource_id: "xwqn-2f78",
+    resource_id: "7d8e-dm7r",
+    caption: "# of total Dockless Scooter trips taken.",
+    query: (function() {
+      return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
+    })(),
     data_transform: function(x) {
-      return [x[0]["count"]];
+      return [x[0]["total_trips"]];
     },
-    update_event: "knack_data_pub_signals_knack_socrata"
+    update_event: "dockless_trips"
   },
   {
-    id: "signal_construction",
-    row_container_id: "panel-row-3",
-    display_name: "Under Construction",
-    icon: "wrench",
-    init_val: 0,
-    format: "round",
-    infoStat: true,
-    caption: "Signals that are currently being constructed",
-    query:
-      'SELECT COUNT(signal_status) as count WHERE signal_status IN ("CONSTRUCTION")',
-    resource_id: "xwqn-2f78",
-    data_transform: function(x) {
-      return [x[0]["count"]];
-    },
-    update_event: "knack_data_pub_signals_knack_socrata"
-  },
-  {
-    id: "gridsmart",
-    row_container_id: "panel-row-1",
-    display_name: "Gridsmart",
-    icon: "crosshairs",
-    init_val: 0,
-    format: "round",
-    infoStat: true,
-    caption: "Gridsmart detection cameras installed",
-    query:
-      'select count(detector_id) as count where upper(detector_type) in ("GRIDSMART") group by signal_id',
-    resource_id: "sqwb-zh93",
-    data_transform: function(x) {
-      return [x.length];
-    },
-    update_event: "knack_data_pub_detectors_knack_socrata"
-  },
-  // {
-  //     'id' : 'school-beacons',
-  //     'row_container_id' : 'panel-row-1',
-  //     'display_name' : 'School Beacons',
-  //     'icon' : 'bus',
-  //     'init_val' : 0,
-  //     'format' : 'round',
-  //     'data' : [537],
-  //     'infoStat' : true,
-  //     'caption' : '',
-  //     'update_event' : undefined
-  // }
-  {
-    id: "work_orders_signals",
-    row_container_id: "panel-row-2",
-    display_name: "Signal Work Orders",
-    icon: "wrench",
+    id: "scooter-trips-total-distance",
+    row_container_id: "panel-row-scooter",
+    display_name: "Scooter Distance (Miles)",
+    icon: "tachometer",
     init_val: 0,
     format: "thousands",
     infoStat: true,
-    caption: "Work orders completed at traffic signal assets",
-    query:
-      "select count(created_date) as count where upper(work_order_status) in ('SUBMITTED', 'CLOSED') and fiscal_year=" +
-      fiscal_year,
-    resource_id: "v2ig-5yw3",
+    resource_id: "7d8e-dm7r",
+    caption: "Scooter miles from Dockless Mobility trips.",
+    query: (function() {
+      return "select sum(trip_distance) * 0.000621371 as total_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
+    })(),
     data_transform: function(x) {
-      return [x[0]["count"]];
+      return [x[0]["total_miles"]];
     },
-    update_event: "knack_data_pub_work_orders_signals_knack_socrata"
+    update_event: "dockless_trips"
   },
   {
-    id: "bcycle-trips",
-    row_container_id: "panel-row-2",
-    display_name: "  B-Cycle Trips",
+    id: "scooter-trips-avg-distance",
+    row_container_id: "panel-row-scooter",
+    display_name: " Average Scooter Trip Distance (Miles)",
+    icon: "tachometer",
+    init_val: 0,
+    format: "decimal",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Average distance of Dockless Scooter trips (miles)",
+    query: (function() {
+      return "select avg(trip_distance) * 0.000621371 as avg_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["avg_miles"]];
+    },
+    update_event: "dockless_trips"
+  },
+  {
+    id: "scooter-trips-avg-duration",
+    row_container_id: "panel-row-scooter",
+    display_name: "Average Scooter Trip Duration (minutes)",
+    icon: "hourglass",
+    init_val: 0,
+    format: "decimal",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Average duration of Dockless Scooter trips",
+    query: (function() {
+      return "select avg(trip_duration)/60 as avg_duration_minutes  where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["avg_duration_minutes"]];
+    },
+    update_event: "dockless_trips"
+  },
+  // DOCKLESS BIKE COUNTS
+  {
+    id: "dockless-bike-trips-total-count",
+    row_container_id: "panel-row-dockless-bike",
+    display_name: " Bicycle Trips",
     icon: "bicycle",
     init_val: 0,
     format: "thousands",
     infoStat: true,
-    resource_id: "cwi3-ckqi",
-    caption: "# of Austin B-Cycle trips taken this year.",
+    resource_id: "7d8e-dm7r",
+    caption: "# of total Dockless Bicycle trips taken.",
     query: (function() {
-      var y = new Date().getFullYear().toString();
-      return (
-        "select count(checkout_date) as count where date_extract_y(checkout_date)=" +
-        y
-      );
+      return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
     })(),
     data_transform: function(x) {
-      return [x[0]["count"]];
+      return [x[0]["total_trips"]];
     },
-    update_event: "bcycle_trip_pub"
+    update_event: "dockless_trips"
+  },
+  {
+    id: "dockless-bike-trips-total-distance",
+    row_container_id: "panel-row-dockless-bike",
+    display_name: "Bicycle Distance (Miles)",
+    icon: "tachometer",
+    init_val: 0,
+    format: "thousands",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Total miles from Dockless Bicycle trips.",
+    query: (function() {
+      return "select sum(trip_distance) * 0.000621371 as total_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["total_miles"]];
+    },
+    update_event: "dockless_trips"
+  },
+  {
+    id: "dockless-bike-trips-avg-distance",
+    row_container_id: "panel-row-dockless-bike",
+    display_name: "Average Bicycle Trip Distance (Miles)",
+    icon: "tachometer",
+    init_val: 0,
+    format: "decimal",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Average distance of Dockless Bicycle trips (miles)",
+    query: (function() {
+      return "select avg(trip_distance) * 0.000621371 as avg_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["avg_miles"]];
+    },
+    update_event: "dockless_trips"
+  },
+  {
+    id: "dockless-bike-trips-avg-duration",
+    row_container_id: "panel-row-dockless-bike",
+    display_name: "Average Bicycle Trip Duration (minutes)",
+    icon: "hourglass",
+    init_val: 0,
+    format: "decimal",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Average duration of Dockless Bicycle trips",
+    query: (function() {
+      return "select avg(trip_duration)/60 as avg_duration_minutes  where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["avg_duration_minutes"]];
+    },
+    update_event: "dockless_trips"
   }
 ];
 

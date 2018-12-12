@@ -4,7 +4,7 @@
   {% include head.html %}
 
   <body>
-  
+
     {% include coa-header.html %}
 
     <div class="homepage-header container-fluid mb-4">
@@ -85,7 +85,7 @@
         </div>
 
         <div class="col-lg-7">  <!-- buttons column -->
-          <div class="row"> 
+          <div class="row">
             <a class="nav-homepage col-md-4 col-xl-3 col-sm-6 p-1" href='http://austin.maps.arcgis.com/apps/webappviewer/index.html?id=c9bda776b1934e439285570b29d3259c'>
               <div class="col homepage-button homepage-button-row-2 p-2">
                 <h5>Signal Asset Map</h5>
@@ -116,6 +116,12 @@
 
         <div class="col-lg-7">  <!-- buttons column -->
           <div class="row">
+            <a class="nav-homepage col-md-4 col-xl-3 col-sm-6 p-1" href='{{ site.baseurl }}/dockless-data'>
+              <div class="col homepage-button homepage-button-row-3 p-2">
+                <h5>Dockless Mobility Data</h5>
+                <i  class="fa button-icon fa-bolt"></i>
+              </div>
+            </a>
             <a class="nav-homepage col-md-4 col-xl-3 col-sm-6 p-1" href='{{ site.baseurl }}/open-data'>
               <div class="col homepage-button homepage-button-row-3 p-2">
                 <h5>Open Data Inventory</h5>
@@ -139,19 +145,17 @@
 
   <script src="{{site.baseurl}}/components/js/jquery.min.js"></script>
   <script src="{{site.baseurl}}/components/js/tether.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>    
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   <script src="{{site.baseurl}}/components/js/google-analytics.js"></script>
     {% if page.custom_js %}
-      
+
       {% for js_file in page.custom_js %}
-      
+
         <script src='{{ site.baseurl }}/components/js/{{ js_file }}.js' type="text/javascript"></script>
-      
+
       {% endfor %}
-      
+
     {% endif %}
-      
+
   </body>
 </html>
-
-
