@@ -37,7 +37,7 @@ var config = [
   {
     id: "dockless-trips-total-count",
     row_container_id: "panel-row-dockless",
-    display_name: "  Total Trips (scooter & bike)",
+    display_name: "  Total Trips (scooter & bicycle)",
     icon: "mobile",
     init_val: 0,
     format: "thousands",
@@ -110,13 +110,13 @@ var config = [
   {
     id: "scooter-trips-total-count",
     row_container_id: "panel-row-scooter",
-    display_name: "  Scooter Trips",
-    icon: "mobile",
+    display_name: " Scooter Trips",
+    icon: "bolt",
     init_val: 0,
     format: "thousands",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "# of total Dockless Mobility trips taken.",
+    caption: "# of total Dockless Scooter trips taken.",
     query: (function() {
       return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
     })(),
@@ -128,13 +128,13 @@ var config = [
   {
     id: "scooter-trips-total-distance",
     row_container_id: "panel-row-scooter",
-    display_name: "Total Distance (Miles)",
+    display_name: "Scooter Distance (Miles)",
     icon: "tachometer",
     init_val: 0,
     format: "thousands",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "Total miles from Dockless Mobility trips.",
+    caption: "Scooter miles from Dockless Mobility trips.",
     query: (function() {
       return "select sum(trip_distance) * 0.000621371 as total_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
     })(),
@@ -146,13 +146,13 @@ var config = [
   {
     id: "scooter-trips-avg-distance",
     row_container_id: "panel-row-scooter",
-    display_name: " Average Trip Distance (Miles)",
+    display_name: " Average Scooter Trip Distance (Miles)",
     icon: "tachometer",
     init_val: 0,
     format: "decimal",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "Average distance of all Dockless Mobility trips (miles)",
+    caption: "Average distance of Dockless Scooter trips (miles)",
     query: (function() {
       return "select avg(trip_distance) * 0.000621371 as avg_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
     })(),
@@ -164,13 +164,13 @@ var config = [
   {
     id: "scooter-trips-avg-duration",
     row_container_id: "panel-row-scooter",
-    display_name: "Average Trip Duration (minutes)",
+    display_name: "Average Scooter Trip Duration (minutes)",
     icon: "hourglass",
     init_val: 0,
     format: "decimal",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "Average duration of all Dockless Mobility trips",
+    caption: "Average duration of Dockless Scooter trips",
     query: (function() {
       return "select avg(trip_duration)/60 as avg_duration_minutes  where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
     })(),
@@ -183,13 +183,13 @@ var config = [
   {
     id: "dockless-bike-trips-total-count",
     row_container_id: "panel-row-dockless-bike",
-    display_name: "  Scooter Trips",
-    icon: "mobile",
+    display_name: "Bicycle Trips",
+    icon: "bicycle",
     init_val: 0,
     format: "thousands",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "# of total Dockless Mobility trips taken.",
+    caption: "# of total Dockless Bicycle trips taken.",
     query: (function() {
       return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
     })(),
@@ -201,13 +201,13 @@ var config = [
   {
     id: "dockless-bike-trips-total-distance",
     row_container_id: "panel-row-dockless-bike",
-    display_name: "Total Distance (Miles)",
+    display_name: "Bicycle Distance (Miles)",
     icon: "tachometer",
     init_val: 0,
     format: "thousands",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "Total miles from Dockless Mobility trips.",
+    caption: "Total miles from Dockless Bicycle trips.",
     query: (function() {
       return "select sum(trip_distance) * 0.000621371 as total_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
     })(),
@@ -219,13 +219,13 @@ var config = [
   {
     id: "dockless-bike-trips-avg-distance",
     row_container_id: "panel-row-dockless-bike",
-    display_name: " Average Trip Distance (Miles)",
+    display_name: "Average Bicycle Trip Distance (Miles)",
     icon: "tachometer",
     init_val: 0,
     format: "decimal",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "Average distance of all Dockless Mobility trips (miles)",
+    caption: "Average distance of Dockless Bicycle trips (miles)",
     query: (function() {
       return "select avg(trip_distance) * 0.000621371 as avg_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
     })(),
@@ -237,13 +237,13 @@ var config = [
   {
     id: "dockless-bike-trips-avg-duration",
     row_container_id: "panel-row-dockless-bike",
-    display_name: "Average Trip Duration (minutes)",
+    display_name: "Average Bicycle Trip Duration (minutes)",
     icon: "hourglass",
     init_val: 0,
     format: "decimal",
     infoStat: true,
     resource_id: "7d8e-dm7r",
-    caption: "Average duration of all Dockless Mobility trips",
+    caption: "Average duration of Dockless Bicycle trips",
     query: (function() {
       return "select avg(trip_duration)/60 as avg_duration_minutes  where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
     })(),
