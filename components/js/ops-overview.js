@@ -268,9 +268,10 @@ var config = [
     },
     update_event: "bcycle_trip_pub"
   },
+  // TOTAL DOCKLESS COUNTS
   {
     id: "dockless-trips-total-count",
-    row_container_id: "panel-row-4",
+    row_container_id: "panel-row-dockless",
     display_name: "  Total Trips (scooter & bike)",
     icon: "mobile",
     init_val: 0,
@@ -288,7 +289,7 @@ var config = [
   },
   {
     id: "dockless-trips-total-distance",
-    row_container_id: "panel-row-4",
+    row_container_id: "panel-row-dockless",
     display_name: "Total Distance (Miles)",
     icon: "tachometer",
     init_val: 0,
@@ -306,7 +307,7 @@ var config = [
   },
   {
     id: "dockless-trips-avg-distance",
-    row_container_id: "panel-row-4",
+    row_container_id: "panel-row-dockless",
     display_name: " Average Trip Distance (Miles)",
     icon: "tachometer",
     init_val: 0,
@@ -324,7 +325,7 @@ var config = [
   },
   {
     id: "dockless-trips-avg-duration",
-    row_container_id: "panel-row-4",
+    row_container_id: "panel-row-dockless",
     display_name: "Average Trip Duration (minutes)",
     icon: "hourglass",
     init_val: 0,
@@ -334,6 +335,152 @@ var config = [
     caption: "Average duration of all Dockless Mobility trips",
     query: (function() {
       return "select avg(trip_duration)/60 as avg_duration_minutes  where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["avg_duration_minutes"]];
+    },
+    update_event: "dockless_trips"
+  },
+  // SCOOTER DOCKLESS COUNTS
+  {
+    id: "scooter-trips-total-count",
+    row_container_id: "panel-row-scooter",
+    display_name: "  Scooter Trips",
+    icon: "mobile",
+    init_val: 0,
+    format: "thousands",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "# of total Dockless Mobility trips taken.",
+    query: (function() {
+      return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["total_trips"]];
+    },
+    update_event: "dockless_trips"
+  },
+  {
+    id: "scooter-trips-total-distance",
+    row_container_id: "panel-row-scooter",
+    display_name: "Total Distance (Miles)",
+    icon: "tachometer",
+    init_val: 0,
+    format: "thousands",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Total miles from Dockless Mobility trips.",
+    query: (function() {
+      return "select sum(trip_distance) * 0.000621371 as total_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["total_miles"]];
+    },
+    update_event: "dockless_trips"
+  },
+  {
+    id: "scooter-trips-avg-distance",
+    row_container_id: "panel-row-scooter",
+    display_name: " Average Trip Distance (Miles)",
+    icon: "tachometer",
+    init_val: 0,
+    format: "decimal",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Average distance of all Dockless Mobility trips (miles)",
+    query: (function() {
+      return "select avg(trip_distance) * 0.000621371 as avg_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["avg_miles"]];
+    },
+    update_event: "dockless_trips"
+  },
+  {
+    id: "scooter-trips-avg-duration",
+    row_container_id: "panel-row-scooter",
+    display_name: "Average Trip Duration (minutes)",
+    icon: "hourglass",
+    init_val: 0,
+    format: "decimal",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Average duration of all Dockless Mobility trips",
+    query: (function() {
+      return "select avg(trip_duration)/60 as avg_duration_minutes  where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='scooter'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["avg_duration_minutes"]];
+    },
+    update_event: "dockless_trips"
+  },
+  // DOCKLESS BIKE COUNTS
+  {
+    id: "dockless-bike-trips-total-count",
+    row_container_id: "panel-row-dockless-bike",
+    display_name: "  Scooter Trips",
+    icon: "mobile",
+    init_val: 0,
+    format: "thousands",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "# of total Dockless Mobility trips taken.",
+    query: (function() {
+      return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["total_trips"]];
+    },
+    update_event: "dockless_trips"
+  },
+  {
+    id: "dockless-bike-trips-total-distance",
+    row_container_id: "panel-row-dockless-bike",
+    display_name: "Total Distance (Miles)",
+    icon: "tachometer",
+    init_val: 0,
+    format: "thousands",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Total miles from Dockless Mobility trips.",
+    query: (function() {
+      return "select sum(trip_distance) * 0.000621371 as total_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["total_miles"]];
+    },
+    update_event: "dockless_trips"
+  },
+  {
+    id: "dockless-bike-trips-avg-distance",
+    row_container_id: "panel-row-dockless-bike",
+    display_name: " Average Trip Distance (Miles)",
+    icon: "tachometer",
+    init_val: 0,
+    format: "decimal",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Average distance of all Dockless Mobility trips (miles)",
+    query: (function() {
+      return "select avg(trip_distance) * 0.000621371 as avg_miles where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
+    })(),
+    data_transform: function(x) {
+      return [x[0]["avg_miles"]];
+    },
+    update_event: "dockless_trips"
+  },
+  {
+    id: "dockless-bike-trips-avg-duration",
+    row_container_id: "panel-row-dockless-bike",
+    display_name: "Average Trip Duration (minutes)",
+    icon: "hourglass",
+    init_val: 0,
+    format: "decimal",
+    infoStat: true,
+    resource_id: "7d8e-dm7r",
+    caption: "Average duration of all Dockless Mobility trips",
+    query: (function() {
+      return "select avg(trip_duration)/60 as avg_duration_minutes  where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and vehicle_type='bicycle'";
     })(),
     data_transform: function(x) {
       return [x[0]["avg_duration_minutes"]];
