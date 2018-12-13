@@ -284,9 +284,10 @@ $(document).ready(function() {
     main(config);
   });
 
-  $("#js-month-select").on("change", function() {
-    removePanels();
+  $("#js-month-select").on("change", function(e) {
     debugger;
+    removePanels();
+    // buildCards();
   });
 });
 
@@ -301,6 +302,8 @@ function buildSocrataUrl(data) {
 
   return url;
 }
+
+function buildCards() {}
 
 function main(data) {
   for (var i = 0; i < config.length; ++i) {
