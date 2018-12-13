@@ -32,6 +32,8 @@ var pub_log_id = "i9se-t8hz";
 
 var q = d3.queue();
 
+var $month = $("#js-month-select").val();
+
 var config = [
   // TOTAL DOCKLESS COUNTS
   {
@@ -45,7 +47,10 @@ var config = [
     resource_id: "7d8e-dm7r",
     caption: "# of total Dockless Mobility trips taken.",
     query: (function() {
-      return "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
+      return (
+        "select count(id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and month_atx = " +
+        $month
+      );
     })(),
     data_transform: function(x) {
       return [x[0]["total_trips"]];
