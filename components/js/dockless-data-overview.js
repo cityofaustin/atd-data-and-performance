@@ -283,6 +283,11 @@ $(document).ready(function() {
 
     main(config);
   });
+
+  $("#js-month-select").on("change", function() {
+    removePanels();
+    debugger;
+  });
 });
 
 function buildSocrataUrl(data) {
@@ -436,6 +441,12 @@ function readableDate(date) {
     return "today";
   } else {
     return update_date;
+  }
+}
+
+function removePanels() {
+  for (var i = 0; i < config.length; ++i) {
+    $("#" + config[i].row_container_id).remove();
   }
 }
 
