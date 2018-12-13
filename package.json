@@ -1,0 +1,29 @@
+{
+  "name": "transportation-datahub",
+  "version": "1.0.0",
+  "description": "This repository houses the City of Austin Transportation Department's Data and Performance Hub, a public website which tracks the department's operational performance and curates access to key datasets.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cityofaustin/transportation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cityofaustin/transportation/issues"
+  },
+  "homepage": "https://github.com/cityofaustin/transportation#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "react": "^16.6.3",
+    "react-addons-update": "^15.6.2",
+    "react-dom": "^16.6.3",
+    "webpack": "^4.27.1"
+  }
+}
