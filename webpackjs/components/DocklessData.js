@@ -15,7 +15,8 @@ class DocklessData extends Component {
     this.state = {
       month: date.getMonth(), // default to last month
       scooterData: null,
-      bicycleData: null
+      bicycleData: null,
+      allModesData: null
     };
 
     this.handleMonthChange = this.handleMonthChange.bind(this);
@@ -27,23 +28,34 @@ class DocklessData extends Component {
 
   componentDidMount() {
     const resourceId = `pqaf-uftu`;
-    const query = `select vehicle_type, avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by vehicle_type, year, month`;
-    const socrataUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${query}`;
-    axios.get(socrataUrl).then(res => {
-      console.log(socrataUrl);
+    const allModesQuery = `select avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by year, month`;
+    const dataByModeQuery = `select vehicle_type, avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by vehicle_type, year, month`;
+    const dataByModeUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${dataByModeQuery}`;
+    const allModesUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${allModesQuery}`;
+
+    axios.all([axios.get(dataByModeUrl), axios.get(allModesUrl)]).then(res => {
+      console.log(allModesUrl);
+      console.log(dataByModeUrl);
+      const dataByModeResponse = res[0].data;
+      const allDataResponse = res[1].data;
+
       let bicycleData = _
-        .filter(res.data, o => o.vehicle_type === "bicycle")
+        .filter(dataByModeResponse, o => o.vehicle_type === "bicycle")
         .reduce(function(result, item) {
           result[`${item.month}_${item.year}`] = item;
           return result;
         }, {});
       let scooterData = _
-        .filter(res.data, o => o.vehicle_type === "scooter")
+        .filter(dataByModeResponse, o => o.vehicle_type === "scooter")
         .reduce(function(result, item) {
           result[`${item.month}_${item.year}`] = item;
           return result;
         }, {});
-      this.setState({ bicycleData, scooterData });
+      let allModesData = allDataResponse.reduce((result, item) => {
+        result[`${item.month}_${item.year}`] = item;
+        return result;
+      }, {});
+      this.setState({ bicycleData, scooterData, allModesData });
     });
   }
 
@@ -59,8 +71,6 @@ class DocklessData extends Component {
   }
 
   render() {
-    console.log("hi");
-    console.log("state", this.state);
     return (
       <div className="container-fluid">
         <h2> Dockless Mobility Summary Counts </h2>
@@ -69,6 +79,61 @@ class DocklessData extends Component {
           onChangeMonth={this.handleMonthChange}
         />
         <PanelRowTitle title="All Modes" />
+        <CardContainer>
+          <Card
+            title="Total Trips (scooter & bicycle)"
+            value={this.getValue(
+              "allModes",
+              this.state.month,
+              2018,
+              "total_trips"
+            )}
+            icon="mobile"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+            numberFormat="thousands"
+          />
+          <Card
+            title="Total Distance (miles)"
+            value={this.getValue(
+              "allModes",
+              this.state.month,
+              2018,
+              "total_miles"
+            )}
+            icon="tachometer"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+            numberFormat="thousands"
+          />
+          <Card
+            title="Average Trip Distance (miles)"
+            value={this.getValue(
+              "allModes",
+              this.state.month,
+              2018,
+              "avg_miles"
+            )}
+            icon="tachometer"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+            numberFormat="decimal"
+          />
+          <Card
+            title="Average Trip Duration (minutes)"
+            value={this.getValue(
+              "allModes",
+              this.state.month,
+              2018,
+              "avg_duration_minutes"
+            )}
+            icon="hourglass"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+            numberFormat="decimal"
+          />
+        </CardContainer>
+
         <PanelRowTitle title="Dockless Scooters" />
         <CardContainer>
           <Card
