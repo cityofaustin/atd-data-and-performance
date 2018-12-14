@@ -77,6 +77,31 @@ class DocklessData extends Component {
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
           />
+          <Card
+            title="Scooter Distance (miles)"
+            value={this.getScooterValue(this.state.month, 2018, "total_miles")}
+            icon="tachometer"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+          />
+          <Card
+            title="Average Scooter Trip Distance (miles)"
+            value={this.getScooterValue(this.state.month, 2018, "avg_miles")}
+            icon="tachometer"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+          />
+          <Card
+            title="Average Scooter Trip Duration (minutes)"
+            value={this.getScooterValue(
+              this.state.month,
+              2018,
+              "avg_duration_minutes"
+            )}
+            icon="hourglass"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+          />
         </CardContainer>
 
         <PanelRowTitle title="Dockless Bikes" />
