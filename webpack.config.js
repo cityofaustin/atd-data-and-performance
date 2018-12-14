@@ -12,6 +12,8 @@ module.exports = {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "components/js")
   },
+  mode: "development",
+  devtool: "inline-source-map",
   module: {
     rules: [
       {

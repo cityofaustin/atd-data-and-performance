@@ -25,5 +25,12 @@
     "react-addons-update": "^15.6.2",
     "react-dom": "^16.6.3",
     "webpack": "^4.27.1"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "d3-format": "^1.3.2",
+    "d3-time-format": "^2.1.3",
+    "lodash": "^4.17.11",
+    "react-animated-number": "^0.4.4"
   }
 }
