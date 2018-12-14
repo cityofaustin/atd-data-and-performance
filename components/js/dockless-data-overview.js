@@ -47,7 +47,7 @@ var config = [
     resource_id: "7d8e-dm7r",
     caption: "# of total Dockless Mobility trips taken.",
     query: (function() {
-      return "select count(trip_id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 ";
+      return "select count(trip_id) as total_trips where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400";
     })(),
     data_transform: function(x) {
       return [x[0]["total_trips"]];
