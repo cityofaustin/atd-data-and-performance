@@ -5,7 +5,14 @@ import axios from "axios";
 
 import UpdateDate from "./UpdateDate";
 
-const Card = ({ title, value, icon, resourceId, updateEvent }) => (
+const Card = ({
+  title,
+  value,
+  icon,
+  resourceId,
+  updateEvent,
+  numberFormat // "decimal" or "thousands"
+}) => (
   <div className="col-sm-6 col-md-4 col-lg-3 dash-panel-container p-2">
     <div
       className="col dash-panel h-100 p-2"
@@ -39,7 +46,13 @@ const Card = ({ title, value, icon, resourceId, updateEvent }) => (
               }}
               frameStyle={perc => (perc === 100 ? {} : { color: "#E5E5E5" })}
               duration={300}
-              formatValue={n => format(",d")(n)}
+              formatValue={n => {
+                if (numberFormat === "thousands") {
+                  return format(",d")(n);
+                } else if (numberFormat === "decimal") {
+                  return parseFloat(Math.round(n * 100) / 100).toFixed(3);
+                }
+              }}
             />
           </span>
         </div>

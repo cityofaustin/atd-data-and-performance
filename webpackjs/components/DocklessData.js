@@ -76,6 +76,7 @@ class DocklessData extends Component {
             icon="bolt"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
+            numberFormat="thousands"
           />
           <Card
             title="Scooter Distance (miles)"
@@ -83,6 +84,7 @@ class DocklessData extends Component {
             icon="tachometer"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
+            numberFormat="thousands"
           />
           <Card
             title="Average Scooter Trip Distance (miles)"
@@ -90,6 +92,7 @@ class DocklessData extends Component {
             icon="tachometer"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
+            numberFormat="decimal"
           />
           <Card
             title="Average Scooter Trip Duration (minutes)"
@@ -101,6 +104,7 @@ class DocklessData extends Component {
             icon="hourglass"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
+            numberFormat="decimal"
           />
         </CardContainer>
 
