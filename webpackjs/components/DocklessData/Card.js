@@ -50,7 +50,7 @@ const Card = ({
                 if (numberFormat === "thousands") {
                   return format(",d")(n);
                 } else if (numberFormat === "decimal") {
-                  return parseFloat(Math.round(n * 100) / 100).toFixed(3);
+                  return parseFloat(Math.round(n * 100) / 100).toFixed(2);
                 }
               }}
             />

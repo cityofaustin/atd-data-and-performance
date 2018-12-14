@@ -47,14 +47,15 @@ class DocklessData extends Component {
     });
   }
 
-  getScooterValue(month, year, metric) {
-    if (!this.state.scooterData) {
+  getValue(mode, month, year, metric) {
+    const modeData = `${mode}Data`;
+    const monthYear = `${month}_${year}`;
+
+    if (!this.state[modeData]) {
       return 0;
     }
 
-    const monthYear = `${month}_${year}`;
-
-    return Number(this.state.scooterData[monthYear][metric]);
+    return Number(this.state[modeData][monthYear][metric]);
   }
 
   render() {
@@ -72,7 +73,12 @@ class DocklessData extends Component {
         <CardContainer>
           <Card
             title="Scooter Trips"
-            value={this.getScooterValue(this.state.month, 2018, "total_trips")}
+            value={this.getValue(
+              "scooter",
+              this.state.month,
+              2018,
+              "total_trips"
+            )}
             icon="bolt"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
@@ -80,7 +86,12 @@ class DocklessData extends Component {
           />
           <Card
             title="Scooter Distance (miles)"
-            value={this.getScooterValue(this.state.month, 2018, "total_miles")}
+            value={this.getValue(
+              "scooter",
+              this.state.month,
+              2018,
+              "total_miles"
+            )}
             icon="tachometer"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
@@ -88,7 +99,12 @@ class DocklessData extends Component {
           />
           <Card
             title="Average Scooter Trip Distance (miles)"
-            value={this.getScooterValue(this.state.month, 2018, "avg_miles")}
+            value={this.getValue(
+              "scooter",
+              this.state.month,
+              2018,
+              "avg_miles"
+            )}
             icon="tachometer"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
@@ -96,7 +112,8 @@ class DocklessData extends Component {
           />
           <Card
             title="Average Scooter Trip Duration (minutes)"
-            value={this.getScooterValue(
+            value={this.getValue(
+              "scooter",
               this.state.month,
               2018,
               "avg_duration_minutes"
@@ -109,6 +126,60 @@ class DocklessData extends Component {
         </CardContainer>
 
         <PanelRowTitle title="Dockless Bikes" />
+        <CardContainer>
+          <Card
+            title="Bicycle Trips"
+            value={this.getValue(
+              "bicycle",
+              this.state.month,
+              2018,
+              "total_trips"
+            )}
+            icon="bicycle"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+            numberFormat="thousands"
+          />
+          <Card
+            title="Bicycle Distance (miles)"
+            value={this.getValue(
+              "bicycle",
+              this.state.month,
+              2018,
+              "total_miles"
+            )}
+            icon="tachometer"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+            numberFormat="thousands"
+          />
+          <Card
+            title="Average Bicycle Trip Distance (miles)"
+            value={this.getValue(
+              "bicycle",
+              this.state.month,
+              2018,
+              "avg_miles"
+            )}
+            icon="tachometer"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+            numberFormat="decimal"
+          />
+          <Card
+            title="Average Bicycle Trip Duration (minutes)"
+            value={this.getValue(
+              "bicycle",
+              this.state.month,
+              2018,
+              "avg_duration_minutes"
+            )}
+            icon="hourglass"
+            resourceId={"7d8e-dm7r"}
+            updateEvent="dockless_trips"
+            numberFormat="decimal"
+          />
+        </CardContainer>
       </div>
     );
   }
