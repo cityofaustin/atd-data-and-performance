@@ -67,6 +67,10 @@ class DocklessData extends Component {
       return 0;
     }
 
+    if (!this.state[modeData][monthYear]) {
+      return "no data";
+    }
+
     return Number(this.state[modeData][monthYear][metric]);
   }
 
