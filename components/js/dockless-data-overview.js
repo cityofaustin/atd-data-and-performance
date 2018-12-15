@@ -32,6 +32,8 @@ var pub_log_id = "i9se-t8hz";
 
 var q = d3.queue();
 
+var $month = $("#js-month-select").val();
+
 var config = [
   // TOTAL DOCKLESS COUNTS
   {
@@ -278,6 +280,12 @@ $(document).ready(function() {
 
     main(config);
   });
+
+  $("#js-month-select").on("change", function(e) {
+    debugger;
+    removePanels();
+    // buildCards();
+  });
 });
 
 function buildSocrataUrl(data) {
@@ -291,6 +299,8 @@ function buildSocrataUrl(data) {
 
   return url;
 }
+
+function buildCards() {}
 
 function main(data) {
   for (var i = 0; i < config.length; ++i) {
@@ -431,6 +441,12 @@ function readableDate(date) {
     return "today";
   } else {
     return update_date;
+  }
+}
+
+function removePanels() {
+  for (var i = 0; i < config.length; ++i) {
+    $("#" + config[i].row_container_id).remove();
   }
 }
 

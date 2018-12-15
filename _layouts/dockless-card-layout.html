@@ -10,26 +10,14 @@
         {% include dash-top-nav.html %}
 
       <div class="container-fluid">
-        <h2> Dockless Mobility Summary Counts </h3>
-        <div class="row panel-title-row pt-2 pl-2" id="title-row-4">
-          <h3> All Modes </h3>
-        </div>
+
         <div class="row dash-panel-row no-gutters" id="panel-row-dockless">
         <!-- cards go here programmatically -->
         </div>
-        <div class="row pt-2 pl-2 panel-title-row" id="title-row-5">
-          <h3> Dockless Scooters </h3>
-        </div>
-        <div class="row dash-panel-row no-gutters" id="panel-row-scooter">
-        <!-- cards go here programmatically -->
-        </div>
-        <div class="row pt-2 pl-2 panel-title-row" id="title-row-6">
-          <h3> Dockless Bikes </h3>
-        </div>
-        <div class="row dash-panel-row no-gutters" id="panel-row-dockless-bike">
-        <!-- cards go here programmatically -->
-        </div>
+
       </div> <!-- end container -->
+
+      <div id="root-DocklessData"></div>
 
 
     {% include footer.html %}
@@ -40,11 +28,13 @@
 
       {% for js_file in page.custom_js %}
 
-        <script src='{{ site.baseurl }}/components/js/{{ js_file }}.js' type="text/javascript"></script>
+        <!-- <script src='{{ site.baseurl }}/components/js/{{ js_file }}.js' type="text/javascript"></script> -->
 
       {% endfor %}
 
     {% endif %}
+
+    <script type="text/javascript" src="{{ site.baseurl }}/components/js/main.bundle.js" charset="utf-8"></script>
 
   </body>
 </html>
