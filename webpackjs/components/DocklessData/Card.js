@@ -38,22 +38,26 @@ const Card = ({
       <div className="row">
         <div className="col">
           <span className="info-metric-small">
-            <AnimatedNumber
-              value={value}
-              style={{
-                transition: "0.8s ease-out",
-                transitionProperty: "color, opacity"
-              }}
-              frameStyle={perc => (perc === 100 ? {} : { color: "#E5E5E5" })}
-              duration={300}
-              formatValue={n => {
-                if (numberFormat === "thousands") {
-                  return format(",d")(n);
-                } else if (numberFormat === "decimal") {
-                  return parseFloat(Math.round(n * 100) / 100).toFixed(2);
-                }
-              }}
-            />
+            {typeof value === "string" ? (
+              <span>{value}</span>
+            ) : (
+              <AnimatedNumber
+                value={value}
+                style={{
+                  transition: "0.8s ease-out",
+                  transitionProperty: "color, opacity"
+                }}
+                frameStyle={perc => (perc === 100 ? {} : { color: "#E5E5E5" })}
+                duration={300}
+                formatValue={n => {
+                  if (numberFormat === "thousands") {
+                    return format(",d")(n);
+                  } else if (numberFormat === "decimal") {
+                    return parseFloat(Math.round(n * 100) / 100).toFixed(2);
+                  }
+                }}
+              />
+            )}
           </span>
         </div>
       </div>
