@@ -85,7 +85,7 @@ class DocklessData extends Component {
         <PanelRowTitle title="All Modes" />
         <CardContainer>
           <Card
-            title="Total Trips (scooter & bicycle)"
+            title="Total Trips"
             value={this.getValue(
               "allModes",
               this.state.month,
@@ -98,7 +98,7 @@ class DocklessData extends Component {
             numberFormat="thousands"
           />
           <Card
-            title="Total Distance (miles)"
+            title="Total Miles"
             value={this.getValue(
               "allModes",
               this.state.month,
@@ -111,7 +111,7 @@ class DocklessData extends Component {
             numberFormat="thousands"
           />
           <Card
-            title="Average Trip Distance (miles)"
+            title="Average Miles"
             value={this.getValue(
               "allModes",
               this.state.month,
@@ -124,7 +124,7 @@ class DocklessData extends Component {
             numberFormat="decimal"
           />
           <Card
-            title="Average Trip Duration (minutes)"
+            title="Average Minutes"
             value={this.getValue(
               "allModes",
               this.state.month,
@@ -154,7 +154,7 @@ class DocklessData extends Component {
             numberFormat="thousands"
           />
           <Card
-            title="Scooter Distance (miles)"
+            title="Total Miles"
             value={this.getValue(
               "scooter",
               this.state.month,
@@ -167,7 +167,7 @@ class DocklessData extends Component {
             numberFormat="thousands"
           />
           <Card
-            title="Average Scooter Trip Distance (miles)"
+            title="Average Miles"
             value={this.getValue(
               "scooter",
               this.state.month,
@@ -180,7 +180,7 @@ class DocklessData extends Component {
             numberFormat="decimal"
           />
           <Card
-            title="Average Scooter Trip Duration (minutes)"
+            title="Average Minutes"
             value={this.getValue(
               "scooter",
               this.state.month,
@@ -210,7 +210,7 @@ class DocklessData extends Component {
             numberFormat="thousands"
           />
           <Card
-            title="Bicycle Distance (miles)"
+            title="Total Miles"
             value={this.getValue(
               "bicycle",
               this.state.month,
@@ -223,7 +223,7 @@ class DocklessData extends Component {
             numberFormat="thousands"
           />
           <Card
-            title="Average Bicycle Trip Distance (miles)"
+            title="Average Miles"
             value={this.getValue(
               "bicycle",
               this.state.month,
@@ -236,7 +236,7 @@ class DocklessData extends Component {
             numberFormat="decimal"
           />
           <Card
-            title="Average Bicycle Trip Duration (minutes)"
+            title="Average Minutes"
             value={this.getValue(
               "bicycle",
               this.state.month,
