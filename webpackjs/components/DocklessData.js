@@ -6,6 +6,7 @@ import MonthSelect from "./DocklessData/MonthSelect";
 import PanelRowTitle from "./DocklessData/PanelRowTitle";
 import CardContainer from "./DocklessData/CardContainer";
 import Card from "./DocklessData/Card";
+import Description from "./DocklessData/Description";
 
 class DocklessData extends Component {
   constructor(props) {
@@ -146,6 +147,8 @@ class DocklessData extends Component {
     return (
       <div className="container-fluid">
         <h2> Dockless Mobility Summary Counts </h2>
+        <Description />
+
         <MonthSelect
           month={this.state.month}
           onChangeMonth={this.handleMonthChange}
