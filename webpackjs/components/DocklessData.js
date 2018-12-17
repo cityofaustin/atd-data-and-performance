@@ -121,7 +121,6 @@ class DocklessData extends Component {
   }
 
   getDeviceValue(mode, month, year) {
-    debugger;
     if (!this.state.deviceCountData) {
       return 0;
     }
