@@ -39,7 +39,7 @@ var config = [
   {
     id: "dockless-trips-total-count",
     row_container_id: "panel-row-dockless",
-    display_name: "  Total Trips (scooter & bicycle)",
+    display_name: "Total Trips",
     icon: "mobile",
     init_val: 0,
     format: "thousands",
@@ -57,7 +57,7 @@ var config = [
   {
     id: "dockless-trips-total-distance",
     row_container_id: "panel-row-dockless",
-    display_name: "Total Distance (Miles)",
+    display_name: "Total Miles",
     icon: "tachometer",
     init_val: 0,
     format: "thousands",
@@ -75,7 +75,7 @@ var config = [
   {
     id: "dockless-trips-avg-distance",
     row_container_id: "panel-row-dockless",
-    display_name: " Average Trip Distance (Miles)",
+    display_name: "Average Miles",
     icon: "tachometer",
     init_val: 0,
     format: "decimal",
@@ -93,7 +93,7 @@ var config = [
   {
     id: "dockless-trips-avg-duration",
     row_container_id: "panel-row-dockless",
-    display_name: "Average Trip Duration (minutes)",
+    display_name: "Average Minutes",
     icon: "hourglass",
     init_val: 0,
     format: "decimal",
@@ -112,7 +112,7 @@ var config = [
   {
     id: "scooter-trips-total-count",
     row_container_id: "panel-row-scooter",
-    display_name: " Scooter Trips",
+    display_name: "Scooter Trips",
     icon: "bolt",
     init_val: 0,
     format: "thousands",
@@ -130,7 +130,7 @@ var config = [
   {
     id: "scooter-trips-total-distance",
     row_container_id: "panel-row-scooter",
-    display_name: "Scooter Distance (Miles)",
+    display_name: "Total Miles",
     icon: "tachometer",
     init_val: 0,
     format: "thousands",
@@ -148,7 +148,7 @@ var config = [
   {
     id: "scooter-trips-avg-distance",
     row_container_id: "panel-row-scooter",
-    display_name: " Average Scooter Trip Distance (Miles)",
+    display_name: "Average Miles",
     icon: "tachometer",
     init_val: 0,
     format: "decimal",
@@ -166,7 +166,7 @@ var config = [
   {
     id: "scooter-trips-avg-duration",
     row_container_id: "panel-row-scooter",
-    display_name: "Average Scooter Trip Duration (minutes)",
+    display_name: "Average Minutes",
     icon: "hourglass",
     init_val: 0,
     format: "decimal",
@@ -185,7 +185,7 @@ var config = [
   {
     id: "dockless-bike-trips-total-count",
     row_container_id: "panel-row-dockless-bike",
-    display_name: " Bicycle Trips",
+    display_name: "Bicycle Trips",
     icon: "bicycle",
     init_val: 0,
     format: "thousands",
@@ -203,7 +203,7 @@ var config = [
   {
     id: "dockless-bike-trips-total-distance",
     row_container_id: "panel-row-dockless-bike",
-    display_name: "Bicycle Distance (Miles)",
+    display_name: "Total Miles",
     icon: "tachometer",
     init_val: 0,
     format: "thousands",
@@ -221,7 +221,7 @@ var config = [
   {
     id: "dockless-bike-trips-avg-distance",
     row_container_id: "panel-row-dockless-bike",
-    display_name: "Average Bicycle Trip Distance (Miles)",
+    display_name: "Average Miles",
     icon: "tachometer",
     init_val: 0,
     format: "decimal",
@@ -239,7 +239,7 @@ var config = [
   {
     id: "dockless-bike-trips-avg-duration",
     row_container_id: "panel-row-dockless-bike",
-    display_name: "Average Bicycle Trip Duration (minutes)",
+    display_name: "Average Minutes",
     icon: "hourglass",
     init_val: 0,
     format: "decimal",
