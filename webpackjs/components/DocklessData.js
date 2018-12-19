@@ -122,24 +122,38 @@ class DocklessData extends Component {
   }
 
   getDeviceValue(mode, month, year) {
-    if (!this.state.deviceCountData) {
+    const { deviceCountData } = this.state;
+
+    // return 0 when the API hasn't responded yet but the HTML needs to render
+    if (!deviceCountData) {
       return 0;
     }
-    // TODO
-    if (!this.state.deviceCountData[mode]) {
-      if (!mode === "allModes") {
-        return "no data";
-      }
-    }
+
+    const scooterDataByMonth = deviceCountData.scooter[`${month}_${year}`];
+    const bicycleDataByMonth = deviceCountData.bicycle[`${month}_${year}`];
 
     if (mode === "allModes") {
-      // sum the modes
-      return (
-        this.state.deviceCountData.scooter[`${month}_${year}`] +
-        this.state.deviceCountData.bicycle[`${month}_${year}`]
-      );
+      // if both modes are undefined, don't try to sum them to return NaN.
+      if (
+        typeof scooterDataByMonth === "undefined" &&
+        typeof bicycleDataByMonth === "undefined"
+      ) {
+        return "no data";
+      }
+
+      // else sum the modes
+      return (scooterDataByMonth || 0) + (bicycleDataByMonth || 0);
     } else {
-      return this.state.deviceCountData[mode][`${month}_${year}`];
+      // for mode specific data cards, make sure the mode data and month data
+      // are present in state
+      if (
+        !deviceCountData[mode] ||
+        typeof deviceCountData[mode][`${month}_${year}`] === "undefined"
+      ) {
+        return "no data";
+      } else {
+        return deviceCountData[mode][`${month}_${year}`];
+      }
     }
   }
 
