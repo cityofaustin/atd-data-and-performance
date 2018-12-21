@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import DocklessData from "./components/DocklessData";
+import DocklessData from "./components/DocklessData/index";
 class App extends Component {
   render() {
     return <DocklessData />;
