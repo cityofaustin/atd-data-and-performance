@@ -33,8 +33,6 @@ class UpdateDate extends Component {
 
   componentDidMount() {
     axios.get(this.jobsUrl).then(res => {
-      console.log(res);
-
       if (res.data.length > 0) {
         const updateDateTime = new Date(res.data[0].start_date);
 
