@@ -18,7 +18,8 @@ class DocklessData extends Component {
       scooterData: null,
       bicycleData: null,
       allModesData: null,
-      deviceCountData: null
+      deviceCountData: null,
+      threeOneOneData: null
     };
 
     this.handleMonthChange = this.handleMonthChange.bind(this);
@@ -30,28 +31,34 @@ class DocklessData extends Component {
 
   componentDidMount() {
     const resourceId = `7d8e-dm7r`;
+    const resourceId311 = `5h38-fd8d`;
 
     const allModesQuery = `select avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by year, month`;
     const dataByModeQuery = `select vehicle_type, avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by vehicle_type, year, month`;
     const deviceCountQuery = `SELECT vehicle_type, device_id, date_extract_m(start_time) as month, date_extract_y(start_time) as year GROUP BY device_id, vehicle_type, month, year LIMIT 49999`;
+    const threeOneOneQuery = `SELECT count(sr_type_code) as count, date_extract_m(sr_created_date) as month, date_extract_y(sr_created_date) as year WHERE sr_type_code == "DOCKMOBI" GROUP BY year, month`;
 
     const dataByModeUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${dataByModeQuery}`;
     const allModesUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${allModesQuery}`;
     const deviceCountUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${deviceCountQuery}`;
+    const threeOneOneUrl = `https://data.austintexas.gov/resource/${resourceId311}.json?$query=${threeOneOneQuery}`;
 
     axios
       .all([
         axios.get(dataByModeUrl),
         axios.get(allModesUrl),
-        axios.get(deviceCountUrl)
+        axios.get(deviceCountUrl),
+        axios.get(threeOneOneUrl)
       ])
       .then(res => {
         console.log(allModesUrl);
         console.log(dataByModeUrl);
         console.log(deviceCountUrl);
+        console.log(threeOneOneUrl);
         const dataByModeResponse = res[0].data;
         const allDataResponse = res[1].data;
         const deviceDataResponse = res[2].data;
+        const threeOneOneResponse = res[3].data;
 
         let bicycleData = _
           .filter(dataByModeResponse, o => o.vehicle_type === "bicycle")
@@ -66,6 +73,10 @@ class DocklessData extends Component {
             return result;
           }, {});
         let allModesData = allDataResponse.reduce((result, item) => {
+          result[`${item.month}_${item.year}`] = item;
+          return result;
+        }, {});
+        let threeOneOneData = threeOneOneResponse.reduce((result, item) => {
           result[`${item.month}_${item.year}`] = item;
           return result;
         }, {});
@@ -101,24 +112,25 @@ class DocklessData extends Component {
           bicycleData,
           scooterData,
           allModesData,
-          deviceCountData
+          deviceCountData,
+          threeOneOneData
         });
       });
   }
 
-  getValue(mode, month, year, metric) {
-    const modeData = `${mode}Data`;
+  getValue(data, month, year, metric) {
+    let leData = `${data}`;
     const monthYear = `${month}_${year}`;
 
-    if (!this.state[modeData]) {
+    if (!this.state[leData]) {
       return 0;
     }
 
-    if (!this.state[modeData][monthYear]) {
+    if (!this.state[leData][monthYear]) {
       return "no data";
     }
 
-    return Number(this.state[modeData][monthYear][metric]);
+    return Number(this.state[leData][monthYear][metric]);
   }
 
   getDeviceValue(mode, month, year) {
@@ -132,7 +144,7 @@ class DocklessData extends Component {
     const scooterDataByMonth = deviceCountData.scooter[`${month}_${year}`];
     const bicycleDataByMonth = deviceCountData.bicycle[`${month}_${year}`];
 
-    if (mode === "allModes") {
+    if (mode === "all") {
       // if both modes are undefined, don't try to sum them to return NaN.
       if (
         typeof scooterDataByMonth === "undefined" &&
@@ -172,7 +184,7 @@ class DocklessData extends Component {
           <Card
             title="Total Trips"
             value={this.getValue(
-              "allModes",
+              "allModesData",
               this.state.month,
               2018,
               "total_trips"
@@ -185,7 +197,7 @@ class DocklessData extends Component {
           <Card
             title="Total Miles"
             value={this.getValue(
-              "allModes",
+              "allModesData",
               this.state.month,
               2018,
               "total_miles"
@@ -198,7 +210,7 @@ class DocklessData extends Component {
           <Card
             title="Average Miles"
             value={this.getValue(
-              "allModes",
+              "allModesData",
               this.state.month,
               2018,
               "avg_miles"
@@ -211,7 +223,7 @@ class DocklessData extends Component {
           <Card
             title="Average Minutes"
             value={this.getValue(
-              "allModes",
+              "allModesData",
               this.state.month,
               2018,
               "avg_duration_minutes"
@@ -223,10 +235,22 @@ class DocklessData extends Component {
           />
           <Card
             title="Total Devices"
-            value={this.getDeviceValue("allModes", this.state.month, 2018)}
+            value={this.getDeviceValue("all", this.state.month, 2018)}
             icon="star"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
+            numberFormat="thousands"
+          />
+          <Card
+            title="311 Service Requests"
+            value={this.getValue(
+              "threeOneOneData",
+              this.state.month,
+              2018,
+              "count"
+            )}
+            icon="phone"
+            resourceId={"5h38-fd8d"}
             numberFormat="thousands"
           />
         </CardContainer>
@@ -236,7 +260,7 @@ class DocklessData extends Component {
           <Card
             title="Scooter Trips"
             value={this.getValue(
-              "scooter",
+              "scooterData",
               this.state.month,
               2018,
               "total_trips"
@@ -249,7 +273,7 @@ class DocklessData extends Component {
           <Card
             title="Total Miles"
             value={this.getValue(
-              "scooter",
+              "scooterData",
               this.state.month,
               2018,
               "total_miles"
@@ -262,7 +286,7 @@ class DocklessData extends Component {
           <Card
             title="Average Miles"
             value={this.getValue(
-              "scooter",
+              "scooterData",
               this.state.month,
               2018,
               "avg_miles"
@@ -275,7 +299,7 @@ class DocklessData extends Component {
           <Card
             title="Average Minutes"
             value={this.getValue(
-              "scooter",
+              "scooterData",
               this.state.month,
               2018,
               "avg_duration_minutes"
@@ -300,7 +324,7 @@ class DocklessData extends Component {
           <Card
             title="Bicycle Trips"
             value={this.getValue(
-              "bicycle",
+              "bicycleData",
               this.state.month,
               2018,
               "total_trips"
@@ -313,7 +337,7 @@ class DocklessData extends Component {
           <Card
             title="Total Miles"
             value={this.getValue(
-              "bicycle",
+              "bicycleData",
               this.state.month,
               2018,
               "total_miles"
@@ -326,7 +350,7 @@ class DocklessData extends Component {
           <Card
             title="Average Miles"
             value={this.getValue(
-              "bicycle",
+              "bicycleData",
               this.state.month,
               2018,
               "avg_miles"
@@ -339,7 +363,7 @@ class DocklessData extends Component {
           <Card
             title="Average Minutes"
             value={this.getValue(
-              "bicycle",
+              "bicycleData",
               this.state.month,
               2018,
               "avg_duration_minutes"
