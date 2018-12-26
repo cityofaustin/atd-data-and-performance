@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import _ from "lodash";
 
-import MonthSelect from "./DocklessData/MonthSelect";
-import PanelRowTitle from "./DocklessData/PanelRowTitle";
-import CardContainer from "./DocklessData/CardContainer";
-import Card from "./DocklessData/Card";
-import Description from "./DocklessData/Description";
+import MonthSelect from "./MonthSelect";
+import PanelRowTitle from "./PanelRowTitle";
+import CardContainer from "./CardContainer";
+import Card from "./Card";
+import Description from "./Description";
 
 class DocklessData extends Component {
   constructor(props) {
