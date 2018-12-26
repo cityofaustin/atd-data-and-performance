@@ -172,9 +172,7 @@ class DocklessData extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <h2> Dockless Mobility Summary Counts </h2>
-        <Description />
-
+        <h2>Dockless Mobility Overview</h2>
         <MonthSelect
           month={this.state.month}
           onChangeMonth={this.handleMonthChange}
@@ -382,6 +380,8 @@ class DocklessData extends Component {
             numberFormat="thousands"
           />
         </CardContainer>
+        <h3 className="mt-3">About</h3>
+        <Description />
       </div>
     );
   }
