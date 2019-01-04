@@ -25,7 +25,8 @@ class DocklessData extends Component {
       bicycleData: null,
       allModesData: null,
       deviceCountData: null,
-      threeOneOneData: null
+      threeOneOneData: null,
+      dataIsLoaded: false
     };
 
     this.handleMonthChange = this.handleMonthChange.bind(this);
@@ -124,7 +125,8 @@ class DocklessData extends Component {
           scooterData,
           allModesData,
           deviceCountData,
-          threeOneOneData
+          threeOneOneData,
+          dataIsLoaded: true
         });
       });
   }
@@ -188,6 +190,14 @@ class DocklessData extends Component {
           monthYear={this.state.monthYear}
           onChangeMonth={this.handleMonthChange}
         />
+        {this.state.dataIsLoaded ? (
+          ""
+        ) : (
+          <div>
+            <i class="fa fa-spinner fa-pulse fa-3x fa-fw mt-2 mb-4" />
+            <span class="sr-only">Loading...</span>
+          </div>
+        )}
         <PanelRowTitle title="All Modes" />
         <CardContainer>
           <Card
