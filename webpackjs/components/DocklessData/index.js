@@ -12,9 +12,15 @@ class DocklessData extends Component {
   constructor(props) {
     super(props);
     const date = new Date();
+    const lastMonth = date.getMonth() === 0 ? 12 : date.getMonth(); // default to last month
+    const defaultYear =
+      date.getMonth() === 0 ? date.getFullYear() - 1 : date.getFullYear(); // default to this year, unless its January
+    const monthYear = `${lastMonth}_${defaultYear}`;
 
     this.state = {
-      month: date.getMonth(), // default to last month
+      month: lastMonth,
+      year: defaultYear,
+      monthYear: monthYear,
       scooterData: null,
       bicycleData: null,
       allModesData: null,
@@ -27,7 +33,12 @@ class DocklessData extends Component {
   }
 
   handleMonthChange(e) {
-    this.setState({ month: e.target.value });
+    const monthYearSplit = e.target.value.split("_");
+    this.setState({
+      monthYear: e.target.value,
+      month: monthYearSplit[0],
+      year: monthYearSplit[1]
+    });
   }
 
   componentDidMount() {
@@ -176,7 +187,7 @@ class DocklessData extends Component {
       <div className="container-fluid">
         <h2>Dockless Mobility Overview</h2>
         <MonthSelect
-          month={this.state.month}
+          monthYear={this.state.monthYear}
           onChangeMonth={this.handleMonthChange}
         />
         {this.state.dataIsLoaded ? (
@@ -194,7 +205,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "allModesData",
               this.state.month,
-              2018,
+              this.state.year,
               "total_trips"
             )}
             icon="mobile"
@@ -207,7 +218,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "allModesData",
               this.state.month,
-              2018,
+              this.state.year,
               "total_miles"
             )}
             icon="tachometer"
@@ -220,7 +231,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "allModesData",
               this.state.month,
-              2018,
+              this.state.year,
               "avg_miles"
             )}
             icon="tachometer"
@@ -233,7 +244,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "allModesData",
               this.state.month,
-              2018,
+              this.state.year,
               "avg_duration_minutes"
             )}
             icon="hourglass"
@@ -243,7 +254,11 @@ class DocklessData extends Component {
           />
           <Card
             title="Total Devices"
-            value={this.getDeviceValue("all", this.state.month, 2018)}
+            value={this.getDeviceValue(
+              "all",
+              this.state.month,
+              this.state.year
+            )}
             icon="star"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
@@ -254,7 +269,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "threeOneOneData",
               this.state.month,
-              2018,
+              this.state.year,
               "count"
             )}
             icon="phone"
@@ -270,7 +285,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "scooterData",
               this.state.month,
-              2018,
+              this.state.year,
               "total_trips"
             )}
             icon="bolt"
@@ -283,7 +298,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "scooterData",
               this.state.month,
-              2018,
+              this.state.year,
               "total_miles"
             )}
             icon="tachometer"
@@ -296,7 +311,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "scooterData",
               this.state.month,
-              2018,
+              this.state.year,
               "avg_miles"
             )}
             icon="tachometer"
@@ -309,7 +324,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "scooterData",
               this.state.month,
-              2018,
+              this.state.year,
               "avg_duration_minutes"
             )}
             icon="hourglass"
@@ -319,7 +334,11 @@ class DocklessData extends Component {
           />
           <Card
             title="Total Devices"
-            value={this.getDeviceValue("scooter", this.state.month, 2018)}
+            value={this.getDeviceValue(
+              "scooter",
+              this.state.month,
+              this.state.year
+            )}
             icon="star"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"
@@ -334,7 +353,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "bicycleData",
               this.state.month,
-              2018,
+              this.state.year,
               "total_trips"
             )}
             icon="bicycle"
@@ -347,7 +366,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "bicycleData",
               this.state.month,
-              2018,
+              this.state.year,
               "total_miles"
             )}
             icon="tachometer"
@@ -360,7 +379,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "bicycleData",
               this.state.month,
-              2018,
+              this.state.year,
               "avg_miles"
             )}
             icon="tachometer"
@@ -373,7 +392,7 @@ class DocklessData extends Component {
             value={this.getValue(
               "bicycleData",
               this.state.month,
-              2018,
+              this.state.year,
               "avg_duration_minutes"
             )}
             icon="hourglass"
@@ -383,7 +402,11 @@ class DocklessData extends Component {
           />
           <Card
             title="Total Devices"
-            value={this.getDeviceValue("bicycle", this.state.month, 2018)}
+            value={this.getDeviceValue(
+              "bicycle",
+              this.state.month,
+              this.state.year
+            )}
             icon="star"
             resourceId={"7d8e-dm7r"}
             updateEvent="dockless_trips"

@@ -1,26 +1,58 @@
 import React from "react";
 
-const MonthSelect = ({ month, onChangeMonth }) => (
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
+// Get the range of months starting when we first have today to this current
+// month as an array of objects. Ex: [{1_2019: 'January 2019'}, ...]
+const getMonthOptions = () => {
+  let monthsArray = [];
+  const startMonthIndex = 3; // The first month we have data is from April 2018
+  const startYear = 2018;
+  const today = new Date();
+  const endMonthIndex = today.getMonth();
+  const endYear = today.getFullYear();
+
+  for (var year = startYear; year <= endYear; year++) {
+    months.map((month, index) => {
+      let isBeforeStartMonth = startMonthIndex > index && startYear === year;
+      let isAfterCurrentMonth = index > endMonthIndex && endYear == year;
+      if (isBeforeStartMonth || isAfterCurrentMonth) {
+        return false;
+      }
+      monthsArray.push({ [`${index + 1}_${year}`]: `${month} ${year}` });
+    });
+  }
+
+  return monthsArray;
+};
+
+const MonthSelect = ({ monthYear, onChangeMonth }) => (
   <div className="form-group">
     <label htmlFor="js-month-select">Month</label>
     <select
       className="form-control"
       id="js-month-select"
-      value={month}
+      value={monthYear}
       onChange={onChangeMonth}
     >
-      <option value="1">January 2018</option>
-      <option value="2">February 2018</option>
-      <option value="3">March 2018</option>
-      <option value="4">April 2018</option>
-      <option value="5">May 2018</option>
-      <option value="6">June 2018</option>
-      <option value="7">July 2018</option>
-      <option value="8">August 2018</option>
-      <option value="9">September 2018</option>
-      <option value="10">October 2018</option>
-      <option value="11">November 2018</option>
-      <option value="12">December 2018</option>
+      {getMonthOptions().map(month => (
+        <option key={Object.keys(month)[0]} value={Object.keys(month)[0]}>
+          {Object.values(month)[0]}
+        </option>
+      ))}
     </select>
   </div>
 );
