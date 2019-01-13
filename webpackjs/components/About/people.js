@@ -4,6 +4,10 @@ export const people = [
     title: "IT Supervisor Sr"
   },
   {
+    name: "Scott Reedy",
+    title: "IT Business System Analyst Sr"
+  },
+  {
     name: "Diana Martin",
     title: "IT Business System Analyst Sr"
   },
