@@ -26,6 +26,13 @@ If you will be working on any data dashboards that utilize Javascript ES6+ and/o
 
 3.  (optional) Inspect webpack.config.js and create a new entry to start a new bundle.
 
+#### TL;DR
+
+1. run `jekyll serve --watch` in one Terminal 
+2. run `webpack --watch` in a separate Terminal
+
+Webpack will watch for changes to your source javascript/react files and output a new bundle. Jekyll will watch for new bundles and regenerate all the static assets.
+
 ## Environments
 
 ### Production
