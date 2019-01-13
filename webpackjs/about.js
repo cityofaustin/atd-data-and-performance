@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import axios from "axios";
 import { people } from "./components/About/people";
+import Profile from "./components/About/Profile";
 
 class About extends Component {
   componentDidMount() {
@@ -17,10 +18,7 @@ class About extends Component {
         <div>
           <h1>People</h1>
           {people.map(person => (
-            <div>
-              <h4>{person.name}</h4>
-              <h5>{person.title}</h5>
-            </div>
+            <Profile name={person.name} title={person.title} />
           ))}
         </div>
       </div>
