@@ -4,6 +4,7 @@ import axios from "axios";
 import { people } from "./components/About/people";
 import Profile from "./components/About/Profile";
 import Body from "./components/About/Body";
+import BannerImage from "./components/About/BannerImage";
 
 class About extends Component {
   componentDidMount() {
@@ -17,6 +18,10 @@ class About extends Component {
     return (
       <div>
         <div>
+          <BannerImage
+            photo={`/components/images/keyboard.jpg`}
+            alt="white keyboard"
+          />
           <div className="container">
             <div className="row">
               <Body />

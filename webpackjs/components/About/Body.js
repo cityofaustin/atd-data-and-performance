@@ -9,8 +9,9 @@ const Body = ({}) => (
     </h2>
     <p>
       We lauched the Data & Tech Services Team in July 2018 to establish
-      department wide best practices for geospatial, application support,
-      infrastructure & software engineering, and professional IT consulting IT.
+      department-wide best practices for geospatial data management, application
+      support, software engineering & IT infrastructure, and professional IT
+      solutions consulting.
     </p>
     <p>
       <ul>

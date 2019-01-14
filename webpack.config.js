@@ -14,7 +14,7 @@ module.exports = {
     // path: "./components/js/",
     // filename: "bundle.js"
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "components/js")
+    path: path.resolve(__dirname, "webpackjs/output")
   },
   mode: "development",
   devtool: "inline-source-map",
@@ -25,8 +25,37 @@ module.exports = {
         use: ["style-loader", "css-loader"]
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: ["file-loader"]
+        test: /.*\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          "file-loader",
+          {
+            loader: "image-webpack-loader",
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+              outputPath: "images",
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false
+              },
+              pngquant: {
+                quality: "65-90",
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false
+              },
+              // the webp option will enable WEBP
+              webp: {
+                quality: 75
+              }
+            }
+          }
+        ]
       },
       {
         test: /\.jsx?$/,
