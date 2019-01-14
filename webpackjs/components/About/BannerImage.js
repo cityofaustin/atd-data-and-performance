@@ -6,7 +6,11 @@ const StyledBannerImage = styled.div`
   margin-bottom: 2rem;
   height: 200px;
   background-image: url(${props => props.photo});
-  background-size: "cover";
+  background-size: cover;
+  background-position: center;
+  @media (min-width: 1000px) {
+    height: 300px;
+  }
 `;
 
 const BannerImage = ({ photo, alt }) => (
