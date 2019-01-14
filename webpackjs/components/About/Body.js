@@ -1,7 +1,7 @@
 import React from "react";
 
 const Body = ({}) => (
-  <div>
+  <div className="row">
     <h1>Data & Technology Services</h1>
     <h2>
       We use technology to solve real problems for real people related to
@@ -13,18 +13,16 @@ const Body = ({}) => (
       support, software engineering & IT infrastructure, and professional IT
       solutions consulting.
     </p>
-    <p>
-      <ul>
-        <li>We publish reliable and authoritative data and information.</li>
-        <li>We support real-time performance measurement</li>
-        <li>We empower staff and residents to find information easily</li>
-        <li>We are positioned to adopt new technology quickly</li>
-      </ul>
-    </p>
+    <ul>
+      <li>We publish reliable and authoritative data and information.</li>
+      <li>We support real-time performance measurement</li>
+      <li>We empower staff and residents to find information easily</li>
+      <li>We are positioned to adopt new technology quickly</li>
+    </ul>
     <p>
       Our goals are to destroy all paper & spreadsheets, make IT systems talk to
-      each other, be very open, and build the best IT Team in the City of
-      Austin.
+      each other, be very open, and build the best digital services team in the
+      City of Austin.
     </p>
   </div>
 );
