@@ -24,6 +24,12 @@ class About extends Component {
           />
           <div className="container">
             <Body />
+          </div>
+          <BannerImage
+            photo={`/components/images/hero_tmc.jpg`}
+            alt="Austin Transportation Traffic Management Center (TMC)"
+          />
+          <div className="container">
             <Team />
           </div>
         </div>
