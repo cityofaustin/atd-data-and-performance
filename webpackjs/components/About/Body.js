@@ -1,7 +1,7 @@
 import React from "react";
 
 const Body = ({}) => (
-  <div className="row">
+  <div className="row px-3 px-sm-0">
     <h1>Data & Technology Services</h1>
     <h2>
       We use technology to solve real problems for real people related to

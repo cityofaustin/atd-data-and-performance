@@ -5,6 +5,7 @@ import axios from "axios";
 import BannerImage from "./components/About/BannerImage";
 import Body from "./components/About/Body";
 import Team from "./components/About/Team";
+import Nav from "./components/Shared/Nav";
 
 class About extends Component {
   componentDidMount() {
@@ -17,21 +18,23 @@ class About extends Component {
   render() {
     return (
       <div>
+        <Nav />
         <div>
           <BannerImage
-            photo={`/components/images/keyboard.jpg`}
-            alt="white keyboard"
+            photo={`/components/images/hero_tmc.jpg`}
+            alt="Austin Transportation Traffic Management Center (TMC)"
+            height="350"
           />
           <div className="container">
             <Body />
           </div>
-          <BannerImage
-            photo={`/components/images/hero_tmc.jpg`}
-            alt="Austin Transportation Traffic Management Center (TMC)"
-          />
-          <div className="container">
+          <div className="container mb-5">
             <Team />
           </div>
+          <BannerImage
+            photo={`/components/images/keyboard.jpg`}
+            alt="white keyboard"
+          />
         </div>
       </div>
     );
