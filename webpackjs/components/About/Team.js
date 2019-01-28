@@ -4,8 +4,8 @@ import Profile from "./Profile";
 import { people } from "./people";
 
 const Team = ({}) => (
-  <div>
-    <div className="row">
+  <div className="mb-5">
+    <div className="row px-3 px-sm-0">
       <h1>Our Team</h1>
     </div>
     <div className="row">

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Body = ({}) => (
-  <div className="row">
+  <div className="row px-3 px-sm-0">
     <h1>Data & Technology Services</h1>
     <h2>
       We use technology to solve real problems for real people related to
@@ -10,7 +10,7 @@ const Body = ({}) => (
     <p>
       We lauched the Data & Tech Services Team in July 2018 to establish
       department-wide best practices for geospatial data management, application
-      support, software engineering & IT infrastructure, and professional IT
+      support, software engineering, IT infrastructure, and professional IT
       solutions consulting.
     </p>
     <ul>
