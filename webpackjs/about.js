@@ -5,6 +5,7 @@ import axios from "axios";
 import BannerImage from "./components/About/BannerImage";
 import Body from "./components/About/Body";
 import Team from "./components/About/Team";
+import Articles from "./components/About/Articles";
 import Nav from "./components/Shared/Nav";
 
 class About extends Component {
@@ -28,13 +29,16 @@ class About extends Component {
           <div className="container">
             <Body />
           </div>
-          <div className="container mb-5">
+          <div className="container">
             <Team />
           </div>
           <BannerImage
             photo={`/components/images/keyboard.jpg`}
             alt="white keyboard"
           />
+          <div className="container">
+            <Articles />
+          </div>
         </div>
       </div>
     );
