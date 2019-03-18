@@ -12,13 +12,12 @@ class DocklessData extends Component {
   constructor(props) {
     super(props);
     const date = new Date();
-    const lastMonth = date.getMonth() === 0 ? 12 : date.getMonth(); // default to last month
-    const defaultYear =
-      date.getMonth() === 0 ? date.getFullYear() - 1 : date.getFullYear(); // default to this year, unless its January
-    const monthYear = `${lastMonth}_${defaultYear}`;
+    const thisMonth = date.getMonth() + 1;
+    const defaultYear = date.getFullYear();
+    const monthYear = `${thisMonth}_${defaultYear}`;
 
     this.state = {
-      month: lastMonth,
+      month: thisMonth,
       year: defaultYear,
       monthYear: monthYear,
       scooterData: null,
