@@ -1,0 +1,13 @@
+# Labels: define labels for Issues and Pull Requests
+labels:
+  - name: "Impact: None"
+    color: FFE2DF
+  - name: "Impact: Minor"
+    color: FFC3BB
+  - name: "Impact: Major"
+    color: FF9A8E
+  - name: "Impact: Severe"
+    color: FF7261
+    
+    # include the old name to rename and existing label
+    # oldname: Help Wanted
