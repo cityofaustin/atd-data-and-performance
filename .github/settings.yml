@@ -1,67 +1,176 @@
-# Labels: define labels for Issues and Pull Requests
 labels:
-  - name: "Impact: None"
-    color: FFE2DF
-  - name: "Impact: Minor"
-    color: FFC3BB
-  - name: "Impact: Major"
-    color: FF9A8E
-  - name: "Impact: Severe"
+  - name: Duplicate
+    color: 5F7D8C
+    description: ""
+    oldname: Duplicate
+  - name: Epic
+    color: 3E4B9E
+    description: ""
+    oldname: Epic
+  - name: "Impact: 1-Severe"
     color: FF7261
+    description: Severely impacts ATD service delivery
+    oldname: "Impact: Severe"
+  - name: "Impact: 2-Major"
+    color: FF9A8E
+    description: Causes a major interruption of ATD service delivery
+    oldname: "Impact: Major"
+  - name: "Impact: 3-Minor"
+    color: FFCDCA
+    description: Deteriorates ATD service delivery
+    oldname: "Impact: Minor"
+  - name: "Impact: 4-None"
+    color: FFEEED
+    description: Does not affect ATD service delivery
+    oldname: "Impact: None"
+  - name: "Need: 1-Must Have"
+    color: FF7261
+    description: No point in delivering a solution without this
+    oldname: "Need: 1-Must Have"
+  - name: "Need: 2-Should Have"
+    color: FF9A8E
+    description: May be painful to leave out, but the solution is still viable
+    oldname: "Need: 2-Should Have"
+  - name: "Need: 3-Could Have"
+    color: FFCDCA
+    description: Wanted, but affects fewer users or has less impact on business than other features
+    oldname: "Need: 3-Could Have"
+  - name: "Need: 4-Won't Have"
+    color: FFE9E9
+    description: Will not be delivered at this time
+    oldname: "Need: 4-Won't Have"
   - name: "Team: Apps"
     color: F2FC6D
+    description: Application support
+    oldname: "Team: Apps"
   - name: "Team: Dev"
     color: F2FC6D
+    description: Infrastructure and engineering
+    oldname: "Team: Dev"
   - name: "Team: Geo"
     color: F2FC6D
-  - name: "Team: Pro"
+    description: Geospatial services
+    oldname: "Team: Geo"
+  - name: "Team: PM"
     color: F2FC6D
+    description: Product and project management
+    oldname: "Team: Pro"
   - name: "Type: Bug Report"
     color: 0B3E79
-  - name: "Type: Data & Reports"
+    description: Something is not right
+    oldname: "Type: Bug Report"
+  - name: "Type: Communication"
     color: 0B3E79
+    description: Presentations, blog posts, etc.
+    oldname: "Type: Communication"
+  - name: "Type: Data"
+    color: 0B3E79
+    description: Generating and delivering datasets and reports
+    oldname: "Type: Data & Reports"
+  - name: "Type: Documentation"
+    color: 0B3E79
+    description: User guides, developer documentation, planning documents, etc.
+    oldname: "Type: Documentation"
   - name: "Type: Enhancement"
     color: 0B3E79
+    description: Request for an improvement to existing functionality in an application
+    oldname: "Type: Enhancement"
   - name: "Type: Feature"
     color: 0B3E79
+    description: Request for new functionality in an existing application
+    oldname: "Type: Feature"
   - name: "Type: IT Support"
     color: 0B3E79
+    description: Software licenses, user accounts and logins, hardware set up, etc.
+    oldname: "Type: IT Support"
   - name: "Type: Map Request"
     color: 0B3E79
+    description: Request for a map
+    oldname: "Type: Map Request"
   - name: "Type: Meeting"
     color: 0B3E79
+    description: Scheduled discussion, work session, etc.
+    oldname: "Type: Meeting"
   - name: "Type: New Application"
     color: 0B3E79
+    description: Request for a new application; user needs cannot be met by an existing application
+    oldname: "Type: New Application"
   - name: "Type: Other"
     color: 0B3E79
+    description: Not covered by other issue types
+    oldname: "Type: Other"
+  - name: "Type: Reports"
+    color: 0B3E79
+    description: Request for reporting
+    oldname: "Type: Reports"
+  - name: "Type: Research"
+    color: 0B3E79
+    description: Research or discovery work
+    oldname: "Type: Research"
   - name: "Type: Training"
     color: 0B3E79
+    description: Request for training
+    oldname: "Type: Training"
   - name: "Workgroup: AMD"
     color: 00BFA5
+    description: Arterial Management Division
+    oldname: "Workgroup: AMD"
   - name: "Workgroup: ATSD"
+    oldname: "Workgroup: ATSD"
     color: 00BFA5
+    description: Active Transportation and Street Design
+  - name: "Workgroup: CTM"
+    oldname: "Workgroup: CTM"
+    color: 00BFA5
+    description: Communications & Technology Management
   - name: "Workgroup: DTS"
+    oldname: "Workgroup: DTS"
     color: 00BFA5
+    description: Data and Technology Services
   - name: "Workgroup: Finance"
+    oldname: "Workgroup: Finance"
     color: 00BFA5
+    description: Finance and Administration
   - name: "Workgroup: HR"
+    oldname: "Workgroup: HR"
     color: 00BFA5
+    description: Human Resources
   - name: "Workgroup: OOD"
+    oldname: "Workgroup: OOD"
     color: 00BFA5
+    description: Office of the Director
   - name: "Workgroup: OSE"
+    oldname: "Workgroup: OSE"
     color: 00BFA5
+    description: Office of Special Events
+  - name: "Workgroup: Other"
+    oldname: "Workgroup: Other"
+    color: 00BFA5
+    description: ""
   - name: "Workgroup: PE"
     color: 00BFA5
+    description: Parking Enterprise
   - name: "Workgroup: PIO"
+    oldname: "Workgroup: PIO"
     color: 00BFA5
+    description: Public Information Officers
+  - name: "Workgroup: PWD"
+    oldname: "Workgroup: PWD"
+    color: 00BFA5
+    description: Public Works Department
   - name: "Workgroup: ROW"
     color: 00BFA5
+    description: Right of Way Management
+    oldname: "Workgroup: ROW"
   - name: "Workgroup: SDD"
     color: 00BFA5
+    description: Systems Development Division
+    oldname: "Workgroup: SDD"
   - name: "Workgroup: SMB"
     color: 00BFA5
+    description: Signs and Markings (and Banners)
+    oldname: "Workgroup: SMB"
   - name: "Workgroup: TE"
     color: 00BFA5
-
-    # include the old name to rename and existing label
-    # oldname: Help Wanted
+    description: Transportation Engineering
+    oldname: "Workgroup: TE"
