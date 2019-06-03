@@ -10,6 +10,8 @@ Much of the content on the site is generated in-browser using [D3js](http://d3js
 
 1.  Install [Git](https://git-scm.com/) and [Jekyll](https://jekyllrb.com/).
 
+    - You may need to install Bundler v2. Do that with the command `gem install bundler` then `bundle install` to update your gems. Go [here](https://bundler.io/v2.0/guides/bundler_2_upgrade.html#what-happens-if-my-application-needs-bundler-2-but-i-only-have-bundler-1-installed) for more info.
+
 2.  `cd` to the directory where you want to check-out the site, and clone it (`git clone https://github.com/cityofaustin/transportation`)
 
 3.  `cd` to the directory that contains the cloned repository, and run `jekyll serve` to start the webserver
