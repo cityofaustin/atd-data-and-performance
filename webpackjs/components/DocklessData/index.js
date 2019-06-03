@@ -81,18 +81,21 @@ class DocklessData extends Component {
         console.log(threeOneOneResponse);
         console.log(allTimeDeviceCountResponse);
 
-        let bicycleData = _
-          .filter(dataByModeResponse, o => o.vehicle_type === "bicycle")
-          .reduce(function(result, item) {
-            result[`${item.month}_${item.year}`] = item;
-            return result;
-          }, {});
-        let scooterData = _
-          .filter(dataByModeResponse, o => o.vehicle_type === "scooter")
-          .reduce(function(result, item) {
-            result[`${item.month}_${item.year}`] = item;
-            return result;
-          }, {});
+
+        let bicycleData = _.filter(
+          dataByModeResponse,
+          o => o.vehicle_type === "bicycle"
+        ).reduce(function(result, item) {
+          result[`${item.month}_${item.year}`] = item;
+          return result;
+        }, {});
+        let scooterData = _.filter(
+          dataByModeResponse,
+          o => o.vehicle_type === "scooter"
+        ).reduce(function(result, item) {
+          result[`${item.month}_${item.year}`] = item;
+          return result;
+        }, {});
         let allModesData = allDataResponse.reduce((result, item) => {
           result[`${item.month}_${item.year}`] = item;
           return result;
@@ -163,7 +166,7 @@ class DocklessData extends Component {
 
     if (monthYear === "ALL_TIME") {
       const allTimeDataObj = this.state[leData];
-      const allTimeDataArray = Object.values(allTimeDataObj)
+      const allTimeDataArray = Object.values(allTimeDataObj);
       let sum = 0;
       allTimeDataArray.forEach(item => {
         let itemData = parseFloat(item[metric]);
@@ -171,7 +174,7 @@ class DocklessData extends Component {
       });
       if (metric.startsWith("avg_")) {
         let avg = sum / allTimeDataArray.length;
-        return avg
+        return avg;
       } else {
         return sum;
       }
@@ -182,13 +185,11 @@ class DocklessData extends Component {
     }
 
     return Number(this.state[leData][monthYear][metric]);
-
   }
 
   getDeviceValue(mode, month, year) {
     const { deviceCountData } = this.state;
     const monthYear = `${month}_${year}`;
-    console.log(monthYear);
 
     // return 0 when the API hasn't responded yet but the HTML needs to render
     if (!deviceCountData) {
