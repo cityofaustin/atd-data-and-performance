@@ -24,6 +24,7 @@ class DocklessData extends Component {
       bicycleData: null,
       allModesData: null,
       deviceCountData: null,
+      allTimeDeviceCountData: null,
       threeOneOneData: null,
       dataIsLoaded: false
     };
@@ -47,11 +48,13 @@ class DocklessData extends Component {
     const dataByModeQuery = `select vehicle_type, avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by vehicle_type, year, month`;
     const allModesQuery = `select avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by year, month`;
     const deviceCountQuery = `SELECT vehicle_type, device_id, date_extract_m(start_time) as month, date_extract_y(start_time) as year GROUP BY device_id, vehicle_type, month, year LIMIT 1000000000`;
+    const allTimeDeviceCountQuery = `SELECT distinct device_id, vehicle_type LIMIT 1000000000`;
     const threeOneOneQuery = `SELECT count(sr_type_code) as count, date_extract_m(sr_created_date) as month, date_extract_y(sr_created_date) as year WHERE sr_type_code == "DOCKMOBI" GROUP BY year, month`;
 
     const dataByModeUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${dataByModeQuery}`;
     const allModesUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${allModesQuery}`;
     const deviceCountUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${deviceCountQuery}`;
+    const allTimeDeviceCountUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${allTimeDeviceCountQuery}`;
     const threeOneOneUrl = `https://data.austintexas.gov/resource/${resourceId311}.json?$query=${threeOneOneQuery}`;
 
     axios
@@ -59,6 +62,7 @@ class DocklessData extends Component {
         axios.get(dataByModeUrl),
         axios.get(allModesUrl),
         axios.get(deviceCountUrl),
+        axios.get(allTimeDeviceCountUrl),
         axios.get(threeOneOneUrl)
       ])
       .then(res => {
@@ -69,11 +73,13 @@ class DocklessData extends Component {
         const dataByModeResponse = res[0].data;
         const allDataResponse = res[1].data;
         const deviceDataResponse = res[2].data;
-        const threeOneOneResponse = res[3].data;
-        // console.log(dataByModeResponse);
-        // console.log(allDataResponse);
-        // console.log(deviceDataResponse);
-        // console.log(threeOneOneResponse);
+        const allTimeDeviceCountResponse = res[3].data;
+        const threeOneOneResponse = res[4].data;
+        console.log(dataByModeResponse);
+        console.log(allDataResponse);
+        console.log(deviceDataResponse);
+        console.log(threeOneOneResponse);
+        console.log(allTimeDeviceCountResponse);
 
         let bicycleData = _
           .filter(dataByModeResponse, o => o.vehicle_type === "bicycle")
@@ -123,11 +129,24 @@ class DocklessData extends Component {
         });
         // console.log(deviceCountData);
 
+        let allTimeDeviceCountData = {
+          all: allTimeDeviceCountResponse.length,
+          bicycle: _.filter(
+            allTimeDeviceCountResponse,
+            o => o.vehicle_type === "bicycle"
+          ).length,
+          scooter: _.filter(
+            allTimeDeviceCountResponse,
+            o => o.vehicle_type === "scooter"
+          ).length
+        };
+
         this.setState({
           bicycleData,
           scooterData,
           allModesData,
           deviceCountData,
+          allTimeDeviceCountData,
           threeOneOneData,
           dataIsLoaded: true
         });
