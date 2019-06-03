@@ -44,8 +44,8 @@ class DocklessData extends Component {
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
 
-    const allModesQuery = `select avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by year, month`;
     const dataByModeQuery = `select vehicle_type, avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by vehicle_type, year, month`;
+    const allModesQuery = `select avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by year, month`;
     const deviceCountQuery = `SELECT vehicle_type, device_id, date_extract_m(start_time) as month, date_extract_y(start_time) as year GROUP BY device_id, vehicle_type, month, year LIMIT 1000000000`;
     const threeOneOneQuery = `SELECT count(sr_type_code) as count, date_extract_m(sr_created_date) as month, date_extract_y(sr_created_date) as year WHERE sr_type_code == "DOCKMOBI" GROUP BY year, month`;
 
@@ -70,6 +70,10 @@ class DocklessData extends Component {
         const allDataResponse = res[1].data;
         const deviceDataResponse = res[2].data;
         const threeOneOneResponse = res[3].data;
+        console.log(dataByModeResponse);
+        console.log(allDataResponse);
+        console.log(deviceDataResponse);
+        console.log(threeOneOneResponse);
 
         let bicycleData = _
           .filter(dataByModeResponse, o => o.vehicle_type === "bicycle")
@@ -138,11 +142,17 @@ class DocklessData extends Component {
       return 0;
     }
 
+    if (monthYear === "ALL_TIME") {
+      console.log(this.state[leData]);
+      return "All time";
+    }
+
     if (!this.state[leData][monthYear]) {
       return "no data";
     }
 
     return Number(this.state[leData][monthYear][metric]);
+
   }
 
   getDeviceValue(mode, month, year) {
@@ -193,8 +203,8 @@ class DocklessData extends Component {
           ""
         ) : (
           <div>
-            <i class="fa fa-spinner fa-pulse fa-3x fa-fw mt-2 mb-4" />
-            <span class="sr-only">Loading...</span>
+            <i className="fa fa-spinner fa-pulse fa-3x fa-fw mt-2 mb-4" />
+            <span className="sr-only">Loading...</span>
           </div>
         )}
         <PanelRowTitle title="All Modes" />

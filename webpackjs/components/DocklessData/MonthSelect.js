@@ -12,7 +12,7 @@ const months = [
   "September",
   "October",
   "November",
-  "December"
+  "December",
 ];
 
 // Get the range of months starting when we first have today to this current
@@ -35,7 +35,8 @@ const getMonthOptions = () => {
       monthsArray.push({ [`${index + 1}_${year}`]: `${month} ${year}` });
     });
   }
-
+  monthsArray.push({ "0_0000" : "All time" });
+  console.log(monthsArray);
   return monthsArray;
 };
 
