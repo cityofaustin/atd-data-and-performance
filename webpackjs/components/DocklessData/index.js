@@ -62,18 +62,18 @@ class DocklessData extends Component {
         axios.get(threeOneOneUrl)
       ])
       .then(res => {
-        console.log(allModesUrl);
-        console.log(dataByModeUrl);
-        console.log(deviceCountUrl);
-        console.log(threeOneOneUrl);
+        // console.log(allModesUrl);
+        // console.log(dataByModeUrl);
+        // console.log(deviceCountUrl);
+        // console.log(threeOneOneUrl);
         const dataByModeResponse = res[0].data;
         const allDataResponse = res[1].data;
         const deviceDataResponse = res[2].data;
         const threeOneOneResponse = res[3].data;
-        console.log(dataByModeResponse);
-        console.log(allDataResponse);
-        console.log(deviceDataResponse);
-        console.log(threeOneOneResponse);
+        // console.log(dataByModeResponse);
+        // console.log(allDataResponse);
+        // console.log(deviceDataResponse);
+        // console.log(threeOneOneResponse);
 
         let bicycleData = _
           .filter(dataByModeResponse, o => o.vehicle_type === "bicycle")
@@ -121,7 +121,7 @@ class DocklessData extends Component {
               1;
           }
         });
-        console.log(deviceCountData);
+        // console.log(deviceCountData);
 
         this.setState({
           bicycleData,
@@ -143,8 +143,19 @@ class DocklessData extends Component {
     }
 
     if (monthYear === "ALL_TIME") {
-      console.log(this.state[leData]);
-      return "All time";
+      const allTimeDataObj = this.state[leData];
+      const allTimeDataArray = Object.values(allTimeDataObj)
+      let sum = 0;
+      allTimeDataArray.forEach(item => {
+        let itemData = parseFloat(item[metric]);
+        sum += itemData;
+      });
+      if (metric.startsWith("avg_")) {
+        let avg = sum / allTimeDataArray.length;
+        return avg
+      } else {
+        return sum;
+      }
     }
 
     if (!this.state[leData][monthYear]) {
@@ -157,6 +168,8 @@ class DocklessData extends Component {
 
   getDeviceValue(mode, month, year) {
     const { deviceCountData } = this.state;
+    const monthYear = `${month}_${year}`;
+    console.log(monthYear);
 
     // return 0 when the API hasn't responded yet but the HTML needs to render
     if (!deviceCountData) {

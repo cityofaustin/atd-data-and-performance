@@ -35,8 +35,8 @@ const getMonthOptions = () => {
       monthsArray.push({ [`${index + 1}_${year}`]: `${month} ${year}` });
     });
   }
-  monthsArray.push({ "0_0000" : "All time" });
-  console.log(monthsArray);
+  monthsArray.push({ "ALL_TIME" : "All time" });
+  // console.log(monthsArray);
   return monthsArray;
 };
 
