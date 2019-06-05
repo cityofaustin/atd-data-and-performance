@@ -7,6 +7,7 @@ import PanelRowTitle from "./PanelRowTitle";
 import CardContainer from "./CardContainer";
 import Card from "./Card";
 import Description from "./Description";
+import { type } from "os";
 
 class DocklessData extends Component {
   constructor(props) {
@@ -66,21 +67,11 @@ class DocklessData extends Component {
         axios.get(threeOneOneUrl)
       ])
       .then(res => {
-        // console.log(allModesUrl);
-        // console.log(dataByModeUrl);
-        // console.log(deviceCountUrl);
-        // console.log(threeOneOneUrl);
         const dataByModeResponse = res[0].data;
         const allDataResponse = res[1].data;
         const deviceDataResponse = res[2].data;
         const allTimeDeviceCountResponse = res[3].data;
         const threeOneOneResponse = res[4].data;
-        console.log(dataByModeResponse);
-        console.log(allDataResponse);
-        console.log(deviceDataResponse);
-        console.log(threeOneOneResponse);
-        console.log(allTimeDeviceCountResponse);
-
 
         let bicycleData = _.filter(
           dataByModeResponse,
@@ -130,10 +121,8 @@ class DocklessData extends Component {
               1;
           }
         });
-        // console.log(deviceCountData);
 
         let allTimeDeviceCountData = {
-          all: allTimeDeviceCountResponse.length,
           bicycle: _.filter(
             allTimeDeviceCountResponse,
             o => o.vehicle_type === "bicycle"
@@ -188,38 +177,62 @@ class DocklessData extends Component {
   }
 
   getDeviceValue(mode, month, year) {
-    const { deviceCountData } = this.state;
+    const { deviceCountData, allTimeDeviceCountData } = this.state;
     const monthYear = `${month}_${year}`;
 
     // return 0 when the API hasn't responded yet but the HTML needs to render
-    if (!deviceCountData) {
+    if (!deviceCountData || !allTimeDeviceCountData) {
       return 0;
     }
 
     const scooterDataByMonth = deviceCountData.scooter[`${month}_${year}`];
     const bicycleDataByMonth = deviceCountData.bicycle[`${month}_${year}`];
+    const scooterDataAllTime = allTimeDeviceCountData.scooter;
+    const bicycleDataAllTime = allTimeDeviceCountData.bicycle;
 
     if (mode === "all") {
-      // if both modes are undefined, don't try to sum them to return NaN.
-      if (
-        typeof scooterDataByMonth === "undefined" &&
-        typeof bicycleDataByMonth === "undefined"
-      ) {
-        return "no data";
-      }
-
+      // if both modes are undefined, don't try to sum them to return NaN,
       // else sum the modes
-      return (scooterDataByMonth || 0) + (bicycleDataByMonth || 0);
+      if (monthYear === "ALL_TIME") {
+        if (
+          typeof scooterDataAllTime === "undefined" &&
+          typeof bicycleDataAllTime === "undefined"
+        ) {
+          return "no data";
+        } else {
+        return ((scooterDataAllTime || 0 ) + (bicycleDataAllTime || 0));
+        }
+      } else {
+        if (
+          typeof scooterDataByMonth === "undefined" &&
+          typeof bicycleDataByMonth === "undefined"
+        ) {
+          return "no data";
+        } else {
+        return (scooterDataByMonth || 0) + (bicycleDataByMonth || 0);
+        }
+      }
     } else {
       // for mode specific data cards, make sure the mode data and month data
       // are present in state
-      if (
-        !deviceCountData[mode] ||
-        typeof deviceCountData[mode][`${month}_${year}`] === "undefined"
-      ) {
-        return "no data";
+      if (monthYear === "ALL_TIME") {
+        if (
+          !allTimeDeviceCountData[mode] ||
+          typeof deviceCountData[mode] === "undefined"
+        ) {
+          return "no data";
+        } else {
+          return allTimeDeviceCountData[mode]
+        }
       } else {
-        return deviceCountData[mode][`${month}_${year}`];
+        if (
+          !deviceCountData[mode] ||
+          typeof deviceCountData[mode][`${month}_${year}`] === "undefined"
+        ) {
+          return "no data";
+        } else {
+          return deviceCountData[mode][`${month}_${year}`];
+        }        
       }
     }
   }
