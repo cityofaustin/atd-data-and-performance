@@ -36,7 +36,7 @@ const getMonthOptions = () => {
     });
   }
   monthsArray.push({ "ALL_TIME" : "All time" });
-  // console.log(monthsArray);
+
   return monthsArray;
 };
 
