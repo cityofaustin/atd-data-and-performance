@@ -25,6 +25,9 @@ const getMonthOptions = () => {
   const endMonthIndex = today.getMonth();
   const endYear = today.getFullYear();
 
+  const todayDate = today.getDate();
+  const todayFullDate = `${endMonthIndex + 1}_${endYear}_${todayDate}`
+
   for (var year = startYear; year <= endYear; year++) {
     months.map((month, index) => {
       let isBeforeStartMonth = startMonthIndex > index && startYear === year;
@@ -35,8 +38,7 @@ const getMonthOptions = () => {
       monthsArray.push({ [`${index + 1}_${year}`]: `${month} ${year}` });
     });
   }
-  monthsArray.push({ "ALL_TIME" : "All time" });
-  // console.log(monthsArray);
+  monthsArray.push({ [todayFullDate] : "All time" });
   return monthsArray;
 };
 

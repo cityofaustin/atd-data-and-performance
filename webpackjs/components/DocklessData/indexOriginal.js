@@ -7,6 +7,7 @@ import PanelRowTitle from "./PanelRowTitle";
 import CardContainer from "./CardContainer";
 import Card from "./Card";
 import Description from "./Description";
+import { type } from "os";
 
 class DocklessData extends Component {
   constructor(props) {
@@ -17,11 +18,14 @@ class DocklessData extends Component {
     const monthYear = `${thisMonth}_${defaultYear}`;
 
     this.state = {
+      month: thisMonth,
+      year: defaultYear,
       monthYear: monthYear,
       scooterData: null,
       bicycleData: null,
       allModesData: null,
       deviceCountData: null,
+      allTimeDeviceCountData: null,
       threeOneOneData: null,
       dataIsLoaded: false
     };
@@ -30,81 +34,103 @@ class DocklessData extends Component {
   }
 
   handleMonthChange(e) {
-    const monthYear = e.target.value;
+    const monthYearSplit = e.target.value.split("_");
     this.setState({
-      monthYear: monthYear,
-      dataIsLoaded: false,
+      monthYear: e.target.value,
+      month: monthYearSplit[0],
+      year: monthYearSplit[1]
     });
-    this.runQueries(monthYear);
   }
 
-  getDaysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
-  }
-
-  runQueries(monthYear) {
-    //To do: Turn the top half of this function into a "setQuery" function.
-    //Or just pass the query in as a range directly from each component (no logic needed). 
-    const monthYearSplit = monthYear.split("_");
-    const month = monthYearSplit[0];
-    const year = monthYearSplit[1];
-    const day = monthYearSplit[2];
-    const lastDay = this.getDaysInMonth(month, year);
-    const monthSelectedEnd = `${year}-${month}-${lastDay}T23:59:59.999`;
-    let monthSelected;
-    let dateQuery;
-
-    if (day) {
-      monthSelected = "2018-4-1";
-    } else {
-      monthSelected = `${year}-${month}-1`;
-    }
-    dateQuery = `'${monthSelected}' and '${monthSelectedEnd}'`;
-    console.log(dateQuery);
-
+  componentDidMount() {
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
 
-    const dataByModeQuery = `SELECT vehicle_type, avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips WHERE trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and start_time between ${dateQuery} GROUP BY vehicle_type`;
-    const allModesQuery = `SELECT avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips WHERE trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and start_time between ${dateQuery}`;
-    const deviceCountScooterQuery = `SELECT DISTINCT device_id WHERE start_time between ${dateQuery} and vehicle_type = 'scooter' LIMIT 1000000000`;
-    const deviceCountBicycleQuery = `SELECT DISTINCT device_id WHERE start_time between ${dateQuery} and vehicle_type = 'bicycle' LIMIT 1000000000`;
-    const threeOneOneQuery = `SELECT count(sr_type_code) as count WHERE sr_type_code == "DOCKMOBI" and sr_created_date between ${dateQuery}`;
+    const dataByModeQuery = `select vehicle_type, avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by vehicle_type, year, month`;
+    const allModesQuery = `select avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips, date_extract_m(start_time) as month, date_extract_y(start_time) as year where trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 group by year, month`;
+    const deviceCountQuery = `SELECT vehicle_type, device_id, date_extract_m(start_time) as month, date_extract_y(start_time) as year GROUP BY device_id, vehicle_type, month, year LIMIT 1000000000`;
+    const allTimeDeviceCountQuery = `SELECT distinct device_id, vehicle_type LIMIT 1000000000`;
+    const threeOneOneQuery = `SELECT count(sr_type_code) as count, date_extract_m(sr_created_date) as month, date_extract_y(sr_created_date) as year WHERE sr_type_code == "DOCKMOBI" GROUP BY year, month`;
 
     const dataByModeUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${dataByModeQuery}`;
     const allModesUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${allModesQuery}`;
-    const deviceCountScooterUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${deviceCountScooterQuery}`;
-    const deviceCountBicycleUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${deviceCountBicycleQuery}`;
+    const deviceCountUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${deviceCountQuery}`;
+    const allTimeDeviceCountUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${allTimeDeviceCountQuery}`;
     const threeOneOneUrl = `https://data.austintexas.gov/resource/${resourceId311}.json?$query=${threeOneOneQuery}`;
 
     axios
       .all([
         axios.get(dataByModeUrl),
         axios.get(allModesUrl),
-        axios.get(deviceCountScooterUrl),
-        axios.get(deviceCountBicycleUrl),
+        axios.get(deviceCountUrl),
+        axios.get(allTimeDeviceCountUrl),
         axios.get(threeOneOneUrl)
       ])
       .then(res => {
         const dataByModeResponse = res[0].data;
         const allDataResponse = res[1].data;
-        const deviceScooterDataResponse = res[2].data;
-        const deviceBicycleDataResponse = res[3].data;
+        const deviceDataResponse = res[2].data;
+        const allTimeDeviceCountResponse = res[3].data;
         const threeOneOneResponse = res[4].data;
 
         let bicycleData = _.filter(
           dataByModeResponse,
           o => o.vehicle_type === "bicycle"
-        )[0];
+        ).reduce(function(result, item) {
+          result[`${item.month}_${item.year}`] = item;
+          return result;
+        }, {});
         let scooterData = _.filter(
           dataByModeResponse,
           o => o.vehicle_type === "scooter"
-        )[0];
-        let allModesData = allDataResponse[0];
-        let threeOneOneData = threeOneOneResponse[0];
-        let deviceCountData = {
-          scooter: deviceScooterDataResponse.length,
-          bicycle: deviceBicycleDataResponse.length
+        ).reduce(function(result, item) {
+          result[`${item.month}_${item.year}`] = item;
+          return result;
+        }, {});
+        let allModesData = allDataResponse.reduce((result, item) => {
+          result[`${item.month}_${item.year}`] = item;
+          return result;
+        }, {});
+        let threeOneOneData = threeOneOneResponse.reduce((result, item) => {
+          result[`${item.month}_${item.year}`] = item;
+          return result;
+        }, {});
+
+        // TODO: There must be a better way to get device counts by vehicle_type
+        // & month, but the best I could do was iterate through all devices and
+        // sort them into a nested object manually.
+        let deviceCountData = { scooter: {}, bicycle: {} };
+        deviceDataResponse.forEach(item => {
+          // skip values that don't have vehicle_type
+          if (typeof item.vehicle_type === "undefined") {
+            return false;
+          }
+          // if its the first device count for a month, start at 1
+          if (
+            typeof deviceCountData[item.vehicle_type][
+              `${item.month}_${item.year}`
+            ] === "undefined"
+          ) {
+            deviceCountData[item.vehicle_type][
+              `${item.month}_${item.year}`
+            ] = 1;
+          } else {
+            // else iterate up by one for the count
+            deviceCountData[item.vehicle_type][`${item.month}_${item.year}`] =
+              deviceCountData[item.vehicle_type][`${item.month}_${item.year}`] +
+              1;
+          }
+        });
+
+        let allTimeDeviceCountData = {
+          bicycle: _.filter(
+            allTimeDeviceCountResponse,
+            o => o.vehicle_type === "bicycle"
+          ).length,
+          scooter: _.filter(
+            allTimeDeviceCountResponse,
+            o => o.vehicle_type === "scooter"
+          ).length
         };
 
         this.setState({
@@ -112,42 +138,102 @@ class DocklessData extends Component {
           scooterData,
           allModesData,
           deviceCountData,
+          allTimeDeviceCountData,
           threeOneOneData,
           dataIsLoaded: true
         });
       });
   }
 
-  componentDidMount() {
-    this.runQueries(this.state.monthYear);
-  }
+  getValue(data, month, year, metric) {
+    let leData = `${data}`;
+    const monthYear = `${month}_${year}`;
 
-  getValue(data, metric) {
-    const leData = `${data}`;
-
-    // return 0 when the API hasn't responded yet but the HTML needs to render
-    if (!this.state[leData] || this.state.dataIsLoaded === false) {
+    if (!this.state[leData]) {
       return 0;
     }
 
-    return Number(this.state[leData][metric]);
+    if (monthYear === "ALL_TIME") {
+      const allTimeDataObj = this.state[leData];
+      const allTimeDataArray = Object.values(allTimeDataObj);
+      let sum = 0;
+      allTimeDataArray.forEach(item => {
+        let itemData = parseFloat(item[metric]);
+        sum += itemData;
+      });
+      if (metric.startsWith("avg_")) {
+        let avg = sum / allTimeDataArray.length;
+        return avg;
+      } else {
+        return sum;
+      }
+    }
+
+    if (!this.state[leData][monthYear]) {
+      return "no data";
+    }
+
+    return Number(this.state[leData][monthYear][metric]);
   }
 
-  getDeviceValue(mode) {
-    const { deviceCountData } = this.state;
+  getDeviceValue(mode, month, year) {
+    const { deviceCountData, allTimeDeviceCountData } = this.state;
+    const monthYear = `${month}_${year}`;
 
     // return 0 when the API hasn't responded yet but the HTML needs to render
-    if (!deviceCountData || this.state.dataIsLoaded === false) {
+    if (!deviceCountData || !allTimeDeviceCountData) {
       return 0;
     }
 
-    const scooterData = deviceCountData.scooter;
-    const bicycleData = deviceCountData.bicycle;
+    const scooterDataByMonth = deviceCountData.scooter[`${month}_${year}`];
+    const bicycleDataByMonth = deviceCountData.bicycle[`${month}_${year}`];
+    const scooterDataAllTime = allTimeDeviceCountData.scooter;
+    const bicycleDataAllTime = allTimeDeviceCountData.bicycle;
 
     if (mode === "all") {
-      return (scooterData || 0) + (bicycleData || 0);
+      // if both modes are undefined, don't try to sum them to return NaN,
+      // else sum the modes
+      if (monthYear === "ALL_TIME") {
+        if (
+          typeof scooterDataAllTime === "undefined" &&
+          typeof bicycleDataAllTime === "undefined"
+        ) {
+          return "no data";
+        } else {
+        return ((scooterDataAllTime || 0 ) + (bicycleDataAllTime || 0));
+        }
+      } else {
+        if (
+          typeof scooterDataByMonth === "undefined" &&
+          typeof bicycleDataByMonth === "undefined"
+        ) {
+          return "no data";
+        } else {
+        return (scooterDataByMonth || 0) + (bicycleDataByMonth || 0);
+        }
+      }
     } else {
-      return deviceCountData[mode]
+      // for mode specific data cards, make sure the mode data and month data
+      // are present in state
+      if (monthYear === "ALL_TIME") {
+        if (
+          !allTimeDeviceCountData[mode] ||
+          typeof deviceCountData[mode] === "undefined"
+        ) {
+          return "no data";
+        } else {
+          return allTimeDeviceCountData[mode]
+        }
+      } else {
+        if (
+          !deviceCountData[mode] ||
+          typeof deviceCountData[mode][`${month}_${year}`] === "undefined"
+        ) {
+          return "no data";
+        } else {
+          return deviceCountData[mode][`${month}_${year}`];
+        }        
+      }
     }
   }
 
@@ -173,6 +259,8 @@ class DocklessData extends Component {
             title="Total Trips"
             value={this.getValue(
               "allModesData",
+              this.state.month,
+              this.state.year,
               "total_trips"
             )}
             icon="mobile"
@@ -184,6 +272,8 @@ class DocklessData extends Component {
             title="Total Miles"
             value={this.getValue(
               "allModesData",
+              this.state.month,
+              this.state.year,
               "total_miles"
             )}
             icon="tachometer"
@@ -195,6 +285,8 @@ class DocklessData extends Component {
             title="Average Miles"
             value={this.getValue(
               "allModesData",
+              this.state.month,
+              this.state.year,
               "avg_miles"
             )}
             icon="tachometer"
@@ -206,6 +298,8 @@ class DocklessData extends Component {
             title="Average Minutes"
             value={this.getValue(
               "allModesData",
+              this.state.month,
+              this.state.year,
               "avg_duration_minutes"
             )}
             icon="hourglass"
@@ -217,6 +311,8 @@ class DocklessData extends Component {
             title="Total Devices"
             value={this.getDeviceValue(
               "all",
+              this.state.month,
+              this.state.year
             )}
             icon="star"
             resourceId={"7d8e-dm7r"}
@@ -227,6 +323,8 @@ class DocklessData extends Component {
             title="311 Service Requests"
             value={this.getValue(
               "threeOneOneData",
+              this.state.month,
+              this.state.year,
               "count"
             )}
             icon="phone"
@@ -241,6 +339,8 @@ class DocklessData extends Component {
             title="Scooter Trips"
             value={this.getValue(
               "scooterData",
+              this.state.month,
+              this.state.year,
               "total_trips"
             )}
             icon="bolt"
@@ -252,6 +352,8 @@ class DocklessData extends Component {
             title="Total Miles"
             value={this.getValue(
               "scooterData",
+              this.state.month,
+              this.state.year,
               "total_miles"
             )}
             icon="tachometer"
@@ -263,6 +365,8 @@ class DocklessData extends Component {
             title="Average Miles"
             value={this.getValue(
               "scooterData",
+              this.state.month,
+              this.state.year,
               "avg_miles"
             )}
             icon="tachometer"
@@ -274,6 +378,8 @@ class DocklessData extends Component {
             title="Average Minutes"
             value={this.getValue(
               "scooterData",
+              this.state.month,
+              this.state.year,
               "avg_duration_minutes"
             )}
             icon="hourglass"
@@ -285,6 +391,8 @@ class DocklessData extends Component {
             title="Total Devices"
             value={this.getDeviceValue(
               "scooter",
+              this.state.month,
+              this.state.year
             )}
             icon="star"
             resourceId={"7d8e-dm7r"}
@@ -299,6 +407,8 @@ class DocklessData extends Component {
             title="Bicycle Trips"
             value={this.getValue(
               "bicycleData",
+              this.state.month,
+              this.state.year,
               "total_trips"
             )}
             icon="bicycle"
@@ -310,6 +420,8 @@ class DocklessData extends Component {
             title="Total Miles"
             value={this.getValue(
               "bicycleData",
+              this.state.month,
+              this.state.year,
               "total_miles"
             )}
             icon="tachometer"
@@ -321,6 +433,8 @@ class DocklessData extends Component {
             title="Average Miles"
             value={this.getValue(
               "bicycleData",
+              this.state.month,
+              this.state.year,
               "avg_miles"
             )}
             icon="tachometer"
@@ -332,6 +446,8 @@ class DocklessData extends Component {
             title="Average Minutes"
             value={this.getValue(
               "bicycleData",
+              this.state.month,
+              this.state.year,
               "avg_duration_minutes"
             )}
             icon="hourglass"
@@ -343,6 +459,8 @@ class DocklessData extends Component {
             title="Total Devices"
             value={this.getDeviceValue(
               "bicycle",
+              this.state.month,
+              this.state.year
             )}
             icon="star"
             resourceId={"7d8e-dm7r"}
