@@ -43,7 +43,7 @@ class DocklessData extends Component {
   }
 
   runQueries(monthYear) {
-    //To do: Turn the top half of this function into a "setQuery" function.
+    // TODO: Turn the top half of this function into a "setQuery" function.
     //Or just pass the query in as a range directly from each component (no logic needed). 
     const monthYearSplit = monthYear.split("_");
     const month = monthYearSplit[0];
@@ -64,12 +64,15 @@ class DocklessData extends Component {
 
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
+    const tripSelectors = `avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips`;
+    const tripFilters =  `trip_distance * 0.000621371 >= 0.1 AND trip_distance * 0.000621371 < 500 AND trip_duration < 86400`;
 
-    const dataByModeQuery = `SELECT vehicle_type, avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips WHERE trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and start_time between ${dateQuery} GROUP BY vehicle_type`;
-    const allModesQuery = `SELECT avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips WHERE trip_distance * 0.000621371 >= 0.1 and trip_distance * 0.000621371 < 500 and trip_duration < 86400 and start_time between ${dateQuery}`;
-    const deviceCountScooterQuery = `SELECT DISTINCT device_id WHERE start_time between ${dateQuery} and vehicle_type = 'scooter' LIMIT 1000000000`;
-    const deviceCountBicycleQuery = `SELECT DISTINCT device_id WHERE start_time between ${dateQuery} and vehicle_type = 'bicycle' LIMIT 1000000000`;
-    const threeOneOneQuery = `SELECT count(sr_type_code) as count WHERE sr_type_code == "DOCKMOBI" and sr_created_date between ${dateQuery}`;
+    // TODO: Potentially add trip filters to device count queries 
+    const dataByModeQuery = `SELECT vehicle_type, ${tripSelectors} WHERE start_time between ${dateQuery} AND ${tripFilters} GROUP BY vehicle_type`;
+    const allModesQuery = `SELECT ${tripSelectors} WHERE start_time between ${dateQuery} AND ${tripFilters}`;
+    const deviceCountScooterQuery = `SELECT DISTINCT device_id WHERE start_time between ${dateQuery} AND vehicle_type = 'scooter' LIMIT 1000000000`;
+    const deviceCountBicycleQuery = `SELECT DISTINCT device_id WHERE start_time between ${dateQuery} AND vehicle_type = 'bicycle' LIMIT 1000000000`;
+    const threeOneOneQuery = `SELECT count(sr_type_code) as count WHERE sr_created_date between ${dateQuery} AND sr_type_code == "DOCKMOBI"`;
 
     const dataByModeUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${dataByModeQuery}`;
     const allModesUrl = `https://data.austintexas.gov/resource/${resourceId}.json?$query=${allModesQuery}`;
