@@ -15,7 +15,6 @@ class DocklessData extends Component {
     const thisMonth = date.getMonth() + 1;
     const defaultYear = date.getFullYear();
     const lastDay = this.getDaysInMonth(`${thisMonth}`, `${defaultYear}`);
-    // const monthYear = `${thisMonth}_${defaultYear}`;
     const monthYear = `'${defaultYear}-${thisMonth}-1' and '${defaultYear}-${thisMonth}-${lastDay}T23:59:59.999'`;
 
     this.state = {
@@ -43,26 +42,9 @@ class DocklessData extends Component {
   getDaysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
   }
-
+//45,489
+//48,213
   runQueries(monthYear) {
-    // TODO: Turn the top half of this function into a "setQuery" function.
-    //Or just pass the query in as a range directly from each component (no logic needed). 
-    // const monthYearSplit = monthYear.split("_");
-    // const month = monthYearSplit[0];
-    // const year = monthYearSplit[1];
-    // const day = monthYearSplit[2];
-    // const lastDay = this.getDaysInMonth(month, year);
-    // const monthSelectedEnd = `${year}-${month}-${lastDay}T23:59:59.999`;
-    // let monthSelected;
-    // let dateQuery;
-
-    // if (day) {
-    //   monthSelected = "2018-4-1";
-    // } else {
-    //   monthSelected = `${year}-${month}-1`;
-    // }
-    // dateQuery = `'${monthSelected}' and '${monthSelectedEnd}'`;
-    // console.log(dateQuery);
     console.log(`Current dateQuery: between ${monthYear}`);
     const dateQuery = monthYear;
 
