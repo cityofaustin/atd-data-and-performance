@@ -152,20 +152,21 @@ class DocklessData extends Component {
       return 0;
     }
 
+    const allTimeDataObj = this.state[leData];
+    const allTimeDataArray = Object.values(allTimeDataObj);
+    let sum = 0;
+    allTimeDataArray.forEach(item => {
+      let itemData = parseFloat(item[metric]);
+      sum += itemData;
+    });
+
+    if (monthYear === "ALL_TIME" && metric.startsWith("avg_")) {
+      let avg = sum / allTimeDataArray.length;
+      return avg;
+    }
+
     if (monthYear === "ALL_TIME") {
-      const allTimeDataObj = this.state[leData];
-      const allTimeDataArray = Object.values(allTimeDataObj);
-      let sum = 0;
-      allTimeDataArray.forEach(item => {
-        let itemData = parseFloat(item[metric]);
-        sum += itemData;
-      });
-      if (metric.startsWith("avg_")) {
-        let avg = sum / allTimeDataArray.length;
-        return avg;
-      } else {
-        return sum;
-      }
+      return sum;
     }
 
     if (!this.state[leData][monthYear]) {
@@ -189,50 +190,28 @@ class DocklessData extends Component {
     const scooterDataAllTime = allTimeDeviceCountData.scooter;
     const bicycleDataAllTime = allTimeDeviceCountData.bicycle;
 
+    let isAllTimeModeDataUndefined = (typeof scooterDataAllTime === "undefined" && bicycleDataAllTime === "undefined");
+    let isModeDataByMonthUndefined = (typeof scooterDataByMonth === "undefined" && bicycleDataByMonth === "undefined");
+    let isAllTimeDeviceCountDataUndefined = (!allTimeDeviceCountData[mode] || typeof deviceCountData[mode] === "undefined");
+    let isDeviceCountDataByMonthUndefined = (!deviceCountData[mode] || typeof deviceCountData[mode][`${month}_${year}`] === "undefined");
+  
     if (mode === "all") {
-      // if both modes are undefined, don't try to sum them to return NaN,
-      // else sum the modes
-      if (monthYear === "ALL_TIME") {
-        if (
-          typeof scooterDataAllTime === "undefined" &&
-          typeof bicycleDataAllTime === "undefined"
-        ) {
-          return "no data";
-        } else {
-        return ((scooterDataAllTime || 0 ) + (bicycleDataAllTime || 0));
-        }
+    // For non-mode-specific cards, make sure all-time and monthly data are present in state
+      if (isAllTimeModeDataUndefined || isModeDataByMonthUndefined) {
+        return "no data";
+      } else if (monthYear === "ALL_TIME") {
+        return ((scooterDataAllTime || 0) + (bicycleDataAllTime || 0))
       } else {
-        if (
-          typeof scooterDataByMonth === "undefined" &&
-          typeof bicycleDataByMonth === "undefined"
-        ) {
-          return "no data";
-        } else {
-        return (scooterDataByMonth || 0) + (bicycleDataByMonth || 0);
-        }
-      }
+        return ((scooterDataByMonth || 0) + (bicycleDataByMonth || 0))
+      }   
+    }
+    // For mode-specific data cards, make sure the mode data are present in state
+    if (isAllTimeDeviceCountDataUndefined || isDeviceCountDataByMonthUndefined) {
+      return "no data";
+    } else if (monthYear === "ALL_TIME") {
+      return allTimeDeviceCountData[mode]
     } else {
-      // for mode specific data cards, make sure the mode data and month data
-      // are present in state
-      if (monthYear === "ALL_TIME") {
-        if (
-          !allTimeDeviceCountData[mode] ||
-          typeof deviceCountData[mode] === "undefined"
-        ) {
-          return "no data";
-        } else {
-          return allTimeDeviceCountData[mode]
-        }
-      } else {
-        if (
-          !deviceCountData[mode] ||
-          typeof deviceCountData[mode][`${month}_${year}`] === "undefined"
-        ) {
-          return "no data";
-        } else {
-          return deviceCountData[mode][`${month}_${year}`];
-        }        
-      }
+      return deviceCountData[mode][`${month}_${year}`]
     }
   }
 
