@@ -15,6 +15,9 @@ const months = [
   "December",
 ];
 
+const getDaysInMonth = (month, year) => {
+  return new Date(year, month, 0).getDate();
+}
 // Get the range of months starting when we first have today to this current
 // month as an array of objects. Ex: [{1_2019: 'January 2019'}, ...]
 const getMonthOptions = () => {
@@ -24,9 +27,7 @@ const getMonthOptions = () => {
   const today = new Date();
   const endMonthIndex = today.getMonth();
   const endYear = today.getFullYear();
-
-  const todayDate = today.getDate();
-  const todayFullDate = `${endMonthIndex + 1}_${endYear}_${todayDate}`
+  let lastDay;
 
   for (var year = startYear; year <= endYear; year++) {
     months.map((month, index) => {
@@ -35,10 +36,16 @@ const getMonthOptions = () => {
       if (isBeforeStartMonth || isAfterCurrentMonth) {
         return false;
       }
-      monthsArray.push({ [`${index + 1}_${year}`]: `${month} ${year}` });
+      lastDay = getDaysInMonth(`${index + 1}`, `${year}`);
+      const monthRange = `'${year}-${index + 1}-1' and '${year}-${index + 1}-${lastDay}T23:59:59.999'`;
+      monthsArray.push({ [`${monthRange}`]: `${month} ${year}` });
     });
   }
-  monthsArray.push({ [todayFullDate] : "All time" });
+
+  // To do: Create an "All time" (button) component and move this code to it.
+  lastDay = getDaysInMonth(`${endMonthIndex + 1}`, `${endYear}`);
+  const allTimeRange = `'2018-4-1' and '${endYear}-${endMonthIndex + 1}-${lastDay}T23:59:59.999'`
+  monthsArray.push({ [allTimeRange] : "All time" });
   return monthsArray;
 };
 
