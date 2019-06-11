@@ -15,6 +15,8 @@ const months = [
   "December",
 ];
 
+// To do: Pass getDaysInMonth function in to this component from index.js
+// as a prop instead of defining it in both places.
 const getDaysInMonth = (month, year) => {
   return new Date(year, month, 0).getDate();
 }

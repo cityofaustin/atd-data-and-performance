@@ -30,6 +30,10 @@ class DocklessData extends Component {
     this.handleMonthChange = this.handleMonthChange.bind(this);
   }
 
+  getDaysInMonth(month, year) {
+    return new Date(year, month, 0).getDate();
+  }
+
   handleMonthChange(e) {
     const monthYear = e.target.value;
     this.setState({
@@ -39,13 +43,7 @@ class DocklessData extends Component {
     this.runQueries(monthYear);
   }
 
-  getDaysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
-  }
-//45,489
-//48,213
   runQueries(monthYear) {
-    console.log(`Current dateQuery: between ${monthYear}`);
     const dateQuery = monthYear;
 
     const resourceId = `7d8e-dm7r`;
@@ -53,7 +51,6 @@ class DocklessData extends Component {
     const tripSelectors = `avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips`;
     const tripFilters =  `trip_distance * 0.000621371 >= 0.1 AND trip_distance * 0.000621371 < 500 AND trip_duration < 86400`;
 
-    // TODO: Potentially add trip filters to device count queries 
     const dataByModeQuery = `SELECT vehicle_type, ${tripSelectors} WHERE start_time between ${dateQuery} AND ${tripFilters} GROUP BY vehicle_type`;
     const allModesQuery = `SELECT ${tripSelectors} WHERE start_time between ${dateQuery} AND ${tripFilters}`;
     const deviceCountScooterQuery = `SELECT DISTINCT device_id WHERE start_time between ${dateQuery} AND vehicle_type = 'scooter' LIMIT 1000000000`;
