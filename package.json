@@ -26,7 +26,8 @@
     "react": "^16.6.3",
     "react-addons-update": "^15.6.2",
     "react-dom": "^16.6.3",
-    "webpack": "^4.27.1"
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.4"
   },
   "dependencies": {
     "axios": "^0.18.0",
