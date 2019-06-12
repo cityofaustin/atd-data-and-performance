@@ -1,6 +1,7 @@
 import React from "react";
 
 const axios = require("axios");
+const Markdown = require("react-markdown");
 
 class Projects extends React.Component {
   constructor(props) {
@@ -29,16 +30,16 @@ class Projects extends React.Component {
         <div className="row px-3 px-sm-0 mb-2">
           <h1>Our Projects</h1>
         </div>
-        <ul>
-          <div>
-            {this.state.projectsData.map((project, i) => (
-              <li key={`Project_${i}`}>
-                <h2>{project.title}</h2>
-                <p>{project.body}</p>
-              </li>
-            ))}
-          </div>
-        </ul>
+        <div>
+          {this.state.projectsData.map((project, i) => (
+            <div>
+              <h1>
+                <Markdown source={project.title} />
+              </h1>
+              <Markdown source={project.body} />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
