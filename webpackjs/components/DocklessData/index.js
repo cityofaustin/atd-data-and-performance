@@ -3,6 +3,7 @@ import axios from "axios";
 import _ from "lodash";
 
 import MonthSelect from "./MonthSelect";
+import DateRangeSelect from "./DateRangeSelect";
 import AllTimeButton from "./AllTimeButton";
 import PanelRowTitle from "./PanelRowTitle";
 import CardContainer from "./CardContainer";
@@ -19,7 +20,8 @@ class DocklessData extends Component {
     const monthYear = `'${defaultYear}-${thisMonth}-1' and '${defaultYear}-${thisMonth}-${lastDay}T23:59:59.999'`;
 
     this.state = {
-      monthYear: monthYear,
+      dateQuery: monthYear,
+      viewDataBy: null,
       scooterData: null,
       bicycleData: null,
       allModesData: null,
@@ -28,24 +30,29 @@ class DocklessData extends Component {
       dataIsLoaded: false
     };
 
-    this.handleMonthChange = this.handleMonthChange.bind(this);
+    this.handleQueryChange = this.handleQueryChange.bind(this);
+    this.dataViewSelect = this.dataViewSelect.bind(this);
   }
 
   getDaysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
   }
 
-  handleMonthChange(e) {
-    const monthYear = e.target.value;
+  handleQueryChange(event) {
+    let dateQuery;
+    if (event.target) {
+      dateQuery = event.target.value;
+    } else {
+      dateQuery = event;
+    }
     this.setState({
-      monthYear: monthYear,
+      dateQuery: dateQuery,
       dataIsLoaded: false,
     });
-    this.runQueries(monthYear);
+    this.runQueries(dateQuery);
   }
 
-  runQueries(monthYear) {
-    const dateQuery = monthYear;
+  runQueries(dateQuery) {
     console.log(dateQuery);
 
     const resourceId = `7d8e-dm7r`;
@@ -107,7 +114,12 @@ class DocklessData extends Component {
   }
 
   componentDidMount() {
-    this.runQueries(this.state.monthYear);
+    this.runQueries(this.state.dateQuery);
+  }
+
+  dataViewSelect(event) {
+    const viewDataBy = event.target.value;
+    this.setState({ viewDataBy })
   }
 
   getValue(data, metric) {
@@ -142,17 +154,43 @@ class DocklessData extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <h2>Dockless Mobility Overview</h2>
-        <MonthSelect
-          monthYear={this.state.monthYear}
-          getDaysInMonth={this.getDaysInMonth}
-          onChangeMonth={this.handleMonthChange}
-        />
-        <AllTimeButton
-          monthYear={this.state.monthYear}
-          getDaysInMonth={this.getDaysInMonth}
-          onClickAllTime={this.handleMonthChange}
-        />
+        <h3>View data by ...</h3>
+        <div className="btn-group d-flex justify-content-center" role="group">
+          <button type="button" className="btn btn-primary" value="month" onClick={this.dataViewSelect}>Month</button>
+          <button type="button" className="btn btn-primary" value="range" onClick={this.dataViewSelect}>Date Range</button>
+          <button type="button" className="btn btn-primary" value="allTime" onClick={this.dataViewSelect}>All Time</button>
+        </div>
+
+        {this.state.viewDataBy === "month" ? (
+          <MonthSelect
+            monthYear={this.state.dateQuery}
+            getDaysInMonth={this.getDaysInMonth}
+            onChangeMonth={this.handleQueryChange}
+          />
+        ) : (
+          <div>
+          </div>
+        )}
+
+        {this.state.viewDataBy === "range" ? (
+          <DateRangeSelect
+            onChangeRange={this.handleQueryChange}
+          />
+        ) : (
+          <div>
+          </div>
+        )}
+
+        {this.state.viewDataBy === "allTime" ? (
+          <AllTimeButton
+            getDaysInMonth={this.getDaysInMonth}
+            onClickAllTime={this.handleQueryChange}
+          />
+        ) : (
+          <div>
+          </div>
+        )}
+
         {this.state.dataIsLoaded ? (
           ""
         ) : (
@@ -161,6 +199,7 @@ class DocklessData extends Component {
             <span className="sr-only">Loading...</span>
           </div>
         )}
+
         <PanelRowTitle title="All Modes" />
         <CardContainer>
           <Card
