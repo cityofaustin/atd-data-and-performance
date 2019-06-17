@@ -3,6 +3,7 @@ import axios from "axios";
 import _ from "lodash";
 
 import MonthSelect from "./MonthSelect";
+import AllTimeButton from "./AllTimeButton";
 import PanelRowTitle from "./PanelRowTitle";
 import CardContainer from "./CardContainer";
 import Card from "./Card";
@@ -45,6 +46,7 @@ class DocklessData extends Component {
 
   runQueries(monthYear) {
     const dateQuery = monthYear;
+    console.log(dateQuery);
 
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
@@ -143,7 +145,13 @@ class DocklessData extends Component {
         <h2>Dockless Mobility Overview</h2>
         <MonthSelect
           monthYear={this.state.monthYear}
+          getDaysInMonth={this.getDaysInMonth}
           onChangeMonth={this.handleMonthChange}
+        />
+        <AllTimeButton
+          monthYear={this.state.monthYear}
+          getDaysInMonth={this.getDaysInMonth}
+          onClickAllTime={this.handleMonthChange}
         />
         {this.state.dataIsLoaded ? (
           ""
