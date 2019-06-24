@@ -9,18 +9,16 @@ const allTimeSelect = ( getDaysInMonth ) => {
     return allTimeRange;
 }
 
-const AllTimeButton = ({ getDaysInMonth, onClickAllTime }) => (
-    <div className="d-flex justify-content-center">
-        <button
-            type="button"
-            className="btn btn-primary"
-            id="js-all-time-button"
-            value={allTimeSelect(getDaysInMonth)}
-            onClick={onClickAllTime}
-            >
-            All Time
-        </button>
-    </div>
+const AllTimeButton = ({ getDaysInMonth, onClickAllTime, onClickDataViewSelect }) => (
+    <button
+        type="button"
+        className="btn btn-primary"
+        id="js-all-time-button"
+        value={allTimeSelect(getDaysInMonth)}
+        onClick={function(event) {onClickDataViewSelect("allTime"); onClickAllTime(event)}}
+        >
+        All Time
+    </button>
 )
 
 export default AllTimeButton;

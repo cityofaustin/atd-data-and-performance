@@ -29,7 +29,7 @@ const DateRangeSelect = ({ onChangeRange }) => {
 
     return (
 
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center select-by-menu">
             <Calendar
                 onChange={getDateRange}
                 selectRange={true}

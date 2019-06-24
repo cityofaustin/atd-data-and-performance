@@ -92,6 +92,10 @@ span.col-14, span.col-15 {
   text-decoration: none;
 }
 
+.select-by-menu {
+  padding-bottom: 10px;
+}
+
 .react-calendar {
   width: 350px;
   max-width: 100%;

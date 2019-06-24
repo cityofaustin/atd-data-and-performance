@@ -21,7 +21,11 @@ class DocklessData extends Component {
 
     this.state = {
       dateQuery: monthYear,
+      startDateConverted: null,
+      endDateConverted: null,
       viewDataBy: null,
+      viewMode: "allModes",
+      newDataView: false,
       scooterData: null,
       bicycleData: null,
       allModesData: null,
@@ -32,6 +36,7 @@ class DocklessData extends Component {
 
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.dataViewSelect = this.dataViewSelect.bind(this);
+    this.modeSelect = this.modeSelect.bind(this);
   }
 
   getDaysInMonth(month, year) {
@@ -40,11 +45,14 @@ class DocklessData extends Component {
 
   handleQueryChange(event) {
     let dateQuery;
+    // Accept dateQuery whether it is event or simple value using logical statement
+    // Note: DateRangeSelect component sends query as simple value, other components send as event
     if (event.target) {
       dateQuery = event.target.value;
     } else {
       dateQuery = event;
     }
+    console.log(dateQuery);
     this.setState({
       dateQuery: dateQuery,
       dataIsLoaded: false,
@@ -52,8 +60,26 @@ class DocklessData extends Component {
     this.runQueries(dateQuery);
   }
 
+  convertDate(dateQuery) {
+    const splitDate = dateQuery.split(" and ");
+    const startDateRaw = splitDate[0];
+    const endDateRaw = splitDate[1];
+    const startDateCloseQuoteIndex = startDateRaw.lastIndexOf("'");
+    const startDateNumbers = startDateRaw.slice(1, startDateCloseQuoteIndex);
+    const endDateTIndex = endDateRaw.indexOf("T");
+    const endDateNumbers = endDateRaw.slice(1, endDateTIndex);
+    const startDateFormatted = new Date(startDateNumbers);
+    const startDateString = startDateFormatted.toDateString();
+    const endDateFormatted = new Date(endDateNumbers);
+    const endDateString = endDateFormatted.toDateString();
+    console.log(startDateString, endDateString);
+    this.setState({
+      startDateConverted: startDateString,
+      endDateConverted: endDateString
+    });
+  }
+
   runQueries(dateQuery) {
-    console.log(dateQuery);
 
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
@@ -108,9 +134,13 @@ class DocklessData extends Component {
           allModesData,
           deviceCountData,
           threeOneOneData,
-          dataIsLoaded: true
+          dataIsLoaded: true,
+          viewDataBy: null,
+          viewMode: "allModes",
+          newDataView: false,
         });
       });
+    this.convertDate(dateQuery);
   }
 
   componentDidMount() {
@@ -118,8 +148,27 @@ class DocklessData extends Component {
   }
 
   dataViewSelect(event) {
-    const viewDataBy = event.target.value;
-    this.setState({ viewDataBy })
+    // Accept dataViewSelect whether it is event or simple value using logical statement
+    // Note: AllTimeButton component sends query as simple value, other components send as event
+    let viewDataBy;
+    if (event.target) {
+      viewDataBy = event.target.value;
+    } else {
+      viewDataBy = event;
+    }
+    console.log(viewDataBy)
+    this.setState({
+      viewDataBy: viewDataBy,
+      newDataView: true
+    })
+  }
+
+  modeSelect(event) {
+    const viewMode = event.target.value
+    console.log(viewMode);
+    this.setState({
+      viewMode: viewMode
+    })
   }
 
   getValue(data, metric) {
@@ -154,14 +203,29 @@ class DocklessData extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <h3>View data by ...</h3>
-        <div className="btn-group d-flex justify-content-center" role="group">
-          <button type="button" className="btn btn-primary" value="month" onClick={this.dataViewSelect}>Month</button>
-          <button type="button" className="btn btn-primary" value="range" onClick={this.dataViewSelect}>Date Range</button>
-          <button type="button" className="btn btn-primary" value="allTime" onClick={this.dataViewSelect}>All Time</button>
-        </div>
 
-        {this.state.viewDataBy === "month" ? (
+        {this.state.dataIsLoaded ? (
+
+          <div>
+            <h5 className="d-flex justify-content-center">Choose date range</h5>
+            <div className="btn-group d-flex justify-content-center select-by-menu" role="group">
+              <button type="button" className="btn btn-primary" value="month" onClick={this.dataViewSelect}>Month</button>
+              <button type="button" className="btn btn-primary" value="range" onClick={this.dataViewSelect}>Calendar</button>
+              <AllTimeButton
+                getDaysInMonth={this.getDaysInMonth}
+                onClickAllTime={this.handleQueryChange}
+                onClickDataViewSelect={this.dataViewSelect}
+              />
+            </div>
+          </div>
+        ) : (
+          <div>
+            <i className="fa fa-spinner fa-pulse fa-3x fa-fw mt-2 mb-4" />
+            <span className="sr-only">Loading...</span>
+          </div>
+        )}
+
+        {this.state.dataIsLoaded && this.state.viewDataBy === "month" ? (
           <MonthSelect
             monthYear={this.state.dateQuery}
             getDaysInMonth={this.getDaysInMonth}
@@ -172,7 +236,7 @@ class DocklessData extends Component {
           </div>
         )}
 
-        {this.state.viewDataBy === "range" ? (
+        {this.state.dataIsLoaded && this.state.viewDataBy === "range" ? (
           <DateRangeSelect
             onChangeRange={this.handleQueryChange}
           />
@@ -181,210 +245,232 @@ class DocklessData extends Component {
           </div>
         )}
 
-        {this.state.viewDataBy === "allTime" ? (
-          <AllTimeButton
-            getDaysInMonth={this.getDaysInMonth}
-            onClickAllTime={this.handleQueryChange}
-          />
+        {this.state.newDataView ? (
+          <div>
+          </div>
+        ) : (
+          <div>
+            <PanelRowTitle
+              mode={this.state.viewMode}
+              rangeStart={this.state.startDateConverted}
+              rangeEnd={this.state.endDateConverted}
+              onModeSelect={this.modeSelect}
+            />
+          </div>
+        )}
+
+        {this.state.newDataView === false && this.state.viewMode === "allModes" ? (
+          <div>
+            <CardContainer>
+              <Card
+                title="Total Trips"
+                value={this.getValue(
+                  "allModesData",
+                  "total_trips"
+                )}
+                icon="mobile"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="thousands"
+              />
+              <Card
+                title="Total Miles"
+                value={this.getValue(
+                  "allModesData",
+                  "total_miles"
+                )}
+                icon="tachometer"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="thousands"
+              />
+              <Card
+                title="Average Miles"
+                value={this.getValue(
+                  "allModesData",
+                  "avg_miles"
+                )}
+                icon="tachometer"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="decimal"
+              />
+              <Card
+                title="Average Minutes"
+                value={this.getValue(
+                  "allModesData",
+                  "avg_duration_minutes"
+                )}
+                icon="hourglass"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="decimal"
+              />
+              <Card
+                title="Total Devices"
+                value={this.getDeviceValue(
+                  "all",
+                )}
+                icon="star"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="thousands"
+              />
+              <Card
+                title="311 Service Requests"
+                value={this.getValue(
+                  "threeOneOneData",
+                  "count"
+                )}
+                icon="phone"
+                resourceId={"5h38-fd8d"}
+                numberFormat="thousands"
+              />
+            </CardContainer>
+          </div>    
         ) : (
           <div>
           </div>
         )}
 
-        {this.state.dataIsLoaded ? (
-          ""
+        {this.state.newDataView === false && this.state.viewMode === "scooters" ? (
+          <div>
+            <CardContainer>
+              <Card
+                title="Scooter Trips"
+                value={this.getValue(
+                  "scooterData",
+                  "total_trips"
+                )}
+                icon="bolt"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="thousands"
+              />
+              <Card
+                title="Total Miles"
+                value={this.getValue(
+                  "scooterData",
+                  "total_miles"
+                )}
+                icon="tachometer"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="thousands"
+              />
+              <Card
+                title="Average Miles"
+                value={this.getValue(
+                  "scooterData",
+                  "avg_miles"
+                )}
+                icon="tachometer"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="decimal"
+              />
+              <Card
+                title="Average Minutes"
+                value={this.getValue(
+                  "scooterData",
+                  "avg_duration_minutes"
+                )}
+                icon="hourglass"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="decimal"
+              />
+              <Card
+                title="Total Devices"
+                value={this.getDeviceValue(
+                  "scooter",
+                )}
+                icon="star"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="thousands"
+              />
+            </CardContainer>
+          </div>    
         ) : (
           <div>
-            <i className="fa fa-spinner fa-pulse fa-3x fa-fw mt-2 mb-4" />
-            <span className="sr-only">Loading...</span>
           </div>
         )}
 
-        <PanelRowTitle title="All Modes" />
-        <CardContainer>
-          <Card
-            title="Total Trips"
-            value={this.getValue(
-              "allModesData",
-              "total_trips"
-            )}
-            icon="mobile"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="thousands"
-          />
-          <Card
-            title="Total Miles"
-            value={this.getValue(
-              "allModesData",
-              "total_miles"
-            )}
-            icon="tachometer"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="thousands"
-          />
-          <Card
-            title="Average Miles"
-            value={this.getValue(
-              "allModesData",
-              "avg_miles"
-            )}
-            icon="tachometer"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="decimal"
-          />
-          <Card
-            title="Average Minutes"
-            value={this.getValue(
-              "allModesData",
-              "avg_duration_minutes"
-            )}
-            icon="hourglass"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="decimal"
-          />
-          <Card
-            title="Total Devices"
-            value={this.getDeviceValue(
-              "all",
-            )}
-            icon="star"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="thousands"
-          />
-          <Card
-            title="311 Service Requests"
-            value={this.getValue(
-              "threeOneOneData",
-              "count"
-            )}
-            icon="phone"
-            resourceId={"5h38-fd8d"}
-            numberFormat="thousands"
-          />
-        </CardContainer>
+        {this.state.newDataView === false && this.state.viewMode === "bicycles" ? (
+          <div>
+            <CardContainer>
+              <Card
+                title="Bicycle Trips"
+                value={this.getValue(
+                  "bicycleData",
+                  "total_trips"
+                )}
+                icon="bicycle"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="thousands"
+              />
+              <Card
+                title="Total Miles"
+                value={this.getValue(
+                  "bicycleData",
+                  "total_miles"
+                )}
+                icon="tachometer"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="thousands"
+              />
+              <Card
+                title="Average Miles"
+                value={this.getValue(
+                  "bicycleData",
+                  "avg_miles"
+                )}
+                icon="tachometer"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="decimal"
+              />
+              <Card
+                title="Average Minutes"
+                value={this.getValue(
+                  "bicycleData",
+                  "avg_duration_minutes"
+                )}
+                icon="hourglass"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="decimal"
+              />
+              <Card
+                title="Total Devices"
+                value={this.getDeviceValue(
+                  "bicycle",
+                )}
+                icon="star"
+                resourceId={"7d8e-dm7r"}
+                updateEvent="dockless_trips"
+                numberFormat="thousands"
+              />
+            </CardContainer>
+          </div>    
+        ) : (
+          <div>
+          </div>
+        )}
 
-        <PanelRowTitle title="Dockless Scooters" />
-        <CardContainer>
-          <Card
-            title="Scooter Trips"
-            value={this.getValue(
-              "scooterData",
-              "total_trips"
-            )}
-            icon="bolt"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="thousands"
-          />
-          <Card
-            title="Total Miles"
-            value={this.getValue(
-              "scooterData",
-              "total_miles"
-            )}
-            icon="tachometer"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="thousands"
-          />
-          <Card
-            title="Average Miles"
-            value={this.getValue(
-              "scooterData",
-              "avg_miles"
-            )}
-            icon="tachometer"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="decimal"
-          />
-          <Card
-            title="Average Minutes"
-            value={this.getValue(
-              "scooterData",
-              "avg_duration_minutes"
-            )}
-            icon="hourglass"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="decimal"
-          />
-          <Card
-            title="Total Devices"
-            value={this.getDeviceValue(
-              "scooter",
-            )}
-            icon="star"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="thousands"
-          />
-        </CardContainer>
+        {this.state.newDataView ? (
+          <div>
+          </div>
+        ) : (
+          <div>
+            <h3 className="mt-3">About</h3>
+            <Description /> 
+          </div>
+        )}
 
-        <PanelRowTitle title="Dockless Bikes" />
-        <CardContainer>
-          <Card
-            title="Bicycle Trips"
-            value={this.getValue(
-              "bicycleData",
-              "total_trips"
-            )}
-            icon="bicycle"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="thousands"
-          />
-          <Card
-            title="Total Miles"
-            value={this.getValue(
-              "bicycleData",
-              "total_miles"
-            )}
-            icon="tachometer"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="thousands"
-          />
-          <Card
-            title="Average Miles"
-            value={this.getValue(
-              "bicycleData",
-              "avg_miles"
-            )}
-            icon="tachometer"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="decimal"
-          />
-          <Card
-            title="Average Minutes"
-            value={this.getValue(
-              "bicycleData",
-              "avg_duration_minutes"
-            )}
-            icon="hourglass"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="decimal"
-          />
-          <Card
-            title="Total Devices"
-            value={this.getDeviceValue(
-              "bicycle",
-            )}
-            icon="star"
-            resourceId={"7d8e-dm7r"}
-            updateEvent="dockless_trips"
-            numberFormat="thousands"
-          />
-        </CardContainer>
-        <h3 className="mt-3">About</h3>
-        <Description />
       </div>
     );
   }
