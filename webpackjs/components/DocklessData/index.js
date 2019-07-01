@@ -5,7 +5,8 @@ import _ from "lodash";
 import MonthSelect from "./MonthSelect";
 import DateRangeSelect from "./DateRangeSelect";
 import AllTimeButton from "./AllTimeButton";
-import PanelRowTitle from "./PanelRowTitle";
+import ModeSelector from "./ModeSelector";
+import DateRangeTypeSelector from "./DateRangeTypeSelector";
 import CardContainer from "./CardContainer";
 import Card from "./Card";
 import Description from "./Description";
@@ -23,8 +24,8 @@ class DocklessData extends Component {
       dateQuery: monthYear,
       startDateConverted: null,
       endDateConverted: null,
-      viewDataBy: null,
-      viewMode: "allModes",
+      viewDataBy: "Current month",
+      viewMode: "all devices",
       newDataView: false,
       scooterData: null,
       bicycleData: null,
@@ -80,7 +81,7 @@ class DocklessData extends Component {
   }
 
   runQueries(dateQuery) {
-
+    console.log(this.state);
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
     const tripSelectors = `avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips`;
@@ -136,7 +137,7 @@ class DocklessData extends Component {
           threeOneOneData,
           dataIsLoaded: true,
           viewDataBy: null,
-          viewMode: "allModes",
+          viewMode: "all devices",
           newDataView: false,
         });
       });
@@ -145,6 +146,7 @@ class DocklessData extends Component {
 
   componentDidMount() {
     this.runQueries(this.state.dateQuery);
+    console.log(this.state);
   }
 
   dataViewSelect(event) {
@@ -161,6 +163,19 @@ class DocklessData extends Component {
       viewDataBy: viewDataBy,
       newDataView: true
     })
+    // If selection is all time, run allTimeSelect function
+    if (viewDataBy === "all time") {
+      this.allTimeSelect();
+    }
+  }
+
+  allTimeSelect() {
+    const today = new Date();
+    const endMonthIndex = today.getMonth();
+    const endYear = today.getFullYear();
+    const lastDay = this.getDaysInMonth(`${endMonthIndex + 1}`, `${endYear}`);
+    const allTimeRange = `'2018-4-1' and '${endYear}-${endMonthIndex + 1}-${lastDay}T23:59:59.999'`
+    this.handleQueryChange(allTimeRange);
   }
 
   modeSelect(event) {
@@ -204,18 +219,37 @@ class DocklessData extends Component {
     return (
       <div className="container-fluid">
 
-        {this.state.dataIsLoaded ? (
-
+        {this.state.newDataView ? (
           <div>
-            <h5 className="d-flex justify-content-center">Choose date range</h5>
-            <div className="btn-group d-flex justify-content-center select-by-menu" role="group">
-              <button type="button" className="btn btn-primary" value="month" onClick={this.dataViewSelect}>Month</button>
-              <button type="button" className="btn btn-primary" value="range" onClick={this.dataViewSelect}>Calendar</button>
-              <AllTimeButton
-                getDaysInMonth={this.getDaysInMonth}
-                onClickAllTime={this.handleQueryChange}
-              />
-            </div>
+          </div>
+        ) : (
+          <div>
+            <DateRangeTypeSelector
+              onDateRangeTypeSelect={this.dataViewSelect}
+              dateRangeChosen={this.state.viewDataBy}
+              rangeStart={this.state.startDateConverted}
+              rangeEnd={this.state.endDateConverted}
+            />
+            <ModeSelector
+              mode={this.state.viewMode}
+              onModeSelect={this.modeSelect}
+            />
+          </div>
+        )}
+
+        {this.state.dataIsLoaded ? (
+          // <div>
+          //   <h5 className="d-flex justify-content-center">Choose date range</h5>
+          //   <div className="btn-group d-flex justify-content-center select-by-menu" role="group">
+          //     <button type="button" className="btn btn-primary" value="month" onClick={this.dataViewSelect}>Month</button>
+          //     <button type="button" className="btn btn-primary" value="range" onClick={this.dataViewSelect}>Calendar</button>
+          //     <AllTimeButton
+          //       getDaysInMonth={this.getDaysInMonth}
+          //       onClickAllTime={this.handleQueryChange}
+          //     />
+          //   </div>
+          // </div>
+          <div>
           </div>
         ) : (
           <div>
@@ -244,21 +278,11 @@ class DocklessData extends Component {
           </div>
         )}
 
-        {this.state.newDataView ? (
-          <div>
-          </div>
-        ) : (
-          <div>
-            <PanelRowTitle
-              mode={this.state.viewMode}
-              rangeStart={this.state.startDateConverted}
-              rangeEnd={this.state.endDateConverted}
-              onModeSelect={this.modeSelect}
-            />
-          </div>
-        )}
+        {/* <div className="panel-title-row pt-2 pl-2 select-by-menu">
+          <h5>Displaying data for {this.state.viewMode} between {this.state.startDateConverted} and {this.state.endDateConverted} </h5>
+        </div> */}
 
-        {this.state.newDataView === false && this.state.viewMode === "allModes" ? (
+        {this.state.newDataView === false && this.state.viewMode === "all devices" ? (
           <div>
             <CardContainer>
               <Card

@@ -96,6 +96,8 @@ span.col-14, span.col-15 {
   padding-bottom: 10px;
 }
 
+/* The code below is boilerplate coded that came with the react-calendar package */
+
 .react-calendar {
   width: 350px;
   max-width: 100%;
