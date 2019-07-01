@@ -9,13 +9,12 @@ const allTimeSelect = ( getDaysInMonth ) => {
     return allTimeRange;
 }
 
-const AllTimeButton = ({ getDaysInMonth, onClickAllTime, onClickDataViewSelect }) => (
+const AllTimeButton = ({ getDaysInMonth, onClickAllTime }) => (
     <button
         type="button"
         className="btn btn-primary"
-        id="js-all-time-button"
         value={allTimeSelect(getDaysInMonth)}
-        onClick={function(event) {onClickDataViewSelect("allTime"); onClickAllTime(event)}}
+        onClick={onClickAllTime}
         >
         All Time
     </button>

@@ -15,34 +15,36 @@ const months = [
   "December",
 ];
 
-// Get the range of months starting when we first have today to this current
-// month as an array of objects. Ex: [{1_2019: 'January 2019'}, ...]
-const getMonthOptions = ( getDaysInMonth ) => {
-  let monthsArray = [];
-  const startMonthIndex = 3; // The first month we have data is from April 2018
-  const startYear = 2018;
-  const today = new Date();
-  const endMonthIndex = today.getMonth();
-  const endYear = today.getFullYear();
+const MonthSelect = ({ monthYear, getDaysInMonth, onChangeMonth }) => {
 
-  for (var year = startYear; year <= endYear; year++) {
-    months.map((month, index) => {
-      let isBeforeStartMonth = startMonthIndex > index && startYear === year;
-      let isAfterCurrentMonth = index > endMonthIndex && endYear == year;
-      if (isBeforeStartMonth || isAfterCurrentMonth) {
-        return false;
-      }
-      let lastDay = getDaysInMonth(`${index + 1}`, `${year}`);
-      const monthRange = `'${year}-${index + 1}-1' and '${year}-${index + 1}-${lastDay}T23:59:59.999'`;
-      monthsArray.push({ [`${monthRange}`]: `${month} ${year}` });
-    });
+  function getMonthOptions() {
+    // Get the range of months starting when we first have today to this current
+    // month as an array of objects. Ex: [{1_2019: 'January 2019'}, ...]
+    let monthsArray = [];
+    const startMonthIndex = 3; // The first month we have data is from April 2018
+    const startYear = 2018;
+    const today = new Date();
+    const endMonthIndex = today.getMonth();
+    const endYear = today.getFullYear();
+  
+    for (var year = startYear; year <= endYear; year++) {
+      months.map((month, index) => {
+        let isBeforeStartMonth = startMonthIndex > index && startYear === year;
+        let isAfterCurrentMonth = index > endMonthIndex && endYear == year;
+        if (isBeforeStartMonth || isAfterCurrentMonth) {
+          return false;
+        }
+        let lastDay = getDaysInMonth(`${index + 1}`, `${year}`);
+        const monthRange = `'${year}-${index + 1}-1' and '${year}-${index + 1}-${lastDay}T23:59:59.999'`;
+        monthsArray.push({ [`${monthRange}`]: `${month} ${year}` });
+      });
+    }
+  
+    return monthsArray;
   }
 
-  return monthsArray;
-};
-
-const MonthSelect = ({ monthYear, getDaysInMonth, onChangeMonth }) => (
-  <div className="form-group">
+  return (
+    <div className="form-group">
     <label htmlFor="js-month-select">Month</label>
     <select
       className="form-control"
@@ -57,6 +59,7 @@ const MonthSelect = ({ monthYear, getDaysInMonth, onChangeMonth }) => (
       ))}
     </select>
   </div>
-);
+  )
+};
 
 export default MonthSelect;

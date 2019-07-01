@@ -214,7 +214,6 @@ class DocklessData extends Component {
               <AllTimeButton
                 getDaysInMonth={this.getDaysInMonth}
                 onClickAllTime={this.handleQueryChange}
-                onClickDataViewSelect={this.dataViewSelect}
               />
             </div>
           </div>

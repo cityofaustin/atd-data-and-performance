@@ -3,9 +3,9 @@ import React from "react";
 const Description = ({}) => (
   <div>
     <p>
-      This page summarizes dockless mobility trips reported to the City of
+      This page summarizes shared micromobility trips reported to the City of
       Austin Transportation Department as part of the{" "}
-      <a href="https://austintexas.gov/docklessmobility">Dockless Mobility</a>{" "}
+      <a href="https://austintexas.gov/micromobility">Micromobility</a>{" "}
       operating rules.
     </p>
     <p>
