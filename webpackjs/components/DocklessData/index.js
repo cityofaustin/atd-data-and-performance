@@ -40,78 +40,19 @@ class DocklessData extends Component {
   }
 
   getDaysInMonth(month, year) {
+    // Gets the total number of days in a given month to build the default query in state (current month)
+    // and subsequent "month" queries
     return new Date(year, month, 0).getDate();
   }
 
-  handleQueryChange(event, displayDateRangeType) {
-    let dateQuery;
-    // Accept dateQuery whether it is event or simple value using logical statement
-    // Note: DateRangeSelect component sends query as simple value, other components send as event
-    if (event.target) {
-      dateQuery = event.target.value;
-    } else {
-      dateQuery = event;
-    }
-    this.setState({
-      dateQuery: dateQuery,
-      dataIsLoaded: false,
-      viewDataBy: null,
-    });
-    this.runQueries(dateQuery, displayDateRangeType);
-  }
-
-  formatDate(dateNumbers) {
-    const dateSplit = dateNumbers.split("-");
-    let year = dateSplit[0];
-    let month = dateSplit[1];
-    let day = dateSplit[2];
-    if (month < 10 && day < 10) {
-      month = "0" + month;
-      day = "0" + day
-    } else if (month < 10 && day > 9) {
-      month = "0" + month
-    } else if (month > 9 && day < 10) {
-      day = "0" + day      
-    } else {}
-    return new Date(year, month - 1, day, 0, 0, 0).toDateString();
-  }
-
-  convertDate(dateQuery, displayDateRangeType) {
-    const date = new Date();
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const splitDate = dateQuery.split(" and ");
-    // Convert start date to a string
-    const startDateRaw = splitDate[0];
-    const startDateCloseQuoteIndex = startDateRaw.lastIndexOf("'");
-    const startDateNumbers = startDateRaw.slice(1, startDateCloseQuoteIndex);
-    const startDateString = this.formatDate(startDateNumbers);
-    //Convert end date to a string
-    const endDateRaw = splitDate[1];
-    const endDateTIndex = endDateRaw.indexOf("T");
-    const endDateNumbers = endDateRaw.slice(1, endDateTIndex);
-    const endDateString = this.formatDate(endDateNumbers);
-    const endMonth = endDateNumbers.split("-")[1] - 1;
-    const endYear = endDateNumbers.split("-")[0];
-    let displayDateRange;
-
-    if (displayDateRangeType === "current") {
-      displayDateRange = `${months[date.getMonth()]} ${date.getFullYear()}`
-    } else if (displayDateRangeType === "all time") {
-      displayDateRange = `April 2018 through ${months[endMonth]} ${endYear} (All time)`
-    } else if (displayDateRangeType === "range" && startDateString === endDateString) {
-      displayDateRange = startDateString;
-    } else if (displayDateRangeType === "range") {
-        displayDateRange = `${startDateString} to ${endDateString}`
-    } else  {
-      displayDateRange = `${months[endMonth]} ${endYear}`
-    }
-
-    this.setState({
-      displayDateRange: displayDateRange
-    });
+  componentDidMount() {
+    // Run the default query in state (current month) once the app has loaded
+    this.runQueries(this.state.dateQuery, "current");
   }
 
   runQueries(dateQuery, displayDateRangeType) {
+    // Queries the SODA API with the current date range query and stores data in state.
+    // "dateRangeType" tells UI how to display date range to user ("current," "month," "range" or "all time")
     console.log(dateQuery, displayDateRangeType);
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
@@ -174,59 +115,8 @@ class DocklessData extends Component {
     this.convertDate(dateQuery, displayDateRangeType);
   }
 
-  componentDidMount() {
-    this.runQueries(this.state.dateQuery, "current");
-  }
-
-  dataViewSelect(event) {
-    // Accept dataViewSelect whether it is event or simple value using logical statement
-    // Note: AllTimeButton component sends query as simple value, other components send as event
-    let viewDataBy;
-    if (event.target) {
-      viewDataBy = event.target.value;
-    } else {
-      viewDataBy = event;
-    }
-    console.log(viewDataBy);
-    this.setState({
-      viewDataBy: viewDataBy,
-      newDataView: true,
-    })
-    // If selection is all time, run allTimeSelect function
-    if (viewDataBy === "all time") {
-      this.allTimeSelect();
-    }
-  }
-
-  allTimeSelect() {
-    const today = new Date();
-    const endMonthIndex = today.getMonth();
-    const endYear = today.getFullYear();
-    const lastDay = this.getDaysInMonth(`${endMonthIndex + 1}`, `${endYear}`);
-    const allTimeRange = `'2018-4-1' and '${endYear}-${endMonthIndex + 1}-${lastDay}T23:59:59.999'`
-    this.handleQueryChange(allTimeRange, "all time");
-  }
-
-  modeSelect(event) {
-    const viewMode = event.target.value
-    console.log(viewMode);
-    this.setState({
-      viewMode: viewMode
-    })
-  }
-
-  getValue(data, metric) {
-    const leData = `${data}`;
-
-    // return 0 when the API hasn't responded yet but the HTML needs to render
-    if (!this.state[leData] || this.state.dataIsLoaded === false) {
-      return 0;
-    }
-
-    return Number(this.state[leData][metric]);
-  }
-
   getDeviceValue(mode) {
+    // Pull device count values from state to display to user
     const { deviceCountData } = this.state;
 
     // return 0 when the API hasn't responded yet but the HTML needs to render
@@ -242,6 +132,132 @@ class DocklessData extends Component {
     } else {
       return deviceCountData[mode]
     }
+  }
+
+  getValue(data, metric) {
+    // Pull all other values from state to display to user
+    const leData = `${data}`;
+
+    // return 0 when the API hasn't responded yet but the HTML needs to render
+    if (!this.state[leData] || this.state.dataIsLoaded === false) {
+      return 0;
+    }
+
+    return Number(this.state[leData][metric]);
+  }
+
+  formatDate(dateNumbers) {
+    // Helper function for the convertDate UI function - formats date and converts it to string for display
+    const dateSplit = dateNumbers.split("-");
+    let year = dateSplit[0];
+    let month = dateSplit[1];
+    let day = dateSplit[2];
+    if (month < 10 && day < 10) {
+      month = "0" + month;
+      day = "0" + day
+    } else if (month < 10 && day > 9) {
+      month = "0" + month
+    } else if (month > 9 && day < 10) {
+      day = "0" + day      
+    } else {}
+    return new Date(year, month - 1, day, 0, 0, 0).toDateString();
+  }
+
+  convertDate(dateQuery, displayDateRangeType) {
+    // UI function - extracts date from date query and displays it to user in appropriate way
+    // based on whether displayDateRangeType is default "current month" query or whether
+    // user queried specific month, date range, or all time data
+    const date = new Date();
+    const splitDate = dateQuery.split(" and ");
+    // Convert start date to a string
+    const startDateRaw = splitDate[0];
+    const startDateCloseQuoteIndex = startDateRaw.lastIndexOf("'");
+    const startDateNumbers = startDateRaw.slice(1, startDateCloseQuoteIndex);
+    const startDateString = this.formatDate(startDateNumbers);
+    // Convert end date to a string
+    const endDateRaw = splitDate[1];
+    const endDateTIndex = endDateRaw.indexOf("T");
+    const endDateNumbers = endDateRaw.slice(1, endDateTIndex);
+    const endDateString = this.formatDate(endDateNumbers);
+    // Get month names and name of last month in query to display for "month" and "all time"
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const endMonth = endDateNumbers.split("-")[1] - 1;
+    const endYear = endDateNumbers.split("-")[0];
+    // Set date range to be displayed to user based on displayDateRangeType
+    let displayDateRange;
+    if (displayDateRangeType === "current") {
+      // Display current month by default
+      displayDateRange = `${months[date.getMonth()]} ${date.getFullYear()}`
+    } else if (displayDateRangeType === "all time") {
+      // If "all time" selected, show April 2018 through current month
+      displayDateRange = `April 2018 through ${months[endMonth]} ${endYear} (All time)`
+    } else if (displayDateRangeType === "range" && startDateString === endDateString) {
+      // If start date and end date are the same, display only the start date
+      displayDateRange = startDateString;
+    } else if (displayDateRangeType === "range") {
+      // If range between two different dates, display both dates
+      displayDateRange = `${startDateString} to ${endDateString}`
+    } else  {
+      // If no displayDateRangeType argument, dafult to "month"
+      displayDateRange = `${months[endMonth]} ${endYear}`
+    }
+
+    this.setState({
+      displayDateRange: displayDateRange
+    });
+  }
+
+  dataViewSelect(event) {
+    // Parse and handle user selecting new way to view data from DateRangeTypeSelector
+    // (month, date/date range, all time) and set state "viewDataBy" value so that UI will
+    // render selected option (if month or date/date range) or run allTimeSelect function
+    const viewDataBy = event.target.value;
+    this.setState({
+      viewDataBy: viewDataBy,
+      newDataView: true,
+    })
+    if (viewDataBy === "all time") {
+      this.allTimeSelect();
+    }
+    console.log(viewDataBy);
+  }
+
+  handleQueryChange(event, displayDateRangeType) {
+    // Handle user selecting new query by parsing query and type of date range to display
+    let dateQuery;
+    // DateRangeSelect component sends query as simple value, other components send as event
+    if (event.target) {
+      dateQuery = event.target.value;
+    } else {
+      dateQuery = event;
+    }
+    // Set new query in state, set data is loaded to false to render loading screen
+    // set viewDataBy to clear month or date range selector
+    this.setState({
+      dateQuery: dateQuery,
+      dataIsLoaded: false,
+      viewDataBy: null,
+    });
+    this.runQueries(dateQuery, displayDateRangeType);
+  }
+
+  allTimeSelect() {
+    // Run handleQueryChange if user selects "all time"
+    const today = new Date();
+    const endMonthIndex = today.getMonth();
+    const endYear = today.getFullYear();
+    const lastDay = this.getDaysInMonth(`${endMonthIndex + 1}`, `${endYear}`);
+    const allTimeRange = `'2018-4-1' and '${endYear}-${endMonthIndex + 1}-${lastDay}T23:59:59.999'`
+    this.handleQueryChange(allTimeRange, "all time");
+  }
+
+  modeSelect(event) {
+    // Render mode cards based on type of mode user has selected
+    const viewMode = event.target.value
+    console.log(viewMode);
+    this.setState({
+      viewMode: viewMode
+    })
   }
 
   render() {
