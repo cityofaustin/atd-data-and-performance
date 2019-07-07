@@ -25,7 +25,6 @@ class DocklessData extends Component {
       displayDateRange: null,
       viewDataBy: null,
       viewMode: "all devices",
-      newDataView: false,
       scooterData: null,
       bicycleData: null,
       allModesData: null,
@@ -54,6 +53,7 @@ class DocklessData extends Component {
     // Queries the SODA API with the current date range query and stores data in state.
     // "dateRangeType" tells UI how to display date range to user ("current," "month," "range" or "all time")
     console.log(dateQuery, displayDateRangeType);
+    console.log(this.state);
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
     const tripSelectors = `avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips`;
@@ -109,7 +109,6 @@ class DocklessData extends Component {
           threeOneOneData,
           dataIsLoaded: true,
           viewMode: "all devices",
-          newDataView: false,
         });
       });
     this.convertDate(dateQuery, displayDateRangeType);
@@ -167,6 +166,7 @@ class DocklessData extends Component {
     // UI function - extracts date from date query and displays it to user in appropriate way
     // based on whether displayDateRangeType is default "current month" query or whether
     // user queried specific month, date range, or all time data
+    console.log(this.state);
     const date = new Date();
     const splitDate = dateQuery.split(" and ");
     // Convert start date to a string
@@ -214,7 +214,6 @@ class DocklessData extends Component {
     const viewDataBy = event.target.value;
     this.setState({
       viewDataBy: viewDataBy,
-      newDataView: true,
     })
     if (viewDataBy === "all time") {
       this.allTimeSelect();
@@ -264,31 +263,14 @@ class DocklessData extends Component {
     return (
       <div className="container-fluid">
 
-        {this.state.newDataView ? (
-          <div>
-          </div>
-        ) : (
-          <div>
-            <DateRangeTypeSelector
-              onDateRangeTypeSelect={this.dataViewSelect}
-              dateRangeChosen={this.state.viewDataBy}
-              displayDateRange={this.state.displayDateRange}
-            />
-            <ModeSelector
-              mode={this.state.viewMode}
-              onModeSelect={this.modeSelect}
-            />
-          </div>
-        )}
-
         {this.state.dataIsLoaded ? (
-          <div>
-          </div>
+          <DateRangeTypeSelector
+            onDateRangeTypeSelect={this.dataViewSelect}
+            dateRangeChosen={this.state.viewDataBy}
+            displayDateRange={this.state.displayDateRange}
+          />
         ) : (
-          <div>
-            <i className="fa fa-spinner fa-pulse fa-3x fa-fw mt-2 mb-4" />
-            <span className="sr-only">Loading...</span>
-          </div>
+          <div></div>
         )}
 
         {this.state.dataIsLoaded && this.state.viewDataBy === "month" ? (
@@ -311,7 +293,19 @@ class DocklessData extends Component {
           </div>
         )}
 
-        {this.state.newDataView === false && this.state.viewMode === "all devices" ? (
+        {this.state.dataIsLoaded ? (
+          <ModeSelector
+            mode={this.state.viewMode}
+            onModeSelect={this.modeSelect}
+          />
+        ) : (
+          <div>
+            <i className="fa fa-spinner fa-pulse fa-3x fa-fw mt-2 mb-4" />
+            <span className="sr-only">Loading...</span>
+          </div>
+        )}
+
+        {this.state.viewMode === "all devices" ? (
           <div>
             <CardContainer>
               <Card
@@ -385,7 +379,7 @@ class DocklessData extends Component {
           </div>
         )}
 
-        {this.state.newDataView === false && this.state.viewMode === "scooters" ? (
+        {this.state.viewMode === "scooters" ? (
           <div>
             <CardContainer>
               <Card
@@ -449,7 +443,7 @@ class DocklessData extends Component {
           </div>
         )}
 
-        {this.state.newDataView === false && this.state.viewMode === "bicycles" ? (
+        {this.state.viewMode === "bicycles" ? (
           <div>
             <CardContainer>
               <Card
@@ -513,15 +507,10 @@ class DocklessData extends Component {
           </div>
         )}
 
-        {this.state.newDataView ? (
-          <div>
-          </div>
-        ) : (
-          <div>
-            <h3 className="mt-3">About</h3>
-            <Description /> 
-          </div>
-        )}
+        <div>
+          <h3 className="mt-3">About</h3>
+          <Description /> 
+        </div>
 
       </div>
     );
