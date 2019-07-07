@@ -4,9 +4,8 @@ import _ from "lodash";
 
 import MonthSelect from "./MonthSelect";
 import DateRangeSelect from "./DateRangeSelect";
-import AllTimeButton from "./AllTimeButton";
-import ModeSelector from "./ModeSelector";
 import DateRangeTypeSelector from "./DateRangeTypeSelector";
+import ModeSelector from "./ModeSelector";
 import CardContainer from "./CardContainer";
 import Card from "./Card";
 import Description from "./Description";
@@ -22,9 +21,9 @@ class DocklessData extends Component {
 
     this.state = {
       dateQuery: monthYear,
-      startDateConverted: null,
-      endDateConverted: null,
-      viewDataBy: "Current month",
+      monthYear: monthYear,
+      displayDateRange: null,
+      viewDataBy: null,
       viewMode: "all devices",
       newDataView: false,
       scooterData: null,
@@ -44,7 +43,7 @@ class DocklessData extends Component {
     return new Date(year, month, 0).getDate();
   }
 
-  handleQueryChange(event) {
+  handleQueryChange(event, displayDateRangeType) {
     let dateQuery;
     // Accept dateQuery whether it is event or simple value using logical statement
     // Note: DateRangeSelect component sends query as simple value, other components send as event
@@ -53,35 +52,67 @@ class DocklessData extends Component {
     } else {
       dateQuery = event;
     }
-    console.log(dateQuery);
     this.setState({
       dateQuery: dateQuery,
       dataIsLoaded: false,
+      viewDataBy: null,
     });
-    this.runQueries(dateQuery);
+    this.runQueries(dateQuery, displayDateRangeType);
   }
 
-  convertDate(dateQuery) {
+  formatDate(dateNumbers) {
+    const dateSplit = dateNumbers.split("-");
+    let year = dateSplit[0];
+    let month = dateSplit[1];
+    let day = dateSplit[2];
+    if (month < 10 && day < 10) {
+      month = "0" + month;
+      day = "0" + day
+    } else if (month < 10 && day > 9) {
+      month = "0" + month
+    } else if (month > 9 && day < 10) {
+      day = "0" + day      
+    } else {}
+    return new Date(year, month - 1, day, 0, 0, 0).toDateString();
+  }
+
+  convertDate(dateQuery, displayDateRangeType) {
+    const date = new Date();
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const splitDate = dateQuery.split(" and ");
+    // Convert start date to a string
     const startDateRaw = splitDate[0];
-    const endDateRaw = splitDate[1];
     const startDateCloseQuoteIndex = startDateRaw.lastIndexOf("'");
     const startDateNumbers = startDateRaw.slice(1, startDateCloseQuoteIndex);
+    const startDateString = this.formatDate(startDateNumbers);
+    //Convert end date to a string
+    const endDateRaw = splitDate[1];
     const endDateTIndex = endDateRaw.indexOf("T");
     const endDateNumbers = endDateRaw.slice(1, endDateTIndex);
-    const startDateFormatted = new Date(startDateNumbers);
-    const startDateString = startDateFormatted.toDateString();
-    const endDateFormatted = new Date(endDateNumbers);
-    const endDateString = endDateFormatted.toDateString();
-    console.log(startDateString, endDateString);
+    const endDateString = this.formatDate(endDateNumbers);
+    const endMonth = endDateNumbers.split("-")[1] - 1;
+    const endYear = endDateNumbers.split("-")[0];
+    let displayDateRange;
+
+    if (displayDateRangeType === "current") {
+      displayDateRange = `${months[date.getMonth()]} ${date.getFullYear()}`
+    } else if (displayDateRangeType === "all time") {
+      displayDateRange = `April 2018 through ${months[endMonth]} ${endYear} (All time)`
+    } else if (displayDateRangeType === "range" && startDateString === endDateString) {
+      displayDateRange = startDateString;
+    } else if (displayDateRangeType === "range") {
+        displayDateRange = `${startDateString} to ${endDateString}`
+    } else  {
+      displayDateRange = `${months[endMonth]} ${endYear}`
+    }
+
     this.setState({
-      startDateConverted: startDateString,
-      endDateConverted: endDateString
+      displayDateRange: displayDateRange
     });
   }
 
-  runQueries(dateQuery) {
-    console.log(this.state);
+  runQueries(dateQuery, displayDateRangeType) {
+    console.log(dateQuery, displayDateRangeType);
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
     const tripSelectors = `avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips`;
@@ -136,17 +167,15 @@ class DocklessData extends Component {
           deviceCountData,
           threeOneOneData,
           dataIsLoaded: true,
-          viewDataBy: null,
           viewMode: "all devices",
           newDataView: false,
         });
       });
-    this.convertDate(dateQuery);
+    this.convertDate(dateQuery, displayDateRangeType);
   }
 
   componentDidMount() {
-    this.runQueries(this.state.dateQuery);
-    console.log(this.state);
+    this.runQueries(this.state.dateQuery, "current");
   }
 
   dataViewSelect(event) {
@@ -158,10 +187,10 @@ class DocklessData extends Component {
     } else {
       viewDataBy = event;
     }
-    console.log(viewDataBy)
+    console.log(viewDataBy);
     this.setState({
       viewDataBy: viewDataBy,
-      newDataView: true
+      newDataView: true,
     })
     // If selection is all time, run allTimeSelect function
     if (viewDataBy === "all time") {
@@ -175,7 +204,7 @@ class DocklessData extends Component {
     const endYear = today.getFullYear();
     const lastDay = this.getDaysInMonth(`${endMonthIndex + 1}`, `${endYear}`);
     const allTimeRange = `'2018-4-1' and '${endYear}-${endMonthIndex + 1}-${lastDay}T23:59:59.999'`
-    this.handleQueryChange(allTimeRange);
+    this.handleQueryChange(allTimeRange, "all time");
   }
 
   modeSelect(event) {
@@ -227,8 +256,7 @@ class DocklessData extends Component {
             <DateRangeTypeSelector
               onDateRangeTypeSelect={this.dataViewSelect}
               dateRangeChosen={this.state.viewDataBy}
-              rangeStart={this.state.startDateConverted}
-              rangeEnd={this.state.endDateConverted}
+              displayDateRange={this.state.displayDateRange}
             />
             <ModeSelector
               mode={this.state.viewMode}
@@ -238,17 +266,6 @@ class DocklessData extends Component {
         )}
 
         {this.state.dataIsLoaded ? (
-          // <div>
-          //   <h5 className="d-flex justify-content-center">Choose date range</h5>
-          //   <div className="btn-group d-flex justify-content-center select-by-menu" role="group">
-          //     <button type="button" className="btn btn-primary" value="month" onClick={this.dataViewSelect}>Month</button>
-          //     <button type="button" className="btn btn-primary" value="range" onClick={this.dataViewSelect}>Calendar</button>
-          //     <AllTimeButton
-          //       getDaysInMonth={this.getDaysInMonth}
-          //       onClickAllTime={this.handleQueryChange}
-          //     />
-          //   </div>
-          // </div>
           <div>
           </div>
         ) : (
@@ -260,7 +277,7 @@ class DocklessData extends Component {
 
         {this.state.dataIsLoaded && this.state.viewDataBy === "month" ? (
           <MonthSelect
-            monthYear={this.state.dateQuery}
+            monthYear={this.state.monthYear}
             getDaysInMonth={this.getDaysInMonth}
             onChangeMonth={this.handleQueryChange}
           />
@@ -277,10 +294,6 @@ class DocklessData extends Component {
           <div>
           </div>
         )}
-
-        {/* <div className="panel-title-row pt-2 pl-2 select-by-menu">
-          <h5>Displaying data for {this.state.viewMode} between {this.state.startDateConverted} and {this.state.endDateConverted} </h5>
-        </div> */}
 
         {this.state.newDataView === false && this.state.viewMode === "all devices" ? (
           <div>

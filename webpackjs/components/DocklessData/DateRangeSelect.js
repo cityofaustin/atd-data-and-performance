@@ -24,7 +24,7 @@ const DateRangeSelect = ({ onChangeRange }) => {
         const endDateConverted = convertDate(endDate);
         const dateRange = `'${startDateConverted}' and '${endDateConverted}T23:59:59.999'`;
     
-        onChangeRange(dateRange);
+        onChangeRange(dateRange, "range");
     }
 
     return (
