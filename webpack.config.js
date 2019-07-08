@@ -4,7 +4,7 @@ module.exports = {
   context: path.resolve(__dirname, "webpackjs"),
   // webpack folder’s entry js — excluded from jekll’s build process.
   entry: {
-    dockless: "./dockless-data.js",
+    micromobility: "./micromobility-data.js",
     about: "./about.js"
   },
   output: {
