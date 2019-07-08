@@ -20,17 +20,16 @@ class DocklessData extends Component {
     const monthYear = `'${defaultYear}-${thisMonth}-1' and '${defaultYear}-${thisMonth}-${lastDay}T23:59:59.999'`;
 
     this.state = {
-      dateQuery: monthYear,
-      monthYear: monthYear,
-      displayDateRange: null,
+      dataIsLoaded: false,
       viewDataBy: null,
       viewMode: "all devices",
+      monthYear: monthYear,
+      displayDateRange: null,
       scooterData: null,
       bicycleData: null,
       allModesData: null,
       deviceCountData: null,
       threeOneOneData: null,
-      dataIsLoaded: false
     };
 
     this.handleQueryChange = this.handleQueryChange.bind(this);
@@ -46,14 +45,13 @@ class DocklessData extends Component {
 
   componentDidMount() {
     // Run the default query in state (current month) once the app has loaded
-    this.runQueries(this.state.dateQuery, "current");
+    this.runQueries(this.state.monthYear, "current");
   }
 
   runQueries(dateQuery, displayDateRangeType) {
     // Queries the SODA API with the current date range query and stores data in state.
     // "dateRangeType" tells UI how to display date range to user ("current," "month," "range" or "all time")
     console.log(dateQuery, displayDateRangeType);
-    console.log(this.state);
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
     const tripSelectors = `avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips`;
@@ -166,7 +164,6 @@ class DocklessData extends Component {
     // UI function - extracts date from date query and displays it to user in appropriate way
     // based on whether displayDateRangeType is default "current month" query or whether
     // user queried specific month, date range, or all time data
-    console.log(this.state);
     const date = new Date();
     const splitDate = dateQuery.split(" and ");
     // Convert start date to a string
@@ -230,10 +227,9 @@ class DocklessData extends Component {
     } else {
       dateQuery = event;
     }
-    // Set new query in state, set data is loaded to false to render loading screen
-    // set viewDataBy to clear month or date range selector
+    // Set data is loaded to false to render loading screen
+    // Set viewDataBy to null to clear month or date range selector
     this.setState({
-      dateQuery: dateQuery,
       dataIsLoaded: false,
       viewDataBy: null,
     });
@@ -275,7 +271,6 @@ class DocklessData extends Component {
 
         {this.state.dataIsLoaded && this.state.viewDataBy === "month" ? (
           <MonthSelect
-            monthYear={this.state.monthYear}
             getDaysInMonth={this.getDaysInMonth}
             onChangeMonth={this.handleQueryChange}
           />

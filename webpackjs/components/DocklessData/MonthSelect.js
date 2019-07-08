@@ -52,11 +52,12 @@ const MonthSelect = ({ monthYear, getDaysInMonth, onChangeMonth }) => {
       value={monthYear}
       onChange={onChangeMonth}
     >
+      <option>Select a month</option>
       {getMonthOptions(getDaysInMonth).map(month => (
         <option key={Object.keys(month)[0]} value={Object.keys(month)[0]}>
           {Object.values(month)[0]}
         </option>
-      ))}
+      )).reverse()}
     </select>
   </div>
   )
