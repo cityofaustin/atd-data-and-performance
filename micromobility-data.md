@@ -7,5 +7,8 @@ custom_js:
 - micromobility.bundle
 custom_css:
 - dashboard
-redirect_from: "/dockless-data"
+redirect_from:
+- /dockless-data
+- /dockless-data/
+
 ---
