@@ -19,6 +19,6 @@ github:
 
 exclude: ['node_modules']
 
-# # Plugins
-# plugins:
-#   - jekyll-redirect-from
+# Plugins
+plugins:
+  - jekyll-redirect-from
