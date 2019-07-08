@@ -24,6 +24,7 @@
     "css-loader": "^3.0.0",
     "file-loader": "^3.0.1",
     "image-webpack-loader": "^4.6.0",
+    "js-yaml": ">=3.13.1",
     "react": "^16.6.3",
     "react-addons-update": "^15.6.2",
     "react-dom": "^16.6.3",
