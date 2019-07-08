@@ -22,7 +22,8 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader"],
+        resolve: { extensions: [".js", ".jsx", ".css"] } //add '.css' "root": __dirname
       },
       {
         test: /.*\.(gif|png|jpe?g|svg)$/i,
