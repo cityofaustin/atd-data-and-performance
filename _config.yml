@@ -18,3 +18,7 @@ github:
   repo:           https://github.com/cityofaustin/transportation
 
 exclude: ['node_modules']
+
+# Plugins
+plugins:
+  - jekyll-redirect-from
