@@ -53,7 +53,6 @@ class DocklessData extends Component {
   runQueries(dateQuery, displayDateRangeType) {
     // Queries the SODA API with the current date range query and stores data in state.
     // "dateRangeType" tells UI how to display date range to user ("current," "month," "range" or "all time")
-    console.log(dateQuery, displayDateRangeType);
     const resourceId = `7d8e-dm7r`;
     const resourceId311 = `5h38-fd8d`;
     const tripSelectors = `avg(trip_duration)/60 as avg_duration_minutes, sum(trip_distance) * 0.000621371 as total_miles, avg(trip_distance) * 0.000621371 as avg_miles, count(trip_id) as total_trips`;
@@ -217,7 +216,6 @@ class DocklessData extends Component {
     if (viewDataBy === "all time") {
       this.allTimeSelect();
     }
-    console.log(viewDataBy);
   }
 
   handleQueryChange(event, displayDateRangeType) {
@@ -251,7 +249,6 @@ class DocklessData extends Component {
   modeSelect(event) {
     // Render mode cards based on type of mode user has selected
     const viewMode = event.target.value
-    console.log(viewMode);
     this.setState({
       viewMode: viewMode
     })
