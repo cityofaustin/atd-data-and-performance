@@ -228,11 +228,15 @@ class MicromobilityData extends Component {
       dateQuery = event;
     }
     // Set data is loaded to false to render loading screen
-    // Set viewDataBy to null to clear month or date range selector
     this.setState({
       dataIsLoaded: false,
-      viewDataBy: null,
     });
+    // If date range was selected, set viewDataBy to null to clear selector
+    if (this.state.viewDataBy === "range") {
+      this.setState({
+        viewDataBy: null,
+      })
+    };
     this.runQueries(dateQuery, displayDateRangeType);
   }
 
