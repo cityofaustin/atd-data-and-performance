@@ -24,7 +24,6 @@ class Projects extends React.Component {
   }
 
   render() {
-    console.log("in render", this.state.projectsData);
     return (
       <div className="mb-5">
         <div className="row px-3 px-sm-0 mb-2">
@@ -32,11 +31,15 @@ class Projects extends React.Component {
         </div>
         <div>
           {this.state.projectsData.map((project, i) => (
-            <div>
-              <h1>
-                <Markdown source={project.title} />
+            <div key={"div" + i}>
+              <h1 key={"h1" + i}>
+                <Markdown key={"title" + i} source={project.title} />
               </h1>
-              <Markdown source={project.body} />
+              <Markdown
+                key={"desc" + i}
+                source={project.body.split("<!--")[0]}
+              />
+              <br />
             </div>
           ))}
         </div>
