@@ -31,6 +31,7 @@ const DateRangeSelect = ({ onChangeRange }) => {
 
         <div className="d-flex justify-content-center select-by-menu">
             <Calendar
+                calendarType="US"
                 onChange={getDateRange}
                 selectRange={true}
                 maxDate={maxDate}

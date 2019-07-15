@@ -1,3 +1,5 @@
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 import React, { Component } from "react";
 import axios from "axios";
 import _ from "lodash";
