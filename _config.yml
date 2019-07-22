@@ -1,0 +1,24 @@
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            'Transportation Data and Performance Hub | City of Austin Transportation Department'
+tagline:          'Open Data Projects at the Austin Transportation Department'
+description:      ''
+url:            http://transportation.austintexas.io
+
+author:
+  name:           ''
+  url:            ''
+
+# Custom vars
+version:          0.0.0
+
+github:
+  repo:           https://github.com/cityofaustin/transportation
+
+exclude: ['node_modules']
+
+# Plugins
+plugins:
+  - jekyll-redirect-from

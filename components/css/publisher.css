@@ -1,0 +1,23 @@
+.status-error {
+  color: #fff;
+  background-color: #8C2025;
+}
+
+.status-in_progress {
+  color: #fff;
+  background-color: #1B495C;
+}
+
+.status-success {
+  color: #fff;
+  background-color: #028102;
+}
+
+.modal-body {
+    background-color: #fff;
+    color: black;
+}
+
+.modal-lg {
+    max-width: 1000px !important;
+}
