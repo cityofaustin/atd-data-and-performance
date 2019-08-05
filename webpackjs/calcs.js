@@ -12,6 +12,7 @@ const objectProps = {
     maxFeet: "100",
     inputWidth: 0,
     inputLinearFeet: 0,
+    divisor: 17.5609756097561,
     output: 0,
   },
   thermo90: {
@@ -22,6 +23,7 @@ const objectProps = {
     maxFeet: "100",
     inputWidth: 0,
     inputLinearFeet: 0,
+    divisor: 12.1951219512195,
     output: 0,
   },
   beadsExtruded: {
@@ -32,6 +34,7 @@ const objectProps = {
     maxFeet: "100",
     inputWidth: 0,
     inputLinearFeet: 0,
+    divisor: 120,
     output: 0,
   },
   primer: {
@@ -42,6 +45,7 @@ const objectProps = {
     maxFeet: "10000",
     inputWidth: 0,
     inputLinearFeet: 0,
+    divisor: 3600,
     output: 0,
   },
   paintGallons: {
@@ -54,6 +58,7 @@ const objectProps = {
     inputWidth: 0,
     inputLinearFeet: 0,
     inputThickness: 0,
+    divisor: 19250,
     output: 0,
   },
   beadsPaint: {
@@ -64,6 +69,7 @@ const objectProps = {
     maxFeet: "10000",
     inputWidth: 0,
     inputLinearFeet: 0,
+    divisor: 212.4,
     output: 0,
   },
   adhesive: {
@@ -72,6 +78,7 @@ const objectProps = {
     label: "Pounds of bituminous adhesive",
     maxRPMS: "100",
     inputRPMS: 0,
+    divisor: 3,
     output: 0,
   }
 }
@@ -89,25 +96,11 @@ class Calcs extends Component {
       beadsPaint: objectProps.beadsPaint,
       adhesive: objectProps.adhesive
     };
-    this.thermo60GetOutputWidth = this.thermo60GetOutputWidth.bind(this);
-    this.thermo60getOutputLinearFeet = this.thermo60getOutputLinearFeet.bind(this);
-    this.thermo90GetOutputWidth = this.thermo90GetOutputWidth.bind(this);
-    this.thermo90getOutputLinearFeet = this.thermo90getOutputLinearFeet.bind(this);
-    this.beadsExtrudedGetOutputWidth = this.beadsExtrudedGetOutputWidth.bind(this);
-    this.beadsExtrudedGetOutputLinearFeet = this.beadsExtrudedGetOutputLinearFeet.bind(this);
-    this.primerGetOutputWidth = this.primerGetOutputWidth.bind(this);
-    this.primerGetOutputLinearFeet = this.primerGetOutputLinearFeet.bind(this);
-    this.paintGallonsGetOutputWidth = this.paintGallonsGetOutputWidth.bind(this);
-    this.paintGallonsGetOutputLinearFeet = this.paintGallonsGetOutputLinearFeet.bind(this);
-    this.paintGallonsGetOutputThickness = this.paintGallonsGetOutputThickness.bind(this);
-    this.beadsPaintGetOutputWidth = this.beadsPaintGetOutputWidth.bind(this);
-    this.beadsPaintGetOutputLinearFeet = this.beadsPaintGetOutputLinearFeet.bind(this);
-    this.adhesiveGetOutputRPMS = this.adhesiveGetOutputRPMS.bind(this);
   }
 
-  thermo60GetOutputWidth() {
+  thermo60GetOutputWidth = () => {
     const inputWidth = event.target.value;
-    const output = inputWidth*(this.state.thermo60.inputLinearFeet/17.5609756097561);
+    const output = inputWidth*(this.state.thermo60.inputLinearFeet/objectProps.thermo60.divisor);
     this.setState({
       thermo60: {
         inputWidth: inputWidth,
@@ -117,9 +110,9 @@ class Calcs extends Component {
     })
   }
 
-  thermo60getOutputLinearFeet() {
+  thermo60getOutputLinearFeet = () => {
     const inputLinearFeet = event.target.value;
-    const output = this.state.thermo60.inputWidth*(inputLinearFeet/17.5609756097561);
+    const output = this.state.thermo60.inputWidth*(inputLinearFeet/objectProps.thermo60.divisor);
     this.setState({
       thermo60: {
         inputWidth: this.state.thermo60.inputWidth,
@@ -129,9 +122,9 @@ class Calcs extends Component {
     })
   }
 
-  thermo90GetOutputWidth() {
+  thermo90GetOutputWidth = () => {
     const inputWidth = event.target.value;
-    const output = inputWidth*(this.state.thermo90.inputLinearFeet/12.1951219512195);
+    const output = inputWidth*(this.state.thermo90.inputLinearFeet/objectProps.thermo90.divisor);
     this.setState({
       thermo90: {
         inputWidth: inputWidth,
@@ -141,9 +134,9 @@ class Calcs extends Component {
     })
   }
 
-  thermo90getOutputLinearFeet() {
+  thermo90getOutputLinearFeet = () => {
     const inputLinearFeet = event.target.value;
-    const output = this.state.thermo90.inputWidth*(inputLinearFeet/12.1951219512195);
+    const output = this.state.thermo90.inputWidth*(inputLinearFeet/objectProps.thermo90.divisor);
     this.setState({
       thermo90: {
         inputWidth: this.state.thermo90.inputWidth,
@@ -153,9 +146,9 @@ class Calcs extends Component {
     })
   }
 
-  beadsExtrudedGetOutputWidth() {
+  beadsExtrudedGetOutputWidth = () => {
     const inputWidth = event.target.value;
-    const output = (this.state.beadsExtruded.inputLinearFeet/120)*inputWidth;
+    const output = (this.state.beadsExtruded.inputLinearFeet/objectProps.beadsExtruded.divisor)*inputWidth;
     this.setState({
       beadsExtruded: {
         inputWidth: inputWidth,
@@ -165,9 +158,9 @@ class Calcs extends Component {
     })
 }
 
-  beadsExtrudedGetOutputLinearFeet() {
+  beadsExtrudedGetOutputLinearFeet = () => {
       const inputLinearFeet = event.target.value;
-      const output = (inputLinearFeet/120)*this.state.beadsExtruded.inputWidth;
+      const output = (inputLinearFeet/objectProps.beadsExtruded.divisor)*this.state.beadsExtruded.inputWidth;
       this.setState({
         beadsExtruded: {
           inputWidth: this.state.beadsExtruded.inputWidth,
@@ -177,9 +170,9 @@ class Calcs extends Component {
       })
   }
 
-  primerGetOutputWidth() {
+  primerGetOutputWidth = () => {
     const inputWidth = event.target.value;
-    const output = inputWidth*(this.state.primer.inputLinearFeet/3600);
+    const output = inputWidth*(this.state.primer.inputLinearFeet/objectProps.primer.divisor);
     this.setState({
       primer: {
         inputWidth: inputWidth,
@@ -189,9 +182,9 @@ class Calcs extends Component {
     })
   }
 
-  primerGetOutputLinearFeet() {
+  primerGetOutputLinearFeet = () => {
     const inputLinearFeet = event.target.value;
-    const output = this.state.primer.inputWidth*(inputLinearFeet/3600);
+    const output = this.state.primer.inputWidth*(inputLinearFeet/objectProps.primer.divisor);
     this.setState({
       primer: {
         inputWidth: this.state.primer.inputWidth,
@@ -202,9 +195,9 @@ class Calcs extends Component {
 
   }
 
-  paintGallonsGetOutputWidth() {
+  paintGallonsGetOutputWidth = () => {
     const inputWidth = event.target.value;
-    const output = (this.state.paintGallons.inputLinearFeet*inputWidth/19250)*this.state.paintGallons.inputThickness;
+    const output = (this.state.paintGallons.inputLinearFeet*inputWidth/objectProps.paintGallons.divisor)*this.state.paintGallons.inputThickness;
     this.setState({
       paintGallons: {
         inputWidth: inputWidth,
@@ -215,9 +208,9 @@ class Calcs extends Component {
     })
   }
 
-  paintGallonsGetOutputLinearFeet() {
+  paintGallonsGetOutputLinearFeet = () => {
     const inputLinearFeet = event.target.value;
-    const output = (inputLinearFeet*this.state.paintGallons.inputWidth/19250)*this.state.paintGallons.inputThickness;
+    const output = (inputLinearFeet*this.state.paintGallons.inputWidth/objectProps.paintGallons.divisor)*this.state.paintGallons.inputThickness;
     this.setState({
       paintGallons: {
         inputWidth: this.state.paintGallons.inputWidth,
@@ -228,9 +221,9 @@ class Calcs extends Component {
     })
   }
 
-  paintGallonsGetOutputThickness() {
+  paintGallonsGetOutputThickness = () => {
     const inputThickness = event.target.value;
-    const output = (this.state.paintGallons.inputLinearFeet*this.state.paintGallons.inputWidth/19250)*inputThickness;
+    const output = (this.state.paintGallons.inputLinearFeet*this.state.paintGallons.inputWidth/objectProps.paintGallons.divisor)*inputThickness;
     this.setState({
       paintGallons: {
         inputWidth: this.state.paintGallons.inputWidth,
@@ -241,9 +234,9 @@ class Calcs extends Component {
     })
   }
 
-  beadsPaintGetOutputWidth() {
+  beadsPaintGetOutputWidth = () => {
     const inputWidth = event.target.value;
-    const output = (this.state.beadsPaint.inputLinearFeet/212.4)*inputWidth;
+    const output = (this.state.beadsPaint.inputLinearFeet/objectProps.beadsPaint.divisor)*inputWidth;
     this.setState({
       beadsPaint: {
         inputWidth: inputWidth,
@@ -253,9 +246,9 @@ class Calcs extends Component {
     })
   }
 
-  beadsPaintGetOutputLinearFeet() {
+  beadsPaintGetOutputLinearFeet = () => {
     const inputLinearFeet = event.target.value;
-    const output = (inputLinearFeet/212.4)*this.state.beadsPaint.inputWidth;
+    const output = (inputLinearFeet/objectProps.beadsPaint.divisor)*this.state.beadsPaint.inputWidth;
     this.setState({
       beadsPaint: {
         inputWidth: this.state.beadsPaint.inputWidth,
@@ -265,9 +258,9 @@ class Calcs extends Component {
     })
   }
 
-  adhesiveGetOutputRPMS() {
+  adhesiveGetOutputRPMS = () => {
     const inputRPMS = event.target.value;
-    const output = inputRPMS*(55/165);
+    const output = inputRPMS/objectProps.adhesive.divisor;
     this.setState({
       adhesive: {
         inputRPMS: inputRPMS,
