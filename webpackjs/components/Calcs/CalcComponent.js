@@ -8,7 +8,7 @@ const CalcComponent = ({ objectProps, inputWidth, inputLinearFeet, inputThicknes
             </div>
             <div className="row calc-card">
                 <div className="col-md-6">
-                    {objectProps.type === "Width,LinearFeet" || objectProps.type === "Width,LinearFeet,Thickness" ? (
+                    {(objectProps.type === "Width,LinearFeet" || objectProps.type === "Width,LinearFeet,Thickness") && (
                     <div>
                         <div className="form-group">
                             <label htmlFor="width" className="calc-label-top">
@@ -67,11 +67,8 @@ const CalcComponent = ({ objectProps, inputWidth, inputLinearFeet, inputThicknes
                             </div>
                         </div>
                     </div>
-                    ) : (
-                    <div>
-                    </div>
                     )}
-                    {objectProps.type === "Width,LinearFeet,Thickness" ? (
+                    {objectProps.type === "Width,LinearFeet,Thickness" && (
                     <div className="form-group">
                         <label htmlFor="thickness">
                             Mil Thickness Desired:
@@ -100,11 +97,8 @@ const CalcComponent = ({ objectProps, inputWidth, inputLinearFeet, inputThicknes
                             </div>
                         </div>
                     </div>
-                    ) : (
-                    <div>
-                    </div>
                     )}
-                    {objectProps.type === "RPMS" ? (
+                    {objectProps.type === "RPMS" && (
                     <div className="form-group">
                         <label htmlFor="RPMS">
                             RPMS:
@@ -132,9 +126,6 @@ const CalcComponent = ({ objectProps, inputWidth, inputLinearFeet, inputThicknes
                                 </input>
                             </div>
                         </div>
-                    </div>
-                    ) : (
-                    <div>
                     </div>
                     )}
                 </div>

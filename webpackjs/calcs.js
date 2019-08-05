@@ -110,7 +110,7 @@ class Calcs extends Component {
     })
   }
 
-  thermo60getOutputLinearFeet = () => {
+  thermo60GetOutputLinearFeet = () => {
     const inputLinearFeet = event.target.value;
     const output = this.state.thermo60.inputWidth*(inputLinearFeet/objectProps.thermo60.divisor);
     this.setState({
@@ -134,7 +134,7 @@ class Calcs extends Component {
     })
   }
 
-  thermo90getOutputLinearFeet = () => {
+  thermo90GetOutputLinearFeet = () => {
     const inputLinearFeet = event.target.value;
     const output = this.state.thermo90.inputWidth*(inputLinearFeet/objectProps.thermo90.divisor);
     this.setState({
@@ -279,7 +279,7 @@ class Calcs extends Component {
           inputLinearFeet={this.state.thermo60.inputLinearFeet}
           output={this.state.thermo60.output}
           getOutputWidth={this.thermo60GetOutputWidth}
-          getOutputLinearFeet={this.thermo60getOutputLinearFeet}
+          getOutputLinearFeet={this.thermo60GetOutputLinearFeet}
         />
         <CalcComponent
           objectProps={objectProps.thermo90}
@@ -287,7 +287,7 @@ class Calcs extends Component {
           inputLinearFeet={this.state.thermo90.inputLinearFeet}
           output={this.state.thermo90.output}
           getOutputWidth={this.thermo90GetOutputWidth}
-          getOutputLinearFeet={this.thermo90getOutputLinearFeet}
+          getOutputLinearFeet={this.thermo90GetOutputLinearFeet}
         />
         <CalcComponent
           objectProps={objectProps.beadsExtruded}
