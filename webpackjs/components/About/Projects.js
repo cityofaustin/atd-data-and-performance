@@ -33,7 +33,7 @@ class Projects extends React.Component {
         <div>
           {this.state.projectsData.map(
             project =>
-              project.milestone && (
+              // project.milestone && (
                 <div key={"div" + project.id}>
                   <h2 key={"h1" + project.id}>
                     <Markdown
@@ -57,7 +57,7 @@ class Projects extends React.Component {
                   <br />
                   <br />
                 </div>
-              )
+              // )
           )}
         </div>
       </div>
