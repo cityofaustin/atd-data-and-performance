@@ -43,7 +43,9 @@ class Projects extends React.Component {
                 key={"desc" + project.id}
                 source={(project.body.split("<!--")[0]).split("Description")[1]}
               />
-              <a key={"link" + project.id} href={project.repository_url} target="_blank">View the code for {project.title.split("Project: ")[1]}.</a>
+              <a key={"link" + project.id} href={project.html_url} target="_blank">
+                View {project.title.split("Project: ")[1]} on GitHub.
+              </a>
               <br />
               <br />
             </div>
