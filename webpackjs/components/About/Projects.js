@@ -33,13 +33,18 @@ class Projects extends React.Component {
         <div>
           {this.state.projectsData.map(project => (
             <div key={"div" + project.id}>
-              <h1 key={"h1" + project.id}>
-                <Markdown key={"title" + project.id} source={project.title} />
-              </h1>
+              <h2 key={"h1" + project.id}>
+                <Markdown 
+                  key={"title" + project.id}
+                  source={project.title.split("Project: ")[1]}
+                />
+              </h2>
               <Markdown
                 key={"desc" + project.id}
-                source={project.body.split("<!--")[0]}
+                source={(project.body.split("<!--")[0]).split("Description")[1]}
               />
+              <a key={"link" + project.id} href={project.repository_url} target="_blank">View the code for {project.title.split("Project: ")[1]}.</a>
+              <br />
               <br />
             </div>
           ))}
