@@ -1,7 +1,7 @@
 ---
 layout: micromobility-card-layout
 title: Shared Micromobility Dashboard | Transportation Data and Performance Hub
-title_short: Shared Micromobility Dashboard
+title_short: Shared Micromobility
 description: Shared Micromobility Dashboard
 custom_js:
 - micromobility.bundle
