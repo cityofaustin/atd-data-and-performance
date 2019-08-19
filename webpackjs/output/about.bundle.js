@@ -28997,38 +28997,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "people", function() { return people; });
 var people = [{
   name: "John Clary",
-  title: "IT Supervisor Sr",
+  title: "Supervisor",
   image: "john_clary"
 }, {
   name: "Scott Reedy",
-  title: "IT Business System Analyst Sr"
+  title: "Network Systems Administrator",
+  image: "scott_reedy"
 }, {
   name: "Diana Martin",
-  title: "IT Business System Analyst Sr",
+  title: "Solutions Architect",
   image: "diana_martin"
 }, {
-  name: "Garry Olson Jr",
-  title: "IT Business System Analyst",
-  image: "garry_olson_jr"
-}, {
   name: "Tracy Linder",
-  title: "Business System Analyst Sr",
+  title: "Product Manager",
   image: "tracy_linder"
 }, {
   name: "Mateo Clarke",
-  title: "Software Developer Sr",
+  title: "Lead Software Developer",
   image: "mateo_clarke"
 }, {
   name: "Alan De Anda",
-  title: "IT Geospatial Technician",
+  title: "Geospatial Technician",
   image: "alan_de_anda"
 }, {
-  name: "Matt Stevens",
-  title: "IT Geospatial Technician"
+  name: "Jaime McKeown",
+  title: "Senior Geospatial Analyst",
+  image: "jaime_mckeown"
 }, {
-  name: "Zhaowei \"Joey\" Liang",
-  title: "Software Developer Intern",
-  image: "zhaowei_joey_liang"
+  name: "Amenity Applewhite",
+  title: "Product Manager",
+  image: "amenity_applewhite"
+}, {
+  name: "Mike Dilley",
+  title: "Junior Software Developer",
+  image: "mike_dilley"
+}, {
+  name: "Sergio Garcia",
+  title: "Senior Data Engineer",
+  image: "sergio_garcia"
+}, {
+  name: "Billy Howland",
+  title: "Junior Solution Architect" // image: "billy_howland"
+
+}, {
+  name: "Tyler Whitson",
+  title: "Junior Software Developer" // image: "tyler_whitson"
+
+}, {
+  name: "Surbhi Bakshi",
+  title: "IT Application Analyst Senior" // image: "surbhi_bakshi"
+
 }];
 
 /***/ }),
