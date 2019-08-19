@@ -67,7 +67,7 @@ var SYSTEM_IDS = {};
 var tau = 2 * Math.PI,
     arc;
 
-var selected_year = "2018";  //  init year selection
+var selected_year = "2019";  //  init year selection
 
 var previous_selection = "2015";
 
@@ -337,7 +337,6 @@ function groupData(dataset, updateCharts) {
     }
 
     var years = Object.keys(ANNUAL_GOALS);
-            
     for (var z = 0; z < years.length; z++){
         var year = years[z];
 
@@ -433,14 +432,16 @@ function populateInfoStat(divId, metric, transition) {
 
     var goal = ANNUAL_GOALS[selected_year][metric]; 
 
-    if ("$" + STATUS_SELECTED in GROUPED_RETIMING_DATA["$" + selected_year]) {
-
+    if (GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]) {
         var metric_value = GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
-    
-    } else{
+    }
 
+    if (!(metric_value) ) {
         var metric_value = 0;
     }
+
+    console.log(GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]);
+    console.log(metric_value);
     
     d3.select("#" + divId)
         .append("text")
@@ -460,7 +461,6 @@ function populateInfoStat(divId, metric, transition) {
             var i = d3.interpolate(0, metric_value);
             
             return function (t) {
-            
                 that.text( FORMAT_TYPES[metric](i(t)) );
             
             }
@@ -490,9 +490,7 @@ function updateInfoStat(divId, metric, transition) {
     } 
     
     if (GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]) {
-
-            var metric_value = GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
-
+        var metric_value = GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED][metric];
     }
 
     if (!(metric_value_previous) ) {
@@ -502,6 +500,9 @@ function updateInfoStat(divId, metric, transition) {
     if (!(metric_value) ) {
         var metric_value = 0;
     }
+
+    console.log(GROUPED_RETIMING_DATA["$" + selected_year]["$" + STATUS_SELECTED]);
+    console.log(metric_value);
 
     d3.select("#" + divId)
         .select("text")
@@ -521,9 +522,7 @@ function updateInfoStat(divId, metric, transition) {
             var i = d3.interpolate(metric_value_previous, metric_value);
             
             return function (t) {
-            
-                that.text( FORMAT_TYPES[metric](i(t)) );
-            
+                that.text( FORMAT_TYPES[metric](i(t)) );            
             }
 
         });
