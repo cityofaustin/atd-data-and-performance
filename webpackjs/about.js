@@ -13,7 +13,6 @@ class About extends Component {
   componentDidMount() {
     let githubUrl = "";
     axios.get(githubUrl).then(res => {
-      console.log(res);
     });
   }
 

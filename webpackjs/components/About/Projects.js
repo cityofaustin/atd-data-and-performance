@@ -14,10 +14,9 @@ class Projects extends React.Component {
   componentDidMount() {
     axios
       .get(
-        "https://api.github.com/repos/cityofaustin/atd-data-tech/issues?labels=index"
+        "https://api.github.com/repos/cityofaustin/atd-data-tech/issues?labels=index,status: active"
       )
       .then(res => {
-        console.log(res.data);
         this.setState({
           projectsData: res.data
         });
@@ -31,34 +30,29 @@ class Projects extends React.Component {
           <h1>Our Projects</h1>
         </div>
         <div>
-          {this.state.projectsData.map(
-            project =>
-              // project.milestone && (
-                <div key={"div" + project.id}>
-                  <h2 key={"h1" + project.id}>
-                    <Markdown
-                      key={"title" + project.id}
-                      source={project.title.split("Project: ")[1]}
-                    />
-                  </h2>
-                  <Markdown
-                    key={"desc" + project.id}
-                    source={
-                      project.body.split("<!--")[0].split("Description")[1]
-                    }
-                  />
-                  <a
-                    key={"link" + project.id}
-                    href={project.html_url}
-                    target="_blank"
-                  >
-                    View {project.title.split("Project: ")[1]} on GitHub.
-                  </a>
-                  <br />
-                  <br />
-                </div>
-              // )
-          )}
+          {this.state.projectsData.map(project => (
+            <div key={"div" + project.id}>
+              <h2 key={"h1" + project.id}>
+                <Markdown
+                  key={"title" + project.id}
+                  source={project.title.split("Project: ")[1]}
+                />
+              </h2>
+              <Markdown
+                key={"desc" + project.id}
+                source={project.body.split("<!--")[0].split("Description")[1]}
+              />
+              <a
+                key={"link" + project.id}
+                href={project.html_url}
+                target="_blank"
+              >
+                View {project.title.split("Project: ")[1]} on GitHub.
+              </a>
+              <br />
+              <br />
+            </div>
+          ))}
         </div>
       </div>
     );
