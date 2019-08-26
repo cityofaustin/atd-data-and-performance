@@ -56,8 +56,8 @@ export const people = [
   },
   {
     name: "Tyler Whitson",
-    title: "Junior Software Developer"
-    // image: "tyler_whitson"
+    title: "Junior Software Developer",
+    image: "tyler_whitson"
   },
   {
     name: "Surbhi Bakshi",

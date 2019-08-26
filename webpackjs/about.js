@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import axios from "axios";
 
 import BannerImage from "./components/About/BannerImage";
 import Body from "./components/About/Body";
@@ -10,10 +9,6 @@ import Nav from "./components/Shared/Nav";
 import Projects from "./components/About/Projects";
 
 class About extends Component {
-  componentDidMount() {
-    let githubUrl = "";
-    axios.get(githubUrl).then(res => {});
-  }
 
   render() {
     return (
