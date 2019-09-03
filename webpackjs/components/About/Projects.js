@@ -17,8 +17,23 @@ class Projects extends React.Component {
         "https://api.github.com/repos/cityofaustin/atd-data-tech/issues?labels=index,status: active"
       )
       .then(res => {
+        const data = res.data;
+        data.sort(function(a, b) {
+          const titleA = a.title.toUpperCase();
+          const titleB = b.title.toUpperCase();
+
+          if (titleA < titleB) {
+            return -1;
+          }
+
+          if (titleA > titleB) {
+            return 1;
+          }
+
+          return 0;
+        });
         this.setState({
-          projectsData: res.data
+          projectsData: data
         });
       });
   }
