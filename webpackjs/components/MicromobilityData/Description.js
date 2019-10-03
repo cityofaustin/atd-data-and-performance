@@ -10,7 +10,7 @@ const Description = ({}) => (
     </p>
     <p>
       Data is drawn from our{" "}
-      <a href="https://data.austintexas.gov/Transportation-and-Mobility/Dockless-Vehicle-Trips/7d8e-dm7r">
+      <a href="https://data.austintexas.gov/Transportation-and-Mobility/Shared-Micromobility-Vehicle-Trips/7d8e-dm7r">
         shared micromobility vehicle trips dataset,
       </a>{" "}
       which spans from April 2018 and is updated on a daily basis.
@@ -25,7 +25,7 @@ const Description = ({}) => (
     </ul>
     <p>
       You may also be interested in our interactive map,{" "}
-      <a href="http://dockless.austintexas.io/">Shared Micromobility Data Explorer</a>
+      <a href="http://micromobility.austintexas.io/">Shared Micromobility Data Explorer</a>
     </p>
   </div>
 );
