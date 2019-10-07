@@ -290,11 +290,11 @@ function populateMap(map, dataset) {
 
                 var address = dataset[i].location_name;
 
-                var status_time = formatDateTime( new Date(dataset[i].operation_state_datetime * 1000) );
+                var status_time = formatDateTime( new Date(dataset[i].operation_state_datetime) );
 
                 var signal_id = dataset[i].signal_id;
 
-                var duration = formatDuration(dataset[i].operation_state_datetime * 1000);
+                var duration = formatDuration(dataset[i].operation_state_datetime);
                 
                 var marker = L.marker([lat,lon], {
                         icon:  marker_icons['$' + status]
@@ -401,7 +401,7 @@ function getSignalCount(url) {
 
 
 function populateTable(dataset) {
-
+    console.log(dataset);
     table = $('#data_table').DataTable({
         data : dataset,
         rowId: 'signal_id',
@@ -427,13 +427,13 @@ function populateTable(dataset) {
             { 
                 data: 'operation_state_datetime', 
                 "render": function ( data, type, full, meta ) {
-                    return formatDateTime( new Date(data * 1000) );
+                    return formatDateTime( new Date(data) );
                 }
             },
             { 
                 data: 'operation_state_datetime', 
                 "render": function ( data, type, full, meta ) {
-                    return formatDuration( data * 1000 );
+                    return formatDuration(data);
                 }
             }
         ]
@@ -496,7 +496,7 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
 
 
 function formatDuration(datetime) {
-
+    console.log(datetime);
     var now = new Date();
     
     var status_date = new Date(datetime);
@@ -509,7 +509,7 @@ function formatDuration(datetime) {
     if (days > 0) {
         return days + 'd ' + hours + 'h ' + minutes + 'm ';
     } else if (hours > 0) {
-        return hours = 'h ' + minutes + 'm ';
+        return hours + 'h ' + minutes + 'm ';
     } else {
         return minutes + 'm ';
     }
