@@ -414,11 +414,11 @@ function createMarkers(data, style) {
         
         var lon = data[i].location_longitude;
         
-        if (data[i].construction_note_date) {
-            console.log(data[i], formats.formatDate( new Date(data[i].construction_note_date) ));
-        } else {
-            console.log(data[i], "no date");
-        };
+        // if (data[i].construction_note_date) {
+        //     console.log(data[i], formats.formatDate( new Date(data[i].construction_note_date) ));
+        // } else {
+        //     console.log(data[i], "no date");
+        // };
 
         var updated = formats.formatDate( new Date(data[i].construction_note_date) )
 
