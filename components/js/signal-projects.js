@@ -413,7 +413,7 @@ function createMarkers(data, style) {
         var lat = data[i].location_latitude;
         
         var lon = data[i].location_longitude;
-         
+
         var updated = formats.formatDate( new Date(data[i].construction_note_date) )
 
         var const_note = data[i].construction_note;
@@ -523,7 +523,6 @@ function adjustView(layer) {
         map.setView(map_options.center, map_options.zoom);
 
     } else {
-        console.log(bounds)
         map.fitBounds(bounds, { maxZoom: 16 });    
     }
 
