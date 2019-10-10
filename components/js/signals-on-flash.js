@@ -496,7 +496,6 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
 
 
 function formatDuration(datetime) {
-    console.log(datetime);
     var now = new Date();
     
     var status_date = new Date(datetime);
