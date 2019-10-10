@@ -413,12 +413,6 @@ function createMarkers(data, style) {
         var lat = data[i].location_latitude;
         
         var lon = data[i].location_longitude;
-        
-        // if (data[i].construction_note_date) {
-        //     console.log(data[i], formats.formatDate( new Date(data[i].construction_note_date) ));
-        // } else {
-        //     console.log(data[i], "no date");
-        // };
 
         var updated = formats.formatDate( new Date(data[i].construction_note_date) )
 
@@ -529,7 +523,6 @@ function adjustView(layer) {
         map.setView(map_options.center, map_options.zoom);
 
     } else {
-        console.log(bounds)
         map.fitBounds(bounds, { maxZoom: 16 });    
     }
 
