@@ -424,11 +424,19 @@ function populateInfoStat(divId, metric, transition) {
     .text(FORMAT_TYPES[metric](0))
     .transition(transition)
     .attr("class", function() {
-      if (metric_value >= +goal) {
-        return "goal-met info-metric";
-      } else {
-        return "goal-unmet info-metric";
+      if (metric === "travel_time_reduction" && metric_value > 0) {
+        return "positive-reduction info-metric";
       }
+
+      if (metric === "travel_time_reduction" && metric_value <= 0) {
+        return "negative-or-no-reduction info-metric";
+      }
+
+      if (metric !== "travel_time_reduction" && metric_value >= +goal) {
+        return "goal-met info-metric";
+      }
+      
+      return "goal-unmet info-metric";
     })
     .tween("text", function() {
       var that = d3.select(this);
@@ -477,11 +485,19 @@ function updateInfoStat(divId, metric, transition) {
     .select("text")
     .transition(transition)
     .attr("class", function() {
-      if (metric_value >= +goal) {
-        return "goal-met info-metric";
-      } else {
-        return "goal-unmet info-metric";
+      if (metric === "travel_time_reduction" && metric_value > 0) {
+        return "positive-reduction info-metric";
       }
+
+      if (metric === "travel_time_reduction" && metric_value <= 0) {
+        return "negative-or-no-reduction info-metric";
+      }
+
+      if (metric !== "travel_time_reduction" && metric_value >= +goal) {
+        return "goal-met info-metric";
+      }
+
+      return "goal-unmet info-metric";
     })
     .tween("text", function() {
       var that = d3.select(this);

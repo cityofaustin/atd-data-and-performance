@@ -172,7 +172,6 @@ tr {
   background-color: #e5e5e5;
 }
 
-
 .pie-gray {
   fill: #bfbfbf;
 }
@@ -186,6 +185,14 @@ tr {
 }
 
 .goal-met {
+  color: green;
+}
+
+.negative-or-no-reduction {
+  color: #AD0000;
+}
+
+.positive-reduction {
   color: green;
 }
 
