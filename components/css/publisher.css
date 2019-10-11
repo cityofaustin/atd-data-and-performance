@@ -18,6 +18,21 @@
     color: black;
 }
 
+#modal_table_wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.modal-dialog {
+  max-width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .modal-dialog {
+    max-width: 75%;
+  }
+}
+
 .modal-lg {
-    max-width: 1000px !important;
+    max-width: 100%;
 }
