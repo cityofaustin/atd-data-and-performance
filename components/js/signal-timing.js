@@ -57,7 +57,7 @@ var SYSTEM_INTERSECTIONS_URL =
   "https://data.austintexas.gov/resource/efct-8fs9.json?$limit=5000";
 
 var LOGFILE_URL =
-  "https://transportation-data.austintexas.io/jobs?name=eq.signal_retiming&status=eq.success&order=start_date.desc&&records_processed=gt.0&limit=1";
+  "http://transportation-data-01-58741847.us-east-1.elb.amazonaws.com/jobs?name=eq.signal_retiming&status=eq.success&order=start_date.desc&&records_processed=gt.0&limit=1";
 
 var STATUS_SELECTED = "COMPLETED";
 

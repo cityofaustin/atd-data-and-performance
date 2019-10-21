@@ -42,7 +42,7 @@ var STATUS_TYPES_READABLE = {
     - return first result of sorted by desc timestamp
 */
 
-var logfile_url = 'https://transportation-data.austintexas.io/jobs?name=eq.sig_stat_pub&status=eq.success&order=start_date.desc&limit=1'
+var logfile_url = 'http://transportation-data-01-58741847.us-east-1.elb.amazonaws.com/jobs?name=eq.sig_stat_pub&status=eq.success&order=start_date.desc&limit=1'
 var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
 var data_count_url = "https://data.austintexas.gov/resource/xwqn-2f78.json?$query=select count(*) where SIGNAL_STATUS in ('TURNED_ON')";
 //  dummy data lots flashing
@@ -370,7 +370,6 @@ function getLogData(url, divId) {
     $.ajax({
         'url' : url,
         'success' : function (data) {
-            console.log('hi!')
             postUpdateDate(data, divId);
         }
     
@@ -401,7 +400,6 @@ function getSignalCount(url) {
 
 
 function populateTable(dataset) {
-    console.log(dataset);
     table = $('#data_table').DataTable({
         data : dataset,
         rowId: 'signal_id',

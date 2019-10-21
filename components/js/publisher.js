@@ -5,8 +5,8 @@ var table_height = '60vh';
 var table_cols = ['Name', 'Source', 'Destination', 'Start Date', 'End Date', 'Status', 'Message', 'Records Processed'];
 var table_cols_short = ['Start Date', 'End Date', 'Status', 'Message', 'Records Processed'];
 
-var endpoint = 'https://transportation-data.austintexas.io/jobs_latest';
-var endpoint_details = 'https://transportation-data.austintexas.io/jobs';
+var endpoint = 'http://transportation-data-01-58741847.us-east-1.elb.amazonaws.com/jobs_latest';
+var endpoint_details = 'http://transportation-data-01-58741847.us-east-1.elb.amazonaws.com/jobs';
 
 var status_types = {
     'error' : {
@@ -242,7 +242,6 @@ function jobDetails(job_name) {
     var url = endpoint_details + '?name=eq.' + job_name + '&order=start_date.desc&limit=500';
 
     d3.json(url, function(json){
-        console.log(json);
         $('#job-name').text(job_name);
         populateModalTable(json, 'modal_table');
     })
