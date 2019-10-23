@@ -14,7 +14,7 @@ class UpdateDate extends Component {
     this.downloadUrl = `https://data.austintexas.gov/resource/${resourceId}`;
 
     if (this.isATDScheduledJob) {
-      this.updatedAtUrl = `http://transportation-data-01-58741847.us-east-1.elb.amazonaws.com/jobs?name=eq.${updateEvent}&status=eq.success&order=start_date.desc&limit=1`;
+      this.updatedAtUrl = `https://api.mobility.austin.gov/jobs?name=eq.${updateEvent}&status=eq.success&order=start_date.desc&limit=1`;
     } else {
       // when there is no update event, use the Socrata Metadata API
       // to look for an update timestamp

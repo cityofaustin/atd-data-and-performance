@@ -392,7 +392,7 @@ function transitionInfoStat(selection, options) {
 }
 
 function postUpdateDate(selection, resource_id, event) {
-  var url = "http://transportation-data-01-58741847.us-east-1.elb.amazonaws.com/jobs";
+  var url = "https://api.mobility.austin.gov/jobs";
   var download_url = "https://data.austintexas.gov/resource/" + resource_id;
   if (event) {
     url =
