@@ -2,9 +2,9 @@
 
 This repository houses the City of Austin Transportation Department's Data and Performance Hub, a public website which tracks the department's operational performance and curates access to key datasets.
 
-This site is hosted at [transportation.austintexas.io](http://transportation.austintexas.io) and uses [Jekyll](https://jekyllrb.com/) and [Github Pages](https://pages.github.com/) to create static pages.
+This site is hosted at [data.mobility.austin.gov](https://data.mobility.austin.gov/) and uses [Jekyll](https://jekyllrb.com/), [Webpack](https://webpack.js.org/) and [Netlify](https://pages.github.com/) to create static pages.
 
-Much of the content on the site is generated in-browser using [D3js](http://d3js.org) and [jQuery](https://jquery.com/) to visualize data from the [City of Austin Open Data Portal](http://data.austintexas.gov).
+Much of the content on the site is generated in-browser using [D3js](http://d3js.org), [jQuery](https://jquery.com/), and [React](https://reactjs.org/) to visualize data from the [City of Austin Open Data Portal](http://data.austintexas.gov).
 
 ## Quick Start
 
@@ -30,7 +30,7 @@ If you will be working on any data dashboards that utilize Javascript ES6+ and/o
 
 #### TL;DR
 
-1. run `jekyll serve --watch` in one Terminal 
+1. run `jekyll serve --watch` in one Terminal
 2. run `webpack --watch` in a separate Terminal
 
 Webpack will watch for changes to your source javascript/react files and output a new bundle. Jekyll will watch for new bundles and regenerate all the static assets.
@@ -41,9 +41,11 @@ Webpack will watch for changes to your source javascript/react files and output 
 
 - **URL:** [transportation.austintexas.io](http://transportation.austintexas.io)
 
-- **GitHub:** `gh-pages`
+- **GitHub Branch:** `master`
 
-- **Deployment:** Commit changes to branch `test` and submit a pull request to merge to gh-pages
+- **Deployment:** Commit changes to branch `test` and submit a pull request to merge to master
+
+Note: Netlify uses the build command `jekyll build && cp _redirects _site/`. This runs Jekyll's production build command and copy's Netlify's \_redirects config file into the newly built site directory.
 
 ## Contributing
 
