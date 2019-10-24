@@ -1,5 +1,5 @@
 [[redirects]]
     from = "https://austin-transportation.netlify.com/*"
     to = "https://data.mobility.austin.gov/:splat"
-    status = "301!"
+    status = 301
     force = true
