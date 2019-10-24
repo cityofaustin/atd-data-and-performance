@@ -45,8 +45,6 @@ Webpack will watch for changes to your source javascript/react files and output 
 
 - **Deployment:** Commit changes to branch `test` and submit a pull request to merge to master
 
-Note: Netlify uses the build command `jekyll build && cp _redirects _site/`. This runs Jekyll's production build command and copy's Netlify's \_redirects config file into the newly built site directory.
-
 ## Contributing
 
 Public contributions are welcome! Assign pull requests to [@johnclary](http://github.com/johnclary).
