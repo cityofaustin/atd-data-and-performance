@@ -5,8 +5,8 @@ var table_height = '60vh';
 var table_cols = ['Name', 'Source', 'Destination', 'Start Date', 'End Date', 'Status', 'Message', 'Records Processed'];
 var table_cols_short = ['Start Date', 'End Date', 'Status', 'Message', 'Records Processed'];
 
-var endpoint = 'https://transportation-data.austintexas.io/jobs_latest';
-var endpoint_details = 'https://transportation-data.austintexas.io/jobs';
+var endpoint = 'https://api.mobility.austin.gov/jobs_latest';
+var endpoint_details = 'https://api.mobility.austin.gov/jobs';
 
 var status_types = {
     'error' : {
@@ -33,7 +33,7 @@ var global_data = [
         'params' : [
             { '$limit' : '9000' },
             { '$where' : 'signal_status in ("DESIGN", "CONSTRUCTION", "TURNED_ON")'}
-        ], 
+        ],
         'disp_fields' : ['signal_id', 'location_name', 'modified_date' ],
         'infoStat' : true,
         'log_event' : 'signals_update'
@@ -48,10 +48,10 @@ d3.json(endpoint, function(json){
 
 
 function main(data) {
-    
+
     var cols = createTableCols('data_table', table_cols);
     var cols_modal = createTableCols('modal_table', table_cols_short);
-    
+
     populateTable(data, 'data_table');
 
     $('#search_input').on( 'keyup', function () {
@@ -77,7 +77,7 @@ function populateTable(dataset, divId) {
     table = $('#' + divId)
         //  update map after table search
         .on( 'draw.dt', function () {
-                
+
             var ids = [];
 
             $('.tableRow').each(function(i, obj) {
@@ -99,7 +99,7 @@ function populateTable(dataset, divId) {
             { data: 'name' },
             { data: 'source' },
             { data: 'destination' },
-            { 
+            {
                 data: 'start_date',
 
                 defaultContent: '',
@@ -109,23 +109,23 @@ function populateTable(dataset, divId) {
                 },
 
             },
-            { 
+            {
                 data: 'end_date',
 
                 defaultContent: '',
 
                 "render": function ( data, type, full, meta ) {
                     if (data) {
-                        return formatDate(new Date(Date.parse(data)));    
+                        return formatDate(new Date(Date.parse(data)));
                     } else {
                         return '';
                     }
-                    
+
                 },
 
             },
 
-            { 
+            {
                 data: 'status',
                  "render": function ( data, type, full, meta ) {
                     var icon = status_types[data].icon;
@@ -136,7 +136,7 @@ function populateTable(dataset, divId) {
             },
             { data: 'message' },
             { data: 'records_processed' }
-            
+
         ]
     })
 
@@ -156,7 +156,7 @@ function populateModalTable(dataset, divId) {
     table = $('#' + divId)
         //  update map after table search
         .on( 'draw.dt', function () {
-                
+
             var ids = [];
 
             $('.tableRow').each(function(i, obj) {
@@ -173,7 +173,7 @@ function populateModalTable(dataset, divId) {
             "order": [[1, "desc"]],
             columns: [
 
-            { 
+            {
                 data: 'start_date',
 
                 defaultContent: '',
@@ -183,23 +183,23 @@ function populateModalTable(dataset, divId) {
                 },
 
             },
-            { 
+            {
                 data: 'end_date',
 
                 defaultContent: '',
 
                 "render": function ( data, type, full, meta ) {
                     if (data) {
-                        return formatDate(new Date(Date.parse(data)));    
+                        return formatDate(new Date(Date.parse(data)));
                     } else {
                         return '';
                     }
-                    
+
                 },
 
             },
 
-            { 
+            {
                 data: 'status',
                  "render": function ( data, type, full, meta ) {
                     var icon = status_types[data].icon;
@@ -210,7 +210,7 @@ function populateModalTable(dataset, divId) {
             },
             { data: 'message' },
             { data: 'records_processed' }
-            
+
         ]
     })
 
@@ -236,17 +236,16 @@ function createTableCols(div_id, col_array) {
 
 
 function jobDetails(job_name) {
-    
+
     $('#dashModal').modal('toggle');
-    
+
     var url = endpoint_details + '?name=eq.' + job_name + '&order=start_date.desc&limit=500';
 
     d3.json(url, function(json){
-        console.log(json);
         $('#job-name').text(job_name);
         populateModalTable(json, 'modal_table');
     })
 
-    
+
 
 }

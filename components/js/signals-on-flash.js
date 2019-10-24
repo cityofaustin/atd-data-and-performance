@@ -42,7 +42,7 @@ var STATUS_TYPES_READABLE = {
     - return first result of sorted by desc timestamp
 */
 
-var logfile_url = 'https://transportation-data.austintexas.io/jobs?name=eq.sig_stat_pub&status=eq.success&order=start_date.desc&limit=1'
+var logfile_url = 'https://api.mobility.austin.gov/jobs?name=eq.sig_stat_pub&status=eq.success&order=start_date.desc&limit=1'
 var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
 var data_count_url = "https://data.austintexas.gov/resource/xwqn-2f78.json?$query=select count(*) where SIGNAL_STATUS in ('TURNED_ON')";
 //  dummy data lots flashing
@@ -139,16 +139,16 @@ function main(data){
                 "emptyTable" : "No Flashing Signals Reported"
             }
         });
-        
+
         d3.select("#data_table_filter").remove();
 
         adjustMapHeight();
-        
+
     }
 
     resizedw();
 
-    
+
     //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
     var resize_timer;
 
@@ -174,7 +174,7 @@ function populateInfoStat(dataset, divId, status_array, postUpdate) {
     d3.select("#" + divId)
         .append("text")
         .text('0');
-    
+
     if (filtered.length > 0) {
 
         updateInfoStat(filtered, divId);
@@ -201,17 +201,17 @@ function updateInfoStat(dataset, divId) {
             .select("text")
             .transition(t1)
             .tween("text", function () {
-                
-                var that = d3.select(this); 
+
+                var that = d3.select(this);
 
                 var i = d3.interpolate(0, signals_on_flash);
-                
+
                 return function (t) {
-                
+
                     that.text( Math.round(i(t)) );
-                
+
                 }
-            
+
             });
 
 }
@@ -221,7 +221,7 @@ function updateInfoStat(dataset, divId) {
 function postUpdateDate(log_data, divId){
 
     var update_date_time = new Date(log_data[0].start_date);
-    
+
     update_date = readableDate( update_date_time );
 
     var update_time = formatTime( update_date_time );
@@ -263,7 +263,7 @@ function makeMap(dataset) {
         attribution : 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains : 'abcd',
         maxZoom : 20,
-        ext : 'png' 
+        ext : 'png'
     }).addTo(map);
 
     populateMap(map, dataset);
@@ -277,15 +277,15 @@ function populateMap(map, dataset) {
     if (dataset.length > 0) {
 
          signals_on_flash_layer = new L.featureGroup();
-        
-        for (var i = 0; i < dataset.length; i++) {   
-            
+
+        for (var i = 0; i < dataset.length; i++) {
+
             if(dataset[i].location_latitude > 0) {
 
                 var status = +dataset[i].operation_state;
 
                 var lat = dataset[i].location_latitude;
-        
+
                 var lon = dataset[i].location_longitude;
 
                 var address = dataset[i].location_name;
@@ -295,18 +295,18 @@ function populateMap(map, dataset) {
                 var signal_id = dataset[i].signal_id;
 
                 var duration = formatDuration(dataset[i].operation_state_datetime);
-                
+
                 var marker = L.marker([lat,lon], {
                         icon:  marker_icons['$' + status]
                     });
-                
+
                 marker.bindPopup(
                         "<b>Signal #" + signal_id + ":</b> " + address + " <br>" +
-                        "<b>Status: </b>" + STATUS_TYPES_READABLE[status] + 
+                        "<b>Status: </b>" + STATUS_TYPES_READABLE[status] +
                         "<br><b>Updated:</b> " + status_time +
                         "<br><b>Duration:</b> " + duration
                     )
-                    
+
                     marker.addTo(signals_on_flash_layer);
 
                     signal_markers['$' + signal_id] = marker;
@@ -314,7 +314,7 @@ function populateMap(map, dataset) {
             }
 
         }
-        
+
         signals_on_flash_layer.addTo(map);
 
     }
@@ -343,7 +343,7 @@ function applyStatusTypes(statusObject) {
         if (!(statusType in statusObject)) {
 
             statusObject[statusType] = 0;
-            
+
         }
     }
 }
@@ -360,7 +360,7 @@ function getSignalData(url) {
         'success' : function (data) {
             main(data);
         }
-    
+
     }); //end get data
 
 }
@@ -370,10 +370,9 @@ function getLogData(url, divId) {
     $.ajax({
         'url' : url,
         'success' : function (data) {
-            console.log('hi!')
             postUpdateDate(data, divId);
         }
-    
+
     }); //end get data
 
 }
@@ -390,18 +389,17 @@ function getSignalCount(url) {
         'dataType' : "json",
         'success' : function (data) {
             var fake_arr = new Array(+data[0].count)
-            
+
             updateInfoStat(fake_arr, 'info-4');
 
         }
-    
+
     }); //end get data
 
 }
 
 
 function populateTable(dataset) {
-    console.log(dataset);
     table = $('#data_table').DataTable({
         data : dataset,
         rowId: 'signal_id',
@@ -411,27 +409,27 @@ function populateTable(dataset) {
         paging : false,
         order: [[ 2 , "desc" ]],
         columns: [
-            { data: 'location_name', 
+            { data: 'location_name',
                 "render": function ( data, type, full, meta ) {
                     return "<a id='$" + full.signal_id + "' >" + data + "</a>";
                 }
             },
-            
-            { 
-                data: 'operation_state', 
+
+            {
+                data: 'operation_state',
                 "render": function ( data, type, full, meta ) {
                     return "<span class='status-badge status-" + data + "'>" + STATUS_TYPES_READABLE[data] + "</span>";
                 }
             },
 
-            { 
-                data: 'operation_state_datetime', 
+            {
+                data: 'operation_state_datetime',
                 "render": function ( data, type, full, meta ) {
                     return formatDateTime( new Date(data) );
                 }
             },
-            { 
-                data: 'operation_state_datetime', 
+            {
+                data: 'operation_state_datetime',
                 "render": function ( data, type, full, meta ) {
                     return formatDuration(data);
                 }
@@ -449,11 +447,11 @@ function populateTable(dataset) {
 
 
 function adjustMapHeight() {
-   
+
     map.invalidateSize();
 
     if (signals_on_flash_layer) {
-        
+
         map.fitBounds(
             signals_on_flash_layer.getBounds(),
                 {
@@ -465,22 +463,22 @@ function adjustMapHeight() {
     }
 
 }
-    
+
 
 function readableDate(date) {
 
     var update_date = formatDate(date);
-    
+
     var today = formatDate( new Date() );
 
     if (update_date == today) {
-    
+
         return "today";
-    
+
     } else {
-    
+
         return update_date;
-    
+
     }
 
 }
@@ -497,14 +495,14 @@ function is_touch_device() {  //  via https://ctrlq.org/code/19616-detect-touch-
 
 function formatDuration(datetime) {
     var now = new Date();
-    
+
     var status_date = new Date(datetime);
     var delta_seconds = (now - status_date) / 1000;
 
     var days = parseInt(Math.floor(delta_seconds / 86400));
     var hours = parseInt(Math.floor( (delta_seconds - ( 86400 * days)) / 3600));
     var minutes = parseInt(Math.floor( (delta_seconds - ( 86400 * days) - (3600 * hours)) / 60));
-    
+
     if (days > 0) {
         return days + 'd ' + hours + 'h ' + minutes + 'm ';
     } else if (hours > 0) {
@@ -512,7 +510,7 @@ function formatDuration(datetime) {
     } else {
         return minutes + 'm ';
     }
-    
+
 }
 
 function createTableCols(div_id, col_array) {
@@ -528,7 +526,7 @@ function createTableCols(div_id, col_array) {
         });
 
     return cols;
-        
+
 }
 
 
@@ -537,7 +535,7 @@ function zoomToMarker(marker_id) {
 
     var marker = signal_markers[marker_id];
 
-    
+
 
     map.invalidateSize();
 
@@ -551,26 +549,26 @@ function zoomToMarker(marker_id) {
     } else {
         map.setView(marker._latlng, 17);
         marker.openPopup();
-            
+
     }
 
-        
-    
+
+
 }
 
 
 function resizedw(){
-    
+
     prev_breakpoint = curr_breakpoint;
     curr_breakpoint = breakpoint();
-    
+
     if (curr_breakpoint != prev_breakpoint) {
-        
+
         if (curr_breakpoint === 'xs' || curr_breakpoint === 'sm' || curr_breakpoint === 'md') {
             //  define which columns are hidden on mobile
             table.column( 2 ).visible(false)
             table.column( 3 ).visible(false)
-            
+
             if (!show_modal) {
                 //  copy map to modal
                 $('#data-row-1').find('#map').appendTo('#modal-content-container');
@@ -584,7 +582,7 @@ function resizedw(){
 
             if (show_modal ) {
                 $('#modal-content-container').find('#map').appendTo('#data-row-1');
-                
+
                 show_modal = false;
             }
         }
@@ -592,4 +590,3 @@ function resizedw(){
 
     table.columns.adjust();
 }
- 
