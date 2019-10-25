@@ -1,0 +1,5 @@
+# www.robotstxt.org/
+
+User-agent: *
+Allow: Sitemap: {{ site.url }}/sitemap.xml
+
