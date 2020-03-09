@@ -258,15 +258,6 @@ class MicromobilityData extends Component {
     return (
       <div className="container-fluid">
 
-        <div class="alert alert-warning text-center" role="alert">
-          <h3>This dashboard is under construction!</h3>
-          <h6>
-            We are working to fix an issue with the data displayed in this dashboard.<br></br>
-            The information currently displayed may be outdated or incorrect.<br></br>
-            Please check back later for live Shared Micromobility data.
-          </h6>
-        </div>
-
         {this.state.dataIsLoaded ? (
           <DateRangeTypeSelector
             onDateRangeTypeSelect={this.dataViewSelect}
