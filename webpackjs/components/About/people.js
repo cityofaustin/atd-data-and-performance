@@ -36,7 +36,7 @@ export const people = [
   },
   {
     name: "Amenity Applewhite",
-    title: "Product Manager",
+    title: "Lead Product Manager",
     image: "amenity_applewhite"
   },
   {
@@ -50,18 +50,33 @@ export const people = [
     image: "sergio_garcia"
   },
   {
-    name: "Billy Howland",
-    title: "Junior Solution Architect"
-    // image: "billy_howland"
-  },
-  {
     name: "Tyler Whitson",
     title: "Junior Software Developer",
     image: "tyler_whitson"
   },
   {
     name: "Surbhi Bakshi",
-    title: "IT Application Analyst Senior"
-    // image: "surbhi_bakshi"
+    title: "IT Application Analyst Senior",
+    image: "surbhi_bakshi"
+  },
+  {
+    name: "Stephanie Moorer",
+    title: "Product Manager",
+    image: "stephanie_moorer"
+  },
+  {
+    name: "Jace Deloney",
+    title: "Product Manager",
+    image: "jace_deloney"
+  },
+  {
+    name: "Nadin Nader",
+    title: "IT Application Analyst Senior",
+    image: "nadin_nader"
+  },
+  {
+    name: "Chrispin Pullen",
+    title: "IT Application Analyst Senior",
+    image: "chrispin_pullen"
   }
 ];
