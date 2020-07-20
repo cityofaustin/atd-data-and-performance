@@ -56,27 +56,27 @@ export const people = [
   },
   {
     name: "Surbhi Bakshi",
-    title: "IT Application Analyst Senior"
+    title: "IT Application Analyst Senior",
     image: "surbhi_bakshi"
   },
   {
     name: "Stephanie Moorer",
-    title: "Product Manager"
+    title: "Product Manager",
     image: "stephanie_moorer"
   },
   {
     name: "Jace Deloney",
-    title: "Product Manager"
+    title: "Product Manager",
     image: "jace_deloney"
   },
   {
     name: "Nadin Nader",
-    title: "IT Application Analyst Senior"
+    title: "IT Application Analyst Senior",
     image: "nadin_nader"
   },
   {
     name: "Chrispin Pullen",
-    title: "IT Application Analyst Senior"
+    title: "IT Application Analyst Senior",
     image: "chrispin_pullen"
   }
 ];
