@@ -1,7 +1,7 @@
 export const people = [
   {
     name: "John Clary",
-    title: "Supervisor",
+    title: "Senior Supervisor",
     image: "john_clary"
   },
   {
@@ -11,7 +11,7 @@ export const people = [
   },
   {
     name: "Diana Martin",
-    title: "Solutions Architect",
+    title: "Lead Applications Architect",
     image: "diana_martin"
   },
   {
@@ -26,7 +26,7 @@ export const people = [
   },
   {
     name: "Alan De Anda",
-    title: "Geospatial Technician",
+    title: "Senior Geospatial Analyst",
     image: "alan_de_anda"
   },
   {
@@ -56,7 +56,7 @@ export const people = [
   },
   {
     name: "Surbhi Bakshi",
-    title: "IT Application Analyst Senior",
+    title: "Senior Application Analyst",
     image: "surbhi_bakshi"
   },
   {
@@ -71,12 +71,12 @@ export const people = [
   },
   {
     name: "Nadin Nader",
-    title: "IT Application Analyst Senior",
+    title: "Senior Application Analyst",
     image: "nadin_nader"
   },
   {
     name: "Chrispin Pullen",
-    title: "IT Application Analyst Senior",
+    title: "Senior Application Analyst",
     image: "chrispin_pullen"
   }
 ];
