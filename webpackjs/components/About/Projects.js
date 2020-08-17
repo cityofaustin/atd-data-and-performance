@@ -7,7 +7,7 @@ class Projects extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectsData: []
+      projectsData: [],
     };
   }
 
@@ -16,9 +16,9 @@ class Projects extends React.Component {
       .get(
         "https://api.github.com/repos/cityofaustin/atd-data-tech/issues?labels=index,status: active"
       )
-      .then(res => {
+      .then((res) => {
         const data = res.data;
-        data.sort(function(a, b) {
+        data.sort(function (a, b) {
           const titleA = a.title.toUpperCase();
           const titleB = b.title.toUpperCase();
 
@@ -33,7 +33,7 @@ class Projects extends React.Component {
           return 0;
         });
         this.setState({
-          projectsData: data
+          projectsData: data,
         });
       });
   }
@@ -45,7 +45,7 @@ class Projects extends React.Component {
           <h1>Our Projects</h1>
         </div>
         <div>
-          {this.state.projectsData.map(project => (
+          {this.state.projectsData.map((project) => (
             <div key={"div" + project.id}>
               <h2 key={"h1" + project.id}>
                 <Markdown
