@@ -7,7 +7,7 @@ class Projects extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectsData: []
+      projectsData: [],
     };
   }
 
@@ -16,9 +16,16 @@ class Projects extends React.Component {
       .get(
         "https://api.github.com/repos/cityofaustin/atd-data-tech/issues?labels=index,status: active"
       )
-      .then(res => {
+      .then((res) => {
         const data = res.data;
-        data.sort(function(a, b) {
+        let formattedData = data.map((item) => {
+          // Rename the project title to drop prefixes like "Project" or "Product"
+          if (item.title.includes(": ")) {
+            item.title = item.title.split(": ")[1];
+          }
+          return item;
+        });
+        formattedData = formattedData.sort(function (a, b) {
           const titleA = a.title.toUpperCase();
           const titleB = b.title.toUpperCase();
 
@@ -33,7 +40,7 @@ class Projects extends React.Component {
           return 0;
         });
         this.setState({
-          projectsData: data
+          projectsData: formattedData,
         });
       });
   }
@@ -45,13 +52,10 @@ class Projects extends React.Component {
           <h1>Our Projects</h1>
         </div>
         <div>
-          {this.state.projectsData.map(project => (
+          {this.state.projectsData.map((project) => (
             <div key={"div" + project.id}>
               <h2 key={"h1" + project.id}>
-                <Markdown
-                  key={"title" + project.id}
-                  source={project.title.split("Project: ")[1]}
-                />
+                <Markdown key={"title" + project.id} source={project.title} />
               </h2>
               <Markdown
                 key={"desc" + project.id}
@@ -62,7 +66,7 @@ class Projects extends React.Component {
                 href={project.html_url}
                 target="_blank"
               >
-                View {project.title.split("Project: ")[1]} on GitHub.
+                View {project.title} on GitHub.
               </a>
               <br />
               <br />
