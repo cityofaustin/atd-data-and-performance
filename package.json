@@ -29,7 +29,7 @@
     "react-addons-update": "^15.6.2",
     "react-dom": "^16.10.1",
     "style-loader": "^0.23.1",
-    "webpack": "^4.41.0",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
