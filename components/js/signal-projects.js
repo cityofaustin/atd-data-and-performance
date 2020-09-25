@@ -474,7 +474,10 @@ function getMarkers(source_data, id_array) {
   var layer = new L.featureGroup();
 
   for (var i = 0; i < source_data.length; i++) {
-    if (id_array.indexOf("$" + source_data[i]["atd_location_id"]) > -1) {
+    if (
+      id_array.indexOf("$" + source_data[i]["atd_location_id"]) > -1 &&
+      source_data[i]["marker"]
+    ) {
       source_data[i]["marker"].addTo(layer);
     }
   }
@@ -522,7 +525,9 @@ function adjustView(layer) {
 function setMarkerSizes(data) {
   var zoom = map.getZoom();
   for (var i = 0; i < data.length; i++) {
-    data[i].marker.setRadius(SCALE_THRESHOLDS["$" + zoom]);
+    if (data[i].marker) {
+      data[i].marker.setRadius(SCALE_THRESHOLDS["$" + zoom]);
+    }
   }
 }
 
