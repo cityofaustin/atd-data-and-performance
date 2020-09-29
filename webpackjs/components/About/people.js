@@ -41,7 +41,7 @@ export const people = [
   },
   {
     name: "Mike Dilley",
-    title: "Junior Software Developer",
+    title: "Software Developer",
     image: "mike_dilley"
   },
   {
@@ -50,7 +50,7 @@ export const people = [
     image: "sergio_garcia"
   },
   {
-    name: "Tyler Whitson",
+    name: "Ty Whitson",
     title: "Junior Software Developer",
     image: "tyler_whitson"
   },
