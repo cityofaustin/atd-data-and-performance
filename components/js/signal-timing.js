@@ -360,10 +360,11 @@ function getDefaultYear() {
   var currentMonth = currentDate.getMonth() + 1;
   var currentYear = currentDate.getFullYear();
 
-  if (currentMonth < 10) {
-    selected_year = currentYear;
+  // Display data for the current fiscal year if available, otherwise default to previous year
+  if (currentMonth >= 10 && GROUPED_RETIMING_DATA["$" + currentYear + 1]) {
+    selected_year = currentYear + 1
   } else {
-    selected_year = currentYear + 1;
+    selected_year = currentYear;
   }
 }
 
