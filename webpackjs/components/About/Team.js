@@ -15,6 +15,7 @@ const Team = ({}) => (
           name={person.name}
           title={person.title}
           image={person.image}
+          pronouns={person.pronouns}
         />
       ))}
     </div>
