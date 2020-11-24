@@ -7,12 +7,13 @@ const StyledLabels = styled.div`
   margin: 0.5rem 0 1.5rem;
 `;
 
-const Profile = ({ name, title, image }) => (
+const Profile = ({ name, title, image, pronouns }) => (
   <div className="col-xs-12 col-sm-4 mt-3">
     <ProfilePicture name={name} image={image} />
     <StyledLabels>
       <h4>{name}</h4>
       <h5>{title}</h5>
+      {!!pronouns && <h5>{pronouns}</h5>}
     </StyledLabels>
   </div>
 );
