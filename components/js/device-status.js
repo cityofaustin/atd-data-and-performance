@@ -603,7 +603,7 @@ function setMarkerSizes(data) {
 function zoomToMarker(marker_id, data) {
 
     for (var i = 0; i < data.length; i++ ) {
-        debugger;
+
         if (data[i].locationId == marker_id ) {
             
             marker = data[i].marker;
