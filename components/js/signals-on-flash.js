@@ -280,13 +280,13 @@ function populateMap(map, dataset) {
 
         for (var i = 0; i < dataset.length; i++) {
 
-            if(dataset[i].location_latitude > 0) {
+            if(dataset[i].location) {
 
                 var status = +dataset[i].operation_state;
 
-                var lat = dataset[i].location_latitude;
+                var lat = dataset[i].location.latitude;
 
-                var lon = dataset[i].location_longitude;
+                var lon = dataset[i].location.longitude;
 
                 var address = dataset[i].location_name;
 
