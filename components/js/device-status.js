@@ -170,7 +170,7 @@ $('#dashModal').on('shown.bs.modal', function () {
 }); 
 
 function main(data) {
-    
+
     var map_selectors = createMapSelectors('map_selectors', device_data);
 
     data_master = groupByLocation(data);
@@ -298,17 +298,16 @@ function groupByLocation(data) {
 
         for (var q = 0; q < device_data[i].data.length; q++) {  
             
-            var location = device_data[i].data[q][location_id_field];
+            var locationId = device_data[i].data[q][location_id_field];
             
             var current_id = grouped_data.length + 1
 
             var loc_exists = grouped_data.some(function (loc) {
-                return loc.location === location;
+                return loc.locationId === locationId;
             });
 
             if (!(loc_exists)) {
-                if (!device_data[i].data[q].location_latitude){
-                    console.log(device_data[i].data[q]);
+                if (!device_data[i].data[q].location){
                     continue;
                 }
 
@@ -316,9 +315,8 @@ function groupByLocation(data) {
                 var device_name = device_data[i]['name'];
                 
                 var new_loc = {
-                    'location' : location,
-                    'latitude' : device_data[i].data[q].location_latitude,
-                    'longitude' : device_data[i].data[q].location_longitude,
+                    'location': device_data[i].data[q].location,
+                    'locationId' : locationId,
                     'location_name' : device_data[i].data[q].location_name,
                 };
 
@@ -335,7 +333,7 @@ function groupByLocation(data) {
             } else {
                 // location exists
                 //  append device-specifc attributes
-                var index = findWithAttr(grouped_data, 'location', location);
+                var index = findWithAttr(grouped_data, 'locationId', locationId);
                 
                 grouped_data[index][device_data[i].name] = {
                     'status' : device_data[i].data[q][comm_status_field],
@@ -391,9 +389,9 @@ function createMarkers(data, style) {
 
         var location_name = data[i].location_name;
 
-        var lat = data[i].latitude;
+        var lat = data[i].location.coordinates[1];
         
-        var lon = data[i].longitude;
+        var lon = data[i].location.coordinates[0];
 
         var popup_text = '<b>' + location_name +  '</b>';
 
@@ -523,7 +521,7 @@ function populateTable(data, divId) {
     table = $('#data_table')
         .DataTable({
             data : data,
-            rowId : 'location',
+            rowId : 'locationId',
             scrollY : table_height,
             scrollCollapse : false,
             bInfo : true,
@@ -605,8 +603,8 @@ function setMarkerSizes(data) {
 function zoomToMarker(marker_id, data) {
 
     for (var i = 0; i < data.length; i++ ) {
-    
-        if (data[i].location == marker_id ) {
+        debugger;
+        if (data[i].locationId == marker_id ) {
             
             marker = data[i].marker;
 
