@@ -346,10 +346,11 @@ function createMarkers(data, style) {
         var status = data[i].request_status;
 
         var eval_type = data[i].eval_type;
-
-        var lat = data[i].location_latitude;
+        // this dataset uses socrata's deprecated "location" field type
+        // https://dev.socrata.com/docs/datatypes/location.html
+        var lat = data[i].location.latitude;
         
-        var lon = data[i].location_longitude;
+        var lon = data[i].location.longitude;
 
         var request_note = ''
         
