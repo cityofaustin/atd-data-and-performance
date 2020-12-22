@@ -51,10 +51,10 @@ var table_cols = [
 ];
 
 var SYSTEM_RETIMING_URL =
-  "https://data.austintexas.gov/resource/g8w2-8uap.json";
+  "https://data.austintexas.gov/resource/g8w2-8uap.json?$limit=10000";
 
 var SYSTEM_INTERSECTIONS_URL =
-  "https://data.austintexas.gov/resource/efct-8fs9.json?$limit=5000";
+  "https://data.austintexas.gov/resource/efct-8fs9.json?$limit=10000";
 
 var LOGFILE_URL =
   "https://api.mobility.austin.gov/jobs?name=eq.signal_retiming&status=eq.success&order=start_date.desc&&records_processed=gt.0&limit=1";
@@ -860,10 +860,11 @@ function populateMap(map, dataset) {
     var system_id = dataset[i].system_id;
 
     var system_name = dataset[i].system_name;
+    // this data uses socrata's deprecated "location" field type
+    // https://dev.socrata.com/docs/datatypes/location.html
+    var lat = dataset[i].location.latitude;
 
-    var lat = dataset[i].location_latitude;
-
-    var lon = dataset[i].location_longitude;
+    var lon = dataset[i].location.longitude;
 
     var intersection_name = dataset[i].location_name;
 
