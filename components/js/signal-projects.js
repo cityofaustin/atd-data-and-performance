@@ -97,7 +97,7 @@ var global_data = [
     params: [
       {
         $select:
-          "modified_date, atd_location_id, signal_type, signal_id, signal_status, location_name, construction_note, construction_note_date, location_latitude, location_longitude"
+          "modified_date, atd_location_id, signal_type, signal_id, signal_status, location_name, construction_note, construction_note_date, location"
       },
       { $limit: "9000" },
       { $where: 'signal_status in ("DESIGN", "CONSTRUCTION", "TURNED_ON")' }
@@ -393,9 +393,10 @@ function createMapSelectors(div_id, obj_arr, display_property, icon_name) {
 
 function createMarkers(data, style) {
   //  create markers and layers for each device type
-
+  
   for (var i = 0; i < data.length; i++) {
-    if (!data[i].location_latitude) {
+
+    if (!data[i].location) {
       continue;
     }
     var status = data[i].signal_status;
@@ -404,9 +405,9 @@ function createMarkers(data, style) {
 
     var location_name = data[i].location_name;
 
-    var lat = data[i].location_latitude;
+    var lat = data[i].location.coordinates[0];
 
-    var lon = data[i].location_longitude;
+    var lon = data[i].location.coordinates[1];
 
     var updated = data[i].construction_note_date;
 
