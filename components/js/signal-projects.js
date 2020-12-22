@@ -405,9 +405,9 @@ function createMarkers(data, style) {
 
     var location_name = data[i].location_name;
 
-    var lat = data[i].location.coordinates[0];
+    var lat = data[i].location.coordinates[1];
 
-    var lon = data[i].location.coordinates[1];
+    var lon = data[i].location.coordinates[0];
 
     var updated = data[i].construction_note_date;
 
@@ -443,7 +443,7 @@ function createMarkers(data, style) {
       status +
       "</span>";
 
-    data[i]["marker"] = L.circle([lat, lon], 500)
+    data[i]["marker"] = L.circle([lon, lat], 500)
       .bindPopup(popup_text)
       .setStyle(marker_style);
   }
