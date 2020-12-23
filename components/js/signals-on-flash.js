@@ -329,10 +329,13 @@ function createTableListeners() {
 
             var marker_id = '$' + d3.select(this).attr("id");
             $('#modal-popup-container').remove();
-            zoomToMarker(marker_id);
 
+            var marker = signal_markers[marker_id];
+
+            if (marker) {
+                zoomToMarker(marker);
+            }
         });
-
 }
 
 
@@ -531,11 +534,7 @@ function createTableCols(div_id, col_array) {
 
 
 
-function zoomToMarker(marker_id) {
-
-    var marker = signal_markers[marker_id];
-
-
+function zoomToMarker(marker) {
 
     map.invalidateSize();
 
