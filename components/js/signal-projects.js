@@ -10,16 +10,16 @@ var table_cols = ["Location", "Type", "Status", "Note"];
 var map_selector_types = [
   {
     name: "CONSTRUCTION",
-    display_name: "<i class='fa fa-wrench'></i> Construction"
+    display_name: "<i class='fa fa-wrench'></i> Construction",
   },
   {
     name: "DESIGN",
-    display_name: "<i class='fa fa-pencil'></i> Design"
+    display_name: "<i class='fa fa-pencil'></i> Design",
   },
   {
     name: "TURNED_ON",
-    display_name: "<i class='fa fa-car'></i> Turned On"
-  }
+    display_name: "<i class='fa fa-car'></i> Turned On",
+  },
 ];
 
 var map_options = {
@@ -27,7 +27,7 @@ var map_options = {
   zoom: 12,
   minZoom: 1,
   maxZoom: 20,
-  zoomControl: false
+  zoomControl: false,
 };
 
 var default_style = {
@@ -36,22 +36,22 @@ var default_style = {
     weight: 1,
     fillColor: "#ed9f1c",
     fillOpacity: 0.8,
-    icon: "wrench"
+    icon: "wrench",
   },
   DESIGN: {
     color: "#fff",
     weight: 1,
     fillColor: "#7570b3",
     fillOpacity: 0.8,
-    icon: "pencil"
+    icon: "pencil",
   },
   TURNED_ON: {
     color: "#fff",
     weight: 1,
     fillColor: "#6b6b6b",
     fillOpacity: 0.8,
-    icon: "car"
-  }
+    icon: "car",
+  },
 };
 
 var SCALE_THRESHOLDS = {
@@ -74,16 +74,16 @@ var SCALE_THRESHOLDS = {
   $17: 25,
   $18: 10,
   $19: 10,
-  $20: 10
+  $20: 10,
 };
 
 var formats = {
-  round: function(val) {
+  round: function (val) {
     return Math.round(val);
   },
   formatDateTime: d3.timeFormat("%e %b %-I:%M%p"),
   formatDate: d3.timeFormat("%x"),
-  formatTime: d3.timeFormat("%I:%M %p")
+  formatTime: d3.timeFormat("%I:%M %p"),
 };
 
 var q = d3.queue();
@@ -97,20 +97,20 @@ var global_data = [
     params: [
       {
         $select:
-          "modified_date, atd_location_id, signal_type, signal_id, signal_status, location_name, construction_note, construction_note_date, location_latitude, location_longitude"
+          "modified_date, atd_location_id, signal_type, signal_id, signal_status, location_name, construction_note, construction_note_date, location",
       },
       { $limit: "9000" },
-      { $where: 'signal_status in ("DESIGN", "CONSTRUCTION", "TURNED_ON")' }
+      { $where: 'signal_status in ("DESIGN", "CONSTRUCTION", "TURNED_ON")' },
     ],
     disp_fields: [
       "signal_id",
       "location_name",
       "construction_note",
-      "construction_note_date"
+      "construction_note_date",
     ],
     infoStat: true,
-    log_event: "signals_update"
-  }
+    log_event: "signals_update",
+  },
 ];
 
 for (var i = 0; i < global_data.length; ++i) {
@@ -123,7 +123,7 @@ for (var i = 0; i < global_data.length; ++i) {
   }
 }
 
-$("#dashModal").on("shown.bs.modal", function() {
+$("#dashModal").on("shown.bs.modal", function () {
   map.invalidateSize();
 });
 
@@ -146,23 +146,19 @@ function main() {
 
   populateTable(filtered_data, "data_table");
 
-  $("#search_input").on("keyup", function() {
+  $("#search_input").on("keyup", function () {
     table.search(this.value).draw();
   });
 
-  map.on("zoomend", function() {
+  map.on("zoomend", function () {
     setMarkerSizes(global_data[0].data);
   });
 
-  $(".btn-map-selector").on("click", function() {
+  $(".btn-map-selector").on("click", function () {
     if ($(this).hasClass("active")) {
-      $(this)
-        .removeClass("active")
-        .attr("aria-pressed", false);
+      $(this).removeClass("active").attr("aria-pressed", false);
     } else {
-      $(this)
-        .addClass("active")
-        .attr("aria-pressed", true);
+      $(this).addClass("active").attr("aria-pressed", true);
     }
 
     filterChange();
@@ -172,7 +168,7 @@ function main() {
 
   //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
   var resize_timer;
-  window.onresize = function() {
+  window.onresize = function () {
     clearTimeout(resize_timer);
     resize_timer = setTimeout(resizedw, 100);
   };
@@ -202,7 +198,7 @@ function buildSocrataUrl(data) {
   return url;
 }
 
-q.awaitAll(function(error) {
+q.awaitAll(function (error) {
   if (error) throw error;
 
   for (var i = 0; i < arguments[1].length; i++) {
@@ -223,7 +219,7 @@ function makeMap(divId, options) {
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
         subdomains: "abcd",
-        maxZoom: 19
+        maxZoom: 19,
       }
     ),
 
@@ -234,9 +230,9 @@ function makeMap(divId, options) {
           'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains: "abcd",
         maxZoom: 20,
-        ext: "png"
+        ext: "png",
       }
-    )
+    ),
   };
 
   var map = new L.Map(divId, options).addLayer(layers["stamen_toner_lite"]);
@@ -258,10 +254,10 @@ function populateTable(dataset, divId, filter_obj) {
 
   table = $("#" + divId)
     //  update map after table search
-    .on("draw.dt", function() {
+    .on("draw.dt", function () {
       var ids = [];
 
-      $(".tableRow").each(function(i, obj) {
+      $(".tableRow").each(function (i, obj) {
         ids.push(obj.id);
       });
 
@@ -280,12 +276,12 @@ function populateTable(dataset, divId, filter_obj) {
       autoWidth: true,
       order: [
         [2, "asc"],
-        [3, "desc"]
+        [3, "desc"],
       ],
       columns: [
         {
           data: "location_name",
-          render: function(data, type, full, meta) {
+          render: function (data, type, full, meta) {
             if ("atd_location_id" in full) {
               return (
                 "<a class='tableRow' id='$" +
@@ -297,14 +293,14 @@ function populateTable(dataset, divId, filter_obj) {
             } else {
               return "";
             }
-          }
+          },
         },
 
         { data: "signal_type" },
 
         {
           data: "signal_status",
-          render: function(data, type, full, meta) {
+          render: function (data, type, full, meta) {
             var icon = default_style[data].icon;
             return (
               "<span class='status-badge status-" +
@@ -316,21 +312,21 @@ function populateTable(dataset, divId, filter_obj) {
               data +
               "</span>"
             );
-          }
+          },
         },
 
         {
           data: "construction_note",
           defaultContent: "",
-          render: function(data, type, full, meta) {
+          render: function (data, type, full, meta) {
             if (data) {
               return "<i>" + data + "</i>";
             } else {
               return "";
             }
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
   d3.select("#data_table_filter").remove();
@@ -347,7 +343,7 @@ function createTableCols(div_id, col_array) {
     .data(col_array)
     .enter()
     .append("th")
-    .text(function(d) {
+    .text(function (d) {
       return d;
     });
 
@@ -364,11 +360,11 @@ function createMapSelectors(div_id, obj_arr, display_property, icon_name) {
     .attr("class", "col-sm")
     .append("btn")
     .attr("type", "button")
-    .attr("data_id", function(d) {
+    .attr("data_id", function (d) {
       return d.name;
     })
     .attr("class", "btn btn-block btn-primary btn-map-selector")
-    .attr("aria-pressed", function(d, i) {
+    .attr("aria-pressed", function (d, i) {
       // class first two buttons as 'active'
       if (i <= 1) {
         return true;
@@ -376,7 +372,7 @@ function createMapSelectors(div_id, obj_arr, display_property, icon_name) {
         return false;
       }
     })
-    .classed("active", function(d, i) {
+    .classed("active", function (d, i) {
       // class first two buttons as 'active'
       if (i <= 1) {
         return true;
@@ -384,7 +380,7 @@ function createMapSelectors(div_id, obj_arr, display_property, icon_name) {
         return false;
       }
     })
-    .html(function(d) {
+    .html(function (d) {
       return d[display_property];
     });
 
@@ -395,7 +391,7 @@ function createMarkers(data, style) {
   //  create markers and layers for each device type
 
   for (var i = 0; i < data.length; i++) {
-    if (!data[i].location_latitude) {
+    if (!data[i].location) {
       continue;
     }
     var status = data[i].signal_status;
@@ -404,9 +400,9 @@ function createMarkers(data, style) {
 
     var location_name = data[i].location_name;
 
-    var lat = data[i].location_latitude;
+    var lat = data[i].location.coordinates[1];
 
-    var lon = data[i].location_longitude;
+    var lon = data[i].location.coordinates[0];
 
     var updated = data[i].construction_note_date;
 
@@ -442,7 +438,7 @@ function createMarkers(data, style) {
       status +
       "</span>";
 
-    data[i]["marker"] = L.circle([lat, lon], 500)
+    data[i]["marker"] = L.circle([lon, lat], 500)
       .bindPopup(popup_text)
       .setStyle(marker_style);
   }
@@ -455,7 +451,7 @@ function checkFilters() {
 
   $("btn.active")
     .not(":hidden")
-    .each(function() {
+    .each(function () {
       filters.push($(this).attr("data_id"));
     });
 
@@ -463,7 +459,7 @@ function checkFilters() {
 }
 
 function filterByStatus(data, filters) {
-  var filtered = data.filter(function(row) {
+  var filtered = data.filter(function (row) {
     return filters.indexOf(row.signal_status) >= 0;
   });
 
@@ -532,7 +528,7 @@ function setMarkerSizes(data) {
 }
 
 function createTableListeners() {
-  d3.selectAll("tr").on("click", function(d) {
+  d3.selectAll("tr").on("click", function (d) {
     $("#modal-popup-container").remove();
     var marker_id = d3.select(this).attr("id");
     zoomToMarker(marker_id, global_data[0].data);
@@ -577,9 +573,7 @@ function resizedw() {
 
       if (!show_modal) {
         //  copy map to modal
-        $("#data-row-1")
-          .find("#map")
-          .appendTo("#modal-content-container");
+        $("#data-row-1").find("#map").appendTo("#modal-content-container");
         show_modal = true;
       }
     } else {
@@ -587,9 +581,7 @@ function resizedw() {
       table.column(3).visible(true);
 
       if (show_modal) {
-        $("#modal-content-container")
-          .find("#map")
-          .appendTo("#data-row-1");
+        $("#modal-content-container").find("#map").appendTo("#data-row-1");
 
         show_modal = false;
       }

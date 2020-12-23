@@ -1,45 +1,45 @@
 var ANNUAL_GOALS = {
-  "2021": {
+  2021: {
     retime_goal: 0, // set progammtically
     travel_time_reduction: 0.05,
-    stops_reduction: 0
+    stops_reduction: 0,
   },
 
-  "2020": {
+  2020: {
     retime_goal: 0, // set progammtically
     travel_time_reduction: 0.05,
-    stops_reduction: 0
+    stops_reduction: 0,
   },
 
-  "2019": {
+  2019: {
     retime_goal: 0, // set progammtically
     travel_time_reduction: 0.05,
-    stops_reduction: 0
+    stops_reduction: 0,
   },
 
-  "2018": {
+  2018: {
     retime_goal: 0, // set progammtically
     travel_time_reduction: 0.05,
-    stops_reduction: 0
+    stops_reduction: 0,
   },
 
-  "2017": {
+  2017: {
     retime_goal: 0,
     travel_time_reduction: 0.05,
-    stops_reduction: 3
+    stops_reduction: 3,
   },
 
-  "2016": {
+  2016: {
     retime_goal: 0,
     travel_time_reduction: 0.05,
-    stops_reduction: 0.1 //   ??
+    stops_reduction: 0.1, //   ??
   },
 
-  "2015": {
+  2015: {
     retime_goal: 0,
     travel_time_reduction: 0.05,
-    stops_reduction: 6
-  }
+    stops_reduction: 6,
+  },
 };
 
 var table_cols = [
@@ -47,14 +47,14 @@ var table_cols = [
   "Number of Signals",
   "Status",
   "Travel Time Change",
-  "Engineer Note"
+  "Engineer Note",
 ];
 
 var SYSTEM_RETIMING_URL =
-  "https://data.austintexas.gov/resource/g8w2-8uap.json";
+  "https://data.austintexas.gov/resource/g8w2-8uap.json?$limit=10000";
 
 var SYSTEM_INTERSECTIONS_URL =
-  "https://data.austintexas.gov/resource/efct-8fs9.json?$limit=5000";
+  "https://data.austintexas.gov/resource/efct-8fs9.json?$limit=10000";
 
 var LOGFILE_URL =
   "https://api.mobility.austin.gov/jobs?name=eq.signal_retiming&status=eq.success&order=start_date.desc&&records_processed=gt.0&limit=1";
@@ -91,7 +91,7 @@ var formatSeconds = d3.timeFormat("%Mm %Ss");
 var FORMAT_TYPES = {
   retiming_progress: formatPctInt,
   travel_time_reduction: formatPct,
-  stops_reduction: formatPct
+  stops_reduction: formatPct,
 };
 
 var STATUS_TYPES_READABLE = {
@@ -99,17 +99,14 @@ var STATUS_TYPES_READABLE = {
   PLANNED: "Planned",
   IN_PROGRESS: "In Progress",
   COMPLETED: "Completed",
-  "WAITING FOR EVALUATION": "Waiting for Post-Retiming Evaluation"
+  "WAITING FOR EVALUATION": "Waiting for Post-Retiming Evaluation",
 };
 
 var show_modal = false;
 
 var t1_duration = 1200;
 
-var t1 = d3
-  .transition()
-  .ease(d3.easeQuad)
-  .duration(t1_duration);
+var t1 = d3.transition().ease(d3.easeQuad).duration(t1_duration);
 
 var t2_duration = 1000;
 
@@ -121,14 +118,14 @@ var HIGHLIGHT_STYLE = {
   color: "#fff",
   weight: 1,
   fillColor: "#d95f02",
-  fillOpacity: 0.9
+  fillOpacity: 0.9,
 };
 
 var DEFAULT_STYLE = {
   color: "#fff",
   weight: 1,
   fillColor: "#7570b3",
-  fillOpacity: 0.8
+  fillOpacity: 0.8,
 };
 
 var SCALE_THRESHOLDS = {
@@ -151,7 +148,7 @@ var SCALE_THRESHOLDS = {
   $17: 25,
   $18: 10,
   $19: 10,
-  $20: 10
+  $20: 10,
 };
 
 var SIGNAL_MARKERS = [];
@@ -164,7 +161,7 @@ var visible_layers = new L.featureGroup();
 
 var table_height = "60vh";
 
-$(document).ready(function() {
+$(document).ready(function () {
   if (is_touch_device()) {
     d3.select(".map")
       .style("margin-right", "10px")
@@ -175,12 +172,12 @@ $(document).ready(function() {
 var collapsed_class = "col-sm-6";
 var expanded_class = "col-sm-12";
 
-$("#dashModal").on("shown.bs.modal", function() {
+$("#dashModal").on("shown.bs.modal", function () {
   map.invalidateSize();
 });
 
 //  fetch retiming data
-d3.json(SYSTEM_RETIMING_URL, function(dataset) {
+d3.json(SYSTEM_RETIMING_URL, function (dataset) {
   $("#map_selectors").append(
     '<div class="col" id="map_selector_container"></div>'
   );
@@ -191,18 +188,18 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 
   SOURCE_DATA_SYSTEMS = dataset;
 
-  d3.json(SYSTEM_INTERSECTIONS_URL, function(dataset_2) {
+  d3.json(SYSTEM_INTERSECTIONS_URL, function (dataset_2) {
     GROUPED_DATA_INTERSECTIONS = dataset_2;
 
-    groupData(SOURCE_DATA_SYSTEMS, function() {
+    groupData(SOURCE_DATA_SYSTEMS, function () {
       createProgressChart("info-2", "retiming_progress");
 
       populateInfoStat("info-3", "travel_time_reduction", t1);
 
       var cols = createTableCols("data_table", table_cols);
 
-      populateTable(SOURCE_DATA_SYSTEMS, function() {
-        $(function() {
+      populateTable(SOURCE_DATA_SYSTEMS, function () {
+        $(function () {
           $('[data-toggle="popover"]').popover();
         });
 
@@ -215,21 +212,21 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
         //  https://stackoverflow.com/questions/5489946/jquery-how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-ac
         var resize_timer;
 
-        window.onresize = function() {
+        window.onresize = function () {
           clearTimeout(resize_timer);
           resize_timer = setTimeout(resizedw, 100);
         };
 
-        makeMap(GROUPED_DATA_INTERSECTIONS, function(map, dataset) {
+        makeMap(GROUPED_DATA_INTERSECTIONS, function (map, dataset) {
           populateMap(map, dataset);
 
-          map.on("zoomend", function() {
+          map.on("zoomend", function () {
             setMarkerSizes();
           });
         });
       });
 
-      $("#search_input").on("keyup", function() {
+      $("#search_input").on("keyup", function () {
         table.search(this.value).draw();
       });
     });
@@ -239,25 +236,25 @@ d3.json(SYSTEM_RETIMING_URL, function(dataset) {
 function groupData(dataset, updateCharts) {
   GROUPED_RETIMING_DATA = d3
     .nest()
-    .key(function(d) {
+    .key(function (d) {
       return d.scheduled_fy;
     })
-    .key(function(q) {
+    .key(function (q) {
       return q.retime_status;
     })
-    .rollup(function(v) {
+    .rollup(function (v) {
       return {
         travel_time_change:
-          d3.sum(v, function(d) {
+          d3.sum(v, function (d) {
             return d.vol_wavg_tt_seconds;
           }) /
-          d3.sum(v, function(d) {
+          d3.sum(v, function (d) {
             return d.total_vol;
           }),
 
-        signals_retimed: d3.sum(v, function(d) {
+        signals_retimed: d3.sum(v, function (d) {
           return d.signal_count;
-        })
+        }),
       };
     })
     .map(dataset);
@@ -322,30 +319,23 @@ function groupData(dataset, updateCharts) {
 
   updateCharts();
 
-  createYearSelectors("map_selector_container", function(selectors) {
-    $(".btn-map-selector").on("click", function() {
-      $(".btn-map-selector")
-        .removeClass("active")
-        .attr("aria-pressed", false);
+  createYearSelectors("map_selector_container", function (selectors) {
+    $(".btn-map-selector").on("click", function () {
+      $(".btn-map-selector").removeClass("active").attr("aria-pressed", false);
 
-      $(this)
-        .addClass("active")
-        .attr("aria-pressed", true);
+      $(this).addClass("active").attr("aria-pressed", true);
 
       previous_selection = selected_year;
 
       selected_year = $(this).attr("value");
 
-      t2 = d3
-        .transition()
-        .ease(d3.easeQuad)
-        .duration(t2_duration);
+      t2 = d3.transition().ease(d3.easeQuad).duration(t2_duration);
 
       updateProgressChart("info-2", t2);
 
       updateInfoStat("info-3", "travel_time_reduction", t2);
 
-      populateTable(SOURCE_DATA_SYSTEMS, function() {
+      populateTable(SOURCE_DATA_SYSTEMS, function () {
         createTableListeners();
       });
 
@@ -362,7 +352,7 @@ function getDefaultYear() {
 
   // Display data for the current fiscal year if available, otherwise default to previous year
   if (currentMonth >= 10 && GROUPED_RETIMING_DATA["$" + currentYear + 1]) {
-    selected_year = currentYear + 1
+    selected_year = currentYear + 1;
   } else {
     selected_year = currentYear;
   }
@@ -384,24 +374,24 @@ function createYearSelectors(divId, createListeners) {
     .append("btn")
     .attr("type", "button")
     .attr("class", "btn btn-primary btn-map-selector")
-    .attr("aria-pressed", function(d, i) {
+    .attr("aria-pressed", function (d, i) {
       if (data[i] == selected_year) {
         return true;
       } else {
         return false;
       }
     })
-    .classed("active", function(d, i) {
+    .classed("active", function (d, i) {
       if (data[i] == selected_year) {
         return true;
       } else {
         return false;
       }
     })
-    .attr("value", function(d) {
+    .attr("value", function (d) {
       return d;
     })
-    .html(function(d) {
+    .html(function (d) {
       return d;
     });
 
@@ -424,7 +414,7 @@ function populateInfoStat(divId, metric, transition) {
     .append("text")
     .text(FORMAT_TYPES[metric](0))
     .transition(transition)
-    .attr("class", function() {
+    .attr("class", function () {
       if (metric === "travel_time_reduction" && metric_value > 0) {
         return "positive-reduction info-metric";
       }
@@ -439,12 +429,12 @@ function populateInfoStat(divId, metric, transition) {
 
       return "goal-unmet info-metric";
     })
-    .tween("text", function() {
+    .tween("text", function () {
       var that = d3.select(this);
 
       var i = d3.interpolate(0, metric_value);
 
-      return function(t) {
+      return function (t) {
         that.text(FORMAT_TYPES[metric](i(t)));
       };
     });
@@ -485,7 +475,7 @@ function updateInfoStat(divId, metric, transition) {
   d3.select("#" + divId)
     .select("text")
     .transition(transition)
-    .attr("class", function() {
+    .attr("class", function () {
       if (metric === "travel_time_reduction" && metric_value > 0) {
         return "positive-reduction info-metric";
       }
@@ -500,12 +490,12 @@ function updateInfoStat(divId, metric, transition) {
 
       return "goal-unmet info-metric";
     })
-    .tween("text", function() {
+    .tween("text", function () {
       var that = d3.select(this);
 
       var i = d3.interpolate(metric_value_previous, metric_value);
 
-      return function(t) {
+      return function (t) {
         that.text(FORMAT_TYPES[metric](i(t)));
       };
     });
@@ -568,7 +558,7 @@ function createProgressChart(divId, metric) {
     .attr("class", "pie-info")
     .attr("y", height / 2)
     .attr("x", width / 2)
-    .html(function(d) {
+    .html(function (d) {
       return formatPctInt(0);
     });
 
@@ -604,7 +594,7 @@ function postUpdateDate(log_date, divId) {
 }
 
 function getLogData(url) {
-  d3.json(url, function(error, data) {
+  d3.json(url, function (error, data) {
     postUpdateDate(data[0].start_date, "info-row-1");
   });
 }
@@ -628,7 +618,7 @@ function updateProgressChart(divId, transition) {
 
   d3.select("#" + "pieTextLarge") //  update chat text
     .transition(transition)
-    .tween("text", function() {
+    .tween("text", function () {
       var that = this;
 
       var pct_complete_previous = parseFloat(this.textContent) / 100;
@@ -639,7 +629,7 @@ function updateProgressChart(divId, transition) {
 
       var i = d3.interpolate(pct_complete_previous, pct_complete);
 
-      return function(t) {
+      return function (t) {
         that.textContent = formatPctInt(i(t));
       };
     });
@@ -648,7 +638,7 @@ function updateProgressChart(divId, transition) {
 
     .transition(transition)
 
-    .tween("text", function() {
+    .tween("text", function () {
       var that = d3.select(this);
 
       var previous_text = that.text().split(" of ");
@@ -665,7 +655,7 @@ function updateProgressChart(divId, transition) {
 
       var q = d3.interpolate(previous_goal, goal);
 
-      return function(t) {
+      return function (t) {
         that.text(Math.round(i(t)) + " of " + Math.round(q(t))); //  interpolating two parts of a string? YEP!
       };
     });
@@ -673,12 +663,10 @@ function updateProgressChart(divId, transition) {
 
 function populateTable(dataset, next) {
   if ($("#data_table")) {
-    $("#data_table")
-      .dataTable()
-      .fnDestroy();
+    $("#data_table").dataTable().fnDestroy();
   }
 
-  var filtered_data = dataset.filter(function(d) {
+  var filtered_data = dataset.filter(function (d) {
     return d.scheduled_fy == selected_year;
   });
 
@@ -693,35 +681,35 @@ function populateTable(dataset, next) {
     bInfo: false,
     order: [[2, "asc"]],
     oLanguage: { sSearch: "Search by Corridor Name" },
-    drawCallback: function(settings) {
+    drawCallback: function (settings) {
       //  resetMap();
     },
     columnDefs: [
       { width: "40%", targets: 4 },
       { width: "10%", targets: 1 },
-      { searchable: false, targets: [1, 2, 3, 4] }
+      { searchable: false, targets: [1, 2, 3, 4] },
     ],
     columns: [
       {
         data: "system_name",
-        render: function(data, type, full, meta) {
+        render: function (data, type, full, meta) {
           return (
             "<a class='tableRow' id='$" + full.system_id + "' >" + data + "</a>"
           );
-        }
+        },
       },
       {
-        data: "signal_count"
+        data: "signal_count",
       },
       {
         data: "retime_status",
-        render: function(data, type, full, meta) {
+        render: function (data, type, full, meta) {
           return STATUS_TYPES_READABLE[data];
-        }
+        },
       },
       {
         data: "vol_wavg_tt_pct_change",
-        render: function(data, type, full, meta) {
+        render: function (data, type, full, meta) {
           var travel_time_change = FORMAT_TYPES["travel_time_reduction"](
             -1 * +data
           );
@@ -735,11 +723,11 @@ function populateTable(dataset, next) {
           }
 
           return isNaN(data) ? "" : travel_time_change;
-        }
+        },
       },
       {
         data: "system_name",
-        render: function(data, type, full, meta) {
+        render: function (data, type, full, meta) {
           if (full.engineer_note) {
             var engineer_note = full.engineer_note;
 
@@ -747,9 +735,9 @@ function populateTable(dataset, next) {
           } else {
             return "";
           }
-        }
-      }
-    ]
+        },
+      },
+    ],
   });
 
   d3.select("#data_table_filter").remove();
@@ -762,7 +750,7 @@ function createTableListeners() {
   d3.select("#data_table")
     .selectAll("tr")
     .classed("tableRow", true)
-    .on("click", function(d) {
+    .on("click", function (d) {
       $("#modal-popup-container").remove();
 
       var system_id = "$" + d3.select(this).attr("id");
@@ -807,7 +795,7 @@ function makeMap(dataset, next) {
     zoom: 12,
     minZoom: 1,
     maxZoom: 20,
-    zoomControl: false //  zoom control replaces with custom zoom control plugin
+    zoomControl: false, //  zoom control replaces with custom zoom control plugin
   }); // make a map
 
   var carto_positron = L.tileLayer(
@@ -816,7 +804,7 @@ function makeMap(dataset, next) {
       attribution:
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
       subdomains: "abcd",
-      maxZoom: 19
+      maxZoom: 19,
     }
   );
 
@@ -827,7 +815,7 @@ function makeMap(dataset, next) {
         'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       subdomains: "abcd",
       maxZoom: 20,
-      ext: "png"
+      ext: "png",
     }
   ).addTo(map);
 
@@ -860,10 +848,11 @@ function populateMap(map, dataset) {
     var system_id = dataset[i].system_id;
 
     var system_name = dataset[i].system_name;
+    // this data uses socrata's deprecated "location" field type
+    // https://dev.socrata.com/docs/datatypes/location.html
+    var lat = dataset[i].location.latitude;
 
-    var lat = dataset[i].location_latitude;
-
-    var lon = dataset[i].location_longitude;
+    var lon = dataset[i].location.longitude;
 
     var intersection_name = dataset[i].location_name;
 
@@ -898,13 +887,13 @@ function updateVisibleLayers() {
     SYSTEMS_LAYERS[system_layer].setStyle(DEFAULT_STYLE);
   }
 
-  visible_layers.eachLayer(function(layer) {
-    layer.on("click", function() {
+  visible_layers.eachLayer(function (layer) {
+    layer.on("click", function () {
       highlightLayer(this);
     });
   });
 
-  setTimeout(function() {
+  setTimeout(function () {
     map.fitBounds(visible_layers.getBounds());
   }, 500);
 
@@ -942,10 +931,10 @@ function readableDate(date) {
 }
 
 function arcTween(newAngle) {
-  return function(d) {
+  return function (d) {
     var interpolate = d3.interpolate(d.endAngle, newAngle);
 
-    return function(t) {
+    return function (t) {
       d.endAngle = interpolate(t);
       return arc(d);
     };
@@ -978,7 +967,7 @@ function expandMap(table_div_id, map_div_id) {
 
     .transition(t2)
     .style("height", window.innerHeight + "px")
-    .on("end", function() {
+    .on("end", function () {
       map.invalidateSize();
       map.fitBounds(visible_layers.getBounds());
     });
@@ -994,7 +983,7 @@ function collapseMap(table_div_id, map_div_id) {
   d3.select("#map")
     .transition(t2)
     .style("height", table_div_height + "px")
-    .on("end", function() {
+    .on("end", function () {
       d3.select("#" + map_div_id).attr("class", collapsed_class);
       map.invalidateSize();
       map.fitBounds(visible_layers.getBounds());
@@ -1012,7 +1001,7 @@ function createTableCols(div_id, col_array) {
     .data(col_array)
     .enter()
     .append("th")
-    .text(function(d) {
+    .text(function (d) {
       return d;
     });
 
@@ -1036,9 +1025,7 @@ function resizedw() {
 
       if (!show_modal) {
         //  copy map to modal
-        $("#data-row-1")
-          .find("#map")
-          .appendTo("#modal-content-container");
+        $("#data-row-1").find("#map").appendTo("#modal-content-container");
         show_modal = true;
       }
     } else {
@@ -1047,9 +1034,7 @@ function resizedw() {
       table.column(4).visible(true);
 
       if (show_modal) {
-        $("#modal-content-container")
-          .find("#map")
-          .appendTo("#data-row-1");
+        $("#modal-content-container").find("#map").appendTo("#data-row-1");
 
         show_modal = false;
 
