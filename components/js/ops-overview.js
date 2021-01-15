@@ -153,10 +153,10 @@ var config = [
       '")',
     resource_id: "ufnm-yzxy",
     data_transform: function(x) {
-      if (!Object.keys(x).length == 0) {
-        return [x[0]["count"]];
+      if (!x[0]["count"]) {
+        return [0]
       } else {
-        return [0];
+        return [x[0]["count"]];
       }
     },
     update_event: "knack_data_pub_signal_retiming_knack_socrata",
