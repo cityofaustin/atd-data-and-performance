@@ -244,9 +244,13 @@ function populateMap(map, dataset) {
       if (dataset[i].location) {
         var status = +dataset[i].operation_state;
 
-        var lat = dataset[i].location.latitude;
+        var lat = dataset[i].location.coordinates[1];
 
-        var lon = dataset[i].location.longitude;
+        var lon = dataset[i].location.coordinates[0];
+
+        if (!lat && lon) {
+          continue
+        }
 
         var address = dataset[i].location_name;
 
@@ -360,6 +364,9 @@ function populateTable(dataset) {
       {
         data: "location_name",
         render: function (data, type, full, meta) {
+          if (!data) {
+            console.log(full)
+          }
           return "<a id='$" + full.signal_id + "' >" + data + "</a>";
         },
       },
