@@ -42,7 +42,7 @@ var device_data = [
     resource_id: "wakh-bdjq",
     id_field: "sensor_id",
     query:
-      'select location_latitude,location_longitude,sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status in ("TURNED_ON")',
+      'select sensor_type,atd_location_id,location_name,ip_comm_status,comm_status_datetime_utc where sensor_status in ("TURNED_ON")',
   },
   {
     name: "traffic_signal",
@@ -51,7 +51,7 @@ var device_data = [
     resource_id: "xwqn-2f78",
     id_field: "signal_id",
     query:
-      'select atd_location_id,signal_id,signal_status,location_name,location_latitude,location_longitude,control,ip_comm_status,comm_status_datetime_utc where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000',
+      'select atd_location_id,signal_id,signal_status,location_name,location,control,ip_comm_status,comm_status_datetime_utc where control in ("PRIMARY") and signal_status in ("TURNED_ON") limit 10000',
   },
 ];
 
