@@ -38,8 +38,8 @@ var STATUS_TYPES_READABLE = {
     - return first result of sorted by desc timestamp
 */
 
-var logfile_url =
-  "https://api.mobility.austin.gov/jobs?name=eq.sig_stat_pub&status=eq.success&order=start_date.desc&limit=1";
+var socrataMetadataUrl =
+  "https://data.austintexas.gov/api/views/5zpr-dehc.json";
 var data_url = "https://data.austintexas.gov/resource/5zpr-dehc.json";
 var data_count_url =
   "https://data.austintexas.gov/resource/xwqn-2f78.json?$query=select count(*) where SIGNAL_STATUS in ('TURNED_ON')";
@@ -96,7 +96,7 @@ function main(data) {
   var cols = createTableCols("data_table", table_cols);
 
   populateInfoStat(data, "info-1", ["2"], function () {
-    getLogData(logfile_url, "update-date");
+    getLogData(socrataMetadataUrl, "update-date");
   });
 
   populateInfoStat(data, "info-2", ["1"], function () {});
@@ -178,8 +178,8 @@ function updateInfoStat(dataset, divId) {
     });
 }
 
-function postUpdateDate(log_data, divId) {
-  var update_date_time = new Date(log_data[0].start_date);
+function postUpdateDate(updatedDate, divId) {
+  var update_date_time = new Date(updatedDate);
 
   update_date = readableDate(update_date_time);
 
@@ -331,7 +331,9 @@ function getLogData(url, divId) {
   $.ajax({
     url: url,
     success: function (data) {
-      postUpdateDate(data, divId);
+      // add milliseconds to unix timestamp
+      var updatedDated = data.rowsUpdatedAt * 1000;
+      postUpdateDate(updatedDated, divId);
     },
   }); //end get data
 }
