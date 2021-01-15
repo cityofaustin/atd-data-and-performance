@@ -364,9 +364,6 @@ function populateTable(dataset) {
       {
         data: "location_name",
         render: function (data, type, full, meta) {
-          if (!data) {
-            console.log(full)
-          }
           return "<a id='$" + full.signal_id + "' >" + data + "</a>";
         },
       },
