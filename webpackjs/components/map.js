@@ -2,7 +2,7 @@ import mapboxgl from "!mapbox-gl";
 import { showCard, updateCard } from "./mapCard";
 
 const MAPBOX_ACCESS_TOKEN =
-  "pk.eyJ1Ijoiam9obmNsYXJ5IiwiYSI6ImNqbjhkZ25vcjF2eTMzbG52dGRlbnVqOHAifQ.y1xhnHxbB6KlpQgTp1g1Ow";
+  "pk.eyJ1Ijoiam9obmNsYXJ5IiwiYSI6ImNrbW13OGo1MTAwYXIyenBvOW9iMmRua3QifQ.o9R4uG8USa4ZazTEyheJcQ";
 
 const MAP_OPTIONS_DEFAULT = {
   container: "map", // container ID
