@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+// custom components
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import GeoTable from "../components/geotable/GeoTable";
