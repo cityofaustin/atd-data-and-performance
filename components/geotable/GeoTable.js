@@ -1,3 +1,7 @@
+/*
+  Interactive map-table component that can be configured to play with an geojson FeatureCollection
+  of point features. See pages/signal_requests.js for configuration example.
+*/
 import React, { useRef, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -55,7 +59,7 @@ const FilterButton = (props) => {
       }}
     >
       Filter
-      {!isExpanded ? <FaCaretDown /> : <FaCaretUp/>}
+      {!isExpanded ? <FaCaretDown /> : <FaCaretUp />}
     </Button>
   );
 };
@@ -94,14 +98,18 @@ const TableSearch = ({ filters, setFilters }) => {
   );
 };
 
-const stringIncludes = (val, str) => {
+const stringIncludesCaseInsensitive = (val, str) => {
   return str.toLowerCase().includes(val.toLowerCase());
 };
 
+/*
+    Custom hook that that applies search and checkbox filter states to geojson
+*/
 const useFilters = ({ geojson, filterDefs }) => {
   const [filters, setFilters] = React.useState(filterDefs);
   const [filteredGeosjon, setFilteredGeojson] = React.useState(geojson);
   React.useEffect(() => {
+    // create a mutable copy of geojson
     let currentGeojson = { ...geojson };
     let currentCheckedFilters = filters.checkbox.filter((f) => f.checked);
     let currentSearchVal = filters.search.value;
@@ -111,10 +119,12 @@ const useFilters = ({ geojson, filterDefs }) => {
     ) {
       const filteredFeatures = currentGeojson.features.filter((feature) => {
         return (
+          // apply checkbox filters by matching feature prop val exactly to filter val
           currentCheckedFilters.some((filter) => {
             return filter.value === feature.properties[filter.featureProp];
           }) &&
-          stringIncludes(
+          // apply search filter by matching any feature prop val which includes search str
+          stringIncludesCaseInsensitive(
             currentSearchVal,
             feature.properties[filters.search.featureProp]
           )
@@ -126,7 +136,6 @@ const useFilters = ({ geojson, filterDefs }) => {
   }, [geojson, filters]);
   return [filteredGeosjon, filters, setFilters];
 };
-
 
 export default function GeoTable({ geojson, headers, layerStyle, filterDefs }) {
   const [selectedFeature, setSelectedFeature] = React.useState(null);
