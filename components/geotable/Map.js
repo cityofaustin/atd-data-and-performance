@@ -4,6 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CloseButton from "react-bootstrap/CloseButton";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import styles from "../../styles/Map.module.css";
 
 mapboxgl.accessToken =
@@ -121,7 +122,7 @@ const MapOverlay = ({ feature, setSelectedFeature }) => {
       <div className="list-group">
         <div className="list-group-item " aria-current="true">
           <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">{feature.properties.location_name}</h5>
+            <h5 className="mb-1"><span className="text-dts-4"><FaMapMarkerAlt/></span> {feature.properties.location_name}</h5>
             <CloseButton onClick={() => setSelectedFeature(null)} />
           </div>
           <p className="mb-1">{feature.properties.signal_status}</p>
