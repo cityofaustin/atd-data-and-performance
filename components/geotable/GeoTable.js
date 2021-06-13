@@ -9,13 +9,34 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsSearch } from "react-icons/bs";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+// custom components
 import Map, { easeToFeature } from "./Map";
 import Table from "./Table";
 import styles from "../../styles/Map.module.css";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+
+function Example(props) {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        Launch
+      </Button>
+
+      <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton></Offcanvas.Header>
+        <Offcanvas.Body>{props.children}</Offcanvas.Body>
+      </Offcanvas>
+    </>
+  );
+}
 
 const CheckBoxFilters = ({ filters, setFilters }) => {
   const onChange = (filter) => {
