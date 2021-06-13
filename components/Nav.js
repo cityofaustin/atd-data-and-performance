@@ -18,22 +18,24 @@ const PAGES = [
 
 function IconSeparator(props) {
   return (
-    <Row>
-      <Col className="flex-grow-1 pl-0">
-        <hr className="w-100" />
-      </Col>
-      <Col xs="auto" className="pt-2 px-sm-0 mx-sm-0">
-        <img
-          className="float-right"
-          height={17}
-          src="/assets/icos.jpg"
-          alt="Generic placeholder"
-        />
-      </Col>
-      <Col sm={1} className="d-none d-sm-block pr-0">
-        <hr className="w-100" />
-      </Col>
-    </Row>
+    <Container fluid>
+      <Row>
+        <Col className="flex-grow-1 pl-0">
+          <hr className="w-100" />
+        </Col>
+        <Col xs="auto" className="px-xs-0 mx-xs-0">
+          <img
+            className="float-right"
+            height={17}
+            src="/assets/icos.jpg"
+            alt="Generic placeholder"
+          />
+        </Col>
+        <Col sm={1} className="d-none d-sm-block pr-0">
+          <hr className="w-100" />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
