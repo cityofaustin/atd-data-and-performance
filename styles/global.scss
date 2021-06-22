@@ -39,6 +39,30 @@ body {
     background-color: theme-color("dts-4") !important;
 }
 
+.react-date-picker__wrapper {
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem !important;
+}
+
+.status-badge {
+    border-radius: 5px;
+    box-shadow: 1px 1px #888888;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right:  5px;
+    padding-left:  5px;
+}
+
+.map-overlay-container {
+    position: absolute;
+    width: 100%;
+    z-index: 999999;
+    font-size: 0.75em;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px 0px dimgray !important;
+}
+
 @media only screen and (min-width: 768px) {
     .navbar-menu-borders {
         border-style: none none none solid;

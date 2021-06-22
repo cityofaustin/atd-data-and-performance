@@ -17,26 +17,29 @@ const cards = {
         "Info about signal requests where you can search and browse info.",
       href: "/signal-requests",
       img: { src: "/assets/data_and_performance.jpg", alt: "DTS logo" },
+      key: "signal_requests"
     },
     {
       title: "Signal Monitor",
       description:
         "Info about signal requests where you can search and browse info.",
-      href: "/signal-requests",
+      href: "/signal-monitor",
       img: null,
+      key: "signal_monitor"
     },
     {
       title: "Device Status",
       description:
         "Info about signal requests where you can search and browse info.",
-      href: "/signal-requests",
+      href: "/device-status",
       img: null,
+      key: "device_status"
     },
     {
       title: "Signal Timing",
       description:
         "Info about signal requests where you can search and browse info.",
-      href: "/signal-requests",
+      href: "/signal-timing",
       img: null,
     },
   ],
@@ -68,7 +71,7 @@ const cards = {
       title: "Shared Micromobility",
       description:
         "Info about signal requests where you can search and browse info.",
-      href: "/signal-requests",
+      href: "/micromobility-data",
       img: null,
     },
     {
@@ -91,6 +94,7 @@ const cards = {
 export function CardItem({ href, title, description, img }) {
   return (
     <Link className="text-primary text-decoration-none" href={href}>
+    <div style={{cursor: "pointer"}}>
       <Card className="h-100 shadow-sm">
         <Card.Body>
           {img && (
@@ -107,6 +111,7 @@ export function CardItem({ href, title, description, img }) {
           </Row>
         </Card.Body>
       </Card>
+      </div>
     </Link>
   );
 }
@@ -138,7 +143,7 @@ export default function Home() {
         <Row className="text-dts-4 mb-4">
           {cards.signal_operations.map((card) => {
             return (
-              <Col xs={6} md={3}>
+              <Col key={card.key} xs={6} md={3}>
                 <CardItem {...card} />
               </Col>
             );
@@ -152,7 +157,7 @@ export default function Home() {
         <Row className="text-dts-4 mb-4">
           {cards.maps_resources.map((card) => {
             return (
-              <Col xs={6} md={3}>
+              <Col key={card.key}  xs={6} md={3}>
                 <CardItem {...card} />
               </Col>
             );
@@ -166,7 +171,7 @@ export default function Home() {
         <Row className="text-dts-4 mb-4">
           {cards.open_data.map((card) => {
             return (
-              <Col xs={6} md={3}>
+              <Col key={card.key} xs={6} md={3}>
                 <CardItem {...card} />
               </Col>
             );

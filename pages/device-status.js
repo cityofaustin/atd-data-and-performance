@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Head from "next/head";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -10,49 +10,15 @@ import Footer from "../components/Footer";
 import GeoTable from "../components/geotable/GeoTable";
 import useSocrata from "../utils/socrata.js";
 
-const john = false;
-
 const SOCRATA_ENDPOINT = {
-  resourceId: "p53x-x73x",
+  resourceId: "5zpr-dehc",
   format: "geojson",
-  query:
-    "$limit=9999999&$order=location_name asc&$select=location_name,signal_id,signal_type,signal_status,location",
-};
-
-const STATUS_STYLES = {
-  DESIGN: { label: "Design", color: "#fff", backgroundColor: "#7570b3" },
-  CONSTRUCTION: {
-    label: "Construction",
-    color: "#fff",
-    backgroundColor: "#d95f02",
-  },
-  TURNED_ON: {
-    label: "Turned On",
-    color: "#fff",
-    backgroundColor: "#1b9e77",
-  },
-  "READY FOR CONSTRUCTION": {
-    label: "Ready for Construction",
-    color: "#fff",
-    backgroundColor: "#1b9e77",
-  }
-};
-
-const renderStatus = (feature) => {
-  const status = feature.properties["signal_status"];
-  if (!status || !STATUS_STYLES[status]) return "";
-  const { label, ...styles } = STATUS_STYLES[status];
-  return (
-    <span style={styles} className="status-badge">
-      {label || status}
-    </span>
-  );
+  query: "$limit=9999999&$order=location_name asc",
 };
 
 const TABLE_HEADERS = [
   { key: "location_name", label: "Location" },
-  { key: "signal_type", label: "Type" },
-  { key: "signal_status", label: "Status", renderFunc: renderStatus },
+  { key: "operation_state", label: "Status" },
 ];
 
 const POINT_LAYER_STYLE = {
@@ -60,12 +26,12 @@ const POINT_LAYER_STYLE = {
   paint: {
     "circle-color": [
       "match",
-      ["get", "signal_status"],
-      "DESIGN",
+      ["get", "operation_state"],
+      "1",
       "#7570b3",
-      "CONSTRUCTION",
+      "2",
       "#d95f02",
-      "TURNED_ON",
+      "3",
       "#1b9e77",
       /* other */ "#ccc",
     ],
@@ -75,25 +41,25 @@ const POINT_LAYER_STYLE = {
 const FILTERS = {
   checkbox: [
     {
-      key: "design",
-      value: "DESIGN",
-      featureProp: "signal_status",
-      label: "Design",
+      key: "scheduled_flash",
+      value: "1",
+      featureProp: "operation_state",
+      label: "Scheduled Flash",
       checked: true,
     },
     {
-      key: "construction",
-      value: "CONSTRUCTION",
-      featureProp: "signal_status",
-      label: "Construction",
+      key: "flash",
+      value: "2",
+      featureProp: "operation_state",
+      label: "Unscheduled Flash",
       checked: true,
     },
     {
-      key: "turned_on",
-      value: "TURNED_ON",
-      featureProp: "signal_status",
-      label: "Turned On",
-      checked: false,
+      key: "comm_outage",
+      value: "3",
+      featureProp: "operation_state",
+      label: "Communications Outage",
+      checked: true,
     },
   ],
   search: {
@@ -105,24 +71,50 @@ const FILTERS = {
   },
 };
 
-export default function Viewer() {
-  const { data, loading, error } = useSocrata({ ...SOCRATA_ENDPOINT });
+const OP_STATES = ["0", "1", "2", "3", "4", "5", "6"];
 
+const useMetricData = (data) => {
+  const [metricData, setMetricData] = React.useState({});
+
+  React.useEffect(() => {
+    if (!data) return;
+    let currentData = {};
+    data.features.forEach((feature) => {
+      let operationState = feature.properties.operation_state;
+      if (!(operationState in currentData)) currentData[operationState] = 0;
+      currentData[operationState]++;
+    });
+    setMetricData(currentData);
+  }, [data]);
+  return metricData;
+};
+
+export default function Viewer() {
+  const { data, loading, error } = useSocrata(SOCRATA_ENDPOINT);
+  const metricData = useMetricData(data);
   return (
     <>
       <Nav />
       <Container fluid>
         <Row>
           <Col>
-            <h2 className="text-primary">Signal Requests</h2>
+            <h2 className="text-primary">Traffic Signal Monitor</h2>
           </Col>
+        </Row>
+        <Row>
+          {OP_STATES.map((operation_state) => {
+            return (
+              <Col>
+                <p>{metricData[operation_state] || "nothing here"}</p>
+              </Col>
+            );
+          })}
         </Row>
         <GeoTable
           geojson={data}
           headers={TABLE_HEADERS}
           filterDefs={FILTERS}
           layerStyle={POINT_LAYER_STYLE}
-
         />
         <Row className="mt-4 mb-2 text-primary">
           <Col>

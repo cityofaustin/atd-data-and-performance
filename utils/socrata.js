@@ -1,14 +1,20 @@
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const handleFetchArgs = (args) => {
+	// expects array of three args: [0] a socrata resource id, [1] the output format (e.g. json or geojson), [3] optional query string
+	let url = `https://data.austintexas.gov/resource/${args[0]}.${args[1]}`;
+	url = args[2] ? `${url}?${args[2]}` : url;
+	return url;
+};
 
-export function useSocrataGeoJSON(resourceId) {
-	const { data, error } = useSWR(
-		`https://data.austintexas.gov/resource/${resourceId}.geojson?$limit=9999999&$order=location_name asc&$select=location_name,signal_id,signal_type,signal_status,location`,
-		fetcher
-	);
+const fetcher = (...args) =>
+	fetch(handleFetchArgs(args)).then((res) => res.json());
+
+export default function useSocrata({ resourceId, format, query }) {
+	// by passing an array of args as the useSWR key, SWR will detect changes to the inputs and re-fetch as needed
+	const { data, error } = useSWR([resourceId, format, query], fetcher);
 	return {
-		geojson: data,
+		data: data,
 		loading: !error && !data,
 		error: error,
 	};

@@ -4,23 +4,28 @@ import Col from "react-bootstrap/Col";
 import BsTable from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
-export default function Table({ features, headers, onRowClick }) {
-  const [keys, setKeys] = React.useState(null);
+/**
+ * A Bootstrap table component which renders geojson features as table rows.
+ *
+ * @param {Object[]}  features - an array of geojson features
+ * @param {Object[]}  headers - an array of column header properties. the table will display one column for each header provided.
+ * @param {string}  headers[].key - a string which must uniquely identify this header. if no renderFunc() is provided, the key will also be used to access the property to display in each table cell.
+ * @param {string}  headers[].label - a string which will be used as the column's name in the first row of the table
+ * @param { function(object) : string } headers[].renderFunc - An optional cell rendering function which accepts a single feature and returns a string value
+ * @param { function(object) } onRowClick - An optional callback function which accepts a single feature and will be called when a table row is clicked.
+ */
 
+export default function Table({ features, headers, onRowClick }) {
   if (!features || features.length === 0) {
+    // TODO: render something helpful? e.g., "No data to display"
     return null;
   }
-
   return (
-    <BsTable responsive hover striped size="sm" style={{fontSize: ".75em"}}>
+    <BsTable responsive hover striped size="sm" style={{ fontSize: ".75em" }}>
       <thead>
         <tr>
-          {headers.map((header, i) => {
-            return (
-              <th key={i}>
-                {header.label}
-              </th>
-            );
+          {headers.map((header) => {
+            return <th key={header.key}>{header.label}</th>;
           })}
         </tr>
       </thead>
@@ -29,15 +34,15 @@ export default function Table({ features, headers, onRowClick }) {
           return (
             <tr
               key={i}
-              style={{ cursor: "pointer" }}
+              style={onRowClick && { cursor: "pointer" }}
               onClick={() => {
-                onRowClick(feature);
+                onRowClick && onRowClick(feature);
               }}
             >
-              {headers.map(({ key }, x) => {
+              {headers.map(({ key, renderFunc }) => {
                 return (
-                  <td key={x}>
-                    {feature.properties[key]}
+                  <td key={key}>
+                    {renderFunc ? renderFunc(feature) : feature.properties[key]}
                   </td>
                 );
               })}

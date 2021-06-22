@@ -47,20 +47,22 @@ export default function NavComponent(props) {
       <Navbar expand="md" className="py-1">
         <Container fluid key="nav-container">
           <div className="d-flex flex-nowrap">
-            <Navbar.Brand href="/" className="pl-0 me-auto">
-              <Image
-                width={300}
-                className="d-none d-md-inline"
-                src="/assets/data_and_performance.jpg"
-                alt="Generic placeholder"
-              />
-              <Image
-                fluid
-                className="d-inline d-md-none"
-                src="/assets/dts_logo_1600.jpg"
-                alt="Generic placeholder"
-              />
-            </Navbar.Brand>
+            <Link href="/">
+              <Navbar.Brand style={{cursor: "pointer"}} className="pl-0 me-auto">
+                <Image
+                  width={300}
+                  className="d-none d-md-inline"
+                  src="/assets/data_and_performance.jpg"
+                  alt="Generic placeholder"
+                />
+                <Image
+                  fluid
+                  className="d-inline d-md-none"
+                  src="/assets/data_and_performance.jpg"
+                  alt="Generic placeholder"
+                />
+              </Navbar.Brand>
+            </Link>
             <Navbar.Toggle
               aria-controls="basic-navbar-nav"
               className="navbar-toggle"
