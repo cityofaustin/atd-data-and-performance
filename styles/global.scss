@@ -44,20 +44,30 @@ body {
     border-radius: 0.25rem !important;
 }
 
+.content-badge {
+    font-size: 0.75em;
+    padding-left:  3px;
+    padding-right:  3px;
+    border-radius:  3px;
+    border-style:  solid;
+    border-color:  gray;
+    border-width:  1px;
+    color:  gray;
+}
+
 .status-badge {
     border-radius: 5px;
     box-shadow: 1px 1px #888888;
     padding-top: 2px;
     padding-bottom: 2px;
-    padding-right:  5px;
-    padding-left:  5px;
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
 .map-overlay-container {
     position: absolute;
     width: 100%;
     z-index: 999999;
-    font-size: 0.75em;
     background: #fff;
     border-radius: 3px;
     box-shadow: 3px 3px 5px 0px dimgray !important;

@@ -8,12 +8,9 @@ import CloseButton from "react-bootstrap/CloseButton";
 import Button from "react-bootstrap/Button";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import styles from "../../styles/Map.module.css";
-
-
 // TODO: move to build environment
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA";
-
 
 const MAP_OPTIONS = {
   center: [-97.74, 30.28],
@@ -49,12 +46,15 @@ const POINT_LAYER_OPTIONS_DEFAULT = {
 
 /**
  * Add a custom geojson point layer to a map and enable basic interactivity
-**/
+ **/
 export const addPointLayer = ({ map, layer, geojson, onFeatureClick }) => {
+  // TODO: why not use setData() instead of adding/removing? https://docs.mapbox.com/mapbox-gl-js/api/sources/#geojsonsource#setdata
+  // remove the layer if it already exists
   if (map.getLayer(layer.id)) {
     map.removeLayer(layer.id);
   }
 
+  // remove the source if it already exists
   if (map.getSource(layer.id)) {
     map.removeSource(layer.id);
   }
@@ -67,9 +67,11 @@ export const addPointLayer = ({ map, layer, geojson, onFeatureClick }) => {
 
   layer = { ...POINT_LAYER_OPTIONS_DEFAULT, ...layer };
 
+  // note the use of `generateId` to enable mapbox feature-state methods
   map.addSource(layer.id, {
     type: "geojson",
     data: geojson,
+    generateId: true,
   });
 
   map.addLayer(layer);
@@ -85,10 +87,9 @@ export const addPointLayer = ({ map, layer, geojson, onFeatureClick }) => {
   map.on("click", layer.id, onFeatureClick);
 };
 
-
 /**
  * Add a point marker to a map
-**/
+ **/
 const Marker = ({ map, feature }) => {
   const markerRef = useRef();
 
@@ -105,10 +106,9 @@ const Marker = ({ map, feature }) => {
   return <div ref={markerRef} />;
 };
 
-
 /**
  * Get the centroid coordinates from a multiPoint feature.
-**/
+ **/
 const getMultipointCenter = (feature) => {
   let bounds = new mapboxgl.LngLatBounds();
   feature.geometry.coordinates.forEach((coordinatePair) => {
@@ -119,7 +119,7 @@ const getMultipointCenter = (feature) => {
 
 /**
  * Pan and zoom to a map feature. Supports Point or MultiPoint geojson features.
-**/
+ **/
 export const easeToFeature = (map, feature) => {
   const coordinates =
     feature.geometry.type === "Point"
@@ -134,7 +134,7 @@ export const easeToFeature = (map, feature) => {
 
 /**
  * Hook which initializes a Mapbox GL map
-**/
+ **/
 const useMap = (mapContainerRef, mapRef) => {
   const [isMapLoaded, setIsMapLoaded] = useState(false);
 
@@ -152,11 +152,10 @@ const useMap = (mapContainerRef, mapRef) => {
 
 /**
  * A dialogue that renders selected feature info across the top of map.
-**/
-const MapOverlay = ({ feature, setSelectedFeature, children }) => {
-  // TODO: allow custom overlay or none at all when constructing GeoTable
-  // TODO: you'll need to pass feature/setSElectedFeature props within geotable. good luck.
+ **/
+const MapOverlay = ({ selectedFeature, setSelectedFeature, config }) => {
   // TODO: add aria tags?
+  console.log(selectedFeature.properties)
   return (
     <div className="map-overlay-container">
       <div className="list-group">
@@ -166,7 +165,7 @@ const MapOverlay = ({ feature, setSelectedFeature, children }) => {
               <span className="text-dts-4">
                 <FaMapMarkerAlt />
               </span>{" "}
-              {feature.properties.location_name}
+              {selectedFeature.properties[config.titleKey] || ""}
             </h5>
             <CloseButton
               onClick={() => {
@@ -174,7 +173,12 @@ const MapOverlay = ({ feature, setSelectedFeature, children }) => {
               }}
             />
           </div>
-          <p className="mb-1">{feature.properties.signal_status}</p>
+          {config.bodyKeys &&
+            config.bodyKeys.map((key) => {
+              return (
+                <p key={key} className="mb-1">{`${key}: ${selectedFeature.properties[key] || "<none>"}`}</p>
+              );
+            })}
         </div>
       </div>
     </div>
@@ -183,7 +187,7 @@ const MapOverlay = ({ feature, setSelectedFeature, children }) => {
 
 /**
  * A customizeable Mapbox GL map component which renders a point or multipoint layer and enables basic interactivity.
-**/
+ **/
 export default function Map({
   geojson,
   layerStyle,
@@ -192,6 +196,7 @@ export default function Map({
   selectedFeature,
   setSelectedFeature,
   onFeatureClick,
+  mapOverlayConfig,
 }) {
   const isMapLoaded = useMap(mapContainerRef, mapRef);
 
@@ -204,24 +209,19 @@ export default function Map({
         geojson: geojson,
         onFeatureClick: onFeatureClick,
       });
-  }, [mapRef.current, geojson, isMapLoaded, onFeatureClick, layerStyle]);
-
-  useEffect(() => {
-    if (!mapRef.current) return;
-    mapRef.current.on("click", () => {
-      // Clears selected feature when user clicks/taps elsewhere on the map
-      setSelectedFeature(null);
-    });
-  }, [mapRef.current]);
+  }, [mapRef.current, geojson, isMapLoaded, layerStyle]);
 
   return (
     <div className={styles["map-container"]} ref={mapContainerRef}>
       {selectedFeature && (
         <>
-          <MapOverlay
-            feature={selectedFeature}
-            setSelectedFeature={setSelectedFeature}
-          />
+          {mapOverlayConfig && (
+            <MapOverlay
+              selectedFeature={selectedFeature}
+              setSelectedFeature={setSelectedFeature}
+              config={mapOverlayConfig}
+            />
+          )}
           {selectedFeature.geometry.type === "Point" && (
             <Marker map={mapRef.current} feature={selectedFeature} />
           )}

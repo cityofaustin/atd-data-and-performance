@@ -11,10 +11,7 @@ import { FaCaretDown, FaCaretUp, FaMapMarkerAlt } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
 import Map, { easeToFeature } from "./Map";
 import Table from "./Table";
-import styles from "../../styles/Map.module.css";
-import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-
 /*
   GeoTable is an interactive map-table component that can be configured to display a geojson FeatureCollection
   of point features. You feed it geojson data and a few configuration objects, and it presents a side-by-side
@@ -84,9 +81,11 @@ const CheckBoxFilters = ({ filters, setFilters }) => {
   );
 };
 
+/**
+ * A styled button for the filter toggle. All props are passed to the
+ * react-bootstrap Button component
+ **/
 const FilterButton = (props) => {
-  // A styled button for the filter toggle. All props are passed
-  // to the react-bootstrap Button component
   const [isExpanded, setIsExpanded] = React.useState(false);
   return (
     <Button
@@ -144,13 +143,13 @@ const TableSearch = ({ filters, setFilters }) => {
   );
 };
 
-const stringIncludesCaseInsensitive = (val, str) => {
+const stringIncludesCaseInsensitive = (str, val) => {
   return str.toLowerCase().includes(val.toLowerCase());
 };
 
 /**
  * Custom hook that that applies search and checkbox filter states to geojson features
-**/
+ **/
 const useFilteredGeojson = ({ geojson, filterDefs }) => {
   const [filters, setFilters] = React.useState(filterDefs);
   const [filteredGeosjon, setFilteredGeojson] = React.useState(geojson);
@@ -182,8 +181,8 @@ const useFilteredGeojson = ({ geojson, filterDefs }) => {
     if (currentSearchVal) {
       currentGeojson.features = currentGeojson.features.filter((feature) => {
         return stringIncludesCaseInsensitive(
-          currentSearchVal,
-          feature.properties[filters.search.featureProp]
+          feature.properties[filters.search.featureProp] || "",
+          currentSearchVal
         );
       });
     }
@@ -194,13 +193,13 @@ const useFilteredGeojson = ({ geojson, filterDefs }) => {
 
 /**
  * A fullscreen modal into which the map is rendered.
- * 
+ *
  * Note that the modal's visibility is toggled via a combination of display properties: the `show`
  * prop is static (`true``). This prevents the component from unmounting when it is "closed", and
  * would otherwise require mapbox GL to re-load a new map instance every time the modal is made
  * visible.
- * 
-**/
+ *
+ **/
 function MapModal({ showMap, setShowMap, children }) {
   const handleClose = () => setShowMap(false);
   return (
@@ -221,18 +220,38 @@ function MapModal({ showMap, setShowMap, children }) {
   );
 }
 
-export default function GeoTable({ geojson, headers, layerStyle, filterDefs }) {
-  const [showModal, setShowModal] = React.useState(true);
-  //
+
+const useDynamicStyles = (mapRef, layerId, selectedFeature, applyDynamicStyle) => {
+  React.useEffect(() => {
+    if (!applyDynamicStyle || !mapRef.current || !mapRef.current.getLayer(layerId)) return;
+    applyDynamicStyle(mapRef.current, selectedFeature);
+  }, [mapRef, selectedFeature]);
+};
+
+export default function GeoTable({
+  geojson,
+  headers,
+  layerStyle,
+  filterDefs,
+  applyDynamicStyle,
+  mapOverlayConfig
+}) {
   const [showMap, setShowMap] = React.useState(false);
   const [selectedFeature, setSelectedFeature] = React.useState(null);
   const [filteredGeosjon, filters, setFilters] = useFilteredGeojson({
     geojson,
     filterDefs,
   });
-
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
+
+  useDynamicStyles(mapRef, layerStyle.id, selectedFeature, applyDynamicStyle);
+
+  const onFeatureClick = (e) => {
+    const clickedFeature = e.features[0];
+    setSelectedFeature(clickedFeature);
+    // ;
+  };
 
   const onRowClick = (feature) => {
     if (feature) {
@@ -245,12 +264,6 @@ export default function GeoTable({ geojson, headers, layerStyle, filterDefs }) {
     } else {
       setSelectedFeature(null);
     }
-  };
-
-  const onFeatureClick = (eventData) => {
-    const clickedFeature = eventData.features[0];
-    setSelectedFeature(clickedFeature);
-    easeToFeature(mapRef.current, clickedFeature);
   };
 
   const onBreakpointChange = () => {
@@ -269,6 +282,7 @@ export default function GeoTable({ geojson, headers, layerStyle, filterDefs }) {
 
   // todo: document use of display to prevent map reloading/rendering
   // todo: bring setTimeout/showmap into function
+  // bring this into a side effect
   if (isSmallScreen && !showMap) {
     document.body.classList.remove("modal-open");
     document.body.style.overflow = "";
@@ -276,42 +290,10 @@ export default function GeoTable({ geojson, headers, layerStyle, filterDefs }) {
     document.body.classList.add("modal-open");
     document.body.style.overflow = "hidden";
   }
+
   return (
     <>
       <Row>
-        {isSmallScreen && (
-          <MapModal showMap={showMap} setShowMap={setShowMap}>
-            {!selectedFeature && (
-              <Button
-                variant="outline-primary"
-                style={{
-                  zIndex: 99999999,
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  margin: "5px",
-                  backgroundColor: "#fff",
-                }}
-                onClick={() => {
-                  setShowMap(false);
-                }}
-              >
-                Close map
-              </Button>
-            )}
-            <Map
-              geojson={filteredGeosjon}
-              layerStyle={layerStyle}
-              mapContainerRef={mapContainerRef}
-              mapRef={mapRef}
-              selectedFeature={selectedFeature}
-              setSelectedFeature={setSelectedFeature}
-              onFeatureClick={onFeatureClick}
-            />
-          </MapModal>
-        )}
-      </Row>
-      <Row style={{ height: "100%" }}>
         <Col xs={12} lg={5}>
           <Row style={{ height: 500, overflow: "hidden" }}>
             <Col>
@@ -338,7 +320,7 @@ export default function GeoTable({ geojson, headers, layerStyle, filterDefs }) {
                 )}
               </Row>
               <Row style={{ height: 500, overflow: "auto" }}>
-                <Col>
+                <Col className="pb-5">
                   <Table
                     features={filteredGeosjon?.features}
                     onRowClick={onRowClick}
@@ -350,7 +332,7 @@ export default function GeoTable({ geojson, headers, layerStyle, filterDefs }) {
           </Row>
         </Col>
         {!isSmallScreen && (
-          <Col className={styles["map-col"]}>
+          <Col>
             <Row style={{ height: 500 }}>
               <Col>
                 <Map
@@ -361,10 +343,41 @@ export default function GeoTable({ geojson, headers, layerStyle, filterDefs }) {
                   selectedFeature={selectedFeature}
                   setSelectedFeature={setSelectedFeature}
                   onFeatureClick={onFeatureClick}
+                  mapOverlayConfig={mapOverlayConfig}
                 />
               </Col>
             </Row>
           </Col>
+        )}
+        {isSmallScreen && (
+          <MapModal showMap={showMap} setShowMap={setShowMap}>
+            {!selectedFeature && (
+              <Button
+                style={{
+                  zIndex: 99999999,
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  margin: 5,
+                }}
+                onClick={() => {
+                  setShowMap(false);
+                }}
+              >
+                Close map
+              </Button>
+            )}
+            <Map
+              geojson={filteredGeosjon}
+              layerStyle={layerStyle}
+              mapContainerRef={mapContainerRef}
+              mapRef={mapRef}
+              selectedFeature={selectedFeature}
+              setSelectedFeature={setSelectedFeature}
+              onFeatureClick={onFeatureClick}
+              mapOverlayConfig={mapOverlayConfig}
+            />
+          </MapModal>
         )}
       </Row>
     </>

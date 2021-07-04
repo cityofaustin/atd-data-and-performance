@@ -8,6 +8,7 @@ import Image from "react-bootstrap/Image";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import { FaMapMarkerAlt, FaRegChartBar } from "react-icons/fa";
 
 const cards = {
   signal_operations: [
@@ -17,7 +18,7 @@ const cards = {
         "Info about signal requests where you can search and browse info.",
       href: "/signal-requests",
       img: { src: "/assets/data_and_performance.jpg", alt: "DTS logo" },
-      key: "signal_requests"
+      key: "signal_requests",
     },
     {
       title: "Signal Monitor",
@@ -25,7 +26,7 @@ const cards = {
         "Info about signal requests where you can search and browse info.",
       href: "/signal-monitor",
       img: null,
-      key: "signal_monitor"
+      key: "signal_monitor",
     },
     {
       title: "Device Status",
@@ -33,7 +34,7 @@ const cards = {
         "Info about signal requests where you can search and browse info.",
       href: "/device-status",
       img: null,
-      key: "device_status"
+      key: "device_status",
     },
     {
       title: "Signal Timing",
@@ -94,23 +95,27 @@ const cards = {
 export function CardItem({ href, title, description, img }) {
   return (
     <Link className="text-primary text-decoration-none" href={href}>
-    <div style={{cursor: "pointer"}}>
-      <Card className="h-100 shadow-sm">
-        <Card.Body>
-          {img && (
-            <Row className="pb-2">
-              <Col>
-                <Card.Img variant="top" src={img.src} alt={img.alt} />
-              </Col>
+      <div style={{ cursor: "pointer" }}>
+        <Card className="h-100 shadow-sm">
+          <Card.Body>
+            {img && (
+              <Row className="pb-2">
+                <Col>
+                  <Card.Img variant="top" src={img.src} alt={img.alt} />
+                </Col>
+              </Row>
+            )}
+            <Card.Title className="text-primary">{title}</Card.Title>
+            <Row>
+              <Col className="text-muted">{description}</Col>
             </Row>
-          )}
-          <Card.Title className="text-primary">{title}</Card.Title>
-
-          <Row>
-            <Col className="text-muted">{description}</Col>
-          </Row>
-        </Card.Body>
-      </Card>
+            <div className="bg-white d-flex justify-content-end">
+              <div className="content-badge text-center">
+                <FaRegChartBar /> Dashboard
+              </div>
+            </div>
+          </Card.Body>
+        </Card>
       </div>
     </Link>
   );
@@ -157,7 +162,7 @@ export default function Home() {
         <Row className="text-dts-4 mb-4">
           {cards.maps_resources.map((card) => {
             return (
-              <Col key={card.key}  xs={6} md={3}>
+              <Col key={card.key} xs={6} md={3}>
                 <CardItem {...card} />
               </Col>
             );
