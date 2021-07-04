@@ -29,9 +29,9 @@ function App({ Component, pageProps }) {
 
   if (isRouting)
     return (
-      <div style={{ position: "fixed", top: "50%", left: "50%" }}>
+      <div style={{ position: "absolute", top: "40%", left: "45%" }}>
         <Spinner className="text-secondary" animation="border" role="status" />
-        <span className="ms-2 align-top text-primary"> Loading...</span>
+        <span className="ms-2 align-top text-primary">Loading...</span>
       </div>
     );
   return <Component {...pageProps} />;
