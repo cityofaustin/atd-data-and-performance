@@ -1,4 +1,24 @@
 var ANNUAL_GOALS = {
+  2025: {
+    retime_goal: 0, // set progammtically
+    travel_time_reduction: 0.05,
+    stops_reduction: 0,
+  },
+  2024: {
+    retime_goal: 0, // set progammtically
+    travel_time_reduction: 0.05,
+    stops_reduction: 0,
+  },
+  2023: {
+    retime_goal: 0, // set progammtically
+    travel_time_reduction: 0.05,
+    stops_reduction: 0,
+  },
+  2022: {
+    retime_goal: 0, // set progammtically
+    travel_time_reduction: 0.05,
+    stops_reduction: 0,
+  },
   2021: {
     retime_goal: 0, // set progammtically
     travel_time_reduction: 0.05,
