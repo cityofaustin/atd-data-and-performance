@@ -9,3 +9,9 @@
     to = "https://www.austinmobility.io/about"
     status = 301
     force = true
+    
+ [[redirects]]
+    from = "https://data.mobility.austin.gov/micromobility-data/"
+    to = "https://public.ridereport.com/austin"
+    status = 301
+    force = true
