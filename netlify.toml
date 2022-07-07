@@ -8,7 +8,7 @@
   # a base has not been set. This sample publishes the directory 
   # located at the absolute path "root/project/build-output"
   
-  publish = "build/"
+  publish = ".next/"
 
   # Default build command.
   command = "CI=false npm run build"
