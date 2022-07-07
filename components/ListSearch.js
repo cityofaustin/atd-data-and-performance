@@ -33,11 +33,12 @@ export default function ListSearch({
   filters,
   setFilters,
   setSelectedFeature,
+  hasSelectedFeature,
 }) {
   const handleChange = (e) => {
-    // remove the selected feature when typing in search box
+    // nullify selected feature when typing in search box
     // ensures map popup is removed as features are filtered
-    setSelectedFeature(null);
+    hasSelectedFeature && setSelectedFeature(null);
     let currentFilters = { ...filters };
     currentFilters.search.value = e.target.value;
     setFilters(currentFilters);

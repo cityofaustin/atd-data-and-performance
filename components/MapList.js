@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import CloseButton from "react-bootstrap/CloseButton";
-import Fade from "react-bootstrap/Fade";
 import Map from "./Map";
 import List from "./List";
 import Nav from "./Nav";
@@ -43,6 +42,7 @@ export default function MapList({
                 filters={filters}
                 setFilters={setFilters}
                 setSelectedFeature={setSelectedFeature}
+                hasSelectedFeature={!!selectedFeature}
               />
             </div>
             <div
