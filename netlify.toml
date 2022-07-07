@@ -11,4 +11,4 @@
   publish = ".next/"
 
   # Default build command.
-  command = "CI=false npm run build"
+  command = "npm run build"
