@@ -1,3 +1,4 @@
+# https://docs.netlify.com/configure-builds/file-based-configuration/
 # Settings in the [build] context are global and are applied to 
 # all contexts unless otherwise overridden by more specific contexts.
 [build]
