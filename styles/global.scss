@@ -1,0 +1,89 @@
+// theme colors - todo: which are being used?
+$dts-0: #0b3e79;
+$dts-1: #5f7d8c;
+$dts-2: #86b1c6;
+$dts-3: #162b4c;
+$dts-4: #007089;
+$dts-5: #f2fc6d;
+$dts-6: #ff7261;
+$dts-7: #ff9a8e;
+$dts-8: #ffc3bb;
+$dts-9: #ffe2df;
+$dts-vibes: #00bfa5;
+$dts-dark-gray: #495056;
+$atd-sunshine: #eeb41f;
+$atd-petal: #f37c5d;
+$atd-gravel: #686867;
+$atd-cyan: #56c9eb;
+
+// theme overrides
+$primary: $dts-0;
+$secondary: $dts-2;
+$body-color: $dts-3;
+
+.homepage-nav {
+  box-shadow: 0px 3px 6px #b5b5b5;
+  z-index: 3;
+}
+
+.nav-tile {
+  cursor: pointer;
+  height: 100%;
+  border: 0.5px solid #b5b5b5 !important;
+  box-shadow: 0px 3px 6px #b5b5b5;
+}
+
+.nav-tile:hover {
+  box-shadow: 0px 7px 10px #b5b5b5;
+}
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: hidden;
+}
+
+/* layout sidebar + map as a horizontal row  */
+.main-row {
+  display: flex;
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.sidebar {
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  flex: 1;
+  box-shadow: 0 0.5em 1.5em gray;
+  z-index: 4;
+}
+
+.sidebar-content {
+  overflow-y: scroll;
+}
+
+.map-container {
+  flex: 1
+}
+
+.filter-button-toggle {
+  color: #fff !important;
+  font-size: 1em;
+  background-color: $primary !important;
+}
+
+.footer {
+  background-color: $dts-3;
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";
