@@ -38,7 +38,7 @@ export default function TrafficCameras() {
   useMemo(() => {
     if (loading || loadingComm || error || errorComm) return;
     return updateFeaturesWithCommStatus({ geojson, statuses });
-  }, [geojson, statuses]);
+  }, [geojson, statuses, loading, loadingComm, error, errorComm]);
 
   if (loading || loadingComm || error || errorComm) {
     return <p>Loading or error....</p>;
