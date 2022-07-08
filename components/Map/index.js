@@ -28,6 +28,7 @@ export default function Map({
   return (
     <MapGL
       ref={mapRef}
+      reuseMaps
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={(e) => {
