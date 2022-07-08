@@ -18,6 +18,13 @@ const initialLayout = (isSmallScreen) => ({
 });
 
 const stateReducer = (state, action) => {
+  if (action.viewPortChange?.isSmallScreen) {
+    // adjust for mobile
+    return { ...state, map: true, sidebar: false, title: false };
+  } else if (action.viewPortChange?.isSmallScreen === false) {
+    // adjust for not-mobile
+    return { ...state, map: true, sidebar: true, title: true };
+  }
   if (action.selectedFeature === true) {
     return { ...state, details: true, listSearch: false };
   } else if (action.selectedFeature === false) {
@@ -82,6 +89,10 @@ export default function MapList({
     dispatchLayout({ selectedFeature: !!selectedFeature });
   }, [selectedFeature]);
 
+  useEffect(() => {
+    dispatchLayout({ viewPortChange: { isSmallScreen: isSmallScreen } });
+  }, [isSmallScreen]);
+
   return (
     <div className="wrapper-contained">
       <Nav />
@@ -101,29 +112,25 @@ export default function MapList({
               {layout.title && <PageTitle title="Traffic cameras" />}
 
               {/* search */}
-              {layout.listSearch && (
-                <>
-                  <div>
-                    <ListSearch
-                      filters={filters}
-                      setFilters={setFilters}
+
+              <div className={`${(!layout.listSearch && "d-none") || ""}`}>
+                <ListSearch
+                  filters={filters}
+                  setFilters={setFilters}
+                  setSelectedFeature={setSelectedFeature}
+                  hasSelectedFeature={!!selectedFeature}
+                />
+                <div style={{ overflowY: "scroll" }}>
+                  <div className="px-3">
+                    <List
+                      geojson={filteredGeosjon}
+                      mapRef={mapRef}
                       setSelectedFeature={setSelectedFeature}
-                      hasSelectedFeature={!!selectedFeature}
+                      ListItem={ListItem}
                     />
                   </div>
-
-                  <div style={{ overflowY: "scroll" }}>
-                    <div className="px-3">
-                      <List
-                        geojson={filteredGeosjon}
-                        mapRef={mapRef}
-                        setSelectedFeature={setSelectedFeature}
-                        ListItem={ListItem}
-                      />
-                    </div>
-                  </div>
-                </>
-              )}
+                </div>
+              </div>
 
               {/* extra page info */}
               {layout.info && <InfoContent />}
