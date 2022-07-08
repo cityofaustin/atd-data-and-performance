@@ -52,9 +52,9 @@ export default function ListSearch({
               <BsSearch />
             </InputGroup.Text>
             <Form.Control
-              size="sm"
               name={filters.search.label}
               type="search"
+              autoFocus
               placeholder={filters.search.placeholder}
               onChange={handleChange}
               value={filters.search.value}
