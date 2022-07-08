@@ -53,11 +53,11 @@ export default function ListSearch({
             </InputGroup.Text>
             <Form.Control
               size="sm"
-              key={filters.search.key}
               name={filters.search.label}
               type="search"
               placeholder={filters.search.placeholder}
               onChange={handleChange}
+              value={filters.search.value}
             />
             {filters.checkbox && (
               <Navbar.Toggle
