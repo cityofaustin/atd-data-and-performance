@@ -107,28 +107,32 @@ export default function MapList({
         <div className="main-row">
           {/* sidepar panel */}
           {layout.sidebar && (
-            <div className="sidebar">
+            <div
+              className="sidebar"
+              style={isSmallScreen ? null : { maxWidth: "450px" }}
+            >
               {/* page title */}
               {layout.title && <PageTitle title="Traffic cameras" />}
 
-              {/* search */}
-
-              <div className={`${(!layout.listSearch && "d-none") || ""}`}>
+              <div
+                className={`d-flex flex-column ${
+                  (!layout.listSearch && "d-none") || ""
+                }`}
+                style={{ overflowY: "hidden" }}
+              >
                 <ListSearch
                   filters={filters}
                   setFilters={setFilters}
                   setSelectedFeature={setSelectedFeature}
                   hasSelectedFeature={!!selectedFeature}
                 />
-                <div style={{ overflowY: "scroll" }}>
-                  <div className="px-3">
-                    <List
-                      geojson={filteredGeosjon}
-                      mapRef={mapRef}
-                      setSelectedFeature={setSelectedFeature}
-                      ListItem={ListItem}
-                    />
-                  </div>
+                <div className="px-3" style={{ overflowY: "scroll" }}>
+                  <List
+                    geojson={filteredGeosjon}
+                    mapRef={mapRef}
+                    setSelectedFeature={setSelectedFeature}
+                    ListItem={ListItem}
+                  />
                 </div>
               </div>
 
