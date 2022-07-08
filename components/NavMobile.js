@@ -14,7 +14,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
         </Col>
       </Row> */}
       <Row>
-        <ul className="nav nav-tabs nav-fill">
+        <ul className="nav nav-pills nav-fill">
           <li className="nav-item">
             <a
               className={`nav-link ${(activeTab === "map" && "active") || ""}`}
