@@ -10,7 +10,10 @@ const PAGES = [
 export default function Nav({ currentPageRoute, isHome }) {
   return (
     <>
-      <Navbar expand="md" className={`py-1 ${isHome ? "nav-shadow" : "border"}`}>
+      <Navbar
+        expand="md"
+        className={`py-1 ${isHome ? "nav-shadow" : "border"}`}
+      >
         <Container fluid key="nav-container">
           <div className="d-flex flex-nowrap">
             <Link href="/" passHref>
@@ -34,35 +37,33 @@ export default function Nav({ currentPageRoute, isHome }) {
                 </div>
               </Navbar.Brand>
             </Link>
-            <Navbar.Toggle
-              aria-controls="basic-navbar-nav"
-              className="navbar-toggle"
-            />
           </div>
-          <div>
-            <Navbar.Collapse id="basic-navbar-nav">
-              <BsNav>
-                {PAGES.map((page, idx) => {
-                  const fontWeightClass =
-                    currentPageRoute === page.route ? "font-weight-bold" : "";
-                  const borderClass = idx === 0 ? "" : "navbar-menu-borders";
-                  return (
-                    <div
-                      key={page.route}
-                      className={`flex-grow-1 mx-0 my-auto ${borderClass}`}
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            className="navbar-toggle"
+          />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <BsNav>
+              {PAGES.map((page, idx) => {
+                const fontWeightClass =
+                  currentPageRoute === page.route ? "font-weight-bold" : "";
+                const borderClass = idx === 0 ? "" : "navbar-menu-borders";
+                return (
+                  <div
+                    key={page.route}
+                    className={`flex-grow-1 mx-0 my-auto ${borderClass}`}
+                  >
+                    <BsNav.Link
+                      className={`py-0 text-primary ${fontWeightClass}`}
+                      href={page.route}
                     >
-                      <BsNav.Link
-                        className={`py-0 text-primary ${fontWeightClass}`}
-                        href={page.route}
-                      >
-                        {page.label}
-                      </BsNav.Link>
-                    </div>
-                  );
-                })}
-              </BsNav>
-            </Navbar.Collapse>
-          </div>
+                      {page.label}
+                    </BsNav.Link>
+                  </div>
+                );
+              })}
+            </BsNav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     </>
