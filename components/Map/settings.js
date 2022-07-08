@@ -24,7 +24,6 @@ export const MAP_SETTINGS_DEFAULT = {
     zoom: 11,
   },
   maxZoom: 20,
-  touchZoomRotate: false,
   touchPitch: false,
   dragRotate: false,
   maxBounds: [
