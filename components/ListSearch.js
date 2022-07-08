@@ -23,8 +23,12 @@ const FilterButton = (props) => {
         setIsExpanded(!isExpanded);
       }}
     >
-      Filter
-      {!isExpanded ? <FaCaretDown /> : <FaCaretUp />}
+      <div className="d-flex flex-column align-items-center">
+        <div className="d-flex align-items-center">
+          <span className="me-1">Filter</span>
+          {!isExpanded ? <FaCaretDown /> : <FaCaretUp />}
+        </div>
+      </div>
     </Button>
   );
 };
