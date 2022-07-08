@@ -1,6 +1,9 @@
 import { useState, useRef, useReducer, useEffect } from "react";
 import CloseButton from "react-bootstrap/CloseButton";
 import { useMediaQuery } from "react-responsive";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Map from "./Map";
 import List from "./List";
 import Nav from "./Nav";
@@ -13,14 +16,64 @@ const initialLayout = (isSmallScreen) => ({
   search: true,
   details: false,
   sidebar: !isSmallScreen,
+  title: !isSmallScreen,
 });
 
 const stateReducer = (state, action) => {
-  if (action.selectedFeature) {
-    return { ...state, details: true, list: false };
-  } else {
-    return { ...state, details: false, list: true };
+  if (action.selectedFeature === true) {
+    return { ...state, details: true, list: false, search: false };
+  } else if (action.selectedFeature === false) {
+    return { ...state, details: false, list: true, search: true };
   }
+  if (action.showList === true) {
+    return { ...state, sidebar: true, map: false, list: true, search: true };
+  }
+  if (action.showList === false) {
+    return { ...state, sidebar: false, map: true };
+  }
+  return state;
+};
+
+const MobileNav = ({ title, activeTab, dispatchLayout }) => {
+  return (
+    <Container fluid className="nav-shadow">
+      <Row>
+        <Col>
+          <h1>{title}</h1>
+        </Col>
+      </Row>
+      <Row>
+        <ul className="nav nav-tabs nav-fill">
+          <li className="nav-item">
+            <a
+              className={`nav-link ${(activeTab === "map" && "active") || ""}`}
+              aria-current={activeTab === "map" ? "active" : ""}
+              href="#"
+              onClick={() => {
+                dispatchLayout({ showList: false });
+              }}
+            >
+              Map
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              className={`nav-link ${
+                (activeTab === "sidebar" && "active") || ""
+              }`}
+              aria-current={activeTab === "sidebar" ? "active" : ""}
+              href="#"
+              onClick={() => {
+                dispatchLayout({ showList: true });
+              }}
+            >
+              List
+            </a>
+          </li>
+        </ul>
+      </Row>
+    </Container>
+  );
 };
 
 export default function MapList({
@@ -53,19 +106,28 @@ export default function MapList({
 
   return (
     <div className="wrapper-contained">
-      <Nav currentPageRoute="cameras" />
+      {!isSmallScreen && <Nav />}
+      {isSmallScreen && (
+        <MobileNav
+          title="Traffic cameras"
+          activeTab={layout.map ? "map" : "sidebar"}
+          dispatchLayout={dispatchLayout}
+        />
+      )}
       <div className="main">
         <div className="main-row">
           {/* sidepar panel */}
           {layout.sidebar && (
             <div className="sidebar">
               {/* page title */}
-              <div className="p-3">
-                <span className="fs-2 fw-bold text-secondary"> | </span>
-                <span className="fs-2 fw-bold text-primary">
-                  Traffic Cameras
-                </span>
-              </div>
+              {layout.title && (
+                <div className="p-3">
+                  <span className="fs-2 fw-bold text-secondary"> | </span>
+                  <span className="fs-2 fw-bold text-primary">
+                    Traffic Cameras
+                  </span>
+                </div>
+              )}
 
               {/* search */}
               {layout.search && (
