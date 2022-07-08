@@ -10,7 +10,7 @@ const PAGES = [
 export default function Nav({ currentPageRoute, isHome }) {
   return (
     <>
-      <Navbar expand="md" className={`py-1 ${isHome ? "homepage-nav" : "border"}`}>
+      <Navbar expand="md" className={`py-1 ${isHome ? "nav-shadow" : "border"}`}>
         <Container fluid key="nav-container">
           <div className="d-flex flex-nowrap">
             <Link href="/" passHref>
