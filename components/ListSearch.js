@@ -45,7 +45,7 @@ export default function ListSearch({
   };
   return (
     <>
-      <Navbar expand="xs" className="py-0">
+      <Navbar expand="xs">
         <Container fluid>
           <InputGroup className="mb-1">
             <InputGroup.Text id="basic-addon1">
