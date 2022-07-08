@@ -54,7 +54,7 @@ const stateReducer = (state, action) => {
 };
 
 const PageTitle = ({ title }) => (
-  <div className="p-3">
+  <div className="px-3">
     <span className="fs-2 fw-bold text-secondary"> | </span>
     <span className="fs-2 fw-bold text-primary">{title}</span>
   </div>
@@ -99,7 +99,7 @@ export default function MapList({
       {isSmallScreen && (
         <NavMobile
           title="Traffic cameras"
-          activeTab={layout.map ? "map" : "sidebar"}
+          activeTab={layout.map ? "map" : layout.info ? "info" : "sidebar"}
           dispatchLayout={dispatchLayout}
         />
       )}
