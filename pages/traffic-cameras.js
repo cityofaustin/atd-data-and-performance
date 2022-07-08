@@ -3,6 +3,7 @@ import MapList from "../components/MapList";
 import PopUpContent from "../components/pages/cameras/PopUpContent";
 import DetailsContent from "../components/pages/cameras/DetailsContent";
 import ListItem from "../components/pages/cameras/ListItem";
+import InfoContent from "../components/pages/cameras/InfoContent";
 import { useSocrata } from "../utils/socrata";
 import { CAMERAS_QUERY, CAMERA_COMM_STATUS_QUERY } from "../utils/queries";
 import { FILTERS, LAYER_STYLES } from "../page-settings/traffic-cameras";
@@ -53,6 +54,7 @@ export default function TrafficCameras() {
       PopUpContent={PopUpContent}
       DetailsContent={DetailsContent}
       ListItem={ListItem}
+      InfoContent={InfoContent}
       layerStyles={LAYER_STYLES}
     />
   );

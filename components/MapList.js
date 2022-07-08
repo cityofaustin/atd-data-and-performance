@@ -1,86 +1,64 @@
 import { useState, useRef, useReducer, useEffect } from "react";
 import CloseButton from "react-bootstrap/CloseButton";
 import { useMediaQuery } from "react-responsive";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Map from "./Map";
 import List from "./List";
 import Nav from "./Nav";
+import NavMobile from "./NavMobile";
 import ListSearch from "./ListSearch";
 import { useFilteredGeojson } from "./../utils/helpers";
 
 const initialLayout = (isSmallScreen) => ({
   map: true,
-  list: true,
-  search: true,
+  listSearch: true,
   details: false,
   sidebar: !isSmallScreen,
   title: !isSmallScreen,
+  info: false,
 });
 
 const stateReducer = (state, action) => {
   if (action.selectedFeature === true) {
-    return { ...state, details: true, list: false, search: false };
+    return { ...state, details: true, listSearch: false };
   } else if (action.selectedFeature === false) {
-    return { ...state, details: false, list: true, search: true };
-  }
-  if (action.showList === true) {
-    return { ...state, sidebar: true, map: false, list: true, search: true };
-  }
-  if (action.showList === false) {
-    return { ...state, sidebar: false, map: true };
+    return { ...state, details: false, listSearch: true };
+  } else if (action.showList === true) {
+    return {
+      ...state,
+      sidebar: true,
+      listSearch: true,
+      details: false,
+      map: false,
+      info: false,
+    };
+  } else if (action.showList === false) {
+    return { ...state, sidebar: false, map: true, info: false };
+  } else if (action.showInfo === true) {
+    return {
+      ...state,
+      sidebar: true,
+      map: false,
+      info: true,
+      listSearch: false,
+      details: false,
+    };
   }
   return state;
 };
 
-const MobileNav = ({ title, activeTab, dispatchLayout }) => {
-  return (
-    <Container fluid className="nav-shadow">
-      <Row>
-        <Col>
-          <h1>{title}</h1>
-        </Col>
-      </Row>
-      <Row>
-        <ul className="nav nav-tabs nav-fill">
-          <li className="nav-item">
-            <a
-              className={`nav-link ${(activeTab === "map" && "active") || ""}`}
-              aria-current={activeTab === "map" ? "active" : ""}
-              href="#"
-              onClick={() => {
-                dispatchLayout({ showList: false });
-              }}
-            >
-              Map
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className={`nav-link ${
-                (activeTab === "sidebar" && "active") || ""
-              }`}
-              aria-current={activeTab === "sidebar" ? "active" : ""}
-              href="#"
-              onClick={() => {
-                dispatchLayout({ showList: true });
-              }}
-            >
-              List
-            </a>
-          </li>
-        </ul>
-      </Row>
-    </Container>
-  );
-};
+const PageTitle = ({ title }) => (
+  <div className="p-3">
+    <span className="fs-2 fw-bold text-secondary"> | </span>
+    <span className="fs-2 fw-bold text-primary">{title}</span>
+  </div>
+);
 
 export default function MapList({
   initialFilters,
   PopUpContent,
   DetailsContent,
   ListItem,
+  InfoContent,
   geojson,
   loading,
   error,
@@ -106,9 +84,9 @@ export default function MapList({
 
   return (
     <div className="wrapper-contained">
-      {!isSmallScreen && <Nav />}
+      <Nav />
       {isSmallScreen && (
-        <MobileNav
+        <NavMobile
           title="Traffic cameras"
           activeTab={layout.map ? "map" : "sidebar"}
           dispatchLayout={dispatchLayout}
@@ -120,43 +98,38 @@ export default function MapList({
           {layout.sidebar && (
             <div className="sidebar">
               {/* page title */}
-              {layout.title && (
-                <div className="p-3">
-                  <span className="fs-2 fw-bold text-secondary"> | </span>
-                  <span className="fs-2 fw-bold text-primary">
-                    Traffic Cameras
-                  </span>
-                </div>
-              )}
+              {layout.title && <PageTitle title="Traffic cameras" />}
 
               {/* search */}
-              {layout.search && (
-                <div>
-                  <ListSearch
-                    filters={filters}
-                    setFilters={setFilters}
-                    setSelectedFeature={setSelectedFeature}
-                    hasSelectedFeature={!!selectedFeature}
-                  />
-                </div>
-              )}
-
-              {/* scrolling list */}
-              {layout.list && (
-                <div style={{ overflowY: "scroll" }}>
-                  <div className="px-3">
-                    <List
-                      geojson={filteredGeosjon}
-                      mapRef={mapRef}
+              {layout.listSearch && (
+                <>
+                  <div>
+                    <ListSearch
+                      filters={filters}
+                      setFilters={setFilters}
                       setSelectedFeature={setSelectedFeature}
-                      ListItem={ListItem}
+                      hasSelectedFeature={!!selectedFeature}
                     />
                   </div>
-                </div>
+
+                  <div style={{ overflowY: "scroll" }}>
+                    <div className="px-3">
+                      <List
+                        geojson={filteredGeosjon}
+                        mapRef={mapRef}
+                        setSelectedFeature={setSelectedFeature}
+                        ListItem={ListItem}
+                      />
+                    </div>
+                  </div>
+                </>
               )}
 
+              {/* extra page info */}
+              {layout.info && <InfoContent />}
+
               {/* feature details in sidebar */}
-              {selectedFeature && (
+              {layout.details && selectedFeature && (
                 <div className="pe-2">
                   <div className="position-relative" style={{ zIndex: 100 }}>
                     <CloseButton
