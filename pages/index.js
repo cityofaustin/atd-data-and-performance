@@ -104,28 +104,31 @@ export default function Home() {
           content="Austin Transportation Data and Performance Hub"
         />
       </Head>
-      <Nav isHome/>
-      <Container>
-        <Row>
-          <Col xs={12} className="pt-5 text-center">
-            <h1 className="text-primary fw-bold">Data & Performance Hub</h1>
-          </Col>
-        </Row>
-        <Row className="mb-2 border-bottom">
-          <Col xs={12} className="text-center">
-            <p className="text-muted">
-              Dashboards and public datasets curated by the Austin
-              Transportation Department
-            </p>
-          </Col>
-        </Row>
-        <Row className="text-dts-4 mb-4">
-          {cards.map((card) => {
-            return <CardItem key={card.href} {...card} />;
-          })}
-        </Row>
-      </Container>
-      <Footer />
+
+      <div className="wrapper">
+        <Nav isHome />
+        <Container className="main">
+          <Row>
+            <Col xs={12} className="pt-5 text-center">
+              <h1 className="text-primary fw-bold">Data & Performance Hub</h1>
+            </Col>
+          </Row>
+          <Row className="mb-2 border-bottom">
+            <Col xs={12} className="text-center">
+              <p className="text-muted">
+                Dashboards and public datasets curated by the Austin
+                Transportation Department
+              </p>
+            </Col>
+          </Row>
+          <Row className="text-dts-4 mb-4">
+            {cards.map((card) => {
+              return <CardItem key={card.href} {...card} />;
+            })}
+          </Row>
+        </Container>
+        <Footer />
+      </div>
     </>
   );
 }

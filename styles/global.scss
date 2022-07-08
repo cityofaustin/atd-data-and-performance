@@ -38,10 +38,15 @@ $body-color: $dts-3;
 }
 
 .wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper-contained {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
 }
 
 .main {
