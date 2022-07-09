@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 /**
  * Shorten a Data Tracker location name, which follows < primary st / cross st (landmark) > pattern
@@ -48,3 +48,13 @@ export const useFilteredGeojson = ({ geojson, filters }) =>
     }
     return filteredGeosjon;
   }, [geojson, filters]);
+
+export const useHiddenOverflow = () => {
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+
+    return function cleanup() {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
+};

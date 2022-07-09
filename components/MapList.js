@@ -6,7 +6,7 @@ import List from "./List";
 import Nav from "./Nav";
 import NavMobile from "./NavMobile";
 import ListSearch from "./ListSearch";
-import { useFilteredGeojson } from "./../utils/helpers";
+import { useFilteredGeojson, useHiddenOverflow } from "./../utils/helpers";
 
 const initialLayout = (isSmallScreen) => ({
   map: true,
@@ -103,6 +103,8 @@ export default function MapList({
   useEffect(() => {
     dispatchLayout({ name: "viewPortChange", value: true, isSmallScreen });
   }, [isSmallScreen]);
+
+  useHiddenOverflow();
 
   console.log("map", layout.map, "sidebar", layout.sidebar);
   return (
