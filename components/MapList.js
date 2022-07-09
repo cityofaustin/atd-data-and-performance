@@ -73,7 +73,7 @@ const stateReducer = (state, { name, value, isSmallScreen }) => {
 
 const PageTitle = ({ title }) => (
   <div className="px-3">
-    <span className="fs-2 fw-bold text-secondary"> | </span>
+    {/* <span className="fs-2 fw-bold text-secondary"> | </span> */}
     <span className="fs-2 fw-bold text-primary">{title}</span>
   </div>
 );
@@ -171,7 +171,7 @@ export default function MapList({
 
               {/* feature details */}
               {layout.details && selectedFeature && (
-                <div className="pe-2" style={{ overflowY: "scroll" }}>
+                <div className="px-2 pt-3" style={{ overflowY: "scroll" }}>
                   <DetailsContent
                     feature={selectedFeature}
                     setSelectedFeature={setSelectedFeature}
