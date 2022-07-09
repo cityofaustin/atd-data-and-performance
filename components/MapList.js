@@ -104,9 +104,14 @@ export default function MapList({
     dispatchLayout({ name: "viewPortChange", value: true, isSmallScreen });
   }, [isSmallScreen]);
 
+  useEffect(() => {
+    // ensures the map canavs is always fully painted when activated
+    // deals with the weird effects of changing/hiding the map container
+    mapRef.current?.resize();
+  }, [layout.map]);
+
   useHiddenOverflow();
 
-  console.log("map", layout.map, "sidebar", layout.sidebar);
   return (
     <div className="wrapper-contained">
       <Nav />
