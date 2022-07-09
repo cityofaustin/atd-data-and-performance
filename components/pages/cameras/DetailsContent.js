@@ -12,7 +12,7 @@ export default function DetailsContent({ feature, setSelectedFeature }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <ListGroup variant="flush" className="px-3">
-      <ListGroup.Item className="text-dts-dark-gray">
+      <ListGroup.Item>
         <DetailsHeader
           title={shortenLocationName(feature.properties.location_name)}
           subtitle="Camera"
