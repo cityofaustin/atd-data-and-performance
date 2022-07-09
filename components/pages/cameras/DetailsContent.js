@@ -5,16 +5,19 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Thumbnail from "../../Thumbnail";
 import FlexyInfo from "../../FlexyInfo";
+import DetailsHeader from "../../DetailsHeader";
 import { shortenLocationName } from "../../../utils/helpers";
 
-export default function DetailsContent({ feature }) {
+export default function DetailsContent({ feature, setSelectedFeature }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <ListGroup variant="flush" className="px-3">
       <ListGroup.Item className="text-dts-dark-gray">
-        <span className="fs-5 fw-bold me-2">
-          {shortenLocationName(feature.properties.location_name)}
-        </span>
+        <DetailsHeader
+          title={shortenLocationName(feature.properties.location_name)}
+          subtitle="Camera"
+          setSelectedFeature={setSelectedFeature}
+        />
       </ListGroup.Item>
       <ListGroup.Item>
         <FlexyInfo label="Status" value={feature.properties.status} />

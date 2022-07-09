@@ -1,5 +1,4 @@
 import { useState, useRef, useReducer, useEffect } from "react";
-import CloseButton from "react-bootstrap/CloseButton";
 import { useMediaQuery } from "react-responsive";
 import Map from "./Map";
 import List from "./List";
@@ -161,13 +160,10 @@ export default function MapList({
               {/* feature details */}
               {layout.details && selectedFeature && (
                 <div className="pe-2" style={{ overflowY: "scroll" }}>
-                  <div className="position-relative" style={{ zIndex: 100 }}>
-                    <CloseButton
-                      className="position-absolute top-0 end-0 m-3"
-                      onClick={() => setSelectedFeature(null)}
-                    />
-                  </div>
-                  <DetailsContent feature={selectedFeature} />
+                  <DetailsContent
+                    feature={selectedFeature}
+                    setSelectedFeature={setSelectedFeature}
+                  />
                 </div>
               )}
             </div>
