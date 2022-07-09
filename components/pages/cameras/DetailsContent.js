@@ -10,7 +10,7 @@ import { shortenLocationName } from "../../../utils/helpers";
 export default function DetailsContent({ feature }) {
   const [showModal, setShowModal] = useState(false);
   return (
-    <ListGroup variant="flush">
+    <ListGroup variant="flush" className="px-3">
       <ListGroup.Item className="text-dts-dark-gray">
         <span className="fs-5 fw-bold me-2">
           {shortenLocationName(feature.properties.location_name)}
