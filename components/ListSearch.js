@@ -58,7 +58,6 @@ export default function ListSearch({
             <Form.Control
               name={filters.search.label}
               type="search"
-              autoFocus
               placeholder={filters.search.placeholder}
               onChange={handleChange}
               value={filters.search.value}
