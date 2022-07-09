@@ -7,6 +7,18 @@ import NavMobile from "./NavMobile";
 import ListSearch from "./ListSearch";
 import { useFilteredGeojson, useHiddenOverflow } from "./../utils/helpers";
 
+/**
+ * Layout logic
+ * - if a feature is selected (on the map or from the list): 
+*    - if on mobile: hide map, show sidebar 
+*    - hide list, hide inf show details
+ * - mobile only: if the map nav tab is seleted:
+ *    - hide sidebar
+ * * - mobile only: if the list tab is seleted:
+ *    - hide map; hide info
+ * whenever a feature is selected (selectedFeature is not null), the feature details
+ * will render on the sidebar.
+ */
 const initialLayout = (isSmallScreen) => ({
   map: true,
   listSearch: true,
@@ -40,7 +52,7 @@ const stateReducer = (state, { name, value, isSmallScreen }) => {
       ...state,
       sidebar: true,
       listSearch: true,
-      details: false,
+      details: true,
       map: false,
       info: false,
     };
@@ -134,7 +146,7 @@ export default function MapList({
 
               <div
                 className={`d-flex flex-column ${
-                  (!layout.listSearch && "d-none") || ""
+                  ((!layout.listSearch || selectedFeature) && "d-none") || ""
                 }`}
                 style={{ overflowY: "hidden" }}
               >
