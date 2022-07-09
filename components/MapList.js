@@ -155,10 +155,10 @@ export default function MapList({
 
               {/* feature details */}
               {layout.details && selectedFeature && (
-                <div className="pe-2">
+                <div className="pe-2" style={{ overflowY: "scroll" }}>
                   <div className="position-relative" style={{ zIndex: 100 }}>
                     <CloseButton
-                      className="position-absolute top-0 end-0"
+                      className="position-absolute top-0 end-0 m-3"
                       onClick={() => setSelectedFeature(null)}
                     />
                   </div>
