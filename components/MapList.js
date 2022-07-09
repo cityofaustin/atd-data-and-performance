@@ -17,19 +17,26 @@ const initialLayout = (isSmallScreen) => ({
   info: false,
 });
 
-const stateReducer = (state, action) => {
-  if (action.viewPortChange?.isSmallScreen) {
-    // adjust for mobile
+const stateReducer = (state, { name, value, isSmallScreen }) => {
+  if (name === "viewPortChange" && isSmallScreen) {
+    // adjust for mobile - defaults to map view
     return { ...state, map: true, sidebar: false, title: false };
-  } else if (action.viewPortChange?.isSmallScreen === false) {
+  } else if (name === "viewPortChange" && !isSmallScreen) {
     // adjust for not-mobile
     return { ...state, map: true, sidebar: true, title: true };
   }
-  if (action.selectedFeature === true) {
-    return { ...state, details: true, listSearch: false };
-  } else if (action.selectedFeature === false) {
+
+  if (name === "selectedFeature" && value) {
+    return {
+      ...state,
+      sidebar: true,
+      details: true,
+      listSearch: false,
+      map: !isSmallScreen,
+    };
+  } else if (name === "selectedFeature" && !value) {
     return { ...state, details: false, listSearch: true };
-  } else if (action.showList === true) {
+  } else if (name === "showList" && value) {
     return {
       ...state,
       sidebar: true,
@@ -38,9 +45,9 @@ const stateReducer = (state, action) => {
       map: false,
       info: false,
     };
-  } else if (action.showList === false) {
+  } else if (name === "showList" && !value) {
     return { ...state, sidebar: false, map: true, info: false };
-  } else if (action.showInfo === true) {
+  } else if (name === "showInfo" && value) {
     return {
       ...state,
       sidebar: true,
@@ -86,13 +93,18 @@ export default function MapList({
   );
 
   useEffect(() => {
-    dispatchLayout({ selectedFeature: !!selectedFeature });
+    dispatchLayout({
+      name: "selectedFeature",
+      value: !!selectedFeature,
+      isSmallScreen,
+    });
   }, [selectedFeature]);
 
   useEffect(() => {
-    dispatchLayout({ viewPortChange: { isSmallScreen: isSmallScreen } });
+    dispatchLayout({ name: "viewPortChange", value: true, isSmallScreen });
   }, [isSmallScreen]);
 
+  console.log("map", layout.map, "sidebar", layout.sidebar);
   return (
     <div className="wrapper-contained">
       <Nav />
@@ -139,7 +151,7 @@ export default function MapList({
               {/* extra page info */}
               {layout.info && <InfoContent />}
 
-              {/* feature details in sidebar */}
+              {/* feature details */}
               {layout.details && selectedFeature && (
                 <div className="pe-2">
                   <div className="position-relative" style={{ zIndex: 100 }}>

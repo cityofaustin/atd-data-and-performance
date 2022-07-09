@@ -1,6 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { FaMapMarkerAlt, FaSearch, FaInfoCircle } from "react-icons/fa";
+import { FaMapMarkerAlt, FaList, FaInfoCircle } from "react-icons/fa";
 
 export default function NavMobile({ title, activeTab, dispatchLayout }) {
   return (
@@ -21,7 +21,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
               aria-current={activeTab === "map" ? "active" : ""}
               href="#"
               onClick={() => {
-                dispatchLayout({ showList: false });
+                dispatchLayout({ name: "showList", value: false });
               }}
             >
               <div className="d-flex flex-column align-items-center">
@@ -40,13 +40,13 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
               aria-current={activeTab === "sidebar" ? "active" : ""}
               href="#"
               onClick={() => {
-                dispatchLayout({ showList: true });
+                dispatchLayout({ name: "showList", value: true });
               }}
             >
               <div className="d-flex flex-column align-items-center">
                 <div className="d-flex align-items-center">
-                  <FaSearch />
-                  <span className="ms-1">Search</span>
+                  <FaList />
+                  <span className="ms-1">List</span>
                 </div>
               </div>
             </a>
@@ -57,7 +57,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
               aria-current={activeTab === "info" ? "active" : ""}
               href="#"
               onClick={() => {
-                dispatchLayout({ showInfo: true });
+                dispatchLayout({ name: "showInfo", value: true });
               }}
             >
               <div className="d-flex flex-column align-items-center">
