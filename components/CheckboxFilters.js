@@ -24,18 +24,17 @@ export default function CheckboxFilters({ filters, setFilters }) {
 
   return (
     <Form>
-      {filters.checkbox.map((f) => (
+      {filters.checkbox.map((filter) => (
         <div
           style={{ cursor: "pointer" }}
-          onClick={() => onChange(f)}
-          key={f.key}
+          onClick={() => onChange(filter)}
         >
           <Form.Check
             type="switch"
-            id={f.key}
-            label={f.label}
-            checked={f.checked}
-            onChange={() => onChange(f)}
+            id={filter.key}
+            label={filter.label}
+            checked={filter.checked}
+            onChange={() => onChange(filter)}
             className="text-primary"
           />
         </div>
