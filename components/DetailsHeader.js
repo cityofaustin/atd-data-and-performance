@@ -14,14 +14,21 @@ const CloseDetailsButton = ({ setSelectedFeature }) => (
 
 export default function DetailsHeader({ title, subtitle, setSelectedFeature }) {
   return (
-    <div className="d-flex justify-content-between">
-      <div>
-        <span className="fs-5 fw-bold me-2">{title}</span>
-        {subtitle && <span className="text-muted fst-italic">{subtitle}</span>}
+    <>
+      <div className="d-flex justify-content-between">
+        {subtitle && (
+          <div>
+            {" "}
+            <span className="text-muted fst-italic">{subtitle}</span>
+          </div>
+        )}
+        <div>
+          <CloseDetailsButton setSelectedFeature={setSelectedFeature} />
+        </div>
       </div>
-      <div>
-        <CloseDetailsButton setSelectedFeature={setSelectedFeature} />
+      <div className="d-flex">
+        <span className="fs-5 fw-bold">{title}</span>
       </div>
-    </div>
+    </>
   );
 }
