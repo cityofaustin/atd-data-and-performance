@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { FaMapMarkerAlt, FaList, FaInfoCircle } from "react-icons/fa";
+import IconLabel from "./IconLabel";
 
 export default function NavMobile({ title, activeTab, dispatchLayout }) {
   return (
@@ -24,12 +25,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
                 dispatchLayout({ name: "showList", value: false });
               }}
             >
-              <div className="d-flex flex-column align-items-center">
-                <div className="d-flex align-items-center">
-                  <FaMapMarkerAlt />
-                  <span className="ms-1">Map</span>
-                </div>
-              </div>
+              <IconLabel label="Map" Icon={FaMapMarkerAlt} />
             </a>
           </li>
           <li className="nav-item">
@@ -43,12 +39,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
                 dispatchLayout({ name: "showList", value: true });
               }}
             >
-              <div className="d-flex flex-column align-items-center">
-                <div className="d-flex align-items-center">
-                  <FaList />
-                  <span className="ms-1">List</span>
-                </div>
-              </div>
+              <IconLabel label="List" Icon={FaList} />
             </a>
           </li>
           <li className="nav-item">
@@ -60,12 +51,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
                 dispatchLayout({ name: "showInfo", value: true });
               }}
             >
-              <div className="d-flex flex-column align-items-center">
-                <div className="d-flex align-items-center">
-                  <FaInfoCircle />
-                  <span className="ms-1">Info</span>
-                </div>
-              </div>
+              <IconLabel label="Info" Icon={FaInfoCircle} />
             </a>
           </li>
         </ul>
