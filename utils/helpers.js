@@ -22,9 +22,8 @@ const stringIncludesCaseInsensitive = (str, val) => {
 export const useFilteredGeojson = ({ geojson, filters }) =>
   useMemo(() => {
     if (!geojson?.features) return;
-    const filteredGeosjon = { ...geojson };
+    const filteredGeosjon = { type: "FeatureCollection", features: [] };
     const currentCheckedFilters = filters.checkbox?.filter((f) => f.checked);
-    const currentSearchVal = filters.search?.value;
 
     // apply checkbox filters if any exist and are checked
     if (currentCheckedFilters && currentCheckedFilters.length > 0) {
@@ -38,6 +37,8 @@ export const useFilteredGeojson = ({ geojson, filters }) =>
       });
     }
     // apply search term filter
+    const currentSearchVal = filters.search?.value;
+
     if (currentSearchVal) {
       filteredGeosjon.features = filteredGeosjon.features.filter((feature) => {
         return stringIncludesCaseInsensitive(
@@ -52,9 +53,6 @@ export const useFilteredGeojson = ({ geojson, filters }) =>
 export const useHiddenOverflow = () => {
   useEffect(() => {
     document.body.classList.add("overflow-hidden");
-
-    return function cleanup() {
-      document.body.classList.remove("overflow-hidden");
-    };
+    return () => document.body.classList.remove("overflow-hidden");
   }, []);
 };
