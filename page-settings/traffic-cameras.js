@@ -26,7 +26,7 @@ export const FILTERS = {
 
 export const COLORS = {
   online: "#0571b0",
-  offline: "#ca0020",
+  offline: "#fc8d59",
 };
 
 export const LAYER_STYLES = {
