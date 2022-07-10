@@ -10,17 +10,19 @@ export default function Thumbnail({ cameraId }) {
       {loading && (
         <Spinner className="text-secondary" animation="border" role="status" />
       )}
-      <Image
-        className={loading ? "d-none" : ""}
-        alt="Image from traffic camera"
-        onError={(e) => {
-          e.target.onerror = null;
-          e.target.src = "/assets/unavailable.jpg";
-        }}
-        onLoad={() => setLoading(false)}
-        src={src}
-        fluid
-      />
+      <a href={src} target="_blank"  aria-label="Full size image of camera thumbnail">
+        <Image
+          className={loading ? "d-none" : ""}
+          alt="Image from traffic camera"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = "/assets/unavailable.jpg";
+          }}
+          onLoad={() => setLoading(false)}
+          src={src}
+          fluid
+        />
+      </a>
     </>
   );
 }

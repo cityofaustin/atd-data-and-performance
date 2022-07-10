@@ -1,8 +1,5 @@
 import { useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-import Modal from "react-bootstrap/Modal";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Thumbnail from "../../Thumbnail";
 import FlexyInfo from "../../FlexyInfo";
 import DetailsHeader from "../../DetailsHeader";
@@ -30,16 +27,6 @@ export default function DetailsContent({ feature, setSelectedFeature }) {
           style={{ cursor: "pointer" }}
           onClick={() => setShowModal(!showModal)}
         >
-          <Modal size="xl" animation={true} show={showModal} keyboard={false}>
-            <Modal.Header closeButton></Modal.Header>
-            <Modal.Body>
-              <Row className="justify-content-center">
-                <Col xs={12} className="text-center">
-                  <Thumbnail cameraId={feature.properties.camera_id} />
-                </Col>
-              </Row>
-            </Modal.Body>
-          </Modal>
           <Thumbnail cameraId={feature.properties.camera_id} />
         </div>
       </ListGroup.Item>
