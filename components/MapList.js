@@ -29,7 +29,7 @@ const initialLayout = (isSmallScreen) => ({
   info: false,
 });
 
-const stateReducer = (state, { name, value, isSmallScreen }) => {
+const layoutReducer = (state, { name, value, isSmallScreen }) => {
   if (name === "viewPortChange" && isSmallScreen) {
     // adjust for mobile - defaults to map view
     return { ...state, map: true, sidebar: false, title: false };
@@ -103,7 +103,7 @@ export default function MapList({
   // bootstrap `md` and lower   todo: // move to settings
   const isSmallScreen = useMediaQuery({ maxWidth: 991 });
   const [layout, dispatchLayout] = useReducer(
-    stateReducer,
+    layoutReducer,
     initialLayout(isSmallScreen)
   );
 
