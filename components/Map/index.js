@@ -1,5 +1,11 @@
 import { useState, useCallback } from "react";
-import MapGL, { Source, Layer, NavigationControl, Popup } from "react-map-gl";
+import MapGL, {
+  Source,
+  Layer,
+  NavigationControl,
+  GeolocateControl,
+  Popup,
+} from "react-map-gl";
 import { MAP_SETTINGS_DEFAULT, LAYER_STYLE_DEFAULT } from "./settings";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -56,6 +62,7 @@ export default function Map({
         </Popup>
       )}
       <NavigationControl />
+      <GeolocateControl showAccuracyCircle={false} />
       <Source id="my-data" type="geojson" data={geojson || { features: [] }}>
         <Layer {...applyCustomStyles(layerStyles || {})} />
       </Source>
