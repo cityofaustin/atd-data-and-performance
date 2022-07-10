@@ -17,7 +17,7 @@ export default function List({
   geojson,
   mapRef,
   setSelectedFeature,
-  ListItem,
+  ListItemContent,
 }) {
   return (
     <ListGroup variant="flush">
@@ -27,13 +27,12 @@ export default function List({
             action
             key={i}
             style={{ cursor: "pointer" }}
-            className="list-group-item py-3"
             onClick={() => {
               mapRef.current.panTo(feature.geometry.coordinates);
               setSelectedFeature(feature);
             }}
           >
-            <ListItem feature={feature} />
+            <ListItemContent feature={feature} />
           </ListGroup.Item>
         ))}
       {geojson?.features.length > renderLimit && (
