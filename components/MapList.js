@@ -6,12 +6,13 @@ import Nav from "./Nav";
 import NavMobile from "./NavMobile";
 import ListSearch from "./ListSearch";
 import { useFilteredGeojson, useHiddenOverflow } from "./../utils/helpers";
+import { FaInfoCircle } from "react-icons/fa";
 
 /**
  * Layout logic
- * - if a feature is selected (on the map or from the list): 
-*    - if on mobile: hide map, show sidebar 
-*    - hide list, hide inf show details
+ * - if a feature is selected (on the map or from the list):
+ *    - if on mobile: hide map, show sidebar
+ *    - hide list, hide inf show details
  * - mobile only: if the map nav tab is seleted:
  *    - hide sidebar
  * * - mobile only: if the list tab is seleted:
@@ -72,9 +73,12 @@ const stateReducer = (state, { name, value, isSmallScreen }) => {
 };
 
 const PageTitle = ({ title }) => (
-  <div className="px-3">
+  <div className="px-3 d-flex justify-content-start align-items-center">
     {/* <span className="fs-2 fw-bold text-secondary"> | </span> */}
     <span className="fs-2 fw-bold text-primary">{title}</span>
+    <span className="fs-5 mx-2 text-secondary">
+      <FaInfoCircle />
+    </span>
   </div>
 );
 
@@ -82,7 +86,7 @@ export default function MapList({
   initialFilters,
   PopUpContent,
   DetailsContent,
-  ListItem,
+  ListItemContent,
   InfoContent,
   geojson,
   loading,
@@ -161,7 +165,7 @@ export default function MapList({
                     geojson={filteredGeosjon}
                     mapRef={mapRef}
                     setSelectedFeature={setSelectedFeature}
-                    ListItem={ListItem}
+                    ListItemContent={ListItemContent}
                   />
                 </div>
               </div>
