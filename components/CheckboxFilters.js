@@ -26,6 +26,7 @@ export default function CheckboxFilters({ filters, setFilters }) {
     <Form>
       {filters.checkbox.map((filter) => (
         <div
+          key={filter.key}
           style={{ cursor: "pointer" }}
           onClick={() => onChange(filter)}
         >
