@@ -10,7 +10,7 @@ export default function Thumbnail({ cameraId }) {
       {loading && (
         <Spinner className="text-secondary" animation="border" role="status" />
       )}
-      <a href={src} target="_blank"  aria-label="Full size image of camera thumbnail">
+      <a href={src} target="_blank" rel="noreferrer" aria-label="Full size image of camera thumbnail">
         <Image
           className={loading ? "d-none" : ""}
           alt="Image from traffic camera"
