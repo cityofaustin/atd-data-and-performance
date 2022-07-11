@@ -90,4 +90,9 @@ $body-color: $dts-3;
   background-color: $dts-3;
 }
 
+.mapboxgl-popup-content {
+  padding: 0px !important;
+}
+
+
 @import "../node_modules/bootstrap/scss/bootstrap";
