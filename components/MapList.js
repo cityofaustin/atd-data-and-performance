@@ -37,18 +37,7 @@ const layoutReducer = (state, { name, value, isSmallScreen }) => {
     // adjust for not-mobile
     return { ...state, map: true, sidebar: true, title: true };
   }
-
-  if (name === "selectedFeature" && value) {
-    return {
-      ...state,
-      sidebar: true,
-      details: false,
-      listSearch: true,
-      map: !isSmallScreen,
-    };
-  } else if (name === "selectedFeature" && !value) {
-    return { ...state, details: false, listSearch: true };
-  } else if (name === "showList" && value) {
+  if (name === "showList" && value) {
     return {
       ...state,
       sidebar: true,
