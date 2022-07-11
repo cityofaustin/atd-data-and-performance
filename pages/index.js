@@ -1,13 +1,11 @@
 import React from "react";
 import Head from "next/head";
-import Link from "next/link";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import Image from "react-bootstrap/Image";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
+import NavTile from "../components/NavTile";
 
 // image size: 960 x 491px
 const cards = [
@@ -74,26 +72,6 @@ const cards = [
   },
 ];
 
-export function CardItem({ href, title, description, icon, img }) {
-  return (
-    <Col xs={12} md={4} lg={3} className="p-2 p-md-3 p-xl-4">
-      <Link className="text-decoration-none" href={href} passHref>
-        <Card className="h-100 nav-tile">
-          {img && <Card.Img variant="top" alt={img.alt} src={img.src} />}
-          <Card.Body className="p-3 lh-1">
-            <Card.Title className="fw-bold fs-6 text-primary">
-              {icon} {title}
-            </Card.Title>
-            <span className="text-muted ">
-              <small>{description}</small>
-            </span>
-          </Card.Body>
-        </Card>
-      </Link>
-    </Col>
-  );
-}
-
 export default function Home() {
   return (
     <>
@@ -122,9 +100,11 @@ export default function Home() {
             </Col>
           </Row>
           <Row className="text-dts-4 mb-4">
-            {cards.map((card) => {
-              return <CardItem key={card.href} {...card} />;
-            })}
+            {cards.map((card) => (
+              <Col xs={12} md={4} lg={3} className="p-2 p-md-3 p-xl-4">
+                <NavTile key={card.href} {...card} />
+              </Col>
+            ))}
           </Row>
         </Container>
         <Footer />
