@@ -1,12 +1,7 @@
 import { useState, useCallback } from "react";
-import MapGL, {
-  Source,
-  Layer,
-  NavigationControl,
-  GeolocateControl,
-  Popup,
-} from "react-map-gl";
+import MapGL, { Source, Layer, NavigationControl, Popup } from "react-map-gl";
 import { MAP_SETTINGS_DEFAULT, LAYER_STYLE_DEFAULT } from "./settings";
+
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const applyCustomStyles = (layerStyles) => {
@@ -25,11 +20,23 @@ export default function Map({
   selectedFeature,
   setSelectedFeature,
   PopUpContent,
+  PopUpHoverContent,
   layerStyles,
 }) {
   const [cursor, setCursor] = useState("grab");
-  const onMouseEnter = useCallback(() => setCursor("pointer"), []);
-  const onMouseLeave = useCallback(() => setCursor("grab"), []);
+  const [hoverFeature, setHoverFeature] = useState(null);
+
+  // const onMouseEnter = useCallback(() => setCursor("pointer"), []);
+  // const onMouseLeave = useCallback(() => setCursor("grab"), []);
+
+  const onMouseEnter = useCallback((e) => {
+    setCursor("pointer");
+    setHoverFeature(e.features[0]), [];
+  });
+  const onMouseLeave = useCallback(() => {
+    setCursor("grab");
+    setHoverFeature(null), [];
+  });
 
   return (
     <MapGL
@@ -52,17 +59,27 @@ export default function Map({
         <Popup
           longitude={selectedFeature.geometry.coordinates[0]}
           latitude={selectedFeature.geometry.coordinates[1]}
-          anchor="bottom"
           onClose={() => setSelectedFeature(null)}
           // i don't know why we need closeOnClick = false (it doesn't obey), but
           // the popup won't render after multiple map feature click without it :/
           closeOnClick={false}
+          maxWidth={"300px"}
         >
           <PopUpContent feature={selectedFeature} />
         </Popup>
       )}
+      {hoverFeature &&
+        selectedFeature?.properties.camera_id !==
+          hoverFeature.properties.camera_id && (
+          <Popup
+            longitude={hoverFeature.geometry.coordinates[0]}
+            latitude={hoverFeature.geometry.coordinates[1]}
+            closeButton={false}
+          >
+            <PopUpContent feature={hoverFeature} />
+          </Popup>
+        )}
       <NavigationControl />
-      <GeolocateControl showAccuracyCircle={false} />
       <Source id="my-data" type="geojson" data={geojson || { features: [] }}>
         <Layer {...applyCustomStyles(layerStyles || {})} />
       </Source>

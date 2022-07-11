@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import MapList from "../components/MapList";
+import PopUpHoverContent from "../components/pages/cameras/PopUpHoverContent";
 import PopUpContent from "../components/pages/cameras/PopUpContent";
-import DetailsContent from "../components/pages/cameras/DetailsContent";
-import ListItemContent from "../components/pages/cameras/ListItemContent";
+import ListItemContent from "../components/pages/cameras/ListItemContent.js";
 import InfoContent from "../components/pages/cameras/InfoContent";
 import { useSocrata } from "../utils/socrata";
 import { CAMERAS_QUERY, CAMERA_COMM_STATUS_QUERY } from "../utils/queries";
@@ -52,7 +52,7 @@ export default function TrafficCameras() {
       loading={loading}
       error={error}
       PopUpContent={PopUpContent}
-      DetailsContent={DetailsContent}
+      PopUpHoverContent={PopUpHoverContent}
       ListItemContent={ListItemContent}
       InfoContent={InfoContent}
       layerStyles={LAYER_STYLES}

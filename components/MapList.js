@@ -42,8 +42,8 @@ const layoutReducer = (state, { name, value, isSmallScreen }) => {
     return {
       ...state,
       sidebar: true,
-      details: true,
-      listSearch: false,
+      details: false,
+      listSearch: true,
       map: !isSmallScreen,
     };
   } else if (name === "selectedFeature" && !value) {
@@ -53,7 +53,7 @@ const layoutReducer = (state, { name, value, isSmallScreen }) => {
       ...state,
       sidebar: true,
       listSearch: true,
-      details: true,
+      details: false,
       map: false,
       info: false,
     };
@@ -85,7 +85,7 @@ const PageTitle = ({ title }) => (
 export default function MapList({
   initialFilters,
   PopUpContent,
-  DetailsContent,
+  PopUpHoverContent,
   ListItemContent,
   InfoContent,
   geojson,
@@ -96,6 +96,7 @@ export default function MapList({
   const [filters, setFilters] = useState(initialFilters);
   const [selectedFeature, setSelectedFeature] = useState(null);
   const mapRef = useRef();
+
   const filteredGeosjon = useFilteredGeojson({
     geojson,
     filters,
@@ -150,7 +151,7 @@ export default function MapList({
 
               <div
                 className={`d-flex flex-column ${
-                  ((!layout.listSearch || selectedFeature) && "d-none") || ""
+                  (!layout.listSearch && "d-none") || ""
                 }`}
                 style={{ overflowY: "hidden" }}
               >
@@ -172,20 +173,10 @@ export default function MapList({
 
               {/* extra page info */}
               {layout.info && <InfoContent />}
-
-              {/* feature details */}
-              {layout.details && selectedFeature && (
-                <div className="px-2 pt-3" style={{ overflowY: "scroll" }}>
-                  <DetailsContent
-                    feature={selectedFeature}
-                    setSelectedFeature={setSelectedFeature}
-                  />
-                </div>
-              )}
             </div>
           )}
 
-          {/* map panel */}
+          {/* map container */}
           <div className={`map-container ${layout.map ? "" : "d-none"}`}>
             {loading && <p>Loading...</p>}
             {!loading && !error && (
@@ -195,6 +186,7 @@ export default function MapList({
                 selectedFeature={selectedFeature}
                 setSelectedFeature={setSelectedFeature}
                 PopUpContent={PopUpContent}
+                PopUpHoverContent={PopUpHoverContent}
                 layerStyles={layerStyles}
               />
             )}
