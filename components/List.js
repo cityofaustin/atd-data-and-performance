@@ -5,6 +5,7 @@ import { FaArrowAltCircleDown } from "react-icons/fa";
 import IconLabel from "./IconLabel";
 
 const LIST_ITEM_CHUNK_SIZE = 25;
+const MIN_FEATURE_ZOOM_TO = 14;
 
 const HiddenFeaturesItem = ({ hiddenCount, setLimit, limit }) => (
   <ListGroup.Item>
@@ -46,7 +47,7 @@ export default function List({
               mapRef.current.fitBounds([coordinates, coordinates], {
                 padding: 100,
                 duration: 1000,
-                maxZoom: zoom > 12 ? zoom : 12,
+                maxZoom: zoom > MIN_FEATURE_ZOOM_TO ? zoom : MIN_FEATURE_ZOOM_TO,
                 linear: true,
               });
               setSelectedFeature(feature);
