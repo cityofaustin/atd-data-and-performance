@@ -1,16 +1,28 @@
+import { useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-const renderLimit = 100;
+import Button from "react-bootstrap/Button";
+import { FaArrowAltCircleDown } from "react-icons/fa";
+import IconLabel from "./IconLabel";
 
-const HiddenFeaturesItem = ({ count }) => (
-  <a
-    key="hiddenFeatures"
-    href="#"
-    className="list-group-item list-group-item-action py-3 lh-tight"
-  >
-    <div className="col-10 mb-1 small">
-      {`${count} more items not displayed. Use search to limit results.`}
+const LIST_ITEM_CHUNK_SIZE = 25;
+
+const HiddenFeaturesItem = ({ hiddenCount, setLimit, limit }) => (
+  <ListGroup.Item>
+    <div className="d-flex justify-content-between align-items-center">
+      <div className="small text-muted">
+        {`${hiddenCount} more items not displayed`}
+      </div>
+      <div className="m-auto">
+        <Button
+          size="sm"
+          variant="outline-secondary"
+          onClick={() => setLimit(limit + LIST_ITEM_CHUNK_SIZE)}
+        >
+          <IconLabel Icon={FaArrowAltCircleDown} label="Load more" />
+        </Button>
+      </div>
     </div>
-  </a>
+  </ListGroup.Item>
 );
 
 export default function List({
@@ -19,24 +31,36 @@ export default function List({
   setSelectedFeature,
   ListItemContent,
 }) {
+  const [limit, setLimit] = useState(LIST_ITEM_CHUNK_SIZE);
   return (
     <ListGroup variant="flush">
       {geojson &&
-        geojson.features.slice(0, renderLimit).map((feature, i) => (
+        geojson.features.slice(0, limit).map((feature, i) => (
           <ListGroup.Item
             action
             key={i}
             style={{ cursor: "pointer" }}
             onClick={() => {
-              mapRef.current.panTo(feature.geometry.coordinates);
+              const zoom = mapRef.current.getZoom();
+              const { coordinates } = feature.geometry;
+              mapRef.current.fitBounds([coordinates, coordinates], {
+                padding: 100,
+                duration: 1000,
+                maxZoom: zoom > 12 ? zoom : 12,
+                linear: true,
+              });
               setSelectedFeature(feature);
             }}
           >
             <ListItemContent feature={feature} />
           </ListGroup.Item>
         ))}
-      {geojson?.features.length > renderLimit && (
-        <HiddenFeaturesItem count={geojson.features.length - renderLimit} />
+      {geojson?.features.length > limit && (
+        <HiddenFeaturesItem
+          hiddenCount={geojson.features.length - limit}
+          setLimit={setLimit}
+          limit={limit}
+        />
       )}
     </ListGroup>
   );
