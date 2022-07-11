@@ -41,17 +41,7 @@ export default function List({
             action
             key={i}
             style={{ cursor: "pointer" }}
-            onClick={() => {
-              const zoom = mapRef.current.getZoom();
-              const { coordinates } = feature.geometry;
-              mapRef.current.fitBounds([coordinates, coordinates], {
-                padding: 100,
-                duration: 1000,
-                maxZoom: zoom > MIN_FEATURE_ZOOM_TO ? zoom : MIN_FEATURE_ZOOM_TO,
-                linear: true,
-              });
-              setSelectedFeature(feature);
-            }}
+            onClick={() => setSelectedFeature(feature)}
           >
             <ListItemContent feature={feature} />
           </ListGroup.Item>

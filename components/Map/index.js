@@ -64,6 +64,7 @@ export default function Map({
           // the popup won't render after multiple map feature click without it :/
           closeOnClick={false}
           maxWidth={"300px"}
+          anchor="bottom"
         >
           <PopUpContent feature={selectedFeature} />
         </Popup>

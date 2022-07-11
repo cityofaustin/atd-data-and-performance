@@ -103,6 +103,15 @@ export default function MapList({
       value: !!selectedFeature,
       isSmallScreen,
     });
+    if (!mapRef.current || !selectedFeature) return;
+    const zoom = mapRef.current.getZoom();
+    const { coordinates } = selectedFeature.geometry;
+    mapRef.current.fitBounds([coordinates, coordinates], {
+      padding: 100,
+      duration: 1000,
+      maxZoom: zoom > 14 ? zoom : 14,
+      linear: true,
+    });
   }, [selectedFeature]);
 
   useEffect(() => {
