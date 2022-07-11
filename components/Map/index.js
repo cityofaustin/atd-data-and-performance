@@ -26,17 +26,14 @@ export default function Map({
   const [cursor, setCursor] = useState("grab");
   const [hoverFeature, setHoverFeature] = useState(null);
 
-  // const onMouseEnter = useCallback(() => setCursor("pointer"), []);
-  // const onMouseLeave = useCallback(() => setCursor("grab"), []);
-
   const onMouseEnter = useCallback((e) => {
     setCursor("pointer");
     setHoverFeature(e.features[0]), [];
-  });
+  }, []);
   const onMouseLeave = useCallback(() => {
     setCursor("grab");
     setHoverFeature(null), [];
-  });
+  }, []);
 
   return (
     <MapGL
