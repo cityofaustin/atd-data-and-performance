@@ -7,6 +7,7 @@ import NavMobile from "./NavMobile";
 import ListSearch from "./ListSearch";
 import { useFilteredGeojson, useHiddenOverflow } from "./../utils/helpers";
 import { FaInfoCircle } from "react-icons/fa";
+import Modal from "react-bootstrap/Modal";
 
 /**
  * Layout logic
@@ -69,6 +70,18 @@ const PageTitle = ({ title }) => (
       <FaInfoCircle />
     </span>
   </div>
+);
+
+const ModalThing = ({ selectedFeature, setSelectedFeature, children }) => (
+  <Modal
+    show={!!selectedFeature}
+    onHide={() => setSelectedFeature(null)}
+    animation={false}
+    centered
+  >
+    <Modal.Header closeButton />
+    {children}
+  </Modal>
 );
 
 export default function MapList({
@@ -186,9 +199,19 @@ export default function MapList({
                 PopUpContent={PopUpContent}
                 PopUpHoverContent={PopUpHoverContent}
                 layerStyles={layerStyles}
+                isSmallScreen={isSmallScreen}
               />
             )}
           </div>
+
+          {isSmallScreen && (
+            <ModalThing
+              selectedFeature={selectedFeature}
+              setSelectedFeature={setSelectedFeature}
+            >
+              <PopUpContent feature={selectedFeature} />
+            </ModalThing>
+          )}
         </div>
       </div>
     </div>

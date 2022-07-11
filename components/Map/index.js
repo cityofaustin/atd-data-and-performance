@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 import MapGL, { Source, Layer, NavigationControl, Popup } from "react-map-gl";
 import { MAP_SETTINGS_DEFAULT, LAYER_STYLE_DEFAULT } from "./settings";
-
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const applyCustomStyles = (layerStyles) => {
@@ -22,6 +21,7 @@ export default function Map({
   PopUpContent,
   PopUpHoverContent,
   layerStyles,
+  isSmallScreen,
 }) {
   const [cursor, setCursor] = useState("grab");
   const [hoverFeature, setHoverFeature] = useState(null);
@@ -52,7 +52,7 @@ export default function Map({
       cursor={cursor}
       {...MAP_SETTINGS_DEFAULT}
     >
-      {selectedFeature && (
+      {selectedFeature && !isSmallScreen && (
         <Popup
           longitude={selectedFeature.geometry.coordinates[0]}
           latitude={selectedFeature.geometry.coordinates[1]}
