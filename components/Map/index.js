@@ -76,7 +76,7 @@ export default function Map({
             latitude={hoverFeature.geometry.coordinates[1]}
             closeButton={false}
           >
-            <PopUpContent feature={hoverFeature} />
+            <PopUpHoverContent feature={hoverFeature} />
           </Popup>
         )}
       <NavigationControl />
