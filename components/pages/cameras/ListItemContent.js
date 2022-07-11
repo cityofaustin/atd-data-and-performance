@@ -1,13 +1,27 @@
 import { shortenLocationName } from "../../../utils/helpers";
+import { FaCircle } from "react-icons/fa";
+import IconLabel from "../../IconLabel";
+import { COLORS } from "../../../page-settings/traffic-cameras";
 
-export default function ListItemContent({ feature }) {
+export default function ListItem({ feature }) {
+  const statusColor = COLORS[feature.properties.status];
   return (
-    <>
-      <div className="d-flex align-items-center justify-content-between">
-        <span className="fw-bold">
+    <div className="d-flex w-100 align-items-center justify-content-between">
+      <span>
+        <strong className="mb-1">
           {shortenLocationName(feature.properties.location_name)}
-        </span>
+        </strong>
+      </span>
+      <div className="d-flex flex-column align-items-center">
+        <div className="d-flex align-items-center">
+          <small>
+            <span className="me-1 text-muted">{feature.properties.status}</span>
+            <span style={{ color: statusColor }}>
+              <FaCircle />
+            </span>
+          </small>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
