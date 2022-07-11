@@ -12,7 +12,7 @@ export default function ListItem({ feature }) {
           {shortenLocationName(feature.properties.location_name)}
         </strong>
       </span>
-      <div className="d-flex flex-column align-items-center">
+      <div className="d-flex flex-column align-items-center flex-shrink-0">
         <div className="d-flex align-items-center">
           <small>
             <span className="me-1 text-muted">{feature.properties.status}</span>
