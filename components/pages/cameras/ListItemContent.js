@@ -1,6 +1,5 @@
 import { shortenLocationName } from "../../../utils/helpers";
 import { FaCircle } from "react-icons/fa";
-import IconLabel from "../../IconLabel";
 import { COLORS } from "../../../page-settings/traffic-cameras";
 
 export default function ListItem({ feature }) {
