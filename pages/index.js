@@ -101,8 +101,14 @@ export default function Home() {
           </Row>
           <Row className="text-dts-4 mb-4">
             {cards.map((card) => (
-              <Col xs={12} md={4} lg={3} className="p-2 p-md-3 p-xl-4">
-                <NavTile key={card.href} {...card} />
+              <Col
+                key={card.href}
+                xs={12}
+                md={4}
+                lg={3}
+                className="p-2 p-md-3 p-xl-4"
+              >
+                <NavTile {...card} />
               </Col>
             ))}
           </Row>
