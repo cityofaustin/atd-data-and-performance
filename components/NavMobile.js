@@ -19,7 +19,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
           <li className="nav-item">
             <a
               className={`nav-link ${(activeTab === "map" && "active") || ""}`}
-              aria-current={activeTab === "map" ? "active" : ""}
+              aria-current={activeTab === "map" ? "page" : ""}
               href="#"
               onClick={() => {
                 dispatchLayout({ name: "showList", value: false });
@@ -33,7 +33,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
               className={`nav-link ${
                 (activeTab === "sidebar" && "active") || ""
               }`}
-              aria-current={activeTab === "sidebar" ? "active" : ""}
+              aria-current={activeTab === "sidebar" ? "page" : ""}
               href="#"
               onClick={() => {
                 dispatchLayout({ name: "showList", value: true });
@@ -45,7 +45,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
           <li className="nav-item">
             <a
               className={`nav-link ${(activeTab === "info" && "active") || ""}`}
-              aria-current={activeTab === "info" ? "active" : ""}
+              aria-current={activeTab === "info" ? "page" : ""}
               href="#"
               onClick={() => {
                 dispatchLayout({ name: "showInfo", value: true });
