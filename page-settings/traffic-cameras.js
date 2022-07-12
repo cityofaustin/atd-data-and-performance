@@ -1,27 +1,24 @@
-export const FILTERS = {
-  checkbox: [
-    {
-      key: "online",
-      value: "online",
-      featureProp: "status",
-      label: "Online",
-      checked: true,
-    },
-    {
-      key: "offline",
-      value: "offline",
-      featureProp: "status",
-      label: "Offline",
-      checked: false,
-    },
-  ],
-  search: {
-    key: "search",
-    value: "",
-    featureProp: "location_name",
-    label: "Search",
-    placeholder: "Search by location...",
+export const FILTER_SETTINGS = [
+  {
+    key: "online",
+    value: "online",
+    featureProp: "status",
+    label: "Online",
+    checked: true,
   },
+  {
+    key: "offline",
+    value: "offline",
+    featureProp: "status",
+    label: "Offline",
+    checked: false,
+  },
+];
+
+export const SEARCH_SETTINGS = {
+  featureProp: "location_name",
+  label: "Search",
+  placeholder: "Search by location...",
 };
 
 export const COLORS = {

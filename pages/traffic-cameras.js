@@ -6,7 +6,11 @@ import ListItemContent from "../components/pages/cameras/ListItemContent.js";
 import InfoContent from "../components/pages/cameras/InfoContent";
 import { useSocrata } from "../utils/socrata";
 import { CAMERAS_QUERY, CAMERA_COMM_STATUS_QUERY } from "../utils/queries";
-import { FILTERS, LAYER_STYLES } from "../page-settings/traffic-cameras";
+import {
+  FILTER_SETTINGS,
+  SEARCH_SETTINGS,
+  LAYER_STYLES,
+} from "../page-settings/traffic-cameras";
 
 const simplifyStatus = (status) => {
   switch (status) {
@@ -47,7 +51,8 @@ export default function TrafficCameras() {
 
   return (
     <MapList
-      initialFilters={FILTERS}
+      filterSettings={FILTER_SETTINGS}
+      searchSettings={SEARCH_SETTINGS}
       geojson={geojson}
       loading={loading}
       error={error}

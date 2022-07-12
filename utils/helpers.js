@@ -17,13 +17,29 @@ const stringIncludesCaseInsensitive = (str, val) => {
 };
 
 /**
- * Custom hook that that applies search and checkbox filter states to geojson features
+ * Custom hook that that applies search value
  **/
-export const useFilteredGeojson = ({ geojson, filters }) =>
+export const useSearchValue = ({ geojson, searchValue, featureProp }) =>
+  useMemo(() => {
+    if (!geojson?.features || !searchValue) return geojson;
+    const filteredGeosjon = { type: "FeatureCollection", features: [] };
+    filteredGeosjon.features = geojson.features.filter((feature) => {
+      return stringIncludesCaseInsensitive(
+        feature.properties[featureProp] || "",
+        searchValue
+      );
+    });
+    return filteredGeosjon;
+  }, [geojson, searchValue, featureProp]);
+
+/**
+ * Custom hook that that applies checkbox filters
+ **/
+export const useCheckboxFilters = ({ geojson, filters }) =>
   useMemo(() => {
     if (!geojson?.features) return;
     const filteredGeosjon = { type: "FeatureCollection", features: [] };
-    const currentCheckedFilters = filters.checkbox?.filter((f) => f.checked);
+    const currentCheckedFilters = filters?.filter((f) => f.checked);
 
     // apply checkbox filters if any exist and are checked
     if (currentCheckedFilters && currentCheckedFilters.length > 0) {
@@ -33,17 +49,6 @@ export const useFilteredGeojson = ({ geojson, filters }) =>
           currentCheckedFilters.some((filter) => {
             return filter.value === feature.properties[filter.featureProp];
           })
-        );
-      });
-    }
-    // apply search term filter
-    const currentSearchVal = filters.search?.value;
-
-    if (currentSearchVal) {
-      filteredGeosjon.features = filteredGeosjon.features.filter((feature) => {
-        return stringIncludesCaseInsensitive(
-          feature.properties[filters.search.featureProp] || "",
-          currentSearchVal
         );
       });
     }

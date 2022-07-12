@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
@@ -36,17 +36,19 @@ const FilterButton = (props) => {
 export default function ListSearch({
   filters,
   setFilters,
+  searchValue,
+  setSearchValue,
+  searchSettings,
   setSelectedFeature,
   hasSelectedFeature,
 }) {
-  const handleChange = (e) => {
+  const handleSearchInputChange = (e) => {
     // nullify selected feature when typing in search box
     // ensures map popup is removed as features are filtered
     hasSelectedFeature && setSelectedFeature(null);
-    let currentFilters = { ...filters };
-    currentFilters.search.value = e.target.value;
-    setFilters(currentFilters);
+    setSearchValue(e.target.value);
   };
+
   return (
     <>
       <Navbar expand="xs">
@@ -56,20 +58,20 @@ export default function ListSearch({
               <BsSearch />
             </InputGroup.Text>
             <Form.Control
-              name={filters.search.label}
+              name={searchSettings.label}
               type="search"
-              placeholder={filters.search.placeholder}
-              onChange={handleChange}
-              value={filters.search.value}
+              placeholder={searchSettings.placeholder}
+              onChange={handleSearchInputChange}
+              value={searchValue}
             />
-            {filters.checkbox && (
+            {filters && (
               <Navbar.Toggle
                 as={FilterButton}
                 aria-controls="basic-navbar-nav"
               />
             )}
           </InputGroup>
-          {filters.checkbox && (
+          {filters && (
             <Navbar.Collapse
               timeout={100}
               id="checkbox-filter-nav"

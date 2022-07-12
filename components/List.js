@@ -28,7 +28,6 @@ const HiddenFeaturesItem = ({ hiddenCount, setLimit, limit }) => (
 
 export default function List({
   geojson,
-  mapRef,
   setSelectedFeature,
   ListItemContent,
 }) {

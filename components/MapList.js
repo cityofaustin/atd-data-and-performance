@@ -5,7 +5,11 @@ import List from "./List";
 import Nav from "./Nav";
 import NavMobile from "./NavMobile";
 import ListSearch from "./ListSearch";
-import { useFilteredGeojson, useHiddenOverflow } from "./../utils/helpers";
+import {
+  useHiddenOverflow,
+  useCheckboxFilters,
+  useSearchValue,
+} from "./../utils/helpers";
 import { FaInfoCircle } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 
@@ -85,7 +89,8 @@ const ModalThing = ({ selectedFeature, setSelectedFeature, children }) => (
 );
 
 export default function MapList({
-  initialFilters,
+  filterSettings,
+  searchSettings,
   PopUpContent,
   PopUpHoverContent,
   ListItemContent,
@@ -95,14 +100,22 @@ export default function MapList({
   error,
   layerStyles,
 }) {
-  const [filters, setFilters] = useState(initialFilters);
+  const [filters, setFilters] = useState(filterSettings);
+  const [searchValue, setSearchValue] = useState("");
   const [selectedFeature, setSelectedFeature] = useState(null);
   const mapRef = useRef();
 
-  const filteredGeosjon = useFilteredGeojson({
+  const filteredGeosjon = useCheckboxFilters({
     geojson,
     filters,
   });
+
+  const searchedGeojson = useSearchValue({
+    geojson: filteredGeosjon,
+    searchValue,
+    ...searchSettings,
+  });
+
   // bootstrap `md` and lower   todo: // move to settings
   const isSmallScreen = useMediaQuery({ maxWidth: 991 });
   const [layout, dispatchLayout] = useReducer(
@@ -169,12 +182,15 @@ export default function MapList({
                 <ListSearch
                   filters={filters}
                   setFilters={setFilters}
+                  searchValue={searchValue}
+                  setSearchValue={setSearchValue}
+                  searchSettings={searchSettings}
                   setSelectedFeature={setSelectedFeature}
                   hasSelectedFeature={!!selectedFeature}
                 />
                 <div className="px-3" style={{ overflowY: "scroll" }}>
                   <List
-                    geojson={filteredGeosjon}
+                    geojson={searchedGeojson}
                     mapRef={mapRef}
                     setSelectedFeature={setSelectedFeature}
                     ListItemContent={ListItemContent}
