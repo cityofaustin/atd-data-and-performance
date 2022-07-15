@@ -1,5 +1,6 @@
 import { useState, useRef, useReducer, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
+import Modal from "react-bootstrap/Modal";
 import Map from "./Map";
 import List from "./List";
 import Nav from "./Nav";
@@ -11,7 +12,6 @@ import {
   useSearchValue,
 } from "./../utils/helpers";
 import { FaInfoCircle } from "react-icons/fa";
-import Modal from "react-bootstrap/Modal";
 
 /**
  * Layout logic
@@ -28,7 +28,6 @@ import Modal from "react-bootstrap/Modal";
 const initialLayout = (isSmallScreen) => ({
   map: true,
   listSearch: true,
-  details: false,
   sidebar: !isSmallScreen,
   title: !isSmallScreen,
   info: false,
@@ -47,36 +46,54 @@ const layoutReducer = (state, { name, value, isSmallScreen }) => {
       ...state,
       sidebar: true,
       listSearch: true,
-      details: false,
       map: false,
       info: false,
     };
   } else if (name === "showList" && !value) {
     return { ...state, sidebar: false, map: true, info: false };
-  } else if (name === "showInfo" && value) {
+  }
+  if (name === "showInfo" && value && !isSmallScreen) {
+    // on normal screen size open the info modal
     return {
       ...state,
-      sidebar: true,
+      info: true,
+    };
+  } else if (name === "showInfo" && !value && !isSmallScreen) {
+    return { ...state, info: false };
+  }
+  if (name === "showInfo" && value && isSmallScreen) {
+    // on mobile, info content renders in sidebar (with listsearch hidden)
+    return {
+      ...state,
       map: false,
       info: true,
       listSearch: false,
-      details: false,
+      sidebar: true,
     };
   }
   return state;
 };
 
-const PageTitle = ({ title }) => (
-  <div className="px-3 d-flex justify-content-start align-items-center">
-    {/* <span className="fs-2 fw-bold text-secondary"> | </span> */}
-    <span className="fs-2 fw-bold text-primary">{title}</span>
-    <span className="fs-5 mx-2 text-secondary">
-      <FaInfoCircle />
-    </span>
-  </div>
-);
+const PageTitle = ({ title, onClick }) => {
+  return (
+    <div className="px-3 d-flex justify-content-start">
+      <span className="fs-2 fw-bold text-primary border-start border-4 my-2 ps-2">
+        {title}
+      </span>
+      {onClick && (
+        <span
+          className="text-secondary align-self-center m-2 fs-5"
+          style={{ cursor: "pointer" }}
+          onClick={onClick}
+        >
+          <FaInfoCircle />
+        </span>
+      )}
+    </div>
+  );
+};
 
-const ModalThing = ({ selectedFeature, setSelectedFeature, children }) => (
+const FeatureModal = ({ selectedFeature, setSelectedFeature, children }) => (
   <Modal
     show={!!selectedFeature}
     onHide={() => setSelectedFeature(null)}
@@ -99,6 +116,7 @@ export default function MapList({
   loading,
   error,
   layerStyles,
+  title,
 }) {
   const [filters, setFilters] = useState(filterSettings);
   const [searchValue, setSearchValue] = useState("");
@@ -171,7 +189,14 @@ export default function MapList({
               style={isSmallScreen ? null : { maxWidth: "450px" }}
             >
               {/* page title */}
-              {layout.title && <PageTitle title="Traffic cameras" />}
+              {layout.title && (
+                <PageTitle
+                  title={title}
+                  onClick={() =>
+                    dispatchLayout({ name: "showInfo", value: true })
+                  }
+                />
+              )}
 
               <div
                 className={`d-flex flex-column ${
@@ -199,7 +224,25 @@ export default function MapList({
               </div>
 
               {/* extra page info */}
-              {layout.info && <InfoContent />}
+              {layout.info && isSmallScreen && (
+                <>
+                  <PageTitle title={title} />
+                  <InfoContent />
+                </>
+              )}
+              {layout.info && !isSmallScreen && (
+                <Modal
+                  show={true}
+                  animation={false}
+                  onHide={() =>
+                    dispatchLayout({ name: "showInfo", value: false })
+                  }
+                  centered
+                >
+                  <Modal.Header closeButton />
+                  <InfoContent />
+                </Modal>
+              )}
             </div>
           )}
 
@@ -221,12 +264,12 @@ export default function MapList({
           </div>
 
           {isSmallScreen && (
-            <ModalThing
+            <FeatureModal
               selectedFeature={selectedFeature}
               setSelectedFeature={setSelectedFeature}
             >
               <PopUpContent feature={selectedFeature} />
-            </ModalThing>
+            </FeatureModal>
           )}
         </div>
       </div>

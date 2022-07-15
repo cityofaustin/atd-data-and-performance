@@ -61,6 +61,7 @@ export default function TrafficCameras() {
       ListItemContent={ListItemContent}
       InfoContent={InfoContent}
       layerStyles={LAYER_STYLES}
+      title="Traffic cameras"
     />
   );
 }

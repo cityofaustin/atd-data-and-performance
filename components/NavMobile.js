@@ -9,11 +9,6 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
       fluid
       className={`${activeTab === "map" ? "nav-shadow" : "border"}`}
     >
-      {/* <Row>
-        <Col>
-          <PageTitle title={title} />
-        </Col>
-      </Row> */}
       <Row>
         <ul className="nav nav-pills nav-fill">
           <li className="nav-item">
@@ -48,7 +43,11 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
               aria-current={activeTab === "info" ? "page" : ""}
               href="#"
               onClick={() => {
-                dispatchLayout({ name: "showInfo", value: true });
+                dispatchLayout({
+                  name: "showInfo",
+                  value: true,
+                  isSmallScreen: true,
+                });
               }}
             >
               <IconLabel label="Info" Icon={FaInfoCircle} />
