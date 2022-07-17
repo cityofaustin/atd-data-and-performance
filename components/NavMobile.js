@@ -10,7 +10,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
       className={`${activeTab === "map" ? "nav-shadow" : "border"}`}
     >
       <Row>
-        <ul className="nav nav-pills nav-fill">
+        <ul className="nav nav-pills nav-fill px-0">
           <li className="nav-item">
             <a
               className={`nav-link ${(activeTab === "map" && "active") || ""}`}
