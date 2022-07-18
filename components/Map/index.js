@@ -25,7 +25,6 @@ export default function Map({
 }) {
   const [cursor, setCursor] = useState("grab");
   const [hoverFeature, setHoverFeature] = useState(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   const onMouseEnter = useCallback((e) => {
     setCursor("pointer");
@@ -34,13 +33,6 @@ export default function Map({
   const onMouseLeave = useCallback(() => {
     setCursor("grab");
     setHoverFeature(null), [];
-  }, []);
-
-  useEffect(() => {
-    if ("ontouchstart" in window) {
-      /* browser with Touch Events running on touch-capable device */
-      setIsTouchDevice(true);
-    }
   }, []);
 
   return (

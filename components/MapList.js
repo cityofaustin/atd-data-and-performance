@@ -10,6 +10,7 @@ import {
   useHiddenOverflow,
   useCheckboxFilters,
   useSearchValue,
+  useIsTouchDevice,
 } from "./../utils/helpers";
 import { FaInfoCircle } from "react-icons/fa";
 
@@ -136,6 +137,9 @@ export default function MapList({
 
   // bootstrap `md` and lower   todo: // move to settings
   const isSmallScreen = useMediaQuery({ maxWidth: 991 });
+  
+  const isTouchDevice = useIsTouchDevice();
+
   const [layout, dispatchLayout] = useReducer(
     layoutReducer,
     initialLayout(isSmallScreen)

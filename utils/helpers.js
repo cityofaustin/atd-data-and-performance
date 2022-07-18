@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 /**
  * Shorten a Data Tracker location name, which follows < primary st / cross st (landmark) > pattern
@@ -60,4 +60,15 @@ export const useHiddenOverflow = () => {
     document.body.classList.add("overflow-hidden");
     return () => document.body.classList.remove("overflow-hidden");
   }, []);
+};
+
+export const useIsTouchDevice = () => {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  useEffect(() => {
+    if ("ontouchstart" in window) {
+      /* browser with Touch Events running on touch-capable device */
+      setIsTouchDevice(true);
+    }
+  }, []);
+  return isTouchDevice;
 };
