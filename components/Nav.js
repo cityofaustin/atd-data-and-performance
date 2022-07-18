@@ -11,7 +11,7 @@ export default function Nav({ currentPageRoute, isHome }) {
   return (
     <>
       <Navbar
-        expand="md"
+        expand="lg"
         className={`py-1 ${isHome ? "nav-shadow" : "border"}`}
       >
         <Container fluid key="nav-container">
