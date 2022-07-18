@@ -53,7 +53,7 @@ export default function ListSearch({
     <>
       <Navbar expand="xs" className="border-bottom border-2">
         <Container fluid>
-          <InputGroup className="mb-1">
+          <InputGroup>
             <InputGroup.Text>
               <BsSearch />
             </InputGroup.Text>
@@ -72,7 +72,7 @@ export default function ListSearch({
             )}
           </InputGroup>
           {filters && (
-            <Navbar.Collapse timeout={100} className="pb-2">
+            <Navbar.Collapse timeout={100}>
               <CheckboxFilters filters={filters} setFilters={setFilters} />
             </Navbar.Collapse>
           )}
