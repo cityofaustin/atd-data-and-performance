@@ -160,7 +160,7 @@ export default function MapList({
       maxZoom: zoom > 14 ? zoom : 14,
       linear: true,
     });
-  }, [selectedFeature]);
+  }, [isSmallScreen, selectedFeature]);
 
   useEffect(() => {
     dispatchLayout({ name: "viewPortChange", value: true, isSmallScreen });
