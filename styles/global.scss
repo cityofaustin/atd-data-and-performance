@@ -21,6 +21,9 @@ $primary: $dts-0;
 // $secondary: $dts-2;
 $body-color: $dts-3;
 
+$muted: #6c757d; // matches bootstrap muted (gray-600)
+$light: #f8f9fa; // matched bootstrap light (gray-100)
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -86,6 +89,10 @@ $body-color: $dts-3;
   background-color: $primary !important;
 }
 
+.filter-toggle-wrapper:hover {
+  background-color: $light;
+}
+
 .footer {
   background-color: $dts-3;
 }
@@ -93,6 +100,5 @@ $body-color: $dts-3;
 .mapboxgl-popup-content {
   padding: 0px !important;
 }
-
 
 @import "../node_modules/bootstrap/scss/bootstrap";

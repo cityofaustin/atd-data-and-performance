@@ -1,3 +1,8 @@
+export const COLORS = {
+  online: "#08306b",
+  offline: "#6baed6",
+};
+
 export const FILTER_SETTINGS = [
   {
     key: "online",
@@ -5,6 +10,7 @@ export const FILTER_SETTINGS = [
     featureProp: "status",
     label: "Online",
     checked: true,
+    color: COLORS.online,
   },
   {
     key: "offline",
@@ -12,6 +18,7 @@ export const FILTER_SETTINGS = [
     featureProp: "status",
     label: "Offline",
     checked: false,
+    color: COLORS.offline,
   },
 ];
 
@@ -19,11 +26,6 @@ export const SEARCH_SETTINGS = {
   featureProp: "location_name",
   label: "Search",
   placeholder: "Search by location...",
-};
-
-export const COLORS = {
-  online: "#08306b",
-  offline: "#6baed6",
 };
 
 export const LAYER_STYLES = {
