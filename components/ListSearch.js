@@ -51,10 +51,10 @@ export default function ListSearch({
 
   return (
     <>
-      <Navbar expand="xs">
+      <Navbar expand="xs" className="border-bottom border-2">
         <Container fluid>
           <InputGroup className="mb-1">
-            <InputGroup.Text id="basic-addon1">
+            <InputGroup.Text>
               <BsSearch />
             </InputGroup.Text>
             <Form.Control
@@ -67,16 +67,12 @@ export default function ListSearch({
             {filters && (
               <Navbar.Toggle
                 as={FilterButton}
-                aria-controls="basic-navbar-nav"
+                aria-controls="map-filter-menu-toggle"
               />
             )}
           </InputGroup>
           {filters && (
-            <Navbar.Collapse
-              timeout={100}
-              id="checkbox-filter-nav"
-              className="pb-2"
-            >
+            <Navbar.Collapse timeout={100} className="pb-2">
               <CheckboxFilters filters={filters} setFilters={setFilters} />
             </Navbar.Collapse>
           )}
