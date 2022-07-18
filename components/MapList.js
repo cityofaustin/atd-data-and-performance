@@ -6,6 +6,7 @@ import List from "./List";
 import Nav from "./Nav";
 import NavMobile from "./NavMobile";
 import ListSearch from "./ListSearch";
+import Spinner from "./Spinner";
 import {
   useHiddenOverflow,
   useCheckboxFilters,
@@ -171,6 +172,10 @@ export default function MapList({
 
   useHiddenOverflow();
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="wrapper-contained">
       <Nav />
@@ -255,19 +260,16 @@ export default function MapList({
 
           {/* map container */}
           <div className={`map-container ${layout.map ? "" : "d-none"}`}>
-            {loading && <p>Loading...</p>}
-            {!loading && !error && (
-              <Map
-                geojson={filteredGeosjon}
-                mapRef={mapRef}
-                selectedFeature={selectedFeature}
-                setSelectedFeature={setSelectedFeature}
-                PopUpContent={PopUpContent}
-                PopUpHoverContent={PopUpHoverContent}
-                layerStyles={layerStyles}
-                isSmallScreen={isSmallScreen}
-              />
-            )}
+            <Map
+              geojson={filteredGeosjon}
+              mapRef={mapRef}
+              selectedFeature={selectedFeature}
+              setSelectedFeature={setSelectedFeature}
+              PopUpContent={PopUpContent}
+              PopUpHoverContent={PopUpHoverContent}
+              layerStyles={layerStyles}
+              isSmallScreen={isSmallScreen}
+            />
           </div>
 
           {isSmallScreen && (

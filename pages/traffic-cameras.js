@@ -45,17 +45,13 @@ export default function TrafficCameras() {
     return updateFeaturesWithCommStatus({ geojson, statuses });
   }, [geojson, statuses, loading, loadingComm, error, errorComm]);
 
-  if (loading || loadingComm || error || errorComm) {
-    return <p>Loading or error....</p>;
-  }
-
   return (
     <MapList
       filterSettings={FILTER_SETTINGS}
       searchSettings={SEARCH_SETTINGS}
       geojson={geojson}
-      loading={loading}
-      error={error}
+      loading={loading || loadingComm}
+      error={error || errorComm}
       PopUpContent={PopUpContent}
       PopUpHoverContent={PopUpHoverContent}
       ListItemContent={ListItemContent}
