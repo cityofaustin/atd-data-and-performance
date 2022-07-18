@@ -1,5 +1,6 @@
 import { useState, useRef, useReducer, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
+import Head from "next/head";
 import Modal from "react-bootstrap/Modal";
 import Map from "./Map";
 import List from "./List";
@@ -177,111 +178,120 @@ export default function MapList({
   }
 
   return (
-    <div className="wrapper-contained">
-      <Nav />
-      {isSmallScreen && (
-        <NavMobile
-          title="Traffic cameras"
-          activeTab={layout.map ? "map" : layout.info ? "info" : "sidebar"}
-          dispatchLayout={dispatchLayout}
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta
+          property="og:title"
+          content="Austin Transportation Data and Performance Hub"
         />
-      )}
-      <div className="main">
-        <div className="main-row">
-          {/* sidepar panel */}
-          {layout.sidebar && (
-            <div
-              className="sidebar"
-              style={isSmallScreen ? null : { maxWidth: "450px" }}
-            >
-              {/* page title */}
-              {layout.title && (
-                <div className="px-3">
-                  <PageTitle
-                    title={title}
-                    onClick={() =>
-                      dispatchLayout({ name: "showInfo", value: true })
-                    }
-                  />
-                </div>
-              )}
-
+      </Head>
+      <div className="wrapper-contained">
+        <Nav />
+        {isSmallScreen && (
+          <NavMobile
+            title="Traffic cameras"
+            activeTab={layout.map ? "map" : layout.info ? "info" : "sidebar"}
+            dispatchLayout={dispatchLayout}
+          />
+        )}
+        <div className="main">
+          <div className="main-row">
+            {/* sidepar panel */}
+            {layout.sidebar && (
               <div
-                className={`d-flex flex-column ${
-                  (!layout.listSearch && "d-none") || ""
-                }`}
-                style={{ overflowY: "hidden" }}
+                className="sidebar"
+                style={isSmallScreen ? null : { maxWidth: "450px" }}
               >
-                <ListSearch
-                  filters={filters}
-                  setFilters={setFilters}
-                  searchValue={searchValue}
-                  setSearchValue={setSearchValue}
-                  searchSettings={searchSettings}
-                  setSelectedFeature={setSelectedFeature}
-                  hasSelectedFeature={!!selectedFeature}
-                />
-                <div className="px-3" style={{ overflowY: "scroll" }}>
-                  <List
-                    geojson={searchedGeojson}
-                    mapRef={mapRef}
-                    setSelectedFeature={setSelectedFeature}
-                    ListItemContent={ListItemContent}
-                  />
-                </div>
-              </div>
+                {/* page title */}
+                {layout.title && (
+                  <div className="px-3">
+                    <PageTitle
+                      title={title}
+                      onClick={() =>
+                        dispatchLayout({ name: "showInfo", value: true })
+                      }
+                    />
+                  </div>
+                )}
 
-              {/* page info */}
-              {layout.info && isSmallScreen && (
-                <div className="px-3">
-                  <PageTitle title={title} />
-                  <InfoContent />
-                </div>
-              )}
-              {layout.info && !isSmallScreen && (
-                <Modal
-                  show={true}
-                  animation={false}
-                  onHide={() =>
-                    dispatchLayout({ name: "showInfo", value: false })
-                  }
-                  centered
+                <div
+                  className={`d-flex flex-column ${
+                    (!layout.listSearch && "d-none") || ""
+                  }`}
+                  style={{ overflowY: "hidden" }}
                 >
-                  <Modal.Header closeButton>
+                  <ListSearch
+                    filters={filters}
+                    setFilters={setFilters}
+                    searchValue={searchValue}
+                    setSearchValue={setSearchValue}
+                    searchSettings={searchSettings}
+                    setSelectedFeature={setSelectedFeature}
+                    hasSelectedFeature={!!selectedFeature}
+                  />
+                  <div className="px-3" style={{ overflowY: "scroll" }}>
+                    <List
+                      geojson={searchedGeojson}
+                      mapRef={mapRef}
+                      setSelectedFeature={setSelectedFeature}
+                      ListItemContent={ListItemContent}
+                    />
+                  </div>
+                </div>
+
+                {/* page info */}
+                {layout.info && isSmallScreen && (
+                  <div className="px-3">
                     <PageTitle title={title} />
-                  </Modal.Header>
-                  <Modal.Body>
                     <InfoContent />
-                  </Modal.Body>
-                </Modal>
-              )}
+                  </div>
+                )}
+                {layout.info && !isSmallScreen && (
+                  <Modal
+                    show={true}
+                    animation={false}
+                    onHide={() =>
+                      dispatchLayout({ name: "showInfo", value: false })
+                    }
+                    centered
+                  >
+                    <Modal.Header closeButton>
+                      <PageTitle title={title} />
+                    </Modal.Header>
+                    <Modal.Body>
+                      <InfoContent />
+                    </Modal.Body>
+                  </Modal>
+                )}
+              </div>
+            )}
+
+            {/* map container */}
+            <div className={`map-container ${layout.map ? "" : "d-none"}`}>
+              <Map
+                geojson={filteredGeosjon}
+                mapRef={mapRef}
+                selectedFeature={selectedFeature}
+                setSelectedFeature={setSelectedFeature}
+                PopUpContent={PopUpContent}
+                PopUpHoverContent={PopUpHoverContent}
+                layerStyles={layerStyles}
+                isSmallScreen={isSmallScreen}
+              />
             </div>
-          )}
 
-          {/* map container */}
-          <div className={`map-container ${layout.map ? "" : "d-none"}`}>
-            <Map
-              geojson={filteredGeosjon}
-              mapRef={mapRef}
-              selectedFeature={selectedFeature}
-              setSelectedFeature={setSelectedFeature}
-              PopUpContent={PopUpContent}
-              PopUpHoverContent={PopUpHoverContent}
-              layerStyles={layerStyles}
-              isSmallScreen={isSmallScreen}
-            />
+            {isSmallScreen && (
+              <FeatureModal
+                selectedFeature={selectedFeature}
+                setSelectedFeature={setSelectedFeature}
+              >
+                <PopUpContent feature={selectedFeature} />
+              </FeatureModal>
+            )}
           </div>
-
-          {isSmallScreen && (
-            <FeatureModal
-              selectedFeature={selectedFeature}
-              setSelectedFeature={setSelectedFeature}
-            >
-              <PopUpContent feature={selectedFeature} />
-            </FeatureModal>
-          )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
