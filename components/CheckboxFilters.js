@@ -27,11 +27,13 @@ export default function CheckboxFilters({ filters, setFilters }) {
           style={{ cursor: "pointer" }}
           onClick={() => onChange(filter)}
         >
+          {/* Check component is readyOnly b/c state is controlled by parent div handler */}
           <Form.Check
             id={filter.key}
             label={<FilterLabel {...filter} />}
             checked={filter.checked}
             style={{ cursor: "pointer", pointerEvents: "none" }}
+            readOnly
           />
         </div>
       ))}
