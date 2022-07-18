@@ -273,6 +273,7 @@ export default function MapList({
               setSelectedFeature={setSelectedFeature}
             >
               <PopUpContent feature={selectedFeature} />
+              {isTouchDevice && <h6>is touch device</h6>}
             </FeatureModal>
           )}
         </div>

@@ -72,7 +72,6 @@ export default function Map({
           anchor="bottom"
         >
           <PopUpContent feature={selectedFeature} />
-          {isTouchDevice && <h6>is touch device</h6>}
         </Popup>
       )}
       {hoverFeature &&
