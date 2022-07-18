@@ -39,10 +39,10 @@ export default function Nav({ currentPageRoute, isHome }) {
             </Link>
           </div>
           <Navbar.Toggle
-            aria-controls="basic-navbar-nav"
+            aria-controls="site-navbar"
             className="navbar-toggle"
           />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse id="site-navbar" className="justify-content-end">
             <BsNav>
               {PAGES.map((page, idx) => {
                 const fontWeightClass =
