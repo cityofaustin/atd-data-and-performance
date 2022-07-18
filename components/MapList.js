@@ -76,7 +76,7 @@ const layoutReducer = (state, { name, value, isSmallScreen }) => {
 
 const PageTitle = ({ title, onClick }) => {
   return (
-    <div className="px-3 d-flex justify-content-start">
+    <div className="d-flex justify-content-start">
       <span className="fs-2 fw-bold text-primary border-start border-4 my-2 ps-2">
         {title}
       </span>
@@ -191,12 +191,14 @@ export default function MapList({
             >
               {/* page title */}
               {layout.title && (
-                <PageTitle
-                  title={title}
-                  onClick={() =>
-                    dispatchLayout({ name: "showInfo", value: true })
-                  }
-                />
+                <div className="px-3">
+                  <PageTitle
+                    title={title}
+                    onClick={() =>
+                      dispatchLayout({ name: "showInfo", value: true })
+                    }
+                  />
+                </div>
               )}
 
               <div
@@ -224,12 +226,12 @@ export default function MapList({
                 </div>
               </div>
 
-              {/* extra page info */}
+              {/* page info */}
               {layout.info && isSmallScreen && (
-                <>
+                <div className="px-3">
                   <PageTitle title={title} />
                   <InfoContent />
-                </>
+                </div>
               )}
               {layout.info && !isSmallScreen && (
                 <Modal
