@@ -1,5 +1,6 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import MapGL, { Source, Layer, NavigationControl, Popup } from "react-map-gl";
+import { useIsTouchDevice } from "../../utils/helpers";
 import { MAP_SETTINGS_DEFAULT, LAYER_STYLE_DEFAULT } from "./settings";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -25,7 +26,7 @@ export default function Map({
 }) {
   const [cursor, setCursor] = useState("grab");
   const [hoverFeature, setHoverFeature] = useState(null);
-
+  const isTouchDevice = useIsTouchDevice();
   const onMouseEnter = useCallback((e) => {
     setCursor("pointer");
     setHoverFeature(e.features[0]), [];
@@ -75,6 +76,11 @@ export default function Map({
             closeButton={false}
           >
             <PopUpHoverContent feature={hoverFeature} />
+            {isTouchDevice && (
+              <button onClick={() => setSelectedFeature(hoverFeature)}>
+                Details
+              </button>
+            )}
           </Popup>
         )}
       <NavigationControl />
