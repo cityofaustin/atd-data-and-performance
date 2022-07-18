@@ -239,8 +239,12 @@ export default function MapList({
                   }
                   centered
                 >
-                  <Modal.Header closeButton />
-                  <InfoContent />
+                  <Modal.Header closeButton>
+                    <PageTitle title={title} />
+                  </Modal.Header>
+                  <Modal.Body>
+                    <InfoContent />
+                  </Modal.Body>
                 </Modal>
               )}
             </div>
