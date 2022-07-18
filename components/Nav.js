@@ -3,7 +3,7 @@ import { Image, Nav as BsNav, Navbar, Container } from "react-bootstrap";
 import Link from "next/link";
 
 const PAGES = [
-  { label: "Data Catalog", route: "/data-catalog" },
+  { label: "Catalog", route: "/data-catalog" },
   { label: "About", route: "/about" },
 ];
 
@@ -51,7 +51,7 @@ export default function Nav({ currentPageRoute, isHome }) {
                 return (
                   <div
                     key={page.route}
-                    className={`flex-grow-1 mx-0 my-auto ${borderClass}`}
+                    className={`flex-grow-1 mx-3 my-auto ${borderClass}`}
                   >
                     <BsNav.Link
                       className={`py-0 text-primary ${fontWeightClass}`}
