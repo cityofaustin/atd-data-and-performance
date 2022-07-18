@@ -1,12 +1,12 @@
 import Card from "react-bootstrap/Card";
 import FlexyInfo from "../../FlexyInfo";
 import { shortenLocationName } from "../../../utils/helpers";
+import Thumbnail from "../../Thumbnail";
 
-export default function DetailsContent({ feature }) {
-  const src = `https://cctv.austinmobility.io/image/${feature.properties.camera_id}.jpg`;
+export default function PopUpContent({ feature }) {
   return (
     <Card className="h-100 nav-tile">
-      <Card.Img variant="top" alt="Camera thumbnail" src={src} />
+      <Thumbnail cameraId={feature.properties.camera_id} />
       <Card.Body>
         <Card.Title className="fw-bold fs-6 pb-2 border-bottom">
           {shortenLocationName(feature.properties.location_name)}
