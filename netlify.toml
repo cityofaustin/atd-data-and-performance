@@ -3,6 +3,8 @@
 # all contexts unless otherwise overridden by more specific contexts.
 [build]
   publish = "out"
-
-  # Default build command.
   command = "npm run build && npm run export"
+[[redirects]]
+from = "/radar"
+to = "/"
+status = 301
