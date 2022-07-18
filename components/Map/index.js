@@ -2,6 +2,8 @@ import { useState, useCallback } from "react";
 import MapGL, { Source, Layer, NavigationControl, Popup } from "react-map-gl";
 import { useIsTouchDevice } from "../../utils/helpers";
 import { MAP_SETTINGS_DEFAULT, LAYER_STYLE_DEFAULT } from "./settings";
+import IconLabel from "../IconLabel";
+import { FaExpand } from "react-icons/fa";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const applyCustomStyles = (layerStyles) => {
@@ -76,10 +78,15 @@ export default function Map({
             closeButton={false}
           >
             <PopUpHoverContent feature={hoverFeature} />
+
             {isTouchDevice && (
-              <button onClick={() => setSelectedFeature(hoverFeature)}>
-                Details
-              </button>
+              <div
+                className="d-flex justify-content-center bg-primary text-white p-2"
+                role="button"
+                onClick={() => setSelectedFeature(hoverFeature)}
+              >
+                <IconLabel Icon={FaExpand} label="Details" />
+              </div>
             )}
           </Popup>
         )}
