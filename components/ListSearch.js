@@ -19,6 +19,7 @@ const FilterButton = (props) => {
       {...props}
       className="filter-button-toggle"
       onClick={() => {
+        throw new Error("failblog");
         props.onClick();
         setIsExpanded(!isExpanded);
       }}
