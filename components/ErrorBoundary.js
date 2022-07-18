@@ -1,5 +1,5 @@
 import React from "react";
-
+import ErrorFallback from "../components/ErrorFallback";
 // see: https://nextjs.org/docs/advanced-features/error-handling
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -10,9 +10,9 @@ class ErrorBoundary extends React.Component {
   }
   static getDerivedStateFromError(error) {
     // Update state so the next render will show the fallback UI
-
     return { hasError: true };
   }
+
   componentDidCatch(error, errorInfo) {
     // You can use your own error logging service here
     console.log({ error, errorInfo });
@@ -20,23 +20,10 @@ class ErrorBoundary extends React.Component {
   render() {
     // Check if the error is thrown
     if (this.state.hasError) {
-      // You can render any custom fallback UI
-      console.log("HELLLOOOOO error")
-      return (
-        <div>
-          <h2>Oops, there is an error!</h2>
-          <button
-            type="button"
-            onClick={() => this.setState({ hasError: false })}
-          >
-            Try again?
-          </button>
-        </div>
-      );
+      const FallbackComponent = this.props.FallbackComponent;
+      return <FallbackComponent />;
     }
-
     // Return children components in case of no error
-
     return this.props.children;
   }
 }
