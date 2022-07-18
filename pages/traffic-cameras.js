@@ -21,36 +21,39 @@ const simplifyStatus = (status) => {
   }
 };
 
-const updateFeaturesWithCommStatus = ({ geojson, statuses }) => {
-  geojson.features.forEach((feature) => {
-    const id = parseInt(feature.properties.camera_id);
-    const statusMatch = statuses.find(
-      (status) => parseInt(status.device_id) === id
-    );
-    feature.properties.status = simplifyStatus(statusMatch?.status_desc);
-  });
-};
+const useCommStatus = ({ cameras, statuses }) =>
+  useMemo(() => {
+    if (!cameras || !statuses) {
+      return;
+    }
+    // we're updating cameras in-place, but we want to return a new reference
+    // to control loading / render state
+    cameras.features.forEach((feature) => {
+      const id = parseInt(feature.properties.camera_id);
+      const statusMatch = statuses.find(
+        (status) => parseInt(status.device_id) === id
+      );
+      feature.properties.status = simplifyStatus(statusMatch?.status_desc);
+    });
+    return cameras;
+  }, [cameras, statuses]);
 
 export default function TrafficCameras() {
-  const { data: geojson, loading, error } = useSocrata({ ...CAMERAS_QUERY });
+  const { data: cameras, error } = useSocrata({ ...CAMERAS_QUERY });
 
-  const {
-    data: statuses,
-    loading: loadingComm,
-    error: errorComm,
-  } = useSocrata({ ...CAMERA_COMM_STATUS_QUERY });
+  const { data: statuses, error: errorComm } = useSocrata({
+    ...CAMERA_COMM_STATUS_QUERY,
+  });
 
-  useMemo(() => {
-    if (loading || loadingComm || error || errorComm) return;
-    return updateFeaturesWithCommStatus({ geojson, statuses });
-  }, [geojson, statuses, loading, loadingComm, error, errorComm]);
+  const geojson = useCommStatus({ cameras, statuses });
 
+  // todo: handle errrors
   return (
     <MapList
       filterSettings={FILTER_SETTINGS}
       searchSettings={SEARCH_SETTINGS}
       geojson={geojson}
-      loading={loading || loadingComm}
+      loading={!geojson}
       error={error || errorComm}
       PopUpContent={PopUpContent}
       PopUpHoverContent={PopUpHoverContent}
