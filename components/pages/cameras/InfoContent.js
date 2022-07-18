@@ -7,7 +7,7 @@ export default function InfoContent() {
       <Col>
         <p>
           This map depicts the location and status of the Austin Transportation
-          Department's traffic cameras, which are used by the{" "}
+          Department&apos;s traffic cameras, which are used by the{" "}
           <a
             href="https://www.austintexas.gov/department/arterial-management"
             target="_blank"
@@ -20,7 +20,7 @@ export default function InfoContent() {
         </p>
         <p>
           The data that powers this map is available for download from the City
-          of Austin's{" "}
+          of Austin&apos;s{" "}
           <a
             href="https://data.austintexas.gov/Transportation-and-Mobility/Traffic-Cameras/b4k4-adkb"
             target="_blank"
