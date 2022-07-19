@@ -5,7 +5,6 @@ import { FaArrowAltCircleDown } from "react-icons/fa";
 import IconLabel from "./IconLabel";
 
 const LIST_ITEM_CHUNK_SIZE = 25;
-const MIN_FEATURE_ZOOM_TO = 14;
 
 const HiddenFeaturesItem = ({ hiddenCount, setLimit, limit }) => (
   <ListGroup.Item>
