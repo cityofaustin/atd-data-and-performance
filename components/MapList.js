@@ -15,6 +15,9 @@ import {
 } from "./../utils/helpers";
 import { FaInfoCircle } from "react-icons/fa";
 
+// minimum zoom that will be applied if a list item/feature is clicked
+const MIN_FEATURE_ZOOM_TO = 14;
+
 /**
  * Layout logic
  * - if a feature is selected (on the map or from the list):
@@ -35,7 +38,7 @@ const initialLayout = (isSmallScreen) => ({
   info: false,
 });
 
-const layoutReducer = (state, { name, value, isSmallScreen }) => {
+const layoutReducer = (state, { name, show, isSmallScreen }) => {
   if (name === "viewPortChange" && isSmallScreen) {
     // adjust for mobile - defaults to map view
     return { ...state, map: true, sidebar: false, title: false };
@@ -43,7 +46,7 @@ const layoutReducer = (state, { name, value, isSmallScreen }) => {
     // adjust for not-mobile
     return { ...state, map: true, sidebar: true, title: true };
   }
-  if (name === "showList" && value) {
+  if (name === "list" && show) {
     return {
       ...state,
       sidebar: true,
@@ -51,19 +54,19 @@ const layoutReducer = (state, { name, value, isSmallScreen }) => {
       map: false,
       info: false,
     };
-  } else if (name === "showList" && !value) {
+  } else if (name === "list" && !show) {
     return { ...state, sidebar: false, map: true, info: false };
   }
-  if (name === "showInfo" && value && !isSmallScreen) {
+  if (name === "info" && show && !isSmallScreen) {
     // on normal screen size open the info modal
     return {
       ...state,
       info: true,
     };
-  } else if (name === "showInfo" && !value && !isSmallScreen) {
+  } else if (name === "info" && !show && !isSmallScreen) {
     return { ...state, info: false };
   }
-  if (name === "showInfo" && value && isSmallScreen) {
+  if (name === "info" && show && isSmallScreen) {
     // on mobile, info content renders in sidebar (with listsearch hidden)
     return {
       ...state,
@@ -144,25 +147,24 @@ export default function MapList({
     initialLayout(isSmallScreen)
   );
 
+  /**
+   * Pan / zoom to selected feature
+   */
   useEffect(() => {
-    dispatchLayout({
-      name: "selectedFeature",
-      value: !!selectedFeature,
-      isSmallScreen,
-    });
     if (!mapRef.current || !selectedFeature) return;
     const zoom = mapRef.current.getZoom();
+    const maxZoom = zoom > MIN_FEATURE_ZOOM_TO ? zoom : MIN_FEATURE_ZOOM_TO;
     const { coordinates } = selectedFeature.geometry;
     mapRef.current.fitBounds([coordinates, coordinates], {
       padding: 100,
       duration: 1000,
-      maxZoom: zoom > 14 ? zoom : 14,
+      maxZoom: maxZoom,
       linear: true,
     });
   }, [isSmallScreen, selectedFeature]);
 
   useEffect(() => {
-    dispatchLayout({ name: "viewPortChange", value: true, isSmallScreen });
+    dispatchLayout({ name: "viewPortChange", isSmallScreen });
   }, [isSmallScreen]);
 
   useEffect(() => {
@@ -209,7 +211,7 @@ export default function MapList({
                     <PageTitle
                       title={title}
                       onClick={() =>
-                        dispatchLayout({ name: "showInfo", value: true })
+                        dispatchLayout({ name: "info", show: true })
                       }
                     />
                   </div>
@@ -252,7 +254,7 @@ export default function MapList({
                     show={true}
                     animation={false}
                     onHide={() =>
-                      dispatchLayout({ name: "showInfo", value: false })
+                      dispatchLayout({ name: "info", show: false })
                     }
                     centered
                   >

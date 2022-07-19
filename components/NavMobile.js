@@ -17,7 +17,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
               aria-current={activeTab === "map" ? "page" : ""}
               href="#"
               onClick={() => {
-                dispatchLayout({ name: "showList", value: false });
+                dispatchLayout({ name: "list", show: false });
               }}
             >
               <IconLabel label="Map" Icon={FaMapMarkerAlt} />
@@ -31,7 +31,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
               aria-current={activeTab === "sidebar" ? "page" : ""}
               href="#"
               onClick={() => {
-                dispatchLayout({ name: "showList", value: true });
+                dispatchLayout({ name: "list", show: true });
               }}
             >
               <IconLabel label="List" Icon={FaList} />
@@ -44,8 +44,8 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
               href="#"
               onClick={() => {
                 dispatchLayout({
-                  name: "showInfo",
-                  value: true,
+                  name: "info",
+                  show: true,
                   isSmallScreen: true,
                 });
               }}
