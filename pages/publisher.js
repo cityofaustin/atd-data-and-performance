@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Container";
 import Col from "react-bootstrap/Container";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+import Form from "react-bootstrap/Form";
 import JobsTable from "../components/pages/publisher/JobsTable";
 import JobModal from "../components/pages/publisher/JobModal";
 import { POSTGREST_ENDPOINT } from "../page-settings/publisher";
@@ -14,6 +15,7 @@ export default function PublisherLog() {
   const [error, setError] = useState(null);
   const loading = !error && !data;
   const [selectedJobName, setSelectedJobName] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const url = `${POSTGREST_ENDPOINT}/jobs_latest`;
@@ -49,8 +51,8 @@ export default function PublisherLog() {
             <h1>Legacy scripts publication log</h1>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row className="mb-2">
+          <Col xs={12}>
             See job schedules configuration{" "}
             <a
               href="https://github.com/cityofaustin/atd-data-deploy/blob/production/config/scripts.yml"
@@ -63,12 +65,27 @@ export default function PublisherLog() {
           </Col>
         </Row>
         <Row>
+          <Col xs="auto">
+            <Form>
+              <Form.Control
+                name="search"
+                placeholder="Search by job name"
+                type="search"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                autoFocus
+              />
+            </Form>
+          </Col>
+        </Row>
+        <Row>
           <Col>
             <JobsTable
               data={data}
               loading={loading}
               error={error}
               setSelectedJobName={setSelectedJobName}
+              searchValue={searchValue}
             />
           </Col>
         </Row>

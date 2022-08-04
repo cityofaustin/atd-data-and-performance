@@ -36,7 +36,14 @@ export default function JobsTable({
   loading,
   error,
   setSelectedJobName,
+  searchValue,
 }) {
+  let filteredData = data;
+  if (searchValue) {
+    filteredData = data.filter((job) =>
+      job.name.includes(searchValue.toLowerCase())
+    );
+  }
   return (
     <Table size="sm" striped hover responsive>
       <thead>
@@ -62,8 +69,8 @@ export default function JobsTable({
           </tr>
         )}
         {!error &&
-          data &&
-          data?.map((job) => (
+          filteredData &&
+          filteredData?.map((job) => (
             <tr
               key={job.id}
               style={{ cursor: setSelectedJobName ? "pointer" : "auto" }}
