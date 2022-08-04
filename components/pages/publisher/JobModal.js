@@ -36,7 +36,12 @@ export default function JobModal({ selectedJobName, setSelectedJobName }) {
         <span className="font-monospace">{selectedJobName}</span>
       </Modal.Header>
       <Modal.Body>
-        <JobsTable data={data} loading={loading} error={error} />
+        <JobsTable
+          data={data}
+          loading={loading}
+          error={error}
+          fieldFilter="modal"
+        />
       </Modal.Body>
     </Modal>
   );
