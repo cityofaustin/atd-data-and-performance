@@ -27,7 +27,7 @@ const statusHandler = (status) => {
   return <Badge bg={className}>{status}</Badge>;
 };
 
-const endpoint = "https://atd-postgrest.austinmobility.io/jobs_latest";
+const endpoint = "https://atd-postgrest.austinmobility.io/legacy-scripts/jobs_latest";
 
 const fields = [
   { label: "name", key: "name" },
@@ -45,8 +45,6 @@ export default function PublisherLog() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getData = async () => {};
-
     fetch(endpoint)
       .then((res) => {
         if (res.status !== 200) {
