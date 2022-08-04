@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Container";
-import Col from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Form from "react-bootstrap/Form";
@@ -15,7 +15,6 @@ export default function PublisherLog() {
   const [error, setError] = useState(null);
   const loading = !error && !data;
   const [selectedJobName, setSelectedJobName] = useState(null);
-  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const url = `${POSTGREST_ENDPOINT}/jobs_latest`;
@@ -65,27 +64,13 @@ export default function PublisherLog() {
           </Col>
         </Row>
         <Row>
-          <Col xs="auto">
-            <Form>
-              <Form.Control
-                name="search"
-                placeholder="Search by job name"
-                type="search"
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
-                autoFocus
-              />
-            </Form>
-          </Col>
-        </Row>
-        <Row>
           <Col>
             <JobsTable
               data={data}
               loading={loading}
               error={error}
               setSelectedJobName={setSelectedJobName}
-              searchValue={searchValue}
+              fieldFilter="main"
             />
           </Col>
         </Row>
