@@ -3,49 +3,21 @@ import Head from "next/head";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Container";
 import Col from "react-bootstrap/Container";
-import Table from "react-bootstrap/Table";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import Badge from "react-bootstrap/Badge";
-import Spinner from "react-bootstrap/Spinner";
-
-const dateHandler = (date) => new Date(date).toLocaleString();
-
-const getStatusClass = (status) => {
-  switch (status) {
-    case "success":
-      return "success";
-    case "error":
-      return "danger";
-    default:
-      "primary";
-  }
-};
-
-const statusHandler = (status) => {
-  const className = getStatusClass(status);
-  return <Badge bg={className}>{status}</Badge>;
-};
-
-const endpoint = "https://atd-postgrest.austinmobility.io/legacy-scripts/jobs_latest";
-
-const fields = [
-  { label: "name", key: "name" },
-  { label: "start_date", key: "start_date", handler: dateHandler },
-  { label: "end_date", key: "end_date", handler: dateHandler },
-  { label: "status", key: "status", handler: statusHandler },
-  { label: "message", key: "message" },
-  { label: "records_processed", key: "records_processed" },
-  { label: "source", key: "source" },
-  { label: "destination", key: "destination" },
-];
+import JobsTable from "../components/pages/publisher/JobsTable";
+import JobModal from "../components/pages/publisher/JobModal";
+import { POSTGREST_ENDPOINT } from "../page-settings/publisher";
 
 export default function PublisherLog() {
-  const [jobs, setJobs] = useState(null);
+  const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const loading = !error && !data;
+  const [selectedJobName, setSelectedJobName] = useState(null);
 
   useEffect(() => {
-    fetch(endpoint)
+    const url = `${POSTGREST_ENDPOINT}/jobs_latest`;
+    fetch(url)
       .then((res) => {
         if (res.status !== 200) {
           throw new Error("something went wrong :/");
@@ -53,7 +25,7 @@ export default function PublisherLog() {
         }
         return res.json();
       })
-      .then((data) => setJobs(data))
+      .then((data) => setData(data))
       .catch((error) => {
         setError(error);
       });
@@ -71,7 +43,7 @@ export default function PublisherLog() {
         />
       </Head>
       <Nav />
-      <Container>
+      <Container fluid>
         <Row>
           <Col>
             <h1>Legacy scripts publication log</h1>
@@ -79,47 +51,34 @@ export default function PublisherLog() {
         </Row>
         <Row>
           <Col>
-            <Table size="sm" striped hover>
-              <thead>
-                <tr>
-                  {fields.map((field) => (
-                    <th key={field.key}>{field.label}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {!error && !jobs && (
-                  <tr>
-                    <td colSpan={fields.length} className="text-center">
-                      <Spinner animation="border" variant="primary" />
-                    </td>
-                  </tr>
-                )}
-                {error && (
-                  <tr>
-                    <td colSpan={fields.length} className="text-center">
-                      Something went wrong :/
-                    </td>
-                  </tr>
-                )}
-                {!error &&
-                  jobs &&
-                  jobs?.map((job) => (
-                    <tr key={job.id}>
-                      {fields.map((field) => (
-                        <td key={field.key}>
-                          {field.handler
-                            ? field.handler(job[field.key])
-                            : job[field.key]}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-              </tbody>
-            </Table>
+            See job schedules configuration{" "}
+            <a
+              href="https://github.com/cityofaustin/atd-data-deploy/blob/production/config/scripts.yml"
+              target="_blank"
+              rel="noreferrer"
+            >
+              here
+            </a>
+            .
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <JobsTable
+              data={data}
+              loading={loading}
+              error={error}
+              setSelectedJobName={setSelectedJobName}
+            />
           </Col>
         </Row>
       </Container>
+      {selectedJobName && (
+        <JobModal
+          selectedJobName={selectedJobName}
+          setSelectedJobName={setSelectedJobName}
+        />
+      )}
       <Footer />
     </>
   );
