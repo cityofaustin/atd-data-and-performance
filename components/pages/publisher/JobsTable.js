@@ -1,5 +1,4 @@
 import Table from "react-bootstrap/Table";
-import Badge from "react-bootstrap/Badge";
 import Spinner from "react-bootstrap/Spinner";
 import { FIELDS } from "../../../page-settings/publisher";
 

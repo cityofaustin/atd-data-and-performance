@@ -5,7 +5,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import Form from "react-bootstrap/Form";
 import JobsTable from "../components/pages/publisher/JobsTable";
 import JobModal from "../components/pages/publisher/JobModal";
 import { POSTGREST_ENDPOINT } from "../page-settings/publisher";
