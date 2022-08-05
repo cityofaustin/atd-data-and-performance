@@ -161,6 +161,10 @@ export default function MapList({
     return <Spinner />;
   }
 
+  if (error) {
+    // todo handle errors
+    console.error(error);
+  }
   return (
     <div className="wrapper-contained">
       <Nav />
