@@ -18,7 +18,7 @@ const links = [
   },
   { label: "Privacy", href: "https://www.austintexas.gov/page/privacy-policy" },
   {
-    label: "Contact us",
+    label: "Contact",
     href: "mailto:transportation.data@austintexas.gov",
     icon: FaRegEnvelope,
   },
