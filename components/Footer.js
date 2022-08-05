@@ -2,6 +2,40 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
+import { FaRegEnvelope } from "react-icons/Fa";
+import IconLabel from "./IconLabel";
+
+const links = [
+  { label: "About", href: "https://austinmobility.io" },
+  { label: "Data", href: "https://data.austintexas.gov" },
+  {
+    label: "Disclaimer",
+    href: "https://www.austintexas.gov/page/city-austin-open-data-terms-use",
+  },
+  {
+    label: "Code",
+    href: "https://github.com/cityofaustin/atd-data-and-performance",
+  },
+  { label: "Privacy", href: "https://www.austintexas.gov/page/privacy-policy" },
+  {
+    label: "Contact us",
+    href: "mailto:transportation.data@austintexas.gov",
+    icon: FaRegEnvelope,
+  },
+];
+
+const FooterLink = ({ label, href, icon }) => (
+  <Col xs={6} md={4} className="py-1">
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="text-reset text-decoration-none footer-link"
+    >
+      {icon ? <IconLabel Icon={icon} label={label} /> : label}
+    </a>
+  </Col>
+);
 
 export default function Footer() {
   return (
@@ -32,24 +66,9 @@ export default function Footer() {
 
         <Col className="text-white fw-light">
           <Row className="align-self-center">
-            <Col xs={6} md={4} className="py-1">
-              About
-            </Col>
-            <Col xs={6} md={4} className="py-1">
-              Data
-            </Col>
-            <Col xs={6} md={4} className="py-1">
-              Disclaimer
-            </Col>
-            <Col xs={6} md={4} className="py-1">
-              Contact
-            </Col>
-            <Col xs={6} md={4} className="py-1">
-              Code
-            </Col>
-            <Col xs={6} md={4} className="py-1">
-              Privacy
-            </Col>
+            {links.map((link) => (
+              <FooterLink key={link.href} {...link} />
+            ))}
           </Row>
         </Col>
       </Row>

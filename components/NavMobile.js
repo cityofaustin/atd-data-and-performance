@@ -20,7 +20,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
                 dispatchLayout({ name: "list", show: false });
               }}
             >
-              <IconLabel label="Map" Icon={FaMapMarkerAlt} />
+              <IconLabel label="Map" Icon={FaMapMarkerAlt} centered />
             </a>
           </li>
           <li className="nav-item">
@@ -34,7 +34,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
                 dispatchLayout({ name: "list", show: true });
               }}
             >
-              <IconLabel label="List" Icon={FaList} />
+              <IconLabel label="List" Icon={FaList} centered />
             </a>
           </li>
           <li className="nav-item">
@@ -50,7 +50,7 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
                 });
               }}
             >
-              <IconLabel label="Info" Icon={FaInfoCircle} />
+              <IconLabel label="Info" Icon={FaInfoCircle} centered />
             </a>
           </li>
         </ul>

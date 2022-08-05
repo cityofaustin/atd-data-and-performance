@@ -85,7 +85,7 @@ export default function Map({
                 role="button"
                 onClick={() => setSelectedFeature(hoverFeature)}
               >
-                <IconLabel Icon={FaExpand} label="Details" />
+                <IconLabel Icon={FaExpand} label="Details" centered/>
               </div>
             )}
           </Popup>

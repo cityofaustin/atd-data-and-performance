@@ -97,6 +97,10 @@ $light: #f8f9fa; // matched bootstrap light (gray-100)
   background-color: $dts-3;
 }
 
+.footer-link:hover {
+  font-weight: bolder;
+}
+
 .mapboxgl-popup-content {
   padding: 0px !important;
 }
