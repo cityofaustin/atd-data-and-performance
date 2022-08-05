@@ -192,7 +192,7 @@ export default function MapList({
         <Nav />
         {isSmallScreen && (
           <NavMobile
-            title="Traffic cameras"
+            title={title}
             activeTab={layout.map ? "map" : layout.info ? "info" : "sidebar"}
             dispatchLayout={dispatchLayout}
           />
