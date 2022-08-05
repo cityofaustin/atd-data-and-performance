@@ -90,7 +90,7 @@ export default function Map({
             )}
           </Popup>
         )}
-      <NavigationControl />
+      <NavigationControl position="bottom-right"/>
       <Source id="my-data" type="geojson" data={geojson || { features: [] }}>
         <Layer {...applyCustomStyles(layerStyles || {})} />
       </Source>
