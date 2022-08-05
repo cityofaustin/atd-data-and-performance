@@ -9,8 +9,7 @@ export const CAMERAS_QUERY = {
     },
     {
       key: "select",
-      value:
-        "location_name,location,camera_id,screenshot_address",
+      value: "location_name,location,camera_id,screenshot_address",
     },
     {
       key: "where",
@@ -35,6 +34,17 @@ export const CAMERA_COMM_STATUS_QUERY = {
     {
       key: "where",
       value: "device_type = 'camera'",
+    },
+  ],
+};
+
+export const SIGNAL_STATUS_QUERY = {
+  resourceId: "5zpr-dehc",
+  format: "geojson",
+  args: [
+    {
+      key: "order",
+      value: "location_name asc",
     },
   ],
 };
