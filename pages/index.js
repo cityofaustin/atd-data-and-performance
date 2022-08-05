@@ -9,6 +9,19 @@ import NavTile from "../components/NavTile";
 // image size: 960 x 491px
 const cards = [
   {
+    title: "Vision Zero Viewer",
+    description:
+      "View crash data by month, year, mode, demographics, time of day, and location",
+    href: "https://visionzero.austin.gov/viewer/",
+    img: { src: "/assets/vision-zero-viewer.jpg", alt: "Vision Zero Viewer" },
+  },
+  {
+    title: "Bicycle Map",
+    description: "Our citywide map of bicycle routes",
+    href: "https://www.arcgis.com/apps/webappviewer/index.html?id=c7fecf32a2d946fabdf062285d58d40c",
+    img: { src: "/assets/bicycle-map.jpg", alt: "Bicycle map" },
+  },
+  {
     title: "Traffic Cameras",
     description: "Live images from the City's traffic cameras",
     href: "/traffic-cameras",
@@ -17,6 +30,16 @@ const cards = [
       alt: "Traffic camera thumbnail",
     },
     key: "traffic_cameras",
+  },
+  {
+    title: "Shared Mobility",
+    description:
+      "Explore ridership and travel patterns of shared mobility devices",
+    href: "https://public.ridereport.com/austin",
+    img: {
+      src: "/assets/shared-mobility.png",
+      alt: "Shared mobility dashboard",
+    },
   },
   {
     title: "Signal Evaluations",
@@ -35,37 +58,15 @@ const cards = [
   {
     title: "Signal Assets",
     description:
-      "Comprehensive map of traffic signal assets, including sensors, vehicle detectors, and school beacons.",
+      "Comprehensive map of our traffic and pedestrian signals",
     href: "https://austin.maps.arcgis.com/apps/webappviewer/index.html?id=c9bda776b1934e439285570b29d3259c",
     img: { src: "/assets/signal-assets.jpg", alt: "Signal asset map" },
   },
-  {
-    title: "Shared Mobility",
-    description:
-      "Info about signal requests where you can search and browse info.",
-    href: "https://public.ridereport.com/austin",
-    img: {
-      src: "/assets/shared-mobility.png",
-      alt: "Shared mobility dashboard",
-    },
-  },
-  {
-    title: "Vision Zero Viewer",
-    description:
-      "View crash data by month, year, mode, demographics, time of day, and location",
-    href: "https://visionzero.austin.gov/viewer/",
-    img: { src: "/assets/vision-zero-viewer.jpg", alt: "Vision Zero Viewer" },
-  },
-  {
-    title: "Bicycle Map",
-    description: "Our citywide map of bicycle routes",
-    href: "https://www.arcgis.com/apps/webappviewer/index.html?id=c7fecf32a2d946fabdf062285d58d40c",
-    img: { src: "/assets/bicycle-map.jpg", alt: "Bicycle map" },
-  },
+
   {
     title: "Data Catalog",
     description:
-      "Info about signal requests where you can search and browse info.",
+      "Browse and download the data that powers our operations",
     href: "/data-catalog",
     img: { src: "/assets/bicycle-map.jpg", alt: "Bicycle map" },
   },
