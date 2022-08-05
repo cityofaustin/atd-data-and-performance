@@ -7,6 +7,7 @@ import List from "./List";
 import Nav from "./Nav";
 import NavMobile from "./NavMobile";
 import ListSearch from "./ListSearch";
+import PageTitle from "./PageTitle";
 import Spinner from "./Spinner";
 import {
   useHiddenOverflow,
@@ -77,25 +78,6 @@ const layoutReducer = (state, { name, show, isSmallScreen }) => {
     };
   }
   return state;
-};
-
-const PageTitle = ({ title, onClick }) => {
-  return (
-    <div className="d-flex justify-content-start">
-      <span className="fs-2 fw-bold text-primary border-start border-4 my-2 ps-2">
-        {title}
-      </span>
-      {onClick && (
-        <span
-          className="text-secondary align-self-center m-2 fs-5"
-          style={{ cursor: "pointer" }}
-          onClick={onClick}
-        >
-          <FaInfoCircle />
-        </span>
-      )}
-    </div>
-  );
 };
 
 const FeatureModal = ({ selectedFeature, setSelectedFeature, children }) => (
@@ -253,9 +235,7 @@ export default function MapList({
                   <Modal
                     show={true}
                     animation={false}
-                    onHide={() =>
-                      dispatchLayout({ name: "info", show: false })
-                    }
+                    onHide={() => dispatchLayout({ name: "info", show: false })}
                     centered
                   >
                     <Modal.Header closeButton>
