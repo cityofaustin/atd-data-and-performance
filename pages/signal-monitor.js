@@ -1,3 +1,4 @@
+import Head from "next/head";
 import MapList from "../components/MapList";
 import ListItemContent from "../components/pages/signal-monitor/ListItemContent";
 import PopUpContent from "../components/pages/signal-monitor/PopUpContent";
@@ -18,23 +19,28 @@ export default function SignalMonitor() {
     error,
   } = useSocrata({ ...SIGNAL_STATUS_QUERY });
 
-  if (loading || error) {
-    return <p>Loading or error....</p>;
-  }
-
   return (
-    <MapList
-      filterSettings={FILTER_SETTINGS}
-      searchSettings={SEARCH_SETTINGS}
-      geojson={geojson}
-      loading={!geojson}
-      error={error}
-      PopUpContent={PopUpContent}
-      PopUpHoverContent={PopUpHoverContent}
-      ListItemContent={ListItemContent}
-      InfoContent={InfoContent}
-      layerStyles={LAYER_STYLES}
-      title="Signal monitor"
-    />
+    <>
+      <Head>
+        <title>Traffic signal monitor</title>
+        <meta
+          property="og:title"
+          content="Austin Transportation Data and Performance Hub"
+        />
+      </Head>
+      <MapList
+        filterSettings={FILTER_SETTINGS}
+        searchSettings={SEARCH_SETTINGS}
+        geojson={geojson}
+        loading={loading}
+        error={error}
+        PopUpContent={PopUpContent}
+        PopUpHoverContent={PopUpHoverContent}
+        ListItemContent={ListItemContent}
+        InfoContent={InfoContent}
+        layerStyles={LAYER_STYLES}
+        title="Signal monitor"
+      />
+    </>
   );
 }

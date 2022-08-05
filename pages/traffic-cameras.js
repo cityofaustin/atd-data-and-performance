@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import Head from "next/head";
 import MapList from "../components/MapList";
 import PopUpHoverContent from "../components/pages/cameras/PopUpHoverContent";
 import PopUpContent from "../components/pages/cameras/PopUpContent";
@@ -49,18 +50,27 @@ export default function TrafficCameras() {
 
   // todo: handle errrors
   return (
-    <MapList
-      filterSettings={FILTER_SETTINGS}
-      searchSettings={SEARCH_SETTINGS}
-      geojson={geojson}
-      loading={!geojson}
-      error={error || errorComm}
-      PopUpContent={PopUpContent}
-      PopUpHoverContent={PopUpHoverContent}
-      ListItemContent={ListItemContent}
-      InfoContent={InfoContent}
-      layerStyles={LAYER_STYLES}
-      title="Traffic cameras"
-    />
+    <>
+      <Head>
+        <title>Traffic cameras map</title>
+        <meta
+          property="og:title"
+          content="Austin Transportation Data and Performance Hub"
+        />
+      </Head>
+      <MapList
+        filterSettings={FILTER_SETTINGS}
+        searchSettings={SEARCH_SETTINGS}
+        geojson={geojson}
+        loading={!geojson}
+        error={error || errorComm}
+        PopUpContent={PopUpContent}
+        PopUpHoverContent={PopUpHoverContent}
+        ListItemContent={ListItemContent}
+        InfoContent={InfoContent}
+        layerStyles={LAYER_STYLES}
+        title="Traffic cameras"
+      />
+    </>
   );
 }
