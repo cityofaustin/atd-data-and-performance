@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# scratch paper
+notes.md
