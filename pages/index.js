@@ -34,7 +34,7 @@ const cards = [
   {
     title: "Shared Mobility",
     description:
-      "Explore ridership and travel patterns of shared mobility devices",
+      "Explore ridership and travel patterns of shared mobility vehicles",
     href: "https://public.ridereport.com/austin",
     img: {
       src: "/assets/shared-mobility.png",
