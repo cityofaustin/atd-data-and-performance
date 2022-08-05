@@ -9,7 +9,7 @@ const LIST_ITEM_CHUNK_SIZE = 25;
 const HiddenFeaturesItem = ({ hiddenCount, setLimit, limit }) => (
   <ListGroup.Item>
     <div className="d-flex justify-content-between align-items-center">
-      <div className="small text-muted">
+      <div className="text-muted">
         {`${hiddenCount} more items not displayed`}
       </div>
       <div className="m-auto">
@@ -25,11 +25,7 @@ const HiddenFeaturesItem = ({ hiddenCount, setLimit, limit }) => (
   </ListGroup.Item>
 );
 
-export default function List({
-  geojson,
-  setSelectedFeature,
-  ListItemContent,
-}) {
+export default function List({ geojson, setSelectedFeature, ListItemContent }) {
   const [limit, setLimit] = useState(LIST_ITEM_CHUNK_SIZE);
   return (
     <ListGroup variant="flush">
