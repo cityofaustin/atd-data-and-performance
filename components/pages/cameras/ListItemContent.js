@@ -2,7 +2,7 @@ import { shortenLocationName } from "../../../utils/helpers";
 import { FaCircle } from "react-icons/fa";
 import { COLORS } from "../../../page-settings/traffic-cameras";
 
-export default function ListItem({ feature }) {
+export default function ListItemContent({ feature }) {
   const statusColor = COLORS[feature.properties.status];
   return (
     <div className="d-flex w-100 align-items-center justify-content-between">
