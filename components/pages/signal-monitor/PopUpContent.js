@@ -14,6 +14,7 @@ const formatDuration = (feature, now) => {
 };
 
 export default function PopUpContent({ feature }) {
+  const opState = getOperationState(feature);
   const now = new Date();
   return (
     <Card className="h-100 nav-tile">
@@ -21,7 +22,7 @@ export default function PopUpContent({ feature }) {
         <Card.Title className="fw-bold fs-6 pb-2 border-bottom">
           {shortenLocationName(feature.properties.location_name)}
         </Card.Title>
-        <FlexyInfo label="Status" value={getOperationState(feature)} />
+        <FlexyInfo label="Status" value={opState.label} />
         <FlexyInfo label="Updated" value={formatDuration(feature, now)} />
       </Card.Body>
     </Card>

@@ -9,7 +9,7 @@ const COLORS = {
   lightBlue: "#578eba",
 };
 
-export const OPERATION_STATES = [
+const OPERATION_STATES = [
   {
     key: "unscheduled_flash",
     value: "2",
@@ -65,18 +65,10 @@ export const LAYER_STYLES = {
   },
 };
 
-export const getColor = (feature) => {
-  const state = OPERATION_STATES.find(
-    (opState) => feature.properties.operation_state === opState.value
-  );
-  return state?.color;
-};
-
 export const getOperationState = (feature) => {
-  const state = OPERATION_STATES.find(
+  return OPERATION_STATES.find(
     (opState) => feature.properties.operation_state === opState.value
   );
-  return state?.label;
 };
 
 export const FILTER_SETTINGS = [...OPERATION_STATES];
