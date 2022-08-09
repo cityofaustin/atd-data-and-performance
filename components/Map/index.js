@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import MapGL, { Source, Layer, NavigationControl, Popup } from "react-map-gl";
 import { useIsTouchDevice } from "../../utils/helpers";
 import { MAP_SETTINGS_DEFAULT, LAYER_STYLE_DEFAULT } from "./settings";
@@ -37,6 +37,11 @@ export default function Map({
     setCursor("grab");
     setHoverFeature(null), [];
   }, []);
+
+  const customStyles = useMemo(
+    () => applyCustomStyles(layerStyles || {}),
+    [layerStyles]
+  );
 
   return (
     <MapGL
@@ -85,14 +90,14 @@ export default function Map({
                 role="button"
                 onClick={() => setSelectedFeature(hoverFeature)}
               >
-                <IconLabel Icon={FaExpand} label="Details" centered/>
+                <IconLabel Icon={FaExpand} label="Details" centered />
               </div>
             )}
           </Popup>
         )}
-      <NavigationControl position="bottom-right"/>
+      <NavigationControl position="bottom-right" />
       <Source id="my-data" type="geojson" data={geojson || { features: [] }}>
-        <Layer {...applyCustomStyles(layerStyles || {})} />
+        <Layer {...customStyles} />
       </Source>
     </MapGL>
   );
