@@ -1,6 +1,5 @@
 import { useState, useRef, useReducer, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
-import Head from "next/head";
 import Modal from "react-bootstrap/Modal";
 import Map from "./Map";
 import List from "./List";
@@ -14,7 +13,6 @@ import {
   useCheckboxFilters,
   useSearchValue,
 } from "./../utils/helpers";
-import { FaInfoCircle } from "react-icons/fa";
 
 // minimum zoom that will be applied if a list item/feature is clicked
 const MIN_FEATURE_ZOOM_TO = 14;
