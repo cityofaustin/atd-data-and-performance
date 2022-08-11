@@ -23,7 +23,7 @@ export default function CheckboxFilters({ filters, setFilters }) {
       {filters.map((filter) => (
         <div
           key={filter.key}
-          className="d-flex flex-column align-items-center flex-shrink-0 border-bottom py-2 filter-toggle-wrapper "
+          className="d-flex flex-column align-items-between flex-shrink-0 border-bottom py-2 filter-toggle-wrapper "
           style={{ cursor: "pointer" }}
           onClick={() => onChange(filter)}
         >
