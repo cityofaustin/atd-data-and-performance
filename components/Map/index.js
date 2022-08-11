@@ -1,10 +1,17 @@
 import { useState, useCallback, useMemo } from "react";
-import MapGL, { Source, Layer, NavigationControl, Popup } from "react-map-gl";
+import MapGL, {
+  Source,
+  Layer,
+  NavigationControl,
+  Popup,
+  Marker,
+} from "react-map-gl";
 import { useIsTouchDevice } from "../../utils/helpers";
 import { MAP_SETTINGS_DEFAULT, LAYER_STYLE_DEFAULT } from "./settings";
 import IconLabel from "../IconLabel";
 import { FaExpand } from "react-icons/fa";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { FaTimes } from "react-icons/fa";
 
 const applyCustomStyles = (layerStyles) => {
   // merge paint props separately to allow individual paint overrides
@@ -42,6 +49,21 @@ export default function Map({
     () => applyCustomStyles(layerStyles || {}),
     [layerStyles]
   );
+
+  // const markers = useMemo(() => {
+  //   if (!geojson) return;
+  //   return geojson.features.map((feature) => (
+  //     <Marker
+  //       longitude={feature.geometry.coordinates[0]}
+  //       latitude={feature.geometry.coordinates[1]}
+  //       anchor="center"
+  //     >
+  //       <span className="text-white">
+  //         <FaTimes />
+  //       </span>
+  //     </Marker>
+  //   ));
+  // }, [geojson]);
 
   return (
     <MapGL
