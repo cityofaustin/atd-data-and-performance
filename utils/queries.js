@@ -55,7 +55,7 @@ export const SIGNAL_STATUS_QUERY = {
 
 
 export const SIGNAL_EVALUATIONS_QUERY = {
-  resourceId: "fnxd-mtmb",
+  resourceId: "h4cy-hpgs",
   format: "geojson",
   args: [
     {
@@ -68,11 +68,7 @@ export const SIGNAL_EVALUATIONS_QUERY = {
     },
     {
       key: "select",
-      value: "atd_location_id,location_name,location_status,council_district,location,modified_date",
-    },
-    {
-      key: "where",
-      value: "lower(location_status) in ('archived', 'ineligible', 'recently received', 'evaluated', 'study in progress', 'selected for study', 'not recommended', 'recommended (needs funding)', 'recommended (funded)')",
+      value: "atd_location_id,location_name,location_status_simple,council_district,location,modified_date,study_date,study_type",
     },
   ],
 };

@@ -1,50 +1,73 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import {
+  FaMapMarkerAlt,
+  FaArrowRight,
+  FaCalculator,
+  FaCheckSquare,
+  FaDollarSign,
+  FaTools,
+} from "react-icons/fa";
 
 export default function InfoContent() {
   return (
-    <Row>
+    <Row className="justify-content-center">
       <Col>
+        <h6>
+          <FaMapMarkerAlt className="me-1 text-secondary" /> Identification
+        </h6>
         <p>
-          This dashboard reports the operation status of traffic signals in
-          Austin, TX. Traffic signals enter flash mode when something is
-          preventing the signal from operating normally. This is typically the
-          result of a power surge, power outage, or damage to signal equipment.
-          A signal may also be intentionally placed into flash mode for
-          maintenance purposes or be scheduled to flash overnight.
+          A location is identified for posssible signalization. The location may
+          have been requested by a resident (via 311), identified by City staff,
+          or identified through the permitting process for a private
+          development.
         </p>
-        <h5>Advanced Transportation Management</h5>
+
+        <h6>
+          <FaCalculator className="me-1 text-secondary" /> Evaluation
+        </h6>
         <p>
-          All of the City&apos;s signals communicate with our Advanced Transportation
-          Management System. When these signals go on flash, they will be
-          reported on this dashboard. It also occasionally happens that the
-          event that disables a traffic signal also disables network
-          communication to the signal, in which case the signal outage will not
-          be reported here.
+          All locations undergo an evaluation process, which consists of an
+          initial assessment which considers crash history, traffic volumes,
+          pedestrian activity, equity, and other factors in the built
+          environment. A subset of these locations are selected for an
+          engineering study, in which a Professional Engineer conducts an
+          in-depth analysis of the location to determine if signalization is
+          warranted.
         </p>
-        <h5>Report an Issue</h5>
+
+        <h6>
+          <FaCheckSquare className="me-1 text-secondary" /> Recommendation
+        </h6>
         <p>
-          To report an issue or request a new traffic signal, call 3-1-1. You
-          can also{" "}
-          <a
-            href="https://austin-csrprodcwi.motorolasolutions.com/ServiceRequest.mvc/SRIntakeStep2/TRASIGNE?guid=59340171d27247fa93fe951cdaf37dcc"
-            target="_blank"
-            rel="noreferrer"
-          >
-            submit a traffic signal service request online.
-          </a>
+          The evaluation process concludes with an engineer&apos;s
+          recommendation to construct a traffic or pedestrain signal. If
+          signalization is recommended, the City may proceed to construct a
+          signal at the location.
         </p>
+
+        <h6>
+          <FaDollarSign className="me-1 text-secondary" />
+          Funding
+        </h6>
         <p>
-          The data that powers this map is available for download from the City
-          of Austin&apos;s{" "}
-          <a
-            href="https://data.austintexas.gov/Transportation-and-Mobility/Traffic-Signals-Status/5zpr-dehc"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Open Data Portal
-          </a>
-          .
+          The City funds traffic signal construction through a variety of
+          sources, including its operating budget, grants, and private
+          developers (as may be required through the development review
+          processs).
+        </p>
+
+        <h6>
+          <FaTools className="me-1 text-secondary" />
+          Construction
+        </h6>
+        <p>
+          When a location has been recommended for signalization and funding has
+          been secured, the Austin Transportation Department oversees the
+          construction of a new signal. Time to completion varies based on staff
+          resources, design constraints, as well as conflicting roadway projects
+          at the signal location. You can track the status of signal
+          construction projects with <a>this dashboard</a>.
         </p>
       </Col>
     </Row>

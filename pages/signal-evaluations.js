@@ -14,38 +14,74 @@ import {
   STATUS_DEFS,
 } from "../page-settings/signal-evaluations";
 
-const useSimpleStatuses = (locations) =>
+const locationProps = [
+  "atd_location_id",
+  "council_district",
+  "location_name",
+  "location_status_simple",
+];
+
+const useGroupByLocation = (studies) =>
   useMemo(() => {
-    if (!locations) return;
+    if (!studies) return;
 
-    locations.features.forEach((feature) => {
-      // we're updating locations in-place, but we want to return a new reference
-      // to control loading / render state
+    const locationIndex = studies.features.reduce((locationIndex, feature) => {
+      const { atd_location_id } = feature.properties;
+      if (atd_location_id && !locationIndex[atd_location_id]) {
+        const location = {
+          type: "Feature",
+          geometry: feature.geometry,
+          properties: { atd_location_id },
+        };
+        location.properties.location_name = feature.properties.location_name;
+        location.properties.location_status_simple =
+          feature.properties.location_status_simple;
+        location.properties.council_district =
+          feature.properties.council_district;
+        location.properties.location_name = feature.properties.location_name;
+        location.properties.studies = [{ ...feature.properties }];
+        locationIndex[atd_location_id] = location;
+      } else {
+        locationIndex[atd_location_id].properties.studies.push({
+          ...feature.properties,
+        });
+      }
+      return locationIndex;
+    }, {});
+    
+    const features = Object.values(locationIndex);
 
-      const status = feature.properties.location_status.toLowerCase();
-      // should never happen because the socrata dataset's source knack container excludes records with null statuses
-      if (!status) return;
-
-      const statusDefMatch = STATUS_DEFS.find((statusDef) =>
-        statusDef.location_statuses.includes(status.toLowerCase())
+    // set location modified date from most-recent study modified date
+    features.forEach((feature) => {
+      const studyDates = feature.properties.studies.map(
+        (study) => study.modified_date
       );
-
-      // should never happen - indicates a status value was modified in source Knack records
-      if (!statusDefMatch) return;
-      feature.properties.status_simple = statusDefMatch.status_simple;
+      studyDates.reverse();
+      feature.properties.modified_date = studyDates?.[0];
     });
+    return {
+      type: "FeatureCollection",
+      features: [...features],
+    };
+  }, [studies]);
 
-    return locations;
-  }, [locations]);
+const dostuff = (geojson) => {
+  if (!geojson) return;
+  const counts = geojson.features.reduce((prev, feature) => {
+    const key = feature.properties.location_status_simple;
+    prev[key] = prev[key] ? prev[key] + 1 : 1;
+    return prev;
+  }, {});
+  console.log("counts", counts);
+};
 
 export default function SignalEvaluations() {
   const {
-    data: locations,
+    data: studies,
     loading,
     error,
   } = useSocrata({ ...SIGNAL_EVALUATIONS_QUERY });
-
-  const geojson = useSimpleStatuses(locations);
+  const geojson = useGroupByLocation(studies);
 
   return (
     <>

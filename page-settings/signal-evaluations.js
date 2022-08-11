@@ -17,27 +17,9 @@ const COLORS = {
 
 export const FILTER_SETTINGS = [
   {
-    key: "Inactive",
-    value: "Inactive",
-    featureProp: "status_simple",
-    label: "Inactive",
-    checked: true,
-    color: COLORS.zero,
-    icon: FaRegTimesCircle,
-  },
-  {
-    key: "Active",
-    value: "Active",
-    featureProp: "status_simple",
-    label: "Active",
-    checked: true,
-    color: COLORS.one,
-    icon: FaSearch,
-  },
-  {
     key: "Engineering study",
     value: "Engineering study",
-    featureProp: "status_simple",
+    featureProp: "location_status_simple",
     label: "Engineering study",
     checked: true,
     color: COLORS.two,
@@ -46,7 +28,7 @@ export const FILTER_SETTINGS = [
   {
     key: "Not recommended",
     value: "Not recommended",
-    featureProp: "status_simple",
+    featureProp: "location_status_simple",
     label: "Not recommended",
     checked: true,
     color: COLORS.three,
@@ -54,8 +36,8 @@ export const FILTER_SETTINGS = [
   },
   {
     key: "Needs funding",
-    value: "Needs funding",
-    featureProp: "status_simple",
+    value: "Recommended (needs funding)",
+    featureProp: "location_status_simple",
     label: "Needs funding",
     checked: true,
     color: COLORS.four,
@@ -64,38 +46,11 @@ export const FILTER_SETTINGS = [
   {
     key: "Ready for design",
     value: "Ready for design",
-    featureProp: "status_simple",
+    featureProp: "location_status_simple",
     label: "Ready for design",
     checked: true,
     color: COLORS.five,
     icon: FaCheckCircle,
-  },
-];
-
-export const STATUS_DEFS = [
-  {
-    location_statuses: ["archived", "ineligible"],
-    status_simple: "Inactive",
-  },
-  {
-    location_statuses: ["recently received", "evaluated"],
-    status_simple: "Active",
-  },
-  {
-    location_statuses: ["study in progress", "selected for study"],
-    status_simple: "Engineering study",
-  },
-  {
-    location_statuses: ["not recommended"],
-    status_simple: "Not recommended",
-  },
-  {
-    location_statuses: ["recommended (needs funding)"],
-    status_simple: "Needs funding",
-  },
-  {
-    location_statuses: ["recommended (funded)"],
-    status_simple: "Ready for design",
   },
 ];
 
@@ -109,16 +64,12 @@ export const LAYER_STYLES = {
   paint: {
     "circle-color": [
       "match",
-      ["get", "status_simple"],
-      "Inactive",
-      COLORS.zero,
-      "Active",
-      COLORS.one,
+      ["get", "location_status_simple"],
       "Engineering study",
       COLORS.two,
       "Not recommended",
       COLORS.three,
-      "Needs funding",
+      "Recommended (needs funding)",
       COLORS.four,
       "Ready for design",
       COLORS.five,
@@ -130,6 +81,6 @@ export const LAYER_STYLES = {
 
 export const getSettings = (feature) => {
   return FILTER_SETTINGS.find(
-    (setting) => feature.properties.status_simple === setting.value
+    (setting) => feature.properties.location_status_simple === setting.value
   );
 };
