@@ -17,7 +17,7 @@ export const FILTER_SETTINGS = [
     value: "offline",
     featureProp: "status",
     label: "Offline",
-    checked: false,
+    checked: true,
     color: COLORS.offline,
   },
 ];
