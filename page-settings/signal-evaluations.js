@@ -5,7 +5,6 @@ import {
   FaCheck,
   FaCalculator,
   FaDollarSign,
-
 } from "react-icons/fa";
 
 const COLORS = {
@@ -46,7 +45,6 @@ export const FILTER_SETTINGS = [
     color: COLORS.three,
     icon: FaDollarSign,
     mapIcon: FaDollarSign,
-
   },
   {
     key: "Ready for design",
@@ -89,4 +87,11 @@ export const getSettings = (feature) => {
   return FILTER_SETTINGS.find(
     (setting) => feature.properties.location_status_simple === setting.value
   );
+};
+
+export const getMapIcon = (feature) => {
+  const setting = FILTER_SETTINGS.find(
+    (setting) => feature.properties.location_status_simple === setting.value
+  );
+  return setting.mapIcon;
 };
