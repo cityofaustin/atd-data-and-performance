@@ -64,6 +64,7 @@ export default function Map({
           latitude={feature.geometry.coordinates[1]}
           anchor="center"
           style={{ cursor: "pointer" }}
+          key={feature.properties[featurePk]}
         >
           <span className="text-white">
             <Icon style={{ marginBottom: "4px" }} />
