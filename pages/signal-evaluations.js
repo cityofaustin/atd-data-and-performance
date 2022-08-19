@@ -12,14 +12,8 @@ import {
   SEARCH_SETTINGS,
   LAYER_STYLES,
   STATUS_DEFS,
+  getMapIcon,
 } from "../page-settings/signal-evaluations";
-
-const locationProps = [
-  "atd_location_id",
-  "council_district",
-  "location_name",
-  "location_status_simple",
-];
 
 const useGroupByLocation = (studies) =>
   useMemo(() => {
@@ -104,7 +98,8 @@ export default function SignalEvaluations() {
         InfoContent={InfoContent}
         layerStyles={LAYER_STYLES}
         title="Signal evaluations"
-        hasIconMarkers={true}
+        getMapIcon={getMapIcon}
+        featurePk="atd_location_id"
       />
     </>
   );
