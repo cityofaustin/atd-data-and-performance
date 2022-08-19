@@ -20,7 +20,9 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
                 dispatchLayout({ name: "list", show: false });
               }}
             >
-              <IconLabel label="Map" Icon={FaMapMarkerAlt} centered />
+              <div className="d-flex justify-content-center">
+                <IconLabel label="Map" Icon={FaMapMarkerAlt} />
+              </div>
             </a>
           </li>
           <li className="nav-item">
@@ -34,7 +36,9 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
                 dispatchLayout({ name: "list", show: true });
               }}
             >
-              <IconLabel label="List" Icon={FaList} centered />
+              <div className="d-flex justify-content-center">
+                <IconLabel label="List" Icon={FaList} />
+              </div>
             </a>
           </li>
           <li className="nav-item">
@@ -50,7 +54,9 @@ export default function NavMobile({ title, activeTab, dispatchLayout }) {
                 });
               }}
             >
-              <IconLabel label="Info" Icon={FaInfoCircle} centered />
+              <div className="d-flex justify-content-center">
+                <IconLabel label="Info" Icon={FaInfoCircle} />
+              </div>
             </a>
           </li>
         </ul>
