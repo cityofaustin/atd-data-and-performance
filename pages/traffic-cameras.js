@@ -70,6 +70,7 @@ export default function TrafficCameras() {
         InfoContent={InfoContent}
         layerStyles={LAYER_STYLES}
         title="Traffic cameras"
+        featurePk="camera_id"
       />
     </>
   );
