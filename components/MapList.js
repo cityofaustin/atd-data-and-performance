@@ -103,7 +103,8 @@ export default function MapList({
   error,
   layerStyles,
   title,
-  hasIconMarkers
+  getMapIcon,
+  featurePk,
 }) {
   const [filters, setFilters] = useState(filterSettings);
   const [searchValue, setSearchValue] = useState("");
@@ -125,6 +126,7 @@ export default function MapList({
 
   // bootstrap `md` and lower   todo: // move to settings
   const isSmallScreen = useMediaQuery({ maxWidth: 991 });
+  useHiddenOverflow();
 
   const [layout, dispatchLayout] = useReducer(
     layoutReducer,
@@ -156,8 +158,6 @@ export default function MapList({
     // deals with the weird effects of changing/hiding the map container
     mapRef.current?.resize();
   }, [layout.map]);
-
-  useHiddenOverflow();
 
   if (loading) {
     return <Spinner />;
@@ -257,7 +257,8 @@ export default function MapList({
               PopUpHoverContent={PopUpHoverContent}
               layerStyles={layerStyles}
               isSmallScreen={isSmallScreen}
-              hasIconMarkers={hasIconMarkers}
+              getMapIcon={getMapIcon}
+              featurePk={featurePk}
             />
           </div>
 
