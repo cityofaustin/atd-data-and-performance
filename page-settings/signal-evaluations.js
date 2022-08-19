@@ -1,21 +1,31 @@
 import {
   FaRegTimesCircle,
+  FaTimes,
   FaCheckCircle,
-  FaSearch,
+  FaCheck,
   FaCalculator,
   FaDollarSign,
+
 } from "react-icons/fa";
 
 const COLORS = {
-  zero: "#ccc",
-  one: "#00441b",
-  two: "#00441b",
-  three: "#00441b",
-  four: "#00441b",
-  five: "#00441b",
+  one: "#08306b",
+  two: "#08306b",
+  three: "#14376c",
+  four: "#08306b",
 };
 
 export const FILTER_SETTINGS = [
+  {
+    key: "Not recommended",
+    value: "Not recommended",
+    featureProp: "location_status_simple",
+    label: "Not recommended",
+    checked: true,
+    color: COLORS.zero,
+    icon: FaRegTimesCircle,
+    mapIcon: FaTimes,
+  },
   {
     key: "Engineering study",
     value: "Engineering study",
@@ -24,24 +34,19 @@ export const FILTER_SETTINGS = [
     checked: true,
     color: COLORS.two,
     icon: FaCalculator,
+    mapIcon: FaCalculator,
   },
-  {
-    key: "Not recommended",
-    value: "Not recommended",
-    featureProp: "location_status_simple",
-    label: "Not recommended",
-    checked: true,
-    color: COLORS.three,
-    icon: FaRegTimesCircle,
-  },
+
   {
     key: "Needs funding",
     value: "Recommended (needs funding)",
     featureProp: "location_status_simple",
     label: "Needs funding",
     checked: true,
-    color: COLORS.four,
+    color: COLORS.three,
     icon: FaDollarSign,
+    mapIcon: FaDollarSign,
+
   },
   {
     key: "Ready for design",
@@ -51,6 +56,7 @@ export const FILTER_SETTINGS = [
     checked: true,
     color: COLORS.five,
     icon: FaCheckCircle,
+    mapIcon: FaCheck,
   },
 ];
 
@@ -65,14 +71,14 @@ export const LAYER_STYLES = {
     "circle-color": [
       "match",
       ["get", "location_status_simple"],
+      "Not recommended",
+      COLORS.one,
       "Engineering study",
       COLORS.two,
-      "Not recommended",
-      COLORS.three,
       "Recommended (needs funding)",
-      COLORS.four,
+      COLORS.three,
       "Ready for design",
-      COLORS.five,
+      COLORS.four,
       // fallback
       "#ccc",
     ],
