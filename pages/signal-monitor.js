@@ -10,6 +10,7 @@ import {
   FILTER_SETTINGS,
   SEARCH_SETTINGS,
   LAYER_STYLES,
+  getMapIcon,
 } from "../page-settings/signal-monitor";
 
 export default function SignalMonitor() {
@@ -40,6 +41,8 @@ export default function SignalMonitor() {
         InfoContent={InfoContent}
         layerStyles={LAYER_STYLES}
         title="Signal monitor"
+        getMapIcon={getMapIcon}
+        featurePk="signal_id"
       />
     </>
   );

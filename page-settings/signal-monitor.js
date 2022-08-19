@@ -1,12 +1,9 @@
 import { FaExclamationTriangle, FaClock, FaPhone } from "react-icons/fa";
 
 const COLORS = {
-  red: "#e41a1c",
-  lightRed: "#e05557",
-  orange: "#ff7f00",
-  lightOrange: "#ffa54d",
+  red: "#c41213",
+  orange: "#f29900",
   blue: "#377eb8",
-  lightBlue: "#578eba",
 };
 
 const OPERATION_STATES = [
@@ -15,7 +12,6 @@ const OPERATION_STATES = [
     value: "2",
     label: "Unscheduled flash",
     color: COLORS.red,
-    backgroundColor: COLORS.lightRed,
     featureProp: "operation_state",
     checked: true,
     icon: FaExclamationTriangle,
@@ -25,7 +21,6 @@ const OPERATION_STATES = [
     value: "1",
     label: "Scheduled flash",
     color: COLORS.orange,
-    backgroundColor: COLORS.lightOrange,
     featureProp: "operation_state",
     checked: true,
     icon: FaClock,
@@ -33,9 +28,8 @@ const OPERATION_STATES = [
   {
     key: "comm_outage",
     value: "3",
-    label: "Communication issue",
+    label: "Comm. issue",
     color: COLORS.blue,
-    backgroundColor: COLORS.lightBlue,
     featureProp: "operation_state",
     checked: true,
     icon: FaPhone,
@@ -69,6 +63,11 @@ export const getOperationState = (feature) => {
   return OPERATION_STATES.find(
     (opState) => feature.properties.operation_state === opState.value
   );
+};
+
+export const getMapIcon = (feature) => {
+  const setting = getOperationState(feature);
+  return setting.icon;
 };
 
 export const FILTER_SETTINGS = [...OPERATION_STATES];
