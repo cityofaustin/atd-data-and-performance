@@ -1,16 +1,22 @@
 import Form from "react-bootstrap/Form";
 import { FaCircle } from "react-icons/fa";
 
-const FilterLabel = ({ color, label }) => (
-  <div className="d-flex align-items-center">
-    <span className="me-1">{label}</span>
-    <span style={{ color: color }}>
-      <FaCircle />
+const FilterLabel = ({ color, label, count }) => (
+  <div className="d-flex align-items-center ms-5">
+    <FaCircle style={{ color: color }} />
+    <span className="ms-1">{label}</span>
+    <span className="ms-1 text-muted">
+      {/* <small>{`${count} record${count === 1 ? "" : "s"}`} </small> */}
+      <small>{`(${count})`} </small>
     </span>
   </div>
 );
 
-export default function CheckboxFilters({ filters, setFilters }) {
+export default function CheckboxFilters({
+  filters,
+  setFilters,
+  featureCounts,
+}) {
   const onChange = (filter) => {
     const currentFilters = [...filters];
     const thisFilter = currentFilters.find((f) => f.key == filter.key);
@@ -30,7 +36,9 @@ export default function CheckboxFilters({ filters, setFilters }) {
           {/* Check component is readyOnly b/c state is controlled by parent div handler */}
           <Form.Check
             id={filter.key}
-            label={<FilterLabel {...filter} />}
+            label={
+              <FilterLabel {...filter} count={featureCounts[filter.key]} />
+            }
             checked={filter.checked}
             style={{ cursor: "pointer", pointerEvents: "none" }}
             readOnly

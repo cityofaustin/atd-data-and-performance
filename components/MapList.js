@@ -12,6 +12,7 @@ import {
   useHiddenOverflow,
   useCheckboxFilters,
   useSearchValue,
+  useFeatureCounts,
 } from "./../utils/helpers";
 
 // minimum zoom that will be applied if a list item/feature is clicked
@@ -107,6 +108,8 @@ export default function MapList({
   const [searchValue, setSearchValue] = useState("");
   const [selectedFeature, setSelectedFeature] = useState(null);
   const mapRef = useRef();
+
+  const featureCounts = useFeatureCounts({ geojson, filters });
 
   const filteredGeosjon = useCheckboxFilters({
     geojson,
@@ -205,6 +208,7 @@ export default function MapList({
                   searchSettings={searchSettings}
                   setSelectedFeature={setSelectedFeature}
                   hasSelectedFeature={!!selectedFeature}
+                  featureCounts={featureCounts}
                 />
                 <div className="px-3" style={{ overflowY: "scroll" }}>
                   <List

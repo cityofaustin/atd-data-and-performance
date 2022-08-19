@@ -55,6 +55,22 @@ export const useCheckboxFilters = ({ geojson, filters }) =>
     return filteredGeosjon;
   }, [geojson, filters]);
 
+export const useFeatureCounts = ({ geojson, filters }) =>
+  useMemo(() => {
+    if (!geojson?.features) return;
+    return filters.reduce((counts, filter) => {
+      const key = filter.key;
+      const matchingFeatures = geojson.features.filter(
+        (feature) => filter.value === feature.properties[filter.featureProp]
+      );
+      counts[key] = matchingFeatures.length;
+      return counts;
+    }, {});
+    // we don't want to render on `filter` change—these counts are calc'd once and
+    // and only once when we have a geojson
+    // eslint-disable-next-line
+  }, [geojson]);
+
 export const useHiddenOverflow = () => {
   useEffect(() => {
     document.body.classList.add("overflow-hidden");

@@ -41,6 +41,7 @@ export default function ListSearch({
   searchSettings,
   setSelectedFeature,
   hasSelectedFeature,
+  featureCounts,
 }) {
   const handleSearchInputChange = (e) => {
     // nullify selected feature when typing in search box
@@ -51,7 +52,7 @@ export default function ListSearch({
 
   return (
     <>
-      <Navbar expand="xs" className="border-bottom border-2">
+      <Navbar expand="xs">
         <Container fluid>
           <InputGroup>
             <InputGroup.Text>
@@ -72,8 +73,15 @@ export default function ListSearch({
             )}
           </InputGroup>
           {filters && (
-            <Navbar.Collapse timeout={100}>
-              <CheckboxFilters filters={filters} setFilters={setFilters} />
+            <Navbar.Collapse
+              timeout={100}
+              className="border-bottom border-dark"
+            >
+              <CheckboxFilters
+                filters={filters}
+                setFilters={setFilters}
+                featureCounts={featureCounts}
+              />
             </Navbar.Collapse>
           )}
         </Container>
