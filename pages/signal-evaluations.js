@@ -59,16 +59,6 @@ const useGroupByLocation = (studies) =>
     };
   }, [studies]);
 
-const dostuff = (geojson) => {
-  if (!geojson) return;
-  const counts = geojson.features.reduce((prev, feature) => {
-    const key = feature.properties.location_status_simple;
-    prev[key] = prev[key] ? prev[key] + 1 : 1;
-    return prev;
-  }, {});
-  console.log("counts", counts);
-};
-
 export default function SignalEvaluations() {
   const {
     data: studies,
