@@ -71,6 +71,10 @@ export const useFeatureCounts = ({ geojson, filters }) =>
     // eslint-disable-next-line
   }, [geojson]);
 
+/**
+ * Applies overflow-hidden to the document <body> and removes it when the
+ * component unMounts
+ */
 export const useHiddenOverflow = () => {
   useEffect(() => {
     document.body.classList.add("overflow-hidden");

@@ -1,95 +1,26 @@
 import { useState, useRef, useReducer, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
+import FeatureModal from "../FeatureModal";
+import List from "../List";
+import ListSearch from "../ListSearch";
+import Map from "../Map";
 import Modal from "react-bootstrap/Modal";
-import Map from "./Map";
-import List from "./List";
-import Nav from "./Nav";
-import NavMobile from "./NavMobile";
-import ListSearch from "./ListSearch";
-import PageTitle from "./PageTitle";
-import Spinner from "./Spinner";
+import Nav from "../Nav";
+import NavMobile from "../NavMobile";
+import PageTitle from "../PageTitle";
+import Spinner from "../Spinner";
+import {
+  MIN_FEATURE_ZOOM_TO,
+  MAX_SMALL_SCREEN_WIDTH_PIXELS,
+  getInitialLayout,
+  layoutReducer,
+} from "./settings";
 import {
   useHiddenOverflow,
   useCheckboxFilters,
   useSearchValue,
   useFeatureCounts,
-} from "./../utils/helpers";
-
-// minimum zoom that will be applied if a list item/feature is clicked
-const MIN_FEATURE_ZOOM_TO = 14;
-
-/**
- * Layout logic
- * - if a feature is selected (on the map or from the list):
- *    - if on mobile: hide map, show sidebar
- *    - hide list, hide inf show details
- * - mobile only: if the map nav tab is seleted:
- *    - hide sidebar
- * * - mobile only: if the list tab is seleted:
- *    - hide map; hide info
- * whenever a feature is selected (selectedFeature is not null), the feature details
- * will render on the sidebar.
- */
-const initialLayout = (isSmallScreen) => ({
-  map: true,
-  listSearch: true,
-  sidebar: !isSmallScreen,
-  title: !isSmallScreen,
-  info: false,
-});
-
-const layoutReducer = (state, { name, show, isSmallScreen }) => {
-  if (name === "viewPortChange" && isSmallScreen) {
-    // adjust for mobile - defaults to map view
-    return { ...state, map: true, sidebar: false, title: false };
-  } else if (name === "viewPortChange" && !isSmallScreen) {
-    // adjust for not-mobile
-    return { ...state, map: true, sidebar: true, title: true };
-  }
-  if (name === "list" && show) {
-    return {
-      ...state,
-      sidebar: true,
-      listSearch: true,
-      map: false,
-      info: false,
-    };
-  } else if (name === "list" && !show) {
-    return { ...state, sidebar: false, map: true, info: false };
-  }
-  if (name === "info" && show && !isSmallScreen) {
-    // on normal screen size open the info modal
-    return {
-      ...state,
-      info: true,
-    };
-  } else if (name === "info" && !show && !isSmallScreen) {
-    return { ...state, info: false };
-  }
-  if (name === "info" && show && isSmallScreen) {
-    // on mobile, info content renders in sidebar (with listsearch hidden)
-    return {
-      ...state,
-      map: false,
-      info: true,
-      listSearch: false,
-      sidebar: true,
-    };
-  }
-  return state;
-};
-
-const FeatureModal = ({ selectedFeature, setSelectedFeature, children }) => (
-  <Modal
-    show={!!selectedFeature}
-    onHide={() => setSelectedFeature(null)}
-    animation={false}
-    centered
-  >
-    <Modal.Header closeButton />
-    {children}
-  </Modal>
-);
+} from "../../utils/helpers";
 
 export default function MapList({
   filterSettings,
@@ -113,29 +44,33 @@ export default function MapList({
 
   const featureCounts = useFeatureCounts({ geojson, filters });
 
+  // applies checkbox filter state to geojson
   const filteredGeosjon = useCheckboxFilters({
     geojson,
     filters,
   });
 
+  // applies search filter to already-checkbox-filtered geojson
   const searchedGeojson = useSearchValue({
     geojson: filteredGeosjon,
     searchValue,
     ...searchSettings,
   });
 
-  // bootstrap `md` and lower   todo: // move to settings
-  const isSmallScreen = useMediaQuery({ maxWidth: 991 });
+  const isSmallScreen = useMediaQuery({
+    maxWidth: MAX_SMALL_SCREEN_WIDTH_PIXELS,
+  });
+
+  // hids overflow on the document <body> while this component is mounted #noScrollBar
   useHiddenOverflow();
 
+  // hook which manages layout element display state
   const [layout, dispatchLayout] = useReducer(
     layoutReducer,
-    initialLayout(isSmallScreen)
+    getInitialLayout(isSmallScreen)
   );
 
-  /**
-   * Pan / zoom to selected feature
-   */
+  // triggers pan + zoom when a feature is selected from the list or map
   useEffect(() => {
     if (!mapRef.current || !selectedFeature) return;
     const zoom = mapRef.current.getZoom();
@@ -147,15 +82,16 @@ export default function MapList({
       maxZoom: maxZoom,
       linear: true,
     });
-  }, [isSmallScreen, selectedFeature]);
+  }, [selectedFeature]);
 
+  // resets the layout if viewport crosses small screen threshold
   useEffect(() => {
     dispatchLayout({ name: "viewPortChange", isSmallScreen });
   }, [isSmallScreen]);
 
+  // ensures the map canavs is always fully painted when activated
+  // deals with the weird effects of changing/hiding the map container on small screen
   useEffect(() => {
-    // ensures the map canavs is always fully painted when activated
-    // deals with the weird effects of changing/hiding the map container
     mapRef.current?.resize();
   }, [layout.map]);
 
@@ -194,7 +130,8 @@ export default function MapList({
                   />
                 </div>
               )}
-
+              {/* note the use of d-none (display: none) to hide elements. this avoids
+              laborious re-renders */}
               <div
                 className={`d-flex flex-column ${
                   (!layout.listSearch && "d-none") || ""
@@ -220,8 +157,7 @@ export default function MapList({
                   />
                 </div>
               </div>
-
-              {/* page info */}
+              {/* page info content */}
               {layout.info && isSmallScreen && (
                 <div className="px-3">
                   <PageTitle title={title} />
@@ -245,8 +181,8 @@ export default function MapList({
               )}
             </div>
           )}
-
-          {/* map container */}
+          {/* map container - note the use of d-none (display: none) to hide. this avoids
+              laborious map re-render */}
           <div className={`map-container ${layout.map ? "" : "d-none"}`}>
             <Map
               geojson={filteredGeosjon}
@@ -261,7 +197,6 @@ export default function MapList({
               featurePk={featurePk}
             />
           </div>
-
           {isSmallScreen && (
             <FeatureModal
               selectedFeature={selectedFeature}
