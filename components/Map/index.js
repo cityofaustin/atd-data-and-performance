@@ -11,10 +11,8 @@ import { MAP_SETTINGS_DEFAULT, LAYER_STYLE_DEFAULT } from "./settings";
 import IconLabel from "../IconLabel";
 import { FaExpand } from "react-icons/fa";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { FaTimes } from "react-icons/fa";
-import { getSettings } from "../../page-settings/signal-evaluations";
 
-const SHOW_MARKERS_ZOOM_LEVEL = 12;
+const SHOW_MARKERS_ZOOM_LEVEL = 13;
 
 const applyCustomStyles = (layerStyles) => {
   // merge paint props separately to allow individual paint overrides
@@ -35,7 +33,8 @@ export default function Map({
   PopUpHoverContent,
   layerStyles,
   isSmallScreen,
-  hasIconMarkers,
+  getMapIcon,
+  featurePk,
 }) {
   const [showMarkers, setShowMarkers] = useState(false);
   const [cursor, setCursor] = useState("grab");
@@ -56,10 +55,9 @@ export default function Map({
   );
 
   const markers = useMemo(() => {
-    if (!geojson || !hasIconMarkers) return;
+    if (!geojson || !getMapIcon) return;
     return geojson.features.map((feature) => {
-      const f = getSettings(feature);
-      const Icon = f.mapIcon;
+      const Icon = getMapIcon(feature);
       return (
         <Marker
           longitude={feature.geometry.coordinates[0]}
@@ -73,7 +71,7 @@ export default function Map({
         </Marker>
       );
     });
-  }, [geojson]);
+  }, [geojson, getMapIcon]);
 
   return (
     <MapGL
@@ -92,13 +90,13 @@ export default function Map({
       onZoomEnd={(e) => {
         if (
           e.viewState.zoom >= SHOW_MARKERS_ZOOM_LEVEL &&
-          hasIconMarkers &&
+          getMapIcon &&
           !showMarkers
         ) {
           setShowMarkers(true);
         } else if (
           e.viewState.zoom < SHOW_MARKERS_ZOOM_LEVEL &&
-          hasIconMarkers &&
+          getMapIcon &&
           showMarkers
         ) {
           setShowMarkers(false);
@@ -121,9 +119,10 @@ export default function Map({
           <PopUpContent feature={selectedFeature} />
         </Popup>
       )}
+      {/* todo: need primary key of layer */}
       {hoverFeature &&
-        selectedFeature?.properties.camera_id !==
-          hoverFeature.properties.camera_id && (
+        selectedFeature?.properties[featurePk] !==
+          hoverFeature.properties[featurePk] && (
           <Popup
             longitude={hoverFeature.geometry.coordinates[0]}
             latitude={hoverFeature.geometry.coordinates[1]}
