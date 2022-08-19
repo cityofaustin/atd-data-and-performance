@@ -48,7 +48,7 @@ const useGroupByLocation = (studies) =>
       }
       return locationIndex;
     }, {});
-    
+
     const features = Object.values(locationIndex);
 
     // set location modified date from most-recent study modified date
@@ -104,6 +104,7 @@ export default function SignalEvaluations() {
         InfoContent={InfoContent}
         layerStyles={LAYER_STYLES}
         title="Signal evaluations"
+        hasIconMarkers={true}
       />
     </>
   );

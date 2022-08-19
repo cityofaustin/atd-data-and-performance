@@ -103,6 +103,7 @@ export default function MapList({
   error,
   layerStyles,
   title,
+  hasIconMarkers
 }) {
   const [filters, setFilters] = useState(filterSettings);
   const [searchValue, setSearchValue] = useState("");
@@ -256,6 +257,7 @@ export default function MapList({
               PopUpHoverContent={PopUpHoverContent}
               layerStyles={layerStyles}
               isSmallScreen={isSmallScreen}
+              hasIconMarkers={hasIconMarkers}
             />
           </div>
 
