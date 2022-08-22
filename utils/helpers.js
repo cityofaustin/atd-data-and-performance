@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 
 /**
  * Shorten a Data Tracker location name, which follows < primary st / cross st (landmark) > pattern
- * by removing the (landmark)
+ * by removing the (landmark). We do this because location names are otherwise rather long
  */
 export const shortenLocationName = (str) => {
   let [name, ...rest] = str.split("(");
