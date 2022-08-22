@@ -3,8 +3,7 @@ import { Image, Nav as BsNav, Navbar, Container } from "react-bootstrap";
 import Link from "next/link";
 
 const PAGES = [
-  { label: "Catalog", route: "/data-catalog" },
-  { label: "About", route: "/about" },
+  // { label: "About", route: "/about" },
 ];
 
 export default function Nav({ currentPageRoute, isHome }) {
