@@ -1,3 +1,5 @@
+import typedefs from "../../typedefs";
+
 /**
  * minimum zoom that will be applied if a list item/feature is clicked
  */
@@ -9,19 +11,9 @@ export const MIN_FEATURE_ZOOM_TO = 14;
 export const MAX_SMALL_SCREEN_WIDTH_PIXELS = 991;
 
 /**
- * The layout state object
- * @typedef {Object} LayoutState
- * @property {boolean} map - if the map panel should render
- * @property {boolean} listSearch - if the list + search components should render in the side panel
- * @property {boolean} sidebar - if the entire side panel should render (includes title, list, and search)
- * @property {boolean} title - if the title component should render
- * @property {boolean} info - if the InfoContent component should render (in a Modal on desktop)
- */
-
-/**
  * Get initial layout state
  * @param { boolean } isSmallScreen - if layout should accomodate a small/mobile display
- * @returns { LayoutState } - the initial LayoutState
+ * @returns { typedefs.LayoutState } - the initial LayoutState
  */
 export const getInitialLayout = (isSmallScreen) => ({
   map: true,
@@ -30,22 +22,6 @@ export const getInitialLayout = (isSmallScreen) => ({
   title: !isSmallScreen,
   info: false,
 });
-
-/**
- * A LayoutEventType that is sent in a LayoutEvent
- * @typedef {"viewPortChange" | "list" | "info" } LayoutEventType - the name of the layout event
- * viewPortChange - the viewport has changed from is/is not small screen
- * list - the 'List' tab has been selected on mobile
- * info - the 'Info' tab has been selected on mobile
- */
-
-/**
- * A LayoutEvent object that is dispatched to the layoutReducer
- * @typedef {Object} LayoutEvent
- * @property {LayoutEventType} name - the name of the event
- * @property {boolean} isSmallScreen - if layout should accomodate a small/mobile display
- * @property {boolean} [show] - optional flag to indicate if the provided LayoutEventType should be shown
- */
 
 /**
  * Manages MapList layout state.
@@ -63,9 +39,9 @@ export const getInitialLayout = (isSmallScreen) => ({
  *    - if the Info tab is selected, show the side panel and render the InfoContent inside it
  *  If the viewport size changes from is/is not small screen, reset layout state
  *
- * @param { LayoutState } state - the current layout state. See `getInitialLayout` above for expected state properties.
- * @param { LayoutEvent } - the LayoutEvent object
- * @returns { LayoutState } - the updated LayoutState
+ * @param { typedefs.LayoutState } state - the current layout state. See `getInitialLayout` above for expected state properties.
+ * @param { typedefs.LayoutEvent } - the LayoutEvent object
+ * @returns { typedefs.LayoutState } - the updated LayoutState
  */
 export const layoutReducer = (state, { name, show, isSmallScreen }) => {
   if (name === "viewPortChange" && isSmallScreen) {

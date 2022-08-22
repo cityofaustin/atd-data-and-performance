@@ -1,4 +1,5 @@
 import { useState, useRef, useReducer, useEffect } from "react";
+import PropTypes from "prop-types";
 import { useMediaQuery } from "react-responsive";
 import FeatureModal from "../FeatureModal";
 import List from "../List";
@@ -21,8 +22,35 @@ import {
   useSearchValue,
   useFeatureCounts,
 } from "../../utils/helpers";
+import typedefs from "../../typedefs";
 
-export default function MapList({
+/**
+ * FilterSettings - object which defines filter behaviors
+ * @typedef {Object} MapList
+ * @property {[typedefs.FilterSetting]} filterSettings - an array of FilterSetting objects
+ * @property {[typedefs.SearchSettings]} searchSettings - a SearchSettings object
+ * @property {func} PopUpContent - a React Component that accepts a single geojson 'feature'
+ *  prop. the component will be rendered inside the map popup that apepars on feature click.
+ * @property {function} PopUpHoverContent - a React Component that accepts a single geojson 'feature'
+ *  prop. the component will be rendered inside the map popup that appears on feature hover.
+ * @property {function} ListItemContent - a React Component that accepts a single geojson 'feature'
+ *  prop. the component will be rendered for each record in the 'ListSearch' side panel.
+ * @property {object} geojson - a geojson FeatureCollection will be used as the data source for
+ * the list and map.
+ * @property {boolean} loading - if the source geojson data is loading
+ * @property {object} error - an error object returned from an SWR fetch
+ * @property {string} title - the page title
+ * * @property {object} [layerStyles] - optional Mapbox styles that should be applied to the map layer.
+ *  any styles defined here will override default style settings.
+ * @property {function} [getMapIcon] - an optional function which accepts a single geojson feature argument,
+ *  and returns a react-icon Component. if present, the `Map` component will render Icons on top
+ * of map features.
+ * @property {string} featurePk - the object property that can be used to uniquely identify a geojson
+ * feature. this property is used to avoid rendering the 'PopUpHoverContent' above an item which is
+ * currently selected.
+ */
+
+function MapList({
   filterSettings,
   searchSettings,
   PopUpContent,
@@ -210,3 +238,21 @@ export default function MapList({
     </div>
   );
 }
+
+MapList.propTypes = {
+  filterSettings: PropTypes.array,
+  searchSettings: PropTypes.object,
+  PopUpContent: PropTypes.elementType,
+  PopUpHoverContent: PropTypes.elementType,
+  ListItemContent: PropTypes.elementType,
+  InfoContent: PropTypes.elementType,
+  geojson: PropTypes.object,
+  loading: PropTypes.bool,
+  error: PropTypes.object,
+  layerStyles: PropTypes.object,
+  title: PropTypes.string,
+  getMapIcon: PropTypes.func,
+  featurePk: PropTypes.string,
+};
+
+export default MapList;
