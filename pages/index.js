@@ -49,7 +49,7 @@ const cards = [
     description: "Our signal evaluation pipeline",
     href: "/signal-evaluations",
     key: "signal_evaluations",
-    img: { src: "/assets/phb.jpg", alt: "Bicycle map" },
+    img: { src: "/assets/phb.jpg", alt: "Traffic signal image" },
   },
   {
     title: "Signal Monitor",
@@ -66,7 +66,7 @@ const cards = [
     external: true,
   },
   {
-    title: "Strategic performance dashboard",
+    title: "Strategic Performance",
     description: "Key performance indicators toward our strategic goals",
     href: "https://data.austintexas.gov/stories/s/Mobility-Dashboard/gzb5-ykym/",
     img: { src: "/assets/strategic-direction.png", alt: "Strategic direction" },
@@ -74,10 +74,11 @@ const cards = [
   },
 
   {
-    title: "Data Catalog",
+    title: "Open Data",
     description: "Browse and download the data that powers our operations",
-    href: "/data-catalog",
-    img: { src: "/assets/bicycle-map.jpg", alt: "Bicycle map" },
+    href: "https://data.austintexas.gov/browse?City-of-Austin_Department-=Austin+Transportation&limitTo=datasets",
+    img: { src: "/assets/open-data-logo.png", alt: "Open data logo" },
+    external: true,
   },
 ];
 
