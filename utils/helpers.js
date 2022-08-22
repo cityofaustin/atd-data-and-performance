@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Marker } from "react-map-gl";
-
+import {
+  LAYER_STYLE_DEFAULT,
+  INITIAL_VIEW_STATE_DEFAULT,
+} from "../components/Map/settings";
 /**
  * Shorten a Data Tracker location name, which follows < primary st / cross st (landmark) > pattern
  * by removing the (landmark). We do this because location names are otherwise rather long
@@ -114,3 +117,40 @@ export const useIconMarkers = ({ geojson, getMapIcon, featurePk }) =>
       );
     });
   }, [geojson, getMapIcon, featurePk]);
+
+export const generateNewQueryparams = ({
+  longitude: x,
+  latitude: y,
+  zoom: z,
+}) => {
+  return {
+    x: x.toFixed(6),
+    y: y.toFixed(6),
+    z: z.toFixed(2),
+  };
+};
+
+export const applyCustomStyles = (layerStyles) => {
+  // merge paint props separately to allow individual paint overrides
+  layerStyles.paint = {
+    ...LAYER_STYLE_DEFAULT.paint,
+    ...(layerStyles.paint || {}),
+  };
+  // merge any other overrides
+  return { ...LAYER_STYLE_DEFAULT, ...layerStyles };
+};
+
+export const useInitialViewState = ({ x, y, z }) =>
+  useMemo(() => {
+    if (parseFloat(x) && parseFloat(y) && parseFloat(z)) {
+      return {
+        longitude: parseFloat(x),
+        latitude: parseFloat(y),
+        zoom: parseFloat(z),
+      };
+    }
+    return INITIAL_VIEW_STATE_DEFAULT;
+    // we only need this to run once, and to boot MapGL will ignore the prop
+    // after initialization
+    // eslint-disable-next-line
+  }, []);
