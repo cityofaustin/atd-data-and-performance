@@ -59,7 +59,7 @@ export default function ListSearch({
               <BsSearch />
             </InputGroup.Text>
             <Form.Control
-              name={searchSettings.label}
+              name="search"
               type="search"
               placeholder={searchSettings.placeholder}
               onChange={handleSearchInputChange}
