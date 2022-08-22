@@ -38,7 +38,6 @@ const OPERATION_STATES = [
 
 export const SEARCH_SETTINGS = {
   featureProp: "location_name",
-  label: "Search",
   placeholder: "Search by location...",
 };
 

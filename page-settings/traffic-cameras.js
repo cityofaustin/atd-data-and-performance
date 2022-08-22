@@ -24,7 +24,6 @@ export const FILTER_SETTINGS = [
 
 export const SEARCH_SETTINGS = {
   featureProp: "location_name",
-  label: "Search",
   placeholder: "Search by location...",
 };
 
