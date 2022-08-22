@@ -72,7 +72,7 @@ export default function Map({
         </Marker>
       );
     });
-  }, [geojson, getMapIcon]);
+  }, [geojson, getMapIcon, featurePk]);
 
   return (
     <MapGL
