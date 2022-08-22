@@ -3,7 +3,7 @@ import Row from "react-bootstrap/Row";
 import { FaMapMarkerAlt, FaList, FaInfoCircle } from "react-icons/fa";
 import IconLabel from "./IconLabel";
 
-export default function NavMobile({ title, activeTab, dispatchLayout }) {
+export default function MapListMobileNav({ title, activeTab, dispatchLayout }) {
   return (
     <Container
       fluid

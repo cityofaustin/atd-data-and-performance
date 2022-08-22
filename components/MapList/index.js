@@ -6,7 +6,7 @@ import ListSearch from "../ListSearch";
 import Map from "../Map";
 import Modal from "react-bootstrap/Modal";
 import Nav from "../Nav";
-import NavMobile from "../NavMobile";
+import MapListMobileNav from "../MapListMobileNav";
 import PageTitle from "../PageTitle";
 import Spinner from "../Spinner";
 import {
@@ -107,7 +107,7 @@ export default function MapList({
     <div className="wrapper-contained">
       <Nav />
       {isSmallScreen && (
-        <NavMobile
+        <MapListMobileNav
           title={title}
           activeTab={layout.map ? "map" : layout.info ? "info" : "sidebar"}
           dispatchLayout={dispatchLayout}
