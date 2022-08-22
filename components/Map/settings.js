@@ -17,7 +17,7 @@ export const LAYER_STYLE_DEFAULT = {
   },
 };
 
-export const DEFAULT_INITIAL_VIEW_STATE = {
+export const INITIAL_VIEW_STATE_DEFAUL = {
   latitude: 30.28,
   longitude: -97.74,
   zoom: 11,

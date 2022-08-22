@@ -8,7 +8,11 @@ import MapGL, {
   Marker,
 } from "react-map-gl";
 import { useIsTouchDevice, useIconMarkers } from "../../utils/helpers";
-import { MAP_SETTINGS_DEFAULT, LAYER_STYLE_DEFAULT } from "./settings";
+import {
+  MAP_SETTINGS_DEFAULT,
+  LAYER_STYLE_DEFAULT,
+  INITIAL_VIEW_STATE_DEFAUL,
+} from "./settings";
 import IconLabel from "../IconLabel";
 import { FaExpand } from "react-icons/fa";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -25,6 +29,29 @@ const applyCustomStyles = (layerStyles) => {
   return { ...LAYER_STYLE_DEFAULT, ...layerStyles };
 };
 
+const useInitialViewState = ({ x, y, z }) =>
+  useMemo(() => {
+    if (parseFloat(x) && parseFloat(y) && parseFloat(z)) {
+      return {
+        longitude: parseFloat(x),
+        latitude: parseFloat(y),
+        zoom: parseFloat(z),
+      };
+    }
+    return INITIAL_VIEW_STATE_DEFAUL;
+    // we only need this to run once, and to boot MapGL will ignore the prop
+    // after initialization
+    // eslint-disable-next-line
+  }, []);
+
+const generateNewQueryparams = ({ longitude: x, latitude: y, zoom: z }) => {
+  return {
+    x: x.toFixed(6),
+    y: y.toFixed(6),
+    z: z.toFixed(2),
+  };
+};
+
 export default function Map({
   geojson,
   mapRef,
@@ -37,25 +64,51 @@ export default function Map({
   getMapIcon,
   featurePk,
 }) {
-  const [showMarkers, setShowMarkers] = useState(false);
+  const router = useRouter();
   const [cursor, setCursor] = useState("grab");
   const [hoverFeature, setHoverFeature] = useState(null);
   const isTouchDevice = useIsTouchDevice();
-  const onMouseEnter = useCallback((e) => {
-    setCursor("pointer");
-    setHoverFeature(e.features[0]), [];
-  }, []);
-  const onMouseLeave = useCallback(() => {
-    setCursor("grab");
-    setHoverFeature(null), [];
-  }, []);
 
   const customStyles = useMemo(
     () => applyCustomStyles(layerStyles || {}),
     [layerStyles]
   );
-
+  const initialViewState = useInitialViewState(router.query);
+  const [showMarkers, setShowMarkers] = useState(
+    initialViewState.zoom >= SHOW_MARKERS_ZOOM_LEVEL
+  );
   const markers = useIconMarkers({ geojson, getMapIcon, featurePk });
+
+  const onMouseEnter = useCallback((e) => {
+    setCursor("pointer");
+    setHoverFeature(e.features[0]), [];
+  }, []);
+
+  const onMouseLeave = useCallback(() => {
+    setCursor("grab");
+    setHoverFeature(null), [];
+  }, []);
+
+  const onZoomEnd = useCallback(
+    (e) => {
+      const qparams = generateNewQueryparams(e.viewState);
+      router.replace({ pathname: router.pathname, query: qparams });
+      if (
+        e.viewState.zoom >= SHOW_MARKERS_ZOOM_LEVEL &&
+        getMapIcon &&
+        !showMarkers
+      ) {
+        setShowMarkers(true);
+      } else if (
+        e.viewState.zoom < SHOW_MARKERS_ZOOM_LEVEL &&
+        getMapIcon &&
+        showMarkers
+      ) {
+        setShowMarkers(false);
+      }
+    },
+    [showMarkers, getMapIcon, router]
+  );
 
   return (
     <MapGL
@@ -71,22 +124,9 @@ export default function Map({
           setSelectedFeature(null);
         }
       }}
-      onZoomEnd={(e) => {
-        if (
-          e.viewState.zoom >= SHOW_MARKERS_ZOOM_LEVEL &&
-          getMapIcon &&
-          !showMarkers
-        ) {
-          setShowMarkers(true);
-        } else if (
-          e.viewState.zoom < SHOW_MARKERS_ZOOM_LEVEL &&
-          getMapIcon &&
-          showMarkers
-        ) {
-          setShowMarkers(false);
-        }
-      }}
+      onZoomEnd={onZoomEnd}
       cursor={cursor}
+      initialViewState={initialViewState}
       {...MAP_SETTINGS_DEFAULT}
     >
       {selectedFeature && !isSmallScreen && (
