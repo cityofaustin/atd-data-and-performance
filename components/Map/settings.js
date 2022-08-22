@@ -1,3 +1,8 @@
+export const SHOW_MARKERS_ZOOM_LEVEL = 12;
+
+/**
+ * Mapbox layer style. See https://docs.mapbox.com/mapbox-gl-js/style-spec/
+ */
 export const LAYER_STYLE_DEFAULT = {
   id: "points",
   type: "circle",
@@ -17,12 +22,15 @@ export const LAYER_STYLE_DEFAULT = {
   },
 };
 
-export const INITIAL_VIEW_STATE_DEFAUL = {
+export const INITIAL_VIEW_STATE_DEFAULT = {
   latitude: 30.28,
   longitude: -97.74,
   zoom: 11,
 };
 
+/**
+ * See: https://docs.mapbox.com/mapbox-gl-js/api/map/#map-parameters
+ */
 export const MAP_SETTINGS_DEFAULT = {
   maxZoom: 20,
   touchPitch: false,

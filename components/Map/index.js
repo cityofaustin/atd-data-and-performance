@@ -1,56 +1,17 @@
 import { useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/router";
-import MapGL, {
-  Source,
-  Layer,
-  NavigationControl,
-  Popup,
-  Marker,
-} from "react-map-gl";
-import { useIsTouchDevice, useIconMarkers } from "../../utils/helpers";
+import MapGL, { Source, Layer, NavigationControl, Popup } from "react-map-gl";
 import {
-  MAP_SETTINGS_DEFAULT,
-  LAYER_STYLE_DEFAULT,
-  INITIAL_VIEW_STATE_DEFAUL,
-} from "./settings";
+  useIsTouchDevice,
+  useIconMarkers,
+  generateNewQueryparams,
+  applyCustomStyles,
+  useInitialViewState,
+} from "../../utils/helpers";
+import { MAP_SETTINGS_DEFAULT, SHOW_MARKERS_ZOOM_LEVEL } from "./settings";
 import IconLabel from "../IconLabel";
 import { FaExpand } from "react-icons/fa";
 import "mapbox-gl/dist/mapbox-gl.css";
-
-const SHOW_MARKERS_ZOOM_LEVEL = 13;
-
-const applyCustomStyles = (layerStyles) => {
-  // merge paint props separately to allow individual paint overrides
-  layerStyles.paint = {
-    ...LAYER_STYLE_DEFAULT.paint,
-    ...(layerStyles.paint || {}),
-  };
-  // merge any other overrides
-  return { ...LAYER_STYLE_DEFAULT, ...layerStyles };
-};
-
-const useInitialViewState = ({ x, y, z }) =>
-  useMemo(() => {
-    if (parseFloat(x) && parseFloat(y) && parseFloat(z)) {
-      return {
-        longitude: parseFloat(x),
-        latitude: parseFloat(y),
-        zoom: parseFloat(z),
-      };
-    }
-    return INITIAL_VIEW_STATE_DEFAUL;
-    // we only need this to run once, and to boot MapGL will ignore the prop
-    // after initialization
-    // eslint-disable-next-line
-  }, []);
-
-const generateNewQueryparams = ({ longitude: x, latitude: y, zoom: z }) => {
-  return {
-    x: x.toFixed(6),
-    y: y.toFixed(6),
-    z: z.toFixed(2),
-  };
-};
 
 export default function Map({
   geojson,
