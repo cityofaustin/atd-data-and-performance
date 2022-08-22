@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
+import { useRouter } from "next/router";
 import MapGL, {
   Source,
   Layer,
@@ -6,7 +7,7 @@ import MapGL, {
   Popup,
   Marker,
 } from "react-map-gl";
-import { useIsTouchDevice } from "../../utils/helpers";
+import { useIsTouchDevice, useIconMarkers } from "../../utils/helpers";
 import { MAP_SETTINGS_DEFAULT, LAYER_STYLE_DEFAULT } from "./settings";
 import IconLabel from "../IconLabel";
 import { FaExpand } from "react-icons/fa";
@@ -54,25 +55,7 @@ export default function Map({
     [layerStyles]
   );
 
-  const markers = useMemo(() => {
-    if (!geojson || !getMapIcon) return;
-    return geojson.features.map((feature) => {
-      const Icon = getMapIcon(feature);
-      return (
-        <Marker
-          longitude={feature.geometry.coordinates[0]}
-          latitude={feature.geometry.coordinates[1]}
-          anchor="center"
-          style={{ cursor: "pointer" }}
-          key={feature.properties[featurePk]}
-        >
-          <span className="text-white">
-            <Icon style={{ marginBottom: "4px" }} />
-          </span>
-        </Marker>
-      );
-    });
-  }, [geojson, getMapIcon, featurePk]);
+  const markers = useIconMarkers({ geojson, getMapIcon, featurePk });
 
   return (
     <MapGL

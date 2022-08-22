@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Marker } from "react-map-gl";
 
 /**
  * Shorten a Data Tracker location name, which follows < primary st / cross st (landmark) > pattern
@@ -92,3 +93,24 @@ export const useIsTouchDevice = () => {
   }, []);
   return isTouchDevice;
 };
+
+export const useIconMarkers = ({ geojson, getMapIcon, featurePk }) =>
+  useMemo(() => {
+    if (!geojson || !getMapIcon) return;
+    return geojson.features.map((feature) => {
+      const Icon = getMapIcon(feature);
+      return (
+        <Marker
+          longitude={feature.geometry.coordinates[0]}
+          latitude={feature.geometry.coordinates[1]}
+          anchor="center"
+          style={{ cursor: "pointer" }}
+          key={feature.properties[featurePk]}
+        >
+          <span className="text-white">
+            <Icon style={{ marginBottom: "4px" }} />
+          </span>
+        </Marker>
+      );
+    });
+  }, [geojson, getMapIcon, featurePk]);

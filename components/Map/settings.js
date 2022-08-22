@@ -17,12 +17,13 @@ export const LAYER_STYLE_DEFAULT = {
   },
 };
 
+export const DEFAULT_INITIAL_VIEW_STATE = {
+  latitude: 30.28,
+  longitude: -97.74,
+  zoom: 11,
+};
+
 export const MAP_SETTINGS_DEFAULT = {
-  initialViewState: {
-    latitude: 30.28,
-    longitude: -97.74,
-    zoom: 11,
-  },
   maxZoom: 20,
   touchPitch: false,
   dragRotate: false,
