@@ -7,12 +7,14 @@ import NavTile from "../components/NavTile";
 import PageHead from "../components/PageHead";
 import PAGES from "../page-settings/home";
 
+const DESCRIPTION = "Dashboards and public datasets curated by the City of Austin Transportation Department";
+
 export default function Home() {
   return (
     <>
       <PageHead
         title="Austin Transportation Data and Performance Hub"
-        description="Dashboards and public datasets curated by the City of Austin Transportation Department"
+        description={DESCRIPTION}
         pageRoute="/"
         imageRoute=""
       />
@@ -27,8 +29,7 @@ export default function Home() {
           <Row className="mb-2 border-bottom">
             <Col xs={12} className="text-center">
               <p className="text-muted">
-                Dashboards and public datasets curated by the Austin
-                Transportation Department
+               {DESCRIPTION}
               </p>
             </Col>
           </Row>
