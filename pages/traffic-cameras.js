@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import Head from "next/head";
+import PageHead from "../components/PageHead";
 import MapList from "../components/MapList";
 import PopUpHoverContent from "../components/pages/cameras/PopUpHoverContent";
 import PopUpContent from "../components/pages/cameras/PopUpContent";
@@ -51,13 +51,12 @@ export default function TrafficCameras() {
   // todo: handle errrors
   return (
     <>
-      <Head>
-        <title>Traffic cameras map</title>
-        <meta
-          property="og:title"
-          content="Austin Transportation Data and Performance Hub"
-        />
-      </Head>
+      <PageHead
+        title="Traffic cameras"
+        description="Live images from the City of Austin's traffic cameras"
+        pageRoute="traffic-cameras"
+        imageRoute="assets/traffic-cameras.jpg"
+      />
       <MapList
         filterSettings={FILTER_SETTINGS}
         searchSettings={SEARCH_SETTINGS}

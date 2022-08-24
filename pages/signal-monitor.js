@@ -1,4 +1,4 @@
-import Head from "next/head";
+import PageHead from "../components/PageHead";
 import MapList from "../components/MapList";
 import ListItemContent from "../components/pages/signal-monitor/ListItemContent";
 import PopUpContent from "../components/pages/signal-monitor/PopUpContent";
@@ -22,13 +22,12 @@ export default function SignalMonitor() {
 
   return (
     <>
-      <Head>
-        <title>Traffic signal monitor</title>
-        <meta
-          property="og:title"
-          content="Austin Transportation Data and Performance Hub"
-        />
-      </Head>
+      <PageHead
+        title="Traffic signal monitor"
+        description="Real-time traffic signal monitoring"
+        pageRoute="signal-monitor"
+        imageRoute="assets/signal-monitor.jpg"
+      />
       <MapList
         filterSettings={FILTER_SETTINGS}
         searchSettings={SEARCH_SETTINGS}
