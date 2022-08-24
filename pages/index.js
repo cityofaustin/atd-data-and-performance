@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,14 +10,12 @@ import PAGES from "../page-settings/home";
 export default function Home() {
   return (
     <>
-      <Head>
-        <PageHead
-          title="Austin Transportation Data and Performance Hub"
-          description="Dashboards and public datasets curated by the City of Austin Transportation Department"
-          pageRoute="/"
-          imageRoute=""
-        />
-      </Head>
+      <PageHead
+        title="Austin Transportation Data and Performance Hub"
+        description="Dashboards and public datasets curated by the City of Austin Transportation Department"
+        pageRoute="/"
+        imageRoute=""
+      />
       <div className="wrapper">
         <Nav isHome />
         <Container className="main">
