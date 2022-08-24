@@ -27,8 +27,7 @@ export default function PopUpContent({ feature }) {
   const Icon = settings.icon;
   const now = new Date();
   // feature.properties.studies could be a string if a map feature was clicked
-  // or an object if the list was clicked
-
+  // or an object if the list was clicked. b/c mapbox stringifies nested props
   const studies = handleStudies(feature.properties.studies);
 
   return (
