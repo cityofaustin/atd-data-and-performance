@@ -31,7 +31,7 @@ export default function SignalEvaluations() {
         title="Traffic signal evaluations"
         description="The description"
         pageRoute="signal-evaliations"
-        imageUrl="/assets/phb.jpg"
+        imageRoute="assets/phb.jpg"
       />
       <MapList
         filterSettings={FILTER_SETTINGS}
