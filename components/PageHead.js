@@ -13,9 +13,9 @@ const PageHead = ({ description, title, imageUrl, pageRoute }) => {
       <meta name="description" content={description} />
       <meta name="viewport" content="width=device-width" />
       {/* <!-- Google / Search Engine Tags --> */}
-      <meta itemprop="name" content={title} />
-      <meta itemprop="description" content={description} />
-      <meta itemprop="image" content={imageUrl} />
+      <meta itemProp="name" content={title} />
+      <meta itemProp="description" content={description} />
+      <meta itemProp="image" content={imageUrl} />
       {/* <!-- Facebook Meta Tags --> */}
       <meta property="og:url" content={`${BASE_SITE_URL}/${pageRoute}`} />
       <meta property="og:type" content="website" />
