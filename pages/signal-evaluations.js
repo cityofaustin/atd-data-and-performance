@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-import Head from "next/head";
 import MapList from "../components/MapList";
 import ListItemContent from "../components/pages/signal-evaluations/ListItemContent";
 import PopUpContent from "../components/pages/signal-evaluations/PopUpContent";
@@ -14,7 +12,11 @@ import {
   useGroupByLocation,
   getMapIcon,
 } from "../page-settings/signal-evaluations";
+import PageHead from "../components/PageHead";
 
+/**
+ * Dashboard that displays traffic signal evaluations
+ */
 export default function SignalEvaluations() {
   const {
     data: studies,
@@ -25,13 +27,12 @@ export default function SignalEvaluations() {
 
   return (
     <>
-      <Head>
-        <title>Traffic signal evaluations</title>
-        <meta
-          property="og:title"
-          content="Austin Transportation Data and Performance Hub"
-        />
-      </Head>
+      <PageHead
+        title="Traffic signal evaluations"
+        description="The description"
+        pageRoute="signal-evaliations"
+        imageUrl="/assets/phb.jpg"
+      />
       <MapList
         filterSettings={FILTER_SETTINGS}
         searchSettings={SEARCH_SETTINGS}
