@@ -11,53 +11,9 @@ import {
   FILTER_SETTINGS,
   SEARCH_SETTINGS,
   LAYER_STYLES,
-  STATUS_DEFS,
+  useGroupByLocation,
   getMapIcon,
 } from "../page-settings/signal-evaluations";
-
-const useGroupByLocation = (studies) =>
-  useMemo(() => {
-    if (!studies) return;
-
-    const locationIndex = studies.features.reduce((locationIndex, feature) => {
-      const { atd_location_id } = feature.properties;
-      if (atd_location_id && !locationIndex[atd_location_id]) {
-        const location = {
-          type: "Feature",
-          geometry: feature.geometry,
-          properties: { atd_location_id },
-        };
-        location.properties.location_name = feature.properties.location_name;
-        location.properties.location_status_simple =
-          feature.properties.location_status_simple;
-        location.properties.council_district =
-          feature.properties.council_district;
-        location.properties.location_name = feature.properties.location_name;
-        location.properties.studies = [{ ...feature.properties }];
-        locationIndex[atd_location_id] = location;
-      } else {
-        locationIndex[atd_location_id].properties.studies.push({
-          ...feature.properties,
-        });
-      }
-      return locationIndex;
-    }, {});
-
-    const features = Object.values(locationIndex);
-
-    // set location modified date from most-recent study modified date
-    features.forEach((feature) => {
-      const studyDates = feature.properties.studies.map(
-        (study) => study.modified_date
-      );
-      studyDates.reverse();
-      feature.properties.modified_date = studyDates?.[0];
-    });
-    return {
-      type: "FeatureCollection",
-      features: [...features],
-    };
-  }, [studies]);
 
 export default function SignalEvaluations() {
   const {
