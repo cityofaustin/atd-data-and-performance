@@ -34,7 +34,6 @@ export default function TrafficCameras() {
 
   const geojson = useCommStatus({ cameras, statuses });
 
-  // todo: handle errrors
   return (
     <>
       <PageHead

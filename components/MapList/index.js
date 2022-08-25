@@ -127,10 +127,11 @@ function MapList({
     return <Spinner />;
   }
 
-  if (error) {
-    // todo handle errors
+  if (error || !geojson) {
+    // thrown errors will catch with error fallback
     console.error(error);
   }
+
   return (
     <div className="wrapper-contained">
       <Nav />
