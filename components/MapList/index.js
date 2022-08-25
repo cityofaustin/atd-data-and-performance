@@ -25,7 +25,7 @@ import {
 import typedefs from "../../typedefs";
 
 /**
- * FilterSettings - object which defines filter behaviors
+ * MapList - customizeable Map + List component
  * @typedef {Object} MapList
  * @property {[typedefs.FilterSetting]} filterSettings - an array of FilterSetting objects
  * @property {[typedefs.SearchSettings]} searchSettings - a SearchSettings object
