@@ -35,7 +35,6 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 ## Configuring a new `MapList`
 
 The `MapList` is a configureable dashboard component that provides a linked list and map view. It is designed to work well on mobile/touch devices, and can be customized to many data display needs. See `components/MapList.js` for props documentation.
-```
 
 This image illustrates how the MapList props affect the layout:
 
