@@ -1,8 +1,9 @@
 /**
- * FilterSettings - defines checkbox filter behavior
+ * FilterSetting - defines checkbox filter behavior
  * @typedef {Object} FilterSetting
  * @property {string} key - the unique name of this filter. must be unique to sibling
  *  FilterSetting's
+ * @property {string} label - the human-friendly label which will be displayed to users
  * @property {string} featureProp - the object property name that be used to access data
  *  to evaluate this filter condition
  * @property {boolean} checked - if the filter is enabled
