@@ -40,8 +40,8 @@ export default function TrafficCameras() {
       <PageHead
         title="Traffic cameras"
         description="Live images from the City of Austin's traffic cameras"
-        pageRoute="traffic-cameras"
-        imageRoute="assets/traffic-cameras.jpg"
+        pageRoute="/traffic-cameras"
+        imageRoute="/assets/traffic-cameras.jpg"
       />
       <MapList
         filterSettings={FILTER_SETTINGS}

@@ -17,18 +17,18 @@ const PageHead = ({ description, title, imageRoute, pageRoute }) => {
       {/* <!-- Google / Search Engine Tags --> */}
       <meta itemProp="name" content={title} />
       <meta itemProp="description" content={description} />
-      <meta itemProp="image" content={`${BASE_SITE_URL}/${imageRoute}`} />
+      <meta itemProp="image" content={`${BASE_SITE_URL}${imageRoute}`} />
       {/* <!-- Facebook Meta Tags --> */}
-      <meta property="og:url" content={`${BASE_SITE_URL}/${pageRoute}`} />
+      <meta property="og:url" content={`${BASE_SITE_URL}${pageRoute}`} />
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={`${BASE_SITE_URL}/${imageRoute}`} />
+      <meta property="og:image" content={`${BASE_SITE_URL}${imageRoute}`} />
       {/* <!-- Twitter Meta Tags --> */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={`${BASE_SITE_URL}/${imageRoute}`} />
+      <meta name="twitter:image" content={`${BASE_SITE_URL}${imageRoute}`} />
     </Head>
   );
 };

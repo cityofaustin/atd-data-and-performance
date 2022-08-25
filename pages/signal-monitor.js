@@ -25,8 +25,8 @@ export default function SignalMonitor() {
       <PageHead
         title="Traffic signal monitor"
         description="Real-time traffic signal monitoring"
-        pageRoute="signal-monitor"
-        imageRoute="assets/signal-monitor.jpg"
+        pageRoute="/signal-monitor"
+        imageRoute="/assets/signal-monitor.jpg"
       />
       <MapList
         filterSettings={FILTER_SETTINGS}

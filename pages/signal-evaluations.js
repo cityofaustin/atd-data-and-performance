@@ -30,8 +30,8 @@ export default function SignalEvaluations() {
       <PageHead
         title="Traffic signal evaluations"
         description="The description"
-        pageRoute="signal-evaluations"
-        imageRoute="assets/phb.jpg"
+        pageRoute="/signal-evaluations"
+        imageRoute="/assets/phb.jpg"
       />
       <MapList
         filterSettings={FILTER_SETTINGS}

@@ -9,6 +9,11 @@ import JobsTable from "../components/pages/publisher/JobsTable";
 import JobModal from "../components/pages/publisher/JobModal";
 import { POSTGREST_ENDPOINT } from "../page-settings/publisher";
 
+/**
+ * This page dispalys the ETL status of our legacy scripts. They are
+ * configured here: https://github.com/cityofaustin/atd-data-deploy/blob/production/config/scripts.yml
+ * and served from atd-postgres: https://github.com/cityofaustin/atd-postgrest
+ */
 export default function PublisherLog() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);

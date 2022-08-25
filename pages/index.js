@@ -17,7 +17,7 @@ export default function Home() {
         title="Austin Transportation Data and Performance Hub"
         description={DESCRIPTION}
         pageRoute="/"
-        imageRoute=""
+        imageRoute="/home-thumbnail.jpg"
       />
       <div className="wrapper">
         <Nav isHome />
