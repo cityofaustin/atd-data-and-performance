@@ -4,6 +4,7 @@ import {
   LAYER_STYLE_DEFAULT,
   INITIAL_VIEW_STATE_DEFAULT,
 } from "../components/Map/settings";
+
 /**
  * Shorten a Data Tracker location name, which follows < primary st / cross st (landmark) > pattern
  * by removing the (landmark). We do this because location names are otherwise rather long
@@ -21,7 +22,7 @@ const stringIncludesCaseInsensitive = (str, val) => {
 };
 
 /**
- * Custom hook that that applies search value
+ * Custom hook that that applies search value to a FeatureCollection
  **/
 export const useSearchValue = ({ geojson, searchValue, featureProp }) =>
   useMemo(() => {
@@ -37,14 +38,13 @@ export const useSearchValue = ({ geojson, searchValue, featureProp }) =>
   }, [geojson, searchValue, featureProp]);
 
 /**
- * Custom hook that that applies checkbox filters
+ * Custom hook that that applies checkbox filters to a FeatureCollection
  **/
 export const useCheckboxFilters = ({ geojson, filters }) =>
   useMemo(() => {
     if (!geojson?.features) return;
     const filteredGeosjon = { type: "FeatureCollection", features: [] };
     const currentCheckedFilters = filters?.filter((f) => f.checked);
-
     // apply checkbox filters if any exist and are checked
     if (currentCheckedFilters && currentCheckedFilters.length > 0) {
       filteredGeosjon.features = geojson.features.filter((feature) => {
@@ -59,6 +59,12 @@ export const useCheckboxFilters = ({ geojson, filters }) =>
     return filteredGeosjon;
   }, [geojson, filters]);
 
+/**
+ * Custom hooks that counts the number of features matching each filter
+ * @param { object } geojson - a geojson FeatureCollection
+ * @param { [object]} filters - an array of FilterSetting objects
+ * @returns { object} - An object with one prop per filter in the format { filter.key: count }
+ */
 export const useFeatureCounts = ({ geojson, filters }) =>
   useMemo(() => {
     if (!geojson?.features) return;
@@ -86,6 +92,11 @@ export const useHiddenOverflow = () => {
   }, []);
 };
 
+/**
+ * Hook which determines if the user's device is touch-enabled. Used
+ * to control rendering of popup events on touch
+ * @returns {bool} - if the device is touch-enabled
+ */
 export const useIsTouchDevice = () => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   useEffect(() => {
@@ -97,6 +108,17 @@ export const useIsTouchDevice = () => {
   return isTouchDevice;
 };
 
+/**
+ * Generates MapGL icon <Markers> which will be overlayed on top of map features.
+ *
+ * If no `getMapIcon` is supplied, no markers will be created
+ * @param {object} geojson - a geojson FeatureCollection
+ * @param {function} getMapIcon - a function that accepts a single geojson feature and
+ *   returns a react-icon Icon.
+ * @param {string} featurePk - the name of the property that uniquely identifies each
+ *   geojson feature
+ * @returns  { [Marker] } an array of MapGl Marker components
+ */
 export const useIconMarkers = ({ geojson, getMapIcon, featurePk }) =>
   useMemo(() => {
     if (!geojson || !getMapIcon) return;
@@ -118,6 +140,10 @@ export const useIconMarkers = ({ geojson, getMapIcon, featurePk }) =>
     });
   }, [geojson, getMapIcon, featurePk]);
 
+/**
+ * Converts a MapGL `viewstate` object into an { x, y, z} object that can be sent
+ *   to the browser's URL query.
+ */
 export const generateNewQueryparams = ({
   longitude: x,
   latitude: y,
@@ -130,6 +156,11 @@ export const generateNewQueryparams = ({
   };
 };
 
+/**
+ * Merges custom layer styles into default settings
+ * @param {object} layerStyles - a mapbox layer spec object
+ * @returns {object} - a mapbox layer spec object
+ */
 export const applyCustomStyles = (layerStyles) => {
   // merge paint props separately to allow individual paint overrides
   layerStyles.paint = {
@@ -140,6 +171,10 @@ export const applyCustomStyles = (layerStyles) => {
   return { ...LAYER_STYLE_DEFAULT, ...layerStyles };
 };
 
+/**
+ * Hook provides a map's initial view state (ie map center + zoom )
+ * Used to optionally handle viewstate data in URL query params
+ */
 export const useInitialViewState = ({ x, y, z }) =>
   useMemo(() => {
     if (parseFloat(x) && parseFloat(y) && parseFloat(z)) {
@@ -150,7 +185,9 @@ export const useInitialViewState = ({ x, y, z }) =>
       };
     }
     return INITIAL_VIEW_STATE_DEFAULT;
-    // we only need this to run once, and to boot MapGL will ignore the prop
-    // after initialization
+    /**
+     * we only need this to run once, and, to boot, MapGL will ignore the prop
+     * after initialization
+     */
     // eslint-disable-next-line
   }, []);
