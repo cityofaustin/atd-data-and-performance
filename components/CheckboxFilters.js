@@ -1,16 +1,19 @@
 import Form from "react-bootstrap/Form";
 import { FaCircle } from "react-icons/fa";
 
-const FilterLabel = ({ color, label, count }) => (
-  <div className="d-flex align-items-center ms-5">
-    <FaCircle style={{ color: color }} />
-    <span className="ms-1">{label}</span>
-    <span className="ms-1 text-muted">
-      {/* <small>{`${count} record${count === 1 ? "" : "s"}`} </small> */}
-      <small>{`(${count})`} </small>
-    </span>
-  </div>
-);
+const FilterLabel = ({ color, label, count, icon }) => {
+  // render a custom icon if provided
+  const Icon = icon || FaCircle;
+  return (
+    <div className="d-flex align-items-center ms-5">
+      <Icon style={{ color: color }} />
+      <span className="ms-1">{label}</span>
+      <span className="ms-1 text-muted">
+        <small>{`(${count})`} </small>
+      </span>
+    </div>
+  );
+};
 
 export default function CheckboxFilters({
   filters,

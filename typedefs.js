@@ -1,11 +1,20 @@
 /**
  * FilterSettings - defines checkbox filter behavior
  * @typedef {Object} FilterSetting
- * @property {string} key - the unique name of this filter. must be unique to sibling FilterSetting's
- * @property {string} featureProp - the object property name that be used to access data to evaluate this filter condition
+ * @property {string} key - the unique name of this filter. must be unique to sibling
+ *  FilterSetting's
+ * @property {string} featureProp - the object property name that be used to access data
+ *  to evaluate this filter condition
  * @property {boolean} checked - if the filter is enabled
- * @property {any} value - the value of the filter. When record[<featureProp>] has this value, the record will pass the filter condition
- * @property {string} color - a valid CSS color string which will be used to color this filter UI element
+ * @property {any} value - the value of the filter. When record[<featureProp>] has this
+ *  value, the record will pass the filter condition
+ * @property {string} color - a valid CSS color string which will be used to color this
+ *  filter UI element
+ * @property {function} [icon] - an optional react-icons Icon component that will be
+ *  rendered in the CheckBoxFilters component.
+ * @property {function} [mapIcon] - an optional react-icons Icon component that will be
+ *  rendered on top of map features. Must be used in combination with the `getMapIcon`
+ *  prop of the MapList component.
  */
 
 /**
