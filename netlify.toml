@@ -8,3 +8,31 @@
 from = "/radar"
 to = "/"
 status = 301
+
+from = "/signals-on-flash"
+to = "/signal-monitor"
+status = 301
+
+from = "/signal-projects"
+to = "/"
+status = 301
+
+from = "/signal-timing"
+to = "/"
+status = 301
+
+from = "/device-status"
+to = "/traffic-cameras"
+status = 301
+
+from = "/ops-overview"
+to = "/"
+status = 301
+
+from = "/ops-map"
+to = "/"
+status = 301
+
+from = "/open-data"
+to = "https://data.austintexas.gov/browse?City-of-Austin_Department-=Austin+Transportation&limitTo=datasets"
+status = 301
