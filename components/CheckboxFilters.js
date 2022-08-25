@@ -1,20 +1,14 @@
 import Form from "react-bootstrap/Form";
-import { FaCircle } from "react-icons/fa";
+import FilterLabel from "./FilterLabel";
+import typedefs from "../typedefs";
 
-const FilterLabel = ({ color, label, count, icon }) => {
-  // render a custom icon if provided
-  const Icon = icon || FaCircle;
-  return (
-    <div className="d-flex align-items-center ms-5">
-      <Icon style={{ color: color }} />
-      <span className="ms-1">{label}</span>
-      <span className="ms-1 text-muted">
-        <small>{`(${count})`} </small>
-      </span>
-    </div>
-  );
-};
-
+/**
+ * Filter component which controls which map + list features are rendered
+ * @param {[typedefs.FilterSetting]} filters - an array of FilterSetting objects
+ * @param {function} setFilters - function which updates the state of filters
+ * @param {object} featureCounts - an objects which holds counts of features matching
+ *   each filter key.
+ */
 export default function CheckboxFilters({
   filters,
   setFilters,
