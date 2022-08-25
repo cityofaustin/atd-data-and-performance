@@ -2,7 +2,27 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
+import { FaRegEnvelope } from "react-icons/fa";
 import IconLabel from "./IconLabel";
+
+export const LINKS = [
+  { label: "About", href: "https://austinmobility.io" },
+  { label: "Data", href: "https://data.austintexas.gov" },
+  {
+    label: "Disclaimer",
+    href: "https://www.austintexas.gov/page/city-austin-open-data-terms-use",
+  },
+  {
+    label: "Code",
+    href: "https://github.com/cityofaustin/atd-data-and-performance",
+  },
+  { label: "Privacy", href: "https://www.austintexas.gov/page/privacy-policy" },
+  {
+    label: "Contact",
+    href: "mailto:transportation.data@austintexas.gov",
+    icon: FaRegEnvelope,
+  },
+];
 
 const FooterLink = ({ label, href, icon }) => (
   <Col xs={6} md={4} className="py-1">
@@ -46,7 +66,7 @@ export default function Footer({ links }) {
 
         <Col className="text-white fw-light">
           <Row className="align-self-center">
-            {links.map((link) => (
+            {LINKS.map((link) => (
               <FooterLink key={link.href} {...link} />
             ))}
           </Row>

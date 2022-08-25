@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import NavTile from "../components/NavTile";
 import PageHead from "../components/PageHead";
-import { PAGES, FOOTER_LINKS } from "../page-settings/home";
+import { PAGES } from "../page-settings/home";
 
 const DESCRIPTION =
   "Dashboards and public datasets curated by the City of Austin Transportation Department";
@@ -46,7 +46,7 @@ export default function Home() {
             ))}
           </Row>
         </Container>
-        <Footer links={FOOTER_LINKS} />
+        <Footer />
       </div>
     </>
   );

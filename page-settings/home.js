@@ -1,5 +1,3 @@
-import { FaRegEnvelope } from "react-icons/fa";
-
 // image size: 960 x 491px
 export const PAGES = [
   {
@@ -73,24 +71,5 @@ export const PAGES = [
     href: "https://data.austintexas.gov/browse?City-of-Austin_Department-=Austin+Transportation&limitTo=datasets",
     img: { src: "/assets/open-data-logo.png", alt: "Open data logo" },
     external: true,
-  },
-];
-
-export const FOOTER_LINKS = [
-  { label: "About", href: "https://austinmobility.io" },
-  { label: "Data", href: "https://data.austintexas.gov" },
-  {
-    label: "Disclaimer",
-    href: "https://www.austintexas.gov/page/city-austin-open-data-terms-use",
-  },
-  {
-    label: "Code",
-    href: "https://github.com/cityofaustin/atd-data-and-performance",
-  },
-  { label: "Privacy", href: "https://www.austintexas.gov/page/privacy-policy" },
-  {
-    label: "Contact",
-    href: "mailto:transportation.data@austintexas.gov",
-    icon: FaRegEnvelope,
   },
 ];
