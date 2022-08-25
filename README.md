@@ -7,6 +7,7 @@ This repo houses code for the [ATD Data & Performance Hub](https://data.mobility
 - [Get it running](#get-it-running)
 - [Configuring a new `MapList`](#configuring-a-new-maplist)
   - [Props overview](#props-overview)
+- [Deployment & CI](#deployment--ci)
 
 ## Get it running
 
@@ -60,3 +61,7 @@ See `components/MapList.js` for complete props documentation. The `MapList` can 
 
 This image illustrates how these props affect the layout:
 ![MapList props visual](docs/mapList.png)
+
+## Deployment & CI
+
+The production site is hosted by Netlify. Any merge to the `production` branch will trigger a new build. Deploy previews will be generated for any non-production branch.
