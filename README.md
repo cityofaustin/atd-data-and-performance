@@ -6,7 +6,6 @@ This repo houses code for the [ATD Data & Performance Hub](https://data.mobility
 
 - [Get it running](#get-it-running)
 - [Configuring a new `MapList`](#configuring-a-new-maplist)
-  - [Props overview](#props-overview)
 - [Deployment & CI](#deployment--ci)
 
 ## Get it running
@@ -35,31 +34,11 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 ## Configuring a new `MapList`
 
-The `MapList` is a configureable dashboard component that provides a linked list and map view. It is designed to work well on mobile/touch devices, and can be customized to many data display needs.
-
-### Props overview
-
-See `components/MapList.js` for complete props documentation. The `MapList` can be constructed like so:
-
-```javascript
-<MapList
-  filterSettings={FILTER_SETTINGS}
-  getMapIcon={getMapIcon}
-  geojson={geojson}
-  error={error}
-  featurePk="signal_id"
-  loading={loading}
-  ListItemContent={ListItemContent}
-  InfoContent={InfoContent}
-  layerStyles={LAYER_STYLES}
-  PopUpContent={PopUpContent}
-  PopUpHoverContent={PopUpHoverContent}
-  searchSettings={SEARCH_SETTINGS}
-  title="Signal monitor"
-/>
+The `MapList` is a configureable dashboard component that provides a linked list and map view. It is designed to work well on mobile/touch devices, and can be customized to many data display needs. See `components/MapList.js` for props documentation.
 ```
 
-This image illustrates how these props affect the layout:
+This image illustrates how the MapList props affect the layout:
+
 ![MapList props visual](docs/mapList.png)
 
 ## Deployment & CI
