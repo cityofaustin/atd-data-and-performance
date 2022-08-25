@@ -6,7 +6,7 @@ import { Spinner as BsSpinner } from "react-bootstrap";
 export default function Spinner() {
   return (
     <div
-      style={{ position: "absolute", top: "40%", left: "0px", right: "0px" }}
+      style={{ position: "absolute", top: "25%", left: "0px", right: "0px" }}
       className="d-flex justify-content-center"
     >
       <BsSpinner className="text-secondary" animation="border" role="status" />

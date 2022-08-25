@@ -7,31 +7,7 @@ import Container from "react-bootstrap/Container";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { BsSearch } from "react-icons/bs";
 import CheckboxFilters from "./CheckboxFilters";
-
-/**
- * A styled button for the filter toggle. All props are passed to the
- * react-bootstrap Button component
- **/
-const FilterButton = (props) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  return (
-    <Button
-      {...props}
-      className="filter-button-toggle"
-      onClick={() => {
-        props.onClick();
-        setIsExpanded(!isExpanded);
-      }}
-    >
-      <div className="d-flex flex-column align-items-center">
-        <div className="d-flex align-items-center">
-          <span className="me-1">Filter</span>
-          {!isExpanded ? <FaCaretDown /> : <FaCaretUp />}
-        </div>
-      </div>
-    </Button>
-  );
-};
+import FilterToggle from "./FilterToggle";
 
 export default function ListSearch({
   filters,
@@ -67,7 +43,7 @@ export default function ListSearch({
             />
             {filters && (
               <Navbar.Toggle
-                as={FilterButton}
+                as={FilterToggle}
                 aria-controls="map-filter-menu-toggle"
               />
             )}

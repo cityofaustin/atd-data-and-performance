@@ -3,7 +3,11 @@ import Row from "react-bootstrap/Row";
 import { FaMapMarkerAlt, FaList, FaInfoCircle } from "react-icons/fa";
 import IconLabel from "./IconLabel";
 
-export default function MapListMobileNav({ title, activeTab, dispatchLayout }) {
+/**
+ * Tab navigation component for toggling between list / view / info on
+ * small displays
+ */
+export default function MapListMobileNav({ activeTab, dispatchLayout }) {
   return (
     <Container
       fluid
@@ -13,7 +17,9 @@ export default function MapListMobileNav({ title, activeTab, dispatchLayout }) {
         <ul className="nav nav-pills nav-fill px-0">
           <li className="nav-item mobile-nav-item">
             <a
-              className={`mobile-nav-pills nav-link ${(activeTab === "map" && "active") || ""}`}
+              className={`mobile-nav-pills nav-link ${
+                (activeTab === "map" && "active") || ""
+              }`}
               aria-current={activeTab === "map" ? "page" : ""}
               href="#"
               onClick={() => {

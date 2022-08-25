@@ -2,10 +2,6 @@ import React from "react";
 import { Image, Nav as BsNav, Navbar, Container } from "react-bootstrap";
 import Link from "next/link";
 
-const PAGES = [
-  // { label: "About", route: "/about" },
-];
-
 export default function Nav({ isHome }) {
   return (
     <>

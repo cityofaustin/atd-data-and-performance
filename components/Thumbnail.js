@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import Image from "react-bootstrap/Image";
-import Spinner from "react-bootstrap/Spinner";
 
+const CCTV_IMAGE_BASE_URL = `https://cctv.austinmobility.io/image`;
+
+/**
+ * A stateful image component for fetching traffic camera images
+ * @param {string} cameraId - the camera's ID
+ */
 export default function Thumbnail({ cameraId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const src = `https://cctv.austinmobility.io/image/${cameraId}.jpg`;
+  const src = `${CCTV_IMAGE_BASE_URL}/${cameraId}.jpg`;
 
   useEffect(() => {
     setLoading(true);
