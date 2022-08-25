@@ -44,7 +44,7 @@ import typedefs from "../../typedefs";
  *  any styles defined here will override default style settings.
  * @property {function} [getMapIcon] - an optional function which accepts a single geojson feature argument,
  *  and returns a react-icon Component. if present, the `Map` component will render Icons on top
- * of map features.
+ * of map features. If present, the FilterSettings object must include a `mapIcon` property.
  * @property {string} featurePk - the object property that can be used to uniquely identify a geojson
  * feature. this property is used to avoid rendering the 'PopUpHoverContent' above an item which is
  * currently selected.
