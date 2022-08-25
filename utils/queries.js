@@ -18,11 +18,23 @@ export const CAMERAS_QUERY = {
   ],
 };
 
+/**
+ * This query fetches the most recent 3k status records from our device status dataset:
+ * https://data.austintexas.gov/Transportation-and-Mobility/Traffic-Signal-Network-Device-Status-Log/pj7k-98z2
+ *
+ * This query somewhat lazily fetches the most recent 3k camera status records by date
+ * descending. There are currently ~1,500 cameras, so we will have multiple status
+ * records per camera. A more sophisticated implementation would add an intermediary
+ * step of first fetching from this dataset the most recent date for which we have
+ * camera statuses, then using that value to query these statuses for the given
+ * date. That would entail using a custom hook which dynamically sets the `where`
+ * clause of this query.
+ */
 export const CAMERA_COMM_STATUS_QUERY = {
   resourceId: "pj7k-98z2",
   format: "json",
   args: [
-    { key: "limit", value: "999999" },
+    { key: "limit", value: "3000" },
     {
       key: "order",
       value: "timestamp desc",
@@ -53,7 +65,6 @@ export const SIGNAL_STATUS_QUERY = {
   ],
 };
 
-
 export const SIGNAL_EVALUATIONS_QUERY = {
   resourceId: "h4cy-hpgs",
   format: "geojson",
@@ -68,7 +79,8 @@ export const SIGNAL_EVALUATIONS_QUERY = {
     },
     {
       key: "select",
-      value: "atd_location_id,location_name,location_status_simple,council_district,location,modified_date,study_date,study_type",
+      value:
+        "atd_location_id,location_name,location_status_simple,council_district,location,modified_date,study_date,study_type",
     },
   ],
 };
