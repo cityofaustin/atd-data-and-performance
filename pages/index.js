@@ -5,9 +5,10 @@ import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import NavTile from "../components/NavTile";
 import PageHead from "../components/PageHead";
-import PAGES from "../page-settings/home";
+import { PAGES, FOOTER_LINKS } from "../page-settings/home";
 
-const DESCRIPTION = "Dashboards and public datasets curated by the City of Austin Transportation Department";
+const DESCRIPTION =
+  "Dashboards and public datasets curated by the City of Austin Transportation Department";
 
 export default function Home() {
   return (
@@ -28,9 +29,7 @@ export default function Home() {
           </Row>
           <Row className="mb-2 border-bottom">
             <Col xs={12} className="text-center">
-              <p className="text-muted">
-               {DESCRIPTION}
-              </p>
+              <p className="text-muted">{DESCRIPTION}</p>
             </Col>
           </Row>
           <Row className="text-dts-4 mb-4">
@@ -47,7 +46,7 @@ export default function Home() {
             ))}
           </Row>
         </Container>
-        <Footer />
+        <Footer links={FOOTER_LINKS} />
       </div>
     </>
   );

@@ -1,5 +1,7 @@
+import { FaRegEnvelope } from "react-icons/fa";
+
 // image size: 960 x 491px
-const PAGES = [
+export const PAGES = [
   {
     title: "Vision Zero Viewer",
     description:
@@ -74,4 +76,21 @@ const PAGES = [
   },
 ];
 
-export default PAGES;
+export const FOOTER_LINKS = [
+  { label: "About", href: "https://austinmobility.io" },
+  { label: "Data", href: "https://data.austintexas.gov" },
+  {
+    label: "Disclaimer",
+    href: "https://www.austintexas.gov/page/city-austin-open-data-terms-use",
+  },
+  {
+    label: "Code",
+    href: "https://github.com/cityofaustin/atd-data-and-performance",
+  },
+  { label: "Privacy", href: "https://www.austintexas.gov/page/privacy-policy" },
+  {
+    label: "Contact",
+    href: "mailto:transportation.data@austintexas.gov",
+    icon: FaRegEnvelope,
+  },
+];

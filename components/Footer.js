@@ -2,27 +2,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-import { FaRegEnvelope } from "react-icons/fa";
 import IconLabel from "./IconLabel";
-
-const links = [
-  { label: "About", href: "https://austinmobility.io" },
-  { label: "Data", href: "https://data.austintexas.gov" },
-  {
-    label: "Disclaimer",
-    href: "https://www.austintexas.gov/page/city-austin-open-data-terms-use",
-  },
-  {
-    label: "Code",
-    href: "https://github.com/cityofaustin/atd-data-and-performance",
-  },
-  { label: "Privacy", href: "https://www.austintexas.gov/page/privacy-policy" },
-  {
-    label: "Contact",
-    href: "mailto:transportation.data@austintexas.gov",
-    icon: FaRegEnvelope,
-  },
-];
 
 const FooterLink = ({ label, href, icon }) => (
   <Col xs={6} md={4} className="py-1">
@@ -37,7 +17,7 @@ const FooterLink = ({ label, href, icon }) => (
   </Col>
 );
 
-export default function Footer() {
+export default function Footer({ links }) {
   return (
     <Container fluid className="footer mt-5 p-5">
       <Row className="align-items-center">
