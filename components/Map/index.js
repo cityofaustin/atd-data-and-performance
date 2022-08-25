@@ -104,7 +104,6 @@ export default function Map({
           <PopUpContent feature={selectedFeature} />
         </Popup>
       )}
-      {/* todo: need primary key of layer */}
       {hoverFeature &&
         selectedFeature?.properties[featurePk] !==
           hoverFeature.properties[featurePk] && (
