@@ -50,6 +50,10 @@ $light: #f8f9fa; // matched bootstrap light (gray-100)
   flex-direction: column;
 }
 
+.mobile-nav-item {
+  --bs-nav-pills-border-radius: 0px;
+}
+
 .wrapper-contained {
   height: 100vh;
   display: flex;

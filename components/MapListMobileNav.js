@@ -11,9 +11,9 @@ export default function MapListMobileNav({ title, activeTab, dispatchLayout }) {
     >
       <Row>
         <ul className="nav nav-pills nav-fill px-0">
-          <li className="nav-item">
+          <li className="nav-item mobile-nav-item">
             <a
-              className={`nav-link ${(activeTab === "map" && "active") || ""}`}
+              className={`mobile-nav-pills nav-link ${(activeTab === "map" && "active") || ""}`}
               aria-current={activeTab === "map" ? "page" : ""}
               href="#"
               onClick={() => {
@@ -25,7 +25,7 @@ export default function MapListMobileNav({ title, activeTab, dispatchLayout }) {
               </div>
             </a>
           </li>
-          <li className="nav-item">
+          <li className="nav-item mobile-nav-item">
             <a
               className={`nav-link ${
                 (activeTab === "sidebar" && "active") || ""
@@ -41,7 +41,7 @@ export default function MapListMobileNav({ title, activeTab, dispatchLayout }) {
               </div>
             </a>
           </li>
-          <li className="nav-item">
+          <li className="nav-item mobile-nav-item">
             <a
               className={`nav-link ${(activeTab === "info" && "active") || ""}`}
               aria-current={activeTab === "info" ? "page" : ""}
