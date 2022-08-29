@@ -33,8 +33,8 @@ export const PAGES = [
     img: {
       src: "/assets/shared-mobility.png",
       alt: "Shared mobility dashboard",
-      external: true,
     },
+    external: true,
   },
   {
     title: "Signal Evaluations",
