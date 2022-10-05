@@ -1,0 +1,96 @@
+// theme color
+$dts-0: #0b3e79;
+$dts-3: #162b4c;
+$nav-shadow: #d5d5d5;
+$muted: #6c757d; // matches bootstrap muted (gray-600)
+$light: #f8f9fa; // matched bootstrap light (gray-100)
+
+// theme overrides
+$primary: $dts-0;
+$body-color: $dts-3;
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.nav-shadow {
+  box-shadow: 0px 3px 6px $nav-shadow;
+  z-index: 3;
+}
+
+.nav-tile {
+  cursor: pointer;
+  height: 100%;
+  border: 0.5px solid rgba(213, 213, 213, 0.4) !important;
+  box-shadow: 0px 3px 6px $nav-shadow;
+}
+
+.nav-tile:hover {
+  box-shadow: 0px 7px 10px $nav-shadow;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav-item {
+  --bs-nav-pills-border-radius: 0px;
+}
+
+.wrapper-contained {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.main-row {
+  display: flex;
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  flex: 1;
+  box-shadow: 0 0.5em 1.5em gray;
+  z-index: 4;
+}
+
+.map-container {
+  flex: 1;
+}
+
+.filter-button-toggle {
+  color: #fff !important;
+  font-size: 1em;
+  background-color: $primary !important;
+}
+
+.filter-toggle-wrapper:hover {
+  background-color: $light;
+}
+
+.footer {
+  background-color: $dts-3;
+}
+
+.footer-link:hover {
+  font-weight: bolder;
+}
+
+.mapboxgl-popup-content {
+  padding: 0px !important;
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";

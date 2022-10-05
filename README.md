@@ -1,56 +1,45 @@
-# Austin Transportation Data and Performance Hub
+# ATD Data & Performance Hub <!-- omit in toc -->
 
-This repository houses the City of Austin Transportation Department's Data and Performance Hub, a public website which tracks the department's operational performance and curates access to key datasets.
+This repo houses code for the [ATD Data & Performance Hub](https://data.mobility.austin.gov/). It is a [NextJS](https://nextjs.org/) app that relies heavily on [open data APIs](https://data.austintexas.gov/).
 
-This site is hosted at [data.mobility.austin.gov](https://data.mobility.austin.gov/) and uses [Jekyll](https://jekyllrb.com/), [Webpack](https://webpack.js.org/) and [Netlify](https://pages.github.com/) to create static pages.
+## Contents <!-- omit in toc -->
 
-Much of the content on the site is generated in-browser using [D3js](http://d3js.org), [jQuery](https://jquery.com/), and [React](https://reactjs.org/) to visualize data from the [City of Austin Open Data Portal](http://data.austintexas.gov).
+- [Get it running](#get-it-running)
+- [Configuring a new `MapList`](#configuring-a-new-maplist)
+- [Deployment & CI](#deployment--ci)
 
-## Quick Start
+## Get it running
 
-1.  Install [Git](https://git-scm.com/) and [Jekyll](https://jekyllrb.com/).
+Activate your node environment
 
-    - You may need to install Bundler v2. Do that with the command `gem install bundler` then `bundle install` to update your gems. Go [here](https://bundler.io/v2.0/guides/bundler_2_upgrade.html#what-happens-if-my-application-needs-bundler-2-but-i-only-have-bundler-1-installed) for more info.
+```shell
+$ nvm use
+```
 
-2.  `cd` to the directory where you want to check-out the site, and clone it (`git clone https://github.com/cityofaustin/atd-data-and-performance`)
+Install dependencies
 
-3.  `cd` to the directory that contains the cloned repository, and run `jekyll serve` to start the webserver
+```shell
+$ npm install
+```
 
-4.  Navigate to http://localhost:4000 in your browser to view the site hosted-locally
+Start the development server
 
-### Optional Advanced Javascript
+```shell
+$ npm run dev
+```
 
-If you will be working on any data dashboards that utilize Javascript ES6+ and/or React.js, we have a build setup for transpiling modern JS into a cross-compatible bundle.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-1.  run `npm install` to download and install javascript dependencies from package.json
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-2.  run `webpack --watch`. As files are modified, a new bundle will be automatically generated.
+## Configuring a new `MapList`
 
-3.  (optional) Inspect webpack.config.js and create a new entry to start a new bundle.
+The `MapList` is a configureable dashboard component that provides a linked list and map view. It is designed to work well on mobile/touch devices, and can be customized to many data display needs. See `components/MapList.js` for props documentation.
 
-#### TL;DR
+This image illustrates how the MapList props affect the layout:
 
-1. run `jekyll serve --watch` in one Terminal
-2. run `webpack --watch` in a separate Terminal
+![MapList props visual](docs/mapList.png)
 
-Webpack will watch for changes to your source javascript/react files and output a new bundle. Jekyll will watch for new bundles and regenerate all the static assets.
+## Deployment & CI
 
-## Environments
-
-### Production
-
-- **URL:** [transportation.austintexas.io](http://transportation.austintexas.io)
-
-- **GitHub Branch:** `master`
-
-- **Deployment:** Commit changes to branch `test` and submit a pull request to merge to master
-
-## Contributing
-
-Public contributions are welcome! Assign pull requests to [@johnclary](http://github.com/johnclary).
-
-## License
-
-As a work of the City of Austin, this project is in the public domain within the United States.
-
-Additionally, we waive copyright and related rights of the work worldwide through the [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+The production site is hosted by Netlify. Any merge to the `production` branch will trigger a new build. Deploy previews will be generated for any non-production branch.
