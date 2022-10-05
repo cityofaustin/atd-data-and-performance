@@ -1,9 +1,7 @@
 import Head from "next/head";
 import PropTypes from "prop-types";
 
-// todo: update for prod
-// const BASE_SITE_URL = "https://data.mobility.austin.gov";
-const BASE_SITE_URL = "htts://deploy-preview-397--austin-transportation.netlify.app";
+const BASE_SITE_URL = "https://data.mobility.austin.gov";
 
 /**
  * Reusable <head> with meta tags courtesy of https://www.heymeta.com/
