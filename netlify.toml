@@ -36,3 +36,7 @@ status = 301
 from = "/open-data"
 to = "https://data.austintexas.gov/browse?City-of-Austin_Department-=Austin+Transportation&limitTo=datasets"
 status = 301
+[[redirects]]
+from = "/data-tracker"
+to = "https://atd.knack.com/amd#home/"
+status = 301
