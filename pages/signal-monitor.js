@@ -30,10 +30,10 @@ export default function SignalMonitor() {
         imageRoute="/assets/signal-monitor.jpg"
       />
       <Alert variant={"info"}>
-        Winter Storm Impacts: We're aware of power issues at the following
+        Winter Storm Impacts: We&#39;re aware of power issues at the following
         intersections and are working to get power restored. The following
-        intersections have a status of "dark" meaning they are not running and
-        have supplementary stop signs or "Flashing under emergency battery power
+        intersections have a status of &#34;dark&#34; meaning they are not running and
+        have supplementary stop signs or Flashing under emergency battery power
       </Alert>
       <MapList
         filterSettings={FILTER_SETTINGS}
