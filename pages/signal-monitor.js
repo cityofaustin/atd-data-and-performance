@@ -4,6 +4,7 @@ import ListItemContent from "../components/pages/signal-monitor/ListItemContent"
 import PopUpContent from "../components/pages/signal-monitor/PopUpContent";
 import InfoContent from "../components/pages/signal-monitor/InfoContent";
 import PopUpHoverContent from "../components/pages/cameras/PopUpHoverContent";
+import Alert from "react-bootstrap/Alert";
 import { useSocrata } from "../utils/socrata";
 import { SIGNAL_STATUS_QUERY } from "../utils/queries";
 import {
@@ -28,6 +29,12 @@ export default function SignalMonitor() {
         pageRoute="/signal-monitor"
         imageRoute="/assets/signal-monitor.jpg"
       />
+      <Alert variant={"info"}>
+        Winter Storm Impacts: We're aware of power issues at the following
+        intersections and are working to get power restored. The following
+        intersections have a status of "dark" meaning they are not running and
+        have supplementary stop signs or "Flashing under emergency battery power
+      </Alert>
       <MapList
         filterSettings={FILTER_SETTINGS}
         searchSettings={SEARCH_SETTINGS}
