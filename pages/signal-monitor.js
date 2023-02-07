@@ -33,7 +33,7 @@ export default function SignalMonitor() {
         imageRoute="/assets/signal-monitor.jpg"
       />
       <Alert variant={"info"}>
-        Winter Storm Impacts: We&#39;re aware of power issues at the following
+        <span className="fw-bold">Winter Storm Impact:</span> We are aware of power issues at the following
         intersections and are working to get power restored.{" "}
         <a href={darkSignalsLink} target="_blank" rel="noreferrer">
           These intersections
