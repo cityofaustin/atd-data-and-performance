@@ -32,17 +32,6 @@ export default function SignalMonitor() {
         pageRoute="/signal-monitor"
         imageRoute="/assets/signal-monitor.jpg"
       />
-      <Alert variant={"info"}>
-        <span className="fw-bold">Winter Storm Impact:</span> We are aware of
-        power issues at the following intersections and are working to get power
-        restored.{" "}
-        <a href={darkSignalsLink} target="_blank" rel="noreferrer">
-          These intersections
-        </a>{" "}
-        have a status of &#34;dark&#34; meaning they are not running and have
-        supplementary stop signs or &#34;Flashing under emergency battery
-        power&#34;
-      </Alert>
       <MapList
         filterSettings={FILTER_SETTINGS}
         searchSettings={SEARCH_SETTINGS}
