@@ -4,7 +4,6 @@ import ListItemContent from "../components/pages/signal-monitor/ListItemContent"
 import PopUpContent from "../components/pages/signal-monitor/PopUpContent";
 import InfoContent from "../components/pages/signal-monitor/InfoContent";
 import PopUpHoverContent from "../components/pages/cameras/PopUpHoverContent";
-import Alert from "react-bootstrap/Alert";
 import { useSocrata } from "../utils/socrata";
 import { SIGNAL_STATUS_QUERY } from "../utils/queries";
 import {
