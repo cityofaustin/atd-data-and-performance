@@ -64,12 +64,18 @@ export const PAGES = [
     img: { src: "/assets/strategic-direction.png", alt: "Strategic direction" },
     external: true,
   },
-
   {
     title: "Open Data",
     description: "Browse and download the data that powers our operations",
     href: "https://data.austintexas.gov/browse?City-of-Austin_Department-=Austin+Transportation&limitTo=datasets",
     img: { src: "/assets/open-data-logo.png", alt: "Open data logo" },
     external: true,
+  },
+  {
+    title: "Residential Parking ",
+    description: "Browse and download the data that powers our operations",
+    href: "/residential-parking",
+    img: { src: "/assets/open-data-logo.png", alt: "Open data logo" },
+    key: "residential_parking"
   },
 ];
