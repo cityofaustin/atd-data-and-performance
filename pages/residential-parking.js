@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
+import Spinner from "react-bootstrap/Spinner";
 
 import { US_STATES } from "../page-settings/residential-parking";
 
@@ -34,13 +35,17 @@ export default function ResidentialParking({ bearerTokenObj }) {
     plate: "",
     state: "",
   });
+  const [loading, setLoading] = useState(false);
   const [result, showResult] = useState(false);
+  const [permitted, setPermitted] = useState(true);
 
   const checkPermit = (bearerToken) => {
+    setLoading(true);
     let queryURL = `${process.env.NEXT_PUBLIC_PASSPORT_ENFORCEMENT_ENDPOINT}?operator_id=${process.env.NEXT_PUBLIC_PASSPORT_OPERATOR_ID}&vehicle_plate=${form.plate}`;
     if (form.state.length > 0) {
       queryURL = queryURL + `&vehicle_state=${form.state}`;
     }
+    setLoading(false); // temporary
     showResult(true);
     fetch(queryURL, {
       method: "GET",
@@ -49,8 +54,11 @@ export default function ResidentialParking({ bearerTokenObj }) {
         Authorization: `Bearer ${bearerToken}`,
       },
     })
-      .then((response) => console.log(response) /*response.json()*/)
+      .then((response) => {
+        console.log(response); /*response.json()*/
+      })
       .then((data) => {
+        setLoading(false);
         showResult(true);
         console.log(data);
       })
@@ -73,6 +81,7 @@ export default function ResidentialParking({ bearerTokenObj }) {
       state: "",
     });
     showResult(false);
+    setLoading(false);
   };
 
   return (
@@ -84,58 +93,67 @@ export default function ResidentialParking({ bearerTokenObj }) {
         imageRoute="/assets/traffic-cameras.jpg"
       />
       <Nav />
-      <Container>
-        <Form>
-          <Form.Group className="mb-3" controlId="formLicensePlate">
-            <Row>
-              <Col className="col col-sm-2">
-                <Form.Label>License Plate</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="plate"
-                  value={form.plate}
-                  placeholder="ex: ADR5476"
-                  required
-                  onChange={handleChange}
-                />
-              </Col>
-              <Col className="col col-sm-1">
-                <Form.Label>State</Form.Label>
-                <Form.Select
-                  name="state"
-                  value={form.state}
-                  onChange={handleChange}
-                >
-                  <option value=""> </option>
-                  {US_STATES.map((state) => (
-                    <option key={state.value} value={state.value}>
-                      {state.text}
-                    </option>
-                  ))}
-                </Form.Select>
+      <Container fluid>
+        <Row className="my-3">
+          <Form>
+            <Form.Group className="mb-3" controlId="formLicensePlate">
+              <Row>
+                <Col className="col col-sm-2">
+                  <Form.Label>License Plate</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="plate"
+                    value={form.plate}
+                    placeholder="ex: ADR5476"
+                    required
+                    onChange={handleChange}
+                  />
+                </Col>
+                <Col className="col col-sm-1">
+                  <Form.Label>State</Form.Label>
+                  <Form.Select
+                    name="state"
+                    value={form.state}
+                    onChange={handleChange}
+                  >
+                    <option value=""> </option>
+                    {US_STATES.map((state) => (
+                      <option key={state.value} value={state.value}>
+                        {state.text}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Col>
+              </Row>
+            </Form.Group>
+
+            <Button
+              variant="primary"
+              onClick={handleSubmit}
+              disabled={!form.plate}
+              className="me-2"
+            >
+              Submit
+            </Button>
+            <Button variant="outline-secondary" onClick={handleClear}>
+              Clear
+            </Button>
+          </Form>
+        </Row>
+
+        {loading ? (
+          <Row className="my-3">
+            <Spinner animation="border" variant="secondary" />
+          </Row>
+        ) : (
+          result && (
+            <Row className="my-3">
+              <Col>
+                Vehicle with license plate {form.plate} is{" "}
+                <Badge bg="success">Permitted</Badge>
               </Col>
             </Row>
-          </Form.Group>
-
-          <Button
-            variant="primary"
-            onClick={handleSubmit}
-            disabled={!form.plate}
-            className="me-2"
-          >
-            Submit
-          </Button>
-          <Button variant="outline-secondary" onClick={handleClear}>
-            Clear
-          </Button>
-        </Form>
-
-        {result && (
-          <Row className="my-3">
-            <Col>
-              Vehicle with license plate {form.plate} is <Badge bg="success">Permitted</Badge>.
-            </Col>
-          </Row>
+          )
         )}
       </Container>
     </>
