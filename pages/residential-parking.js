@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Badge from 'react-bootstrap/Badge';
+import Badge from "react-bootstrap/Badge";
 
 import { US_STATES } from "../page-settings/residential-parking";
 
@@ -28,30 +28,34 @@ export const getServerSideProps = async () => {
   return { props: { bearerTokenObj } };
 };
 
-const checkPermit = (bearerToken, plate, state) => {
-  let queryURL = `${process.env.NEXT_PUBLIC_PASSPORT_ENFORCEMENT_ENDPOINT}?operator_id=${process.env.NEXT_PUBLIC_PASSPORT_OPERATOR_ID}&vehicle_plate=${plate}`
-  if (state.length > 0) {
-    queryURL = queryURL + `&vehicle_state=${state}`
-  }
-  console.log(queryURL)
-  fetch(queryURL, {
-    method: "GET",
-    headers: {
-      "Authorization": `Bearer ${bearerToken}`
-    }
-  })
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-}
-
 export default function ResidentialParking({ bearerTokenObj }) {
   // todo: consider renaming state to licenseState
   const [form, setForm] = useState({
     plate: "",
     state: "",
   });
+  const [result, showResult] = useState(false);
 
+  const checkPermit = (bearerToken) => {
+    let queryURL = `${process.env.NEXT_PUBLIC_PASSPORT_ENFORCEMENT_ENDPOINT}?operator_id=${process.env.NEXT_PUBLIC_PASSPORT_OPERATOR_ID}&vehicle_plate=${form.plate}`;
+    if (form.state.length > 0) {
+      queryURL = queryURL + `&vehicle_state=${form.state}`;
+    }
+    showResult(true);
+    fetch(queryURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    })
+      .then((response) => console.log(response) /*response.json()*/)
+      .then((data) => {
+        showResult(true);
+        console.log(data);
+      })
+      .catch((err) => console.error(err));
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -60,7 +64,7 @@ export default function ResidentialParking({ bearerTokenObj }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    checkPermit(bearerTokenObj["access_token"], form.plate, form.state)
+    checkPermit(bearerTokenObj["access_token"]);
   };
 
   const handleClear = (event) => {
@@ -68,6 +72,7 @@ export default function ResidentialParking({ bearerTokenObj }) {
       plate: "",
       state: "",
     });
+    showResult(false);
   };
 
   return (
@@ -125,7 +130,13 @@ export default function ResidentialParking({ bearerTokenObj }) {
           </Button>
         </Form>
 
-        Vehicle with Plate {form.plate} is <Badge>Permitted</Badge>. 
+        {result && (
+          <Row className="my-3">
+            <Col>
+              Vehicle with license plate {form.plate} is <Badge bg="success">Permitted</Badge>.
+            </Col>
+          </Row>
+        )}
       </Container>
     </>
   );
