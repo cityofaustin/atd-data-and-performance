@@ -73,9 +73,12 @@ export const PAGES = [
   },
   {
     title: "Residential Parking ",
-    description: "Browse and download the data that powers our operations",
+    description: "Check permit status of parked vehicles",
     href: "/residential-parking",
-    img: { src: "/assets/open-data-logo.png", alt: "Open data logo" },
-    key: "residential_parking"
+    img: {
+      src: "/assets/traffic-cameras.jpg",
+      alt: "Traffic camera thumbnail",
+    },
+    key: "residential_parking",
   },
 ];
