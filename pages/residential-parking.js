@@ -11,23 +11,23 @@ import Spinner from "react-bootstrap/Spinner";
 
 import { US_STATES } from "../page-settings/residential-parking";
 
-export const getServerSideProps = async () => {
-  const res = await fetch(process.env.PASSPORT_AUTH_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      grant_type: "client_credentials",
-      client_id: process.env.PASSPORT_CLIENT_ID,
-      client_secret: process.env.PASSPORT_CLIENT_SECRET,
-      audience: "public.api.passportinc.com",
-    }),
-  });
-  const bearerTokenObj = await res.json();
-  // const bearerToken = null;
-  return { props: { bearerTokenObj } };
-};
+// export const getServerSideProps = async () => {
+//   const res = await fetch(process.env.PASSPORT_AUTH_ENDPOINT, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       grant_type: "client_credentials",
+//       client_id: process.env.PASSPORT_CLIENT_ID,
+//       client_secret: process.env.PASSPORT_CLIENT_SECRET,
+//       audience: "public.api.passportinc.com",
+//     }),
+//   });
+//   const bearerTokenObj = await res.json();
+//   // const bearerToken = null;
+//   return { props: { bearerTokenObj } };
+// };
 
 export default function ResidentialParking({ bearerTokenObj }) {
   // todo: consider renaming state to licenseState
@@ -72,7 +72,8 @@ export default function ResidentialParking({ bearerTokenObj }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    checkPermit(bearerTokenObj["access_token"]);
+    // checkPermit(bearerTokenObj["access_token"]);
+    checkPermit(null)
   };
 
   const handleClear = (event) => {
@@ -93,7 +94,7 @@ export default function ResidentialParking({ bearerTokenObj }) {
         imageRoute="/assets/traffic-cameras.jpg"
       />
       <Nav />
-      <Container fluid>
+      <Container>
         <Row className="my-3">
           <Form>
             <Form.Group className="mb-3" controlId="formLicensePlate">
