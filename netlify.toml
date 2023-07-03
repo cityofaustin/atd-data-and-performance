@@ -2,8 +2,8 @@
 # Settings in the [build] context are global and are applied to 
 # all contexts unless otherwise overridden by more specific contexts.
 [build]
-  publish = ".next"
-  command = "npm run build"
+  publish = "out"
+  command = "npm run build && npm run export"
 [[redirects]]
 from = "/radar"
 to = "/"
