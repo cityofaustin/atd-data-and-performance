@@ -42,7 +42,12 @@ export default function ResidentialParking({ bearerTokenObj }) {
         setLoading(false);
         showResult(true);
         console.log(data);
-        setPermitted(data["data"].length > 0)
+        if (data.data) {
+          setPermitted(data.data.length > 0)
+        } else {
+          setPermitted(false)
+        }
+
       })
       .catch((err) => console.error(err));
   };

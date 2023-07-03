@@ -1,3 +1,9 @@
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+}
+
 export default function handler(req, res) {
   const userQuery = req.query;
   fetch(process.env.PASSPORT_AUTH_ENDPOINT, {
@@ -25,16 +31,15 @@ export default function handler(req, res) {
       // if (form.state.length > 0) {
       //   queryURL = queryURL + `&vehicle_state=${form.state}`;
       // }
-      fetch(enforcementURL, {
+      return fetch(enforcementURL, {
         headers: {
           Authorization: `Bearer ${bearerToken}`,
         },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          return res.status(200).json(data);
-        })
-        .catch((err) => console.error(err));
+      });
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      return res.status(200).json(data);
     })
     .catch((err) => console.error(err));
 }
