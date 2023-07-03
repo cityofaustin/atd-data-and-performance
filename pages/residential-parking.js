@@ -63,6 +63,9 @@ export default function ResidentialParking({ bearerTokenObj }) {
   };
 
   const handleClear = (event) => {
+    fetch('/api/check')
+    .then(response=>response.json())
+    .then(data=>console.log(data))
     setForm({
       plate: "",
       state: "",
