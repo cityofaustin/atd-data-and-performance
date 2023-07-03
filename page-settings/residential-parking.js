@@ -10,75 +10,24 @@ export const US_STATES = [
   { value: "DC", text: "District of Columbia" },
   { value: "FL", text: "Florida" },
   { value: "GA", text: "Georgia" },
-  {
-    value: "HI",
-    text: "Hawaii",
-  },
-  {
-    value: "ID",
-    text: "Idaho",
-  },
-  {
-    value: "IL",
-    text: "Illinois",
-  },
-  {
-    value: "IN",
-    text: "Indiana",
-  },
-  {
-    value: "IA",
-    text: "Iowa",
-  },
-  {
-    value: "KS",
-    text: "Kansas",
-  },
-  {
-    value: "KY",
-    text: "Kentucky",
-  },
-  {
-    value: "LA",
-    text: "Louisiana",
-  },
-  {
-    value: "ME",
-    text: "Maine",
-  },
-  {
-    value: "MD",
-    text: "Maryland",
-  },
-  {
-    value: "MA",
-    text: "Massachusetts",
-  },
-  {
-    value: "MI",
-    text: "Michigan",
-  },
-  {
-    value: "MN",
-    text: "Minnesota",
-  },
-  {
-    value: "MS",
-    text: "Mississippi",
-  },
-  {
-    value: "MO",
-    text: "Missouri",
-  },
-  {
-    value: "MT",
-    text: "Montana",
-  },
-  {
-    value: "NE",
-    text: "Nebraska",
-  },
-  { value: "NV",text: "Nevada" },
+  { value: "HI", text: "Hawaii" },
+  { value: "ID", text: "Idaho" },
+  { value: "IL", text: "Illinois" },
+  { value: "IN", text: "Indiana" },
+  { value: "IA", text: "Iowa" },
+  { value: "KS", text: "Kansas" },
+  { value: "KY", text: "Kentucky" },
+  { value: "LA", text: "Louisiana" },
+  { value: "ME", text: "Maine" },
+  { value: "MD", text: "Maryland" },
+  { value: "MA", text: "Massachusetts" },
+  { value: "MI", text: "Michigan" },
+  { value: "MN", text: "Minnesota" },
+  { value: "MS", text: "Mississippi" },
+  { value: "MO", text: "Missouri" },
+  { value: "MT", text: "Montana" },
+  { value: "NE", text: "Nebraska" },
+  { value: "NV", text: "Nevada" },
   { value: "NH", text: "New Hampshire" },
   { value: "NJ", text: "New Jersey" },
   { value: "NM", text: "New Mexico" },

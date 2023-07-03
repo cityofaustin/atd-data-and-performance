@@ -11,24 +11,6 @@ import Spinner from "react-bootstrap/Spinner";
 
 import { US_STATES } from "../page-settings/residential-parking";
 
-// export const getServerSideProps = async () => {
-//   const res = await fetch(process.env.PASSPORT_AUTH_ENDPOINT, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       grant_type: "client_credentials",
-//       client_id: process.env.PASSPORT_CLIENT_ID,
-//       client_secret: process.env.PASSPORT_CLIENT_SECRET,
-//       audience: "public.api.passportinc.com",
-//     }),
-//   });
-//   const bearerTokenObj = await res.json();
-//   // const bearerToken = null;
-//   return { props: { bearerTokenObj } };
-// };
-
 export default function ResidentialParking({ bearerTokenObj }) {
   // todo: consider renaming state to licenseState
   const [form, setForm] = useState({
@@ -39,23 +21,21 @@ export default function ResidentialParking({ bearerTokenObj }) {
   const [result, showResult] = useState(false);
   const [permitted, setPermitted] = useState(true);
 
-  const checkPermit = (bearerToken) => {
+  const checkPermit = () => {
     setLoading(true);
-    let queryURL = `${process.env.NEXT_PUBLIC_PASSPORT_ENFORCEMENT_ENDPOINT}?operator_id=${process.env.NEXT_PUBLIC_PASSPORT_OPERATOR_ID}&vehicle_plate=${form.plate}`;
+    let queryURL = `/api/passport?vehicle_plate=${form.plate}`;
     if (form.state.length > 0) {
       queryURL = queryURL + `&vehicle_state=${form.state}`;
     }
-    setLoading(false); // temporary
-    showResult(true);
-    fetch(queryURL, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
-      },
-    })
+    fetch(queryURL)
       .then((response) => {
-        console.log(response); /*response.json()*/
+        console.log(response);
+        if (response.status !== 200) {
+          setLoading(false);
+          // show error?
+          return response.status + " " + response.statusText;
+        }
+        return response.json();
       })
       .then((data) => {
         setLoading(false);
@@ -71,9 +51,7 @@ export default function ResidentialParking({ bearerTokenObj }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // checkPermit(bearerTokenObj["access_token"]);
-    checkPermit(null)
+    checkPermit();
   };
 
   const handleClear = (event) => {
