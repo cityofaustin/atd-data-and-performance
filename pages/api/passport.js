@@ -1,6 +1,6 @@
-export default async function handler(req, res) {
+export default function handler(req, res) {
   const userQuery = req.query;
-  await fetch(process.env.PASSPORT_AUTH_ENDPOINT, {
+  fetch(process.env.PASSPORT_AUTH_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,11 +16,25 @@ export default async function handler(req, res) {
       if (response.status !== 200) {
         return res.status(response.status).json();
       } else {
-        const data = response.json();
-        console.log(data)
-        const bearerToken = data["access_token"];
+        return response.json();
       }
     })
+    .then((data) => {
+      const bearerToken = data["access_token"];
+      let enforcementURL = `${process.env.PASSPORT_ENFORCEMENT_ENDPOINT}?operator_id=${process.env.PASSPORT_OPERATOR_ID}&vehicle_plate=${userQuery.vehicle_plate}`;
+      // if (form.state.length > 0) {
+      //   queryURL = queryURL + `&vehicle_state=${form.state}`;
+      // }
+      fetch(enforcementURL, {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          return res.status(200).json(data);
+        })
+        .catch((err) => console.error(err));
+    })
     .catch((err) => console.error(err));
-  // res.status(200).json({ name: 'John Doe' })
 }

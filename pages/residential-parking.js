@@ -42,11 +42,13 @@ export default function ResidentialParking({ bearerTokenObj }) {
         setLoading(false);
         showResult(true);
         console.log(data);
+        setPermitted(data["data"].length > 0)
       })
       .catch((err) => console.error(err));
   };
 
   const handleChange = (e) => {
+    showResult(false);
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
