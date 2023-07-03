@@ -6,8 +6,9 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Badge from "react-bootstrap/Badge";
 import Spinner from "react-bootstrap/Spinner";
+import { FaCheckSquare } from "react-icons/fa";
+import { FaTimesCircle } from "react-icons/fa";
 
 import { US_STATES } from "../page-settings/residential-parking";
 
@@ -128,8 +129,10 @@ export default function ResidentialParking({ bearerTokenObj }) {
           result && (
             <Row className="my-3">
               <Col>
-                Vehicle with license plate {form.plate} is{" "}
-                <Badge bg="success">Permitted</Badge>
+
+                {permitted ? /* todo, add padding here*/ <FaCheckSquare color="green" size="1.5em" /> : <FaTimesCircle /> }Vehicle with
+                license plate <span className="fw-bold">{form.plate}</span> is {!permitted && "not "}
+                permitted
               </Col>
             </Row>
           )
