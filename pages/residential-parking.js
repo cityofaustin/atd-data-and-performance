@@ -54,6 +54,7 @@ export default function ResidentialParking({ bearerTokenObj }) {
 
   const handleChange = (e) => {
     showResult(false);
+        setLoading(false);
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
