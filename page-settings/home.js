@@ -73,11 +73,11 @@ export const PAGES = [
   },
   {
     title: "Residential Parking ",
-    description: "Check permit status of parked vehicles",
+    description: "Parking verification for residential parking permits",
     href: "/residential-parking",
     img: {
-      src: "/assets/traffic-cameras.jpg",
-      alt: "Traffic camera thumbnail",
+      src: "/assets/residential-parking.png",
+      alt: "Residential parking zone map",
     },
     key: "residential_parking",
   },
