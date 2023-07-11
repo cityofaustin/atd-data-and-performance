@@ -1,7 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Image from "react-bootstrap/Image";
 import { FaRegEnvelope } from "react-icons/fa";
 import IconLabel from "./IconLabel";
 
@@ -44,11 +43,6 @@ export default function Footer({ links }) {
         <Col xs={12} md={6} lg={8}>
           <div className="d-flex flex-nowrap">
             <div className="d-flex align-items-center">
-              <Image
-                height={80}
-                src="/assets/coa_seal_full_white.svg"
-                alt="Generic placeholder"
-              />
               <div
                 className="d-flex flex-column align-items-start text-white ms-3"
                 style={{ lineHeight: 1 }}
