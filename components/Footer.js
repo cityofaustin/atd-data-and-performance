@@ -51,7 +51,7 @@ export default function Footer({ links }) {
                   Data & Technology Services
                 </span>
                 <span className="fs-6 fw-light py-1">
-                  Austin Transportation
+                  Austin Transportation & Public Works
                 </span>
               </div>
             </div>
