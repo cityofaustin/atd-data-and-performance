@@ -8,7 +8,7 @@ import PageHead from "../components/PageHead";
 import { PAGES } from "../page-settings/home";
 
 const DESCRIPTION =
-  "Dashboards and public datasets curated by the City of Austin Transportation Department";
+  "Dashboards and public datasets curated by City of Austin Transportation and Public Works";
 
 export default function Home() {
   return (
