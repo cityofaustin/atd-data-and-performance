@@ -48,10 +48,10 @@ export default function Footer({ links }) {
                 style={{ lineHeight: 1 }}
               >
                 <span className="fs-5 fw-bold py-1">
-                  Data & Technology Services
+                  Data &amp; Technology Services
                 </span>
                 <span className="fs-6 fw-light py-1">
-                  Austin Transportation & Public Works
+                  Austin Transportation &amp; Public Works
                 </span>
               </div>
             </a>
