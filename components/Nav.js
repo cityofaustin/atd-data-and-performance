@@ -18,7 +18,7 @@ export default function Nav({ isHome }) {
               <div className="d-flex align-items-center">
                 <div className="me-1">
                   <Image
-                    height={50}
+                    height={60}
                     src="/assets/2023_austin_transportation_public_works_branding_guide_royal.png"
                     alt="Transportation and Public Works wordmark including the City of Austin seal"
                   />
