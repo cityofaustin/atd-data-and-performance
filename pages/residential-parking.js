@@ -43,18 +43,17 @@ export default function ResidentialParking({ bearerTokenObj }) {
         showResult(true);
         console.log(data);
         if (data.data) {
-          setPermitted(data.data.length > 0)
+          setPermitted(data.data.length > 0);
         } else {
-          setPermitted(false)
+          setPermitted(false);
         }
-
       })
       .catch((err) => console.error(err));
   };
 
   const handleChange = (e) => {
     showResult(false);
-        setLoading(false);
+    setLoading(false);
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -64,9 +63,9 @@ export default function ResidentialParking({ bearerTokenObj }) {
   };
 
   const handleClear = (event) => {
-    fetch('/api/check')
-    .then(response=>response.json())
-    .then(data=>console.log(data))
+    fetch("/api/check")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
     setForm({
       plate: "",
       state: "",
@@ -85,6 +84,13 @@ export default function ResidentialParking({ bearerTokenObj }) {
       />
       <Nav />
       <Container>
+        <Row>
+          <Col>
+            <h5>
+              Please enter a license plate below to verify parking eligibility.
+            </h5>
+          </Col>
+        </Row>
         <Row className="my-3">
           <Form>
             <Form.Group className="mb-3" controlId="formLicensePlate">
@@ -140,9 +146,17 @@ export default function ResidentialParking({ bearerTokenObj }) {
           result && (
             <Row className="my-3">
               <Col>
-
-                {permitted ? /* todo, add padding here*/ <FaCheckSquare color="green" size="1.5em" /> : <FaTimesCircle /> }Vehicle with
-                license plate <span className="fw-bold">{form.plate}</span> is {!permitted && "not "}
+                {permitted ? (
+                  /* todo, add padding here*/ <FaCheckSquare
+                    color="green"
+                    size="1.5em"
+                  />
+                ) : (
+                  <FaTimesCircle />
+                )}
+                Vehicle with license plate{" "}
+                <span className="fw-bold">{form.plate}</span> is{" "}
+                {!permitted && "not "}
                 permitted
               </Col>
             </Row>
