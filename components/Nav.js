@@ -18,16 +18,11 @@ export default function Nav({ isHome }) {
               <div className="d-flex align-items-center">
                 <div className="me-1">
                   <Image
-                    height={50}
-                    src="/assets/coa_seal_full_navy.svg"
-                    alt="City of Austin seal"
+                    height={60}
+                    src="/assets/2023_austin_transportation_public_works_branding_guide_royal.png"
+                    alt="Transportation and Public Works wordmark including the City of Austin seal"
                   />
                 </div>
-                <Image
-                  height={20}
-                  src="/assets/transportation_din_navy.svg"
-                  alt="Austin transportation logo"
-                />
               </div>
             </Navbar.Brand>
           </Link>

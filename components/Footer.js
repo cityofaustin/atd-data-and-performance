@@ -1,7 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Image from "react-bootstrap/Image";
 import { FaRegEnvelope } from "react-icons/fa";
 import IconLabel from "./IconLabel";
 
@@ -43,24 +42,19 @@ export default function Footer({ links }) {
       <Row className="align-items-center">
         <Col xs={12} md={6} lg={8}>
           <div className="d-flex flex-nowrap">
-            <div className="d-flex align-items-center">
-              <Image
-                height={80}
-                src="/assets/coa_seal_full_white.svg"
-                alt="Generic placeholder"
-              />
+            <a href="https://austinmobility.io" className="d-flex align-items-center">
               <div
                 className="d-flex flex-column align-items-start text-white ms-3"
                 style={{ lineHeight: 1 }}
               >
                 <span className="fs-5 fw-bold py-1">
-                  Data & Technology Services
+                  Data &amp; Technology Services
                 </span>
                 <span className="fs-6 fw-light py-1">
-                  Austin Transportation
+                  Austin Transportation &amp; Public Works
                 </span>
               </div>
-            </div>
+            </a>
           </div>
         </Col>
 
