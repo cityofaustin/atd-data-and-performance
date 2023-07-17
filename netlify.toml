@@ -6,7 +6,7 @@
   command = "npm run build && npm run export"
 [context.deploy-preview]
   publish = ".next"
- command = "npm run build"
+  command = "npm run build"
 [context.branch-deploy]
   publish = ".next"
   command = "npm run build"

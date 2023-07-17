@@ -6,8 +6,7 @@ export default function InfoContent() {
     <Row>
       <Col>
         <p>
-          This map depicts the location and status of the Austin Transportation
-          Department&apos;s traffic cameras, which are used by the{" "}
+          This map depicts the location and status of the Austin Transportation and Public Work&apos;s traffic cameras, which are used by the{" "}
           <a
             href="https://www.austintexas.gov/department/arterial-management"
             target="_blank"

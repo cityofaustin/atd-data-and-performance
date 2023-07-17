@@ -63,7 +63,7 @@ export default function InfoContent() {
         </h6>
         <p>
           When a location has been recommended for signalization and funding has
-          been secured, the Austin Transportation Department oversees the
+          been secured, the Austin Transportation and Public Works oversees the
           construction of a new signal. Time to completion varies based on staff
           resources, design constraints, as well as conflicting roadway projects
           at the signal location. You can track the status of signal
