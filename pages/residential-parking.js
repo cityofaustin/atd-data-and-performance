@@ -144,22 +144,33 @@ export default function ResidentialParking({ bearerTokenObj }) {
           </Row>
         ) : (
           result && (
-            <Row className="my-3">
-              <Col>
-                {permitted ? (
-                  /* todo, add padding here*/ <FaCheckSquare
-                    color="green"
-                    size="1.5em"
-                  />
-                ) : (
-                  <FaTimesCircle />
-                )}
-                Vehicle with license plate{" "}
-                <span className="fw-bold">{form.plate}</span> is{" "}
-                {!permitted && "not "}
-                permitted
-              </Col>
-            </Row>
+            <>
+              <Row className="my-3">
+                <Col>
+                  <span>
+                    {permitted ? (
+                      <FaCheckSquare color="green" size="1.5em" />
+                    ) : (
+                      <FaTimesCircle />
+                    )}
+                  </span>
+                  Vehicle with license plate{" "}
+                  <span className="fw-bold">{form.plate}</span> is{" "}
+                  {!permitted && "not "}
+                  permitted
+                </Col>
+              </Row>
+              <Row>
+                <p>
+                  For any inquires regarding vehicles that are not permitted
+                  please refer to the Residential Parking Permit{" "}
+                  <a href="https://www.austintexas.gov/department/residential-permit-parking">
+                    webpage
+                  </a>{" "}
+                  frequently asked questions.
+                </p>
+              </Row>
+            </>
           )
         )}
       </Container>
