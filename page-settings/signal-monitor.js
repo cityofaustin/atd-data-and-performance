@@ -1,9 +1,11 @@
 import { FaExclamationTriangle, FaClock, FaPhone } from "react-icons/fa";
+import { TbTrafficLightsOff } from "react-icons/tb";
 
 const COLORS = {
   red: "#c41213",
   orange: "#f29900",
   blue: "#377eb8",
+  black: "#000000",
 };
 
 const OPERATION_STATES = [
@@ -34,6 +36,15 @@ const OPERATION_STATES = [
     checked: true,
     icon: FaPhone,
   },
+  {
+    key: "dark_signal",
+    value: "4",
+    label: "Dark",
+    color: COLORS.black,
+    featureProp: "operation_state",
+    checked: true,
+    icon: TbTrafficLightsOff,
+  },
 ];
 
 export const SEARCH_SETTINGS = {
@@ -52,6 +63,8 @@ export const LAYER_STYLES = {
       OPERATION_STATES[0].color,
       "3",
       OPERATION_STATES[2].color,
+      "4",
+      OPERATION_STATES[3].color,
       // fallback
       "#ccc",
     ],
