@@ -22,7 +22,6 @@ export default function VizTile({
   imgAltText,
   publiclyAccessible,
 }) {
-  console.log(href);
   return (
     <a
       className="text-decoration-none"

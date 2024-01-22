@@ -22,7 +22,6 @@ export default function DataVisualizations() {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result.records);
           setData(result.records);
         },
         (error) => {
