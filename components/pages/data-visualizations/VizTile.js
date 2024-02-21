@@ -30,7 +30,16 @@ export default function VizTile({
       target="_blank"
     >
       <Card className="h-100 nav-tile">
-        {imgSrc && <Card.Img variant="top" alt={imgAltText} src={imgSrc} />}
+        {imgSrc ? (
+          <Card.Img variant="top" alt={imgAltText} src={imgSrc} />
+        ) : (
+          <Card.Img
+            variant="top"
+            alt="No image available"
+            src="../assets/laptop_data_pres_logo.png"
+            height="150px"
+          />
+        )}
         <Card.Body className="p-3 lh-1">
           <Card.Title className="fw-bold fs-6 text-primary">
             {!publiclyAccessible ? (
