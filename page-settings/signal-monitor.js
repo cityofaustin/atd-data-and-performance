@@ -1,5 +1,4 @@
-import { FaExclamationTriangle, FaClock, FaPhone } from "react-icons/fa";
-import { TbTrafficLightsOff } from "react-icons/tb";
+import { FaExclamationTriangle, FaClock, FaPhone, FaTimes } from "react-icons/fa";
 
 const COLORS = {
   red: "#c41213",
@@ -43,7 +42,7 @@ const OPERATION_STATES = [
     color: COLORS.black,
     featureProp: "operation_state",
     checked: true,
-    icon: TbTrafficLightsOff,
+    icon: FaTimes,
   },
 ];
 
