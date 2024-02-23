@@ -47,7 +47,7 @@ export const PAGES = [
     title: "Signal Monitor",
     description: "Real-time monitoring of the City's traffic signals",
     href: "/signal-monitor",
-    img: { src: "/assets/signal-monitor.jpg", alt: "Signal monitor dashboard" },
+    img: { src: "/assets/signal-monitor.png", alt: "Signal monitor dashboard" },
     key: "signal_monitor",
   },
   {
@@ -58,17 +58,16 @@ export const PAGES = [
     external: true,
   },
   {
-    title: "Strategic Performance",
-    description: "Key performance indicators toward our strategic goals",
-    href: "https://data.austintexas.gov/stories/s/Mobility-Dashboard/gzb5-ykym/",
-    img: { src: "/assets/strategic-direction.png", alt: "Strategic direction" },
+    title: "Real Time Traffic Incidents",
+    description: "View active traffic incidents reported to 911",
+    href: "https://data.austintexas.gov/stories/s/Austin-Travis-County-Traffic-Report-Page/9qfg-4swh/",
+    img: { src: "/assets/traffic-incidents.png", alt: "Traffic incidents image" },
     external: true,
   },
-
   {
     title: "Open Data",
     description: "Browse and download the data that powers our operations",
-    href: "https://data.austintexas.gov/browse?City-of-Austin_Department-=Austin+Transportation&limitTo=datasets",
+    href: "https://data.austintexas.gov/browse?Ownership_Department-name=Austin+Transportation+%26+Public+Works&limitTo=datasets",
     img: { src: "/assets/open-data-logo.png", alt: "Open data logo" },
     external: true,
   },
