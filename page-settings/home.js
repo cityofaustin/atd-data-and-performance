@@ -61,7 +61,7 @@ export const PAGES = [
     title: "Real Time Traffic Incidents",
     description: "View active traffic incidents reported to 911",
     href: "https://data.austintexas.gov/stories/s/Austin-Travis-County-Traffic-Report-Page/9qfg-4swh/",
-    img: { src: "/assets/traffic-incidents.png", alt: "Traffic incidents image" },
+    img: { src: "/assets/traffic-incidents.jpg", alt: "Traffic incidents image" },
     external: true,
   },
   {
