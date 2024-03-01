@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import Head from "next/head"; // check this
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -7,31 +7,20 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
 import VizTile from "../components/pages/data-visualizations/VizTile";
-import { KNACK_HEADERS, KNACK_URL } from "../page-settings/dash";
 import PageHead from "../components/PageHead"; // this is from the index
+import { KNACK_HEADERS, KNACK_URL } from "../page-settings/dash";
+import { useKnack } from "../utils/knack";
 
 const DESCRIPTION =
   "Dashboards and datasets curated by City of Austin Transportation and Public Works"; // update
 
 export default function DataVisualizations() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const loading = !error && !data;
+  const { data, loading, error } = useKnack(KNACK_URL, KNACK_HEADERS);
 
-  useEffect(() => {
-    fetch(KNACK_URL, { headers: KNACK_HEADERS })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(result.records)
-          const activeRecords = result.records.filter(record=>record.field_724_raw)
-          setData(activeRecords);
-        },
-        (error) => {
-          setError(error.toString());
-        }
-      );
-  }, []);
+  const visibleRecords = useMemo(
+    () => data?.records.filter((record) => record.field_724_raw),
+    [data]
+  );
 
   error && console.error(error);
 
@@ -61,7 +50,7 @@ export default function DataVisualizations() {
             </Col>
           </Row>
           <Row className="text-dts-4 mb-4">
-            {data.map((viz) => (
+            {visibleRecords.map((viz) => (
               <Col
                 key={viz.id}
                 xs={12}
