@@ -72,12 +72,4 @@ export const PAGES = [
     img: { src: "/assets/open-data-logo.png", alt: "Open data logo" },
     external: true,
   },
-  {
-    title: "TPW Visualizations",
-    description:
-      "need description",
-    href: "/data-visualizations",
-    img: { src: "/assets/", alt: "TPW Viz" },
-    key: "data_visualizations"
-  },
 ];
