@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import Head from "next/head"; // check this
+import Head from "next/head";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -7,12 +7,10 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
 import VizTile from "../components/pages/data-visualizations/VizTile";
-import PageHead from "../components/PageHead"; // this is from the index
 import { KNACK_HEADERS, KNACK_URL } from "../page-settings/dash";
 import { useKnack } from "../utils/knack";
 
-const DESCRIPTION =
-  "Dashboards and datasets curated by City of Austin Transportation and Public Works"; // update
+const DESCRIPTION = "Dashboards, reports, maps & datasets by & for TPW";
 
 export default function DataVisualizations() {
   const { data, loading, error } = useKnack(KNACK_URL, KNACK_HEADERS);
@@ -30,12 +28,10 @@ export default function DataVisualizations() {
 
   return (
     <>
-      <PageHead
-        title="Austin Transportation Public Works Dash"
-        description={DESCRIPTION}
-        pageRoute="/"
-        imageRoute="/assets/home-thumbnail.png"
-      />
+      <Head>
+        <title>Dash</title>
+        <meta property="og:title" content="Austin TPW Dash" />
+      </Head>
       <div className="wrapper">
         <Nav />
         <Container className="main">
@@ -70,7 +66,7 @@ export default function DataVisualizations() {
             ))}
           </Row>
         </Container>
-        <Footer />
+        <Container fluid className="footer mt-5 p-5" />
       </div>
     </>
   );
