@@ -40,7 +40,7 @@ export default function VizTile({
             height="150px"
           />
         )}
-        <Card.Body className="p-3 lh-1">
+        <Card.Body className="p-3 lh-1" style={{minHeight: "125px"}}>
           <Card.Title className="fw-bold fs-6 text-primary">
             {!publiclyAccessible ? (
               <InternalDatasetTitle title={title} />

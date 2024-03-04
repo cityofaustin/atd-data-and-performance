@@ -4,10 +4,13 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
-import VizTile from "../components/pages/data-visualizations/VizTile";
-import { KNACK_HEADERS, KNACK_URL } from "../page-settings/dash";
+import VizTile from "../components/pages/dash/VizTile";
+import {
+  KNACK_HEADERS,
+  KNACK_URL,
+  KNACK_FIELDS_MAP,
+} from "../page-settings/dash";
 import { useKnack } from "../utils/knack";
 
 const DESCRIPTION = "Dashboards, reports, maps & datasets by & for TPW";
@@ -16,7 +19,10 @@ export default function DataVisualizations() {
   const { data, loading, error } = useKnack(KNACK_URL, KNACK_HEADERS);
 
   const visibleRecords = useMemo(
-    () => data?.records.filter((record) => record.field_724_raw),
+    () =>
+      data?.records.filter(
+        (record) => record[KNACK_FIELDS_MAP["publishRecord"]]
+      ),
     [data]
   );
 
@@ -55,12 +61,14 @@ export default function DataVisualizations() {
                 className="p-2 p-md-3 p-xl-4"
               >
                 <VizTile
-                  href={viz.field_721_raw.url}
-                  title={viz.field_718}
-                  imgSrc={viz.field_719_raw.url}
-                  description={viz.field_720}
-                  imgAltText={"we need alt text"}
-                  publiclyAccessible={viz.field_722_raw}
+                  href={viz[KNACK_FIELDS_MAP["url"]].url}
+                  title={viz[KNACK_FIELDS_MAP["title"]]}
+                  imgSrc={viz[KNACK_FIELDS_MAP["imgSrc"]].url}
+                  description={viz[KNACK_FIELDS_MAP["description"]]}
+                  imgAltText={viz[KNACK_FIELDS_MAP["altText"]]}
+                  publiclyAccessible={
+                    viz[KNACK_FIELDS_MAP["publiclyAccessible"]]
+                  }
                 />
               </Col>
             ))}
