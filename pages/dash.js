@@ -21,9 +21,9 @@ export default function DataVisualizations() {
   const visibleRecords = useMemo(
     () =>
       data?.records.filter(
-        (record) => record[KNACK_FIELDS_MAP["publishRecord"]]
+        (record) => record[KNACK_FIELDS_MAP["publishRecord"]],
       ),
-    [data]
+    [data],
   );
 
   error && console.error(error);
@@ -39,7 +39,7 @@ export default function DataVisualizations() {
         <meta property="og:title" content="Austin TPW Dash" />
       </Head>
       <div className="wrapper">
-        <Nav />
+        <Nav navLinkHref="/dash" />
         <Container className="main">
           <Row>
             <Col xs={12} className="pt-5 text-center">

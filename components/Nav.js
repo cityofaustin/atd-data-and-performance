@@ -2,7 +2,7 @@ import React from "react";
 import { Image, Nav as BsNav, Navbar, Container } from "react-bootstrap";
 import Link from "next/link";
 
-export default function Nav({ isHome }) {
+export default function Nav({ isHome, navLinkHref = "/" }) {
   return (
     <>
       <Navbar
@@ -10,7 +10,7 @@ export default function Nav({ isHome }) {
         className={`py-1 ${isHome ? "nav-shadow" : "border"}`}
       >
         <Container fluid key="nav-container">
-          <Link href="/" passHref>
+          <Link href={navLinkHref} passHref>
             <Navbar.Brand
               style={{ cursor: "pointer" }}
               className="ps-2 me-auto"
