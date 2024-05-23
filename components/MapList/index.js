@@ -161,10 +161,9 @@ function MapList({
               )}
               {/* note the use of d-none (display: none) to hide elements. this avoids
               laborious re-renders */}
-              <div
-                className={`d-flex flex-column ${
-                  (!layout.listSearch && "d-none") || ""
-                }`}
+              {searchedGeojson ? <div
+                className={`d-flex flex-column ${(!layout.listSearch && "d-none") || ""
+                  }`}
                 style={{ overflowY: "hidden" }}
               >
                 <ListSearch
@@ -185,7 +184,9 @@ function MapList({
                     ListItemContent={ListItemContent}
                   />
                 </div>
-              </div>
+              </div> :
+                <div className="px-3">Signal system operating normally.</div>
+              }
               {/* page info content */}
               {layout.info && isSmallScreen && (
                 <div className="px-3">

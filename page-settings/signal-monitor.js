@@ -1,9 +1,8 @@
-import { FaExclamationTriangle, FaClock, FaPhone, FaTimes } from "react-icons/fa";
+import { FaExclamationTriangle, FaClock, FaTimes } from "react-icons/fa";
 
 const COLORS = {
   red: "#c41213",
   orange: "#f29900",
-  blue: "#377eb8",
   black: "#000000",
 };
 
@@ -25,15 +24,6 @@ const OPERATION_STATES = [
     featureProp: "operation_state",
     checked: true,
     icon: FaClock,
-  },
-  {
-    key: "comm_outage",
-    value: "3",
-    label: "Comm. issue",
-    color: COLORS.blue,
-    featureProp: "operation_state",
-    checked: true,
-    icon: FaPhone,
   },
   {
     key: "dark_signal",
@@ -62,8 +52,6 @@ export const LAYER_STYLES = {
       OPERATION_STATES[0].color,
       "3",
       OPERATION_STATES[2].color,
-      "4",
-      OPERATION_STATES[3].color,
       // fallback
       "#ccc",
     ],
