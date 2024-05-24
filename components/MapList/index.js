@@ -161,7 +161,7 @@ function MapList({
               )}
               {/* note the use of d-none (display: none) to hide elements. this avoids
               laborious re-renders */}
-              {searchedGeojson ? <div
+              {searchedGeojson.features.length ? <div
                 className={`d-flex flex-column ${(!layout.listSearch && "d-none") || ""
                   }`}
                 style={{ overflowY: "hidden" }}
