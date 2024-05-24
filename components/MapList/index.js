@@ -161,7 +161,7 @@ function MapList({
               )}
               {/* note the use of d-none (display: none) to hide elements. this avoids
               laborious re-renders */}
-              {searchedGeojson.features.length ? <div
+              <div
                 className={`d-flex flex-column ${(!layout.listSearch && "d-none") || ""
                   }`}
                 style={{ overflowY: "hidden" }}
@@ -176,17 +176,17 @@ function MapList({
                   hasSelectedFeature={!!selectedFeature}
                   featureCounts={featureCounts}
                 />
-                <div className="px-3" style={{ overflowY: "scroll" }}>
+                {searchedGeojson.features.length ? <div className="px-3" style={{ overflowY: "scroll" }}>
                   <List
                     geojson={searchedGeojson}
                     mapRef={mapRef}
                     setSelectedFeature={setSelectedFeature}
                     ListItemContent={ListItemContent}
                   />
-                </div>
-              </div> :
-                <div className="px-3">Signal system operating normally.</div>
-              }
+                </div> :
+                  <div className="p-3">Signal system operating normally.</div>
+                }
+              </div> 
               {/* page info content */}
               {layout.info && isSmallScreen && (
                 <div className="px-3">
