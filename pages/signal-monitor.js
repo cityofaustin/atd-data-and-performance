@@ -45,6 +45,7 @@ export default function SignalMonitor() {
         title="Signal monitor"
         getMapIcon={getMapIcon}
         featurePk="signal_id"
+        noDataMessage="There is no data"
       />
     </>
   );

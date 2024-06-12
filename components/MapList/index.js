@@ -21,6 +21,7 @@ import {
   useCheckboxFilters,
   useSearchValue,
   useFeatureCounts,
+  useTotalFeatureCount,
 } from "../../utils/helpers";
 import typedefs from "../../typedefs";
 
@@ -64,6 +65,7 @@ function MapList({
   title,
   getMapIcon,
   featurePk,
+  noDataMessage,
 }) {
   const [filters, setFilters] = useState(filterSettings);
   const [searchValue, setSearchValue] = useState("");
@@ -71,6 +73,9 @@ function MapList({
   const mapRef = useRef();
 
   const featureCounts = useFeatureCounts({ geojson, filters });
+
+  const totalFeatureCount = useTotalFeatureCount(featureCounts);
+  console.log(totalFeatureCount);
 
   // applies checkbox filter state to geojson
   const filteredGeosjon = useCheckboxFilters({
@@ -89,13 +94,13 @@ function MapList({
     maxWidth: MAX_SMALL_SCREEN_WIDTH_PIXELS,
   });
 
-  // hids overflow on the document <body> while this component is mounted #noScrollBar
+  // hides overflow on the document <body> while this component is mounted #noScrollBar
   useHiddenOverflow();
 
   // hook which manages layout element display state
   const [layout, dispatchLayout] = useReducer(
     layoutReducer,
-    getInitialLayout(isSmallScreen)
+    getInitialLayout(isSmallScreen),
   );
 
   // triggers pan + zoom when a feature is selected from the list or map
@@ -162,8 +167,9 @@ function MapList({
               {/* note the use of d-none (display: none) to hide elements. this avoids
               laborious re-renders */}
               <div
-                className={`d-flex flex-column ${(!layout.listSearch && "d-none") || ""
-                  }`}
+                className={`d-flex flex-column ${
+                  (!layout.listSearch && "d-none") || ""
+                }`}
                 style={{ overflowY: "hidden" }}
               >
                 <ListSearch
@@ -177,12 +183,16 @@ function MapList({
                   featureCounts={featureCounts}
                 />
                 <div className="px-3" style={{ overflowY: "scroll" }}>
-                  <List
-                    geojson={searchedGeojson}
-                    mapRef={mapRef}
-                    setSelectedFeature={setSelectedFeature}
-                    ListItemContent={ListItemContent}
-                  />
+                  {totalFeatureCount > 0 ? (
+                    <List
+                      geojson={searchedGeojson}
+                      mapRef={mapRef}
+                      setSelectedFeature={setSelectedFeature}
+                      ListItemContent={ListItemContent}
+                    />
+                  ) : (
+                    <p>{noDataMessage}</p>
+                  )}
                 </div>
               </div>
               {/* page info content */}
