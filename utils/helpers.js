@@ -81,6 +81,11 @@ export const useFeatureCounts = ({ geojson, filters }) =>
     // eslint-disable-next-line
   }, [geojson]);
 
+/**
+ * Custom hook that sums the number of features that match the filters
+ * @param { object } featureCounts - An object with one prop per filter in the format { filter.key: count }
+ * @returns { Int } - sum of the counts
+ */
 export const useTotalFeatureCount = (featureCounts) =>
   useMemo(() => {
     if (!featureCounts) return;
