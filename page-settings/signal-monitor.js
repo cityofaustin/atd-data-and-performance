@@ -50,7 +50,7 @@ export const LAYER_STYLES = {
       OPERATION_STATES[1].color,
       "2",
       OPERATION_STATES[0].color,
-      "3",
+      "4",
       OPERATION_STATES[2].color,
       // fallback
       "#ccc",
