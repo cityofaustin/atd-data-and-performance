@@ -176,17 +176,15 @@ function MapList({
                   hasSelectedFeature={!!selectedFeature}
                   featureCounts={featureCounts}
                 />
-                {searchedGeojson.features.length ? <div className="px-3" style={{ overflowY: "scroll" }}>
+                <div className="px-3" style={{ overflowY: "scroll" }}>
                   <List
                     geojson={searchedGeojson}
                     mapRef={mapRef}
                     setSelectedFeature={setSelectedFeature}
                     ListItemContent={ListItemContent}
                   />
-                </div> :
-                  <div className="p-3">Signal system operating normally.</div>
-                }
-              </div> 
+                </div>
+              </div>
               {/* page info content */}
               {layout.info && isSmallScreen && (
                 <div className="px-3">
