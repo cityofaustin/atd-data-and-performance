@@ -6,6 +6,7 @@ import List from "../List";
 import ListSearch from "../ListSearch";
 import Map from "../Map";
 import Modal from "react-bootstrap/Modal";
+import Alert from "react-bootstrap/Alert";
 import Nav from "../Nav";
 import MapListMobileNav from "../MapListMobileNav";
 import PageTitle from "../PageTitle";
@@ -190,7 +191,9 @@ function MapList({
                       ListItemContent={ListItemContent}
                     />
                   ) : (
-                    <p>{noFeaturesMessage}</p>
+                    <Alert className="mt-3" variant={"success"}>
+                      {noFeaturesMessage}
+                    </Alert>
                   )}
                 </div>
               </div>
