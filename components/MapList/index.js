@@ -65,7 +65,7 @@ function MapList({
   title,
   getMapIcon,
   featurePk,
-  noDataMessage,
+  noFeaturesMessage,
 }) {
   const [filters, setFilters] = useState(filterSettings);
   const [searchValue, setSearchValue] = useState("");
@@ -75,7 +75,6 @@ function MapList({
   const featureCounts = useFeatureCounts({ geojson, filters });
 
   const totalFeatureCount = useTotalFeatureCount(featureCounts);
-  console.log(totalFeatureCount);
 
   // applies checkbox filter state to geojson
   const filteredGeosjon = useCheckboxFilters({
@@ -191,7 +190,7 @@ function MapList({
                       ListItemContent={ListItemContent}
                     />
                   ) : (
-                    <p>{noDataMessage}</p>
+                    <p>{noFeaturesMessage}</p>
                   )}
                 </div>
               </div>
