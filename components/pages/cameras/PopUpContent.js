@@ -17,7 +17,7 @@ export default function PopUpContent({ feature }) {
           value={
             <small>
               <a
-                href={`http://10.66.2.64:8000/?cam_id=${feature.properties.camera_id}`}
+                href={`http://10.66.2.214:8000/?cam_id=${feature.properties.camera_id}`}
                 target="_blank"
                 rel="noreferrer"
               >
