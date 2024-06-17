@@ -191,7 +191,7 @@ function MapList({
                       ListItemContent={ListItemContent}
                     />
                   ) : (
-                    <Alert className="mt-3" variant={"success"}>
+                    <Alert className="mt-3" variant="success">
                       {noFeaturesMessage}
                     </Alert>
                   )}
