@@ -55,6 +55,7 @@ export default function TrafficCameras() {
         layerStyles={LAYER_STYLES}
         title="Traffic cameras"
         featurePk="camera_id"
+        noFeaturesMessage="No traffic cameras found"
       />
     </>
   );

@@ -20,9 +20,6 @@ export default function SignalMonitor() {
     error,
   } = useSocrata({ ...SIGNAL_STATUS_QUERY });
 
-  const darkSignalsLink =
-    "https://docs.google.com/spreadsheets/d/1lYsVNtpDF8TC0ud6Y_e4fTqN-gbifhZw4dqcE77v5RI/edit#gid=0";
-
   return (
     <>
       <PageHead
@@ -45,7 +42,7 @@ export default function SignalMonitor() {
         title="Signal monitor"
         getMapIcon={getMapIcon}
         featurePk="signal_id"
-        noFeaturesMessage="Signal system operating normally."
+        noFeaturesMessage="Signal system operating normally"
       />
     </>
   );

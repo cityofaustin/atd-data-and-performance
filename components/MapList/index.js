@@ -22,7 +22,6 @@ import {
   useCheckboxFilters,
   useSearchValue,
   useFeatureCounts,
-  useTotalFeatureCount,
 } from "../../utils/helpers";
 import typedefs from "../../typedefs";
 
@@ -50,6 +49,8 @@ import typedefs from "../../typedefs";
  * @property {string} featurePk - the object property that can be used to uniquely identify a geojson
  * feature. this property is used to avoid rendering the 'PopUpHoverContent' above an item which is
  * currently selected.
+ * @property {string} noFeaturesMessage - if there are no features to display in the Map, the list will show
+ * an alert with this message
  */
 
 function MapList({
@@ -74,8 +75,6 @@ function MapList({
   const mapRef = useRef();
 
   const featureCounts = useFeatureCounts({ geojson, filters });
-
-  const totalFeatureCount = useTotalFeatureCount(featureCounts);
 
   // applies checkbox filter state to geojson
   const filteredGeosjon = useCheckboxFilters({
@@ -183,7 +182,7 @@ function MapList({
                   featureCounts={featureCounts}
                 />
                 <div className="px-3" style={{ overflowY: "scroll" }}>
-                  {totalFeatureCount > 0 ? (
+                  {geojson?.features.length > 0 ? (
                     <List
                       geojson={searchedGeojson}
                       mapRef={mapRef}
@@ -265,6 +264,7 @@ MapList.propTypes = {
   title: PropTypes.string,
   getMapIcon: PropTypes.func,
   featurePk: PropTypes.string,
+  noFeaturesMessage: PropTypes.string,
 };
 
 export default MapList;
