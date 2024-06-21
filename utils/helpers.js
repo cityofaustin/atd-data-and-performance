@@ -31,7 +31,7 @@ export const useSearchValue = ({ geojson, searchValue, featureProp }) =>
     filteredGeosjon.features = geojson.features.filter((feature) => {
       return stringIncludesCaseInsensitive(
         feature.properties[featureProp] || "",
-        searchValue
+        searchValue,
       );
     });
     return filteredGeosjon;
@@ -71,7 +71,7 @@ export const useFeatureCounts = ({ geojson, filters }) =>
     return filters.reduce((counts, filter) => {
       const key = filter.key;
       const matchingFeatures = geojson.features.filter(
-        (feature) => filter.value === feature.properties[filter.featureProp]
+        (feature) => filter.value === feature.properties[filter.featureProp],
       );
       counts[key] = matchingFeatures.length;
       return counts;
@@ -80,6 +80,7 @@ export const useFeatureCounts = ({ geojson, filters }) =>
     // and only once when we have a geojson
     // eslint-disable-next-line
   }, [geojson]);
+
 
 /**
  * Applies overflow-hidden to the document <body> and removes it when the

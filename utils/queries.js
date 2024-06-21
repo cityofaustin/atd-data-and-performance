@@ -62,6 +62,10 @@ export const SIGNAL_STATUS_QUERY = {
       key: "limit",
       value: "99999999",
     },
+    {
+      key: "where",
+      value: "operation_text!='Communication issue'"
+    }
   ],
 };
 

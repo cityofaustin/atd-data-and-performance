@@ -47,6 +47,7 @@ export default function SignalEvaluations() {
         title="Signal evaluations"
         getMapIcon={getMapIcon}
         featurePk="atd_location_id"
+        noFeaturesMessage="No signal evaluations found"
       />
     </>
   );

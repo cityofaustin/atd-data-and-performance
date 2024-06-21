@@ -6,6 +6,7 @@ import List from "../List";
 import ListSearch from "../ListSearch";
 import Map from "../Map";
 import Modal from "react-bootstrap/Modal";
+import Alert from "react-bootstrap/Alert";
 import Nav from "../Nav";
 import MapListMobileNav from "../MapListMobileNav";
 import PageTitle from "../PageTitle";
@@ -48,6 +49,8 @@ import typedefs from "../../typedefs";
  * @property {string} featurePk - the object property that can be used to uniquely identify a geojson
  * feature. this property is used to avoid rendering the 'PopUpHoverContent' above an item which is
  * currently selected.
+ * @property {string} noFeaturesMessage - if there are no features to display in the Map, the list will show
+ * an alert with this message
  */
 
 function MapList({
@@ -64,6 +67,7 @@ function MapList({
   title,
   getMapIcon,
   featurePk,
+  noFeaturesMessage,
 }) {
   const [filters, setFilters] = useState(filterSettings);
   const [searchValue, setSearchValue] = useState("");
@@ -89,13 +93,13 @@ function MapList({
     maxWidth: MAX_SMALL_SCREEN_WIDTH_PIXELS,
   });
 
-  // hids overflow on the document <body> while this component is mounted #noScrollBar
+  // hides overflow on the document <body> while this component is mounted #noScrollBar
   useHiddenOverflow();
 
   // hook which manages layout element display state
   const [layout, dispatchLayout] = useReducer(
     layoutReducer,
-    getInitialLayout(isSmallScreen)
+    getInitialLayout(isSmallScreen),
   );
 
   // triggers pan + zoom when a feature is selected from the list or map
@@ -178,12 +182,18 @@ function MapList({
                   featureCounts={featureCounts}
                 />
                 <div className="px-3" style={{ overflowY: "scroll" }}>
-                  <List
-                    geojson={searchedGeojson}
-                    mapRef={mapRef}
-                    setSelectedFeature={setSelectedFeature}
-                    ListItemContent={ListItemContent}
-                  />
+                  {geojson?.features.length > 0 ? (
+                    <List
+                      geojson={searchedGeojson}
+                      mapRef={mapRef}
+                      setSelectedFeature={setSelectedFeature}
+                      ListItemContent={ListItemContent}
+                    />
+                  ) : (
+                    <Alert className="mt-3" variant="success">
+                      {noFeaturesMessage}
+                    </Alert>
+                  )}
                 </div>
               </div>
               {/* page info content */}
@@ -254,6 +264,7 @@ MapList.propTypes = {
   title: PropTypes.string,
   getMapIcon: PropTypes.func,
   featurePk: PropTypes.string,
+  noFeaturesMessage: PropTypes.string,
 };
 
 export default MapList;
