@@ -23,25 +23,18 @@ export default function NavTile({ href, title, description, img, external }) {
     : {};
   return (
     <>
-      <Link
-        legacyBehavior
-        className="text-decoration-none"
-        href={href}
-        passHref
-      >
-        <a className="text-decoration-none" {...anchorProps}>
-          <Card className="h-100 nav-tile">
-            {img && <Card.Img variant="top" alt={img.alt} src={img.src} />}
-            <Card.Body className="p-3 lh-1">
-              <Card.Title className="fw-bold fs-6 text-primary">
-                {external ? <ExternalLinkTitle title={title} /> : title}
-              </Card.Title>
-              <span className="text-muted ">
-                <small>{description}</small>
-              </span>
-            </Card.Body>
-          </Card>
-        </a>
+      <Link className="text-decoration-none" href={href} {...anchorProps}>
+        <Card className="h-100 nav-tile">
+          {img && <Card.Img variant="top" alt={img.alt} src={img.src} />}
+          <Card.Body className="p-3 lh-1">
+            <Card.Title className="fw-bold fs-6 text-primary">
+              {external ? <ExternalLinkTitle title={title} /> : title}
+            </Card.Title>
+            <span className="text-muted ">
+              <small>{description}</small>
+            </span>
+          </Card.Body>
+        </Card>
       </Link>
     </>
   );

@@ -10,7 +10,7 @@ export default function Nav({ isHome }) {
         className={`py-1 ${isHome ? "nav-shadow" : "border"}`}
       >
         <Container fluid key="nav-container">
-          <Link legacyBehavior href="/" passHref>
+          <Link href="/">
             <Navbar.Brand
               style={{ cursor: "pointer" }}
               className="ps-2 me-auto"
