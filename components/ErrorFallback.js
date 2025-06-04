@@ -22,7 +22,7 @@ export default function ErrorFallback({ resetError }) {
               <h6>Something went wrong :/</h6>
               <p>
                 Try refreshing your page or going{" "}
-                <Link href="/">
+                <Link legacyBehavior href="/">
                   <a onClick={resetError}>home</a>
                 </Link>
                 .
