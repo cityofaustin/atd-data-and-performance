@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import FeatureModal from "../FeatureModal";
 import List from "../List";
 import ListSearch from "../ListSearch";
-import Map from "../Map";
+import MapComponent from "../Map";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import Nav from "../Nav";
@@ -99,7 +99,7 @@ function MapList({
   // hook which manages layout element display state
   const [layout, dispatchLayout] = useReducer(
     layoutReducer,
-    getInitialLayout(isSmallScreen),
+    getInitialLayout(isSmallScreen)
   );
 
   // triggers pan + zoom when a feature is selected from the list or map
@@ -223,7 +223,7 @@ function MapList({
           {/* map container - note the use of d-none (display: none) to hide. this avoids
               laborious map re-render */}
           <div className={`map-container ${layout.map ? "" : "d-none"}`}>
-            <Map
+            <MapComponent
               geojson={filteredGeosjon}
               mapRef={mapRef}
               selectedFeature={selectedFeature}
