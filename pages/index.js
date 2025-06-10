@@ -33,20 +33,17 @@ export default function Home() {
             </Col>
           </Row>
           <Row className="text-dts-4 mb-4">
-            {PAGES.map((page) => {
-              const { key: navTileKey, ...otherPageProps } = page;
-              return (
-                <Col
-                  key={page.href}
-                  xs={12}
-                  md={4}
-                  lg={3}
-                  className="p-2 p-md-3 p-xl-4"
-                >
-                  <NavTile key={navTileKey} {...otherPageProps} />
-                </Col>
-              );
-            })}
+            {PAGES.map((page) => (
+              <Col
+                key={page.href}
+                xs={12}
+                md={4}
+                lg={3}
+                className="p-2 p-md-3 p-xl-4"
+              >
+                <NavTile {...page} />
+              </Col>
+            ))}
           </Row>
         </Container>
         <Footer />

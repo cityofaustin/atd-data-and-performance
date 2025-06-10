@@ -23,7 +23,6 @@ export const PAGES = [
       src: "/assets/traffic-cameras.jpg",
       alt: "Traffic camera thumbnail",
     },
-    key: "traffic_cameras",
   },
   {
     title: "Shared Mobility",
@@ -40,7 +39,6 @@ export const PAGES = [
     title: "Signal Evaluations",
     description: "Our signal evaluation pipeline",
     href: "/signal-evaluations",
-    key: "signal_evaluations",
     img: { src: "/assets/phb.jpg", alt: "Traffic signal image" },
   },
   {
@@ -48,7 +46,6 @@ export const PAGES = [
     description: "Real-time monitoring of the City's traffic signals",
     href: "/signal-monitor",
     img: { src: "/assets/signal-monitor.png", alt: "Signal monitor dashboard" },
-    key: "signal_monitor",
   },
   {
     title: "Signal Assets",
