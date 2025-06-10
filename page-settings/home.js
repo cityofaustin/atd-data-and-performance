@@ -67,7 +67,7 @@ export const PAGES = [
   {
     title: "Open Data",
     description: "Browse and download the data that powers our operations",
-    href: "https://data.austintexas.gov/browse?Ownership_Department-name=Austin+Transportation+and+Public+Works&limitTo=datasets",
+    href: "https://data.austintexas.gov/browse?Ownership_Department-name=Transportation+and+Public+Works&limitTo=datasets",
     img: { src: "/assets/open-data-logo.png", alt: "Open data logo" },
     external: true,
   },
