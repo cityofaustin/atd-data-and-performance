@@ -10,7 +10,7 @@ export default function Nav({ isHome }) {
         className={`py-1 ${isHome ? "nav-shadow" : "border"}`}
       >
         <Container fluid key="nav-container">
-          <Link href="/">
+          <Navbar.Brand as={Link} href="/" className="ps-2 me-auto">
             <div className="d-flex align-items-center">
               <div className="me-1">
                 <Image
@@ -20,7 +20,7 @@ export default function Nav({ isHome }) {
                 />
               </div>
             </div>
-          </Link>
+          </Navbar.Brand>
         </Container>
       </Navbar>
     </>
