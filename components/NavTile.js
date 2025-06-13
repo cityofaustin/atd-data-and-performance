@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Card from "react-bootstrap/Card";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import IconLabel from "./IconLabel";
 
 const ExternalLinkTitle = ({ title }) => (
   <div className={`d-flex flex-column`}>
