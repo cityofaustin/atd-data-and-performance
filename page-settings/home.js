@@ -23,7 +23,6 @@ export const PAGES = [
       src: "/assets/traffic-cameras.jpg",
       alt: "Traffic camera thumbnail",
     },
-    key: "traffic_cameras",
   },
   {
     title: "Shared Mobility",
@@ -40,7 +39,6 @@ export const PAGES = [
     title: "Signal Evaluations",
     description: "Our signal evaluation pipeline",
     href: "/signal-evaluations",
-    key: "signal_evaluations",
     img: { src: "/assets/phb.jpg", alt: "Traffic signal image" },
   },
   {
@@ -48,7 +46,6 @@ export const PAGES = [
     description: "Real-time monitoring of the City's traffic signals",
     href: "/signal-monitor",
     img: { src: "/assets/signal-monitor.png", alt: "Signal monitor dashboard" },
-    key: "signal_monitor",
   },
   {
     title: "Signal Assets",
@@ -61,13 +58,16 @@ export const PAGES = [
     title: "Real Time Traffic Incidents",
     description: "View active traffic incidents reported to 911",
     href: "https://data.austintexas.gov/stories/s/Austin-Travis-County-Traffic-Report-Page/9qfg-4swh/",
-    img: { src: "/assets/traffic-incidents.jpg", alt: "Traffic incidents image" },
+    img: {
+      src: "/assets/traffic-incidents.jpg",
+      alt: "Traffic incidents image",
+    },
     external: true,
   },
   {
     title: "Open Data",
     description: "Browse and download the data that powers our operations",
-    href: "https://data.austintexas.gov/browse?Ownership_Department-name=Austin+Transportation+%26+Public+Works&limitTo=datasets",
+    href: "https://data.austintexas.gov/browse?Ownership_Department-name=Transportation+and+Public+Works&limitTo=datasets",
     img: { src: "/assets/open-data-logo.png", alt: "Open data logo" },
     external: true,
   },

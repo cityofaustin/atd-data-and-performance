@@ -1,6 +1,11 @@
 import { useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/router";
-import MapGL, { Source, Layer, NavigationControl, Popup } from "react-map-gl";
+import Map, {
+  Source,
+  Layer,
+  NavigationControl,
+  Popup,
+} from "react-map-gl/mapbox";
 import {
   useIsTouchDevice,
   useIconMarkers,
@@ -13,7 +18,7 @@ import IconLabel from "../IconLabel";
 import { FaExpand } from "react-icons/fa";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-export default function Map({
+export default function MapComponent({
   geojson,
   mapRef,
   selectedFeature,
@@ -72,7 +77,7 @@ export default function Map({
   );
 
   return (
-    <MapGL
+    <Map
       ref={mapRef}
       reuseMaps
       onMouseEnter={onMouseEnter}
@@ -129,6 +134,6 @@ export default function Map({
       <Source id="my-data" type="geojson" data={geojson || { features: [] }}>
         <Layer {...customStyles} />
       </Source>
-    </MapGL>
+    </Map>
   );
 }

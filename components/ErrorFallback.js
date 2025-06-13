@@ -22,8 +22,8 @@ export default function ErrorFallback({ resetError }) {
               <h6>Something went wrong :/</h6>
               <p>
                 Try refreshing your page or going{" "}
-                <Link href="/">
-                  <a onClick={resetError}>home</a>
+                <Link href="/" onClick={resetError}>
+                  home
                 </Link>
                 .
               </p>
