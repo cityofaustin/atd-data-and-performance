@@ -71,4 +71,14 @@ export const PAGES = [
     img: { src: "/assets/open-data-logo.png", alt: "Open data logo" },
     external: true,
   },
+  {
+    title: "Residential Parking ",
+    description: "Parking verification for residential parking permits",
+    href: "/residential-parking",
+    img: {
+      src: "/assets/residential-parking.png",
+      alt: "Residential parking zone map",
+    },
+    key: "residential_parking",
+  },
 ];
