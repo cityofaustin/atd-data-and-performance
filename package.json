@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "export": "next export"
+    "lint": "next lint"
   },
   "dependencies": {
     "bootstrap": "^5.3.6",
@@ -29,4 +28,3 @@
     "eslint-config-next": "^15.3.3"
   }
 }
-
