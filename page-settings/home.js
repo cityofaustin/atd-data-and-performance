@@ -47,13 +47,13 @@ export const PAGES = [
     href: "/signal-monitor",
     img: { src: "/assets/signal-monitor.png", alt: "Signal monitor dashboard" },
   },
-  {
-    title: "Signal Assets",
-    description: "Comprehensive map of our traffic and pedestrian signals",
-    href: "https://austin.maps.arcgis.com/apps/webappviewer/index.html?id=c9bda776b1934e439285570b29d3259c",
-    img: { src: "/assets/signal-assets.jpg", alt: "Signal asset map" },
-    external: true,
-  },
+  // {
+  //   title: "Signal Assets",
+  //   description: "Comprehensive map of our traffic and pedestrian signals",
+  //   href: "https://austin.maps.arcgis.com/apps/webappviewer/index.html?id=c9bda776b1934e439285570b29d3259c",
+  //   img: { src: "/assets/signal-assets.jpg", alt: "Signal asset map" },
+  //   external: true,
+  // },
   {
     title: "Real Time Traffic Incidents",
     description: "View active traffic incidents reported to 911",
