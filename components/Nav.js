@@ -8,9 +8,9 @@ export default function Nav({ isHome }) {
       <Container fluid key="nav-container">
         <Navbar.Brand as={Link} href="/" className="ps-2 me-auto">
           <div className="d-flex align-items-center">
-            <div className="me-1">
+            <div className="me-1 py-3">
               <Image
-                height={40}
+                height={36}
                 src="/assets/COA-Logo-Horizontal-Official-RGB.svg"
                 alt="City of Austin logo"
               />
