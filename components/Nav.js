@@ -4,25 +4,20 @@ import Link from "next/link";
 
 export default function Nav({ isHome }) {
   return (
-    <>
-      <Navbar
-        expand="lg"
-        className={`py-1 ${isHome ? "nav-shadow" : "border"}`}
-      >
-        <Container fluid key="nav-container">
-          <Navbar.Brand as={Link} href="/" className="ps-2 me-auto">
-            <div className="d-flex align-items-center">
-              <div className="me-1">
-                <Image
-                  height={60}
-                  src="/assets/2023_austin_transportation_public_works_branding_guide_royal.png"
-                  alt="Transportation and Public Works wordmark including the City of Austin seal"
-                />
-              </div>
+    <Navbar expand="lg" className={`py-1 ${isHome ? "nav-shadow" : "border"}`}>
+      <Container fluid key="nav-container">
+        <Navbar.Brand as={Link} href="/" className="ps-2 me-auto">
+          <div className="d-flex align-items-center">
+            <div className="me-1 py-3">
+              <Image
+                height={36}
+                src="/assets/COA-Logo-Horizontal-Official-RGB.svg"
+                alt="City of Austin logo"
+              />
             </div>
-          </Navbar.Brand>
-        </Container>
-      </Navbar>
-    </>
+          </div>
+        </Navbar.Brand>
+      </Container>
+    </Navbar>
   );
 }
