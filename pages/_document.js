@@ -11,9 +11,9 @@ class AppDocument extends Document {
           />
           <script
             defer
-            src="http://54.226.179.5:3000/script.js"
-            data-website-id="519bb864-3b47-42e7-a0ca-09cb3aec86ae"
-          />
+            src="https://umami.austinmobility.io/script.js"
+            data-website-id="638a90d2-4731-454d-bd32-946ee7cacfbf"
+          ></script>
         </Head>
         <body>
           <Main />
