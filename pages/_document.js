@@ -9,6 +9,11 @@ class AppDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
             rel="stylesheet"
           />
+          <script
+            defer
+            src="http://54.226.179.5:3000/script.js"
+            data-website-id="519bb864-3b47-42e7-a0ca-09cb3aec86ae"
+          />
         </Head>
         <body>
           <Main />
