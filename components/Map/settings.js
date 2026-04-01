@@ -39,8 +39,6 @@ export const MAP_SETTINGS_DEFAULT = {
     [-99, 29],
     [-96, 32],
   ],
-  mapStyle: "mapbox://styles/mapbox/light-v10",
-  mapboxAccessToken:
-    "pk.eyJ1Ijoiam9obmNsYXJ5IiwiYSI6ImNqbjhkZ25vcjF2eTMzbG52dGRlbnVqOHAifQ.y1xhnHxbB6KlpQgTp1g1Ow",
+  mapStyle: "https://tiles.openfreemap.org/styles/positron",
   interactiveLayerIds: ["points"],
 };

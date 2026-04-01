@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Marker } from "react-map-gl/mapbox";
+import { Marker } from "react-map-gl/maplibre";
 import {
   LAYER_STYLE_DEFAULT,
   INITIAL_VIEW_STATE_DEFAULT,

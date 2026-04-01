@@ -15,9 +15,12 @@ export default function CheckboxFilters({
   featureCounts,
 }) {
   const onChange = (filter) => {
-    const currentFilters = [...filters];
-    const thisFilter = currentFilters.find((f) => f.key == filter.key);
-    thisFilter.checked = !thisFilter.checked;
+    const currentFilters = filters.map((f) => {
+      if (f.key == filter.key) {
+        return Object.assign({}, f, { checked: !f.checked });
+      }
+      return f;
+    });
     setFilters(currentFilters);
   };
 
@@ -34,7 +37,12 @@ export default function CheckboxFilters({
           <Form.Check
             id={filter.key}
             label={
-              <FilterLabel {...filter} count={featureCounts[filter.key]} />
+              <FilterLabel
+                color={filter.color}
+                label={filter.label}
+                icon={filter.icon}
+                count={featureCounts[filter.key]}
+              />
             }
             checked={filter.checked}
             style={{ cursor: "pointer", pointerEvents: "none" }}
