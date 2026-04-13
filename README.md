@@ -16,6 +16,11 @@ Activate your node environment
 $ nvm use
 ```
 
+Install the latest version of npm
+```shell
+nvm install-latest-npm
+```
+
 Install dependencies
 
 ```shell

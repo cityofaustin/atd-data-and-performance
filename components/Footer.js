@@ -9,7 +9,7 @@ export const LINKS = [
   { label: "Data", href: "https://data.austintexas.gov" },
   {
     label: "Disclaimer",
-    href: "https://www.austintexas.gov/page/city-austin-open-data-terms-use",
+    href: "https://data.austintexas.gov/stories/s/ranj-cccq",
   },
   {
     label: "Code",
