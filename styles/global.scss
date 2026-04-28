@@ -89,8 +89,9 @@ $body-color: $dts-3;
   font-weight: bolder;
 }
 
-.mapboxgl-popup-content {
-  padding: 0px !important;
+/* maplibre popup (used by Map component) — remove default padding */
+.maplibregl-popup .maplibregl-popup-content {
+  padding: 0 !important;
 }
 
 @import "../node_modules/bootstrap/scss/bootstrap";

@@ -158,8 +158,8 @@ export const generateNewQueryparams = ({
 
 /**
  * Merges custom layer styles into default settings
- * @param {object} layerStyles - a mapbox layer spec object
- * @returns {object} - a mapbox layer spec object
+ * @param {object} layerStyles - a maplibre layer spec object
+ * @returns {object} - a maplibre layer spec object
  */
 export const applyCustomStyles = (layerStyles) => {
   // merge paint props separately to allow individual paint overrides
