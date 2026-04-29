@@ -12,20 +12,25 @@ This repo houses code for the [ATD Data & Performance Hub](https://data.mobility
 
 Activate your node environment
 
-```shell
-$ nvm use
+```bash
+nvm use
+```
+
+Install the latest version of npm
+```bash
+nvm install-latest-npm
 ```
 
 Install dependencies
 
-```shell
-$ npm install
+```bash
+npm install
 ```
 
 Start the development server
 
-```shell
-$ npm run dev
+```bash
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
