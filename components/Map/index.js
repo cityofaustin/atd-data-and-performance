@@ -100,9 +100,9 @@ export default function MapComponent({
           longitude={selectedFeature.geometry.coordinates[0]}
           latitude={selectedFeature.geometry.coordinates[1]}
           onClose={() => setSelectedFeature(null)}
-          // // i don't know why we need closeOnClick = false (it doesn't obey), but
-          // // the popup won't render after multiple map feature click without it :/
-          // closeOnClick={false}
+          // i don't know why we need closeOnClick = false (it doesn't obey), but
+          // the popup won't render after multiple map feature click without it :/
+          closeOnClick={false}
           maxWidth={"300px"}
           anchor="bottom"
         >
