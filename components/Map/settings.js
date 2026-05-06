@@ -1,8 +1,5 @@
 export const SHOW_MARKERS_ZOOM_LEVEL = 12;
 
-/**
- * Mapbox layer style. See https://docs.mapbox.com/mapbox-gl-js/style-spec/
- */
 export const LAYER_STYLE_DEFAULT = {
   id: "points",
   type: "circle",
@@ -28,9 +25,6 @@ export const INITIAL_VIEW_STATE_DEFAULT = {
   zoom: 11,
 };
 
-/**
- * See: https://docs.mapbox.com/mapbox-gl-js/api/map/#map-parameters
- */
 export const MAP_SETTINGS_DEFAULT = {
   maxZoom: 20,
   touchPitch: false,
@@ -39,8 +33,6 @@ export const MAP_SETTINGS_DEFAULT = {
     [-99, 29],
     [-96, 32],
   ],
-  mapStyle: "mapbox://styles/mapbox/light-v10",
-  mapboxAccessToken:
-    "pk.eyJ1Ijoiam9obmNsYXJ5IiwiYSI6ImNqbjhkZ25vcjF2eTMzbG52dGRlbnVqOHAifQ.y1xhnHxbB6KlpQgTp1g1Ow",
+  mapStyle: "https://tiles.openfreemap.org/styles/positron",
   interactiveLayerIds: ["points"],
 };

@@ -5,7 +5,7 @@ import Map, {
   Layer,
   NavigationControl,
   Popup,
-} from "react-map-gl/mapbox";
+} from "react-map-gl/maplibre";
 import {
   useIsTouchDevice,
   useIconMarkers,
@@ -16,7 +16,7 @@ import {
 import { MAP_SETTINGS_DEFAULT, SHOW_MARKERS_ZOOM_LEVEL } from "./settings";
 import IconLabel from "../IconLabel";
 import { FaExpand } from "react-icons/fa";
-import "mapbox-gl/dist/mapbox-gl.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 
 export default function MapComponent({
   geojson,
@@ -37,22 +37,22 @@ export default function MapComponent({
 
   const customStyles = useMemo(
     () => applyCustomStyles(layerStyles || {}),
-    [layerStyles]
+    [layerStyles],
   );
   const initialViewState = useInitialViewState(router.query);
   const [showMarkers, setShowMarkers] = useState(
-    initialViewState.zoom >= SHOW_MARKERS_ZOOM_LEVEL
+    initialViewState.zoom >= SHOW_MARKERS_ZOOM_LEVEL,
   );
   const markers = useIconMarkers({ geojson, getMapIcon, featurePk });
 
   const onMouseEnter = useCallback((e) => {
     setCursor("pointer");
-    setHoverFeature(e.features[0]), [];
+    (setHoverFeature(e.features[0]), []);
   }, []);
 
   const onMouseLeave = useCallback(() => {
     setCursor("grab");
-    setHoverFeature(null), [];
+    (setHoverFeature(null), []);
   }, []);
 
   const onZoomEnd = useCallback(
@@ -73,7 +73,7 @@ export default function MapComponent({
         setShowMarkers(false);
       }
     },
-    [showMarkers, getMapIcon, router]
+    [showMarkers, getMapIcon, router],
   );
 
   return (

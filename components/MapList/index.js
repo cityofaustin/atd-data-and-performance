@@ -41,7 +41,7 @@ import typedefs from "../../typedefs";
  * @property {boolean} loading - if the source geojson data is loading
  * @property {object} error - an error object returned from an SWR fetch
  * @property {string} title - the page title
- * * @property {object} [layerStyles] - optional Mapbox styles that should be applied to the map layer.
+ * * @property {object} [layerStyles] - optional maplibre styles that should be applied to the map layer.
  *  any styles defined here will override default style settings.
  * @property {function} [getMapIcon] - an optional function which accepts a single geojson feature argument,
  *  and returns a react-icon Component. if present, the `Map` component will render Icons on top
