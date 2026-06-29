@@ -27,6 +27,12 @@ Install dependencies
 npm install
 ```
 
+Create your local env file
+
+```
+cp env_template .env.local
+```
+
 Start the development server
 
 ```bash
