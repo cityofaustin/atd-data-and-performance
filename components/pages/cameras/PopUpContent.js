@@ -3,6 +3,9 @@ import FlexyInfo from "../../FlexyInfo";
 import { shortenLocationName } from "../../../utils/helpers";
 import Thumbnail from "../../Thumbnail";
 
+const CCTV_SERVICE_ENDPOINT =
+  process.env.NEXT_PUBLIC_CCTV_SERVICE_ENDPOINT || "http://localhost:5001";
+
 export default function PopUpContent({ feature }) {
   return (
     <Card className="h-100 nav-tile">
@@ -17,7 +20,7 @@ export default function PopUpContent({ feature }) {
           value={
             <small>
               <a
-                href={`http://10.66.2.214:8000/?cam_id=${feature.properties.camera_id}`}
+                href={`${CCTV_SERVICE_ENDPOINT}/camera/${feature.properties.camera_id}`}
                 target="_blank"
                 rel="noreferrer"
               >
