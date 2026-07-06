@@ -4,7 +4,7 @@ import { shortenLocationName } from "../../../utils/helpers";
 import Thumbnail from "../../Thumbnail";
 
 const CCTV_SERVICE_ENDPOINT =
-  process.env.NEXT_PUBLIC_CCTV_SERVICE_ENDPOINT || "http://10.66.2.214:5001";
+  process.env.NEXT_PUBLIC_CCTV_SERVICE_ENDPOINT || "http://localhost:5001";
 
 export default function PopUpContent({ feature }) {
   return (
