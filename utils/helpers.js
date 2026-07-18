@@ -15,27 +15,43 @@ export const shortenLocationName = (str) => {
 };
 
 /**
- * Case-insensitive test if an input string contains an input value
+ * Case-insensitive test if an input string contains an input value.
+ * Coerces `str` to a String so numeric feature properties (e.g. camera_id)
+ * can be searched as well.
  */
 const stringIncludesCaseInsensitive = (str, val) => {
-  return str.toLowerCase().includes(val.toLowerCase());
+  return String(str).toLowerCase().includes(val.toLowerCase());
 };
 
 /**
  * Custom hook that that applies search value to a FeatureCollection
+ *
+ * Accepts either a single `featureProp` (string) or multiple `featureProps`
+ * (array of strings) to search against. When `featureProps` is provided, a
+ * feature matches if the search value is found in ANY of the listed
+ * properties. `featureProp` is kept for backwards compatibility with pages
+ * that only need to search a single property.
  **/
-export const useSearchValue = ({ geojson, searchValue, featureProp }) =>
+export const useSearchValue = ({
+  geojson,
+  searchValue,
+  featureProp,
+  featureProps,
+}) =>
   useMemo(() => {
     if (!geojson?.features || !searchValue) return geojson;
+    const propsToSearch = featureProps || [featureProp];
     const filteredGeosjon = { type: "FeatureCollection", features: [] };
     filteredGeosjon.features = geojson.features.filter((feature) => {
-      return stringIncludesCaseInsensitive(
-        feature.properties[featureProp] || "",
-        searchValue
+      return propsToSearch.some((prop) =>
+        stringIncludesCaseInsensitive(
+          feature.properties[prop] || "",
+          searchValue
+        )
       );
     });
     return filteredGeosjon;
-  }, [geojson, searchValue, featureProp]);
+  }, [geojson, searchValue, featureProp, featureProps]);
 
 /**
  * Custom hook that that applies checkbox filters to a FeatureCollection

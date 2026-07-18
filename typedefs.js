@@ -21,7 +21,10 @@
 /**
  * SearchSettings - defines searh input filter behavior
  * @typedef {Object} SearchSettings
- * @property {string} featureProp - the object property name that will searched
+ * @property {string} [featureProp] - the object property name that will be searched.
+ *  ignored if `featureProps` is provided.
+ * @property {[string]} [featureProps] - an array of object property names to search.
+ *  a feature matches if the search value is found in any of these properties.
  * @property {boolean} placeholder - the search input's placeholder text
  */
 

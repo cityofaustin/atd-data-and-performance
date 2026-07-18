@@ -25,8 +25,8 @@ export const FILTER_SETTINGS = [
 ];
 
 export const SEARCH_SETTINGS = {
-  featureProp: "location_name",
-  placeholder: "Search by location...",
+  featureProps: ["location_name", "camera_id"],
+  placeholder: "Search by location or camera ID...",
 };
 
 export const LAYER_STYLES = {
