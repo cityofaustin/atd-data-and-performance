@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useSyncExternalStore } from "react";
 import { Marker } from "react-map-gl/maplibre";
 import {
   LAYER_STYLE_DEFAULT,
@@ -76,10 +76,7 @@ export const useFeatureCounts = ({ geojson, filters }) =>
       counts[key] = matchingFeatures.length;
       return counts;
     }, {});
-    // we don't want to render on `filter` change—these counts are calc'd once and
-    // and only once when we have a geojson
-    // eslint-disable-next-line
-  }, [geojson]);
+  }, [geojson, filters]);
 
 /**
  * Applies overflow-hidden to the document <body> and removes it when the
@@ -97,16 +94,17 @@ export const useHiddenOverflow = () => {
  * to control rendering of popup events on touch
  * @returns {bool} - if the device is touch-enabled
  */
-export const useIsTouchDevice = () => {
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-  useEffect(() => {
-    if ("ontouchstart" in window) {
-      /* browser with Touch Events running on touch-capable device */
-      setIsTouchDevice(true);
-    }
-  }, []);
-  return isTouchDevice;
-};
+const emptySubscribe = () => () => {};
+const getIsTouchDevice = () =>
+  typeof window !== "undefined" && "ontouchstart" in window;
+const getIsTouchDeviceServerSnapshot = () => false;
+
+export const useIsTouchDevice = () =>
+  useSyncExternalStore(
+    emptySubscribe,
+    getIsTouchDevice,
+    getIsTouchDeviceServerSnapshot
+  );
 
 /**
  * Generates MapGL icon <Markers> which will be overlayed on top of map features.

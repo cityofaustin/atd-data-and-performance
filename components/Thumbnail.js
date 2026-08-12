@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "react-bootstrap/Image";
 
 const CCTV_IMAGE_BASE_URL = `https://cctv.austinmobility.io/image`;
@@ -10,12 +10,16 @@ const CCTV_IMAGE_BASE_URL = `https://cctv.austinmobility.io/image`;
 export default function Thumbnail({ cameraId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const src = `${CCTV_IMAGE_BASE_URL}/${cameraId}.jpg`;
-
-  useEffect(() => {
+  // Reset loading/error when cameraId changes during render (not in an effect)
+  // https://react.dev/reference/react/useState#storing-information-from-previous-renders
+  const [prevCameraId, setPrevCameraId] = useState(cameraId);
+  if (cameraId !== prevCameraId) {
+    setPrevCameraId(cameraId);
     setLoading(true);
     setError(false);
-  }, [cameraId]);
+  }
+
+  const src = `${CCTV_IMAGE_BASE_URL}/${cameraId}.jpg`;
 
   return (
     <a
