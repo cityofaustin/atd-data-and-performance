@@ -26,5 +26,8 @@
   "devDependencies": {
     "eslint": "^9.28.0",
     "eslint-config-next": "^16.3.0"
+  },
+  "overrides": {
+    "immutable": "4.3.9"
   }
 }
