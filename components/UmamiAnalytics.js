@@ -9,14 +9,10 @@ const SCRIPT_ELEMENT_ID = "umami-analytics";
  * Loads the Umami analytics tracker script when VITE_UMAMI_WEBSITE_ID is set.
  * Configure per deploy context in the Netlify UI (Environment variables):
  *
- *   VITE_UMAMI_WEBSITE_ID  → (staging or production website ID from Umami)
- *   VITE_UMAMI_DOMAINS     → (production only, e.g. "visionzero.austin.gov")
- *   VITE_UMAMI_TAG         → (optional, e.g. "staging" or "production")
+ *   VITE_UMAMI_WEBSITE_ID  → (website ID from Umami)
  */
 const UmamiAnalytics = () => {
   const websiteId = import.meta.env.VITE_UMAMI_WEBSITE_ID;
-  const domains = import.meta.env.VITE_UMAMI_DOMAINS;
-  const tag = import.meta.env.VITE_UMAMI_TAG;
 
   useEffect(() => {
     if (!websiteId) {
@@ -34,16 +30,8 @@ const UmamiAnalytics = () => {
     script.src = SCRIPT_URL;
     script.setAttribute("data-website-id", websiteId);
 
-    if (domains) {
-      script.setAttribute("data-domains", domains);
-    }
-
-    if (tag) {
-      script.setAttribute("data-tag", tag);
-    }
-
     document.head.appendChild(script);
-  }, [websiteId, domains, tag]);
+  }, [websiteId]);
 
   return null;
 };
