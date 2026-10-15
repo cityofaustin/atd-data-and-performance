@@ -24,6 +24,7 @@ import {
   useFeatureCounts,
 } from "../../utils/helpers";
 import typedefs from "../../typedefs";
+import { trackUmamiEvent } from "../../utils/umami";
 
 /**
  * MapList - customizeable Map + List component
@@ -99,7 +100,7 @@ function MapList({
   // hook which manages layout element display state
   const [layout, dispatchLayout] = useReducer(
     layoutReducer,
-    getInitialLayout(isSmallScreen)
+    getInitialLayout(isSmallScreen),
   );
 
   // triggers pan + zoom when a feature is selected from the list or map
@@ -135,6 +136,17 @@ function MapList({
     // thrown errors will catch with error fallback
     console.error(error);
   }
+
+  // Handles feature selection with umami event tracking
+  const handleSelectFeature = (feature) => {
+    if (feature) {
+      trackUmamiEvent("traffic-camera-open", {
+        camera_id: feature.properties?.[featurePk] ?? "unknown",
+        camera_location: feature.properties?.location_name,
+      });
+    }
+    setSelectedFeature(feature);
+  };
 
   return (
     <div className="wrapper-contained">
@@ -177,7 +189,7 @@ function MapList({
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   searchSettings={searchSettings}
-                  setSelectedFeature={setSelectedFeature}
+                  setSelectedFeature={handleSelectFeature}
                   hasSelectedFeature={!!selectedFeature}
                   featureCounts={featureCounts}
                 />
@@ -186,7 +198,7 @@ function MapList({
                     <List
                       geojson={searchedGeojson}
                       mapRef={mapRef}
-                      setSelectedFeature={setSelectedFeature}
+                      setSelectedFeature={handleSelectFeature}
                       ListItemContent={ListItemContent}
                     />
                   ) : (
@@ -227,7 +239,7 @@ function MapList({
               geojson={filteredGeosjon}
               mapRef={mapRef}
               selectedFeature={selectedFeature}
-              setSelectedFeature={setSelectedFeature}
+              setSelectedFeature={handleSelectFeature}
               PopUpContent={PopUpContent}
               PopUpHoverContent={PopUpHoverContent}
               layerStyles={layerStyles}
