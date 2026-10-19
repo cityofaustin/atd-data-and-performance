@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 
 const SCRIPT_URL = "https://umami.austinmobility.io/script.js";
@@ -6,13 +8,13 @@ const SCRIPT_URL = "https://umami.austinmobility.io/script.js";
 const SCRIPT_ELEMENT_ID = "umami-analytics";
 
 /**
- * Loads the Umami analytics tracker script when VITE_UMAMI_WEBSITE_ID is set.
- * Configure per deploy context in the Netlify UI (Environment variables):
+ * Loads the Umami analytics tracker script when NEXT_PUBLIC_UMAMI_WEBSITE_ID is set.
+ * Set the variable in the Netlify UI (Environment variables);
  *
- *   VITE_UMAMI_WEBSITE_ID  → (website ID from Umami)
+ *   NEXT_PUBLIC_UMAMI_WEBSITE_ID  → (website ID from Umami)
  */
 const UmamiAnalytics = () => {
-  const websiteId = import.meta.env.VITE_UMAMI_WEBSITE_ID;
+  const websiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
   useEffect(() => {
     if (!websiteId) {
