@@ -18,6 +18,9 @@ const UmamiAnalytics = () => {
 
   useEffect(() => {
     if (!websiteId) {
+      console.warn(
+        "No umami website ID configured - events will not be tracked",
+      );
       return;
     }
 
