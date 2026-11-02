@@ -8,7 +8,7 @@ export const LINKS = [
   { label: "About", href: "https://austinmobility.io" },
   { label: "Data", href: "https://data.austintexas.gov" },
   {
-    label: "Disclaimer",
+    label: "Terms of Use",
     href: "https://data.austintexas.gov/stories/s/ranj-cccq",
   },
   {
@@ -42,7 +42,10 @@ export default function Footer({ links }) {
       <Row className="align-items-center">
         <Col xs={12} md={6} lg={8}>
           <div className="d-flex flex-nowrap">
-            <a href="https://austinmobility.io" className="d-flex align-items-center">
+            <a
+              href="https://austinmobility.io"
+              className="d-flex align-items-center"
+            >
               <div
                 className="d-flex flex-column align-items-start text-white ms-3"
                 style={{ lineHeight: 1 }}
